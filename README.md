@@ -1,2 +1,2 @@
-# directx-solar-system
- Solar system university project
+# Dream engine
+ Educational game engine

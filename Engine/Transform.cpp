@@ -1,89 +1,170 @@
 #include "Transform.h"
 
-Transform::Transform(Vector3 pos)
+Transform::Transform(const Vector3 pos)
 {
-	m_transformMatrix = Matrix::CreateFromQuaternion(Quaternion::Identity) * Matrix::CreateTranslation(pos);
+	transformMatrix = Matrix::CreateFromQuaternion(Quaternion::Identity)
+        * Matrix::CreateTranslation(pos);
 }
 
-Transform& Transform::getParent() const
+Transform::~Transform()
 {
-	return *parent;
+	pParent->RemoveChild(this, false);
+
+    for (auto pChild : children)
+    {
+		pChild->ClearParent(false);
+    }
 }
 
-std::vector<std::shared_ptr<Transform>>& Transform::getChild()
+Transform* Transform::GetParent() const
+{
+	return pParent;
+}
+
+bool Transform::HasParent() const
+{
+	return pParent != nullptr;
+}
+
+void Transform::SetParent(Transform* pParent)
+{
+	if (pParent == nullptr)
+	{
+	    // @TODO Wait for LOGGER
+	    // LOG WARNING
+	    return;
+	}
+
+	ClearParent();
+
+	pParent->children.push_back(this);
+	this->pParent = pParent;
+	transformMatrix *= pParent->GetWorldMatrix().Invert();
+}
+
+void Transform::ClearParent(const bool recursiveClearing)
+{
+	if (pParent == nullptr)
+	{
+		return;
+	}
+
+	if (recursiveClearing)
+	{
+		// Find this in parent children list to remove
+		const auto iterator = pParent->children.begin();
+		for (auto child : pParent->children)
+		{
+			if (child == this)
+			{
+				pParent->children.erase(iterator);
+				break;
+			}
+		}
+	}
+
+	transformMatrix *= pParent->GetWorldMatrix();
+	pParent = nullptr;
+}
+
+void Transform::AddChild(Transform* pChild)
+{
+	if (pChild == nullptr)
+	{
+		// @TODO Wait for LOGGER
+		// LOG WARNING
+		return;
+	}
+
+	children.push_back(pChild);
+	pChild->pParent = this;
+	pChild->transformMatrix *= GetWorldMatrix().Invert();
+}
+
+void Transform::RemoveChild(Transform* pChildToRemove, const bool recursiveClearing)
+{
+	if (pChildToRemove == nullptr)
+	{
+		return;
+	}
+
+	// Find child to remove
+	const auto iterator = children.begin();
+	for (auto pChild : children)
+	{
+		if (pChild == pChildToRemove)
+		{
+			children.erase(iterator);
+			break;
+		}
+	}
+
+	if (recursiveClearing)
+	{
+		pChildToRemove->ClearParent(false);
+	}
+}
+
+std::vector<Transform*>& Transform::GetChildren()
 {
 	return children;
 }
 
-void Transform::addChild(Transform* obj)
+Vector3 Transform::GetLocalPosition() const
 {
-	children.push_back(std::unique_ptr<Transform>(obj));
-	obj->parent = std::unique_ptr<Transform>(this);
-	obj->m_transformMatrix *= getWorldMatrix().Invert();
+	return translation.Translation();
 }
 
-void Transform::setParent(Transform* p)
+void Transform::SetLocalPosition(const Vector3 pos)
 {
-	parent = std::unique_ptr<Transform>(p);
-	p->children.push_back(std::unique_ptr<Transform>(this));
-	m_transformMatrix *= p->getWorldMatrix().Invert();
+	transformMatrix = translation.Invert() * transformMatrix;
+	translation = Matrix::CreateTranslation(pos);
+	transformMatrix *= translation;
 }
 
-Vector3 Transform::getLocalPosition() const
+void Transform::AddLocalPosition(const Vector3 pos)
 {
-	return m_Translation.Translation();
+	transformMatrix = Matrix::CreateTranslation(pos) * transformMatrix;
+	translation *= Matrix::CreateTranslation(pos);
 }
 
-void Transform::setLocalPosition(Vector3 pos)
+Vector3 Transform::GetWorldPosition() const
 {
-	m_transformMatrix = m_Translation.Invert() * m_transformMatrix;
-	m_Translation = Matrix::CreateTranslation(pos);
-	m_transformMatrix *= m_Translation;
+	return GetWorldMatrix().Translation();
 }
 
-void Transform::addLocalPosition(Vector3 pos)
+void Transform::SetWorldPosition(const Vector3 pos)
 {
-	m_transformMatrix = Matrix::CreateTranslation(pos) * m_transformMatrix;
-	m_Translation *= Matrix::CreateTranslation(pos);
+	transformMatrix = transformMatrix * translation.Invert();
+	translation = Matrix::CreateTranslation(pos);
+	transformMatrix *= translation;
 }
 
-Vector3 Transform::getWorldPosition() const
+void Transform::AddWorldPosition(const Vector3 pos)
 {
-	return getWorldMatrix().Translation();
+	transformMatrix = transformMatrix * Matrix::CreateTranslation(pos);
+	translation *= Matrix::CreateTranslation(pos);
 }
 
-void Transform::setWorldPosition(Vector3 pos)
+void Transform::AddLocalRotation(const Vector3 axis, const float angle)
 {
-	m_transformMatrix = m_transformMatrix * m_Translation.Invert();
-	m_Translation = Matrix::CreateTranslation(pos);
-	m_transformMatrix *= m_Translation;
+	rotation *= Matrix::CreateFromAxisAngle(axis, angle);
+	transformMatrix = Matrix::CreateFromAxisAngle(axis, angle) * transformMatrix * translation.Invert() * translation;
 }
 
-void Transform::addWorldPosition(Vector3 pos)
+void Transform::AddWorldRotation(const Vector3 axis, const float angle)
 {
-	m_transformMatrix = m_transformMatrix * Matrix::CreateTranslation(pos);
-	m_Translation *= Matrix::CreateTranslation(pos);
+	rotation *= Matrix::CreateFromAxisAngle(axis, angle);
+	transformMatrix = transformMatrix * translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * translation;
 }
 
-void Transform::addLocalRotation(Vector3 axis, float angle)
+Matrix Transform::GetWorldMatrix() const
 {
-	m_Rotation *= Matrix::CreateFromAxisAngle(axis, angle);
-	m_transformMatrix = Matrix::CreateFromAxisAngle(axis, angle) * m_transformMatrix * m_Translation.Invert() * m_Translation;
-}
+	auto result = transformMatrix;
 
-void Transform::addWorldRotation(Vector3 axis, const float angle)
-{
-	m_Rotation *= Matrix::CreateFromAxisAngle(axis, angle);
-	m_transformMatrix = m_transformMatrix * m_Translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * m_Translation;
-}
-
-Matrix Transform::getWorldMatrix() const
-{
-	auto result = m_transformMatrix;
-
-	if (parent)
+	if (pParent != nullptr)
 	{
-		result *= parent->getWorldMatrix();
+		result *= pParent->GetWorldMatrix();
 	}
 	
 	return result;

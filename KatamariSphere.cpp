@@ -9,7 +9,6 @@ KatamariSphere::KatamariSphere(Game* game, const std::string& filePath, Shader* 
 
 void KatamariSphere::update()
 {
-	Vector3 worldPos = transform->getWorldPosition();
+	Vector3 worldPos = transform->GetWorldPosition();
 	collider->Center = worldPos;
-	//std::cout << collider->Center.x << " " << collider->Center.y << " " << collider->Center.z << std::endl;
 }

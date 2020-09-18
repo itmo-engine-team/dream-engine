@@ -147,7 +147,7 @@
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\ModelObject.cpp" />
-    <ClCompile Include="Engine\RenderedGameObject.cpp" />
+    <ClCompile Include="Engine\Actor.cpp" />
     <ClCompile Include="Engine\InputDevice.cpp" />
     <ClCompile Include="Engine\MeshObject.cpp" />
     <ClCompile Include="Engine\MeshRenderer.cpp" />
@@ -183,7 +183,7 @@
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\LightBuffer.h" />
     <ClInclude Include="Engine\ModelObject.h" />
-    <ClInclude Include="Engine\RenderedGameObject.h" />
+    <ClInclude Include="Engine\Actor.h" />
     <ClInclude Include="Engine\InputDevice.h" />
     <ClInclude Include="Engine\MeshObject.h" />
     <ClInclude Include="Engine\MeshRenderer.h" />

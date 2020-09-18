@@ -4,7 +4,7 @@
 
 ModelObject::ModelObject(Game* game, const std::string& filePath, Shader* shader) : GameObject(game), m_shader(shader)
 {
-	m_game->meshRenderer->addModel(this, filePath, shader);
+	pGame->meshRenderer->addModel(this, filePath, shader);
 	
 	ModelObject::init();
 }
@@ -28,5 +28,5 @@ void ModelObject::draw()
 void ModelObject::addMesh(MeshObject* mesh)
 {
 	meshes.push_back(mesh);
-	mesh->transform->SetParent(transform);
+	mesh->pTransform->SetParent(transform);
 }

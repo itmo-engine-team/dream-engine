@@ -3,7 +3,7 @@
 #include "Engine/ConstantBuffer.h"
 
 BoxObject::BoxObject(Game* game, Shader* shader, Vector3 position, Vector4 color, Vector3 boxSize)
-	: RenderedGameObject(game, shader, position)
+	: Actor(game, shader, position)
 {
 	m_vertices =
 	{
@@ -119,5 +119,5 @@ BoxObject::BoxObject(Game* game, Shader* shader, Vector3 position, Vector4 color
 		20, 22, 23,
 	};
 
-	RenderedGameObject::init();
+	Actor::init();
 }

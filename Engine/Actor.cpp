@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Shader.h"
 #include "SimpleMath.h"
-#include "RenderedGameObject.h"
+#include "Actor.h"
 #include "ConstantBuffer.h"
 #include <iostream>
 #include <WICTextureLoader.h>
@@ -11,13 +11,13 @@
 
 using namespace DirectX::SimpleMath;
 
-RenderedGameObject::RenderedGameObject(Game* game, Shader* shader, Vector3 position)
-	: GameObject(game, position), m_shader(shader)
+Actor::Actor(Game* game, Shader* shader, Transform* transform)
+	: GameObject(game), pTransform(transform), m_shader(shader)
 {
 
 }
 
-void RenderedGameObject::init()
+void Actor::init()
 {
 	indicesCount = std::size(m_indices);
 
@@ -35,7 +35,7 @@ void RenderedGameObject::init()
 	D3D11_SUBRESOURCE_DATA sd = {};
 	sd.pSysMem = m_vertices.data();
 
-	hr = m_game->device->CreateBuffer(
+	hr = pGame->device->CreateBuffer(
 		&bd,
 		&sd,
 		pVertexBuffer.GetAddressOf()
@@ -55,7 +55,7 @@ void RenderedGameObject::init()
 	D3D11_SUBRESOURCE_DATA isd = {};
 	isd.pSysMem = m_indices.data();
 
-	hr = m_game->device->CreateBuffer(
+	hr = pGame->device->CreateBuffer(
 		&ibd,
 		&isd,
 		pIndexBuffer.GetAddressOf()
@@ -69,7 +69,7 @@ void RenderedGameObject::init()
 	cbd.MiscFlags = 0u;
 	cbd.ByteWidth = sizeof(ConstantBuffer);
 	cbd.StructureByteStride = 0u;
-	hr = m_game->device->CreateBuffer(&cbd, NULL, &pConstantBuffer);
+	hr = pGame->device->CreateBuffer(&cbd, NULL, &pConstantBuffer);
 
 	D3D11_BUFFER_DESC lightBufferDesc;
 	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -78,7 +78,7 @@ void RenderedGameObject::init()
 	lightBufferDesc.MiscFlags = 0;
 	lightBufferDesc.ByteWidth = sizeof(LightBuffer);
 	lightBufferDesc.StructureByteStride = 0;
-	hr = m_game->device->CreateBuffer(&lightBufferDesc, NULL, &pLightBuffer);
+	hr = pGame->device->CreateBuffer(&lightBufferDesc, NULL, &pLightBuffer);
 
 	D3D11_BUFFER_DESC cameraBufferDesc;
 	cameraBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -87,36 +87,36 @@ void RenderedGameObject::init()
 	cameraBufferDesc.MiscFlags = 0;
 	cameraBufferDesc.ByteWidth = sizeof(CameraBuffer);
 	cameraBufferDesc.StructureByteStride = 0;
-	hr = m_game->device->CreateBuffer(&cameraBufferDesc, NULL, &pCameraBuffer);
+	hr = pGame->device->CreateBuffer(&cameraBufferDesc, NULL, &pCameraBuffer);
 }
 
-void RenderedGameObject::update()
+void Actor::update()
 {
 }
 
-void RenderedGameObject::draw()
+void Actor::draw()
 {
-	m_game->context->IASetVertexBuffers(
+	pGame->context->IASetVertexBuffers(
 		0u,
 		1u,
 		pVertexBuffer.GetAddressOf(),
 		&stride,
 		&offset
 		);
-	m_game->context->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
-	m_game->context->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	pGame->context->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+	pGame->context->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	m_shader->setShader();
 
 	// Update Constant Buffer
 	const ConstantBuffer cb =
 	{
-		transform->GetWorldMatrix(),
-		m_game->camera->getViewMatrix(),
-		m_game->camera->getProjectionMatrix(),
+		pTransform->GetWorldMatrix(),
+		pGame->camera->getViewMatrix(),
+		pGame->camera->getProjectionMatrix(),
 	};
-	m_game->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
-	m_game->context->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+	pGame->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
+	pGame->context->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 
 	const LightBuffer lb =
 	{
@@ -126,17 +126,22 @@ void RenderedGameObject::draw()
 		100.0f,
 		{1.0f, 1.0f, 1.0f, 1.0f }
 	};
-	m_game->context->UpdateSubresource(pLightBuffer.Get(), 0, NULL, &lb, 0, 0);
-	m_game->context->PSSetConstantBuffers(1u, 1u, pLightBuffer.GetAddressOf());
+	pGame->context->UpdateSubresource(pLightBuffer.Get(), 0, NULL, &lb, 0, 0);
+	pGame->context->PSSetConstantBuffers(1u, 1u, pLightBuffer.GetAddressOf());
 
 	// Update Constant Buffer
 	const CameraBuffer cameraBuffer =
 	{
-		m_game->camera->transform.GetWorldPosition(),
+		pGame->camera->transform.GetWorldPosition(),
 		0.0f
 	};
-	m_game->context->UpdateSubresource(pCameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
-	m_game->context->VSSetConstantBuffers(2u, 1u, pCameraBuffer.GetAddressOf());
+	pGame->context->UpdateSubresource(pCameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
+	pGame->context->VSSetConstantBuffers(2u, 1u, pCameraBuffer.GetAddressOf());
 
-	m_game->context->DrawIndexed(indicesCount, 0, 0);
+	pGame->context->DrawIndexed(indicesCount, 0, 0);
+}
+
+Transform* Actor::GetTransform() const
+{
+	return pTransform;
 }

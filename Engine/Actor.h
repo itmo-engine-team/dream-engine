@@ -1,20 +1,26 @@
 #pragma once
 #include <d3d11.h>
 #include "GameObject.h"
+#include "Vertex.h"
+#include "Transform.h"
 
 class Shader;
 class Game;
 
-class RenderedGameObject : public GameObject
+class Actor : public GameObject
 {
 public:
 	
-	RenderedGameObject(Game* game, Shader* shader, Vector3 position = Vector3::Zero);
+	Actor(Game* game, Shader* shader, Transform* transform);
 	void init() override;
 	void update() override;
 	void draw() override;
 
+	Transform* GetTransform();
+
 protected:
+
+	Transform* pTransform;
 
 	std::vector<Vertex> m_vertices;
 	std::vector<DWORD> m_indices;

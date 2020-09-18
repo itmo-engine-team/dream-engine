@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Engine/RenderedGameObject.h"
+#include "Engine/Actor.h"
 
-class PyramidObject : public RenderedGameObject
+class PyramidObject : public Actor
 {
 
 public:

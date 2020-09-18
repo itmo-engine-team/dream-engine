@@ -3,12 +3,12 @@
 #include <d3d11_1.h>
 #include <vector>
 
-#include "RenderedGameObject.h"
+#include "Actor.h"
 
 class Game;
 using namespace Microsoft::WRL;
 
-class MeshObject : public RenderedGameObject
+class MeshObject : public Actor
 {
 public:
 	MeshObject(Game* game,

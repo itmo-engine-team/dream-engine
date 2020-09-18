@@ -7,10 +7,10 @@
 MeshObject::MeshObject(Game* game,
                        std::vector<Vertex>& vertices,
                        std::vector<DWORD>& indices,
-					   Shader* shader) : RenderedGameObject(game, shader)
+					   Shader* shader) : Actor(game, shader)
 {
     m_vertices = vertices;
     m_indices = indices;
 
-    RenderedGameObject::init();
+    Actor::init();
 }

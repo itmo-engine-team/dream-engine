@@ -72,9 +72,6 @@
     <ClCompile Include="Engine\Shader.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\RenderedGameObject.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Texture.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -83,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="SceneGameObject.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Actor.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,9 +140,6 @@
     <ClInclude Include="Engine\Shader.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\RenderedGameObject.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Texture.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -156,6 +153,9 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\CameraBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Actor.h">
       <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>

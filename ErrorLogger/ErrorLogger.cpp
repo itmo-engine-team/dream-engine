@@ -65,9 +65,8 @@ void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, c
 		switch (type)
 		{
 		case Error:
-			
-			//msgboxID = MessageBox(NULL, StringConverter::StringToWide(error_message).c_str(), L"Error", MB_ICONERROR);
-			MessageBoxA(GetActiveWindow(), error_message.c_str(), "Error", MB_ICONERROR);
+		
+			//MessageBoxA(GetActiveWindow(), error_message.c_str(), "Error", MB_ICONERROR);
 			exit(0);
 		case Warning:
 			break;

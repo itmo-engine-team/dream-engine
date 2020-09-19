@@ -4,10 +4,18 @@
 #include "StringConverter.h"
 #include <fstream>
 
+enum LogType
+{
+	Warning,
+	Error
+};
+
+
 class ErrorLogger
 {
 public:
-	static void Log(std::string message);
-	static void DirectXError(HRESULT hr, const std::string& msg, const std::string& file, const std::string& function, int line);
-	static void DirectXWarning(HRESULT hr, const std::string& msg, const std::string& file, const std::string& function, int line);
+	static void Log(LogType type, std::string message);
+	static void DirectXLog(HRESULT hr, LogType type, const std::string& msg, const std::string& file, const std::string& function, int line);
+private:
+	static char* GetDate();
 };

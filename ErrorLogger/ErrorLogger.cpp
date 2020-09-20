@@ -41,14 +41,14 @@ void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, c
 	errorMessage = GetDate();
 
 	switch (type)
-		{
-		case Warning:
-			errorMessage += "Warning: ";
-			break;
-		case Error:
-			errorMessage += "Error: ";
-			break;
-		}
+	{
+	case Warning:
+		errorMessage += "Warning: ";
+		break;
+	case Error:
+		errorMessage += "Error: ";
+		break;
+	}
 		
 	errorMessage += std::string(msg);
 	errorMessage += "\nFile: " + file;

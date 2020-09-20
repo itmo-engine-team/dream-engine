@@ -5,17 +5,17 @@
 
 void ErrorLogger::Log(LogType type, std::string message)
 {
-	std::string error_message = GetDate();
+	std::string errorMessage = GetDate();
 	switch (type)
 	{
 	case Error:
-		error_message += "\nError: ";
+		errorMessage += "\nError: ";
 		break;
 	case Warning:
-		error_message += "\nWarning: ";
+		errorMessage += "\nWarning: ";
 		break;
 	}	
-	error_message += message;
+	errorMessage += message;
 
 	std::ofstream logFile;
 	
@@ -23,7 +23,7 @@ void ErrorLogger::Log(LogType type, std::string message)
 
 	if (logFile.is_open() == true)
 	{
-		logFile << "\n" << error_message << std::endl;
+		logFile << "\n" << errorMessage << std::endl;
 		logFile.close();
 	}
 }
@@ -31,48 +31,47 @@ void ErrorLogger::Log(LogType type, std::string message)
 void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, const std::string& file, const std::string& function, int line)
 {
 	
-	if (FAILED(hr))
+	if (!FAILED(hr)) return;
+		
+	std::ofstream logFile;
+	logFile.open("Log\\log.txt", std::ios::app);
+
+	std::string errorMessage;
+
+	errorMessage = GetDate();
+
+	switch (type)
+		{
+		case Warning:
+			errorMessage += "Warning: ";
+			break;
+		case Error:
+			errorMessage += "Error: ";
+			break;
+		}
+		
+	errorMessage += std::string(msg);
+	errorMessage += "\nFile: " + file;
+	errorMessage += "\nFunction: " + function;
+	errorMessage += "\nLine: " + std::to_string(line);
+
+	if (logFile.is_open() == true)
 	{
-		
-		std::ofstream logFile;
-		logFile.open("Log\\log.txt", std::ios::app);
-
-		std::string error_message;
-
-		error_message = GetDate();
-
-		switch (type)
-		{
-		case Warning:
-			error_message += "Warning: ";
-			break;
-		case Error:
-			error_message += "Error: ";
-			break;
-		}
-		
-		error_message += std::string(msg);
-		error_message += "\nFile: " + file;
-		error_message += "\nFunction: " + function;
-		error_message += "\nLine: " + std::to_string(line);
-
-		if (logFile.is_open() == true)
-		{
-			logFile << "\n" << error_message << std::endl;
-			logFile.close();
-		}
-		int msgboxID;
-		switch (type)
-		{
-		case Error:
-		
-			//MessageBoxA(GetActiveWindow(), error_message.c_str(), "Error", MB_ICONERROR);
-			exit(0);
-		case Warning:
-			break;
-		}
-		
+		logFile << "\n" << errorMessage << std::endl;
+		logFile.close();
 	}
+	int msgboxID;
+	switch (type)
+	{
+	case Error:
+		
+		//MessageBoxA(GetActiveWindow(), error_message.c_str(), "Error", MB_ICONERROR);
+		exit(0);
+	case Warning:
+		break;
+	}
+		
+	
 
 }
 

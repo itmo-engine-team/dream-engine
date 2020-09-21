@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -162,6 +162,7 @@
     <ClCompile Include="PyramidObject .cpp" />
     <ClCompile Include="KatamariGame.cpp" />
     <ClCompile Include="SceneGameObject.cpp" />
+    <ClCompile Include="Engine\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Shader.fx">
@@ -198,6 +199,7 @@
     <ClInclude Include="PyramidObject.h" />
     <ClInclude Include="KatamariGame.h" />
     <ClInclude Include="SceneGameObject.h" />
+    <ClInclude Include="Engine\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

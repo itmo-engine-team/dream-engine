@@ -84,6 +84,9 @@
     <ClCompile Include="SceneGameObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Window.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObject.h">
@@ -156,6 +159,9 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\CameraBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Window.h">
       <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>

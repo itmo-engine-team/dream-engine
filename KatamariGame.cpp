@@ -5,7 +5,7 @@
 
 using namespace DirectX::SimpleMath;
 
-KatamariGame::KatamariGame() : Game()
+KatamariGame::KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc) : Game(hInstance, wc)
 {
 	
 }

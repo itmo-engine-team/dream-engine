@@ -90,6 +90,8 @@
     <ClCompile Include="SceneGameObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Window.cpp">
+      <Filter>Engine</Filter>
     <ClCompile Include="ErrorLogger\StringConverter.cpp">
       <Filter>Исходные файлы\ErrorLogger</Filter>
     </ClCompile>
@@ -170,6 +172,8 @@
     <ClInclude Include="Engine\CameraBuffer.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Window.h">
+      <Filter>Engine</Filter>
     <ClInclude Include="ErrorLogger\StringConverter.h">
       <Filter>Файлы заголовков\ErrorLogger</Filter>
     </ClInclude>

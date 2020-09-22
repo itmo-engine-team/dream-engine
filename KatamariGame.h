@@ -12,7 +12,7 @@ using namespace DirectX::SimpleMath;
 class KatamariGame : public Game
 {
 public:
-	KatamariGame();
+	KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc);
 	~KatamariGame();
 
 	void init() override;

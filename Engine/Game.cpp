@@ -6,7 +6,7 @@ Game::Game()
 	inputDevice = new InputDevice();
 	mouse = new Mouse();
 	mouse->EnableRaw();
-	meshRenderer = new MeshRenderer(this);
+	meshRenderer = new MeshRenderer();
 }
 
 Game::~Game()

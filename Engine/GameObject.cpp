@@ -1,6 +1,17 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Game* game, Vector3 position) : m_game(game)
+GameObject::GameObject(Game* game) : game(game)
 {
-	transform = new Transform(position);
+
+}
+
+void GameObject::Init()
+{
+    onInit();
+    // Call event AfterInit
+}
+
+void GameObject::onInit()
+{
+
 }

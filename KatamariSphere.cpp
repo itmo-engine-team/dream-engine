@@ -1,14 +1,16 @@
 #include "KatamariSphere.h"
 #include <iostream>
 
-KatamariSphere::KatamariSphere(Game* game, const std::string& filePath, Shader* shader)
-  : ModelObject(game, filePath, shader)
+KatamariSphere::KatamariSphere(Game* game, Transform* transform)
+: Actor(game, transform)
 {
 	collider = new DirectX::BoundingSphere({ 0, 0, 0 }, 0.7);
 }
 
-void KatamariSphere::update()
+void KatamariSphere::onUpdate()
 {
 	Vector3 worldPos = transform->GetWorldPosition();
 	collider->Center = worldPos;
 }
+
+

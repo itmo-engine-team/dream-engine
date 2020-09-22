@@ -40,9 +40,9 @@ public:
 
 	Camera* camera;
 	MeshRenderer* meshRenderer;
-	Window* window;
 	
 protected:
+	Window* window;
 	virtual void update();
 	void render();
 	virtual void drawObjects();

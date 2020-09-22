@@ -111,7 +111,7 @@ void RenderedGameObject::draw()
 	// Update Constant Buffer
 	const ConstantBuffer cb =
 	{
-		transform->getWorldMatrix(),
+		transform->GetWorldMatrix(),
 		m_game->camera->getViewMatrix(),
 		m_game->camera->getProjectionMatrix(),
 	};
@@ -132,7 +132,7 @@ void RenderedGameObject::draw()
 	// Update Constant Buffer
 	const CameraBuffer cameraBuffer =
 	{
-		m_game->camera->transform.getWorldPosition(),
+		m_game->camera->transform.GetWorldPosition(),
 		0.0f
 	};
 	m_game->context->UpdateSubresource(pCameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);

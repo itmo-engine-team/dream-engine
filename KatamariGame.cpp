@@ -106,8 +106,8 @@ void KatamariGame::init()
 	katamariSphere = new KatamariSphere(this, "Meshes/eyeball/eyeball-mod.obj", texturedShader);
 
 	katamariPlayer = new SceneGameObject(this);
-	katamariSphere->transform->setParent(katamariPlayer->transform);
-	katamariPlayer->transform->setWorldPosition({ 0, 0.8, 0 });
+	katamariSphere->transform->SetParent(katamariPlayer->transform);
+	katamariPlayer->transform->SetWorldPosition({ 0, 0.8, 0 });
 
 	camera = new KatamariCamera(this, {0, 1, -6}, katamariSphere);
 	//camera->rotate(0, -2);
@@ -130,8 +130,8 @@ void KatamariGame::update()
 		}
 		else 
 		{
-			katamariPlayer->transform->addWorldPosition({ 0.0f, 0.0f, deltaTime });
-			katamariPlayer->transform->addWorldRotation({ 1, 0, 0 }, deltaTime);
+			katamariPlayer->transform->AddWorldPosition({ 0.0f, 0.0f, deltaTime });
+			katamariPlayer->transform->AddWorldRotation({ 1, 0, 0 }, deltaTime);
 		}		
 	}
 	if (inputDevice->KeyIsPressed('A'))
@@ -142,8 +142,8 @@ void KatamariGame::update()
 		}
 		else 
 		{
-			katamariPlayer->transform->addWorldPosition({ deltaTime, 0.0f, 0.0f });
-			katamariPlayer->transform->addWorldRotation({ 0, 0, 1 }, -deltaTime);
+			katamariPlayer->transform->AddWorldPosition({ deltaTime, 0.0f, 0.0f });
+			katamariPlayer->transform->AddWorldRotation({ 0, 0, 1 }, -deltaTime);
 		}
 	}
 	if (inputDevice->KeyIsPressed('S'))
@@ -154,8 +154,8 @@ void KatamariGame::update()
 		}
 		else
 		{
-			katamariPlayer->transform->addWorldPosition({ 0.0f, 0.0f, -deltaTime });
-			katamariPlayer->transform->addWorldRotation({ 1, 0, 0 }, -deltaTime);
+			katamariPlayer->transform->AddWorldPosition({ 0.0f, 0.0f, -deltaTime });
+			katamariPlayer->transform->AddWorldRotation({ 1, 0, 0 }, -deltaTime);
 		}
 	}
 	if (inputDevice->KeyIsPressed('D'))
@@ -166,8 +166,8 @@ void KatamariGame::update()
 		}
 		else
 		{
-			katamariPlayer->transform->addWorldPosition({ -deltaTime, 0.0f, 0.0f });
-			katamariPlayer->transform->addWorldRotation({ 0, 0, 1 }, deltaTime);
+			katamariPlayer->transform->AddWorldPosition({ -deltaTime, 0.0f, 0.0f });
+			katamariPlayer->transform->AddWorldRotation({ 0, 0, 1 }, deltaTime);
 		}
 	}
 
@@ -193,15 +193,8 @@ void KatamariGame::drawObjects()
 
 void KatamariGame::collisionCheck(GameObject* gameObject)
 {
-	if (gameObject->transform->parent == nullptr && katamariSphere->collider->Contains(gameObject->transform->getWorldPosition()))
+	if (!gameObject->transform->HasParent() && katamariSphere->collider->Contains(gameObject->transform->GetWorldPosition()))
 	{
-		//const auto placementPos = gameObject->transform->getWorldPosition() - katamariSphere->transform->getWorldPosition();
-		gameObject->transform->setParent(katamariSphere->transform);
-		//gameObject->transform->setWorldPosition(placementPos);
-
-		//auto pos = 
-
-		// goMatrix * -1 Sphere = new matrix
-		// new matrix * Sphere
+		gameObject->transform->SetParent(katamariSphere->transform);
 	}
 }

@@ -22,6 +22,12 @@
     <Filter Include="Engine\Libraries">
       <UniqueIdentifier>{4f352ec0-f727-42d0-ba51-f558fb86b8b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\ErrorLogger">
+      <UniqueIdentifier>{a433229e-2c58-48f2-b5d5-1e3f0eb6c77e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\ErrorLogger">
+      <UniqueIdentifier>{34582af3-dff2-4198-a00e-2ca89c9a6f58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +92,11 @@
     </ClCompile>
     <ClCompile Include="Engine\Window.cpp">
       <Filter>Engine</Filter>
+    <ClCompile Include="ErrorLogger\StringConverter.cpp">
+      <Filter>Исходные файлы\ErrorLogger</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorLogger\ErrorLogger.cpp">
+      <Filter>Исходные файлы\ErrorLogger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +174,11 @@
     </ClInclude>
     <ClInclude Include="Engine\Window.h">
       <Filter>Engine</Filter>
+    <ClInclude Include="ErrorLogger\StringConverter.h">
+      <Filter>Файлы заголовков\ErrorLogger</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorLogger\ErrorLogger.h">
+      <Filter>Файлы заголовков\ErrorLogger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

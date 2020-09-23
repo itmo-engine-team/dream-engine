@@ -82,7 +82,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SceneComponent.cpp">
->>>>>>> Stashed changes
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\StaticModelComponent.cpp">

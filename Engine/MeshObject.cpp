@@ -7,7 +7,6 @@
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"
-#include <iostream>
 
 MeshObject::MeshObject(Game* game, Transform* transform, MeshData* meshData, Shader* shader)
 : game(game), transform(transform), meshData(meshData), shader(shader)
@@ -93,11 +92,6 @@ void MeshObject::Draw()
 	game->context->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	shader->setShader();
-
-	/*std::cout
-        << transform->GetWorldPosition().x << " "
-		<< transform->GetWorldPosition().y << " "
-		<< transform->GetWorldPosition().z << std::endl;*/
 
 	// Update Constant Buffer
 	const ConstantBuffer cb =

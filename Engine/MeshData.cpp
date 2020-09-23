@@ -6,12 +6,12 @@ MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices)
     indicesCount = std::size(indices);
 }
 
-std::vector<Vertex> MeshData::GetVertices() const
+const std::vector<Vertex>& MeshData::GetVertices() const
 {
     return vertices;
 }
 
-std::vector<DWORD> MeshData::GetIndices() const
+const std::vector<DWORD>& MeshData::GetIndices() const
 {
     return indices;
 }

@@ -9,8 +9,8 @@ public:
     MeshData(std::vector<Vertex> vertices,
         std::vector<DWORD> indices);
 
-    std::vector<Vertex> GetVertices() const;
-    std::vector<DWORD> GetIndices() const;
+    const std::vector<Vertex>& GetVertices() const;
+    const std::vector<DWORD>& GetIndices() const;
     UINT GetIndicesCount() const;
 
 protected:

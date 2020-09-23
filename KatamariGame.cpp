@@ -104,7 +104,7 @@ void KatamariGame::init()
 	plane = new Actor(this, new Transform({ 0, 0, 0 }));
 	plane->AddComponent(new StaticModelComponent(this, plane, new Transform({ 0, 0, 0 }), planeModel));
 
-	/*box1 = new Actor(this, new Transform({ -1, 1, 0 }));
+	box1 = new Actor(this, new Transform({ -1, 1, 0 }));
 	box1->AddComponent(new StaticModelComponent(this, box1, new Transform({ 0, 0, 0 }), boxModel));
 
 	box2 = new Actor(this, new Transform({ -0.5, 1, -1 }));
@@ -112,7 +112,7 @@ void KatamariGame::init()
 	
 	box3 = new Actor(this, new Transform({ 1, 1, 0 }));
 	box3->AddComponent(new StaticModelComponent(this, box3, new Transform({ 0, 0, 0 }), boxModel));
-	*/
+	
 	katamariPlayer = new KatamariSphere(this, new Transform({ 0, 0.8, 0 }));
 	playerSphere = new StaticModelComponent(this, katamariPlayer, new Transform({ 0, 0, 0 }), playerModel);
 	katamariPlayer->AddComponent(playerSphere);
@@ -187,10 +187,10 @@ void KatamariGame::update()
 void KatamariGame::drawObjects()
 {
 	plane->Draw();
-	/*box1->Draw();
+	box1->Draw();
 	box2->Draw();
-	box3->Draw();*/
-	//katamariPlayer->Draw();
+	box3->Draw();
+	katamariPlayer->Draw();
 }
 
 void KatamariGame::collisionCheck(GameObject* gameObject)

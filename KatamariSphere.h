@@ -1,16 +1,21 @@
 #pragma once
-#include "Engine/ModelObject.h"
-#include <string>
+
 #include <DirectXCollision.h>
+#include "Engine/Actor.h"
+
 class Game;
 
-class KatamariSphere : public ModelObject
+class KatamariSphere : public Actor
 {
 public:
-	KatamariSphere(Game* game, const std::string& filePath, Shader* shader);
+
+    KatamariSphere(Game* game, Transform* transform);
 
 	DirectX::BoundingSphere* collider;
 
-	void update() override;
+protected:
+
+    void onUpdate() override;
+    
 };
 

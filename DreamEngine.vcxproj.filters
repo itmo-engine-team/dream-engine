@@ -33,12 +33,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="BoxObject.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="PyramidObject .cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -54,9 +48,6 @@
     <ClCompile Include="Engine\Transform.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\MeshObject.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\MeshRenderer.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -64,9 +55,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Engine\GameObject.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ModelObject.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="KatamariCamera.cpp">
@@ -78,16 +66,31 @@
     <ClCompile Include="Engine\Shader.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\RenderedGameObject.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Texture.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\TexturedShader.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="SceneGameObject.cpp">
+    <ClCompile Include="Engine\Actor.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ActorComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MeshData.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ModelData.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MeshObject.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneComponent.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\StaticModelComponent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Window.cpp">
@@ -100,12 +103,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoxObject.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="PyramidObject.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Camera.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -130,9 +127,6 @@
     <ClInclude Include="Engine\Vertex.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\MeshObject.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\MeshRenderer.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -140,9 +134,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Engine\GameObject.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ModelObject.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="KatamariCamera.h">
@@ -154,17 +145,11 @@
     <ClInclude Include="Engine\Shader.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\RenderedGameObject.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Texture.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\TexturedShader.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneGameObject.h">
-      <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Engine\LightBuffer.h">
       <Filter>Engine</Filter>
@@ -172,6 +157,26 @@
     <ClInclude Include="Engine\CameraBuffer.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Actor.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ActorComponent.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MeshData.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ModelData.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MeshObject.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneComponent.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\StaticModelComponent.h">
+      <Filter>Файлы заголовков</Filter>
     <ClInclude Include="Engine\Window.h">
       <Filter>Engine</Filter>
     <ClInclude Include="ErrorLogger\StringConverter.h">

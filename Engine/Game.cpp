@@ -6,7 +6,7 @@ Game::Game(HINSTANCE hInstance, WNDCLASSEX wc)
 	inputDevice = new InputDevice();
 	mouse = new Mouse();
 	mouse->EnableRaw();
-	meshRenderer = new MeshRenderer(this);
+	meshRenderer = new MeshRenderer();
 	window = new Window(this);
 	window->WindowInitialize(hInstance, wc);
 }

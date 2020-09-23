@@ -1,20 +1,43 @@
 #pragma once
 
-#include <d3d11_1.h>
-#include <vector>
+#include <d3d11.h>
 
-#include "RenderedGameObject.h"
+#include "MeshData.h"
+#include "SimpleMath.h"
+#include <wrl/client.h>
+
+using namespace Microsoft::WRL;
+using namespace DirectX::SimpleMath;
 
 class Game;
-using namespace Microsoft::WRL;
+class Shader;
+class Transform;
 
-class MeshObject : public RenderedGameObject
+class MeshObject
 {
 public:
-	MeshObject(Game* game,
-		std::vector<Vertex>& vertices,
-		std::vector<DWORD>& indices,
-		Shader* shader);
+
+    MeshObject(Game* game, Transform* transform, MeshData* meshData, Shader* shader);
+
+    void Draw();
+
+protected:
+
+	Game* game;
+	Transform* transform;
+	MeshData* meshData;
+	Shader* shader;
+
+	ComPtr<ID3D11Buffer> pIndexBuffer;
+	ComPtr<ID3D11Buffer> pVertexBuffer;
+
+	ComPtr<ID3D11Buffer> pConstantBuffer;
+	ComPtr<ID3D11Buffer> pLightBuffer;
+	ComPtr<ID3D11Buffer> pCameraBuffer;
+	D3D11_SUBRESOURCE_DATA* csd;
+
+	UINT stride;
+	UINT offset = 0u;
 
 };
 

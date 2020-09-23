@@ -142,14 +142,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BoxObject.cpp" />
+    <ClCompile Include="Engine\ActorComponent.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
-    <ClCompile Include="Engine\ModelObject.cpp" />
-    <ClCompile Include="Engine\RenderedGameObject.cpp" />
+    <ClCompile Include="Engine\Actor.cpp" />
     <ClCompile Include="Engine\InputDevice.cpp" />
-    <ClCompile Include="Engine\MeshObject.cpp" />
     <ClCompile Include="Engine\MeshRenderer.cpp" />
     <ClCompile Include="Engine\Mouse.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
@@ -160,9 +158,12 @@
     <ClCompile Include="KatamariCamera.cpp" />
     <ClCompile Include="KatamariSphere.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PyramidObject .cpp" />
+    <ClCompile Include="Engine\MeshData.cpp" />
+    <ClCompile Include="Engine\ModelData.cpp" />
+    <ClCompile Include="Engine\MeshObject.cpp" />
     <ClCompile Include="KatamariGame.cpp" />
-    <ClCompile Include="SceneGameObject.cpp" />
+    <ClCompile Include="Engine\SceneComponent.cpp" />
+    <ClCompile Include="Engine\StaticModelComponent.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="ErrorLogger\StringConverter.cpp" />
   </ItemGroup>
@@ -177,7 +178,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoxObject.h" />
+    <ClInclude Include="Engine\ActorComponent.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\CameraBuffer.h" />
     <ClInclude Include="Engine\ConstantBuffer.h" />
@@ -185,10 +186,8 @@
     <ClInclude Include="Engine\GameMath.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\LightBuffer.h" />
-    <ClInclude Include="Engine\ModelObject.h" />
-    <ClInclude Include="Engine\RenderedGameObject.h" />
+    <ClInclude Include="Engine\Actor.h" />
     <ClInclude Include="Engine\InputDevice.h" />
-    <ClInclude Include="Engine\MeshObject.h" />
     <ClInclude Include="Engine\MeshRenderer.h" />
     <ClInclude Include="Engine\Mouse.h" />
     <ClInclude Include="Engine\Shader.h" />
@@ -199,9 +198,12 @@
     <ClInclude Include="ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="KatamariCamera.h" />
     <ClInclude Include="KatamariSphere.h" />
-    <ClInclude Include="PyramidObject.h" />
+    <ClInclude Include="Engine\MeshData.h" />
+    <ClInclude Include="Engine\ModelData.h" />
+    <ClInclude Include="Engine\MeshObject.h" />
     <ClInclude Include="KatamariGame.h" />
-    <ClInclude Include="SceneGameObject.h" />
+    <ClInclude Include="Engine\SceneComponent.h" />
+    <ClInclude Include="Engine\StaticModelComponent.h" />
     <ClInclude Include="Engine\Window.h" />
     <ClInclude Include="ErrorLogger\StringConverter.h" />
   </ItemGroup>

@@ -5,13 +5,14 @@
 #include "Camera.h"
 #include "Mouse.h"
 #include "MeshRenderer.h"
+#include "Window.h"
 
 using namespace DirectX::SimpleMath;
 
 class Game
 {
 public:
-	Game();
+	Game(HINSTANCE hInstance, WNDCLASSEX wc);
 	virtual ~Game();
 
 	virtual void init();
@@ -41,6 +42,7 @@ public:
 	MeshRenderer* meshRenderer;
 	
 protected:
+	Window* window;
 	virtual void update();
 	void render();
 	virtual void drawObjects();

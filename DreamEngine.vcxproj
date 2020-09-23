@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -154,6 +154,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TexturedShader.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
+    <ClCompile Include="ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="KatamariCamera.cpp" />
     <ClCompile Include="KatamariSphere.cpp" />
     <ClCompile Include="main.cpp" />
@@ -163,6 +164,8 @@
     <ClCompile Include="KatamariGame.cpp" />
     <ClCompile Include="Engine\SceneComponent.cpp" />
     <ClCompile Include="Engine\StaticModelComponent.cpp" />
+    <ClCompile Include="Engine\Window.cpp" />
+    <ClCompile Include="ErrorLogger\StringConverter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Shader.fx">
@@ -192,6 +195,7 @@
     <ClInclude Include="Engine\TexturedShader.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\Vertex.h" />
+    <ClInclude Include="ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="KatamariCamera.h" />
     <ClInclude Include="KatamariSphere.h" />
     <ClInclude Include="Engine\MeshData.h" />
@@ -200,6 +204,8 @@
     <ClInclude Include="KatamariGame.h" />
     <ClInclude Include="Engine\SceneComponent.h" />
     <ClInclude Include="Engine\StaticModelComponent.h" />
+    <ClInclude Include="Engine\Window.h" />
+    <ClInclude Include="ErrorLogger\StringConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -9,6 +9,8 @@ Game::Game(HINSTANCE hInstance, WNDCLASSEX wc)
 	meshRenderer = new MeshRenderer();
 	window = new Window(this);
 	window->WindowInitialize(hInstance, wc);
+	graphics = new Graphics(this);
+	graphics->DirectXInitialize();
 }
 
 Game::~Game()

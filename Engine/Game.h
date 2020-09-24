@@ -6,6 +6,7 @@
 #include "Mouse.h"
 #include "MeshRenderer.h"
 #include "Window.h"
+#include "Graphics.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -43,6 +44,7 @@ public:
 	
 protected:
 	Window* window;
+	Graphics* graphics;
 	virtual void update();
 	void render();
 	virtual void drawObjects();

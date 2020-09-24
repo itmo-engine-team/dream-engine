@@ -155,6 +155,7 @@
     <ClCompile Include="Engine\TexturedShader.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="ErrorLogger\ErrorLogger.cpp" />
+    <ClCompile Include="Engine\Graphics.cpp" />
     <ClCompile Include="KatamariCamera.cpp" />
     <ClCompile Include="KatamariSphere.cpp" />
     <ClCompile Include="main.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\Vertex.h" />
     <ClInclude Include="ErrorLogger\ErrorLogger.h" />
+    <ClInclude Include="Engine\Graphics.h" />
     <ClInclude Include="KatamariCamera.h" />
     <ClInclude Include="KatamariSphere.h" />
     <ClInclude Include="Engine\MeshData.h" />

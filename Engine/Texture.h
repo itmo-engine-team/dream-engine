@@ -13,8 +13,9 @@ public:
 
 protected:
 	Game* m_game;
+	Graphics* graphics;
 
-	ID3D11ShaderResourceView* g_pTextureRV = nullptr;        // Объект текстуры
-	ID3D11SamplerState* g_pSamplerLinear = nullptr;    // Параметры наложения текстуры
+	ID3D11ShaderResourceView* g_pTextureRV = nullptr;    // Texture object
+	ID3D11SamplerState* g_pSamplerLinear = nullptr;    // texture blending
 };
 

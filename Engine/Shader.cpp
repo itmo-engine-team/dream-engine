@@ -6,6 +6,7 @@
 Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* inputElements, int elementCount)
 	: m_game(game)
 {
+	graphics = m_game->GetGraphics();
 	ID3DBlob* vertexBC;
 	ID3DBlob* errorVertexCode;
 	auto hr = D3DCompileFromFile(shaderPath,
@@ -33,7 +34,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		return;
 	}
 
-	m_game->graphics->device->CreateVertexShader(
+	graphics->device->CreateVertexShader(
 		vertexBC->GetBufferPointer(),
 		vertexBC->GetBufferSize(),
 		nullptr,
@@ -65,7 +66,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		return;
 	}
 
-	hr = m_game->graphics->device->CreatePixelShader(
+	hr = graphics->device->CreatePixelShader(
 		pixelBC->GetBufferPointer(),
 		pixelBC->GetBufferSize(),
 		nullptr,
@@ -73,7 +74,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		);
 
 	ID3D11InputLayout* layout;
-	hr = m_game->graphics->device->CreateInputLayout(
+	hr = graphics->device->CreateInputLayout(
 		inputElements,
 		elementCount,
 		vertexBC->GetBufferPointer(),
@@ -83,7 +84,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 
 void Shader::setShader()
 {
-	m_game->graphics->context->PSSetShader(pPixelShader.Get(), nullptr, 0u);
-	m_game->graphics->context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
-	m_game->graphics->context->IASetInputLayout(pInputLayout.Get());
+	graphics->context->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+	graphics->context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+	graphics->context->IASetInputLayout(pInputLayout.Get());
 }

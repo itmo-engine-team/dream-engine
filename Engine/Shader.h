@@ -4,6 +4,8 @@
 #include <wrl/client.h>
 
 class Game;
+class Graphics;
+
 using namespace Microsoft::WRL;
 
 class Shader
@@ -17,8 +19,9 @@ public:
 	ComPtr<ID3D11PixelShader> pPixelShader;
 
 	virtual void setShader();
-
+	
 protected:
 	Game* m_game;
+	Graphics* graphics;
 };
 

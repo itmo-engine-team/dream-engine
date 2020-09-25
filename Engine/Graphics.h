@@ -10,16 +10,16 @@ class Game;
 class Graphics
 {
 public:
-    Graphics(Game* currentGame);
+	Graphics(Game* currentGame);
 	
 	ID3D11Device* device;
 	ID3D11DeviceContext* context;
 	IDXGISwapChain* swapChain;
 	ID3D11RenderTargetView* rtv;
 
-	ID3D11Texture2D* depthStencil = NULL;             // Текстура буфера глубин
-	ID3D11DepthStencilView* depthStencilView = NULL;          // Объект вида, буфер глубин
-	
+	ID3D11Texture2D* depthStencil = NULL;                     // Depth buffer texture
+	ID3D11DepthStencilView* depthStencilView = NULL;          // View object, depth buffer
+
 	bool DirectXInitialize();
 
 private:

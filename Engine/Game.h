@@ -17,6 +17,7 @@ public:
 	virtual ~Game();
 
 	virtual void init();
+	Graphics* GetGraphics();
 	
 	float deltaTime = 0;
 	float currentTime = 0;
@@ -35,12 +36,12 @@ public:
 
 	Camera* camera;
 	MeshRenderer* meshRenderer;
-	Graphics* graphics;
+	
 protected:
 	Window* window;
-	
+	Graphics* graphics;
+
 	virtual void update();
 	void render();
 	virtual void drawObjects();
 };
-

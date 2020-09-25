@@ -3,7 +3,6 @@
 
 Game::Game(HINSTANCE hInstance, WNDCLASSEX wc)
 {   
-	graphics = new Graphics(this);
 	inputDevice = new InputDevice();
 
 	mouse = new Mouse();
@@ -11,7 +10,8 @@ Game::Game(HINSTANCE hInstance, WNDCLASSEX wc)
 	meshRenderer = new MeshRenderer();
 	window = new Window(this);
 	window->WindowInitialize(hInstance, wc);
-	
+
+	graphics = new Graphics(this);
 	graphics->DirectXInitialize();
 }
 
@@ -23,6 +23,11 @@ Game::~Game()
 void Game::init()
 {
 	
+}
+
+Graphics* Game::GetGraphics()
+{
+	return graphics;
 }
 
 void Game::doFrame()

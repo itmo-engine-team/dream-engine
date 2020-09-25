@@ -33,7 +33,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		return;
 	}
 
-	m_game->device->CreateVertexShader(
+	m_game->graphics->device->CreateVertexShader(
 		vertexBC->GetBufferPointer(),
 		vertexBC->GetBufferSize(),
 		nullptr,
@@ -65,7 +65,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		return;
 	}
 
-	hr = m_game->device->CreatePixelShader(
+	hr = m_game->graphics->device->CreatePixelShader(
 		pixelBC->GetBufferPointer(),
 		pixelBC->GetBufferSize(),
 		nullptr,
@@ -73,7 +73,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		);
 
 	ID3D11InputLayout* layout;
-	hr = m_game->device->CreateInputLayout(
+	hr = m_game->graphics->device->CreateInputLayout(
 		inputElements,
 		elementCount,
 		vertexBC->GetBufferPointer(),
@@ -83,7 +83,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 
 void Shader::setShader()
 {
-	m_game->context->PSSetShader(pPixelShader.Get(), nullptr, 0u);
-	m_game->context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
-	m_game->context->IASetInputLayout(pInputLayout.Get());
+	m_game->graphics->context->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+	m_game->graphics->context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+	m_game->graphics->context->IASetInputLayout(pInputLayout.Get());
 }

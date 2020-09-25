@@ -30,28 +30,28 @@ bool Graphics::DirectXInitialize()
 	D3D_FEATURE_LEVEL featureLevel[] = { D3D_FEATURE_LEVEL_11_1 };
 	res = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr,
 		D3D11_CREATE_DEVICE_DEBUG, featureLevel, 1, D3D11_SDK_VERSION,
-		&swapDesc, &game->swapChain, &game->device, nullptr, &game->context);
+		&swapDesc, &game->graphics->swapChain, &game->graphics->device, nullptr, &game->graphics->context);
 	ZCHECK(res);
 
 	ID3D11Texture2D* backTex;
-	res = game->swapChain->GetBuffer(0, IID_ID3D11Texture2D, (void**)&backTex);
+	res = game->graphics->swapChain->GetBuffer(0, IID_ID3D11Texture2D, (void**)&backTex);
 	ZCHECK(res);
-	res = game->device->CreateRenderTargetView(backTex, nullptr, &game->rtv);
+	res = game->graphics->device->CreateRenderTargetView(backTex, nullptr, &game->graphics->rtv);
 	ZCHECK(res);
 
-	game->context->QueryInterface(IID_ID3DUserDefinedAnnotation, (void**)&game->annotation);
+	game->graphics->context->QueryInterface(IID_ID3DUserDefinedAnnotation, (void**)&game->annotation);
 
 	ID3D11Debug* debug;
-	game->device->QueryInterface(IID_ID3D11Debug, (void**)&debug);
+	game->graphics->device->QueryInterface(IID_ID3D11Debug, (void**)&debug);
 
 	CD3D11_RASTERIZER_DESC rastDesc = {};
 	rastDesc.CullMode = D3D11_CULL_NONE;
 	rastDesc.FillMode = D3D11_FILL_SOLID;
 
 	ID3D11RasterizerState* rastState;
-	res = game->device->CreateRasterizerState(&rastDesc, &rastState); ZCHECK(res);
+	res = game->graphics->device->CreateRasterizerState(&rastDesc, &rastState); ZCHECK(res);
 
-	game->context->RSSetState(rastState);
+	game->graphics->context->RSSetState(rastState);
 
 	D3D11_TEXTURE2D_DESC descDepth;           // Структура с параметрами
 	ZeroMemory(&descDepth, sizeof(descDepth));
@@ -68,7 +68,7 @@ bool Graphics::DirectXInitialize()
 	descDepth.MiscFlags = 0;
 
 	// При помощи заполненной структуры-описания создаем объект текстуры
-	game->device->CreateTexture2D(&descDepth, NULL, &game->depthStencil);
+	game->graphics->device->CreateTexture2D(&descDepth, NULL, &game->graphics->depthStencil);
 
 	// Теперь надо создать сам объект буфера глубин
 	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;            // Структура с параметрами
@@ -77,7 +77,7 @@ bool Graphics::DirectXInitialize()
 	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	descDSV.Texture2D.MipSlice = 0;
 	// При помощи заполненной структуры-описания и текстуры создаем объект буфера глубин
-	game->device->CreateDepthStencilView(game->depthStencil, &descDSV, &game->depthStencilView);
+	game->graphics->device->CreateDepthStencilView(game->graphics->depthStencil, &descDSV, &game->graphics->depthStencilView);
 
 
 	D3D11_VIEWPORT viewport = {};
@@ -88,8 +88,8 @@ bool Graphics::DirectXInitialize()
 	viewport.MinDepth = 0;
 	viewport.MaxDepth = 1.0f;
 
-	game->context->RSSetViewports(1, &viewport);
-	game->context->OMSetRenderTargets(1, &game->rtv, game->depthStencilView);
+	game->graphics->context->RSSetViewports(1, &viewport);
+	game->graphics->context->OMSetRenderTargets(1, &game->graphics->rtv, game->graphics->depthStencilView);
 
 
     return false;

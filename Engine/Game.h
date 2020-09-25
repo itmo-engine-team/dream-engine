@@ -26,25 +26,19 @@ public:
 
 	HWND hWnd;
 
-	ID3D11Device* device;
-	ID3D11DeviceContext* context;
-	IDXGISwapChain* swapChain;
-	ID3D11RenderTargetView* rtv;
-	ID3DUserDefinedAnnotation* annotation;
-	ID3D11Texture2D* depthStencil = NULL;             // Текстура буфера глубин
-	ID3D11DepthStencilView* depthStencilView = NULL;          // Объект вида, буфер глубин
-
 	InputDevice* inputDevice;
+	ID3DUserDefinedAnnotation* annotation;
+	
 	Mouse* mouse;
 	
 	void doFrame();
 
 	Camera* camera;
 	MeshRenderer* meshRenderer;
-	
+	Graphics* graphics;
 protected:
 	Window* window;
-	Graphics* graphics;
+	
 	virtual void update();
 	void render();
 	virtual void drawObjects();

@@ -1,26 +1,25 @@
 #include "Graphics.h"
-#include "Game.h"
 
-Graphics::Graphics(Game* currentGame)
+Graphics::Graphics()
 {
-	game = currentGame;
+
 }
 
-bool Graphics::DirectXInitialize()
+bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 {
 	HRESULT res;
 
 	DXGI_SWAP_CHAIN_DESC swapDesc = {};
 	swapDesc.BufferCount = 1;
-	swapDesc.BufferDesc.Width = game->screenWidth;
-	swapDesc.BufferDesc.Height = game->screenHeight;
+	swapDesc.BufferDesc.Width = screenWidth;
+	swapDesc.BufferDesc.Height = screenHeight;
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	swapDesc.BufferDesc.RefreshRate.Numerator = 60;
 	swapDesc.BufferDesc.RefreshRate.Denominator = 1;
 	swapDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	swapDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 	swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	swapDesc.OutputWindow = game->hWnd;
+	swapDesc.OutputWindow = hWnd;
 	swapDesc.Windowed = true;
 	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swapDesc.Flags = 0;
@@ -36,10 +35,10 @@ bool Graphics::DirectXInitialize()
 	ID3D11Texture2D* backTex;
 	res = swapChain->GetBuffer(0, IID_ID3D11Texture2D, (void**)&backTex);
 	ZCHECK(res);
-	res = device->CreateRenderTargetView(backTex, nullptr, &rtv);
+	res = device->CreateRenderTargetView(backTex, nullptr, &renderTargetView);
 	ZCHECK(res);
 
-	context->QueryInterface(IID_ID3DUserDefinedAnnotation, (void**)&game->annotation);
+	context->QueryInterface(IID_ID3DUserDefinedAnnotation, (void**)&annotation);
 
 	ID3D11Debug* debug;
 	device->QueryInterface(IID_ID3D11Debug, (void**)&debug);
@@ -56,8 +55,8 @@ bool Graphics::DirectXInitialize()
 	/* Structure with parameters:  */
 	D3D11_TEXTURE2D_DESC descDepth;
 	ZeroMemory(&descDepth, sizeof(descDepth));
-	descDepth.Width = game->screenWidth;      // Width
-	descDepth.Height = game->screenHeight;    // height of the texture
+	descDepth.Width = screenWidth;      // Width
+	descDepth.Height = screenHeight;    // height of the texture
 	descDepth.MipLevels = 1;                  // interpolation level
 	descDepth.ArraySize = 1;
 	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT; // Format (pixel size)
@@ -83,16 +82,51 @@ bool Graphics::DirectXInitialize()
 
 
 	D3D11_VIEWPORT viewport = {};
-	viewport.Width = game->screenWidth;
-	viewport.Height = game->screenHeight;
+	viewport.Width = screenWidth;
+	viewport.Height = screenHeight;
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
 	viewport.MinDepth = 0;
 	viewport.MaxDepth = 1.0f;
 
 	context->RSSetViewports(1, &viewport);
-	context->OMSetRenderTargets(1, &rtv, depthStencilView);
+	context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
 
     return false;
+}
+
+ID3D11Device* Graphics::GetDevice()
+{
+	return device;
+}
+
+ID3D11DeviceContext* Graphics::GetContext()
+{
+	return context;
+}
+
+IDXGISwapChain* Graphics::GetSwapChain()
+{
+	return swapChain;
+}
+
+ID3D11RenderTargetView* Graphics::GetRenderTargetView()
+{
+	return renderTargetView;
+}
+
+ID3DUserDefinedAnnotation* Graphics::GetAnnotation()
+{
+	return annotation;
+}
+
+ID3D11Texture2D* Graphics::GetDepthStencil()
+{
+	return depthStencil;
+}
+
+ID3D11DepthStencilView* Graphics::GetDepthStencilView()
+{
+	return depthStencilView;
 }

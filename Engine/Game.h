@@ -1,12 +1,12 @@
 #pragma once
-#include <d3d11_1.h>
+
+#include "Graphics.h"
 #include "InputDevice.h"
 #include "SimpleMath.h"
 #include "Camera.h"
 #include "Mouse.h"
 #include "MeshRenderer.h"
 #include "Window.h"
-#include "Graphics.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -28,7 +28,6 @@ public:
 	HWND hWnd;
 
 	InputDevice* inputDevice;
-	ID3DUserDefinedAnnotation* annotation;
 	
 	Mouse* mouse;
 	

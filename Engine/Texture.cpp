@@ -7,7 +7,7 @@ Texture::Texture(Game* game, const wchar_t* texturePath) : m_game(game)
 	graphics = game->GetGraphics();
 
 	/*Loading a texture from file*/
-	auto hr = DirectX::CreateWICTextureFromFile(graphics->device, texturePath, nullptr, &g_pTextureRV, 0);
+	auto hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(), texturePath, nullptr, &g_pTextureRV, 0);
 	
 	/*Creating a texture sample (description) */
 	D3D11_SAMPLER_DESC sampDesc;
@@ -21,11 +21,11 @@ Texture::Texture(Game* game, const wchar_t* texturePath) : m_game(game)
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 	/* Creating a texturing sample interface*/
-	hr = graphics->device->CreateSamplerState(&sampDesc, &g_pSamplerLinear);
+	hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &g_pSamplerLinear);
 }
 
 void Texture::setTexture()
 {
-	graphics->context->PSSetShaderResources(0, 1, &g_pTextureRV);
-	graphics->context->PSSetSamplers(0, 1, &g_pSamplerLinear);
+	graphics->GetContext()->PSSetShaderResources(0, 1, &g_pTextureRV);
+	graphics->GetContext()->PSSetSamplers(0, 1, &g_pSamplerLinear);
 }

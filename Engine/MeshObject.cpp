@@ -26,7 +26,7 @@ MeshObject::MeshObject(Game* game, Transform* transform, MeshData* meshData, Sha
 	D3D11_SUBRESOURCE_DATA sd = {};
 	sd.pSysMem = meshData->GetVertices().data();
 
-	hr = graphics->device->CreateBuffer(
+	hr = graphics->GetDevice()->CreateBuffer(
 		&bd,
 		&sd,
 		pVertexBuffer.GetAddressOf()
@@ -46,7 +46,7 @@ MeshObject::MeshObject(Game* game, Transform* transform, MeshData* meshData, Sha
 	D3D11_SUBRESOURCE_DATA isd = {};
 	isd.pSysMem = meshData->GetIndices().data();
 
-	hr = graphics->device->CreateBuffer(
+	hr = graphics->GetDevice()->CreateBuffer(
 		&ibd,
 		&isd,
 		pIndexBuffer.GetAddressOf()
@@ -59,7 +59,7 @@ MeshObject::MeshObject(Game* game, Transform* transform, MeshData* meshData, Sha
 	cbd.MiscFlags = 0u;
 	cbd.ByteWidth = sizeof(ConstantBuffer);
 	cbd.StructureByteStride = 0u;
-	hr = graphics->device->CreateBuffer(&cbd, NULL, &pConstantBuffer);
+	hr = graphics->GetDevice()->CreateBuffer(&cbd, NULL, &pConstantBuffer);
 
 	D3D11_BUFFER_DESC lightBufferDesc;
 	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -68,7 +68,7 @@ MeshObject::MeshObject(Game* game, Transform* transform, MeshData* meshData, Sha
 	lightBufferDesc.MiscFlags = 0;
 	lightBufferDesc.ByteWidth = sizeof(LightBuffer);
 	lightBufferDesc.StructureByteStride = 0;
-	hr = graphics->device->CreateBuffer(&lightBufferDesc, NULL, &pLightBuffer);
+	hr = graphics->GetDevice()->CreateBuffer(&lightBufferDesc, NULL, &pLightBuffer);
 
 	D3D11_BUFFER_DESC cameraBufferDesc;
 	cameraBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -77,20 +77,20 @@ MeshObject::MeshObject(Game* game, Transform* transform, MeshData* meshData, Sha
 	cameraBufferDesc.MiscFlags = 0;
 	cameraBufferDesc.ByteWidth = sizeof(CameraBuffer);
 	cameraBufferDesc.StructureByteStride = 0;
-	hr = graphics->device->CreateBuffer(&cameraBufferDesc, NULL, &pCameraBuffer);
+	hr = graphics->GetDevice()->CreateBuffer(&cameraBufferDesc, NULL, &pCameraBuffer);
 }
 
 void MeshObject::Draw()
 {
-	graphics->context->IASetVertexBuffers(
+	graphics->GetContext()->IASetVertexBuffers(
 		0u,
 		1u,
 		pVertexBuffer.GetAddressOf(),
 		&stride,
 		&offset
 		);
-    graphics->context->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
-	graphics->context->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    graphics->GetContext()->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+	graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	shader->setShader();
 
@@ -101,8 +101,8 @@ void MeshObject::Draw()
 		game->camera->getViewMatrix(),
 		game->camera->getProjectionMatrix(),
 	};
-	graphics->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
-	graphics->context->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+	graphics->GetContext()->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
+	graphics->GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 
 	const LightBuffer lb =
 	{
@@ -112,8 +112,8 @@ void MeshObject::Draw()
 		100.0f,
 		{1.0f, 1.0f, 1.0f, 1.0f }
 	};
-	graphics->context->UpdateSubresource(pLightBuffer.Get(), 0, NULL, &lb, 0, 0);
-	graphics->context->PSSetConstantBuffers(1u, 1u, pLightBuffer.GetAddressOf());
+	graphics->GetContext()->UpdateSubresource(pLightBuffer.Get(), 0, NULL, &lb, 0, 0);
+	graphics->GetContext()->PSSetConstantBuffers(1u, 1u, pLightBuffer.GetAddressOf());
 
 	// Update Constant Buffer
 	const CameraBuffer cameraBuffer =
@@ -122,8 +122,8 @@ void MeshObject::Draw()
 		0.0f
 	};
 
-	graphics->context->UpdateSubresource(pCameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
-	graphics->context->VSSetConstantBuffers(2u, 1u, pCameraBuffer.GetAddressOf());
+	graphics->GetContext()->UpdateSubresource(pCameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
+	graphics->GetContext()->VSSetConstantBuffers(2u, 1u, pCameraBuffer.GetAddressOf());
 
-	graphics->context->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
+	graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 }

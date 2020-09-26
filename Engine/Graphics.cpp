@@ -52,34 +52,33 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 
 	context->RSSetState(rastState);
 
-	/* Structure with parameters:  */
-	D3D11_TEXTURE2D_DESC descDepth;
+	// Structure with parameters: 
+	D3D11_TEXTURE2D_DESC descDepth;   
 	ZeroMemory(&descDepth, sizeof(descDepth));
 	descDepth.Width = screenWidth;      // Width
 	descDepth.Height = screenHeight;    // height of the texture
-	descDepth.MipLevels = 1;                  // interpolation level
+	descDepth.MipLevels = 1;            // interpolation level
 	descDepth.ArraySize = 1;
 	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT; // Format (pixel size)
 	descDepth.SampleDesc.Count = 1;
 	descDepth.SampleDesc.Quality = 0;
 	descDepth.Usage = D3D11_USAGE_DEFAULT;
-	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;         // view - depth buffer
+	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;     // view - depth buffer
 	descDepth.CPUAccessFlags = 0;
 	descDepth.MiscFlags = 0;
-
-	/*Using the filled-in description structure, create a texture object*/
-	device->CreateTexture2D(&descDepth, NULL, &depthStencil);
-
-	/*Creating a depth buffer object*/
-	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;            // Structure with parameters
+	
+	// Using the filled-in description structure, create a texture object
+	device->CreateTexture2D(&descDepth, NULL, &depthStencil); 
+	
+	// Creating a depth buffer object
+	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;            
 	ZeroMemory(&descDSV, sizeof(descDSV));
 	descDSV.Format = descDepth.Format;              
 	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	descDSV.Texture2D.MipSlice = 0;
-
-	/*Using the filled-in description structure and texture, create depth buffer object*/
-	device->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView);
-
+	
+	// Using the filled-in description structure and texture, create depth buffer object
+	device->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView); 
 
 	D3D11_VIEWPORT viewport = {};
 	viewport.Width = screenWidth;
@@ -92,8 +91,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 	context->RSSetViewports(1, &viewport);
 	context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
-
-    return false;
+    return true;
 }
 
 ID3D11Device* Graphics::GetDevice()

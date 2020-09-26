@@ -6,10 +6,10 @@ Texture::Texture(Game* game, const wchar_t* texturePath) : m_game(game)
 {
 	graphics = game->GetGraphics();
 
-	/*Loading a texture from file*/
+	// Loading a texture from file
 	auto hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(), texturePath, nullptr, &g_pTextureRV, 0);
 	
-	/*Creating a texture sample (description) */
+	// Creating a texture sample (description) 
 	D3D11_SAMPLER_DESC sampDesc;
 	ZeroMemory(&sampDesc, sizeof(sampDesc));
 	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;      // Type of filtering
@@ -20,7 +20,7 @@ Texture::Texture(Game* game, const wchar_t* texturePath) : m_game(game)
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-	/* Creating a texturing sample interface*/
+	// Creating a texturing sample interface
 	hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &g_pSamplerLinear);
 }
 

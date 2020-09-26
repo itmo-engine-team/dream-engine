@@ -12,7 +12,7 @@ public:
     EventDispatcher() {}
     ~EventDispatcher()
     {
-        for (auto mapEvent : EventList)
+        for (auto mapEvent : eventList)
         {
             for (auto e : mapEvent.second)
                 delete e;
@@ -23,19 +23,19 @@ public:
     void BindEvent(IEvent* event)
     {
         if (event)
-            EventList[event->getName()].push_back(event);
+            eventList[event->GetName()].push_back(event);
     }
 
 
     template <class Class, typename ...arg>
     void CallEvent(const std::string& eventName, arg... a)
     {
-        auto EventIterator = EventList.find(eventName);
+        auto eventIterator = eventList.find(eventName);
 
         //Check EventIterator valid
-        if (EventIterator == EventList.end())  return;
+        if (eventIterator == eventList.end())  return;
 
-        for (auto* ie : EventIterator->second)
+        for (auto* ie : eventIterator->second)
         {
             if (Event<Class, arg...>* event = dynamic_cast<Event<Class, arg...>*>(ie))
             {
@@ -51,5 +51,5 @@ public:
 
 private:
 	
-    std::map<std::string, std::vector<IEvent*>> EventList;
+    std::map<std::string, std::vector<IEvent*>> eventList;
 };

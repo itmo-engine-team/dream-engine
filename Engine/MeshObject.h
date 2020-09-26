@@ -9,7 +9,7 @@
 using namespace Microsoft::WRL;
 using namespace DirectX::SimpleMath;
 
-class Game;
+class Engine;
 class Shader;
 class Transform;
 class Graphics;
@@ -18,12 +18,13 @@ class MeshObject
 {
 public:
 
-    MeshObject(Game* game, Transform* transform, MeshData* meshData, Shader* shader);
+    MeshObject(Engine* engine, Transform* transform, MeshData* meshData, Shader* shader);
 
     void Draw();
 	
 protected:
-	Game* game;
+
+	Engine* engine;
 	Transform* transform;
 	MeshData* meshData;
 	Shader* shader;

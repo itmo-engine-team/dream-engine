@@ -2,16 +2,17 @@
 
 #include <d3dcompiler.h>
 
-#include "Game.h"
+#include "Engine.h"
 #include "Shader.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"
 
-MeshObject::MeshObject(Game* game, Transform* transform, MeshData* meshData, Shader* shader)
-: game(game), transform(transform), meshData(meshData), shader(shader)
+MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData, Shader* shader)
+: engine(engine), transform(transform), meshData(meshData), shader(shader)
 {
-	graphics = game->GetGraphics();
+	graphics = engine->GetGraphics();
+
 	HRESULT hr;
 
 	// Create Vertex Buffer
@@ -92,14 +93,14 @@ void MeshObject::Draw()
 	graphics->GetContext()->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
 	graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	shader->setShader();
+	shader->SetShader();
 
 	// Update Constant Buffer
 	const ConstantBuffer cb =
 	{
 		transform->GetWorldMatrix(),
-		game->camera->getViewMatrix(),
-		game->camera->getProjectionMatrix(),
+		engine->GetCamera()->getViewMatrix(),
+		engine->GetCamera()->getProjectionMatrix(),
 	};
 	graphics->GetContext()->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
 	graphics->GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
@@ -118,7 +119,7 @@ void MeshObject::Draw()
 	// Update Constant Buffer
 	const CameraBuffer cameraBuffer =
 	{
-		game->camera->transform.GetWorldPosition(),
+		engine->GetCamera()->transform.GetWorldPosition(),
 		0.0f
 	};
 

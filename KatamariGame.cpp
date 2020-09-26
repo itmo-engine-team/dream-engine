@@ -6,7 +6,7 @@
 
 using namespace DirectX::SimpleMath;
 
-KatamariGame::KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc) : Game(hInstance, wc)
+KatamariGame::KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc) : Engine(hInstance, wc)
 {
 	
 }
@@ -15,7 +15,7 @@ KatamariGame::~KatamariGame()
 {
 }
 
-void KatamariGame::init()
+void KatamariGame::Init()
 {
 	// Init Shaders
 	texture = new Texture(this, L"Meshes/eyeball/eyes_blue.jpg");

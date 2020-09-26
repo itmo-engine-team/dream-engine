@@ -1,12 +1,12 @@
-#include "Game.h"
+#include "Engine.h"
 #include "SimpleMath.h"
 #include "Actor.h"
 
 
 using namespace DirectX::SimpleMath;
 
-Actor::Actor(Game* game, Transform* transform)
-	: GameObject(game), transform(transform)
+Actor::Actor(Engine* engine, Transform* transform)
+	: GameObject(engine), transform(transform)
 {
 
 }

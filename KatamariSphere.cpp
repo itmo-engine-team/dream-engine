@@ -1,8 +1,8 @@
 #include "KatamariSphere.h"
 #include <iostream>
 
-KatamariSphere::KatamariSphere(Game* game, Transform* transform)
-: Actor(game, transform)
+KatamariSphere::KatamariSphere(Engine* engine, Transform* transform)
+: Actor(engine, transform)
 {
 	collider = new DirectX::BoundingSphere({ 0, 0, 0 }, 0.7);
 }

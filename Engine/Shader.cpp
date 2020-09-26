@@ -1,12 +1,13 @@
-#include "Game.h"
+#include "Engine.h"
 #include "Shader.h"
 #include <iostream>
 #include <d3dcompiler.h>
 
-Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* inputElements, int elementCount)
-	: m_game(game)
+Shader::Shader(Engine* engine, const wchar_t* shaderPath,
+	D3D11_INPUT_ELEMENT_DESC* inputElements, int elementCount)
+	: engine(engine)
 {
-	graphics = m_game->GetGraphics();
+	graphics = engine->GetGraphics();
 	ID3D11Device* device = graphics->GetDevice();
 	ID3DBlob* vertexBC;
 	ID3DBlob* errorVertexCode;
@@ -30,7 +31,8 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		// If there was  nothing in the error message then it simply could not find the shader file itself.
 		else
 		{
-			MessageBox(m_game->hWnd, shaderPath, L"Missing Shader File", MB_OK);
+			MessageBox(engine->GetWindow()->GetWnd(),
+				shaderPath, L"Missing Shader File", MB_OK);
 		}
 		return;
 	}
@@ -62,7 +64,8 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		// If there was  nothing in the error message then it simply could not find the shader file itself.
 		else
 		{
-			MessageBox(m_game->hWnd, shaderPath, L"Missing Shader File", MB_OK);
+			MessageBox(engine->GetWindow()->GetWnd(),
+				shaderPath, L"Missing Shader File", MB_OK);
 		}
 		return;
 	}
@@ -83,7 +86,7 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		&pInputLayout);
 }
 
-void Shader::setShader()
+void Shader::SetShader()
 {
 	graphics->GetContext()->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 	graphics->GetContext()->VSSetShader(pVertexShader.Get(), nullptr, 0u);

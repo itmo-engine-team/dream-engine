@@ -1,18 +1,18 @@
 #include "TexturedShader.h"
 #include "Texture.h"
 
-TexturedShader::TexturedShader(Game* game,
+TexturedShader::TexturedShader(Engine* engine,
     const wchar_t* shaderPath,
     D3D11_INPUT_ELEMENT_DESC* inputElements,
     int elementCount,
     Texture* texture)
-: Shader(game, shaderPath, inputElements, elementCount), m_texture(texture)
+: Shader(engine, shaderPath, inputElements, elementCount), m_texture(texture)
 {
 	
 }
 
-void TexturedShader::setShader()
+void TexturedShader::SetShader()
 {
-    Shader::setShader();
+    Shader::SetShader();
     m_texture->setTexture();
 }

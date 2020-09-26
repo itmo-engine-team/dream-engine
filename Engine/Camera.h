@@ -3,13 +3,14 @@
 #include "SimpleMath.h"
 #include "Transform.h"
 
-class Game;
+class Engine;
 using namespace DirectX::SimpleMath;
 
 class Camera
 {
 public:
-	Camera(Game* game, Vector3 position, Vector3 direction = {0, 0, 1});
+
+	Camera(Engine* engine, Vector3 position, Vector3 direction = {0, 0, 1});
 	~Camera() = default;
 
 	Matrix getViewMatrix();
@@ -22,6 +23,7 @@ public:
 	Transform transform;
 	
 protected:
+
 	Vector3 direction;
 
 	float rotationSpeed = 0.1;
@@ -30,4 +32,3 @@ protected:
 	Matrix projectionMatrix;
 	
 };
-

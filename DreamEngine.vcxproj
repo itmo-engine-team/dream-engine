@@ -144,7 +144,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\ActorComponent.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
-    <ClCompile Include="Engine\Game.cpp" />
+    <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Actor.cpp" />
     <ClCompile Include="Engine\InputDevice.cpp" />
@@ -183,7 +183,7 @@
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\CameraBuffer.h" />
     <ClInclude Include="Engine\ConstantBuffer.h" />
-    <ClInclude Include="Engine\Game.h" />
+    <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\GameMath.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\LightBuffer.h" />

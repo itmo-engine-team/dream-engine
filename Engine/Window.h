@@ -1,16 +1,24 @@
 #pragma once
-#include <d3d.h>
-#include <d3d11.h>
-#include <iostream>
 
-class Game;
+#include <d3d.h>
+
+class Engine;
 
 class Window
 {
 public:
-    Window(Game* currentGame);
+
+    Window(Engine* engine);
+
     bool WindowInitialize(HINSTANCE hInstance, WNDCLASSEX wc);
+
+    HWND GetWnd() const;
+
 private:
-    Game* game;
+
+    Engine* engine;
+
+    HWND hWnd;
+
 };
 

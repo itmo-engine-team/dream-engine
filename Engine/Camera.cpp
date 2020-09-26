@@ -1,13 +1,14 @@
-#include "Game.h"
+#include "Engine.h"
 #include "Camera.h"
 #include "GameMath.h"
 
-Camera::Camera(Game* game, Vector3 position, Vector3 direction) : direction(direction)
+Camera::Camera(Engine* engine, Vector3 position, Vector3 direction) : direction(direction)
 {
 	transform.SetWorldPosition(position);
 	
 	projectionMatrix = Matrix::CreatePerspectiveFieldOfView(
-		120, static_cast<float>(game->screenWidth) / static_cast<float>(game->screenHeight),
+		120, 
+		static_cast<float>(engine->GetScreenWidth()) / static_cast<float>(engine->GetScreenHeight()),
 		0.01f, 100.0f);
 }
 

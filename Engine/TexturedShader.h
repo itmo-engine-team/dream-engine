@@ -6,15 +6,18 @@ class TexturedShader :
 	public Shader
 {
 public:
-	TexturedShader(Game* game,
+
+	TexturedShader(Engine* engine,
 		const wchar_t* shaderPath,
 		D3D11_INPUT_ELEMENT_DESC* inputElements,
 		int elementCount,
 		Texture* texture);
 
-	void setShader() override;
+	void SetShader() override;
 	
 protected:
+
 	Texture* m_texture;
+
 };
 

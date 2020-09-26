@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine/Game.h"
+#include "Engine/Engine.h"
 #include "KatamariSphere.h"
 #include "Engine/TexturedShader.h"
 #include "Engine/Shader.h"
@@ -7,14 +7,14 @@
 
 using namespace DirectX::SimpleMath;
 
-class KatamariGame : public Game
+class KatamariGame : public Engine
 {
 public:
 
 	KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc);
 	~KatamariGame();
 
-	void init() override;
+	void Init() override;
 
 protected:
 

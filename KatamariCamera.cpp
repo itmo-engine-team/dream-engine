@@ -1,8 +1,8 @@
-#include "Engine/Game.h"
+#include "Engine/Engine.h"
 #include "KatamariCamera.h"
 
-KatamariCamera::KatamariCamera(Game* game, Vector3 position, GameObject* observedObject)
-	: Camera(game, position), m_observedObject(observedObject), m_offset(position)
+KatamariCamera::KatamariCamera(Engine* engine, Vector3 position, GameObject* observedObject)
+	: Camera(engine, position), m_observedObject(observedObject), m_offset(position)
 {
 }
 

@@ -4,7 +4,7 @@
 
 class InputDevice
 {
-	friend class Game;
+	friend class Engine;
 public:
 	class Event
 	{

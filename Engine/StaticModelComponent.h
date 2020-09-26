@@ -9,7 +9,7 @@ class StaticModelComponent : public SceneComponent
 
 public:
 
-    StaticModelComponent(Game* game, Actor* actor, Transform* transform, ModelData* modelData);
+    StaticModelComponent(Engine* engine, Actor* actor, Transform* transform, ModelData* modelData);
 
 protected:
 

@@ -1,10 +1,10 @@
-#include "Game.h"
+#include "Engine.h"
 #include "Texture.h"
 #include <WICTextureLoader.h>
 
-Texture::Texture(Game* game, const wchar_t* texturePath) : m_game(game)
+Texture::Texture(Engine* engine, const wchar_t* texturePath) : engine(engine)
 {
-	graphics = game->GetGraphics();
+	graphics = engine->GetGraphics();
 
 	// Loading a texture from file
 	auto hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(), texturePath, nullptr, &g_pTextureRV, 0);

@@ -9,11 +9,8 @@
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dxguid.lib")
 
-#include <d3d.h>
-#include <d3d11.h>
-#include <d3d11_1.h>
 #include <directxmath.h>
-#include "Engine/Game.h"
+#include "Engine/Engine.h"
 #include "KatamariGame.h"
 
 #define ZCHECK(exp) if(FAILED(exp)) { printf("Check failed at file: %s at line %i", __FILE__, __LINE__); return 0; }
@@ -21,7 +18,7 @@
 using namespace Microsoft::WRL;
 using namespace DirectX;
 
-Game* game;
+Engine* engine;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
@@ -50,32 +47,21 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 
 	case WM_PAINT:
 	{
-		// Calculate current time and delta time	
-		static float t = 0.0f;
-		static DWORD dwTimeStart = GetTickCount();
-		DWORD dwTimeCur = GetTickCount();
-		t = (dwTimeCur - dwTimeStart) / 1000.0f;
-		game->deltaTime = t - game->currentTime;
-		game->currentTime = t;
-
-		//std::cout << "Time " << game->deltaTime << "\n";
-
-		game->doFrame();
-
+		engine->DoFrame();
 		return 0;
 	}
 
 	// Input Device
 	case WM_KILLFOCUS:
-		game->inputDevice->ClearState();
+		engine->GetInputDevice()->ClearState();
 		break;
 	case WM_SYSKEYDOWN:
 	case WM_KEYDOWN:
-		if (!(lparam & 0x40000000) || game->inputDevice->AutorepeatIsEnabled())
+		if (!(lparam & 0x40000000) || engine->GetInputDevice()->AutorepeatIsEnabled())
 		{
-			game->inputDevice->OnKeyPressed(static_cast<unsigned char>(wparam));
+			engine->GetInputDevice()->OnKeyPressed(static_cast<unsigned char>(wparam));
 		}
-		game->inputDevice->OnKeyPressed(static_cast<unsigned char>(wparam));
+		engine->GetInputDevice()->OnKeyPressed(static_cast<unsigned char>(wparam));
 
 		// If a key is pressed send it to the input object so it can record that state.
 		//std::cout << "Key: " << (unsigned int)wparam << std::endl;
@@ -84,10 +70,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 		break;
 	case WM_SYSKEYUP:
 	case WM_KEYUP:
-		game->inputDevice->OnKeyReleased(static_cast<unsigned char>(wparam));
+		engine->GetInputDevice()->OnKeyReleased(static_cast<unsigned char>(wparam));
 		break;
 	case WM_CHAR:
-		game->inputDevice->OnChar(static_cast<unsigned char>(wparam));
+		engine->GetInputDevice()->OnChar(static_cast<unsigned char>(wparam));
 		break;
 		//End Input Device
 
@@ -97,9 +83,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 	}
 	case WM_MOUSEMOVE:
 	{
-		int x = LOWORD(lparam);
-		int y = HIWORD(lparam);
-		game->mouse->OnMouseMove(x, y);
+        const int x = LOWORD(lparam);
+        const int y = HIWORD(lparam);
+		engine->GetMouse()->OnMouseMove(x, y);
 		break;
 	}
 
@@ -116,7 +102,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 				RAWINPUT* raw = reinterpret_cast<RAWINPUT*>(rawdata.get());
 				if (raw->header.dwType == RIM_TYPEMOUSE)
 				{
-					game->mouse->OnRawDelta(raw->data.mouse.lLastX, raw->data.mouse.lLastY);
+					engine->GetMouse()->OnRawDelta(raw->data.mouse.lLastX, raw->data.mouse.lLastY);
 				}
 			}
 		}
@@ -136,11 +122,12 @@ int WINAPI main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, in
 {
 	WNDCLASSEX wc;
 	wc.lpfnWndProc = WndProc;
-	game = new KatamariGame(hInstance, wc);
+
+    engine = new KatamariGame(hInstance, wc);
+	engine->Init();
+
 
 	MSG msg = {};
-
-	game->init();
 
 	// Loop until there is a quit message from the window or the user.
 	bool isExitRequested = false;

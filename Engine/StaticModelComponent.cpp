@@ -1,11 +1,11 @@
 #include "StaticModelComponent.h"
 
-StaticModelComponent::StaticModelComponent(Game* game, Actor* actor, Transform* transform, ModelData* modelData)
-    : SceneComponent(game, actor, transform), modelData(modelData)
+StaticModelComponent::StaticModelComponent(Engine* engine, Actor* actor, Transform* transform, ModelData* modelData)
+    : SceneComponent(engine, actor, transform), modelData(modelData)
 {
     for (auto meshData : modelData->GetMeshDataList())
     {
-        meshObjects.push_back(new MeshObject(game, transform, meshData, modelData->GetShader()));
+        meshObjects.push_back(new MeshObject(engine, transform, meshData, modelData->GetShader()));
     }
 }
 

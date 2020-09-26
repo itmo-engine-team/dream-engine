@@ -8,7 +8,7 @@ Transform::Transform(const Vector3 pos)
 
 Transform::~Transform()
 {
-	pParent->RemoveChild(this, false);
+	parent->RemoveChild(this, false);
 
     for (auto pChild : children)
     {
@@ -18,33 +18,37 @@ Transform::~Transform()
 
 Transform* Transform::GetParent() const
 {
-	return pParent;
+	return parent;
 }
 
 bool Transform::HasParent() const
 {
-	return pParent != nullptr;
+	return parent != nullptr;
 }
 
-void Transform::SetParent(Transform* pParent)
+void Transform::SetParent(Transform* parent)
 {
-	if (pParent == nullptr)
+	if (parent == nullptr)
 	{
 	    // @TODO Wait for LOGGER
 	    // LOG WARNING
 	    return;
 	}
 
-	ClearParent();
+	ClearParent(true);
 
-	pParent->children.push_back(this);
-	this->pParent = pParent;
-	transformMatrix *= pParent->GetWorldMatrix().Invert();
+	parent->children.push_back(this);
+	this->parent = parent;
+}
+
+void Transform::ClearParent()
+{
+	ClearParent(true);
 }
 
 void Transform::ClearParent(const bool recursiveClearing)
 {
-	if (pParent == nullptr)
+	if (parent == nullptr)
 	{
 		return;
 	}
@@ -52,38 +56,42 @@ void Transform::ClearParent(const bool recursiveClearing)
 	if (recursiveClearing)
 	{
 		// Find this in parent children list to remove
-		const auto iterator = pParent->children.begin();
-		for (auto child : pParent->children)
+		const auto iterator = parent->children.begin();
+		for (auto child : parent->children)
 		{
 			if (child == this)
 			{
-				pParent->children.erase(iterator);
+				parent->children.erase(iterator);
 				break;
 			}
 		}
 	}
 
-	transformMatrix *= pParent->GetWorldMatrix();
-	pParent = nullptr;
+	parent = nullptr;
 }
 
-void Transform::AddChild(Transform* pChild)
+void Transform::AddChild(Transform* child)
 {
-	if (pChild == nullptr)
+	if (child == nullptr)
 	{
 		// @TODO Wait for LOGGER
 		// LOG WARNING
 		return;
 	}
 
-	children.push_back(pChild);
-	pChild->pParent = this;
-	pChild->transformMatrix *= GetWorldMatrix().Invert();
+	children.push_back(child);
+	child->parent = this;
+	child->transformMatrix *= GetWorldMatrix().Invert();
 }
 
-void Transform::RemoveChild(Transform* pChildToRemove, const bool recursiveClearing)
+void Transform::RemoveChild(Transform* childToRemove)
 {
-	if (pChildToRemove == nullptr)
+	RemoveChild(childToRemove, true);
+}
+
+void Transform::RemoveChild(Transform* childToRemove, const bool recursiveClearing)
+{
+	if (childToRemove == nullptr)
 	{
 		return;
 	}
@@ -92,7 +100,7 @@ void Transform::RemoveChild(Transform* pChildToRemove, const bool recursiveClear
 	const auto iterator = children.begin();
 	for (auto pChild : children)
 	{
-		if (pChild == pChildToRemove)
+		if (pChild == childToRemove)
 		{
 			children.erase(iterator);
 			break;
@@ -101,7 +109,7 @@ void Transform::RemoveChild(Transform* pChildToRemove, const bool recursiveClear
 
 	if (recursiveClearing)
 	{
-		pChildToRemove->ClearParent(false);
+		childToRemove->ClearParent(false);
 	}
 }
 
@@ -162,9 +170,9 @@ Matrix Transform::GetWorldMatrix() const
 {
 	auto result = transformMatrix;
 
-	if (pParent != nullptr)
+	if (parent != nullptr)
 	{
-		result *= pParent->GetWorldMatrix();
+		result *= parent->GetWorldMatrix();
 	}
 	
 	return result;

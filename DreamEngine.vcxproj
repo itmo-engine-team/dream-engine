@@ -183,6 +183,8 @@
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\CameraBuffer.h" />
     <ClInclude Include="Engine\ConstantBuffer.h" />
+    <ClInclude Include="Engine\Event.h" />
+    <ClInclude Include="Engine\EventDispatcher.h" />
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\GameMath.h" />
     <ClInclude Include="Engine\GameObject.h" />

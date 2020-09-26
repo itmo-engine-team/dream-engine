@@ -15,12 +15,12 @@ public:
 
 	Transform* GetParent() const;
 	bool HasParent() const;
-	void SetParent(Transform* pParent);
-	void ClearParent(bool recursiveClearing = true);
+	void SetParent(Transform* parent);
+	void ClearParent();
 
 	std::vector<Transform*>& GetChildren();
-	void AddChild(Transform* pChild);
-	void RemoveChild(Transform* pChildToRemove, bool recursiveClearing = true);
+	void AddChild(Transform* child);
+	void RemoveChild(Transform* childToRemove);
 
 	Vector3 GetLocalPosition() const;
 	void SetLocalPosition(Vector3 pos);
@@ -42,8 +42,11 @@ private:
 	Matrix rotation = Matrix::Identity;
 	Matrix scale = Matrix::Identity;
 
-	Transform* pParent = nullptr;
+	Transform* parent = nullptr;
 	std::vector<Transform*> children;
+
+	void ClearParent(bool recursiveClearing);
+	void RemoveChild(Transform* childToRemove, bool recursiveClearing);
 
 };
 

@@ -1,5 +1,6 @@
 #pragma once
-#include <d3d11_1.h>
+
+#include "Graphics.h"
 #include "InputDevice.h"
 #include "SimpleMath.h"
 #include "Camera.h"
@@ -16,6 +17,7 @@ public:
 	virtual ~Game();
 
 	virtual void init();
+	Graphics* GetGraphics();
 	
 	float deltaTime = 0;
 	float currentTime = 0;
@@ -25,15 +27,8 @@ public:
 
 	HWND hWnd;
 
-	ID3D11Device* device;
-	ID3D11DeviceContext* context;
-	IDXGISwapChain* swapChain;
-	ID3D11RenderTargetView* rtv;
-	ID3DUserDefinedAnnotation* annotation;
-	ID3D11Texture2D* depthStencil = NULL;             // Текстура буфера глубин
-	ID3D11DepthStencilView* depthStencilView = NULL;          // Объект вида, буфер глубин
-
 	InputDevice* inputDevice;
+	
 	Mouse* mouse;
 	
 	void doFrame();
@@ -43,8 +38,9 @@ public:
 	
 protected:
 	Window* window;
+	Graphics* graphics;
+
 	virtual void update();
 	void render();
 	virtual void drawObjects();
 };
-

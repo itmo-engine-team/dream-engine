@@ -26,7 +26,7 @@ public:
     // Get event name
     const std::string& GetName() const override { return this->EventName; }
 
-    //Call function
+    // Call function
     void Call(Class& t, arg... a)
     {
         this->CalledFunction(t, a...);
@@ -34,7 +34,7 @@ public:
 
 private:
 	
-    //Event Name
+    // Event Name
     std::string eventName;
 
     CallbackType const calledFunction;

@@ -8,7 +8,7 @@ class EventDispatcher
 {
 public:
 
-    //Constructor 
+    // Constructor 
     EventDispatcher() {}
     ~EventDispatcher()
     {
@@ -19,7 +19,7 @@ public:
         }
     }
 
-    //Register event
+    // Register event
     void BindEvent(IEvent* event)
     {
         if (event)
@@ -32,7 +32,7 @@ public:
     {
         auto eventIterator = eventList.find(eventName);
 
-        //Check EventIterator valid
+        // Check EventIterator valid
         if (eventIterator == eventList.end())  return;
 
         for (auto* ie : eventIterator->second)

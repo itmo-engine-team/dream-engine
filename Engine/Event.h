@@ -21,15 +21,15 @@ public:
     typedef std::function<void(Class&, arg...)> CallbackType;
 
     // Constructor
-    explicit Event(const std::string& name, const CallbackType& cb) : EventName(name), CalledFunction(cb) {}
+    explicit Event(const std::string& name, const CallbackType& cb) : eventName(name), calledFunction(cb) {}
 
     // Get event name
-    const std::string& GetName() const override { return this->EventName; }
+    const std::string& GetName() const override { return this->eventName; }
 
     // Call function
     void Call(Class& t, arg... a)
     {
-        this->CalledFunction(t, a...);
+        this->calledFunction(t, a...);
     }
 
 private:

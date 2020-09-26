@@ -50,8 +50,6 @@ void Engine::DoFrame()
 	deltaTime = t - currentTime;
 	currentTime = t;
 
-	std::cout << deltaTime << std::endl;
-
 	update();
 	render();
 }

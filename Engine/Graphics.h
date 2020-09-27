@@ -10,28 +10,28 @@ class Graphics
 {
 public:
 
-	Graphics();
-	bool DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd);
+    Graphics();
+    bool DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd);
 
-	ID3D11Device* GetDevice();
-	ID3D11DeviceContext* GetContext();
-	IDXGISwapChain* GetSwapChain();
-	ID3D11RenderTargetView* GetRenderTargetView();
-	ID3DUserDefinedAnnotation* GetAnnotation();
+    ID3D11Device* GetDevice();
+    ID3D11DeviceContext* GetContext();
+    IDXGISwapChain* GetSwapChain();
+    ID3D11RenderTargetView* GetRenderTargetView();
+    ID3DUserDefinedAnnotation* GetAnnotation();
 
-	ID3D11Texture2D* GetDepthStencil();
-	ID3D11DepthStencilView* GetDepthStencilView();
+    ID3D11Texture2D* GetDepthStencil();
+    ID3D11DepthStencilView* GetDepthStencilView();
 
 private:
 
-	ID3D11Device* device;
-	ID3D11DeviceContext* context;
-	IDXGISwapChain* swapChain;
-	ID3D11RenderTargetView* renderTargetView;
-	ID3DUserDefinedAnnotation* annotation;
+    ID3D11Device* device;
+    ID3D11DeviceContext* context;
+    IDXGISwapChain* swapChain;
+    ID3D11RenderTargetView* renderTargetView;
+    ID3DUserDefinedAnnotation* annotation;
 
-	ID3D11Texture2D* depthStencil = NULL;                     // Depth buffer texture
-	ID3D11DepthStencilView* depthStencilView = NULL;          // View object, depth buffer
-	
+    ID3D11Texture2D* depthStencil = NULL;                     // Depth buffer texture
+    ID3D11DepthStencilView* depthStencilView = NULL;          // View object, depth buffer
+
 };
 

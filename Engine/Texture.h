@@ -8,17 +8,17 @@ class Texture
 {
 public:
 
-	Texture(Engine* engine, const wchar_t* texturePath);
+    Texture(Engine* engine, const wchar_t* texturePath);
 
-	void setTexture();
+    void setTexture();
 
 protected:
 
-	Engine* engine;
-	Graphics* graphics;
+    Engine* engine;
+    Graphics* graphics;
 
-	ID3D11ShaderResourceView* g_pTextureRV = nullptr;    // Texture object
-	ID3D11SamplerState* g_pSamplerLinear = nullptr;    // texture blending
+    ID3D11ShaderResourceView* g_pTextureRV = nullptr;    // Texture object
+    ID3D11SamplerState* g_pSamplerLinear = nullptr;    // texture blending
 
 };
 

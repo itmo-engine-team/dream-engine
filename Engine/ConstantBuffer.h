@@ -6,7 +6,7 @@ using namespace DirectX::SimpleMath;
 
 struct ConstantBuffer
 {
-	Matrix mWorld;
-	Matrix mView;
-	Matrix mProjection;
+    Matrix mWorld;
+    Matrix mView;
+    Matrix mProjection;
 };

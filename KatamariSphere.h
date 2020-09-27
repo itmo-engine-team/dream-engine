@@ -11,11 +11,10 @@ public:
 
     KatamariSphere(Engine* engine, Transform* transform);
 
-	DirectX::BoundingSphere* collider;
+    DirectX::BoundingSphere* collider;
 
 protected:
 
     void onUpdate() override;
-    
-};
 
+};

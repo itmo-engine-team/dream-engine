@@ -21,25 +21,25 @@ public:
     MeshObject(Engine* engine, Transform* transform, MeshData* meshData, Shader* shader);
 
     void Draw();
-	
+
 protected:
 
-	Engine* engine;
-	Transform* transform;
-	MeshData* meshData;
-	Shader* shader;
-	Graphics* graphics;
+    Engine* engine;
+    Transform* transform;
+    MeshData* meshData;
+    Shader* shader;
+    Graphics* graphics;
 
-	ComPtr<ID3D11Buffer> pIndexBuffer;
-	ComPtr<ID3D11Buffer> pVertexBuffer;
+    ComPtr<ID3D11Buffer> pIndexBuffer;
+    ComPtr<ID3D11Buffer> pVertexBuffer;
 
-	ComPtr<ID3D11Buffer> pConstantBuffer;
-	ComPtr<ID3D11Buffer> pLightBuffer;
-	ComPtr<ID3D11Buffer> pCameraBuffer;
-	D3D11_SUBRESOURCE_DATA* csd;
+    ComPtr<ID3D11Buffer> pConstantBuffer;
+    ComPtr<ID3D11Buffer> pLightBuffer;
+    ComPtr<ID3D11Buffer> pCameraBuffer;
+    D3D11_SUBRESOURCE_DATA* csd;
 
-	UINT stride;
-	UINT offset = 0u;
+    UINT stride;
+    UINT offset = 0u;
 
 };
 

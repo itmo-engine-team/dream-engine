@@ -9,23 +9,23 @@ class Engine;
 class Actor : public GameObject
 {
 public:
-	
-	Actor(Engine* engine, Transform* transform);
 
-	void Update();
-	void Draw();
+    Actor(Engine* engine, Transform* transform);
 
-	Transform* GetTransform() const;
+    void Update();
+    void Draw();
 
-	void AddComponent(ActorComponent* component);
+    Transform* GetTransform() const;
+
+    void AddComponent(ActorComponent* component);
 
 protected:
 
-	Transform* transform;
+    Transform* transform;
 
-	std::vector<ActorComponent*> components;
+    std::vector<ActorComponent*> components;
 
-	virtual void onUpdate();
+    virtual void onUpdate();
 
 };
 

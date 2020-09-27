@@ -18,6 +18,6 @@ protected:
     std::vector<Vertex> vertices;
     std::vector<DWORD> indices;
     UINT indicesCount;
-    
+
 };
 

@@ -6,31 +6,31 @@
 using namespace DirectX::SimpleMath;
 
 Actor::Actor(Engine* engine, Transform* transform)
-	: GameObject(engine), transform(transform)
+    : GameObject(engine), transform(transform)
 {
 
 }
 
 void Actor::Update()
 {
-	onUpdate();
+    onUpdate();
 
-	// Update components
+    // Update components
     for (auto component : components)
     {
-		component->Update();
+        component->Update();
     }
 
-	// Trigger event AfterUpdate
+    // Trigger event AfterUpdate
 }
 
 void Actor::Draw()
 {
-	// Draw components
-	for (auto component : components)
-	{
-		component->Draw();
-	}
+    // Draw components
+    for (auto component : components)
+    {
+        component->Draw();
+    }
 }
 
 void Actor::onUpdate()
@@ -40,10 +40,10 @@ void Actor::onUpdate()
 
 Transform* Actor::GetTransform() const
 {
-	return transform;
+    return transform;
 }
 
 void Actor::AddComponent(ActorComponent* component)
 {
-	components.push_back(component);
+    components.push_back(component);
 }

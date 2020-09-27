@@ -14,46 +14,46 @@ class Engine
 {
 public:
 
-	Engine(HINSTANCE hInstance, WNDCLASSEX wc);
-	virtual ~Engine();
+    Engine(HINSTANCE hInstance, WNDCLASSEX wc);
+    virtual ~Engine();
 
-	virtual void Init();
+    virtual void Init();
 
-	void DoFrame();
+    void DoFrame();
 
-	Graphics* GetGraphics() const;
-	Window* GetWindow() const;
+    Graphics* GetGraphics() const;
+    Window* GetWindow() const;
 
-	Camera* GetCamera() const;
+    Camera* GetCamera() const;
 
-	InputDevice* GetInputDevice() const;
-	Mouse* GetMouse() const;
+    InputDevice* GetInputDevice() const;
+    Mouse* GetMouse() const;
 
-	float GetDeltaTime() const;
-	int GetScreenWidth() const;
-	int GetScreenHeight() const;
-	
+    float GetDeltaTime() const;
+    int GetScreenWidth() const;
+    int GetScreenHeight() const;
+
 protected:
 
-	Window* window;
-	Graphics* graphics;
-	MeshRenderer* meshRenderer;
+    Window* window;
+    Graphics* graphics;
+    MeshRenderer* meshRenderer;
 
-	Camera* camera;
+    Camera* camera;
 
-	InputDevice* inputDevice;
-	Mouse* mouse;
+    InputDevice* inputDevice;
+    Mouse* mouse;
 
-	float deltaTime = 0;
-	float currentTime = 0;
+    float deltaTime = 0;
+    float currentTime = 0;
 
-	int screenWidth = 0;
-	int screenHeight = 0;
+    int screenWidth = 0;
+    int screenHeight = 0;
 
-	DWORD dwStartTick;
+    DWORD dwStartTick;
 
-	virtual void update();
-	void render();
-	virtual void drawObjects();
+    virtual void update();
+    void render();
+    virtual void drawObjects();
 
 };

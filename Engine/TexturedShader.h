@@ -3,21 +3,21 @@
 class Texture;
 
 class TexturedShader :
-	public Shader
+    public Shader
 {
 public:
 
-	TexturedShader(Engine* engine,
-		const wchar_t* shaderPath,
-		D3D11_INPUT_ELEMENT_DESC* inputElements,
-		int elementCount,
-		Texture* texture);
+    TexturedShader(Engine* engine,
+        const wchar_t* shaderPath,
+        D3D11_INPUT_ELEMENT_DESC* inputElements,
+        int elementCount,
+        Texture* texture);
 
-	void SetShader() override;
-	
+    void SetShader() override;
+
 protected:
 
-	Texture* m_texture;
+    Texture* m_texture;
 
 };
 

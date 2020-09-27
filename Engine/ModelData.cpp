@@ -2,13 +2,13 @@
 #include "MeshRenderer.h"
 
 ModelData::ModelData(Shader* shader)
-: shader(shader)
+    : shader(shader)
 {
 
 }
 
 ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, Shader* shader)
-: shader(shader)
+    : shader(shader)
 {
     pMeshRenderer->ProcessModel(this, filePath);
 }

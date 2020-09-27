@@ -11,34 +11,34 @@ class KatamariGame : public Engine
 {
 public:
 
-	KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc);
-	~KatamariGame();
+    KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc);
+    ~KatamariGame();
 
-	void Init() override;
+    void Init() override;
 
 protected:
 
-	void update() override;
-	void drawObjects();
-	void collisionCheck(GameObject* gameObject);
+    void update() override;
+    void drawObjects();
+    void collisionCheck(GameObject* gameObject);
 
 private:
 
     KatamariSphere* katamariPlayer;
-	StaticModelComponent* playerSphere;
+    StaticModelComponent* playerSphere;
 
-	Actor* plane;
-	Actor* box1;
-	Actor* box2;
-	Actor* box3;
+    Actor* plane;
+    Actor* box1;
+    Actor* box2;
+    Actor* box3;
 
-	ModelData* planeModel;
-	ModelData* boxModel;
-	ModelData* playerModel;
+    ModelData* planeModel;
+    ModelData* boxModel;
+    ModelData* playerModel;
 
-	Shader* shader;
-	TexturedShader* texturedShader;
-	Texture* texture;
+    Shader* shader;
+    TexturedShader* texturedShader;
+    Texture* texture;
 
 };
 

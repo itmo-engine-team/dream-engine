@@ -5,17 +5,17 @@ class Engine;
 class GameObject
 {
 public:
-	
-	GameObject(Engine* engine);
-	virtual ~GameObject() = default;
 
-	void Init();
+    GameObject(Engine* engine);
+    virtual ~GameObject() = default;
+
+    void Init();
 
 protected:
 
     Engine* engine;
 
-	virtual void onInit();
+    virtual void onInit();
 
 };
 

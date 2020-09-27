@@ -6,6 +6,6 @@ using namespace DirectX::SimpleMath;
 
 struct CameraBuffer
 {
-	Vector3 cameraPosition;
-	float padding;
+    Vector3 cameraPosition;
+    float padding;
 };

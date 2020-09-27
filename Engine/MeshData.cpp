@@ -1,7 +1,7 @@
 #include "MeshData.h"
 
 MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices)
-: vertices(vertices), indices(indices)
+    : vertices(vertices), indices(indices)
 {
     indicesCount = std::size(indices);
 }

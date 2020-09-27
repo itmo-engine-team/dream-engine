@@ -3,19 +3,18 @@
 #include <DirectXCollision.h>
 #include "Engine/Actor.h"
 
-class Game;
+class Engine;
 
 class KatamariSphere : public Actor
 {
 public:
 
-    KatamariSphere(Game* game, Transform* transform);
+    KatamariSphere(Engine* engine, Transform* transform);
 
-	DirectX::BoundingSphere* collider;
+    DirectX::BoundingSphere* collider;
 
 protected:
 
     void onUpdate() override;
-    
-};
 
+};

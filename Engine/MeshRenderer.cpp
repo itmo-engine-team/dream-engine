@@ -17,7 +17,7 @@ bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePat
     if (pScene == nullptr)
         return false;
 
-	processNode(modelData, pScene->mRootNode, pScene);
+    processNode(modelData, pScene->mRootNode, pScene);
     return true;
 }
 
@@ -26,114 +26,114 @@ ModelData* MeshRenderer::CreateBoxModel(Shader* shader, Vector4 color, Vector3 b
     ModelData* modelData = new ModelData(shader);
 
     std::vector<Vertex> vertices = {
-		// Front vertices
-		{
-			{-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
-		},
-		{
-			{-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
-		},
-		{
-			{+boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
-		},
-		{
-			{+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
-		},
+        // Front vertices
+        {
+            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
+        },
+        {
+            {-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
+        },
+        {
+            {+boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
+        },
+        {
+            {+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
+        },
 
-		// Back vertices
-		{
-			{-boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitZ
-		},
-		{
-			{-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitZ
-		},
-		{
-			{+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitZ
-		},
-		{
-			{+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitZ
-		},
+        // Back vertices
+        {
+            {-boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitZ
+        },
+        {
+            {-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitZ
+        },
+        {
+            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitZ
+        },
+        {
+            {+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitZ
+        },
 
-		// Left vertices
-		{
-			{+boxSize.x, -boxSize.y, -boxSize.z}, color, Vector3::UnitX
-		},
-		{
-			{+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitX
-		},
-		{
-			{+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitX
-		},
-		{
-			{+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitX
-		},
+        // Left vertices
+        {
+            {+boxSize.x, -boxSize.y, -boxSize.z}, color, Vector3::UnitX
+        },
+        {
+            {+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitX
+        },
+        {
+            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitX
+        },
+        {
+            {+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitX
+        },
 
-		// Right vertices
-		{
-			{-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitX
-		},
-		{
-			{-boxSize.x, +boxSize.y, +boxSize.z}, color, -Vector3::UnitX
-		},
-		{
-			{-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitX
-		},
-		{
-			{-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitX
-		},
+        // Right vertices
+        {
+            {-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitX
+        },
+        {
+            {-boxSize.x, +boxSize.y, +boxSize.z}, color, -Vector3::UnitX
+        },
+        {
+            {-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitX
+        },
+        {
+            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitX
+        },
 
-		// Top vertices
-		{
-			{-boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitY
-		},
-		{
-			{-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitY
-		},
-		{
-			{+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitY
-		},
-		{
-			{+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitY
-		},
+        // Top vertices
+        {
+            {-boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitY
+        },
+        {
+            {-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitY
+        },
+        {
+            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitY
+        },
+        {
+            {+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitY
+        },
 
-		// Bottom vertices
-		{
-			{+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitY
-		},
-		{
-			{+boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitY
-		},
-		{
-			{-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitY
-		},
-		{
-			{-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitY
-		},
+        // Bottom vertices
+        {
+            {+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitY
+        },
+        {
+            {+boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitY
+        },
+        {
+            {-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitY
+        },
+        {
+            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitY
+        },
     };
     std::vector<DWORD> indices = {
-		// front face
-		0, 1, 2,
-		0, 2, 3,
+        // front face
+        0, 1, 2,
+        0, 2, 3,
 
-		// back face
-		4, 6, 5,
-		4, 7, 6,
+        // back face
+        4, 6, 5,
+        4, 7, 6,
 
-		// left face
-		8, 9, 10,
-		8, 10, 11,
+        // left face
+        8, 9, 10,
+        8, 10, 11,
 
-		// right face
-		12, 13, 14,
-		12, 14, 15,
+        // right face
+        12, 13, 14,
+        12, 14, 15,
 
-		// top face
-		16, 17, 18,
-		16, 18, 19,
+        // top face
+        16, 17, 18,
+        16, 18, 19,
 
-		// bottom face
-		20, 21, 22,
-		20, 22, 23,
+        // bottom face
+        20, 21, 22,
+        20, 22, 23,
     };
 
     auto meshData = new MeshData(vertices, indices);
@@ -165,9 +165,9 @@ MeshData* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
     for (UINT i = 0; i < mesh->mNumVertices; i++)
     {
         Vertex vertex{
-        	Vector3{mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z},
-        	Vector4{0, 1, 0, 1},
-        	Vector3{mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z}
+            Vector3{mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z},
+            Vector4{0, 1, 0, 1},
+            Vector3{mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z}
         };
 
         if (mesh->mTextureCoords[0])

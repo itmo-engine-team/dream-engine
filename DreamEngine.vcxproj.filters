@@ -61,6 +61,8 @@
     <ClInclude Include="ErrorLogger\StringConverter.h" />
     <ClInclude Include="Engine\Graphics.h" />
     <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\Event.h" />
+    <ClInclude Include="Engine\EventDispatcher.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

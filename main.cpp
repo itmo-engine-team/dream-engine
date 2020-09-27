@@ -130,15 +130,18 @@ int WINAPI main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, in
 
     // Loop until there is a quit message from the window or the user.
     bool isExitRequested = false;
-    while (!isExitRequested) {
+    while (!isExitRequested) 
+    {
         // Handle the windows messages.
-        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) 
+        {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
 
         // If windows signals to end the application then exit out.
-        if (msg.message == WM_QUIT) {
+        if (msg.message == WM_QUIT) 
+        {
             isExitRequested = true;
         }
     }

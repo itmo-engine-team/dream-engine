@@ -20,8 +20,10 @@ void KatamariGame::Init()
     // Init Shaders
     texture = new Texture(this, L"Meshes/eyeball/eyes_blue.jpg");
 
-    D3D11_INPUT_ELEMENT_DESC texturedShaderInputElements[] = {
-        D3D11_INPUT_ELEMENT_DESC {
+    D3D11_INPUT_ELEMENT_DESC texturedShaderInputElements[] = 
+    {
+        D3D11_INPUT_ELEMENT_DESC
+        {
             "POSITION",
             0,
             DXGI_FORMAT_R32G32B32_FLOAT,
@@ -30,7 +32,8 @@ void KatamariGame::Init()
             D3D11_INPUT_PER_VERTEX_DATA,
             0
         },
-        D3D11_INPUT_ELEMENT_DESC {
+        D3D11_INPUT_ELEMENT_DESC
+        {
             "COLOR",
             0,
             DXGI_FORMAT_R32G32B32A32_FLOAT,
@@ -39,7 +42,8 @@ void KatamariGame::Init()
             D3D11_INPUT_PER_VERTEX_DATA,
             0
         },
-        D3D11_INPUT_ELEMENT_DESC {
+        D3D11_INPUT_ELEMENT_DESC
+        {
             "NORMAL",
             0,
             DXGI_FORMAT_R32G32B32_FLOAT,
@@ -48,7 +52,8 @@ void KatamariGame::Init()
             D3D11_INPUT_PER_VERTEX_DATA,
             0
         },
-        D3D11_INPUT_ELEMENT_DESC {
+        D3D11_INPUT_ELEMENT_DESC
+        {
             "TEXCOORD",
             0,
             DXGI_FORMAT_R32G32_FLOAT,
@@ -61,8 +66,10 @@ void KatamariGame::Init()
 
     texturedShader = new TexturedShader(this, L"Shaders/ShaderTextured.fx", texturedShaderInputElements, 4, texture);
 
-    D3D11_INPUT_ELEMENT_DESC shaderInputElements[] = {
-        D3D11_INPUT_ELEMENT_DESC {
+    D3D11_INPUT_ELEMENT_DESC shaderInputElements[] = 
+    {
+        D3D11_INPUT_ELEMENT_DESC
+        {
             "POSITION",
             0,
             DXGI_FORMAT_R32G32B32_FLOAT,
@@ -71,7 +78,8 @@ void KatamariGame::Init()
             D3D11_INPUT_PER_VERTEX_DATA,
             0
         },
-        D3D11_INPUT_ELEMENT_DESC {
+        D3D11_INPUT_ELEMENT_DESC
+        {
             "COLOR",
             0,
             DXGI_FORMAT_R32G32B32A32_FLOAT,
@@ -80,7 +88,8 @@ void KatamariGame::Init()
             D3D11_INPUT_PER_VERTEX_DATA,
             0
         },
-        D3D11_INPUT_ELEMENT_DESC {
+        D3D11_INPUT_ELEMENT_DESC
+        {
             "NORMAL",
             0,
             DXGI_FORMAT_R32G32B32_FLOAT,

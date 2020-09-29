@@ -90,17 +90,19 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     context->RSSetViewports(1, &viewport);
     context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
+    Direct2DInitialize(hWnd);
+
     return true;
 }
 
 bool Graphics::Direct2DInitialize(HWND hWnd)
 {
     D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory);
+
     ID3D11Resource* res;
-
     this->renderTargetView->GetResource(&res);
-    IDXGISurface* surface;
 
+    IDXGISurface* surface;
     res->QueryInterface(__uuidof(IDXGISurface), reinterpret_cast<void**>(&surface));
 
     factory->CreateDxgiSurfaceRenderTarget(
@@ -115,7 +117,7 @@ bool Graphics::Direct2DInitialize(HWND hWnd)
     res->Release();
     surface->Release();
 
-    HRESULT rs = renderTarget->CreateSolidColorBrush(D2D1_COLOR_F{ 0.4f,1.0f,1.0f,1.0f }, &rBrush);
+    HRESULT rs = renderTarget->CreateSolidColorBrush(D2D1_COLOR_F{0.4f, 1.0f, 1.0f, 1.0f}, &rBrush);
 
     DWriteCreateFactory(
         DWRITE_FACTORY_TYPE_SHARED,
@@ -155,7 +157,8 @@ bool Graphics::DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText_)
     return false;
 }
 
-void Graphics::ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText_) // Configurate layout to text and brush to draw text
+// Configurate layout to text and brush to draw text
+void Graphics::ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText_) 
 {
     D2D1_RECT_F layoutRect = D2D1::RectF(
         static_cast<FLOAT>(posX),

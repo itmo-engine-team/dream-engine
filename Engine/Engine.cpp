@@ -20,7 +20,6 @@ Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
 
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
-    graphics->Direct2DInitialize(window->GetWnd());
 }
 
 Engine::~Engine()

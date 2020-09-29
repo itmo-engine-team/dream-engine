@@ -20,6 +20,7 @@ Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
 
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
+    graphics->Direct2DInitialize(window->GetWnd());
 }
 
 Engine::~Engine()
@@ -98,6 +99,11 @@ void Engine::render()
     graphics->GetAnnotation()->BeginEvent(L"BeginDraw");
     drawObjects();
     graphics->GetAnnotation()->EndEvent();
+
+    // Add text on Scene
+    wchar_t pretext[200];
+    swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);
+    graphics->DrawTextOnScene(400, 100, pretext);
 
     graphics->GetSwapChain()->Present(1, 0);
 }

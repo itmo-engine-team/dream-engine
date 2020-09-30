@@ -11,15 +11,15 @@ public:
 
     TexturedShader(Engine* engine,
         const wchar_t* shaderPath,
-        D3D11_INPUT_ELEMENT_DESC* inputElements,
-        int elementCount,
         Texture* texture);
+
+    void Init() override;
 
     void SetShader() override;
 
 protected:
 
-    Texture* m_texture;
+    Texture* texture = nullptr;
 
 };
 

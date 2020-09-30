@@ -1,5 +1,4 @@
 #include "Engine.h"
-#include <iostream>
 
 Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
 {

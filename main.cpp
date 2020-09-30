@@ -10,8 +10,8 @@
 #pragma comment(lib, "dxguid.lib")
 
 #include <directxmath.h>
-#include "Engine/Engine.h"
-#include "KatamariGame.h"
+#include "Engine.h"
+#include "Game/KatamariGame.h"
 
 using namespace Microsoft::WRL;
 using namespace DirectX;

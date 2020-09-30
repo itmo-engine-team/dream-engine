@@ -1,12 +1,16 @@
 #pragma once
 
-#include "Graphics.h"
-#include "InputDevice.h"
+#include <iostream>
+
+#include "Graphics/Graphics.h"
 #include "SimpleMath.h"
-#include "Camera.h"
-#include "Mouse.h"
-#include "MeshRenderer.h"
-#include "Window.h"
+#include "Graphics/MeshRenderer.h"
+#include "Graphics/Window.h"
+
+#include "Input/InputDevice.h"
+#include "Input/Mouse.h"
+
+#include "GameComponent/Camera.h"
 
 using namespace DirectX::SimpleMath;
 

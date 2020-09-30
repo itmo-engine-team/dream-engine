@@ -99,6 +99,11 @@ void Engine::render()
     drawObjects();
     graphics->GetAnnotation()->EndEvent();
 
+    // Add text on Scene
+    wchar_t pretext[200];
+    swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);
+    graphics->DrawTextOnScene(400, 100, pretext);
+
     graphics->GetSwapChain()->Present(1, 0);
 }
 

@@ -35,7 +35,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 
     ID3D11Texture2D* backTex;
     res = swapChain->GetBuffer(0, IID_ID3D11Texture2D, (void**)&backTex);
-    ErrorLogger::DirectXLog(res, Error, "Failed to initialize swapchain", __FILE__, __FUNCTION__, __LINE__);
+    ErrorLogger::DirectXLog(res, Error, "Failed to initialize BackBuffer", __FILE__, __FUNCTION__, __LINE__);
     res = device->CreateRenderTargetView(backTex, nullptr, &renderTargetView);
     ErrorLogger::DirectXLog(res, Error, "Failed to create RenderTargetView", __FILE__, __FUNCTION__, __LINE__);
 

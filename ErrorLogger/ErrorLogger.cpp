@@ -62,8 +62,6 @@ void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, c
 		logFile.close();
 	}
 	
-	int msgboxID;
-	
 	switch (type)
 	{
 	case Error:

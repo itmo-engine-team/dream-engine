@@ -33,7 +33,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
         &sd,
         pVertexBuffer.GetAddressOf()
         );
-    ErrorLogger::DirectXLog(hr, Error, "Failed create VertexBuffer", __FILE__, __FUNCTION__, __LINE__);
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create VertexBuffer", __FILE__, __FUNCTION__, __LINE__);
 	
     stride = sizeof(Vertex);
 
@@ -54,9 +54,9 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
         &isd,
         pIndexBuffer.GetAddressOf()
         );
-    ErrorLogger::DirectXLog(hr, Error, "Failed create IndexBuffer", __FILE__, __FUNCTION__, __LINE__);
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create IndexBuffer", __FILE__, __FUNCTION__, __LINE__);
 
-	CD3D11_BUFFER_DESC cbd;
+    CD3D11_BUFFER_DESC cbd;
     cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     cbd.Usage = D3D11_USAGE_DEFAULT;
     cbd.CPUAccessFlags = 0u;
@@ -64,9 +64,8 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     cbd.ByteWidth = sizeof(ConstantBuffer);
     cbd.StructureByteStride = 0u;
     hr = graphics->GetDevice()->CreateBuffer(&cbd, NULL, &pConstantBuffer);
-    ErrorLogger::DirectXLog(hr, Error, "Failed create ConstantBuffer", __FILE__, __FUNCTION__, __LINE__);
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create ConstantBuffer", __FILE__, __FUNCTION__, __LINE__);
 
-	
     D3D11_BUFFER_DESC lightBufferDesc;
     lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     lightBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -75,8 +74,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     lightBufferDesc.ByteWidth = sizeof(LightBuffer);
     lightBufferDesc.StructureByteStride = 0;
     hr = graphics->GetDevice()->CreateBuffer(&lightBufferDesc, NULL, &pLightBuffer);
-    ErrorLogger::DirectXLog(hr, Error, "Failed create LightBuffer", __FILE__, __FUNCTION__, __LINE__);
-
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create LightBuffer", __FILE__, __FUNCTION__, __LINE__);
 	
     D3D11_BUFFER_DESC cameraBufferDesc;
     cameraBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -86,7 +84,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     cameraBufferDesc.ByteWidth = sizeof(CameraBuffer);
     cameraBufferDesc.StructureByteStride = 0;
     hr = graphics->GetDevice()->CreateBuffer(&cameraBufferDesc, NULL, &pCameraBuffer);
-    ErrorLogger::DirectXLog(hr, Error, "Failed create CameraBuffer", __FILE__, __FUNCTION__, __LINE__);
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create CameraBuffer", __FILE__, __FUNCTION__, __LINE__);
 
 }
 

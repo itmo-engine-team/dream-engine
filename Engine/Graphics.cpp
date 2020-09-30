@@ -1,4 +1,6 @@
 #include "Graphics.h"
+#include "..//ErrorLogger/ErrorLogger.h"
+
 Graphics::Graphics()
 {
 
@@ -29,13 +31,13 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     res = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr,
         D3D11_CREATE_DEVICE_BGRA_SUPPORT, featureLevel, 1, D3D11_SDK_VERSION,
         &swapDesc, &swapChain, &device, nullptr, &context);
-    ZCHECK(res);
+    ErrorLogger::DirectXLog(res, Error, "Failed to create device and swapchain", __FILE__, __FUNCTION__, __LINE__);
 
     ID3D11Texture2D* backTex;
     res = swapChain->GetBuffer(0, IID_ID3D11Texture2D, (void**)&backTex);
-    ZCHECK(res);
+    ErrorLogger::DirectXLog(res, Error, "Failed to initialize swapchain", __FILE__, __FUNCTION__, __LINE__);
     res = device->CreateRenderTargetView(backTex, nullptr, &renderTargetView);
-    ZCHECK(res);
+    ErrorLogger::DirectXLog(res, Error, "Failed to create RenderTargetView", __FILE__, __FUNCTION__, __LINE__);
 
     context->QueryInterface(IID_ID3DUserDefinedAnnotation, (void**)&annotation);
 
@@ -47,7 +49,8 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     rastDesc.FillMode = D3D11_FILL_SOLID;
 
     ID3D11RasterizerState* rastState;
-    res = device->CreateRasterizerState(&rastDesc, &rastState); ZCHECK(res);
+    res = device->CreateRasterizerState(&rastDesc, &rastState); 
+    ErrorLogger::DirectXLog(res, Error, "Failed to create RasterizerState", __FILE__, __FUNCTION__, __LINE__);
 
     context->RSSetState(rastState);
 

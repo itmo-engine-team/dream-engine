@@ -26,6 +26,7 @@ void ErrorLogger::Log(LogType type, std::string message)
 		logFile << "\n" << errorMessage << std::endl;
 		logFile.close();
 	}
+	printf(errorMessage.c_str());
 }
 
 void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, const std::string& file, const std::string& function, int line)
@@ -60,18 +61,18 @@ void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, c
 		logFile << "\n" << errorMessage << std::endl;
 		logFile.close();
 	}
-	int msgboxID;
+	
 	switch (type)
 	{
 	case Error:
-		
+		printf(errorMessage.c_str());
 		//MessageBoxA(GetActiveWindow(), error_message.c_str(), "Error", MB_ICONERROR);
 		exit(0);
 	case Warning:
 		break;
 	}
-		
 	
+	printf(errorMessage.c_str());
 
 }
 

@@ -9,8 +9,6 @@
 #pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
 #pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
 
-#define ZCHECK(exp) if(FAILED(exp)) { printf("Check failed at file: %s at line %i", __FILE__, __LINE__); return 0; }
-
 class Graphics
 {
 public:

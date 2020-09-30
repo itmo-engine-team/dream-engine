@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Texture.h"
+#include "..//ErrorLogger/ErrorLogger.h"
 #include <WICTextureLoader.h>
 
 Texture::Texture(Engine* engine, const wchar_t* texturePath) : engine(engine)
@@ -22,6 +23,8 @@ Texture::Texture(Engine* engine, const wchar_t* texturePath) : engine(engine)
 
     // Creating a texturing sample interface
     hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &g_pSamplerLinear);
+    ErrorLogger::DirectXLog(hr, Error, "Failed create SamplerState", __FILE__, __FUNCTION__, __LINE__);
+
 }
 
 void Texture::setTexture()

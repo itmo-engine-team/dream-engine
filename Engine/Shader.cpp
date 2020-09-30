@@ -1,6 +1,6 @@
 #include "Engine.h"
 #include "Shader.h"
-#include <iostream>
+#include "..//ErrorLogger/ErrorLogger.h"
 #include <d3dcompiler.h>
 
 Shader::Shader(Engine* engine, const wchar_t* shaderPath,
@@ -25,14 +25,12 @@ Shader::Shader(Engine* engine, const wchar_t* shaderPath,
         // If the shader failed to compile it should have written something to the error message.
         if (errorVertexCode) {
             char* compileErrors = (char*)(errorVertexCode->GetBufferPointer());
-
-            std::cout << compileErrors << std::endl;
+            ErrorLogger::DirectXLog(hr, Error, compileErrors, __FILE__, __FUNCTION__, __LINE__);
         }
         // If there was  nothing in the error message then it simply could not find the shader file itself.
         else
         {
-            MessageBox(engine->GetWindow()->GetWnd(),
-                shaderPath, L"Missing Shader File", MB_OK);
+            ErrorLogger::DirectXLog(hr, Error, "Missing Shader file", __FILE__, __FUNCTION__, __LINE__);
         }
         return;
     }
@@ -58,14 +56,12 @@ Shader::Shader(Engine* engine, const wchar_t* shaderPath,
         // If the shader failed to compile it should have written something to the error message.
         if (errorPixelCode) {
             char* compileErrors = (char*)(errorPixelCode->GetBufferPointer());
-
-            std::cout << compileErrors << std::endl;
+            ErrorLogger::DirectXLog(hr, Error, compileErrors, __FILE__, __FUNCTION__, __LINE__);
         }
         // If there was  nothing in the error message then it simply could not find the shader file itself.
         else
         {
-            MessageBox(engine->GetWindow()->GetWnd(),
-                shaderPath, L"Missing Shader File", MB_OK);
+            ErrorLogger::DirectXLog(hr, Error, "Missing Shader file", __FILE__, __FUNCTION__, __LINE__);
         }
         return;
     }
@@ -76,6 +72,8 @@ Shader::Shader(Engine* engine, const wchar_t* shaderPath,
         nullptr,
         &pPixelShader
         );
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create PixelShader", __FILE__, __FUNCTION__, __LINE__);
+
 
     ID3D11InputLayout* layout;
     hr = device->CreateInputLayout(
@@ -84,6 +82,8 @@ Shader::Shader(Engine* engine, const wchar_t* shaderPath,
         vertexBC->GetBufferPointer(),
         vertexBC->GetBufferSize(),
         &pInputLayout);
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create InputLayout", __FILE__, __FUNCTION__, __LINE__);
+
 }
 
 void Shader::SetShader()

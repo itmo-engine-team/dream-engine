@@ -117,15 +117,15 @@ bool Graphics::Direct2DInitialize(HWND hWnd)
     res->Release();
     surface->Release();
 
-    HRESULT rs = renderTarget->CreateSolidColorBrush(D2D1_COLOR_F{0.4f, 1.0f, 1.0f, 1.0f}, &rBrush);
+    HRESULT rs = renderTarget->CreateSolidColorBrush(D2D1_COLOR_F{0.4f, 1.0f, 1.0f, 1.0f}, &brush);
 
     DWriteCreateFactory(
         DWRITE_FACTORY_TYPE_SHARED,
         __uuidof(IDWriteFactory),
-        reinterpret_cast<IUnknown**>(&pDWriteFactory_)
+        reinterpret_cast<IUnknown**>(&writeFactory)
     );
 
-    pDWriteFactory_->CreateTextFormat(
+    writeFactory->CreateTextFormat(
         L"Calibri",                // Font family name.
         NULL,                       // Font collection (NULL sets it to use the system font collection).
         DWRITE_FONT_WEIGHT_REGULAR,
@@ -133,22 +133,22 @@ bool Graphics::Direct2DInitialize(HWND hWnd)
         DWRITE_FONT_STRETCH_NORMAL,
         20.0f,
         L"en-us",
-        &pTextFormat_
+        &textFormat
     );
 
-    pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-    pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+    textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+    textFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 
     return true;
 }
 
-bool Graphics::DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText_)
+bool Graphics::DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText)
 {
     if (renderTarget)
     {
         renderTarget->BeginDraw();
         renderTarget->SetTransform(D2D1::IdentityMatrix());
-        ConfigureBrush(posX, posY, wszText_);
+        ConfigureBrush(posX, posY, wszText);
 
         renderTarget->EndDraw();
 
@@ -158,7 +158,7 @@ bool Graphics::DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText_)
 }
 
 // Configurate layout to text and brush to draw text
-void Graphics::ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText_) 
+void Graphics::ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText) 
 {
     D2D1_RECT_F layoutRect = D2D1::RectF(
         static_cast<FLOAT>(posX),
@@ -167,19 +167,17 @@ void Graphics::ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText_)
         static_cast<FLOAT>(0)
     );
 
-    UINT32 cTextLength_ = (UINT32)wcslen(wszText_);
+    UINT32 cTextLength_ = (UINT32)wcslen(wszText);
 
     renderTarget->DrawTextW(
-        wszText_,   // The string to render.
+        wszText,   // The string to render.
         cTextLength_,    // The string's length.
-        pTextFormat_,    // The text format.
+        textFormat,    // The text format.
         layoutRect,       // The region of the window where the text will be rendered.
-        rBrush    // The brush used to draw the text.
+        brush    // The brush used to draw the text.
     );
 
 }
-
-
 
 ID3D11Device* Graphics::GetDevice()
 {

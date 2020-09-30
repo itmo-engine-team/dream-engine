@@ -9,7 +9,6 @@
 #pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
 #pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
 
-
 #define ZCHECK(exp) if(FAILED(exp)) { printf("Check failed at file: %s at line %i", __FILE__, __LINE__); return 0; }
 
 class Graphics
@@ -19,7 +18,7 @@ public:
     Graphics();
     bool DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd);
     
-    bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText_);
+    bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
 
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -44,12 +43,13 @@ private:
     // Variables for Direct2D initialization
     ID2D1Factory* factory = nullptr;
     ID2D1RenderTarget* renderTarget;
-    ID2D1SolidColorBrush* rBrush = nullptr;
+    ID2D1SolidColorBrush* brush = nullptr;
 
-    IDWriteFactory* pDWriteFactory_ = nullptr;
-    IDWriteTextFormat* pTextFormat_;
-    RECT rc;
+    IDWriteFactory* writeFactory = nullptr;
+    IDWriteTextFormat* textFormat;
+    RECT rect;
 
     bool Direct2DInitialize(HWND hWnd);
-    void ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText_);
+    void ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
+
 };

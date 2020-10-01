@@ -20,89 +20,13 @@ KatamariGame::~KatamariGame()
 void KatamariGame::Init()
 {
     // Init Shaders
+
     texture = new Texture(this, L"Game/Meshes/eyeball/eyes_blue.jpg");
+    texturedShader = new TexturedShader(this, L"Game/Shaders/ShaderTextured.fx", texture);
+    texturedShader->Init();
 
-    D3D11_INPUT_ELEMENT_DESC texturedShaderInputElements[] = 
-    {
-        D3D11_INPUT_ELEMENT_DESC
-        {
-            "POSITION",
-            0,
-            DXGI_FORMAT_R32G32B32_FLOAT,
-            0,
-            0,
-            D3D11_INPUT_PER_VERTEX_DATA,
-            0
-        },
-        D3D11_INPUT_ELEMENT_DESC
-        {
-            "COLOR",
-            0,
-            DXGI_FORMAT_R32G32B32A32_FLOAT,
-            0,
-            D3D11_APPEND_ALIGNED_ELEMENT,
-            D3D11_INPUT_PER_VERTEX_DATA,
-            0
-        },
-        D3D11_INPUT_ELEMENT_DESC
-        {
-            "NORMAL",
-            0,
-            DXGI_FORMAT_R32G32B32_FLOAT,
-            0,
-            D3D11_APPEND_ALIGNED_ELEMENT,
-            D3D11_INPUT_PER_VERTEX_DATA,
-            0
-        },
-        D3D11_INPUT_ELEMENT_DESC
-        {
-            "TEXCOORD",
-            0,
-            DXGI_FORMAT_R32G32_FLOAT,
-            0,
-            D3D11_APPEND_ALIGNED_ELEMENT,
-            D3D11_INPUT_PER_VERTEX_DATA,
-            0
-        },
-    };
-
-    texturedShader = new TexturedShader(this, L"Game/Shaders/ShaderTextured.fx", texturedShaderInputElements, 4, texture);
-
-    D3D11_INPUT_ELEMENT_DESC shaderInputElements[] = 
-    {
-        D3D11_INPUT_ELEMENT_DESC
-        {
-            "POSITION",
-            0,
-            DXGI_FORMAT_R32G32B32_FLOAT,
-            0,
-            0,
-            D3D11_INPUT_PER_VERTEX_DATA,
-            0
-        },
-        D3D11_INPUT_ELEMENT_DESC
-        {
-            "COLOR",
-            0,
-            DXGI_FORMAT_R32G32B32A32_FLOAT,
-            0,
-            D3D11_APPEND_ALIGNED_ELEMENT,
-            D3D11_INPUT_PER_VERTEX_DATA,
-            0
-        },
-        D3D11_INPUT_ELEMENT_DESC
-        {
-            "NORMAL",
-            0,
-            DXGI_FORMAT_R32G32B32_FLOAT,
-            0,
-            D3D11_APPEND_ALIGNED_ELEMENT,
-            D3D11_INPUT_PER_VERTEX_DATA,
-            0
-        },
-    };
-
-    shader = new Shader(this, L"Game/Shaders/Shader.fx", shaderInputElements, 3);
+    shader = new Shader(this, L"Game/Shaders/Shader.fx");
+    shader->Init();
 
     // Init Meshes
 

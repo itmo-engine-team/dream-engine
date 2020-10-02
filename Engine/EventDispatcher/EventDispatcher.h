@@ -23,8 +23,9 @@ public:
     template <class C, typename ...arg>
     void BindEvent(Event<C, arg...>* event)
     {
-        if (event)
-            eventList[event->GetName()].push_back(event);
+        if (!event) return;
+
+        eventList[event->GetName()].push_back(event);
     }
 
 

@@ -2,13 +2,11 @@
 
 #include <string>
 
-
 class IEvent
 {
 public:
     virtual  ~IEvent() {}
 };
-
 
 template <typename ...arg>
 class BaseEvent : public IEvent
@@ -18,30 +16,29 @@ public:
     virtual void Call(arg... a) = 0;
 };
 
-
 template <class C, typename ...arg>
 class Event : public BaseEvent<arg...>
 {
 public:
 	
     // Alias for template callback
-    typedef void(Class::* CallbackType)(arg...);
+    typedef void(C::* CallbackType)(arg...);
 
     // Constructor
-    explicit Event(const std::string& name, C& cl, const CallbackType& cb) : EventName(name), Class(cl), CalledFunction(cb) {}
+    explicit Event(const std::string& name, C& nameClass, const CallbackType& callbackType) : eventName(name), className(nameClass), calledFunction(callbackType) {}
 
     // Get event name
-    const std::string& GetName() const override { return this->eventName; }
+    const std::string& GetName() const override { return eventName; }
 
     // Call function
-    void Call(arg... a)
+    void Call(arg... a) override
     {
-        this->calledFunction(a...);
+        (className.*calledFunction)(a...);
     }
 
 private:
 	
-    std::string EventName;
-    C& Class;
-    CallbackType const CalledFunction;
+    std::string eventName;
+    C& className;
+    CallbackType const calledFunction;
 };

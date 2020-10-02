@@ -20,14 +20,15 @@ public:
     }
 
     // Register event
-    void BindEvent(IEvent* event)
+    template <class C, typename ...arg>
+    void BindEvent(Event<C, arg...>* event)
     {
         if (event)
             eventList[event->GetName()].push_back(event);
     }
 
 
-    template <class Class, typename ...arg>
+    template <typename ...arg>
     void CallEvent(const std::string& eventName, arg... a)
     {
         auto eventIterator = eventList.find(eventName);
@@ -37,10 +38,9 @@ public:
 
         for (auto* ie : eventIterator->second)
         {
-            if (Event<Class, arg...>* event = dynamic_cast<Event<Class, arg...>*>(ie))
+            if (BaseEvent<arg...>* event = dynamic_cast<BaseEvent<arg...>*>(ie))
             {
-                Class classTemplate;
-                event->Call(classTemplate, a...);
+                event->Call(a...);
             }
             else
             {

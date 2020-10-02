@@ -25,7 +25,7 @@ public:
     typedef void(C::* CallbackType)(arg...);
 
     // Constructor
-    explicit Event(const std::string& name, C& nameClass, const CallbackType& callbackType) : eventName(name), className(nameClass), calledFunction(callbackType) {}
+    explicit Event(const std::string& name, C& className, const CallbackType& callbackType) : eventName(name), className(className), calledFunction(callbackType) {}
 
     // Get event name
     const std::string& GetName() const override { return eventName; }

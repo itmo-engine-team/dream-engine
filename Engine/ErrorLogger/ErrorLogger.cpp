@@ -16,9 +16,9 @@ void ErrorLogger::Log(LogType type, std::string message)
 	case Warning:
 		errorMessage += "\nWARNING: ";
 		break;
-	default:
-		errorMessage += "\n ";
-
+	case Info:
+		errorMessage += "\nINFO: ";
+		break;
 	}	
 	errorMessage += message;
 
@@ -54,8 +54,9 @@ void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, c
 	case Error:
 		errorMessage += "\nERROR: ";
 		break;
-	default:
-		errorMessage += "\n ";
+	case Info:
+		errorMessage += "\nINFO: ";
+		break;
 	}
 		
 	errorMessage += std::string(msg);

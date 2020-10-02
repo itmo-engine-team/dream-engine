@@ -1,41 +1,44 @@
 #pragma once
 
-#include <functional>
 #include <string>
 
 class IEvent
 {
 public:
-	
-    virtual const std::string& GetName() const = 0;
     virtual  ~IEvent() {}
 };
 
+template <typename ...arg>
+class BaseEvent : public IEvent
+{
+public:
+    virtual const std::string& GetName() const = 0;
+    virtual void Call(arg... a) = 0;
+};
 
-template <class Class, typename ...arg>
-class Event : public IEvent
+template <class C, typename ...arg>
+class Event : public BaseEvent<arg...>
 {
 public:
 	
     // Alias for template callback
-    typedef std::function<void(Class&, arg...)> CallbackType;
+    typedef void(C::* CallbackType)(arg...);
 
     // Constructor
-    explicit Event(const std::string& name, const CallbackType& cb) : eventName(name), calledFunction(cb) {}
+    explicit Event(const std::string& name, C& className, const CallbackType& callbackType) : eventName(name), className(className), calledFunction(callbackType) {}
 
     // Get event name
-    const std::string& GetName() const override { return this->eventName; }
+    const std::string& GetName() const override { return eventName; }
 
     // Call function
-    void Call(Class& t, arg... a)
+    void Call(arg... a) override
     {
-        this->calledFunction(t, a...);
+        (className.*calledFunction)(a...);
     }
 
 private:
 	
-    // Event Name
     std::string eventName;
-
+    C& className;
     CallbackType const calledFunction;
 };

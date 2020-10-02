@@ -7,7 +7,8 @@
 enum LogType
 {
 	Warning,
-	Error
+	Error,
+	Info
 };
 
 

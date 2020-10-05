@@ -2,8 +2,7 @@
 
 Transform::Transform(const Vector3 pos)
 {
-    transformMatrix = Matrix::CreateFromQuaternion(Quaternion::Identity)
-        * Matrix::CreateTranslation(pos);
+    relativeMatrix = Matrix::CreateTranslation(pos);
 }
 
 Transform::~Transform()
@@ -26,12 +25,10 @@ bool Transform::HasParent() const
     return parent != nullptr;
 }
 
-void Transform::SetParent(Transform* parent)
+void Transform::SetParent(Transform* parent, const bool saveRelation)
 {
     if (parent == nullptr)
     {
-        // @TODO Wait for LOGGER
-        // LOG WARNING
         return;
     }
 
@@ -39,6 +36,13 @@ void Transform::SetParent(Transform* parent)
 
     parent->children.push_back(this);
     this->parent = parent;
+
+    if (saveRelation)
+    {
+        relativeMatrix *= parent->GetWorldMatrix();
+    }
+
+    relativeMatrix *= parent->GetWorldMatrix().Invert();
 }
 
 void Transform::ClearParent()
@@ -52,6 +56,8 @@ void Transform::ClearParent(const bool recursiveClearing)
     {
         return;
     }
+
+    relativeMatrix *= parent->GetWorldMatrix();
 
     if (recursiveClearing)
     {
@@ -74,14 +80,12 @@ void Transform::AddChild(Transform* child)
 {
     if (child == nullptr)
     {
-        // @TODO Wait for LOGGER
-        // LOG WARNING
         return;
     }
 
     children.push_back(child);
     child->parent = this;
-    child->transformMatrix *= GetWorldMatrix().Invert();
+    child->relativeMatrix *= GetWorldMatrix().Invert();
 }
 
 void Transform::RemoveChild(Transform* childToRemove)
@@ -118,22 +122,32 @@ std::vector<Transform*>& Transform::GetChildren()
     return children;
 }
 
-Vector3 Transform::GetLocalPosition() const
+Vector3 Transform::GetRelativePosition() const
 {
-    return translation.Translation();
+    return relativeMatrix.Translation();
 }
 
 void Transform::SetLocalPosition(const Vector3 pos)
 {
-    transformMatrix = translation.Invert() * transformMatrix;
-    translation = Matrix::CreateTranslation(pos);
-    transformMatrix *= translation;
+    const auto prevTranslation = Matrix::CreateTranslation(relativeMatrix.Translation());
+    relativeMatrix = prevTranslation.Invert() * relativeMatrix;
+    relativeMatrix = Matrix::CreateTranslation(pos) * relativeMatrix;
 }
 
 void Transform::AddLocalPosition(const Vector3 pos)
 {
-    transformMatrix = Matrix::CreateTranslation(pos) * transformMatrix;
-    translation *= Matrix::CreateTranslation(pos);
+    relativeMatrix = Matrix::CreateTranslation(pos) * relativeMatrix;
+}
+
+void Transform::SetRelativePosition(Vector3 pos)
+{
+    relativeMatrix *= Matrix::CreateTranslation(relativeMatrix.Translation()).Invert();
+    relativeMatrix *= Matrix::CreateTranslation(pos);
+}
+
+void Transform::AddRelativePosition(Vector3 pos)
+{
+    relativeMatrix *= Matrix::CreateTranslation(pos);
 }
 
 Vector3 Transform::GetWorldPosition() const
@@ -143,32 +157,49 @@ Vector3 Transform::GetWorldPosition() const
 
 void Transform::SetWorldPosition(const Vector3 pos)
 {
-    transformMatrix = transformMatrix * translation.Invert();
-    translation = Matrix::CreateTranslation(pos);
-    transformMatrix *= translation;
+    const auto prevTranslation = Matrix::CreateTranslation(GetWorldMatrix().Translation());
+    relativeMatrix = GetWorldMatrix() * prevTranslation.Invert();
+    relativeMatrix *= Matrix::CreateTranslation(pos);
+
+    if (parent)
+    {
+        relativeMatrix *= parent->GetWorldMatrix().Invert();
+    }
 }
 
 void Transform::AddWorldPosition(const Vector3 pos)
 {
-    transformMatrix = transformMatrix * Matrix::CreateTranslation(pos);
-    translation *= Matrix::CreateTranslation(pos);
+    relativeMatrix = GetWorldMatrix() * Matrix::CreateTranslation(pos);
+
+    if (parent)
+    {
+        relativeMatrix *= parent->GetWorldMatrix().Invert();
+    }
 }
 
 void Transform::AddLocalRotation(const Vector3 axis, const float angle)
 {
-    rotation *= Matrix::CreateFromAxisAngle(axis, angle);
-    transformMatrix = Matrix::CreateFromAxisAngle(axis, angle) * transformMatrix * translation.Invert() * translation;
+    relativeMatrix = Matrix::CreateFromAxisAngle(axis, angle) * relativeMatrix;
+}
+
+void Transform::AddRelativeRotation(Vector3 axis, float angle)
+{
+    relativeMatrix *= Matrix::CreateFromAxisAngle(axis, angle);
 }
 
 void Transform::AddWorldRotation(const Vector3 axis, const float angle)
 {
-    rotation *= Matrix::CreateFromAxisAngle(axis, angle);
-    transformMatrix = transformMatrix * translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * translation;
+    relativeMatrix = GetWorldMatrix() * Matrix::CreateFromAxisAngle(axis, angle);
+
+    if (parent)
+    {
+        relativeMatrix *= parent->GetWorldMatrix().Invert();
+    }
 }
 
 Matrix Transform::GetWorldMatrix() const
 {
-    auto result = transformMatrix;
+    auto result = relativeMatrix;
 
     if (parent != nullptr)
     {

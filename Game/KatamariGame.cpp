@@ -71,7 +71,7 @@ void KatamariGame::update()
         else
         {
             katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, deltaTime });
-            katamariPlayer->GetTransform()->AddWorldRotation({ 1, 0, 0 }, deltaTime);
+            playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, deltaTime);
         }
     }
     if (inputDevice->KeyIsPressed('A'))
@@ -83,7 +83,7 @@ void KatamariGame::update()
         else
         {
             katamariPlayer->GetTransform()->AddWorldPosition({ deltaTime, 0.0f, 0.0f });
-            katamariPlayer->GetTransform()->AddWorldRotation({ 0, 0, 1 }, -deltaTime);
+            playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -deltaTime);
         }
     }
     if (inputDevice->KeyIsPressed('S'))
@@ -95,7 +95,7 @@ void KatamariGame::update()
         else
         {
             katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -deltaTime });
-            katamariPlayer->GetTransform()->AddWorldRotation({ 1, 0, 0 }, -deltaTime);
+            playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -deltaTime);
         }
     }
     if (inputDevice->KeyIsPressed('D'))
@@ -107,7 +107,7 @@ void KatamariGame::update()
         else
         {
             katamariPlayer->GetTransform()->AddWorldPosition({ -deltaTime, 0.0f, 0.0f });
-            katamariPlayer->GetTransform()->AddWorldRotation({ 0, 0, 1 }, deltaTime);
+            playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, deltaTime);
         }
     }
 

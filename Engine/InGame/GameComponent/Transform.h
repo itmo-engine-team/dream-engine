@@ -15,7 +15,7 @@ public:
     Transform* GetParent() const;
     bool HasParent() const;
     void SetParent(Transform* parent, bool saveRelation = false);
-    void ÑlearParent();
+    void ClearParent();
 
     std::vector<Transform*>& GetChildren();
     void AddChild(Transform* child);
@@ -46,7 +46,7 @@ private:
     Transform* parent = nullptr;
     std::vector<Transform*> children;
 
-    void ÑlearParent(bool recursiveClearing);
+    void ClearParent(bool recursiveClearing);
     void RemoveChild(Transform* childToRemove, bool recursiveClearing);
 
 };

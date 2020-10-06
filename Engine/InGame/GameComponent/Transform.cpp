@@ -11,7 +11,7 @@ Transform::~Transform()
 
     for (auto pChild : children)
     {
-        pChild->ÑlearParent(false);
+        pChild->ClearParent(false);
     }
 }
 
@@ -32,7 +32,7 @@ void Transform::SetParent(Transform* parent, const bool saveRelation)
         return;
     }
 
-    ÑlearParent(true);
+    ClearParent(true);
 
     parent->children.push_back(this);
     this->parent = parent;
@@ -45,12 +45,12 @@ void Transform::SetParent(Transform* parent, const bool saveRelation)
     relativeMatrix *= parent->GetWorldMatrix().Invert();
 }
 
-void Transform::ÑlearParent()
+void Transform::ClearParent()
 {
-    ÑlearParent(true);
+    ClearParent(true);
 }
 
-void Transform::ÑlearParent(const bool recursiveClearing)
+void Transform::ClearParent(const bool recursiveClearing)
 {
     if (parent == nullptr)
     {
@@ -113,7 +113,7 @@ void Transform::RemoveChild(Transform* childToRemove, const bool recursiveCleari
 
     if (recursiveClearing)
     {
-        childToRemove->ÑlearParent(false);
+        childToRemove->ClearParent(false);
     }
 }
 

@@ -9,7 +9,7 @@ class ActorComponent
 public:
 
     ActorComponent(Engine* engine, Actor* actor);
-    ~ActorComponent() = default;
+    virtual ~ActorComponent() = default;
 
     void Init();
     void Update();

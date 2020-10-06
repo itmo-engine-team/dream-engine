@@ -10,7 +10,7 @@
 #include "Input/InputDevice.h"
 #include "Input/Mouse.h"
 
-#include "GameComponent/Camera.h"
+#include "GameObject/SpectatorActor.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -28,7 +28,7 @@ public:
     Graphics* GetGraphics() const;
     Window* GetWindow() const;
 
-    Camera* GetCamera() const;
+    CameraComponent* GetCamera() const;
 
     InputDevice* GetInputDevice() const;
     Mouse* GetMouse() const;
@@ -43,7 +43,7 @@ protected:
     Graphics* graphics;
     MeshRenderer* meshRenderer;
 
-    Camera* camera;
+    SpectatorActor* spectatorActor;
 
     InputDevice* inputDevice;
     Mouse* mouse;

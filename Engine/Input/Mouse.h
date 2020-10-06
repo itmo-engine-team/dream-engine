@@ -6,10 +6,12 @@
 class Mouse
 {
 public:
+
     struct RawDelta
     {
         int x, y;
     };
+
     class Event
     {
     public:
@@ -69,6 +71,7 @@ public:
     Mouse() = default;
     Mouse(const Mouse&) = delete;
     Mouse& operator=(const Mouse&) = delete;
+
     std::pair<int, int> GetPos() const noexcept;
     std::optional<RawDelta> ReadRawDelta() noexcept;
     int GetPosX() const noexcept;
@@ -86,6 +89,9 @@ public:
     void DisableRaw() noexcept;
     bool RawEnabled() const noexcept;
 
+    bool IsLeftPressed() const;
+    bool IsRightPressed() const;
+
     void OnMouseMove(int x, int y) noexcept;
     void OnMouseLeave() noexcept;
     void OnMouseEnter() noexcept;
@@ -99,7 +105,9 @@ public:
     void TrimBuffer() noexcept;
     void TrimRawInputBuffer() noexcept;
     void OnWheelDelta(int x, int y, int delta) noexcept;
+
 private:
+
     static constexpr unsigned int bufferSize = 16u;
     int x;
     int y;
@@ -110,4 +118,5 @@ private:
     bool rawEnabled = false;
     std::queue<Event> buffer;
     std::queue<RawDelta> rawDeltaBuffer;
+
 };

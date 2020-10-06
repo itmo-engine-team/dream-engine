@@ -72,6 +72,16 @@ bool Mouse::RawEnabled() const noexcept
     return rawEnabled;
 }
 
+bool Mouse::IsLeftPressed() const
+{
+    return leftIsPressed;
+}
+
+bool Mouse::IsRightPressed() const
+{
+    return rightIsPressed;
+}
+
 void Mouse::OnMouseMove(int newx, int newy) noexcept
 {
     x = newx;

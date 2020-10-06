@@ -173,8 +173,8 @@ MeshData* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
 
         if (mesh->mTextureCoords[0])
         {
-            vertex.texCord.x = mesh->mTextureCoords[0][i].x;
-            vertex.texCord.y = mesh->mTextureCoords[0][i].y;
+            vertex.TexCord.x = mesh->mTextureCoords[0][i].x;
+            vertex.TexCord.y = mesh->mTextureCoords[0][i].y;
         }
 
         vertices.push_back(vertex);

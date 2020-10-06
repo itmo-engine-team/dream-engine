@@ -94,12 +94,12 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     context->RSSetViewports(1, &viewport);
     context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
-    Direct2DInitialize(hWnd);
+    direct2DInitialize(hWnd);
 
     return true;
 }
 
-bool Graphics::Direct2DInitialize(HWND hWnd)
+bool Graphics::direct2DInitialize(HWND hWnd)
 {
     D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory);
 
@@ -152,7 +152,7 @@ bool Graphics::DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText)
     {
         renderTarget->BeginDraw();
         renderTarget->SetTransform(D2D1::IdentityMatrix());
-        ConfigureBrush(posX, posY, wszText);
+        configureBrush(posX, posY, wszText);
 
         renderTarget->EndDraw();
 
@@ -162,7 +162,7 @@ bool Graphics::DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText)
 }
 
 // Configurate layout to text and brush to draw text
-void Graphics::ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText) 
+void Graphics::configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText) 
 {
     D2D1_RECT_F layoutRect = D2D1::RectF(
         static_cast<FLOAT>(posX),

@@ -8,28 +8,30 @@ class Vertex
 {
 public:
 
-    Vector3 pos;
-    Vector4 color;
-    Vector3 normal;
-    Vector2 texCord;
+    Vector3 Pos;
+    Vector4 Color;
+    Vector3 Normal;
+    Vector2 TexCord;
 
     Vertex() = default;
-    Vertex(Vector3 p, Vector4 c, Vector3 n) : pos(p), color(c), normal(n) {
+    Vertex(Vector3 p, Vector4 c, Vector3 n) : Pos(p), Color(c), Normal(n) {
 
     }
-    Vertex operator+(Vertex const v) {
+    Vertex operator+(Vertex const v)
+	{
         Vertex vNew;
-        vNew.pos.x = v.pos.x + pos.x;
-        vNew.pos.y = v.pos.y + pos.y;
-        vNew.color = color;
+        vNew.Pos.x = v.Pos.x + Pos.x;
+        vNew.Pos.y = v.Pos.y + Pos.y;
+        vNew.Color = Color;
         return vNew;
     }
 
-    Vertex operator*(float const v) {
+    Vertex operator*(float const v)
+	{
         Vertex vNew;
-        vNew.pos.x = pos.x * v;
-        vNew.pos.y = pos.y * v;
-        vNew.color = color;
+        vNew.Pos.x = Pos.x * v;
+        vNew.Pos.y = Pos.y * v;
+        vNew.Color = Color;
         return vNew;
     }
 };

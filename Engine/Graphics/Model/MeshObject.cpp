@@ -34,7 +34,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     hr = graphics->GetDevice()->CreateBuffer(
         &bd,
         &sd,
-        pVertexBuffer.GetAddressOf()
+        vertexBuffer.GetAddressOf()
         );
     ErrorLogger::DirectXLog(hr, Error, "Failed to create VertexBuffer", __FILE__, __FUNCTION__, __LINE__);
 	
@@ -55,7 +55,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     hr = graphics->GetDevice()->CreateBuffer(
         &ibd,
         &isd,
-        pIndexBuffer.GetAddressOf()
+        indexBuffer.GetAddressOf()
         );
     ErrorLogger::DirectXLog(hr, Error, "Failed to create IndexBuffer", __FILE__, __FUNCTION__, __LINE__);
 
@@ -66,7 +66,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     cbd.MiscFlags = 0u;
     cbd.ByteWidth = sizeof(ConstantBuffer);
     cbd.StructureByteStride = 0u;
-    hr = graphics->GetDevice()->CreateBuffer(&cbd, NULL, &pConstantBuffer);
+    hr = graphics->GetDevice()->CreateBuffer(&cbd, NULL, &constantBuffer);
     ErrorLogger::DirectXLog(hr, Error, "Failed to create ConstantBuffer", __FILE__, __FUNCTION__, __LINE__);
 
     D3D11_BUFFER_DESC lightBufferDesc;
@@ -76,7 +76,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     lightBufferDesc.MiscFlags = 0;
     lightBufferDesc.ByteWidth = sizeof(LightBuffer);
     lightBufferDesc.StructureByteStride = 0;
-    hr = graphics->GetDevice()->CreateBuffer(&lightBufferDesc, NULL, &pLightBuffer);
+    hr = graphics->GetDevice()->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
     ErrorLogger::DirectXLog(hr, Error, "Failed to create LightBuffer", __FILE__, __FUNCTION__, __LINE__);
 	
     D3D11_BUFFER_DESC cameraBufferDesc;
@@ -86,7 +86,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     cameraBufferDesc.MiscFlags = 0;
     cameraBufferDesc.ByteWidth = sizeof(CameraBuffer);
     cameraBufferDesc.StructureByteStride = 0;
-    hr = graphics->GetDevice()->CreateBuffer(&cameraBufferDesc, NULL, &pCameraBuffer);
+    hr = graphics->GetDevice()->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
     ErrorLogger::DirectXLog(hr, Error, "Failed to create CameraBuffer", __FILE__, __FUNCTION__, __LINE__);
 
 }
@@ -96,11 +96,11 @@ void MeshObject::Draw()
     graphics->GetContext()->IASetVertexBuffers(
         0u,
         1u,
-        pVertexBuffer.GetAddressOf(),
+        vertexBuffer.GetAddressOf(),
         &stride,
         &offset
         );
-    graphics->GetContext()->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+    graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     shader->SetShader();
@@ -112,8 +112,8 @@ void MeshObject::Draw()
         engine->GetCamera()->getViewMatrix(),
         engine->GetCamera()->getProjectionMatrix(),
     };
-    graphics->GetContext()->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
-    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
 
     const LightBuffer lb =
     {
@@ -123,8 +123,8 @@ void MeshObject::Draw()
         100.0f,
         {1.0f, 1.0f, 1.0f, 1.0f }
     };
-    graphics->GetContext()->UpdateSubresource(pLightBuffer.Get(), 0, NULL, &lb, 0, 0);
-    graphics->GetContext()->PSSetConstantBuffers(1u, 1u, pLightBuffer.GetAddressOf());
+    graphics->GetContext()->UpdateSubresource(lightBuffer.Get(), 0, NULL, &lb, 0, 0);
+    graphics->GetContext()->PSSetConstantBuffers(1u, 1u, lightBuffer.GetAddressOf());
 
     // Update Constant Buffer
     const CameraBuffer cameraBuffer =
@@ -133,8 +133,8 @@ void MeshObject::Draw()
         0.0f
     };
 
-    graphics->GetContext()->UpdateSubresource(pCameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
-    graphics->GetContext()->VSSetConstantBuffers(2u, 1u, pCameraBuffer.GetAddressOf());
+    graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(2u, 1u, cameraBuffer.GetAddressOf());
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 }

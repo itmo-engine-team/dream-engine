@@ -23,7 +23,20 @@ Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
 
 Engine::~Engine()
 {
+    delete graphics;
+    graphics = nullptr;
 
+    delete window;
+    window = nullptr;
+
+    delete meshRenderer;
+    meshRenderer = nullptr;
+
+    delete mouse;
+    mouse = nullptr;
+
+    delete inputDevice;
+    inputDevice = nullptr;
 }
 
 void Engine::Init()

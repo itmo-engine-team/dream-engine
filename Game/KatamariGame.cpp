@@ -15,6 +15,32 @@ KatamariGame::KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc) : Engine(hInstanc
 
 KatamariGame::~KatamariGame()
 {
+    delete camera;
+    camera = nullptr;
+
+    delete katamariPlayer;
+    katamariPlayer = nullptr;
+
+    delete box3;
+    box3 = nullptr;
+
+    delete box2;
+    box2 = nullptr;
+
+    delete box1;
+    box1 = nullptr;
+
+    delete plane;
+    plane = nullptr;
+
+    delete playerModel;
+    playerModel = nullptr;
+
+    delete boxModel;
+    boxModel = nullptr;
+
+    delete plane;
+    plane = nullptr;
 }
 
 void KatamariGame::Init()

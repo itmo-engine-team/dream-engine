@@ -127,13 +127,13 @@ void MeshObject::Draw()
     graphics->GetContext()->PSSetConstantBuffers(1u, 1u, lightBuffer.GetAddressOf());
 
     // Update Constant Buffer
-    const CameraBuffer cameraBuffer =
+    const CameraBuffer cameraBufferData =
     {
-        engine->GetCamera()->transform.GetWorldPosition(),
+        engine->GetCamera()->Transform.GetWorldPosition(),
         0.0f
     };
 
-    graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
+    graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(2u, 1u, cameraBuffer.GetAddressOf());
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);

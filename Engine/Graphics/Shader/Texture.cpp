@@ -9,7 +9,7 @@ Texture::Texture(Engine* engine, const wchar_t* texturePath) : engine(engine)
     graphics = engine->GetGraphics();
 
     // Loading a texture from file
-    auto hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(), texturePath, nullptr, &g_pTextureRV, 0);
+    auto hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(), texturePath, nullptr, &textureResource, 0);
 
     // Creating a texture sample (description) 
     D3D11_SAMPLER_DESC sampDesc;
@@ -23,13 +23,13 @@ Texture::Texture(Engine* engine, const wchar_t* texturePath) : engine(engine)
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
     // Creating a texturing sample interface
-    hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &g_pSamplerLinear);
+    hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &samplerState);
     ErrorLogger::DirectXLog(hr, Error, "Failed create SamplerState", __FILE__, __FUNCTION__, __LINE__);
 
 }
 
 void Texture::setTexture()
 {
-    graphics->GetContext()->PSSetShaderResources(0, 1, &g_pTextureRV);
-    graphics->GetContext()->PSSetSamplers(0, 1, &g_pSamplerLinear);
+    graphics->GetContext()->PSSetShaderResources(0, 1, &textureResource);
+    graphics->GetContext()->PSSetSamplers(0, 1, &samplerState);
 }

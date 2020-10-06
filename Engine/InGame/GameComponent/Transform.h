@@ -46,8 +46,8 @@ private:
     Transform* parent = nullptr;
     std::vector<Transform*> children;
 
-    void ClearParent(bool recursiveClearing);
-    void RemoveChild(Transform* childToRemove, bool recursiveClearing);
+    void clearParentWithRecursive(bool recursiveClearing);
+    void removeChildWithRecursive(Transform* childToRemove, bool recursiveClearing);
 
 };
 

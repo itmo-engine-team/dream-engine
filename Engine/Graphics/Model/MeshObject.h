@@ -30,12 +30,12 @@ protected:
     Shader* shader;
     Graphics* graphics;
 
-    ComPtr<ID3D11Buffer> pIndexBuffer;
-    ComPtr<ID3D11Buffer> pVertexBuffer;
+    ComPtr<ID3D11Buffer> indexBuffer;
+    ComPtr<ID3D11Buffer> vertexBuffer;
 
-    ComPtr<ID3D11Buffer> pConstantBuffer;
-    ComPtr<ID3D11Buffer> pLightBuffer;
-    ComPtr<ID3D11Buffer> pCameraBuffer;
+    ComPtr<ID3D11Buffer> constantBuffer;
+    ComPtr<ID3D11Buffer> lightBuffer;
+    ComPtr<ID3D11Buffer> cameraBuffer;
     D3D11_SUBRESOURCE_DATA* csd;
 
     UINT stride;

@@ -75,20 +75,20 @@ void InputDevice::OnKeyPressed(unsigned char keycode) noexcept
 {
     keystates[keycode] = true;
     keybuffer.push(InputDevice::Event(InputDevice::Event::Type::Press, keycode));
-    TrimBuffer(keybuffer);
+    trimBuffer(keybuffer);
 }
 
 void InputDevice::OnKeyReleased(unsigned char keycode) noexcept
 {
     keystates[keycode] = false;
     keybuffer.push(InputDevice::Event(InputDevice::Event::Type::Release, keycode));
-    TrimBuffer(keybuffer);
+    trimBuffer(keybuffer);
 }
 
 void InputDevice::OnChar(char character) noexcept
 {
     charbuffer.push(character);
-    TrimBuffer(charbuffer);
+    trimBuffer(charbuffer);
 }
 
 void InputDevice::ClearState() noexcept
@@ -97,7 +97,7 @@ void InputDevice::ClearState() noexcept
 }
 
 template<typename T>
-void InputDevice::TrimBuffer(std::queue<T>& buffer) noexcept
+void InputDevice::trimBuffer(std::queue<T>& buffer) noexcept
 {
     while (buffer.size() > bufferSize)
     {

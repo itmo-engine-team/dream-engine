@@ -43,7 +43,7 @@ public:
             return code;
         }
     };
-public:
+
     InputDevice() = default;
     InputDevice(const InputDevice&) = delete;
     InputDevice& operator=(const InputDevice&) = delete;
@@ -68,8 +68,8 @@ public:
     void ClearState() noexcept;
 private:
     template<typename T>
-    static void TrimBuffer(std::queue<T>& buffer) noexcept;
-private:
+    static void trimBuffer(std::queue<T>& buffer) noexcept;
+
     static constexpr unsigned int nKeys = 256u;
     static constexpr unsigned int bufferSize = 16u;
     bool autorepeatEnabled = false;

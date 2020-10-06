@@ -13,14 +13,14 @@ public:
     Camera(Engine* engine, Vector3 position, Vector3 direction = { 0, 0, 1 });
     ~Camera() = default;
 
-    Matrix getViewMatrix();
-    Matrix getProjectionMatrix() const;
+    Matrix GetViewMatrix();
+    Matrix GetProjectionMatrix() const;
 
-    void rotate(float dx, float dy);
-    void translate(Vector3 translation);
-    virtual void update();
+    void Rotate(float dx, float dy);
+    void Translate(Vector3 translation);
+    virtual void Update();
 
-    Transform transform;
+    Transform Transform;
 
 protected:
 

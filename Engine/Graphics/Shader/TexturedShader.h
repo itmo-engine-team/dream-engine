@@ -9,9 +9,7 @@ class TexturedShader :
 {
 public:
 
-    TexturedShader(Engine* engine,
-        const wchar_t* shaderPath,
-        Texture* texture);
+    TexturedShader(Engine* engine, const wchar_t* shaderPath, Texture* texture);
 
     void Init() override;
 

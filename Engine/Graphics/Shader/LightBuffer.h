@@ -6,9 +6,9 @@ using namespace DirectX::SimpleMath;
 
 struct LightBuffer
 {
-    Vector4 ambientColor;
-    Vector4 diffuseColor;
-    Vector3 lightDirection;
-    float specularPower;
-    Vector4 specularColor;
+    Vector4 AmbientColor;
+    Vector4 DiffuseColor;
+    Vector3 LightDirection;
+    float SpecularPower;
+    Vector4 SpecularColor;
 };

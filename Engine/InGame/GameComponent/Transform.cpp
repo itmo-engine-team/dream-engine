@@ -7,11 +7,11 @@ Transform::Transform(const Vector3 pos)
 
 Transform::~Transform()
 {
-    parent->RemoveChild(this, false);
+    parent->removeChildWithRecursive(this, false);
 
     for (auto pChild : children)
     {
-        pChild->ClearParent(false);
+        pChild->clearParentWithRecursive(false);
     }
 }
 
@@ -32,7 +32,7 @@ void Transform::SetParent(Transform* parent, const bool saveRelation)
         return;
     }
 
-    ClearParent(true);
+    clearParentWithRecursive(true);
 
     parent->children.push_back(this);
     this->parent = parent;
@@ -47,10 +47,10 @@ void Transform::SetParent(Transform* parent, const bool saveRelation)
 
 void Transform::ClearParent()
 {
-    ClearParent(true);
+    clearParentWithRecursive(true);
 }
 
-void Transform::ClearParent(const bool recursiveClearing)
+void Transform::clearParentWithRecursive(const bool recursiveClearing)
 {
     if (parent == nullptr)
     {
@@ -90,10 +90,10 @@ void Transform::AddChild(Transform* child)
 
 void Transform::RemoveChild(Transform* childToRemove)
 {
-    RemoveChild(childToRemove, true);
+    removeChildWithRecursive(childToRemove, true);
 }
 
-void Transform::RemoveChild(Transform* childToRemove, const bool recursiveClearing)
+void Transform::removeChildWithRecursive(Transform* childToRemove, const bool recursiveClearing)
 {
     if (childToRemove == nullptr)
     {
@@ -113,7 +113,7 @@ void Transform::RemoveChild(Transform* childToRemove, const bool recursiveCleari
 
     if (recursiveClearing)
     {
-        childToRemove->ClearParent(false);
+        childToRemove->clearParentWithRecursive(false);
     }
 }
 

@@ -46,7 +46,7 @@ private:
     IDWriteTextFormat* textFormat;
     RECT rect;
 
-    bool Direct2DInitialize(HWND hWnd);
-    void ConfigureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
+    bool direct2DInitialize(HWND hWnd);
+    void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
 
 };

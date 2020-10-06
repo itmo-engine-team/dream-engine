@@ -85,14 +85,14 @@ void KatamariGame::update()
 {
     while (const auto delta = mouse->ReadRawDelta())
     {
-        camera->rotate((float)delta->x * -deltaTime, (float)delta->y * deltaTime);
+        camera->Rotate((float)delta->x * -deltaTime, (float)delta->y * deltaTime);
     }
 
     if (inputDevice->KeyIsPressed('W'))
     {
         if (inputDevice->KeyIsPressed('E'))
         {
-            camera->translate({ 0.0f,0.0f,deltaTime });
+            camera->Translate({ 0.0f,0.0f,deltaTime });
         }
         else
         {
@@ -104,7 +104,7 @@ void KatamariGame::update()
     {
         if (inputDevice->KeyIsPressed('E'))
         {
-            camera->translate({ deltaTime,0.0f,0.0f });
+            camera->Translate({ deltaTime,0.0f,0.0f });
         }
         else
         {
@@ -116,7 +116,7 @@ void KatamariGame::update()
     {
         if (inputDevice->KeyIsPressed('E'))
         {
-            camera->translate({ 0.0f,0.0f,-deltaTime });
+            camera->Translate({ 0.0f,0.0f,-deltaTime });
         }
         else
         {
@@ -128,7 +128,7 @@ void KatamariGame::update()
     {
         if (inputDevice->KeyIsPressed('E'))
         {
-            camera->translate({ -deltaTime,0.0f,0.0f });
+            camera->Translate({ -deltaTime,0.0f,0.0f });
         }
         else
         {
@@ -138,7 +138,7 @@ void KatamariGame::update()
     }
 
     katamariPlayer->Update();
-    camera->update();
+    camera->Update();
 
     /*collisionCheck(box1);
     collisionCheck(box2);

@@ -65,7 +65,7 @@ public:
             return rightIsPressed;
         }
     };
-public:
+
     Mouse() = default;
     Mouse(const Mouse&) = delete;
     Mouse& operator=(const Mouse&) = delete;

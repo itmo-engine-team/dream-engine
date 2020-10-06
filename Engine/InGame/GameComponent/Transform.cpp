@@ -7,11 +7,11 @@ Transform::Transform(const Vector3 pos)
 
 Transform::~Transform()
 {
-    parent->RemoveChild(this, false);
+    parent->removeChild(this, false);
 
     for (auto pChild : children)
     {
-        pChild->ClearParent(false);
+        pChild->clearParent(false);
     }
 }
 
@@ -32,7 +32,7 @@ void Transform::SetParent(Transform* parent, const bool saveRelation)
         return;
     }
 
-    ClearParent(true);
+    clearParent(true);
 
     parent->children.push_back(this);
     this->parent = parent;
@@ -45,12 +45,12 @@ void Transform::SetParent(Transform* parent, const bool saveRelation)
     relativeMatrix *= parent->GetWorldMatrix().Invert();
 }
 
-void Transform::ClearParent()
+void Transform::clearParent()
 {
-    ClearParent(true);
+    clearParent(true);
 }
 
-void Transform::ClearParent(const bool recursiveClearing)
+void Transform::clearParent(const bool recursiveClearing)
 {
     if (parent == nullptr)
     {
@@ -88,12 +88,12 @@ void Transform::AddChild(Transform* child)
     child->relativeMatrix *= GetWorldMatrix().Invert();
 }
 
-void Transform::RemoveChild(Transform* childToRemove)
+void Transform::removeChild(Transform* childToRemove)
 {
-    RemoveChild(childToRemove, true);
+    removeChild(childToRemove, true);
 }
 
-void Transform::RemoveChild(Transform* childToRemove, const bool recursiveClearing)
+void Transform::removeChild(Transform* childToRemove, const bool recursiveClearing)
 {
     if (childToRemove == nullptr)
     {
@@ -113,7 +113,7 @@ void Transform::RemoveChild(Transform* childToRemove, const bool recursiveCleari
 
     if (recursiveClearing)
     {
-        childToRemove->ClearParent(false);
+        childToRemove->clearParent(false);
     }
 }
 

@@ -3,11 +3,11 @@
 #include "Engine.h"
 
 KatamariCamera::KatamariCamera(Engine* engine, Vector3 position, GameObject* observedObject)
-    : Camera(engine, position), m_observedObject(observedObject), m_offset(position)
+    : Camera(engine, position), observedObject(observedObject), offset(position)
 {
 }
 
-void KatamariCamera::update()
+void KatamariCamera::Update()
 {
-    //transform.setWorldPosition(m_observedObject->transform->getLocalPosition() + m_offset);
+    //transform.setWorldPosition(observedObject->transform->getLocalPosition() + offset);
 }

@@ -15,11 +15,11 @@ public:
     Transform* GetParent() const;
     bool HasParent() const;
     void SetParent(Transform* parent, bool saveRelation = false);
-    void ClearParent();
+    void clearParent();
 
     std::vector<Transform*>& GetChildren();
     void AddChild(Transform* child);
-    void RemoveChild(Transform* childToRemove);
+    void removeChild(Transform* childToRemove);
 
     void SetLocalPosition(Vector3 pos);
     void AddLocalPosition(Vector3 pos);
@@ -46,8 +46,8 @@ private:
     Transform* parent = nullptr;
     std::vector<Transform*> children;
 
-    void ClearParent(bool recursiveClearing);
-    void RemoveChild(Transform* childToRemove, bool recursiveClearing);
+    void clearParent(bool recursiveClearing);
+    void removeChild(Transform* childToRemove, bool recursiveClearing);
 
 };
 

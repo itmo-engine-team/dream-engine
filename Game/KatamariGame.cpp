@@ -156,8 +156,8 @@ void KatamariGame::drawObjects()
 
 void KatamariGame::collisionCheck(GameObject* gameObject)
 {
-    /*if (!gameObject->transform->HasParent() && katamariSphere->collider->Contains(gameObject->transform->GetWorldPosition()))
+    /*if (!gameObject->Transform->HasParent() && katamariSphere->collider->Contains(gameObject->Transform->GetWorldPosition()))
     {
-        gameObject->transform->SetParent(katamariSphere->transform);
+        gameObject->Transform->SetParent(katamariSphere->Transform);
     }*/
 }

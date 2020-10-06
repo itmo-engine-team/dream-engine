@@ -9,5 +9,5 @@ KatamariCamera::KatamariCamera(Engine* engine, Vector3 position, GameObject* obs
 
 void KatamariCamera::Update()
 {
-    //transform.setWorldPosition(observedObject->transform->getLocalPosition() + offset);
+    //Transform.setWorldPosition(observedObject->Transform->getLocalPosition() + offset);
 }

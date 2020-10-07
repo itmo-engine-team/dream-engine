@@ -143,7 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\InGame\GameObject\Component\ActorComponent.cpp" />
-    <ClCompile Include="Engine\InGame\GameComponent\Camera.cpp" />
+    <ClCompile Include="Engine\InGame\GameObject\Component\CameraComponent.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\InGame\GameObject\GameObject.cpp" />
     <ClCompile Include="Engine\InGame\GameObject\Actor.cpp" />
@@ -156,7 +156,6 @@
     <ClCompile Include="Engine\InGame\GameComponent\Transform.cpp" />
     <ClCompile Include="Engine\ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="Engine\Graphics\Graphics.cpp" />
-    <ClCompile Include="Game\KatamariCamera.cpp" />
     <ClCompile Include="Game\KatamariSphere.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\Graphics\Model\MeshData.cpp" />
@@ -167,6 +166,7 @@
     <ClCompile Include="Engine\InGame\GameObject\Component\StaticModelComponent.cpp" />
     <ClCompile Include="Engine\Graphics\Window.cpp" />
     <ClCompile Include="Engine\ErrorLogger\StringConverter.cpp" />
+    <ClCompile Include="Engine\InGame\GameObject\SpectatorActor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Game\Shaders\Shader.fx">
@@ -180,7 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\InGame\GameObject\Component\ActorComponent.h" />
-    <ClInclude Include="Engine\InGame\GameComponent\Camera.h" />
+    <ClInclude Include="Engine\InGame\GameObject\Component\CameraComponent.h" />
     <ClInclude Include="Engine\Graphics\Shader\CameraBuffer.h" />
     <ClInclude Include="Engine\Graphics\Shader\ConstantBuffer.h" />
     <ClInclude Include="Engine\Engine.h" />
@@ -200,7 +200,6 @@
     <ClInclude Include="Engine\Graphics\Shader\Vertex.h" />
     <ClInclude Include="Engine\ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="Engine\Graphics\Graphics.h" />
-    <ClInclude Include="Game\KatamariCamera.h" />
     <ClInclude Include="Game\KatamariSphere.h" />
     <ClInclude Include="Engine\Graphics\Model\MeshData.h" />
     <ClInclude Include="Engine\Graphics\Model\ModelData.h" />
@@ -210,6 +209,7 @@
     <ClInclude Include="Engine\InGame\GameObject\Component\StaticModelComponent.h" />
     <ClInclude Include="Engine\Graphics\Window.h" />
     <ClInclude Include="Engine\ErrorLogger\StringConverter.h" />
+    <ClInclude Include="Engine\InGame\GameObject\SpectatorActor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

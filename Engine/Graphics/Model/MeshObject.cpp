@@ -129,7 +129,7 @@ void MeshObject::Draw()
     // Update Constant Buffer
     const CameraBuffer cameraBufferData =
     {
-        engine->GetCamera()->Transform.GetWorldPosition(),
+        engine->GetCamera()->GetTransform()->GetWorldPosition(),
         0.0f
     };
 

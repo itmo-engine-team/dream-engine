@@ -81,9 +81,9 @@ int Engine::GetScreenHeight() const
     return screenHeight;
 }
 
-Camera* Engine::GetCamera() const
+CameraComponent* Engine::GetCamera() const
 {
-    return camera;
+    return spectatorActor->GetCameraComponent();
 }
 
 InputDevice* Engine::GetInputDevice() const

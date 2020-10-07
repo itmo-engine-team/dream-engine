@@ -16,10 +16,8 @@
     <ClCompile Include="Engine\InGame\GameObject\GameObject.cpp" />
     <ClCompile Include="Engine\ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="Engine\ErrorLogger\StringConverter.cpp" />
-    <ClCompile Include="Game\KatamariCamera.cpp" />
     <ClCompile Include="Game\KatamariGame.cpp" />
     <ClCompile Include="Game\KatamariSphere.cpp" />
-    <ClCompile Include="Engine\InGame\GameComponent\Camera.cpp" />
     <ClCompile Include="Engine\InGame\GameComponent\Transform.cpp" />
     <ClCompile Include="Engine\Graphics\Model\MeshData.cpp" />
     <ClCompile Include="Engine\Graphics\Model\MeshObject.cpp" />
@@ -30,6 +28,8 @@
     <ClCompile Include="Engine\Graphics\Graphics.cpp" />
     <ClCompile Include="Engine\Graphics\MeshRenderer.cpp" />
     <ClCompile Include="Engine\Graphics\Window.cpp" />
+    <ClCompile Include="Engine\InGame\GameObject\SpectatorActor.cpp" />
+    <ClCompile Include="Engine\InGame\GameObject\Component\CameraComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
@@ -42,12 +42,10 @@
     <ClInclude Include="Engine\InGame\GameObject\GameObject.h" />
     <ClInclude Include="Engine\ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="Engine\ErrorLogger\StringConverter.h" />
-    <ClInclude Include="Game\KatamariCamera.h" />
     <ClInclude Include="Game\KatamariGame.h" />
     <ClInclude Include="Game\KatamariSphere.h" />
     <ClInclude Include="Engine\EventDispatcher\EventDispatcher.h" />
     <ClInclude Include="Engine\EventDispatcher\Event.h" />
-    <ClInclude Include="Engine\InGame\GameComponent\Camera.h" />
     <ClInclude Include="Engine\InGame\GameComponent\Transform.h" />
     <ClInclude Include="Engine\Graphics\Model\MeshData.h" />
     <ClInclude Include="Engine\Graphics\Model\MeshObject.h" />
@@ -63,6 +61,8 @@
     <ClInclude Include="Engine\Graphics\MeshRenderer.h" />
     <ClInclude Include="Engine\Graphics\Window.h" />
     <ClInclude Include="Engine\Util\MathUtils.h" />
+    <ClInclude Include="Engine\InGame\GameObject\SpectatorActor.h" />
+    <ClInclude Include="Engine\InGame\GameObject\Component\CameraComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

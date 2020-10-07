@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include "KatamariCamera.h"
 #include "Graphics/Shader/Texture.h"
 #include "GameObject/Component/StaticModelComponent.h"
 
@@ -15,8 +14,8 @@ KatamariGame::KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc) : Engine(hInstanc
 
 KatamariGame::~KatamariGame()
 {
-    delete camera;
-    camera = nullptr;
+    delete spectatorActor;
+    spectatorActor = nullptr;
 
     delete katamariPlayer;
     katamariPlayer = nullptr;
@@ -78,67 +77,36 @@ void KatamariGame::Init()
     playerSphere = new StaticModelComponent(this, katamariPlayer, new Transform({ 0, 0, 0 }), playerModel);
     katamariPlayer->AddComponent(playerSphere);
 
-    camera = new KatamariCamera(this, { 0, 1, -6 }, katamariPlayer);
+    spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
 }
 
 void KatamariGame::update()
 {
-    while (const auto delta = mouse->ReadRawDelta())
-    {
-        camera->Rotate((float)delta->x * -deltaTime, (float)delta->y * deltaTime);
-    }
+    katamariPlayer->Update();
+    spectatorActor->Update();
 
+    // Update player movement
+    if (inputDevice->KeyIsPressed('C')) return; // Skip if camera moves
     if (inputDevice->KeyIsPressed('W'))
     {
-        if (inputDevice->KeyIsPressed('E'))
-        {
-            camera->Translate({ 0.0f,0.0f,deltaTime });
-        }
-        else
-        {
-            katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, deltaTime });
-            playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, deltaTime);
-        }
+        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, deltaTime });
+        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, deltaTime);
     }
     if (inputDevice->KeyIsPressed('A'))
     {
-        if (inputDevice->KeyIsPressed('E'))
-        {
-            camera->Translate({ deltaTime,0.0f,0.0f });
-        }
-        else
-        {
-            katamariPlayer->GetTransform()->AddWorldPosition({ deltaTime, 0.0f, 0.0f });
-            playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -deltaTime);
-        }
+        katamariPlayer->GetTransform()->AddWorldPosition({ deltaTime, 0.0f, 0.0f });
+        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -deltaTime);
     }
     if (inputDevice->KeyIsPressed('S'))
     {
-        if (inputDevice->KeyIsPressed('E'))
-        {
-            camera->Translate({ 0.0f,0.0f,-deltaTime });
-        }
-        else
-        {
-            katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -deltaTime });
-            playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -deltaTime);
-        }
+        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -deltaTime });
+        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -deltaTime);
     }
     if (inputDevice->KeyIsPressed('D'))
     {
-        if (inputDevice->KeyIsPressed('E'))
-        {
-            camera->Translate({ -deltaTime,0.0f,0.0f });
-        }
-        else
-        {
-            katamariPlayer->GetTransform()->AddWorldPosition({ -deltaTime, 0.0f, 0.0f });
-            playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, deltaTime);
-        }
+        katamariPlayer->GetTransform()->AddWorldPosition({ -deltaTime, 0.0f, 0.0f });
+        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, deltaTime);
     }
-
-    katamariPlayer->Update();
-    camera->Update();
 
     /*collisionCheck(box1);
     collisionCheck(box2);

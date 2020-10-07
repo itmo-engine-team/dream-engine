@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Actor.h"
 #include "Component/CameraComponent.h"
 
@@ -11,17 +12,16 @@ public:
 
     CameraComponent* GetCameraComponent() const;
 
-    void onUpdate() override;
-
     void Rotate(float dx, float dy) const;
     void Translate(Vector3 translation) const;
 
-private:
+protected:
 
     CameraComponent* cameraComponent = nullptr;
 
     float rotationSpeed = 0.1;
     float moveSpeed = 1;
 
-};
+    void onUpdate() override;
 
+};

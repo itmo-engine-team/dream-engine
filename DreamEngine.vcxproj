@@ -156,6 +156,7 @@
     <ClCompile Include="Engine\InGame\GameComponent\Transform.cpp" />
     <ClCompile Include="Engine\ErrorLogger\ErrorLogger.cpp" />
     <ClCompile Include="Engine\Graphics\Graphics.cpp" />
+    <ClCompile Include="Engine\InGame\GameAssetManager\GameAssetManager.cpp" />
     <ClCompile Include="Game\KatamariSphere.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\Graphics\Model\MeshData.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Engine\Graphics\Shader\Vertex.h" />
     <ClInclude Include="Engine\ErrorLogger\ErrorLogger.h" />
     <ClInclude Include="Engine\Graphics\Graphics.h" />
+    <ClInclude Include="Engine\InGame\GameAssetManager\GameAssetManager.h" />
     <ClInclude Include="Game\KatamariSphere.h" />
     <ClInclude Include="Engine\Graphics\Model\MeshData.h" />
     <ClInclude Include="Engine\Graphics\Model\ModelData.h" />

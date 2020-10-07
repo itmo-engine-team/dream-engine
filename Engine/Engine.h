@@ -11,6 +11,7 @@
 #include "Input/Mouse.h"
 
 #include "GameObject/SpectatorActor.h"
+#include "GameAssetManager/GameAssetManager.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -41,6 +42,7 @@ protected:
 
     Window* window;
     Graphics* graphics;
+    GameAssetManager* gameAssetManager;
     MeshRenderer* meshRenderer;
 
     SpectatorActor* spectatorActor;

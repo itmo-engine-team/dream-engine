@@ -30,6 +30,7 @@
     <ClCompile Include="Engine\Graphics\Window.cpp" />
     <ClCompile Include="Engine\InGame\GameObject\SpectatorActor.cpp" />
     <ClCompile Include="Engine\InGame\GameObject\Component\CameraComponent.cpp" />
+    <ClCompile Include="Engine\InGame\GameAssetManager\GameAssetManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
@@ -63,6 +64,7 @@
     <ClInclude Include="Engine\Util\MathUtils.h" />
     <ClInclude Include="Engine\InGame\GameObject\SpectatorActor.h" />
     <ClInclude Include="Engine\InGame\GameObject\Component\CameraComponent.h" />
+    <ClInclude Include="Engine\InGame\GameAssetManager\GameAssetManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

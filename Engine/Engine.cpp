@@ -14,6 +14,8 @@ Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
 
     meshRenderer = new MeshRenderer();
 
+    gameAssetManager = new GameAssetManager(this);
+
     window = new Window(this);
     window->WindowInitialize(hInstance, wc);
 
@@ -98,7 +100,10 @@ Mouse* Engine::GetMouse() const
 
 void Engine::update()
 {
-
+    for (auto actor : gameAssetManager->GetActors())
+    {
+        actor->Update();
+    }
 }
 
 void Engine::render()
@@ -121,5 +126,8 @@ void Engine::render()
 
 void Engine::drawObjects()
 {
-
+    for (auto actor : gameAssetManager->GetActors())
+    {
+        actor->Draw();
+    }
 }

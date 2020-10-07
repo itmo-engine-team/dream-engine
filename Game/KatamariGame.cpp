@@ -47,11 +47,15 @@ void KatamariGame::Init()
     // Init Shaders
 
     texture = new Texture(this, L"Game/Meshes/eyeball/eyes_blue.jpg");
+    gameAssetManager->AddTexture(texture);
+
     texturedShader = new TexturedShader(this, L"Game/Shaders/ShaderTextured.fx", texture);
     texturedShader->Init();
+    gameAssetManager->AddShader(texturedShader);
 
     shader = new Shader(this, L"Game/Shaders/Shader.fx");
     shader->Init();
+    gameAssetManager->AddShader(shader);
 
     // Init Meshes
 
@@ -59,31 +63,40 @@ void KatamariGame::Init()
     boxModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
     playerModel = new ModelData(meshRenderer, "Game/Meshes/eyeball/eyeball-mod.obj", texturedShader);
 
+    gameAssetManager->AddModel(planeModel);
+    gameAssetManager->AddModel(boxModel);
+    gameAssetManager->AddModel(playerModel);
+
     // Init objects
 
     plane = new Actor(this, new Transform({ 0, 0, 0 }));
     plane->AddComponent(new StaticModelComponent(this, plane, new Transform({ 0, 0, 0 }), planeModel));
+    gameAssetManager->AddActor(plane);
 
     box1 = new Actor(this, new Transform({ -1, 1, 0 }));
     box1->AddComponent(new StaticModelComponent(this, box1, new Transform({ 0, 0, 0 }), boxModel));
+    gameAssetManager->AddActor(box1);
 
     box2 = new Actor(this, new Transform({ -0.5, 1, -1 }));
     box2->AddComponent(new StaticModelComponent(this, box2, new Transform({ 0, 0, 0 }), boxModel));
+    gameAssetManager->AddActor(box2);
 
     box3 = new Actor(this, new Transform({ 1, 1, 0 }));
     box3->AddComponent(new StaticModelComponent(this, box3, new Transform({ 0, 0, 0 }), boxModel));
+    gameAssetManager->AddActor(box3);
 
     katamariPlayer = new KatamariSphere(this, new Transform({ 0, 0.8, 0 }));
     playerSphere = new StaticModelComponent(this, katamariPlayer, new Transform({ 0, 0, 0 }), playerModel);
     katamariPlayer->AddComponent(playerSphere);
+    gameAssetManager->AddActor(katamariPlayer);
 
     spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
+    gameAssetManager->AddActor(spectatorActor);
 }
 
 void KatamariGame::update()
 {
-    katamariPlayer->Update();
-    spectatorActor->Update();
+    Engine::update();
 
     // Update player movement
     if (inputDevice->KeyIsPressed('C')) return; // Skip if camera moves
@@ -115,11 +128,7 @@ void KatamariGame::update()
 
 void KatamariGame::drawObjects()
 {
-    plane->Draw();
-    box1->Draw();
-    box2->Draw();
-    box3->Draw();
-    katamariPlayer->Draw();
+    Engine::drawObjects();
 }
 
 void KatamariGame::collisionCheck(GameObject* gameObject)

@@ -11,7 +11,6 @@
 
 #include <directxmath.h>
 #include "Engine.h"
-#include "Game/KatamariGame.h"
 
 using namespace Microsoft::WRL;
 using namespace DirectX;
@@ -121,8 +120,7 @@ int WINAPI main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, in
     WNDCLASSEX wc;
     wc.lpfnWndProc = WndProc;
 
-    engine = new KatamariGame(hInstance, wc);
-    engine->Init();
+    engine = new Engine(hInstance, wc);
 
     MSG msg = {};
 

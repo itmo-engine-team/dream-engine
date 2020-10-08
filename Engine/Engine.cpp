@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include "../Game/KatamariGame.h"
+
 Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
 {
     screenWidth = 1200;
@@ -21,6 +23,9 @@ Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
 
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
+
+    // Init Game
+    game = new KatamariGame(this);
 }
 
 Engine::~Engine()
@@ -56,6 +61,16 @@ Window* Engine::GetWindow() const
     return window;
 }
 
+GameAssetManager* Engine::GetGameAssetManager() const
+{
+    return gameAssetManager;
+}
+
+MeshRenderer* Engine::GetMeshRenderer() const
+{
+    return meshRenderer;
+}
+
 void Engine::DoFrame()
 {
     // Calculate current time and delta time	
@@ -66,6 +81,11 @@ void Engine::DoFrame()
 
     update();
     render();
+}
+
+Game* Engine::GetGame() const
+{
+    return game;
 }
 
 float Engine::GetDeltaTime() const
@@ -83,11 +103,6 @@ int Engine::GetScreenHeight() const
     return screenHeight;
 }
 
-CameraComponent* Engine::GetCamera() const
-{
-    return spectatorActor->GetCameraComponent();
-}
-
 InputDevice* Engine::GetInputDevice() const
 {
     return inputDevice;
@@ -100,10 +115,7 @@ Mouse* Engine::GetMouse() const
 
 void Engine::update()
 {
-    for (auto actor : gameAssetManager->GetActors())
-    {
-        actor->Update();
-    }
+    game->Update();
 }
 
 void Engine::render()
@@ -113,7 +125,7 @@ void Engine::render()
     graphics->GetContext()->ClearDepthStencilView(graphics->GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
     graphics->GetAnnotation()->BeginEvent(L"BeginDraw");
-    drawObjects();
+    game->Render();
     graphics->GetAnnotation()->EndEvent();
 
     // Add text on Scene
@@ -122,12 +134,4 @@ void Engine::render()
     graphics->DrawTextOnScene(400, 100, pretext);
 
     graphics->GetSwapChain()->Present(1, 0);
-}
-
-void Engine::drawObjects()
-{
-    for (auto actor : gameAssetManager->GetActors())
-    {
-        actor->Draw();
-    }
 }

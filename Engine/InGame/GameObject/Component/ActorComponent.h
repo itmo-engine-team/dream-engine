@@ -1,6 +1,6 @@
 #pragma once
 
-class Engine;
+class Game;
 class Actor;
 
 class ActorComponent
@@ -8,7 +8,7 @@ class ActorComponent
 
 public:
 
-    ActorComponent(Engine* engine, Actor* actor);
+    ActorComponent(Game* game, Actor* actor);
     virtual ~ActorComponent() = default;
 
     void Init();
@@ -17,7 +17,7 @@ public:
 
 protected:
 
-    Engine* engine;
+    Game* game;
     Actor* actor;
 
     virtual void onInit();

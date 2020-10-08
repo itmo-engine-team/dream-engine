@@ -8,7 +8,7 @@ class SpectatorActor : public Actor
 
 public:
 
-    SpectatorActor(Engine* engine, Transform* transform);
+    SpectatorActor(Game* game, Transform* transform);
 
     CameraComponent* GetCameraComponent() const;
 

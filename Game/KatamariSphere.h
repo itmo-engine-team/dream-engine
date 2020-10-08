@@ -4,13 +4,13 @@
 
 #include "GameObject/Actor.h"
 
-class Engine;
+class Game;
 
 class KatamariSphere : public Actor
 {
 public:
 
-    KatamariSphere(Engine* engine, Transform* transform);
+    KatamariSphere(Game* game, Transform* transform);
 
     DirectX::BoundingSphere* collider;
 

@@ -7,53 +7,18 @@
 
 using namespace DirectX::SimpleMath;
 
-KatamariGame::KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc) : Engine(hInstance, wc)
-{
-
-}
-
-KatamariGame::~KatamariGame()
-{
-    delete spectatorActor;
-    spectatorActor = nullptr;
-
-    delete katamariPlayer;
-    katamariPlayer = nullptr;
-
-    delete box3;
-    box3 = nullptr;
-
-    delete box2;
-    box2 = nullptr;
-
-    delete box1;
-    box1 = nullptr;
-
-    delete plane;
-    plane = nullptr;
-
-    delete playerModel;
-    playerModel = nullptr;
-
-    delete boxModel;
-    boxModel = nullptr;
-
-    delete plane;
-    plane = nullptr;
-}
-
-void KatamariGame::Init()
+KatamariGame::KatamariGame(Engine* engine) : Game(engine)
 {
     // Init Shaders
 
-    texture = new Texture(this, L"Game/Meshes/eyeball/eyes_blue.jpg");
+    texture = new Texture(engine, L"Game/Meshes/eyeball/eyes_blue.jpg");
     gameAssetManager->AddTexture(texture);
 
-    texturedShader = new TexturedShader(this, L"Game/Shaders/ShaderTextured.fx", texture);
+    texturedShader = new TexturedShader(engine, L"Game/Shaders/ShaderTextured.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
 
-    shader = new Shader(this, L"Game/Shaders/Shader.fx");
+    shader = new Shader(engine, L"Game/Shaders/Shader.fx");
     shader->Init();
     gameAssetManager->AddShader(shader);
 
@@ -61,7 +26,7 @@ void KatamariGame::Init()
 
     planeModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 2, 0.1, 2 });
     boxModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
-    playerModel = new ModelData(meshRenderer, "Game/Meshes/eyeball/eyeball-mod.obj", texturedShader);
+    playerModel = new ModelData(engine->GetMeshRenderer(), "Game/Meshes/eyeball/eyeball-mod.obj", texturedShader);
 
     gameAssetManager->AddModel(planeModel);
     gameAssetManager->AddModel(boxModel);
@@ -94,41 +59,71 @@ void KatamariGame::Init()
     gameAssetManager->AddActor(spectatorActor);
 }
 
-void KatamariGame::update()
+KatamariGame::~KatamariGame()
 {
-    Engine::update();
+    delete spectatorActor;
+    spectatorActor = nullptr;
+
+    delete katamariPlayer;
+    katamariPlayer = nullptr;
+
+    delete box3;
+    box3 = nullptr;
+
+    delete box2;
+    box2 = nullptr;
+
+    delete box1;
+    box1 = nullptr;
+
+    delete plane;
+    plane = nullptr;
+
+    delete playerModel;
+    playerModel = nullptr;
+
+    delete boxModel;
+    boxModel = nullptr;
+
+    delete plane;
+    plane = nullptr;
+}
+
+CameraComponent* KatamariGame::GetCamera() const
+{
+    return spectatorActor->GetCameraComponent();
+}
+
+void KatamariGame::Update()
+{
+    Game::Update();
 
     // Update player movement
-    if (inputDevice->KeyIsPressed('C')) return; // Skip if camera moves
-    if (inputDevice->KeyIsPressed('W'))
+    if (engine->GetInputDevice()->KeyIsPressed('C')) return; // Skip if camera moves
+    if (engine->GetInputDevice()->KeyIsPressed('W'))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, deltaTime });
-        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, deltaTime);
+        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() });
+        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, engine->GetDeltaTime());
     }
-    if (inputDevice->KeyIsPressed('A'))
+    if (engine->GetInputDevice()->KeyIsPressed('A'))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ deltaTime, 0.0f, 0.0f });
-        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -deltaTime);
+        katamariPlayer->GetTransform()->AddWorldPosition({ engine->GetDeltaTime(), 0.0f, 0.0f });
+        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -engine->GetDeltaTime());
     }
-    if (inputDevice->KeyIsPressed('S'))
+    if (engine->GetInputDevice()->KeyIsPressed('S'))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -deltaTime });
-        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -deltaTime);
+        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() });
+        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -engine->GetDeltaTime());
     }
-    if (inputDevice->KeyIsPressed('D'))
+    if (engine->GetInputDevice()->KeyIsPressed('D'))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ -deltaTime, 0.0f, 0.0f });
-        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, deltaTime);
+        katamariPlayer->GetTransform()->AddWorldPosition({ -engine->GetDeltaTime(), 0.0f, 0.0f });
+        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, engine->GetDeltaTime());
     }
 
     /*collisionCheck(box1);
     collisionCheck(box2);
     collisionCheck(box3);*/
-}
-
-void KatamariGame::drawObjects()
-{
-    Engine::drawObjects();
 }
 
 void KatamariGame::collisionCheck(GameObject* gameObject)

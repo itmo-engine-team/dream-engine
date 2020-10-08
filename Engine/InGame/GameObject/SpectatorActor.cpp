@@ -2,9 +2,9 @@
 
 #include "Engine.h"
 
-SpectatorActor::SpectatorActor(Engine* engine, Transform* transform) : Actor(engine, transform)
+SpectatorActor::SpectatorActor(Game* game, Transform* transform) : Actor(game, transform)
 {
-    cameraComponent = new CameraComponent(engine, this);
+    cameraComponent = new CameraComponent(game, this);
     AddComponent(cameraComponent);
 }
 
@@ -16,31 +16,31 @@ CameraComponent* SpectatorActor::GetCameraComponent() const
 void SpectatorActor::onUpdate()
 {
     // Activates only with right button
-    if (!engine->GetInputDevice()->KeyIsPressed('C')) return;
+    if (!game->GetEngine()->GetInputDevice()->KeyIsPressed('C')) return;
 
     // Rotation
-    while (const auto delta = engine->GetMouse()->ReadRawDelta())
+    while (const auto delta = game->GetEngine()->GetMouse()->ReadRawDelta())
     {
-        Rotate(static_cast<float>(delta->x) * -engine->GetDeltaTime(),
-            static_cast<float>(delta->y) * engine->GetDeltaTime());
+        Rotate(static_cast<float>(delta->x) * -game->GetEngine()->GetDeltaTime(),
+            static_cast<float>(delta->y) * game->GetEngine()->GetDeltaTime());
     }
 
     // Movement
-    if (engine->GetInputDevice()->KeyIsPressed('W'))
+    if (game->GetEngine()->GetInputDevice()->KeyIsPressed('W'))
     {
-        Translate({ 0.0f, 0.0f, engine->GetDeltaTime() });
+        Translate({ 0.0f, 0.0f, game->GetEngine()->GetDeltaTime() });
     }
-    if (engine->GetInputDevice()->KeyIsPressed('A'))
+    if (game->GetEngine()->GetInputDevice()->KeyIsPressed('A'))
     {
-        Translate({ engine->GetDeltaTime(), 0.0f, 0.0f });
+        Translate({ game->GetEngine()->GetDeltaTime(), 0.0f, 0.0f });
     }
-    if (engine->GetInputDevice()->KeyIsPressed('S'))
+    if (game->GetEngine()->GetInputDevice()->KeyIsPressed('S'))
     {
-        Translate({ 0.0f, 0.0f, -engine->GetDeltaTime() });
+        Translate({ 0.0f, 0.0f, -game->GetEngine()->GetDeltaTime() });
     }
-    if (engine->GetInputDevice()->KeyIsPressed('D'))
+    if (game->GetEngine()->GetInputDevice()->KeyIsPressed('D'))
     {
-        Translate({ -engine->GetDeltaTime(), 0.0f, 0.0f });
+        Translate({ -game->GetEngine()->GetDeltaTime(), 0.0f, 0.0f });
     }
 }
 

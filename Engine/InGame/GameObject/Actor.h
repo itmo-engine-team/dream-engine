@@ -4,13 +4,13 @@
 #include "GameComponent/Transform.h"
 #include "Component/ActorComponent.h"
 
-class Engine;
+class Game;
 
 class Actor : public GameObject
 {
 public:
 
-    Actor(Engine* engine, Transform* transform);
+    Actor(Game* Game, Transform* transform);
 
     void Update();
     void Draw();

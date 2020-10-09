@@ -5,8 +5,8 @@
 
 using namespace DirectX::SimpleMath;
 
-Actor::Actor(Engine* engine, Transform* transform)
-    : GameObject(engine), transform(transform)
+Actor::Actor(Game* game, Transform* transform)
+    : GameObject(game), transform(transform)
 {
 
 }

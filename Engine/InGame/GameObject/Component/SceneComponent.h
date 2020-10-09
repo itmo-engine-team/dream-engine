@@ -8,7 +8,7 @@ class SceneComponent : public ActorComponent
 
 public:
 
-    SceneComponent(Engine* engine, Actor* actor, Transform* transform);
+    SceneComponent(Game* game, Actor* actor, Transform* transform);
 
     Transform* GetTransform() const;
 

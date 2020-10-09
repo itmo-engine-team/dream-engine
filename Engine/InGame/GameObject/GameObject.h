@@ -1,19 +1,19 @@
 #pragma once
 
-class Engine;
+class Game;
 
 class GameObject
 {
 public:
 
-    GameObject(Engine* engine);
+    GameObject(Game* game);
     virtual ~GameObject() = default;
 
     void Init();
 
 protected:
 
-    Engine* engine;
+    Game* game;
 
     virtual void onInit();
 

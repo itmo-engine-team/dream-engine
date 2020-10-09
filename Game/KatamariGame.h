@@ -1,29 +1,27 @@
 #pragma once
-#include "Engine.h"
-#include "Graphics/Shader/TexturedShader.h"
-#include "Graphics/Shader/Shader.h"
-#include "GameObject/Component/StaticModelComponent.h"
 
+#include "Engine.h"
+#include "GameObject/SpectatorActor.h"
 #include "KatamariSphere.h"
+#include "GameObject/Component/StaticModelComponent.h"
+#include "Graphics/Shader/TexturedShader.h"
 
 using namespace DirectX::SimpleMath;
 
-class KatamariGame : public Engine
+class KatamariGame : public Game
 {
 public:
 
-    KatamariGame(HINSTANCE hInstance, WNDCLASSEX wc);
+    KatamariGame(Engine* engine);
     ~KatamariGame();
 
-    void Init() override;
+    void Update() override;
 
-protected:
-
-    void update() override;
-    void drawObjects();
-    void collisionCheck(GameObject* gameObject);
+    CameraComponent* GetCamera() const override;
 
 private:
+
+    SpectatorActor* spectatorActor;
 
     KatamariSphere* katamariPlayer;
     StaticModelComponent* playerSphere;
@@ -40,6 +38,8 @@ private:
     Shader* shader;
     TexturedShader* texturedShader;
     Texture* texture;
+
+    void collisionCheck(GameObject* gameObject);
 
 };
 

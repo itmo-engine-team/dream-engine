@@ -109,8 +109,8 @@ void MeshObject::Draw()
     const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
-        engine->GetCamera()->GetViewMatrix(),
-        engine->GetCamera()->GetProjectionMatrix(),
+        engine->GetGame()->GetCamera()->GetViewMatrix(),
+        engine->GetGame()->GetCamera()->GetProjectionMatrix(),
     };
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
@@ -129,7 +129,7 @@ void MeshObject::Draw()
     // Update Constant Buffer
     const CameraBuffer cameraBufferData =
     {
-        engine->GetCamera()->GetTransform()->GetWorldPosition(),
+        engine->GetGame()->GetCamera()->GetTransform()->GetWorldPosition(),
         0.0f
     };
 

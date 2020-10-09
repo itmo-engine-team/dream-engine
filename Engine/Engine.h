@@ -10,8 +10,8 @@
 #include "Input/InputDevice.h"
 #include "Input/Mouse.h"
 
-#include "GameObject/SpectatorActor.h"
 #include "GameAssetManager/GameAssetManager.h"
+#include "Game.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -20,16 +20,18 @@ class Engine
 public:
 
     Engine(HINSTANCE hInstance, WNDCLASSEX wc);
-    virtual ~Engine();
+    ~Engine();
 
-    virtual void Init();
+    void Init();
 
     void DoFrame();
 
+    Game* GetGame() const;
+
     Graphics* GetGraphics() const;
     Window* GetWindow() const;
-
-    CameraComponent* GetCamera() const;
+    GameAssetManager* GetGameAssetManager() const;
+    MeshRenderer* GetMeshRenderer() const;
 
     InputDevice* GetInputDevice() const;
     Mouse* GetMouse() const;
@@ -40,12 +42,12 @@ public:
 
 protected:
 
+    Game* game;
+
     Window* window;
     Graphics* graphics;
     GameAssetManager* gameAssetManager;
     MeshRenderer* meshRenderer;
-
-    SpectatorActor* spectatorActor;
 
     InputDevice* inputDevice;
     Mouse* mouse;
@@ -60,6 +62,5 @@ protected:
 
     virtual void update();
     void render();
-    virtual void drawObjects();
 
 };

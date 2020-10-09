@@ -2,12 +2,13 @@
 
 #include "Engine.h"
 
-CameraComponent::CameraComponent(Engine* engine, Actor* actor, Vector3 position, Vector3 direction)
-    : SceneComponent(engine, actor, new Transform(position)), direction(direction)
+CameraComponent::CameraComponent(Game* game, Actor* actor, Vector3 position, Vector3 direction)
+    : SceneComponent(game, actor, new Transform(position)), direction(direction)
 {
     projectionMatrix = Matrix::CreatePerspectiveFieldOfView(
         120,
-        static_cast<float>(engine->GetScreenWidth()) / static_cast<float>(engine->GetScreenHeight()),
+        static_cast<float>(game->GetEngine()->GetScreenWidth()) 
+            / static_cast<float>(game->GetEngine()->GetScreenHeight()),
         0.01f, 100.0f);
 }
 

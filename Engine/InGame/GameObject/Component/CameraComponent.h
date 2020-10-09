@@ -5,13 +5,13 @@
 
 using namespace DirectX::SimpleMath;
 
-class Engine;
+class Game;
 
 class CameraComponent : public SceneComponent
 {
 public:
 
-    CameraComponent(Engine* engine, Actor* actor,
+    CameraComponent(Game* game, Actor* actor,
         Vector3 position = Vector3::Zero, Vector3 direction = Vector3::UnitZ);
 
     Matrix GetViewMatrix() const;

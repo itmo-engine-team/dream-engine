@@ -20,6 +20,7 @@ public:
     void AddComponent(ActorComponent* component);
     void SetActorDeltaTimeMultiplier(float deltaTimeMultiplier);
     float GetActorDeltaTime();
+    float GetActorDeltaTimeMultiplier();
 
 protected:
 
@@ -27,7 +28,7 @@ protected:
 
     std::vector<ActorComponent*> components;
 
-    float actorDeltaTime = 1;
+    float actorDeltaTime;
     float actorDeltaTimeMultiplier = 1;
 
     virtual void onUpdate();

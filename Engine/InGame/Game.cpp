@@ -35,11 +35,16 @@ void Game::Render()
 
 void Game::SetGameDeltaTimeMultiplier(float deltaTimeMultiplier)
 {
-    gameDeltaTimeMultiplier = deltaTimeMultiplier;
+    gameDeltaTimeMultiplier = std::clamp(deltaTimeMultiplier, 0.0f, 1.0f);
 }
 
 float Game::GetGameDeltaTime()
 {
     gameDeltaTime = engine->GetDeltaTime() * gameDeltaTimeMultiplier;
     return gameDeltaTime;
+}
+
+float Game::GetGameDeltaTimeMultiplier()
+{
+    return gameDeltaTimeMultiplier;
 }

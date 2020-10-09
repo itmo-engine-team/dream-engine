@@ -44,6 +44,11 @@ float Actor::GetActorDeltaTime()
     return actorDeltaTime;
 }
 
+float Actor::GetActorDeltaTimeMultiplier()
+{
+    return actorDeltaTimeMultiplier;
+}
+
 Transform* Actor::GetTransform() const
 {
     return transform;
@@ -56,5 +61,5 @@ void Actor::AddComponent(ActorComponent* component)
 
 void Actor::SetActorDeltaTimeMultiplier(float deltaTimeMultiplier)
 {
-    actorDeltaTimeMultiplier = deltaTimeMultiplier;
+    actorDeltaTimeMultiplier = std::clamp(deltaTimeMultiplier, 0.0f, 1.0f);;
 }

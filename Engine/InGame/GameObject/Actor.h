@@ -18,7 +18,8 @@ public:
     Transform* GetTransform() const;
 
     void AddComponent(ActorComponent* component);
-    void setActorDeltaTime(float deltaMultiplier);
+    void SetActorDeltaTimeMultiplier(float deltaTimeMultiplier);
+    float GetActorDeltaTime();
 
 protected:
 
@@ -26,10 +27,9 @@ protected:
 
     std::vector<ActorComponent*> components;
 
-    float actorDeltaTime = 0;
-    float actorDeltaTimeMultiplier = 0;
+    float actorDeltaTime = 1;
+    float actorDeltaTimeMultiplier = 1;
 
     virtual void onUpdate();
-    float GetActorDeltaTime();
-};
 
+};

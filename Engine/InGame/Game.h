@@ -19,8 +19,8 @@ public:
 
     virtual void Update();
     virtual void Render();
-    void SetGameDeltaTime(float deltaMultiplier);
-    float GetWorldDeltaTime();
+    void SetGameDeltaTimeMultiplier(float deltaTimeMultiplier);
+    float GetGameDeltaTime();
 
 protected:
 
@@ -28,9 +28,7 @@ protected:
     GameAssetManager* gameAssetManager;
 
     float gameDeltaTime;
-    float gameDeltaTimeMultiplier;
+    float gameDeltaTimeMultiplier = 1;
     
-    
-
 };
 

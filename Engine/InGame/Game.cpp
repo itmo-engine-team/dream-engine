@@ -33,12 +33,12 @@ void Game::Render()
     }
 }
 
-void Game::SetGameDeltaTime(float deltaMultiplier)
+void Game::SetGameDeltaTimeMultiplier(float deltaTimeMultiplier)
 {
-    gameDeltaTimeMultiplier = deltaMultiplier;
+    gameDeltaTimeMultiplier = deltaTimeMultiplier;
 }
 
-float Game::GetWorldDeltaTime()
+float Game::GetGameDeltaTime()
 {
     gameDeltaTime = engine->GetDeltaTime() * gameDeltaTimeMultiplier;
     return gameDeltaTime;

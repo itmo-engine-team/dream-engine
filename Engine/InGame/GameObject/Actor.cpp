@@ -33,22 +33,6 @@ void Actor::Draw()
     }
 }
 
-void Actor::onUpdate()
-{
-
-}
-
-float Actor::GetActorDeltaTime()
-{
-    actorDeltaTime = game->GetGameDeltaTime() * actorDeltaTimeMultiplier;
-    return actorDeltaTime;
-}
-
-float Actor::GetActorDeltaTimeMultiplier()
-{
-    return actorDeltaTimeMultiplier;
-}
-
 Transform* Actor::GetTransform() const
 {
     return transform;
@@ -61,5 +45,21 @@ void Actor::AddComponent(ActorComponent* component)
 
 void Actor::SetActorDeltaTimeMultiplier(float deltaTimeMultiplier)
 {
-    actorDeltaTimeMultiplier = std::clamp(deltaTimeMultiplier, 0.0f, 1.0f);;
+    actorDeltaTimeMultiplier = std::clamp(deltaTimeMultiplier, 0.0f, 1.0f);
+}
+
+float Actor::GetActorDeltaTimeMultiplier()
+{
+    return actorDeltaTimeMultiplier;
+}
+
+float Actor::GetActorDeltaTime()
+{
+    actorDeltaTime = game->GetGameDeltaTime() * actorDeltaTimeMultiplier;
+    return actorDeltaTime;
+}
+
+void Actor::onUpdate()
+{
+
 }

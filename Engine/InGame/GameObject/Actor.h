@@ -18,9 +18,10 @@ public:
     Transform* GetTransform() const;
 
     void AddComponent(ActorComponent* component);
+
     void SetActorDeltaTimeMultiplier(float deltaTimeMultiplier);
-    float GetActorDeltaTime();
     float GetActorDeltaTimeMultiplier();
+    float GetActorDeltaTime();
 
 protected:
 

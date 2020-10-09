@@ -21,8 +21,8 @@ public:
     virtual void Render();
 
     void SetGameDeltaTimeMultiplier(float deltaTimeMultiplier);
-    float GetGameDeltaTime();
     float GetGameDeltaTimeMultiplier();
+    float GetGameDeltaTime();
 
 protected:
 

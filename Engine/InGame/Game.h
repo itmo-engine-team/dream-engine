@@ -19,11 +19,18 @@ public:
 
     virtual void Update();
     virtual void Render();
+    void SetGameDeltaTime(float deltaMultiplier);
+    float GetWorldDeltaTime();
 
 protected:
 
     Engine* engine;
     GameAssetManager* gameAssetManager;
+
+    float gameDeltaTime;
+    float gameDeltaTimeMultiplier;
+    
+    
 
 };
 

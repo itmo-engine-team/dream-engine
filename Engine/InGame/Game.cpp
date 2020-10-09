@@ -32,3 +32,14 @@ void Game::Render()
         actor->Draw();
     }
 }
+
+void Game::SetGameDeltaTime(float deltaMultiplier)
+{
+    gameDeltaTimeMultiplier = deltaMultiplier;
+}
+
+float Game::GetWorldDeltaTime()
+{
+    gameDeltaTime = engine->GetDeltaTime() * gameDeltaTimeMultiplier;
+    return gameDeltaTime;
+}

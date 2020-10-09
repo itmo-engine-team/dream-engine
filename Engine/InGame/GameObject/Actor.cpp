@@ -38,6 +38,12 @@ void Actor::onUpdate()
 
 }
 
+float Actor::GetActorDeltaTime()
+{
+    actorDeltaTime = game->GetWorldDeltaTime() * actorDeltaTimeMultiplier;
+    return actorDeltaTime;
+}
+
 Transform* Actor::GetTransform() const
 {
     return transform;
@@ -46,4 +52,9 @@ Transform* Actor::GetTransform() const
 void Actor::AddComponent(ActorComponent* component)
 {
     components.push_back(component);
+}
+
+void Actor::setActorDeltaTime(float deltaMultiplier)
+{
+    actorDeltaTimeMultiplier = deltaMultiplier;
 }

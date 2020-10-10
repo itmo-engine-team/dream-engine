@@ -78,6 +78,10 @@ void Engine::DoFrame()
     float t = (dwCurrentTick - dwStartTick) / 1000.0f;
     deltaTime = t - currentTime;
     currentTime = t;
+    if(deltaTime > 1)
+    {
+        deltaTime = 0.0166;
+    }
 
     update();
     render();

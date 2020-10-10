@@ -19,13 +19,19 @@ public:
 
     void AddComponent(ActorComponent* component);
 
+    void SetActorDeltaTimeMultiplier(float deltaTimeMultiplier);
+    float GetActorDeltaTimeMultiplier();
+    float GetActorDeltaTime();
+
 protected:
 
     Transform* transform;
 
     std::vector<ActorComponent*> components;
 
+    float actorDeltaTime;
+    float actorDeltaTimeMultiplier = 1;
+
     virtual void onUpdate();
 
 };
-

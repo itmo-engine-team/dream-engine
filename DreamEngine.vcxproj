@@ -158,6 +158,7 @@
     <ClCompile Include="Engine\Graphics\Graphics.cpp" />
     <ClCompile Include="Engine\InGame\GameAssetManager\GameAssetManager.cpp" />
     <ClCompile Include="Engine\InGame\Game.cpp" />
+    <ClCompile Include="Engine\JobSystem\JobSystem.cpp" />
     <ClCompile Include="Game\KatamariSphere.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\Graphics\Model\MeshData.cpp" />
@@ -188,6 +189,8 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\EventDispatcher\Event.h" />
     <ClInclude Include="Engine\EventDispatcher\EventDispatcher.h" />
+    <ClInclude Include="Engine\JobSystem\JobContainer.h" />
+    <ClInclude Include="Engine\JobSystem\JobSystem.h" />
     <ClInclude Include="Engine\Util\MathUtils.h" />
     <ClInclude Include="Engine\InGame\GameObject\GameObject.h" />
     <ClInclude Include="Engine\Graphics\Shader\LightBuffer.h" />

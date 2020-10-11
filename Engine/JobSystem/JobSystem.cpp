@@ -22,7 +22,7 @@ namespace JobSystem
     std::mutex wakeMutex;
 
     // This function executes the next item from the job queue. Returns true if successful, false if there was no job available
-    inline bool Work()
+    bool work()
     {
         Job job;
         if (jobQueue.pop_front(job))
@@ -68,7 +68,7 @@ namespace JobSystem
             {
                 while (true)
                 {
-                    if (!Work())
+                    if (!work())
                     {
                         // no job, put thread to sleep
                         std::unique_lock<std::mutex> lock(wakeMutex);
@@ -162,6 +162,6 @@ namespace JobSystem
         wakeCondition.notify_all();
 
         // Waiting will also put the current thread to good use by working on an other job if it can:
-        while (IsBusy(ctx)) { Work(); }
+        while (IsBusy(ctx)) { work(); }
     }
 }

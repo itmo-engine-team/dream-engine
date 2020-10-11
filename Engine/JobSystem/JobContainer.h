@@ -2,7 +2,7 @@
 
 #include <mutex>
 
-namespace wiContainers
+namespace JobContainers
 {
 	// Fixed size very simple thread safe ring buffer
 	template <typename T, size_t capacity>
@@ -12,7 +12,7 @@ namespace wiContainers
 		// Push an item to the end if there is free space
 		//	Returns true if succesful
 		//	Returns false if there is not enough space
-		inline bool push_back(const T& item)
+		bool push_back(const T& item)
 		{
 			bool result = false;
 			lock.lock();
@@ -30,7 +30,7 @@ namespace wiContainers
 		// Get an item if there are any
 		//	Returns true if succesful
 		//	Returns false if there are no items
-		inline bool pop_front(T& item)
+		bool pop_front(T& item)
 		{
 			bool result = false;
 			lock.lock();

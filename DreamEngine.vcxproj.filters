@@ -37,6 +37,7 @@
     <ClCompile Include="Engine\Graphics\ImGui\imgui_impl_dx11.cpp" />
     <ClCompile Include="Engine\Graphics\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="Engine\Graphics\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Engine\JobSystem\JobSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
@@ -80,6 +81,8 @@
     <ClInclude Include="Engine\Graphics\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Engine\Graphics\ImGui\imstb_textedit.h" />
     <ClInclude Include="Engine\Graphics\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Engine\JobSystem\JobSystem.h" />
+    <ClInclude Include="Engine\JobSystem\JobContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

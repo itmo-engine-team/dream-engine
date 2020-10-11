@@ -137,5 +137,7 @@ void Engine::render()
     swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);
     graphics->DrawTextOnScene(400, 100, pretext);
 
+    graphics->CreateImGuiFrame();
+
     graphics->GetSwapChain()->Present(1, 0);
 }

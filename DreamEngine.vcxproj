@@ -142,6 +142,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Graphics\ImGui\imgui.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Engine\InGame\GameObject\Component\ActorComponent.cpp" />
     <ClCompile Include="Engine\InGame\GameObject\Component\CameraComponent.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
@@ -182,6 +187,14 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Graphics\ImGui\imconfig.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imgui.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imgui_internal.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imstb_truetype.h" />
     <ClInclude Include="Engine\InGame\GameObject\Component\ActorComponent.h" />
     <ClInclude Include="Engine\InGame\GameObject\Component\CameraComponent.h" />
     <ClInclude Include="Engine\Graphics\Shader\CameraBuffer.h" />

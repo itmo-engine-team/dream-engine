@@ -5,6 +5,10 @@
 #include <d2d1.h>
 #include <dwrite.h>
 
+#include "Graphics/ImGui/imgui.h"
+#include "Graphics/ImGui/imgui_impl_dx11.h"
+#include "Graphics/ImGui/imgui_impl_win32.h"
+
 #pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
 #pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
 
@@ -16,6 +20,8 @@ public:
     bool DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd);
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
+
+    void CreateImGuiFrame();
 
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -48,5 +54,5 @@ private:
 
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
-
+    void setupImGui(HWND hWnd);
 };

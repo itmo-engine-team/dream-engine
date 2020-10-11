@@ -32,6 +32,11 @@
     <ClCompile Include="Engine\InGame\GameObject\Component\CameraComponent.cpp" />
     <ClCompile Include="Engine\InGame\GameAssetManager\GameAssetManager.cpp" />
     <ClCompile Include="Engine\InGame\Game.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Engine\Graphics\ImGui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
@@ -67,6 +72,14 @@
     <ClInclude Include="Engine\InGame\GameObject\Component\CameraComponent.h" />
     <ClInclude Include="Engine\InGame\GameAssetManager\GameAssetManager.h" />
     <ClInclude Include="Engine\InGame\Game.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imconfig.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imgui.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imgui_internal.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Engine\Graphics\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

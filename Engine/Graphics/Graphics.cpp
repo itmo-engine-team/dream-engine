@@ -95,6 +95,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
     direct2DInitialize(hWnd);
+    setupImGui(hWnd);
 
     return true;
 }
@@ -183,6 +184,16 @@ void Graphics::configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText)
 
 }
 
+void Graphics::setupImGui(HWND hWnd)
+{
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    ImGui_ImplWin32_Init(hWnd);
+    ImGui_ImplDX11_Init(device, context);
+    ImGui::StyleColorsDark();
+}
+
 ID3D11Device* Graphics::GetDevice()
 {
     return device;
@@ -216,4 +227,22 @@ ID3D11Texture2D* Graphics::GetDepthStencil()
 ID3D11DepthStencilView* Graphics::GetDepthStencilView()
 {
     return depthStencilView;
+}
+
+void Graphics::CreateImGuiFrame()
+{
+    // start the ImGuiFrame
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    // create ImGui window
+    ImGui::Begin("Test window");
+    ImGui::End();
+
+    // assemble together draw data
+    ImGui::Render();
+
+    // render draw data
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }

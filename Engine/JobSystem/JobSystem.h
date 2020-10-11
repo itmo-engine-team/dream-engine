@@ -20,26 +20,26 @@ namespace JobSystem
     uint32_t GetThreadCount();
 
     // Defines a state of execution, can be waited on
-    struct Ñontext
+    struct Context
     {
         std::atomic<uint32_t> counter{ 0 };
     };
 
     // Add a task to execute asynchronously. Any idle thread will execute this.
-    void Execute(Ñontext& ctx, const std::function<void(JobArgs)>& task);
+    void Execute(Context& ctx, const std::function<void(JobArgs)>& task);
 
     // Divide a task onto multiple jobs and execute in parallel.
     //	jobCount	: how many jobs to generate for this task.
     //	groupSize	: how many jobs to execute per thread. Jobs inside a group execute serially. It might be worth to increase for small jobs
     //	task		: receives a wiJobArgs as parameter
-    void Dispatch(Ñontext& ctx, uint32_t jobCount, uint32_t groupSize, const std::function<void(JobArgs)>& task, size_t sharedMemorySize = 0);
+    void Dispatch(Context& ctx, uint32_t jobCount, uint32_t groupSize, const std::function<void(JobArgs)>& task, size_t sharedMemorySize = 0);
 
     // Returns the amount of job groups that will be created for a set number of jobs and group size
     uint32_t DispatchGroupCount(uint32_t jobCount, uint32_t groupSize);
 
     // Check if any threads are working currently or not
-    bool IsBusy(const Ñontext& ctx);
+    bool IsBusy(const Context& ctx);
 
     // Wait until all threads become idle
-    void Wait(const Ñontext& ctx);
+    void Wait(const Context& ctx);
 }

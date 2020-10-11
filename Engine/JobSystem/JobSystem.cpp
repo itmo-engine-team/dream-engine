@@ -8,7 +8,7 @@ namespace JobSystem
 {
     struct Job
     {
-        Ñontext* ctx;
+        Context* ctx;
         std::function<void(JobArgs)> task;
         uint32_t groupID;
         uint32_t groupJobOffset;
@@ -92,7 +92,7 @@ namespace JobSystem
         return numThreads;
     }
 
-    void Execute(Ñontext& ctx, const std::function<void(JobArgs)>& task)
+    void Execute(Context& ctx, const std::function<void(JobArgs)>& task)
     {
         // Context state is updated:
         ctx.counter.fetch_add(1);
@@ -112,7 +112,7 @@ namespace JobSystem
         wakeCondition.notify_one();
     }
 
-    void Dispatch(Ñontext& ctx, uint32_t jobCount, uint32_t groupSize, const std::function<void(JobArgs)>& task, size_t sharedMemorySize)
+    void Dispatch(Context& ctx, uint32_t jobCount, uint32_t groupSize, const std::function<void(JobArgs)>& task, size_t sharedMemorySize)
     {
         if (jobCount == 0 || groupSize == 0)
         {
@@ -150,13 +150,13 @@ namespace JobSystem
         return (jobCount + groupSize - 1) / groupSize;
     }
 
-    bool IsBusy(const Ñontext& ctx)
+    bool IsBusy(const Context& ctx)
     {
         // Whenever the context label is greater than zero, it means that there is still work that needs to be done
         return ctx.counter.load() > 0;
     }
 
-    void Wait(const Ñontext& ctx)
+    void Wait(const Context& ctx)
     {
         // Wake any threads that might be sleeping:
         wakeCondition.notify_all();

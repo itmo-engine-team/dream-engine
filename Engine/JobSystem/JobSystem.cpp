@@ -1,6 +1,7 @@
 #include "JobSystem.h"
 
 #include <thread>
+#include <algorithm>
 
 #include "JobContainer.h"
 

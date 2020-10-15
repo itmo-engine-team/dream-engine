@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\EventDispatcher\EventDispatcher.cpp" />
     <ClCompile Include="Engine\Graphics\ImGui\imgui.cpp" />
     <ClCompile Include="Engine\Graphics\ImGui\imgui_draw.cpp" />
     <ClCompile Include="Engine\Graphics\ImGui\imgui_impl_dx11.cpp" />
@@ -200,7 +201,7 @@
     <ClInclude Include="Engine\Graphics\Shader\CameraBuffer.h" />
     <ClInclude Include="Engine\Graphics\Shader\ConstantBuffer.h" />
     <ClInclude Include="Engine\Engine.h" />
-    <ClInclude Include="Engine\EventDispatcher\Event.h" />
+    <ClInclude Include="Engine\EventDispatcher\EventListener.h" />
     <ClInclude Include="Engine\EventDispatcher\EventDispatcher.h" />
     <ClInclude Include="Engine\JobSystem\JobContainer.h" />
     <ClInclude Include="Engine\JobSystem\JobSystem.h" />

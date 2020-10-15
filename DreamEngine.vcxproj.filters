@@ -38,6 +38,7 @@
     <ClCompile Include="Engine\Graphics\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="Engine\Graphics\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Engine\JobSystem\JobSystem.cpp" />
+    <ClCompile Include="Engine\EventDispatcher\EventDispatcher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
@@ -53,7 +54,6 @@
     <ClInclude Include="Game\KatamariGame.h" />
     <ClInclude Include="Game\KatamariSphere.h" />
     <ClInclude Include="Engine\EventDispatcher\EventDispatcher.h" />
-    <ClInclude Include="Engine\EventDispatcher\Event.h" />
     <ClInclude Include="Engine\InGame\GameComponent\Transform.h" />
     <ClInclude Include="Engine\Graphics\Model\MeshData.h" />
     <ClInclude Include="Engine\Graphics\Model\MeshObject.h" />
@@ -83,6 +83,7 @@
     <ClInclude Include="Engine\Graphics\ImGui\imstb_truetype.h" />
     <ClInclude Include="Engine\JobSystem\JobSystem.h" />
     <ClInclude Include="Engine\JobSystem\JobContainer.h" />
+    <ClInclude Include="Engine\EventDispatcher\EventListener.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

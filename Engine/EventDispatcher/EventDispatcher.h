@@ -2,55 +2,36 @@
 
 #include <map>
 #include <vector>
-#include "Event.h"
+
+#include "EventListener.h"
 
 class EventDispatcher
 {
+
 public:
 
     // Constructor 
-    EventDispatcher() {}
-    ~EventDispatcher()
-    {
-        for (auto mapEvent : eventList)
-        {
-            for (auto e : mapEvent.second)
-                delete e;
-        }
-    }
+    EventDispatcher() = default;
+    ~EventDispatcher();
 
     // Register event
     template <class C, typename ...arg>
-    void BindEvent(Event<C, arg...>* event)
-    {
-        if (!event) return;
+    void BindEvent(EventListener<C, arg...>* listener);
 
-        eventList[event->GetName()].push_back(event);
-    }
+    template <class C, typename ...arg>
+    void UnbindListener(const std::string& eventName, const C* listenerToUnbind);
 
+    void UnbindAllListeners(const std::string& eventName);
 
     template <typename ...arg>
-    void CallEvent(const std::string& eventName, arg... a)
-    {
-        auto eventIterator = eventList.find(eventName);
+    void CallEvent(const std::string& eventName, arg ... a);
 
-        // Check EventIterator valid
-        if (eventIterator == eventList.end())  return;
+    unsigned int GetEventCount() const;
 
-        for (auto* ie : eventIterator->second)
-        {
-            if (BaseEvent<arg...>* event = dynamic_cast<BaseEvent<arg...>*>(ie))
-            {
-                event->Call(a...);
-            }
-            else
-            {
-                printf("Dynamic cast failed");
-            }
-        }
-    }
+    unsigned int GetListenerCount(const std::string& eventName) const;
 
-private:
+protected:
 	
-    std::map<std::string, std::vector<IEvent*>> eventList;
+    std::map<std::string, std::vector<IEventListener*>> eventList;
+
 };

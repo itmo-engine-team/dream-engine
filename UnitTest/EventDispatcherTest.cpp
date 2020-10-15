@@ -1,7 +1,7 @@
 #include "pch.h"
 
-#include "../Engine/EventDispatcher/EventDispatcher.h"
-//#include "../Engine/EventDispatcher/EventDispatcher.cpp"
+#include "EventDispatcher.h"
+#include "EventListener.h"
 
 class EventDispatcherTestClass : public ::testing::Test
 {

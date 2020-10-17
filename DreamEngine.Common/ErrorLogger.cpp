@@ -6,7 +6,6 @@
 
 #include <ctime>
 
-
 void ErrorLogger::Log(LogType type, std::string message)
 {
 	std::string errorMessage = GetDate();

@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "EventDispatcher.h"
 
-
 EventDispatcher::~EventDispatcher()
 {
     for (auto event : eventList)

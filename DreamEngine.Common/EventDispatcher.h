@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 
+#include "ErrorLogger.h"
 #include "EventListener.h"
 
 class EventDispatcher
@@ -13,8 +14,6 @@ public:
     // Constructor 
     EventDispatcher() = default;
     ~EventDispatcher();
-
-    //TODO: АТАТА, зачем ты вынес реализацию шаблона в спп? ее линкер и не мог найти потому что подключить ты подключил заголовок, там же он тебе сгенерил определение с твоими парамтерами, но спп файл то ничего о них не занет, из-за этого ты и получил ошибку. Нельзя у шаблонов резделять реализацию и определеине методов/классов
 	
     template <class C, typename ... arg>
     void BindEvent(EventListener<C, arg...>* listener)
@@ -63,18 +62,11 @@ public:
             }
             else
             {
-                //TODO:: Разделите ваши проект не на ПАПКА, а на отдельные проекты с namespace тогда никаких прблем не будет
-                //Тут я убрад вывод в лог
-                //const std::string message = "Can't call listener for event " + eventName;
-                //ErrorLogger::Log(Error, "Can't call listener for event ");
+                const std::string message = "Can't call listener for event " + eventName;
+                ErrorLogger::Log(Error, "Can't call listener for event ");
             }
         }
     }
-
-
-
-	
-    
 
     void UnbindAllListeners(const std::string& eventName);
 

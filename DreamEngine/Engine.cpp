@@ -1,8 +1,6 @@
 #include "Engine.h"
 
-#include "Game/KatamariGame.h"
-
-Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
+Engine::Engine(Game* game, HINSTANCE hInstance, WNDCLASSEX wc) : game(game)
 {
     screenWidth = 1200;
     screenHeight = 800;
@@ -23,9 +21,6 @@ Engine::Engine(HINSTANCE hInstance, WNDCLASSEX wc)
 
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
-
-    // Init Game
-    game = new KatamariGame(this);
 }
 
 Engine::~Engine()
@@ -48,7 +43,8 @@ Engine::~Engine()
 
 void Engine::Init()
 {
-
+    // Init Game
+    game->Init(this);
 }
 
 Graphics* Engine::GetGraphics() const

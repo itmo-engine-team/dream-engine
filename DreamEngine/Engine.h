@@ -7,16 +7,16 @@
 
 #include <iostream>
 
-#include "Graphics/Graphics.h"
+#include "Graphics.h"
 #include "SimpleMath.h"
-#include "Graphics/MeshRenderer.h"
-#include "Graphics/Window.h"
+#include "MeshRenderer.h"
+#include "Window.h"
 
-#include "Input/InputDevice.h"
-#include "Input/Mouse.h"
+#include "InputDevice.h"
+#include "Mouse.h"
 
-#include "InGame/GameAssetManager/GameAssetManager.h"
-#include "InGame/Game.h"
+#include "GameAssetManager.h"
+#include "Game.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -24,7 +24,7 @@ class Engine
 {
 public:
 
-    Engine(HINSTANCE hInstance, WNDCLASSEX wc);
+    Engine(Game* game, HINSTANCE hInstance, WNDCLASSEX wc);
     ~Engine();
 
     void Init();

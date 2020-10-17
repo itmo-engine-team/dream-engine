@@ -2,8 +2,7 @@
 
 #include <DirectXCollision.h>
 
-
-#include "../InGame/GameObject/Actor.h"
+#include "Actor.h"
 
 class Game;
 

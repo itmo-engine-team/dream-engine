@@ -5,7 +5,8 @@
 #include "winuser.h"
 #include <wrl.h>
 
-#include "../DreamEngine/Engine.h"
+#include "Engine.h"
+#include "KatamariGame.h"
 
 using namespace Microsoft::WRL;
 
@@ -121,7 +122,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
     WNDCLASSEX wc;
     wc.lpfnWndProc = WndProc;
 
-    engine = new Engine(hInstance, wc);
+    engine = new Engine(new KatamariGame(), hInstance, wc);
 
     MSG msg = {};
 

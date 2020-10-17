@@ -1,13 +1,51 @@
 #include "KatamariGame.h"
 
 #include <iostream>
+#include "SimpleMath.h"
 
-#include "../Graphics/Shader/Texture.h"
+#include "Texture.h"
 
 using namespace DirectX::SimpleMath;
 
-KatamariGame::KatamariGame(Engine* engine) : Game(engine)
+KatamariGame::KatamariGame() : Game()
 {
+    
+}
+
+KatamariGame::~KatamariGame()
+{
+    delete spectatorActor;
+    spectatorActor = nullptr;
+
+    delete katamariPlayer;
+    katamariPlayer = nullptr;
+
+    delete box3;
+    box3 = nullptr;
+
+    delete box2;
+    box2 = nullptr;
+
+    delete box1;
+    box1 = nullptr;
+
+    delete plane;
+    plane = nullptr;
+
+    delete playerModel;
+    playerModel = nullptr;
+
+    delete boxModel;
+    boxModel = nullptr;
+
+    delete plane;
+    plane = nullptr;
+}
+
+void KatamariGame::Init(Engine* engine)
+{
+    Game::Init(engine);
+
     // Init Shaders
 
     texture = new Texture(engine, L"Game/Meshes/eyeball/eyes_blue.jpg");
@@ -56,36 +94,6 @@ KatamariGame::KatamariGame(Engine* engine) : Game(engine)
 
     spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
     gameAssetManager->AddActor(spectatorActor);
-}
-
-KatamariGame::~KatamariGame()
-{
-    delete spectatorActor;
-    spectatorActor = nullptr;
-
-    delete katamariPlayer;
-    katamariPlayer = nullptr;
-
-    delete box3;
-    box3 = nullptr;
-
-    delete box2;
-    box2 = nullptr;
-
-    delete box1;
-    box1 = nullptr;
-
-    delete plane;
-    plane = nullptr;
-
-    delete playerModel;
-    playerModel = nullptr;
-
-    delete boxModel;
-    boxModel = nullptr;
-
-    delete plane;
-    plane = nullptr;
 }
 
 CameraComponent* KatamariGame::GetCamera() const

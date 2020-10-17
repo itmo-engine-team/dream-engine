@@ -1,21 +1,20 @@
 #pragma once
 
-#include "../Engine.h"
-#include "../InGame/GameObject/SpectatorActor.h"
+#include "Engine.h"
+#include "SpectatorActor.h"
 #include "KatamariSphere.h"
-#include "../InGame/GameObject/Component/CameraComponent.h"
-#include "../InGame/GameObject/Component/StaticModelComponent.h"
-#include "../Graphics/Shader/TexturedShader.h"
-
-using namespace DirectX::SimpleMath;
+#include "CameraComponent.h"
+#include "StaticModelComponent.h"
+#include "TexturedShader.h"
 
 class KatamariGame : public Game
 {
 public:
 
-    KatamariGame(Engine* engine);
+    KatamariGame();
     ~KatamariGame();
 
+    void Init(Engine* engine) override;
     void Update() override;
 
     CameraComponent* GetCamera() const override;

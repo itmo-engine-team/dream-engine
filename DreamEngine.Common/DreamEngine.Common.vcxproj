@@ -125,6 +125,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -152,22 +153,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="EventDispatcher.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="JobContainer.h" />
+    <ClInclude Include="JobSystem.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="StringConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DreamEngine.Common.cpp" />
+    <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
+    <ClCompile Include="JobSystem.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="StringConverter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

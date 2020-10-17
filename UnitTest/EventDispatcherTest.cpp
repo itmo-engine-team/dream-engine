@@ -7,8 +7,6 @@ class EventDispatcherTestClass : public ::testing::Test
 {
 public:
 
-    EventDispatcher* eventDispatcher = nullptr;
-
     EventDispatcherTestClass() = default;
     ~EventDispatcherTestClass() = default;
 
@@ -22,6 +20,10 @@ public:
         delete eventDispatcher;
         eventDispatcher = nullptr;
     }
+
+protected:
+
+    EventDispatcher* eventDispatcher = nullptr;
 
 };
 

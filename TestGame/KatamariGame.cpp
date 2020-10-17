@@ -48,14 +48,14 @@ void KatamariGame::Init(Engine* engine)
 
     // Init Shaders
 
-    texture = new Texture(engine, L"Game/Meshes/eyeball/eyes_blue.jpg");
+    texture = new Texture(engine, L"TestGame/Meshes/eyeball/eyes_blue.jpg");
     gameAssetManager->AddTexture(texture);
 
-    texturedShader = new TexturedShader(engine, L"Game/Shaders/ShaderTextured.fx", texture);
+    texturedShader = new TexturedShader(engine, L"TestGame/Shaders/ShaderTextured.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
 
-    shader = new Shader(engine, L"Game/Shaders/Shader.fx");
+    shader = new Shader(engine, L"TestGame/Shaders/Shader.fx");
     shader->Init();
     gameAssetManager->AddShader(shader);
 
@@ -63,7 +63,7 @@ void KatamariGame::Init(Engine* engine)
 
     planeModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 2, 0.1, 2 });
     boxModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
-    playerModel = new ModelData(engine->GetMeshRenderer(), "Game/Meshes/eyeball/eyeball-mod.obj", texturedShader);
+    playerModel = new ModelData(engine->GetMeshRenderer(), "TestGame/Meshes/eyeball/eyeball-mod.obj", texturedShader);
 
     gameAssetManager->AddModel(planeModel);
     gameAssetManager->AddModel(boxModel);

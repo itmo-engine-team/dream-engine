@@ -77,7 +77,7 @@ void Shader::initInternal(D3D11_INPUT_ELEMENT_DESC* inputElements, const int ele
             char* compileErrors = (char*)(errorVertexCode->GetBufferPointer());
             ErrorLogger::DirectXLog(hr, Error, compileErrors, __FILE__, __FUNCTION__, __LINE__);
         }
-        // If there was  nothing in the error message then it simply could not find the shader file itself.
+        // If there was nothing in the error message then it simply could not find the shader file itself.
         else
         {
             ErrorLogger::DirectXLog(hr, Error, "Missing Shader file", __FILE__, __FUNCTION__, __LINE__);

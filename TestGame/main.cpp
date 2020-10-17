@@ -123,6 +123,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
     wc.lpfnWndProc = WndProc;
 
     engine = new Engine(new KatamariGame(), hInstance, wc);
+    engine->Init();
 
     MSG msg = {};
 

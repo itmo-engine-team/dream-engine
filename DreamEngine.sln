@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DreamEngine.Common", "DreamEngine.Common\DreamEngine.Common.vcxproj", "{DD7F889F-3FFA-481E-A2A8-237AFB839168}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGame", "TestGame\TestGame.vcxproj", "{5A212C89-7019-4D54-8A3F-8243B5E8583C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{DD7F889F-3FFA-481E-A2A8-237AFB839168}.Release|x64.Build.0 = Release|x64
 		{DD7F889F-3FFA-481E-A2A8-237AFB839168}.Release|x86.ActiveCfg = Release|Win32
 		{DD7F889F-3FFA-481E-A2A8-237AFB839168}.Release|x86.Build.0 = Release|Win32
+		{5A212C89-7019-4D54-8A3F-8243B5E8583C}.Debug|x64.ActiveCfg = Debug|x64
+		{5A212C89-7019-4D54-8A3F-8243B5E8583C}.Debug|x64.Build.0 = Debug|x64
+		{5A212C89-7019-4D54-8A3F-8243B5E8583C}.Debug|x86.ActiveCfg = Debug|Win32
+		{5A212C89-7019-4D54-8A3F-8243B5E8583C}.Debug|x86.Build.0 = Debug|Win32
+		{5A212C89-7019-4D54-8A3F-8243B5E8583C}.Release|x64.ActiveCfg = Release|x64
+		{5A212C89-7019-4D54-8A3F-8243B5E8583C}.Release|x64.Build.0 = Release|x64
+		{5A212C89-7019-4D54-8A3F-8243B5E8583C}.Release|x86.ActiveCfg = Release|Win32
+		{5A212C89-7019-4D54-8A3F-8243B5E8583C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

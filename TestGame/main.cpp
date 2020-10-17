@@ -1,19 +1,13 @@
 #define WIN32_LEAN_AND_MEAN
+
 #include "windows.h"
 #include <iostream>
 #include "winuser.h"
 #include <wrl.h>
 
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dcompiler.lib")
-#pragma comment(lib, "dxguid.lib")
-
-#include <directxmath.h>
-#include "Engine.h"
+#include "../DreamEngine/Engine.h"
 
 using namespace Microsoft::WRL;
-using namespace DirectX;
 
 Engine* engine;
 

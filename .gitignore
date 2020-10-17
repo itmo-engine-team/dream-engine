@@ -590,3 +590,6 @@ references/*
 !**/Data/
 
 **LogData*.txt
+
+# Exclude folder for meshes
+!**/Meshes/**/*.obj

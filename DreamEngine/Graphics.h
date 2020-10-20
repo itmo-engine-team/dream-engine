@@ -41,6 +41,14 @@ public:
 
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
+    
+    // Variables for Shadows
+    ID3D11Texture2D* shadowMap = nullptr;
+    ID3D11DepthStencilView* shadowDepthView = nullptr;
+    ID3D11ShaderResourceView* shadowResourceView = nullptr;
+    D3D11_VIEWPORT* shadowViewport;
+
+    D3D11_VIEWPORT* GetShadowViewport() const;
 
 private:
    
@@ -62,7 +70,13 @@ private:
     IDWriteTextFormat* textFormat;
     RECT rect;
 
+    
+
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     void setupImGui(HWND hWnd);
+
+    bool initDepthShaderMap();
+
+
 };

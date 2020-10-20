@@ -194,6 +194,82 @@ void Graphics::setupImGui(HWND hWnd)
     ImGui::StyleColorsDark();
 }
 
+bool Graphics::initDepthShaderMap()
+{
+    /// Создание буфера глубины
+    D3D11_TEXTURE2D_DESC shadowMapDesc;
+    ZeroMemory(&shadowMapDesc, sizeof(D3D11_TEXTURE2D_DESC));
+    shadowMapDesc.Format = DXGI_FORMAT_R24G8_TYPELESS;
+    shadowMapDesc.MipLevels = 1;
+    shadowMapDesc.ArraySize = 1;
+    shadowMapDesc.SampleDesc.Count = 1;
+    shadowMapDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
+    shadowMapDesc.Height = 600;
+    shadowMapDesc.Width = 800;
+
+    HRESULT hr = device->CreateTexture2D(&shadowMapDesc, nullptr, &shadowMap);
+
+    // Создание представления ресурсов
+    D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
+    ZeroMemory(&depthStencilViewDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
+    depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+    depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+    depthStencilViewDesc.Texture2D.MipSlice = 0;
+
+    D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
+    ZeroMemory(&shaderResourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
+    shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    shaderResourceViewDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
+    shaderResourceViewDesc.Texture2D.MipLevels = 1;
+
+    hr = device->CreateDepthStencilView(shadowMap, &depthStencilViewDesc, &shadowDepthView);
+
+    hr = device->CreateShaderResourceView(shadowMap, &shaderResourceViewDesc, &shadowResourceView);
+
+    // Создание состояния сравнения
+    D3D11_SAMPLER_DESC comparisonSamplerDesc;
+    ZeroMemory(&comparisonSamplerDesc, sizeof(D3D11_SAMPLER_DESC));
+    comparisonSamplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
+    comparisonSamplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
+    comparisonSamplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+    comparisonSamplerDesc.BorderColor[0] = 1.0f;
+    comparisonSamplerDesc.BorderColor[1] = 1.0f;
+    comparisonSamplerDesc.BorderColor[2] = 1.0f;
+    comparisonSamplerDesc.BorderColor[3] = 1.0f;
+    comparisonSamplerDesc.MinLOD = 0.f;
+    comparisonSamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+    comparisonSamplerDesc.MipLODBias = 0.f;
+    comparisonSamplerDesc.MaxAnisotropy = 0;
+    comparisonSamplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
+    comparisonSamplerDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT;
+
+    // Создание состояния сравнения
+    D3D11_RASTERIZER_DESC drawingRenderStateDesc;
+    ZeroMemory(&drawingRenderStateDesc, sizeof(D3D11_RASTERIZER_DESC));
+    drawingRenderStateDesc.CullMode = D3D11_CULL_BACK;
+    drawingRenderStateDesc.FillMode = D3D11_FILL_SOLID;
+    drawingRenderStateDesc.DepthClipEnable = true; // Feature level 9_1 requires DepthClipEnable == true
+
+    // Создание состояния прорисовки
+    D3D11_RASTERIZER_DESC shadowRenderStateDesc;
+    ZeroMemory(&shadowRenderStateDesc, sizeof(D3D11_RASTERIZER_DESC));
+    shadowRenderStateDesc.CullMode = D3D11_CULL_FRONT;
+    shadowRenderStateDesc.FillMode = D3D11_FILL_SOLID;
+    shadowRenderStateDesc.DepthClipEnable = true;
+
+    // Создание окна просмотра
+    
+    // Init viewport for shadow rendering
+    ZeroMemory(&shadowViewport, sizeof(D3D11_VIEWPORT));
+    shadowViewport->Height = 600;
+    shadowViewport->Width = 800;
+    shadowViewport->MinDepth = 0.f;
+    shadowViewport->MaxDepth = 1.f;
+
+    return true;
+}
+
+
 ID3D11Device* Graphics::GetDevice()
 {
     return device;
@@ -227,6 +303,11 @@ ID3D11Texture2D* Graphics::GetDepthStencil()
 ID3D11DepthStencilView* Graphics::GetDepthStencilView()
 {
     return depthStencilView;
+}
+
+D3D11_VIEWPORT* Graphics::GetShadowViewport() const
+{
+    return shadowViewport;
 }
 
 void Graphics::CreateImGuiFrame()

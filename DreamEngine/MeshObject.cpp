@@ -138,3 +138,40 @@ void MeshObject::Draw()
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 }
+
+bool MeshObject::RenderShadowMap()
+{
+    auto context = graphics->GetContext();
+    context->OMSetRenderTargets(0, nullptr, graphics->shadowDepthView);
+
+    /* ID3D11RasterizerState* rastState;
+    res = device->CreateRasterizerState(&rastDesc, &rastState); */
+
+   // context->RSSetState(shadowRenderState.Get()); ?????
+    context->RSSetViewports(1, graphics->shadowViewport);
+    UINT stride = sizeof(Vertex);
+    UINT offset = 0;
+
+    graphics->GetContext()->IASetVertexBuffers(
+        0u,
+        1u,
+        vertexBuffer.GetAddressOf(),
+        &stride,
+        &offset
+    );
+    graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+    graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    shader->SetShader();
+
+    const ConstantBuffer cb =
+    {
+        transform->GetWorldMatrix(),
+        engine->GetGame()->GetCamera()->GetViewMatrix(), //от источника света :D -> копия от камеры - свет
+        engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+    };
+    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
+
+    return false;
+}

@@ -1,6 +1,7 @@
 #include "Graphics.h"
 
 #include "ErrorLogger.h"
+#include "DepthShader.h"
 
 Graphics::Graphics()
 {
@@ -84,6 +85,8 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 
     // Using the filled-in description structure and texture, create depth buffer object
     device->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView);
+
+    depthShader = new DepthShader(this, L"Shaders/DepthShader.fx");
 
     D3D11_VIEWPORT viewport = {};
     viewport.Width = screenWidth;
@@ -315,6 +318,11 @@ ID3D11Texture2D* Graphics::GetDepthStencil()
 ID3D11DepthStencilView* Graphics::GetDepthStencilView()
 {
     return depthStencilView;
+}
+
+Shader* Graphics::GetDepthShader() const
+{
+    return depthShader;
 }
 
 D3D11_VIEWPORT* Graphics::GetShadowViewport() const

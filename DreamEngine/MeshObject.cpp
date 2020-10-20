@@ -143,7 +143,6 @@ void MeshObject::Draw()
 
 bool MeshObject::RenderShadowMap()
 {
-
     auto context = graphics->GetContext();
     context->OMSetRenderTargets(0, nullptr, graphics->shadowDepthView);
 
@@ -163,7 +162,7 @@ bool MeshObject::RenderShadowMap()
     graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    shader->SetShader();
+    graphics->GetDepthShader()->SetShader();
 
     const ConstantBuffer cb =
     {

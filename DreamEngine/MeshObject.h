@@ -29,7 +29,6 @@ protected:
     Transform* transform;
     MeshData* meshData;
     Shader* shader;
-    Shader* depthShader;
     Graphics* graphics;
 
     ComPtr<ID3D11Buffer> indexBuffer;

@@ -93,6 +93,8 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
 
 void MeshObject::Draw()
 {
+    graphics->GetContext()->RSSetState(graphics->GetRasterState());
+
     graphics->GetContext()->IASetVertexBuffers(
         0u,
         1u,
@@ -141,13 +143,12 @@ void MeshObject::Draw()
 
 bool MeshObject::RenderShadowMap()
 {
+
     auto context = graphics->GetContext();
     context->OMSetRenderTargets(0, nullptr, graphics->shadowDepthView);
 
-    /* ID3D11RasterizerState* rastState;
-    res = device->CreateRasterizerState(&rastDesc, &rastState); */
+    context->RSSetState(graphics->GetShadowRasterState());
 
-   // context->RSSetState(shadowRenderState.Get()); ?????
     context->RSSetViewports(1, graphics->shadowViewport);
     UINT stride = sizeof(Vertex);
     UINT offset = 0;

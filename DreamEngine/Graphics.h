@@ -38,6 +38,8 @@ public:
     IDXGISwapChain* GetSwapChain();
     ID3D11RenderTargetView* GetRenderTargetView();
     ID3DUserDefinedAnnotation* GetAnnotation();
+    ID3D11RasterizerState* GetRasterState();
+    ID3D11RasterizerState* GetShadowRasterState();
 
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
@@ -57,6 +59,8 @@ private:
     IDXGISwapChain* swapChain;
     ID3D11RenderTargetView* renderTargetView;
     ID3DUserDefinedAnnotation* annotation;
+    ID3D11RasterizerState* rasterState;
+    ID3D11RasterizerState* shadowRasterState;
 
     ID3D11Texture2D* depthStencil = nullptr;                     // Depth buffer texture
     ID3D11DepthStencilView* depthStencilView = nullptr;          // View object, depth buffer

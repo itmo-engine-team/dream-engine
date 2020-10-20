@@ -49,11 +49,13 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     rastDesc.CullMode = D3D11_CULL_NONE;
     rastDesc.FillMode = D3D11_FILL_SOLID;
 
-    ID3D11RasterizerState* rastState;
-    res = device->CreateRasterizerState(&rastDesc, &rastState); 
-    ErrorLogger::DirectXLog(res, Error, "Failed to create RasterizerState", __FILE__, __FUNCTION__, __LINE__);
+    res = device->CreateRasterizerState(&rastDesc, &rasterState); 
+    ErrorLogger::DirectXLog(res, Error, 
+        "Failed to create RasterizerState", __FILE__, __FUNCTION__, __LINE__);
 
-    context->RSSetState(rastState);
+    res = device->CreateRasterizerState(&rastDesc, &shadowRasterState);
+    ErrorLogger::DirectXLog(res, Error,
+        "Failed to create ShadowRasterizerState", __FILE__, __FUNCTION__, __LINE__);
 
     // Structure with parameters: 
     D3D11_TEXTURE2D_DESC descDepth;
@@ -293,6 +295,16 @@ ID3D11RenderTargetView* Graphics::GetRenderTargetView()
 ID3DUserDefinedAnnotation* Graphics::GetAnnotation()
 {
     return annotation;
+}
+
+ID3D11RasterizerState* Graphics::GetRasterState()
+{
+    return rasterState;
+}
+
+ID3D11RasterizerState* Graphics::GetShadowRasterState()
+{
+    return shadowRasterState;
 }
 
 ID3D11Texture2D* Graphics::GetDepthStencil()

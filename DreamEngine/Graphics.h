@@ -33,26 +33,22 @@ public:
 
     void CreateImGuiFrame();
 
+    void PrepareRenderScene();
+    void PrepareRenderShadowMap();
+
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
     IDXGISwapChain* GetSwapChain();
     ID3D11RenderTargetView* GetRenderTargetView();
     ID3DUserDefinedAnnotation* GetAnnotation();
-    ID3D11RasterizerState* GetRasterState();
-    ID3D11RasterizerState* GetShadowRasterState();
 
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
-
-    Shader* GetDepthShader() const;
     
     // Variables for Shadows
     ID3D11Texture2D* shadowMap = nullptr;
     ID3D11DepthStencilView* shadowDepthView = nullptr;
     ID3D11ShaderResourceView* shadowResourceView = nullptr;
-    D3D11_VIEWPORT* shadowViewport;
-
-    D3D11_VIEWPORT* GetShadowViewport() const;
 
 private:
    
@@ -77,13 +73,14 @@ private:
     IDWriteTextFormat* textFormat;
     RECT rect;
 
-    
+    D3D11_VIEWPORT viewport;
+    D3D11_VIEWPORT shadowMapViewport;
 
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     void setupImGui(HWND hWnd);
 
-    bool initDepthShaderMap();
+    bool initDepthShadowMap();
 
 
 };

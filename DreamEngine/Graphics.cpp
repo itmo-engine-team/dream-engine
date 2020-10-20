@@ -86,9 +86,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     // Using the filled-in description structure and texture, create depth buffer object
     device->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView);
 
-    depthShader = new DepthShader(this, L"Shaders/DepthShader.fx");
-
-    D3D11_VIEWPORT viewport = {};
+    viewport = {};
     viewport.Width = screenWidth;
     viewport.Height = screenHeight;
     viewport.TopLeftX = 0;
@@ -96,8 +94,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
-    context->RSSetViewports(1, &viewport);
-    context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+    initDepthShadowMap();
 
     direct2DInitialize(hWnd);
     setupImGui(hWnd);
@@ -199,8 +196,10 @@ void Graphics::setupImGui(HWND hWnd)
     ImGui::StyleColorsDark();
 }
 
-bool Graphics::initDepthShaderMap()
+bool Graphics::initDepthShadowMap()
 {
+    depthShader = new DepthShader(this, L"Shaders/DepthShader.fx");
+
     /// Создание буфера глубины
     D3D11_TEXTURE2D_DESC shadowMapDesc;
     ZeroMemory(&shadowMapDesc, sizeof(D3D11_TEXTURE2D_DESC));
@@ -265,11 +264,12 @@ bool Graphics::initDepthShaderMap()
     // Создание окна просмотра
     
     // Init viewport for shadow rendering
-    ZeroMemory(&shadowViewport, sizeof(D3D11_VIEWPORT));
-    shadowViewport->Height = 600;
-    shadowViewport->Width = 800;
-    shadowViewport->MinDepth = 0.f;
-    shadowViewport->MaxDepth = 1.f;
+    shadowMapViewport = {};
+    ZeroMemory(&shadowMapViewport, sizeof(D3D11_VIEWPORT));
+    shadowMapViewport.Height = 600;
+    shadowMapViewport.Width = 800;
+    shadowMapViewport.MinDepth = 0.f;
+    shadowMapViewport.MaxDepth = 1.f;
 
     return true;
 }
@@ -300,16 +300,6 @@ ID3DUserDefinedAnnotation* Graphics::GetAnnotation()
     return annotation;
 }
 
-ID3D11RasterizerState* Graphics::GetRasterState()
-{
-    return rasterState;
-}
-
-ID3D11RasterizerState* Graphics::GetShadowRasterState()
-{
-    return shadowRasterState;
-}
-
 ID3D11Texture2D* Graphics::GetDepthStencil()
 {
     return depthStencil;
@@ -318,16 +308,6 @@ ID3D11Texture2D* Graphics::GetDepthStencil()
 ID3D11DepthStencilView* Graphics::GetDepthStencilView()
 {
     return depthStencilView;
-}
-
-Shader* Graphics::GetDepthShader() const
-{
-    return depthShader;
-}
-
-D3D11_VIEWPORT* Graphics::GetShadowViewport() const
-{
-    return shadowViewport;
 }
 
 void Graphics::CreateImGuiFrame()
@@ -346,4 +326,20 @@ void Graphics::CreateImGuiFrame()
 
     // render draw data
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+}
+
+void Graphics::PrepareRenderScene()
+{
+    context->RSSetState(rasterState);
+    context->RSSetViewports(1, &viewport);
+    context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+}
+
+void Graphics::PrepareRenderShadowMap()
+{
+    context->RSSetState(shadowRasterState);
+    context->RSSetViewports(1, &shadowMapViewport);
+    context->OMSetRenderTargets(0, nullptr, shadowDepthView);
+
+    depthShader->SetShader();
 }

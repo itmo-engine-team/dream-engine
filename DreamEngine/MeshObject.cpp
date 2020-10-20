@@ -93,8 +93,6 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
 
 void MeshObject::Draw()
 {
-    graphics->GetContext()->RSSetState(graphics->GetRasterState());
-
     graphics->GetContext()->IASetVertexBuffers(
         0u,
         1u,
@@ -143,15 +141,6 @@ void MeshObject::Draw()
 
 bool MeshObject::RenderShadowMap()
 {
-    auto context = graphics->GetContext();
-    context->OMSetRenderTargets(0, nullptr, graphics->shadowDepthView);
-
-    context->RSSetState(graphics->GetShadowRasterState());
-
-    context->RSSetViewports(1, graphics->shadowViewport);
-    UINT stride = sizeof(Vertex);
-    UINT offset = 0;
-
     graphics->GetContext()->IASetVertexBuffers(
         0u,
         1u,
@@ -161,8 +150,6 @@ bool MeshObject::RenderShadowMap()
     );
     graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    graphics->GetDepthShader()->SetShader();
 
     const ConstantBuffer cb =
     {

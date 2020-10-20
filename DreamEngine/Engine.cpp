@@ -120,6 +120,13 @@ void Engine::update()
 
 void Engine::render()
 {
+    // Render shadow map
+    graphics->PrepareRenderShadowMap();
+    //game->RenderShadowMap();
+
+    // Render scene
+    graphics->PrepareRenderScene();
+
     float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     graphics->GetContext()->ClearRenderTargetView(graphics->GetRenderTargetView(), color);
     graphics->GetContext()->ClearDepthStencilView(graphics->GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -128,11 +135,12 @@ void Engine::render()
     game->Render();
     graphics->GetAnnotation()->EndEvent();
 
-    // Add text on Scene
+    // Render text
     wchar_t pretext[200];
     swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);
     graphics->DrawTextOnScene(400, 100, pretext);
 
+    // Render ImGui
     graphics->CreateImGuiFrame();
 
     graphics->GetSwapChain()->Present(1, 0);

@@ -20,6 +20,7 @@ public:
     virtual void Init(Engine* engine);
     virtual void Update();
     virtual void Render();
+    void RenderShadowMap();
 
     void SetGameDeltaTimeMultiplier(float deltaTimeMultiplier);
     float GetGameDeltaTimeMultiplier();

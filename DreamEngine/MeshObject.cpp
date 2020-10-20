@@ -154,11 +154,13 @@ bool MeshObject::RenderShadowMap()
     const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
-        engine->GetGame()->GetCamera()->GetViewMatrix(), //от источника света :D -> копия от камеры - свет
+        engine->GetGame()->GetCamera()->GetViewMatrix(), // TODO от источника света :D -> копия от камеры - свет
         engine->GetGame()->GetCamera()->GetProjectionMatrix(),
     };
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
 
-    return false;
+    graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
+
+    return true;
 }

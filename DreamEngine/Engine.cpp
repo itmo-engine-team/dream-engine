@@ -122,7 +122,7 @@ void Engine::render()
 {
     // Render shadow map
     graphics->PrepareRenderShadowMap();
-    //game->RenderShadowMap();
+    game->RenderShadowMap();
 
     // Render scene
     graphics->PrepareRenderScene();

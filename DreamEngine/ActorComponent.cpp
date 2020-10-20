@@ -23,6 +23,11 @@ void ActorComponent::Draw()
     onDraw();
 }
 
+void ActorComponent::DrawShadowMap()
+{
+
+}
+
 void ActorComponent::onInit()
 {
 
@@ -35,6 +40,11 @@ void ActorComponent::onUpdate()
 
 void ActorComponent::onDraw()
 {
+}
+
+void ActorComponent::onDrawShadowMap()
+{
+
 }
 
 

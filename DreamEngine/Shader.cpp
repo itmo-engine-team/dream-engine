@@ -1,15 +1,14 @@
 #include "Shader.h"
 
-#include "Engine.h"
+#include "Graphics.h"
 
 #include <d3dcompiler.h>
 
 #include "ErrorLogger.h"
 
-Shader::Shader(Engine* engine, const wchar_t* shaderPath)
-    : shaderPath(std::wstring(shaderPath))
+Shader::Shader(Graphics* graphics, const wchar_t* shaderPath)
+    : graphics(graphics), shaderPath(std::wstring(shaderPath))
 {
-    graphics = engine->GetGraphics();
 }
 
 void Shader::SetShader()

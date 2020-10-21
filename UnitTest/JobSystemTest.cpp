@@ -78,7 +78,7 @@ TEST(JobSystemTest, ExecuteTest)
 
 TEST(JobSystemTest, DispatchTest)
 {
-    const uint32_t dataCount = 1000000;
+    const uint32_t dataCount = 100000000;
 
     // Loop test:
     {
@@ -95,6 +95,7 @@ TEST(JobSystemTest, DispatchTest)
     }
 
     {
+        JobSystem::Initialize();
         Data* dataSet = new Data[dataCount];
         {
             auto t = timer("Dispatch() test: ");
@@ -103,7 +104,9 @@ TEST(JobSystemTest, DispatchTest)
             JobSystem::Dispatch(dataCount, groupSize, [&dataSet](JobArgs args) {
                 dataSet[args.jobIndex].Compute(args.jobIndex);
             }, 0);
+            
             JobSystem::Wait();
+            
         }
         delete[] dataSet;
     }

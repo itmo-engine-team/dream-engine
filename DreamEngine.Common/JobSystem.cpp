@@ -130,7 +130,7 @@ namespace JobSystem
         Job job;
         job.ctx = ctx;
         job.task = task;
-        job.sharedMemorySize = (uint32_t)sharedMemorySize;
+        job.sharedMemorySize = static_cast<uint32_t>(sharedMemorySize);
 
         for (uint32_t groupID = 0; groupID < groupCount; ++groupID)
         {

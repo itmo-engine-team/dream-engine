@@ -121,8 +121,6 @@ void Engine::update()
 void Engine::render()
 {
     // Render shadow map
-    // TODO Clear render target and depth stensil
-
     graphics->PrepareRenderShadowMap();
     game->RenderShadowMap();
 

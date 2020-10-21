@@ -341,6 +341,7 @@ void Graphics::PrepareRenderShadowMap()
     context->RSSetState(shadowRasterState);
     context->RSSetViewports(1, &shadowMapViewport);
     context->OMSetRenderTargets(0, nullptr, shadowDepthView);
+    context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
     depthShader->SetShader();
 }

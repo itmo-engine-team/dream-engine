@@ -219,9 +219,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Shaders\DepthShader.fx">
-      <Filter>Resource Files</Filter>
-    </FxCompile>
-  </ItemGroup>
 </Project>

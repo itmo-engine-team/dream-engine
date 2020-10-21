@@ -199,6 +199,7 @@ void Graphics::setupImGui(HWND hWnd)
 bool Graphics::initDepthShadowMap()
 {
     depthShader = new DepthShader(this, L"Shaders/DepthShader.fx");
+    depthShader->Init();
 
     /// Создание буфера глубины
     D3D11_TEXTURE2D_DESC shadowMapDesc;

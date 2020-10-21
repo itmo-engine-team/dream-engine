@@ -19,5 +19,5 @@ void DepthShader::Init()
         }
     };
 
-    initInternal(inputElements, 3);
+    initInternal(inputElements, 1);
 }

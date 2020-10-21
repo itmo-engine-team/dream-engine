@@ -25,7 +25,7 @@ void ActorComponent::Draw()
 
 void ActorComponent::DrawShadowMap()
 {
-
+    onDrawShadowMap();
 }
 
 void ActorComponent::onInit()

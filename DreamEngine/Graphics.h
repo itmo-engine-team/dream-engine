@@ -9,6 +9,7 @@
 #include "ImGui/imgui_impl_dx11.h"
 #include "ImGui/imgui_impl_win32.h"
 #include "Shader.h"
+#include <vector>
 
 #pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
 #pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
@@ -73,6 +74,7 @@ private:
     IDWriteTextFormat* textFormat;
     RECT rect;
 
+    std::vector<D3D11_VIEWPORT> viewports;
     D3D11_VIEWPORT viewport;
     D3D11_VIEWPORT shadowMapViewport;
 

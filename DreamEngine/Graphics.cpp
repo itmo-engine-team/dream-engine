@@ -94,6 +94,8 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
+    viewports.push_back(viewport);
+
     initDepthShadowMap();
 
     direct2DInitialize(hWnd);
@@ -272,6 +274,8 @@ bool Graphics::initDepthShadowMap()
     shadowMapViewport.MinDepth = 0.f;
     shadowMapViewport.MaxDepth = 1.f;
 
+    viewports.push_back(shadowMapViewport);
+
     return true;
 }
 
@@ -332,14 +336,14 @@ void Graphics::CreateImGuiFrame()
 void Graphics::PrepareRenderScene()
 {
     context->RSSetState(rasterState);
-    context->RSSetViewports(1, &viewport);
+    context->RSSetViewports(2, viewports.data());
     context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 }
 
 void Graphics::PrepareRenderShadowMap()
 {
     context->RSSetState(shadowRasterState);
-    context->RSSetViewports(1, &shadowMapViewport);
+    //context->RSSetViewports(1, &shadowMapViewport);
     context->OMSetRenderTargets(0, nullptr, shadowDepthView);
     context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 

@@ -95,11 +95,20 @@ void KatamariGame::Init(Engine* engine)
 
     spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
     gameAssetManager->AddActor(spectatorActor);
+
+    lightActor = new LightActor(this, new Transform({ 0, 3, -6 }));
+    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 30);
+    gameAssetManager->AddActor(lightActor);
 }
 
 CameraComponent* KatamariGame::GetCamera() const
 {
     return spectatorActor->GetCameraComponent();
+}
+
+LightComponent* KatamariGame::GetLight() const
+{
+    return lightActor->GetLightComponent();
 }
 
 void KatamariGame::Update()

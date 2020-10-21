@@ -154,8 +154,8 @@ bool MeshObject::RenderShadowMap()
     const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
-        engine->GetGame()->GetCamera()->GetViewMatrix(), // TODO от источника света :D -> копия от камеры - свет
-        engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+        engine->GetGame()->GetLight()->GetViewMatrix(),
+        engine->GetGame()->GetLight()->GetProjectionMatrix(),
     };
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());

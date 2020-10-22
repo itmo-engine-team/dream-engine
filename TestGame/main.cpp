@@ -11,6 +11,7 @@
 using namespace Microsoft::WRL;
 
 Engine* engine;
+InputSystem* inputSystem;
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam);
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
@@ -19,10 +20,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
     {
         return true;
     }
+
+    if (engine->ProcessWndMessage(hwnd, umessage, wparam, lparam))
+    {
+        return true;
+    }
+
+    inputSystem->ProcessWndMessage(hwnd, umessage, wparam, lparam);
       
     switch (umessage)
     {
-        // Check if the window is being destroyed.
+    // Check if the window is being destroyed.
     case WM_DESTROY:
     {
         PostQuitMessage(0);
@@ -39,74 +47,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
     case WM_SIZE:
     {
         std::cout << "Width " << LOWORD(lparam) << " Height " << HIWORD(lparam) << std::endl;
-
         return 0;
     }
 
-    case WM_PAINT:
-    {
-        engine->DoFrame();
-        return 0;
-    }
-
-    // Input Device
-    case WM_KILLFOCUS:
-        engine->GetInputDevice()->ClearState();
-        break;
-    case WM_SYSKEYDOWN:
     case WM_KEYDOWN:
-        if (!(lparam & 0x40000000) || engine->GetInputDevice()->AutorepeatIsEnabled())
-        {
-            engine->GetInputDevice()->OnKeyPressed(static_cast<unsigned char>(wparam));
-        }
-        engine->GetInputDevice()->OnKeyPressed(static_cast<unsigned char>(wparam));
-
-        // If a key is pressed send it to the input object so it can record that state.
-        //std::cout << "Key: " << (unsigned int)wparam << std::endl;
-
-        if ((unsigned int)wparam == 27) PostQuitMessage(0);
+        if (wparam == 27) PostQuitMessage(0);
         break;
-    case WM_SYSKEYUP:
-    case WM_KEYUP:
-        engine->GetInputDevice()->OnKeyReleased(static_cast<unsigned char>(wparam));
-        break;
-    case WM_CHAR:
-        engine->GetInputDevice()->OnChar(static_cast<unsigned char>(wparam));
-        break;
-        //End Input Device
-
-    case WM_LBUTTONDOWN:
-    {
-        break;
-    }
-    case WM_MOUSEMOVE:
-    {
-        const int x = LOWORD(lparam);
-        const int y = HIWORD(lparam);
-        engine->GetMouse()->OnMouseMove(x, y);
-        break;
-    }
-
-    case WM_INPUT:
-    {
-        UINT dataSize;
-        GetRawInputData(reinterpret_cast<HRAWINPUT>(lparam), RID_INPUT, NULL, &dataSize, sizeof(RAWINPUTHEADER)); //Need to populate data size first
-
-        if (dataSize > 0)
-        {
-            std::unique_ptr<BYTE[]> rawdata = std::make_unique<BYTE[]>(dataSize);
-            if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lparam), RID_INPUT, rawdata.get(), &dataSize, sizeof(RAWINPUTHEADER)) == dataSize)
-            {
-                RAWINPUT* raw = reinterpret_cast<RAWINPUT*>(rawdata.get());
-                if (raw->header.dwType == RIM_TYPEMOUSE)
-                {
-                    engine->GetMouse()->OnRawDelta(raw->data.mouse.lLastX, raw->data.mouse.lLastY);
-                }
-            }
-        }
-
-        return DefWindowProc(hwnd, umessage, wparam, lparam); //Need to call DefWindowProc for WM_INPUT messages
-    }
 
     // All other messages pass to the message handler in the system class.
     default:
@@ -122,7 +68,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
     WNDCLASSEX wc;
     wc.lpfnWndProc = WndProc;
 
-    engine = new Engine(new KatamariGame(), hInstance, wc);
+    inputSystem = new InputSystem();
+
+    engine = new Engine(new KatamariGame(), inputSystem, hInstance, wc);
     engine->Init();
 
     MSG msg = {};

@@ -1,16 +1,12 @@
 #include "Engine.h"
 
-Engine::Engine(Game* game, HINSTANCE hInstance, WNDCLASSEX wc) : game(game)
+Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
+    : game(game), inputSystem(inputSystem)
 {
     screenWidth = 1200;
     screenHeight = 800;
 
     dwStartTick = GetTickCount();
-
-    inputDevice = new InputDevice();
-
-    mouse = new Mouse();
-    mouse->EnableRaw();
 
     meshRenderer = new MeshRenderer();
 
@@ -34,17 +30,30 @@ Engine::~Engine()
     delete meshRenderer;
     meshRenderer = nullptr;
 
-    delete mouse;
-    mouse = nullptr;
-
-    delete inputDevice;
-    inputDevice = nullptr;
+    delete inputSystem;
+    inputSystem = nullptr;
 }
 
 void Engine::Init()
 {
     // Init Game
     game->Init(this);
+}
+
+bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
+{
+    switch (umessage)
+    {
+        case WM_PAINT:
+        {
+            DoFrame();
+            return true;
+        }
+        default:
+            break;
+    }
+
+    return false;
 }
 
 Graphics* Engine::GetGraphics() const
@@ -65,6 +74,11 @@ GameAssetManager* Engine::GetGameAssetManager() const
 MeshRenderer* Engine::GetMeshRenderer() const
 {
     return meshRenderer;
+}
+
+InputSystem* Engine::GetInputSystem() const
+{
+    return inputSystem;
 }
 
 void Engine::DoFrame()
@@ -101,16 +115,6 @@ int Engine::GetScreenWidth() const
 int Engine::GetScreenHeight() const
 {
     return screenHeight;
-}
-
-InputDevice* Engine::GetInputDevice() const
-{
-    return inputDevice;
-}
-
-Mouse* Engine::GetMouse() const
-{
-    return mouse;
 }
 
 void Engine::update()

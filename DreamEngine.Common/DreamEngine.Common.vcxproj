@@ -157,6 +157,8 @@
     <ClInclude Include="EventDispatcher.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="InputSystemUtils.h" />
     <ClInclude Include="JobContainer.h" />
     <ClInclude Include="JobSystem.h" />
     <ClInclude Include="pch.h" />
@@ -166,6 +168,7 @@
     <ClCompile Include="DreamEngine.Common.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="JobSystem.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

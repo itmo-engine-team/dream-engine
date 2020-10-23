@@ -16,29 +16,29 @@ CameraComponent* SpectatorActor::GetCameraComponent() const
 void SpectatorActor::onUpdate()
 {
     // Activates only with right button
-    if (!game->GetEngine()->GetInputDevice()->KeyIsPressed('C')) return;
+    if (!game->GetEngine()->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return;
 
     // Rotation
-    while (const auto delta = game->GetEngine()->GetMouse()->ReadRawDelta())
+    while (const auto delta = game->GetEngine()->GetInputSystem()->ReadRawDelta())
     {
         Rotate(static_cast<float>(delta->x) * -game->GetEngine()->GetDeltaTime(),
             static_cast<float>(delta->y) * game->GetEngine()->GetDeltaTime());
     }
 
     // Movement
-    if (game->GetEngine()->GetInputDevice()->KeyIsPressed('W'))
+    if (game->GetEngine()->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_W))
     {
         Translate({ 0.0f, 0.0f, game->GetEngine()->GetDeltaTime() });
     }
-    if (game->GetEngine()->GetInputDevice()->KeyIsPressed('A'))
+    if (game->GetEngine()->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_A))
     {
         Translate({ game->GetEngine()->GetDeltaTime(), 0.0f, 0.0f });
     }
-    if (game->GetEngine()->GetInputDevice()->KeyIsPressed('S'))
+    if (game->GetEngine()->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_S))
     {
         Translate({ 0.0f, 0.0f, -game->GetEngine()->GetDeltaTime() });
     }
-    if (game->GetEngine()->GetInputDevice()->KeyIsPressed('D'))
+    if (game->GetEngine()->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_D))
     {
         Translate({ -game->GetEngine()->GetDeltaTime(), 0.0f, 0.0f });
     }

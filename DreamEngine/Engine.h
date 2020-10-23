@@ -12,11 +12,10 @@
 #include "MeshRenderer.h"
 #include "Window.h"
 
-#include "InputDevice.h"
-#include "Mouse.h"
-
 #include "GameAssetManager.h"
 #include "Game.h"
+
+#include "InputSystem.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -24,10 +23,12 @@ class Engine
 {
 public:
 
-    Engine(Game* game, HINSTANCE hInstance, WNDCLASSEX wc);
+    Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc);
     ~Engine();
 
     void Init();
+
+    bool ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam);
 
     void DoFrame();
 
@@ -38,8 +39,7 @@ public:
     GameAssetManager* GetGameAssetManager() const;
     MeshRenderer* GetMeshRenderer() const;
 
-    InputDevice* GetInputDevice() const;
-    Mouse* GetMouse() const;
+    InputSystem* GetInputSystem() const;
 
     float GetDeltaTime() const;
     int GetScreenWidth() const;
@@ -54,8 +54,7 @@ protected:
     GameAssetManager* gameAssetManager;
     MeshRenderer* meshRenderer;
 
-    InputDevice* inputDevice;
-    Mouse* mouse;
+    InputSystem* inputSystem = nullptr;
 
     float deltaTime = 0;
     float currentTime = 0;

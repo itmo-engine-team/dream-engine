@@ -45,10 +45,8 @@ bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM l
     switch (umessage)
     {
         case WM_PAINT:
-        {
             DoFrame();
             return true;
-        }
         default:
             break;
     }

@@ -30,35 +30,24 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
       
     switch (umessage)
     {
-    // Check if the window is being destroyed.
-    case WM_DESTROY:
-    {
-        PostQuitMessage(0);
-        return 0;
-    }
+        // Check if the window is being destroyed.
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
+        // Check if the window is being closed.
+        case WM_CLOSE:
+            PostQuitMessage(0);
+            return 0;
+        case WM_SIZE:
+            std::cout << "Width " << LOWORD(lparam) << " Height " << HIWORD(lparam) << std::endl;
+            return 0;
+        case WM_KEYDOWN:
+            if (wparam == 27) PostQuitMessage(0);
+            break;
 
-    // Check if the window is being closed.
-    case WM_CLOSE:
-    {
-        PostQuitMessage(0);
-        return 0;
-    }
-
-    case WM_SIZE:
-    {
-        std::cout << "Width " << LOWORD(lparam) << " Height " << HIWORD(lparam) << std::endl;
-        return 0;
-    }
-
-    case WM_KEYDOWN:
-        if (wparam == 27) PostQuitMessage(0);
-        break;
-
-    // All other messages pass to the message handler in the system class.
-    default:
-    {
-        return DefWindowProc(hwnd, umessage, wparam, lparam);
-    }
+        // All other messages pass to the message handler in the system class.
+        default:
+            return DefWindowProc(hwnd, umessage, wparam, lparam);
     }
 }
 

@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClCompile Include="EventDispatcherTest.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="JobSystemTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

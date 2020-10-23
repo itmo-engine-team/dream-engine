@@ -21,6 +21,7 @@ public:
     MeshObject(Engine* engine, Transform* transform, MeshData* meshData, Shader* shader);
 
     void Draw();
+    bool RenderShadowMap();
 
 protected:
 

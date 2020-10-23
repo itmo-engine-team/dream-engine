@@ -1,16 +1,12 @@
 #include "Engine.h"
 
-Engine::Engine(Game* game, HINSTANCE hInstance, WNDCLASSEX wc) : game(game)
+Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
+    : game(game), inputSystem(inputSystem)
 {
     screenWidth = 1200;
     screenHeight = 800;
 
     dwStartTick = GetTickCount();
-
-    inputDevice = new InputDevice();
-
-    mouse = new Mouse();
-    mouse->EnableRaw();
 
     meshRenderer = new MeshRenderer();
 
@@ -34,17 +30,28 @@ Engine::~Engine()
     delete meshRenderer;
     meshRenderer = nullptr;
 
-    delete mouse;
-    mouse = nullptr;
-
-    delete inputDevice;
-    inputDevice = nullptr;
+    delete inputSystem;
+    inputSystem = nullptr;
 }
 
 void Engine::Init()
 {
     // Init Game
     game->Init(this);
+}
+
+bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
+{
+    switch (umessage)
+    {
+        case WM_PAINT:
+            DoFrame();
+            return true;
+        default:
+            break;
+    }
+
+    return false;
 }
 
 Graphics* Engine::GetGraphics() const
@@ -65,6 +72,11 @@ GameAssetManager* Engine::GetGameAssetManager() const
 MeshRenderer* Engine::GetMeshRenderer() const
 {
     return meshRenderer;
+}
+
+InputSystem* Engine::GetInputSystem() const
+{
+    return inputSystem;
 }
 
 void Engine::DoFrame()
@@ -103,16 +115,6 @@ int Engine::GetScreenHeight() const
     return screenHeight;
 }
 
-InputDevice* Engine::GetInputDevice() const
-{
-    return inputDevice;
-}
-
-Mouse* Engine::GetMouse() const
-{
-    return mouse;
-}
-
 void Engine::update()
 {
     game->Update();
@@ -120,6 +122,13 @@ void Engine::update()
 
 void Engine::render()
 {
+    // Render shadow map
+    graphics->PrepareRenderShadowMap();
+    game->RenderShadowMap();
+
+    // Render scene
+    graphics->PrepareRenderScene();
+
     float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     graphics->GetContext()->ClearRenderTargetView(graphics->GetRenderTargetView(), color);
     graphics->GetContext()->ClearDepthStencilView(graphics->GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -128,11 +137,12 @@ void Engine::render()
     game->Render();
     graphics->GetAnnotation()->EndEvent();
 
-    // Add text on Scene
+    // Render text
     wchar_t pretext[200];
     swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);
     graphics->DrawTextOnScene(400, 100, pretext);
 
+    // Render ImGui
     graphics->CreateImGuiFrame();
 
     graphics->GetSwapChain()->Present(1, 0);

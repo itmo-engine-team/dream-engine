@@ -138,3 +138,29 @@ void MeshObject::Draw()
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 }
+
+bool MeshObject::RenderShadowMap()
+{
+    graphics->GetContext()->IASetVertexBuffers(
+        0u,
+        1u,
+        vertexBuffer.GetAddressOf(),
+        &stride,
+        &offset
+    );
+    graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+    graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    const ConstantBuffer cb =
+    {
+        transform->GetWorldMatrix(),
+        engine->GetGame()->GetLight()->GetViewMatrix(),
+        engine->GetGame()->GetLight()->GetProjectionMatrix(),
+    };
+    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
+
+    graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
+
+    return true;
+}

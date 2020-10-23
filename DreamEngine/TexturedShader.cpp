@@ -2,10 +2,10 @@
 
 #include "Texture.h"
 
-TexturedShader::TexturedShader(Engine* engine,
+TexturedShader::TexturedShader(Graphics* graphics,
     const wchar_t* shaderPath,
     Texture* texture)
-    : Shader(engine, shaderPath), texture(texture)
+    : Shader(graphics, shaderPath), texture(texture)
 {
 
 }

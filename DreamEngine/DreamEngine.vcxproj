@@ -151,6 +151,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DepthShader.h" />
     <ClInclude Include="DeferredBuffers.h" />
     <ClInclude Include="DeferredShader.h" />
     <ClInclude Include="Engine.h" />
@@ -163,6 +164,8 @@
     <ClInclude Include="ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="LightActor.h" />
+    <ClInclude Include="LightComponent.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MeshData.h" />
     <ClInclude Include="MeshObject.h" />
@@ -185,11 +188,10 @@
     <ClInclude Include="StaticModelComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="SpectatorActor.h" />
-    <ClInclude Include="InputDevice.h" />
-    <ClInclude Include="Mouse.h" />
     <ClInclude Include="MathUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DepthShader.cpp" />
     <ClCompile Include="DeferredBuffers.cpp" />
     <ClCompile Include="DeferredShader.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -199,6 +201,8 @@
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
     <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="LightActor.cpp" />
+    <ClCompile Include="LightComponent.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshObject.cpp" />
@@ -217,8 +221,6 @@
     <ClCompile Include="StaticModelComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="SpectatorActor.cpp" />
-    <ClCompile Include="InputDevice.cpp" />
-    <ClCompile Include="Mouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">

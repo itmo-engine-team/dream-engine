@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\InputSystem">
+      <UniqueIdentifier>{5e19651b-aea8-4921-bf0c-37bace1d003a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -39,6 +42,12 @@
     <ClInclude Include="StringConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Header Files\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystemUtils.h">
+      <Filter>Header Files\InputSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DreamEngine.Common.cpp">
@@ -57,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StringConverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

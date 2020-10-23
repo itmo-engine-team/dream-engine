@@ -22,6 +22,7 @@ namespace JobSystem
     JobContainers::ThreadSafeRingBuffer<Job, 256> jobQueue;
     std::condition_variable wakeCondition;
     std::mutex wakeMutex;
+    Context* ctx = new Context{0}; 
 
     // This function executes the next item from the job queue. Returns true if successful, false if there was no job available
     bool work()
@@ -94,13 +95,13 @@ namespace JobSystem
         return numThreads;
     }
 
-    void Execute(Context& ctx, const std::function<void(JobArgs)>& task)
+    void Execute(const std::function<void(JobArgs)>& task)
     {
         // Context state is updated:
-        ctx.counter.fetch_add(1);
+        ctx->counter.fetch_add(1);
 
         Job job;
-        job.ctx = &ctx;
+        job.ctx = ctx;
         job.task = task;
         job.groupID = 0;
         job.groupJobOffset = 0;
@@ -114,7 +115,7 @@ namespace JobSystem
         wakeCondition.notify_one();
     }
 
-    void Dispatch(Context& ctx, uint32_t jobCount, uint32_t groupSize, const std::function<void(JobArgs)>& task, size_t sharedMemorySize)
+    void Dispatch(uint32_t jobCount, uint32_t groupSize, const std::function<void(JobArgs)>& task, size_t sharedMemorySize)
     {
         if (jobCount == 0 || groupSize == 0)
         {
@@ -124,12 +125,12 @@ namespace JobSystem
         const uint32_t groupCount = DispatchGroupCount(jobCount, groupSize);
 
         // Context state is updated:
-        ctx.counter.fetch_add(groupCount);
+        ctx->counter.fetch_add(groupCount);
 
         Job job;
-        job.ctx = &ctx;
+        job.ctx = ctx;
         job.task = task;
-        job.sharedMemorySize = (uint32_t)sharedMemorySize;
+        job.sharedMemorySize = static_cast<uint32_t>(sharedMemorySize);
 
         for (uint32_t groupID = 0; groupID < groupCount; ++groupID)
         {
@@ -152,18 +153,18 @@ namespace JobSystem
         return (jobCount + groupSize - 1) / groupSize;
     }
 
-    bool IsBusy(const Context& ctx)
+    bool IsBusy()
     {
         // Whenever the context label is greater than zero, it means that there is still work that needs to be done
-        return ctx.counter.load() > 0;
+        return ctx->counter.load() > 0;
     }
 
-    void Wait(const Context& ctx)
+    void Wait()
     {
         // Wake any threads that might be sleeping:
         wakeCondition.notify_all();
 
         // Waiting will also put the current thread to good use by working on an other job if it can:
-        while (IsBusy(ctx)) { work(); }
+        while (IsBusy()) { work(); }
     }
 }

@@ -115,24 +115,26 @@ void KatamariGame::Update()
 {
     Game::Update();
 
-    // Update player movement
-    if (engine->GetInputDevice()->KeyIsPressed('C')) return; // Skip if camera moves
-    if (engine->GetInputDevice()->KeyIsPressed('W'))
+    // Skip if camera moves
+    if (engine->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return; 
+
+    // Update sphere movement
+    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_W))
     {
         katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() });
         playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, engine->GetDeltaTime());
     }
-    if (engine->GetInputDevice()->KeyIsPressed('A'))
+    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_A))
     {
         katamariPlayer->GetTransform()->AddWorldPosition({ engine->GetDeltaTime(), 0.0f, 0.0f });
         playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -engine->GetDeltaTime());
     }
-    if (engine->GetInputDevice()->KeyIsPressed('S'))
+    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_S))
     {
         katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() });
         playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -engine->GetDeltaTime());
     }
-    if (engine->GetInputDevice()->KeyIsPressed('D'))
+    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_D))
     {
         katamariPlayer->GetTransform()->AddWorldPosition({ -engine->GetDeltaTime(), 0.0f, 0.0f });
         playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, engine->GetDeltaTime());

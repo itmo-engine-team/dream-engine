@@ -186,8 +186,6 @@
     <ClInclude Include="StaticModelComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="SpectatorActor.h" />
-    <ClInclude Include="InputDevice.h" />
-    <ClInclude Include="Mouse.h" />
     <ClInclude Include="MathUtils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -219,8 +217,6 @@
     <ClCompile Include="StaticModelComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="SpectatorActor.cpp" />
-    <ClCompile Include="InputDevice.cpp" />
-    <ClCompile Include="Mouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">

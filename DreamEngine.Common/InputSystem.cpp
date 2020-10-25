@@ -46,9 +46,7 @@ void InputSystem::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPA
             setMouseButtonState(InputState::Released, MouseInput::Middle);
             break;
         case WM_MOUSEMOVE:
-            const int x = LOWORD(lparam);
-            const int y = HIWORD(lparam);
-            //onMouseMove(x, y);
+            //onMouseMove(LOWORD(lparam), HIWORD(lparam));
             break;
 
         case WM_INPUT:

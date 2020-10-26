@@ -211,8 +211,8 @@ bool Graphics::initDepthShadowMap()
     shadowMapDesc.ArraySize = 1;
     shadowMapDesc.SampleDesc.Count = 1;
     shadowMapDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
-    shadowMapDesc.Height = 600;
-    shadowMapDesc.Width = 800;
+    shadowMapDesc.Height = 1024;
+    shadowMapDesc.Width = 1024;
 
     HRESULT hr = device->CreateTexture2D(&shadowMapDesc, nullptr, &shadowMap);
 
@@ -336,7 +336,7 @@ void Graphics::CreateImGuiFrame()
 void Graphics::PrepareRenderScene()
 {
     context->RSSetState(rasterState);
-    context->RSSetViewports(2, viewports.data());
+    context->RSSetViewports(1, &viewport);
     context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 }
 

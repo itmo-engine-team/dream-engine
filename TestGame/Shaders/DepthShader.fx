@@ -1,8 +1,6 @@
 cbuffer CBuf : register(b0)
 {
     matrix World;
-    matrix View;
-    matrix Projection;
     matrix lightView;
     matrix lightProjection;
 };

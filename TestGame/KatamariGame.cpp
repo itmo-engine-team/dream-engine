@@ -97,7 +97,7 @@ void KatamariGame::Init(Engine* engine)
     gameAssetManager->AddActor(spectatorActor);
 
     lightActor = new LightActor(this, new Transform({ 0, 3, -6 }));
-    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 30);
+    //lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 30);
     gameAssetManager->AddActor(lightActor);
 }
 

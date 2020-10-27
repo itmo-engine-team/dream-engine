@@ -18,6 +18,7 @@ public:
 
     void Init(Engine* engine) override;
     void Update() override;
+    void Render() override;
 
     CameraComponent* GetCamera() const override;
     LightComponent* GetLight() const override;
@@ -34,14 +35,18 @@ private:
     Actor* box1;
     Actor* box2;
     Actor* box3;
+    Actor* quard;
 
     ModelData* planeModel;
     ModelData* boxModel;
     ModelData* playerModel;
+    ModelData* quardModel;
 
     Shader* shader;
     TexturedShader* texturedShader;
+    TexturedShader* texturedShadowShader;
     Texture* texture;
+    Texture* shadowMapTexture;
 
     void collisionCheck(GameObject* gameObject);
 

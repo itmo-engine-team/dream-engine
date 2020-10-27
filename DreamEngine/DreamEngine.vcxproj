@@ -166,6 +166,7 @@
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="LightActor.h" />
     <ClInclude Include="LightComponent.h" />
+    <ClInclude Include="LightShader.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MeshData.h" />
     <ClInclude Include="MeshObject.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="LightActor.cpp" />
     <ClCompile Include="LightComponent.cpp" />
+    <ClCompile Include="LightShader.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshObject.cpp" />

@@ -53,5 +53,6 @@
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\ShaderDeferred.fx" />
+    <FxCompile Include="Shaders\Light.fx" />
   </ItemGroup>
 </Project>

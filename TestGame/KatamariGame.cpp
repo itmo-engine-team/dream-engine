@@ -1,6 +1,8 @@
 #include "KatamariGame.h"
 
 #include <iostream>
+
+#include "ErrorLogger.h"
 #include "SimpleMath.h"
 
 #include "Texture.h"
@@ -55,6 +57,7 @@ void KatamariGame::Init(Engine* engine)
     gameAssetManager->AddTexture(texture);
 
     texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderTextured.fx", texture);
+    texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderDeferred.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
 
@@ -65,6 +68,14 @@ void KatamariGame::Init(Engine* engine)
     shader = new Shader(engine->GetGraphics(), L"Shaders/Shader.fx");
     shader->Init();
     gameAssetManager->AddShader(shader);
+
+    // Deferred
+   
+    // Create the light shader object.
+    lightShader = new LightShader(engine->GetGraphics(), L"Shaders/Light.fx", texture);
+    // Initialize the light shader object.
+    lightShader->Initialize();
+   
 
     // Init Meshes
 

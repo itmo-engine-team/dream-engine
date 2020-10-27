@@ -8,6 +8,7 @@
 #include "StaticModelComponent.h"
 #include "TexturedShader.h"
 #include "LightActor.h"
+#include "LightShader.h"
 
 class KatamariGame : public Game
 {
@@ -27,6 +28,7 @@ private:
 
     SpectatorActor* spectatorActor;
     LightActor* lightActor;
+    LightShader* lightShader;
 
     KatamariSphere* katamariPlayer;
     StaticModelComponent* playerSphere;

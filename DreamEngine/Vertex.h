@@ -17,6 +17,11 @@ public:
     Vertex(Vector3 p, Vector4 c, Vector3 n) : Pos(p), Color(c), Normal(n) {
 
     }
+
+    Vertex(Vector3 p, Vector2 t, Vector3 n) : Pos(p), TexCord(t), Normal(n) {
+
+    }
+
     Vertex operator+(Vertex const v)
 	{
         Vertex vNew;

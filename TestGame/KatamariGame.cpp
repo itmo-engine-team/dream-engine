@@ -54,15 +54,15 @@ void KatamariGame::Init(Engine* engine)
     shadowMapTexture = new Texture(engine, engine->GetGraphics()->shadowMap);
     gameAssetManager->AddTexture(texture);
 
-    texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderTextured.fx", texture);
+    texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderTexturedV2.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
-
+     
     texturedShadowShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderModelOnlyTexture.fx", shadowMapTexture);
     texturedShadowShader->Init();
     gameAssetManager->AddShader(texturedShadowShader);
 
-    shader = new Shader(engine->GetGraphics(), L"Shaders/Shader.fx");
+    shader = new Shader(engine->GetGraphics(), L"Shaders/ShaderV2.fx");
     shader->Init();
     gameAssetManager->AddShader(shader);
 
@@ -109,8 +109,8 @@ void KatamariGame::Init(Engine* engine)
     spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
     gameAssetManager->AddActor(spectatorActor);
 
-    lightActor = new LightActor(this, new Transform({ 0, 3, -6 }));
-    //lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 30);
+    lightActor = new LightActor(this, new Transform({ 0, 3, 6 }));
+    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.3f);
     gameAssetManager->AddActor(lightActor);
 }
 

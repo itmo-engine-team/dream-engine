@@ -9,4 +9,6 @@ struct ConstantBuffer
     Matrix WorldMatrix;
     Matrix ViewMatrix;
     Matrix ProjectionMatrix;
+    Matrix lightView;
+    Matrix lightProjection;
 };

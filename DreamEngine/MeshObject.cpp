@@ -111,6 +111,8 @@ void MeshObject::Draw()
         transform->GetWorldMatrix(),
         engine->GetGame()->GetCamera()->GetViewMatrix(),
         engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+        engine->GetGame()->GetLight()->GetViewMatrix(),
+        engine->GetGame()->GetLight()->GetProjectionMatrix(),
     };
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
@@ -119,7 +121,8 @@ void MeshObject::Draw()
     {
         Vector4{0.15f, 0.15f, 0.15f, 1.0f},
         Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        Vector3{0.0f, -1.0f, 0.0f},
+        engine->GetGame()->GetLight()->GetTransform()->GetWorldPosition(),
+        engine->GetGame()->GetLight()->GetDirection(),
         100.0f,
         {1.0f, 1.0f, 1.0f, 1.0f }
     };

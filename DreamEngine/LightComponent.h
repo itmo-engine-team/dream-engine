@@ -16,10 +16,13 @@ public:
 
     Matrix GetViewMatrix() const;
     Matrix GetProjectionMatrix() const;
+    Vector3 GetDirection() const;
+
 
 protected:
 
     Matrix projectionMatrix;
     Vector3 direction;
+
 
 };

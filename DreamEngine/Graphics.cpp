@@ -200,7 +200,7 @@ void Graphics::setupImGui(HWND hWnd)
 
 bool Graphics::initDepthShadowMap()
 {
-    depthShader = new DepthShader(this, L"Shaders/DepthShader.fx");
+    depthShader = new DepthShader(this, L"Shaders/DepthShaderV2.fx");
     depthShader->Init();
 
     /// Создание буфера глубины
@@ -276,6 +276,21 @@ bool Graphics::initDepthShadowMap()
 
     viewports.push_back(shadowMapViewport);
 
+    // Creating a texture sample (description) 
+    D3D11_SAMPLER_DESC sampDesc;
+    ZeroMemory(&sampDesc, sizeof(sampDesc));
+    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;      // Type of filtering
+    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;         // Setting coordinates
+    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+    sampDesc.MinLOD = 0;
+    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+    // Creating a texturing sample interface
+    hr = device->CreateSamplerState(&sampDesc, &shadowSamplerState);
+    ErrorLogger::DirectXLog(hr, Error, "Failed create SamplerState", __FILE__, __FUNCTION__, __LINE__);
+
     return true;
 }
 
@@ -338,6 +353,9 @@ void Graphics::PrepareRenderScene()
     context->RSSetState(rasterState);
     context->RSSetViewports(1, &viewport);
     context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+
+    context->PSSetShaderResources(1, 1, &shadowResourceView);
+    context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
 void Graphics::PrepareRenderShadowMap()

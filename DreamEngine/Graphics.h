@@ -50,6 +50,7 @@ public:
     ID3D11Texture2D* shadowMap = nullptr;
     ID3D11DepthStencilView* shadowDepthView = nullptr;
     ID3D11ShaderResourceView* shadowResourceView = nullptr;
+    ID3D11SamplerState* shadowSamplerState = nullptr;
 
 private:
    

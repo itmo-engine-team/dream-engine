@@ -17,6 +17,7 @@ public:
     void Update();
     void Draw();
     void DrawShadowMap();
+    void RenderDeferred();
 
     Transform* GetTransform() const;
 

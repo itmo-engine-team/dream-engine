@@ -56,7 +56,7 @@ void KatamariGame::Init(Engine* engine)
     shadowMapTexture = new Texture(engine, engine->GetGraphics()->shadowMap);
     gameAssetManager->AddTexture(texture);
 
-    texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderTextured.fx", texture);
+   // texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderTextured.fx", texture);
     texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderDeferred.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
@@ -70,12 +70,31 @@ void KatamariGame::Init(Engine* engine)
     gameAssetManager->AddShader(shader);
 
     // Deferred
-   
+    bool result;
+
     // Create the light shader object.
     lightShader = new LightShader(engine->GetGraphics(), L"Shaders/Light.fx", texture);
     // Initialize the light shader object.
     lightShader->Initialize();
-   
+    gameAssetManager->AddShader(lightShader);
+
+    deferredBuffers = new DeferredBuffers; 
+    if (!deferredBuffers)
+    {
+        return;
+    }
+
+    // Initialize the deferred buffers object.
+    result = deferredBuffers->Initialize(engine->GetGraphics()->GetDevice(), engine->GetScreenWidth(), engine->GetScreenHeight(), 100, 0.1f);
+    if (!result)
+    {
+       
+       // MessageBox(hwnd, L"Could not initialize the deferred buffers object.", L"Error", MB_OK);
+        return;
+    }
+
+
+
 
     // Init Meshes
 
@@ -90,7 +109,7 @@ void KatamariGame::Init(Engine* engine)
     gameAssetManager->AddModel(boxModel);
     gameAssetManager->AddModel(playerModel);
     gameAssetManager->AddModel(quardModel);
-
+    ModelWithTex = playerModel;
     // Init objects
 
     plane = new Actor(this, new Transform({ 0, 0, 0 }));
@@ -121,7 +140,7 @@ void KatamariGame::Init(Engine* engine)
     gameAssetManager->AddActor(spectatorActor);
 
     lightActor = new LightActor(this, new Transform({ 0, 3, -6 }));
-    //lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 30);
+    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.3f);
     gameAssetManager->AddActor(lightActor);
 }
 

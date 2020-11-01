@@ -9,7 +9,6 @@
 #include "ImGui/imgui_impl_dx11.h"
 #include "ImGui/imgui_impl_win32.h"
 #include "Shader.h"
-
 #include <vector>
 
 #pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
@@ -23,8 +22,6 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "RuntimeObject.lib")
-
-const int BUFFERCOUNT = 1;
 
 class Graphics
 {
@@ -53,11 +50,6 @@ public:
     ID3D11Texture2D* shadowMap = nullptr;
     ID3D11DepthStencilView* shadowDepthView = nullptr;
     ID3D11ShaderResourceView* shadowResourceView = nullptr;
-
-    //Deferred
-    ID3D11Texture2D* renderTargetTextureArray[BUFFERCOUNT];
-    ID3D11RenderTargetView* renderTargetViewArray[BUFFERCOUNT];
-    ID3D11ShaderResourceView* shaderResourceViewArray[BUFFERCOUNT];
 
 private:
    
@@ -91,7 +83,6 @@ private:
     void setupImGui(HWND hWnd);
 
     bool initDepthShadowMap();
-
 
 
 };

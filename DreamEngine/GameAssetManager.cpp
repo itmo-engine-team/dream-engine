@@ -31,6 +31,11 @@ std::vector<Actor*> GameAssetManager::GetActors() const
     return actors;
 }
 
+std::vector<ModelData*> GameAssetManager::GetModelData() const
+{
+    return models;
+}
+
 void GameAssetManager::AddShader(Shader* shader)
 {
     shaders.push_back(shader);

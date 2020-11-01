@@ -36,15 +36,26 @@ void Game::Render()
     for (auto actor : gameAssetManager->GetActors())
     {
         actor->Draw();
+        actor->RenderDeferred();
     }
 }
 
-void Game::RenderShadowMap()
+void Game::RenderShadowMap() 
 {
+    
     for (auto actor : gameAssetManager->GetActors())
     {
         actor->DrawShadowMap();
     }
+}
+
+void Game::PrepareDeferredBuffer()
+{
+    // Set the render buffers to be the render target.
+    deferredBuffers->SetRenderTargets(engine->GetGraphics()->GetContext());
+
+    // Clear the render buffers.
+    deferredBuffers->ClearRenderTargets(engine->GetGraphics()->GetContext(), 0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void Game::SetGameDeltaTimeMultiplier(float deltaTimeMultiplier)

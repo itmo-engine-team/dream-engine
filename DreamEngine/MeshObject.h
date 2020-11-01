@@ -22,6 +22,7 @@ public:
 
     void Draw();
     bool RenderShadowMap();
+    bool RenderDeferred();
 
 protected:
 

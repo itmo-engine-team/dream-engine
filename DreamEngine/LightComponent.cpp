@@ -18,3 +18,8 @@ Matrix LightComponent::GetProjectionMatrix() const
 {
     return projectionMatrix;
 }
+
+const Vector3 LightComponent::GetDirection()
+{
+    return Vector3::Transform(direction, transform->GetWorldMatrix());
+}

@@ -15,6 +15,7 @@ public:
     void Update();
     void Draw();
     void DrawShadowMap();
+    void RenderDeferred();
 
 protected:
 
@@ -25,5 +26,6 @@ protected:
     virtual void onUpdate();
     virtual void onDraw();
     virtual void onDrawShadowMap();
+    virtual void onRenderDeferred();
 };
 

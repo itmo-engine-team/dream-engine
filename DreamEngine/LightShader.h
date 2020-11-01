@@ -30,19 +30,21 @@ public:
 
 	bool Initialize();
 	void Shutdown();
-	bool Render(ID3D11DeviceContext* deviceContext, int indexCount, ID3D11ShaderResourceView* colorTexture, ID3D11ShaderResourceView* normalTexture,
+	bool Render(ID3D11DeviceContext* deviceContext, int indexCount, Matrix worldMatrix, Matrix viewMatrix,
+		Matrix projectionMatrix, ID3D11ShaderResourceView* colorTexture, ID3D11ShaderResourceView* normalTexture,
 		Vector3 lightDirection);
 
 private:
 	bool InitializeShader(ID3D11Device* device,const wchar_t* fxFileName);
 	void ShutdownShader();
 
-	bool SetShaderParameters(ID3D11DeviceContext* deviceContext, ID3D11ShaderResourceView* colorTexture,
+	bool SetShaderParameters(ID3D11DeviceContext* deviceContext, Matrix worldMatrix, Matrix viewMatrix,
+		Matrix projectionMatrix, ID3D11ShaderResourceView* colorTexture,
 		ID3D11ShaderResourceView* normalTexture, Vector3 lightDirection);
 	void RenderShader(ID3D11DeviceContext*, int);
 
-	ID3D11VertexShader* vertexShader;
-	ID3D11PixelShader* pixelShader;
+	//ID3D11VertexShader* vertexShader;
+	//ID3D11PixelShader* pixelShader;
 	ID3D11InputLayout* layout;
 	ID3D11SamplerState* sampleState;
 	ID3D11Buffer* matrixBuffer;

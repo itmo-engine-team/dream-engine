@@ -26,3 +26,11 @@ void StaticModelComponent::onDrawShadowMap()
         meshObject->RenderShadowMap();
     }
 }
+
+void StaticModelComponent::onRenderDeferred()
+{
+    for (auto meshObject : meshObjects)
+    {
+        meshObject->RenderDeferred();
+    }
+}

@@ -24,6 +24,8 @@ public:
     void AddActor(Actor* actor);
     std::vector<Actor*> GetActors() const;
 
+    std::vector<ModelData*> GetModelData() const;
+
     // Graphics objects
     void AddShader(Shader* shader);
     void AddTexture(Texture* texture);

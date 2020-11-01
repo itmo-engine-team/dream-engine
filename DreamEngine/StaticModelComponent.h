@@ -19,6 +19,7 @@ protected:
 
     void onDraw() override;
     void onDrawShadowMap() override;
+    void onRenderDeferred() override;
 
 };
 

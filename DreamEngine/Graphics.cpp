@@ -35,64 +35,11 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
         &swapDesc, &swapChain, &device, nullptr, &context);
     ErrorLogger::DirectXLog(res, Error, "Failed to create device and swapchain", __FILE__, __FUNCTION__, __LINE__);
 
-    D3D11_TEXTURE2D_DESC textureDesc;
-    // Initialize the render target texture description.
-    ZeroMemory(&textureDesc, sizeof(textureDesc));
-
-    // Setup the render target texture description.
-    textureDesc.Width = screenWidth;
-    textureDesc.Height = screenHeight;
-    textureDesc.MipLevels = 1;
-    textureDesc.ArraySize = 1;
-    textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    textureDesc.SampleDesc.Count = 1;
-    textureDesc.Usage = D3D11_USAGE_DEFAULT;
-    textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-    textureDesc.CPUAccessFlags = 0;
-    textureDesc.MiscFlags = 0;
-
-    // Create the render target textures.
-    for (int i = 0; i < BUFFERCOUNT; i++)
-    {
-        res = device->CreateTexture2D(&textureDesc, NULL, &renderTargetTextureArray[i]);
-        if (FAILED(res))
-        {
-            return false;
-        }
-    }
-
     ID3D11Texture2D* backTex;
     res = swapChain->GetBuffer(0, IID_ID3D11Texture2D, (void**)&backTex);
     ErrorLogger::DirectXLog(res, Error, "Failed to initialize BackBuffer", __FILE__, __FUNCTION__, __LINE__);
-
-    D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
-    // Setup the description of the render target view.
-    renderTargetViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-    renderTargetViewDesc.Texture2D.MipSlice = 0;
-
-    for (int i = 0; i < BUFFERCOUNT; i++)
-    {
-        res = device->CreateRenderTargetView(renderTargetTextureArray[i], &renderTargetViewDesc, &renderTargetViewArray[i]);
-        ErrorLogger::DirectXLog(res, Error, "Failed to create RenderTargetView", __FILE__, __FUNCTION__, __LINE__);
-    }
-
-    D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
-    // Setup the description of the shader resource view.
-    shaderResourceViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-    shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
-    shaderResourceViewDesc.Texture2D.MipLevels = 1;
-
-    // Create the shader resource views.
-    for (int i = 0; i < BUFFERCOUNT; i++)
-    {
-        res = device->CreateShaderResourceView(renderTargetTextureArray[i], &shaderResourceViewDesc, &shaderResourceViewArray[i]);
-        if (FAILED(res))
-        {
-            return false;
-        }
-    }
+    res = device->CreateRenderTargetView(backTex, nullptr, &renderTargetView);
+    ErrorLogger::DirectXLog(res, Error, "Failed to create RenderTargetView", __FILE__, __FUNCTION__, __LINE__);
 
     context->QueryInterface(IID_ID3DUserDefinedAnnotation, (void**)&annotation);
 
@@ -162,7 +109,7 @@ bool Graphics::direct2DInitialize(HWND hWnd)
     D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory);
 
     ID3D11Resource* res;
-    this->renderTargetViewArray[0]->GetResource(&res);
+    this->renderTargetView->GetResource(&res);
 
     IDXGISurface* surface;
     res->QueryInterface(__uuidof(IDXGISurface), reinterpret_cast<void**>(&surface));
@@ -275,14 +222,14 @@ bool Graphics::initDepthShadowMap()
     depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
     depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
     depthStencilViewDesc.Texture2D.MipSlice = 0;
-    hr = device->CreateDepthStencilView(shadowMap, &depthStencilViewDesc, &shadowDepthView);
-
 
     D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
     ZeroMemory(&shaderResourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
     shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     shaderResourceViewDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
     shaderResourceViewDesc.Texture2D.MipLevels = 1;
+
+    hr = device->CreateDepthStencilView(shadowMap, &depthStencilViewDesc, &shadowDepthView);
 
     hr = device->CreateShaderResourceView(shadowMap, &shaderResourceViewDesc, &shadowResourceView);
 
@@ -350,7 +297,7 @@ IDXGISwapChain* Graphics::GetSwapChain()
 
 ID3D11RenderTargetView* Graphics::GetRenderTargetView()
 {
-    return renderTargetViewArray[0];
+    return renderTargetView;
 }
 
 ID3DUserDefinedAnnotation* Graphics::GetAnnotation()
@@ -390,7 +337,7 @@ void Graphics::PrepareRenderScene()
 {
     context->RSSetState(rasterState);
     context->RSSetViewports(1, &viewport);
-    context->OMSetRenderTargets(BUFFERCOUNT, renderTargetViewArray, depthStencilView);
+    context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 }
 
 void Graphics::PrepareRenderShadowMap()

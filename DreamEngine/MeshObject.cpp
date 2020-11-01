@@ -164,3 +164,12 @@ bool MeshObject::RenderShadowMap()
 
     return true;
 }
+
+bool MeshObject::RenderDeferred()
+{
+   engine->GetGame()->lightShader->Render(engine->GetGraphics()->GetContext(), meshData->GetIndicesCount(), transform->GetWorldMatrix(), engine->GetGame()->GetCamera()->GetViewMatrix(), engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+       engine->GetGame()->deferredBuffers->GetShaderResourceView(0), engine->GetGame()->deferredBuffers->GetShaderResourceView(1),
+        engine->GetGame()->GetLight()->GetDirection());
+
+   return true;
+}

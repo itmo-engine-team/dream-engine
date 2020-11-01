@@ -28,6 +28,11 @@ void ActorComponent::DrawShadowMap()
     onDrawShadowMap();
 }
 
+void ActorComponent::RenderDeferred()
+{
+    onRenderDeferred();
+}
+
 void ActorComponent::onInit()
 {
 
@@ -45,6 +50,10 @@ void ActorComponent::onDraw()
 void ActorComponent::onDrawShadowMap()
 {
 
+}
+
+void ActorComponent::onRenderDeferred()
+{
 }
 
 

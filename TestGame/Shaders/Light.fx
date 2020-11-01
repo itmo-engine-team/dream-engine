@@ -4,14 +4,14 @@ Texture2D normalTexture : register(t1);
 
 SamplerState SampleTypePoint : register(s0);
 
-cbuffer MatrixBuffer
+cbuffer MatrixBuffer : register(b0)
 {
 	matrix worldMatrix;
 	matrix viewMatrix;
 	matrix projectionMatrix;
 };
 
-cbuffer LightBuffer
+cbuffer LightBuffer : register(b1)
 {
 	float3 lightDirection;
 	float padding;

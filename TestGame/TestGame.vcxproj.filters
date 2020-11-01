@@ -49,6 +49,15 @@
     <FxCompile Include="Shaders\DepthShader.fx">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\DepthShaderV2.fx">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\ShaderV2.fx">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\ShaderTexturedV2.fx">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
     <FxCompile Include="Shaders\ShaderModelOnlyTexture.fx">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>

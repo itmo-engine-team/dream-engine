@@ -8,7 +8,9 @@ struct LightBuffer
 {
     Vector4 AmbientColor;
     Vector4 DiffuseColor;
+    Vector3 LightPosition;
     Vector3 LightDirection;
     float SpecularPower;
     Vector4 SpecularColor;
+    float LightPadding;
 };

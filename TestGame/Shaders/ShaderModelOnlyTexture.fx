@@ -43,11 +43,11 @@ struct PS_DATA
 PS_DATA VSMain(VS_DATA input)
 {
 	PS_DATA output;
-	
+
 	output.pos = mul(float4(input.pos, 1.0f), World);
 	output.pos = mul(output.pos, View);
 	output.pos = mul(output.pos, Projection);
-	
+
 	output.color = input.color;
 	output.tex = input.tex;
 
@@ -66,7 +66,7 @@ PS_DATA VSMain(VS_DATA input)
 }
 
 float4 PSMain(PS_DATA input) : SV_Target
-{
+{	
 	float4 textureColor = txDiffuse.Sample(samLinear, input.tex);
 
     return textureColor;

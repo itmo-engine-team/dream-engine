@@ -60,12 +60,12 @@ void KatamariGame::Init(Engine* engine)
     texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderDeferred.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
-
+     
     texturedShadowShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderModelOnlyTexture.fx", shadowMapTexture);
     texturedShadowShader->Init();
     gameAssetManager->AddShader(texturedShadowShader);
 
-    shader = new Shader(engine->GetGraphics(), L"Shaders/Shader.fx");
+    shader = new Shader(engine->GetGraphics(), L"Shaders/ShaderV2.fx");
     shader->Init();
     gameAssetManager->AddShader(shader);
 

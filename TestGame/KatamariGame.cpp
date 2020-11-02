@@ -139,7 +139,7 @@ void KatamariGame::Init(Engine* engine)
     spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
     gameAssetManager->AddActor(spectatorActor);
 
-    lightActor = new LightActor(this, new Transform({ 0, 3, -6 }));
+    lightActor = new LightActor(this, new Transform({ 10, 10, 10 }));
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.3f);
     gameAssetManager->AddActor(lightActor);
 }

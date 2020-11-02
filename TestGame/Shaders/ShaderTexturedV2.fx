@@ -75,10 +75,6 @@ PS_DATA VSMain(VS_DATA input)
 	output.viewDirection = cameraPosition.xyz - worldPosition.xyz;
 	output.viewDirection = normalize(output.viewDirection);
 	
-	// Determine the light position based on the position of the light and the position of the vertex in the world.
-    output.lightPos = lightPosition.xyz - worldPosition.xyz;
-    output.lightPos = normalize(output.lightPos);
-
 	return output;
 }
 
@@ -86,27 +82,28 @@ float4 PSMain(PS_DATA input) : SV_Target
 {
     float4 textureColor = txDiffuse.Sample(samLinear, input.tex);
 
-    float bias = 0.001f;
+    float bias = 0.01f;
 
     float2 projectTexCoord;
     projectTexCoord.x = input.lightViewPosition.x / input.lightViewPosition.w / 2.0f + 0.5f;
-    projectTexCoord.y = -input.lightViewPosition.y / input.lightViewPosition.w / 2.0f + 0.5f;
+    projectTexCoord.y = input.lightViewPosition.y / input.lightViewPosition.w / 2.0f + 0.5f;
 
     float4 finalColor = ambientColor;
     float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
+    float3 lightDir = -lightDirection;
     
-    if ((saturate(projectTexCoord.x) == projectTexCoord.x)
+ if ((saturate(projectTexCoord.x) == projectTexCoord.x)
 		&& (saturate(projectTexCoord.y) == projectTexCoord.y))
     {
-        float depthValue = depthMapTexture.Sample(SampleTypeClamp, projectTexCoord).r;
+        float depthValue = depthMapTexture.Sample(SampleTypeClamp, float2(projectTexCoord.x, 1.0f - projectTexCoord.y)).r;
 		// Calculate the depth of the light.
         float lightDepthValue = input.lightViewPosition.z / input.lightViewPosition.w;
 
         lightDepthValue = lightDepthValue - bias;
 		
-        if (lightDepthValue < depthValue)
+       if (lightDepthValue <= depthValue)
         {
-            float lightIntensity = saturate(dot(input.normal, input.lightPos));
+            float lightIntensity = saturate(dot(input.normal, lightDir));
             if (lightIntensity > 0.0f)
             {
 				// Determine the final diffuse color based on the diffuse color and the amount of light intensity.
@@ -116,7 +113,7 @@ float4 PSMain(PS_DATA input) : SV_Target
             }
         }
     }
-	
+    
     finalColor = finalColor * textureColor;
     return finalColor;
 }

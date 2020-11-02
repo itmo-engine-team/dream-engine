@@ -20,14 +20,13 @@ PS_DATA VSMain(VS_DATA input)
 {
     PS_DATA output;
 
-    output.pos = mul(float4(input.pos, 1.0f), World);// model, а не world
+    output.pos = mul(float4(input.pos, 1.0f), World);
     output.pos = mul(output.pos, lightView);
     output.pos = mul(output.pos, lightProjection);
     
     output.depthPos = output.pos;
 
     return output;
-   
 }
 
 float4 PSMain(PS_DATA input) : SV_Target

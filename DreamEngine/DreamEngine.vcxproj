@@ -122,7 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,6 +151,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetCreationInfo.h" />
+    <ClInclude Include="AssetRegistrar.h" />
+    <ClInclude Include="AssetType.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -186,6 +189,7 @@
     <ClInclude Include="MathUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssetCreationInfo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -213,6 +217,9 @@
     <ClCompile Include="SpectatorActor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
+      <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
       <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
     </ProjectReference>

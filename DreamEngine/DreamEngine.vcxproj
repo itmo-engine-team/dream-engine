@@ -151,9 +151,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssetCreationInfo.h" />
-    <ClInclude Include="AssetRegistrar.h" />
-    <ClInclude Include="AssetType.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -189,7 +186,6 @@
     <ClInclude Include="MathUtils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssetCreationInfo.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />

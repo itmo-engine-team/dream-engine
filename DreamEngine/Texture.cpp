@@ -4,12 +4,13 @@
 #include "ErrorLogger.h"
 #include <WICTextureLoader.h>
 
-Texture::Texture(Engine* engine, const wchar_t* texturePath) : engine(engine)
+Texture::Texture(Engine* engine, const wchar_t* texturePath, const wchar_t* normalPath) : engine(engine)
 {
     graphics = engine->GetGraphics();
 
     // Loading a texture from file
     auto hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(), texturePath, nullptr, &textureResource, 0);
+    hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(), normalPath, nullptr, &normalResource, 0);
 
     // Creating a texture sample (description) 
     D3D11_SAMPLER_DESC sampDesc;
@@ -59,5 +60,6 @@ Texture::Texture(Engine* engine, ID3D11Texture2D* texture)
 void Texture::setTexture()
 {
     graphics->GetContext()->PSSetShaderResources(0, 1, &textureResource);
+    graphics->GetContext()->PSSetShaderResources(1, 1, &normalResource);
     graphics->GetContext()->PSSetSamplers(0, 1, &samplerState);
 }

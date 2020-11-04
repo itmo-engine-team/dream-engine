@@ -50,14 +50,14 @@ void KatamariGame::Init(Engine* engine)
 
     // Init Shaders
 
-    texture = new Texture(engine, L"Meshes/eyeball/eyes_blue.jpg");
+    texture = new Texture(engine, L"Meshes/eyeball/eyes_blue.jpg", L"Meshes/eyeball/eyes_blueN.jpg");
     gameAssetManager->AddTexture(texture);
 
     shadowMapTexture = new Texture(engine, engine->GetGraphics()->shadowMap);
     gameAssetManager->AddTexture(texture);
 
-   // texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderTextured.fx", texture);
-    texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderDeferred.fx", texture);
+    texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderTextured.fx", texture);
+   // texturedShader = new TexturedShader(engine->GetGraphics(), L"Shaders/ShaderDeferred.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
      

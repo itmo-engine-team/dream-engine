@@ -3,6 +3,7 @@
 #include <d3dcompiler.h>
 
 #include "ErrorLogger.h"
+#include "LightBuffer.h"
 
 
 LightShader::LightShader(Graphics* graphics, const wchar_t* shaderPath, Texture* texture) : TexturedShader(graphics, shaderPath, texture)
@@ -41,8 +42,6 @@ void LightShader::Shutdown()
 {
 	// Shutdown the vertex and pixel shaders as well as the related objects.
 	ShutdownShader();
-
-	return;
 }
 
 
@@ -52,7 +51,6 @@ bool LightShader::Render(ID3D11DeviceContext* deviceContext, int indexCount, Mat
 {
 	bool result;
 
-
 	// Set the shader parameters that it will use for rendering.
 	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, colorTexture, normalTexture, lightDirection);
 	if (!result)
@@ -61,7 +59,8 @@ bool LightShader::Render(ID3D11DeviceContext* deviceContext, int indexCount, Mat
 	}
 
 	// Now render the prepared buffers with the shader.
-	RenderShader(deviceContext, indexCount);
+	SetShader();
+	//RenderShader(deviceContext, indexCount);
 
 	return true;
 }
@@ -111,21 +110,23 @@ bool LightShader::InitializeShader(ID3D11Device* device, const wchar_t* fxFileNa
     result = device->CreateBuffer(&matrixBufferDesc, NULL, &matrixBuffer);
     if (FAILED(result))
     {
+		ErrorLogger::DirectXLog(result, Error, "Failed to create matrix buffer", __FILE__, __FUNCTION__, __LINE__);
 	    return false;
     }
 
     // Setup the description of the light dynamic constant buffer that is in the pixel shader.
-    lightBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-    lightBufferDesc.ByteWidth = sizeof(LightBufferType);
-    lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-    lightBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-    lightBufferDesc.MiscFlags = 0;
-    lightBufferDesc.StructureByteStride = 0;
+	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	lightBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	lightBufferDesc.CPUAccessFlags = 0u;
+	lightBufferDesc.MiscFlags = 0;
+	lightBufferDesc.ByteWidth = sizeof(LightBuffer);
+	lightBufferDesc.StructureByteStride = 0;
 
     // Create the constant buffer pointer so we can access the pixel shader constant buffer from within this class.
     result = device->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
     if (FAILED(result))
     {
+		ErrorLogger::DirectXLog(result, Error, "Failed to create light buffer", __FILE__, __FUNCTION__, __LINE__);
 	    return false;
     }
 
@@ -232,6 +233,10 @@ bool LightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, Matrix
 	dataPtr2 = static_cast<LightBufferType*>(mappedResource.pData);
 
 	// Copy the lighting variables into the constant buffer.
+	dataPtr2->ambientColor = Vector4{ 0.15f, 0.15f, 0.15f, 1.0f };
+	dataPtr2->diffuseColor = Vector4{ 1.0f, 1.0f, 1.0f, 1.0f };
+	dataPtr2->specularPower = 100.0f;
+	dataPtr2->specularColor = Vector4{ 1.0f, 1.0f, 1.0f, 1.0f };
 	dataPtr2->lightDirection = lightDirection;
 	dataPtr2->padding = 0.0f;
 

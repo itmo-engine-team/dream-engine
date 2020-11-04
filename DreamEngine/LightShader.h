@@ -20,6 +20,10 @@ private:
 
 	struct LightBufferType
 	{
+		Vector4 ambientColor;
+		Vector4 diffuseColor;
+		float specularPower;
+		Vector4 specularColor;
 		Vector3 lightDirection;
 		float padding;
 	};

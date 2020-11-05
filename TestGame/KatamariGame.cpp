@@ -68,7 +68,7 @@ void KatamariGame::Init(Engine* engine)
 
     // Init Meshes
 
-    planeModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 2, 0.1, 2 });
+    planeModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 3, 0.1, 3 });
     boxModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
     quardModel = MeshRenderer::CreateQuardModel(texturedShadowShader, { 1, 1, 1 });
 
@@ -109,9 +109,14 @@ void KatamariGame::Init(Engine* engine)
     spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
     gameAssetManager->AddActor(spectatorActor);
 
-    lightActor = new LightActor(this, new Transform({ 10, 10, 10 }));
-    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.3f);
-    gameAssetManager->AddActor(lightActor);
+    lightActor = new LightActor(this, new Transform({ 0, 0, 0 }));
+    lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0 }), boxModel));
+    lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0.5 }),
+        MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.03, 0.03, 0.5 })));
+
+    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.65f);
+    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitY, 0.75f);
+    lightActor->GetTransform()->SetWorldPosition({ -10, 10, -10 });
 }
 
 CameraComponent* KatamariGame::GetCamera() const
@@ -162,6 +167,7 @@ void KatamariGame::Render()
 {
     Game::Render();
     quard->Draw();
+    lightActor->Draw();
 }
 
 void KatamariGame::collisionCheck(GameObject* gameObject)

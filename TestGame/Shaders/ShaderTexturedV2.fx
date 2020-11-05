@@ -17,7 +17,6 @@ cbuffer LightBuffer : register(b1)
 {
     float4 ambientColor;
     float4 diffuseColor;
-    float3 lightPosition;
     float3 lightDirection;
     float specularPower;
     float4 specularColor;
@@ -92,8 +91,8 @@ float4 PSMain(PS_DATA input) : SV_Target
     float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
     float3 lightDir = -lightDirection;
     
- if ((saturate(projectTexCoord.x) == projectTexCoord.x)
-		&& (saturate(projectTexCoord.y) == projectTexCoord.y))
+    if ((saturate(projectTexCoord.x) == projectTexCoord.x)
+	    && (saturate(projectTexCoord.y) == projectTexCoord.y))
     {
         float depthValue = depthMapTexture.Sample(SampleTypeClamp, float2(projectTexCoord.x, 1.0f - projectTexCoord.y)).r;
 		// Calculate the depth of the light.

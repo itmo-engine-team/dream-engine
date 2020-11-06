@@ -109,10 +109,14 @@ float4 PSMain(PS_DATA input) : SV_Target
                 finalColor += (diffuseColor * lightIntensity);
 				// Saturate the ambient and diffuse color.
                 finalColor = saturate(finalColor);
+                float3 reflection = normalize(2 * lightIntensity * input.normal - lightDir);
+                specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
             }
         }
     }
     
     finalColor = finalColor * textureColor;
+    finalColor = saturate(finalColor + specular);
+     
     return finalColor;
 }

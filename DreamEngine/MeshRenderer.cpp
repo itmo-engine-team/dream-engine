@@ -26,93 +26,93 @@ bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePat
     return true;
 }
 
-ModelData* MeshRenderer::CreateBoxModel(Shader* shader, Vector4 color, Vector3 boxSize)
+ModelData* MeshRenderer::CreateBoxModel(ModelShader* shader, Vector4 color, Vector3 boxSize)
 {
     ModelData* modelData = new ModelData(shader);
 
     std::vector<Vertex> vertices = {
         // Front vertices
         {
-            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
+            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitZ, Vector2(1, 1)
         },
         {
-            {-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
+            {-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitZ, Vector2(1, 0)
         },
         {
-            {+boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
+            {+boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitZ, Vector2(0, 0)
         },
         {
-            {+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitZ
+            {+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitZ, Vector2(0, 1)
         },
 
         // Back vertices
         {
-            {-boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitZ
+            {-boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitZ, Vector2(1, 1)
         },
         {
-            {-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitZ
+            {-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitZ, Vector2(1, 0)
         },
         {
-            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitZ
+            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitZ, Vector2(0, 0)
         },
         {
-            {+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitZ
+            {+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitZ, Vector2(0, 1)
         },
 
         // Left vertices
         {
-            {+boxSize.x, -boxSize.y, -boxSize.z}, color, Vector3::UnitX
+            {+boxSize.x, -boxSize.y, -boxSize.z}, color, Vector3::UnitX, Vector2(1, 1)
         },
         {
-            {+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitX
+            {+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitX, Vector2(1, 0)
         },
         {
-            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitX
+            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitX, Vector2(0, 0)
         },
         {
-            {+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitX
+            {+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitX, Vector2(0, 1)
         },
 
         // Right vertices
         {
-            {-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitX
+            {-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitX, Vector2(1, 1)
         },
         {
-            {-boxSize.x, +boxSize.y, +boxSize.z}, color, -Vector3::UnitX
+            {-boxSize.x, +boxSize.y, +boxSize.z}, color, -Vector3::UnitX, Vector2(1, 0)
         },
         {
-            {-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitX
+            {-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitX, Vector2(0, 0)
         },
         {
-            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitX
+            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitX, Vector2(0, 1)
         },
 
         // Top vertices
         {
-            {-boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitY
+            {-boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitY, Vector2(1, 1)
         },
         {
-            {-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitY
+            {-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitY, Vector2(1, 0)
         },
         {
-            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitY
+            {+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitY, Vector2(0, 0)
         },
         {
-            {+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitY
+            {+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitY, Vector2(0, 1)
         },
 
         // Bottom vertices
         {
-            {+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitY
+            {+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitY, Vector2(1, 1)
         },
         {
-            {+boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitY
+            {+boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitY, Vector2(1, 0)
         },
         {
-            {-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitY
+            {-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitY, Vector2(0, 0)
         },
         {
-            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitY
+            {-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitY, Vector2(0, 1)
         },
     };
     std::vector<DWORD> indices = {
@@ -139,6 +139,37 @@ ModelData* MeshRenderer::CreateBoxModel(Shader* shader, Vector4 color, Vector3 b
         // bottom face
         20, 21, 22,
         20, 22, 23,
+    };
+
+    auto meshData = new MeshData(vertices, indices);
+    modelData->AddMeshData(meshData);
+
+    return modelData;
+}
+
+ModelData* MeshRenderer::CreateQuardModel(ModelShader* shader, Vector3 quardSize)
+{
+    ModelData* modelData = new ModelData(shader);
+
+    std::vector<Vertex> vertices = {
+        // Front vertices
+        {
+            {-quardSize.x, -quardSize.y, -quardSize.z}, Vector2(1, 1), -Vector3::UnitZ
+        },
+        {
+            {-quardSize.x, +quardSize.y, -quardSize.z}, Vector2(1, 0), -Vector3::UnitZ
+        },
+        {
+            {+quardSize.x, +quardSize.y, -quardSize.z}, Vector2(0, 0), -Vector3::UnitZ
+        },
+        {
+            {+quardSize.x, -quardSize.y, -quardSize.z}, Vector2(0, 1), -Vector3::UnitZ
+        },
+    };
+    std::vector<DWORD> indices = {
+        // front face
+        0, 1, 2,
+        0, 2, 3,
     };
 
     auto meshData = new MeshData(vertices, indices);

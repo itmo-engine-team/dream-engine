@@ -8,8 +8,9 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_dx11.h"
 #include "ImGui/imgui_impl_win32.h"
+#include "Shader.h"
+#include <vector>
 
-#pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
 #pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
 #pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
 
@@ -33,6 +34,9 @@ public:
 
     void CreateImGuiFrame();
 
+    void PrepareRenderScene();
+    void PrepareRenderShadowMap();
+
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
     IDXGISwapChain* GetSwapChain();
@@ -41,6 +45,12 @@ public:
 
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
+    
+    // Variables for Shadows
+    ID3D11Texture2D* shadowMap = nullptr;
+    ID3D11DepthStencilView* shadowDepthView = nullptr;
+    ID3D11ShaderResourceView* shadowResourceView = nullptr;
+    ID3D11SamplerState* shadowSamplerState = nullptr;
 
 private:
    
@@ -49,9 +59,12 @@ private:
     IDXGISwapChain* swapChain;
     ID3D11RenderTargetView* renderTargetView;
     ID3DUserDefinedAnnotation* annotation;
+    ID3D11RasterizerState* rasterState;
+    ID3D11RasterizerState* shadowRasterState;
 
     ID3D11Texture2D* depthStencil = nullptr;                     // Depth buffer texture
     ID3D11DepthStencilView* depthStencilView = nullptr;          // View object, depth buffer
+    Shader* depthShader;
 
     // Variables for Direct2D initialization
     ID2D1Factory* factory = nullptr;
@@ -62,7 +75,15 @@ private:
     IDWriteTextFormat* textFormat;
     RECT rect;
 
+    std::vector<D3D11_VIEWPORT> viewports;
+    D3D11_VIEWPORT viewport;
+    D3D11_VIEWPORT shadowMapViewport;
+
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     void setupImGui(HWND hWnd);
+
+    bool initDepthShadowMap();
+
+
 };

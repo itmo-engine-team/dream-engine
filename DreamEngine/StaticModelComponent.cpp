@@ -18,3 +18,11 @@ void StaticModelComponent::onDraw()
         meshObject->Draw();
     }
 }
+
+void StaticModelComponent::onDrawShadowMap()
+{
+    for (auto meshObject : meshObjects)
+    {
+        meshObject->RenderShadowMap();
+    }
+}

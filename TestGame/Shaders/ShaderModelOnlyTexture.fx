@@ -43,11 +43,11 @@ struct PS_DATA
 PS_DATA VSMain(VS_DATA input)
 {
 	PS_DATA output;
-	
+
 	output.pos = mul(float4(input.pos, 1.0f), World);
 	output.pos = mul(output.pos, View);
 	output.pos = mul(output.pos, Projection);
-	
+
 	output.color = input.color;
 	output.tex = input.tex;
 
@@ -66,37 +66,8 @@ PS_DATA VSMain(VS_DATA input)
 }
 
 float4 PSMain(PS_DATA input) : SV_Target
-{
+{	
 	float4 textureColor = txDiffuse.Sample(samLinear, input.tex);
 
-	// Set the default output color to the ambient light value for all pixels.
-	float4 finalColor = ambientColor;
-
-	// Initialize the specular color.
-	float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
-
-	// Invert the light direction for calculations.
-	float3 lightDir = -lightDirection;
-
-	// Calculate the amount of light on this pixel.
-	float lightIntensity = saturate(dot(input.normal, lightDir));
-	if(lightIntensity > 0.0f)
-	{
-		// Determine the final diffuse color based on the diffuse color and the amount of light intensity.
-		finalColor += (diffuseColor * lightIntensity);
-		// Saturate the ambient and diffuse color.
-		finalColor = saturate(finalColor);
-		// Calculate the reflection vector based on the light intensity, normal vector, and light direction.
-		float3 reflection = normalize(2 * lightIntensity * input.normal - lightDir);
-		// Determine the amount of specular light based on the reflection vector, viewing direction, and specular power.
-		specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
-	}
-
-	// Multiply the texture pixel and the final diffuse color to get the final pixel color result.
-	finalColor = finalColor * textureColor;
-
-	// Add the specular component last to the output color.
-	finalColor = saturate(finalColor + specular);
-
-	return finalColor;
+    return textureColor;
 }

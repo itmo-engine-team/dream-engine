@@ -18,6 +18,7 @@ protected:
     std::vector<MeshObject*> meshObjects;
 
     void onDraw() override;
+    void onDrawShadowMap() override;
 
 };
 

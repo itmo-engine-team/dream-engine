@@ -2,6 +2,7 @@
 
 #include "CameraComponent.h"
 #include "GameAssetManager.h"
+#include "LightComponent.h"
 
 class Engine;
 
@@ -16,10 +17,12 @@ public:
 
     GameAssetManager* GetGameAssetManager() const;
     virtual CameraComponent* GetCamera() const = 0;
+    virtual LightComponent* GetLight() const = 0;
 
     virtual void Init(Engine* engine);
     virtual void Update();
     virtual void Render();
+    void RenderShadowMap();
 
     void SetGameDeltaTimeMultiplier(float deltaTimeMultiplier);
     float GetGameDeltaTimeMultiplier();

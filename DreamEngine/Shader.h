@@ -3,14 +3,13 @@
 #include <d3d11.h>
 #include <string>
 
-class Engine;
 class Graphics;
 
 class Shader
 {
 public:
 
-    Shader(Engine* engine, const wchar_t* shaderPath);
+    Shader(Graphics* graphics, const wchar_t* shaderPath);
     virtual ~Shader() = default;
 
     virtual void Init();

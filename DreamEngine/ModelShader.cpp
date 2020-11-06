@@ -1,22 +1,29 @@
-#include "TexturedShader.h"
+#include "ModelShader.h"
 
 #include "Texture.h"
 
-TexturedShader::TexturedShader(Engine* engine,
-    const wchar_t* shaderPath,
-    Texture* texture)
-    : Shader(engine, shaderPath), texture(texture)
+ModelShader::ModelShader(Graphics* graphics,
+                               const wchar_t* shaderPath,
+                               Texture* texture)
+    : Shader(graphics, shaderPath), texture(texture)
 {
-
+    hasTexture = texture != nullptr;
 }
 
-void TexturedShader::SetShader()
+void ModelShader::SetShader()
 {
     Shader::SetShader();
-    texture->setTexture();
+
+    if (texture != nullptr)
+        texture->setTexture();
 }
 
-void TexturedShader::Init()
+bool ModelShader::HasTexture() const
+{
+    return hasTexture;
+}
+
+void ModelShader::Init()
 {
     D3D11_INPUT_ELEMENT_DESC inputElements[] = {
         {
@@ -54,7 +61,7 @@ void TexturedShader::Init()
             D3D11_APPEND_ALIGNED_ELEMENT,
             D3D11_INPUT_PER_VERTEX_DATA,
             0
-        },
+        }
     };
 
     initInternal(inputElements, 4);

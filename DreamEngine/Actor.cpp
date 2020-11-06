@@ -33,6 +33,15 @@ void Actor::Draw()
     }
 }
 
+void Actor::DrawShadowMap()
+{
+    // Draw shadow map for components
+    for (auto component : components)
+    {
+        component->DrawShadowMap();
+    }
+}
+
 Transform* Actor::GetTransform() const
 {
     return transform;

@@ -5,7 +5,7 @@
 #include "assimp/Importer.hpp"
 
 #include "ModelData.h"
-#include "Shader.h"
+#include "ModelShader.h"
 
 using namespace Assimp;
 
@@ -17,7 +17,8 @@ public:
 
     bool ProcessModel(ModelData* modelData, const std::string& filePath);
 
-    static ModelData* CreateBoxModel(Shader* shader, Vector4 color, Vector3 boxSize);
+    static ModelData* CreateBoxModel(ModelShader* shader, Vector4 color, Vector3 boxSize);
+    static ModelData* CreateQuardModel(ModelShader* shader, Vector3 quardSize);
 
 protected:
 

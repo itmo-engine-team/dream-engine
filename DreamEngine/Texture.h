@@ -10,6 +10,7 @@ class Texture
 public:
 
     Texture(Engine* engine, const wchar_t* texturePath);
+    Texture(Engine* engine, ID3D11Texture2D* texture);
 
     void setTexture();
 

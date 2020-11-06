@@ -43,8 +43,7 @@ public:
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
 
-    bool GameMode = false;
-    bool EditMode = false;
+    bool GetGameMode();
 
 private:
    
@@ -69,4 +68,7 @@ private:
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     void setupImGui(HWND hWnd);
+
+    bool gameMode = false;
+    bool editMode = false;
 };

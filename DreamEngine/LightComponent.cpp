@@ -25,5 +25,3 @@ Vector3 LightComponent::GetDirection() const
     v.Normalize();
     return v;
 }
-
-

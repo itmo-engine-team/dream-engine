@@ -76,7 +76,7 @@ float4 PSMain(PS_DATA input) : SV_Target
 { 
     float4 textureColor = input.color;
 
-    float bias = 0.1f;
+    float bias = 0.01f;
 
     float2 projectTexCoord;
     projectTexCoord.x = input.lightViewPosition.x / input.lightViewPosition.w / 2.0f + 0.5f;

@@ -203,7 +203,7 @@ bool Graphics::initDepthShadowMap()
     depthShader = new DepthShader(this, L"Shaders/DepthShaderV2.fx");
     depthShader->Init();
 
-    /// Создание буфера глубины
+    // Creating a depth buffer
     D3D11_TEXTURE2D_DESC shadowMapDesc;
     ZeroMemory(&shadowMapDesc, sizeof(D3D11_TEXTURE2D_DESC));
     shadowMapDesc.Format = DXGI_FORMAT_R24G8_TYPELESS;
@@ -216,7 +216,7 @@ bool Graphics::initDepthShadowMap()
 
     HRESULT hr = device->CreateTexture2D(&shadowMapDesc, nullptr, &shadowMap);
 
-    // Создание представления ресурсов
+    // Creating a resource view
     D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
     ZeroMemory(&depthStencilViewDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
     depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -233,7 +233,7 @@ bool Graphics::initDepthShadowMap()
 
     hr = device->CreateShaderResourceView(shadowMap, &shaderResourceViewDesc, &shadowResourceView);
 
-    // Создание состояния сравнения
+    // Create comparisonSamplerDesc
     D3D11_SAMPLER_DESC comparisonSamplerDesc;
     ZeroMemory(&comparisonSamplerDesc, sizeof(D3D11_SAMPLER_DESC));
     comparisonSamplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
@@ -250,21 +250,19 @@ bool Graphics::initDepthShadowMap()
     comparisonSamplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
     comparisonSamplerDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT;
 
-    // Создание состояния сравнения
+    // Create state of comparison
     D3D11_RASTERIZER_DESC drawingRenderStateDesc;
     ZeroMemory(&drawingRenderStateDesc, sizeof(D3D11_RASTERIZER_DESC));
     drawingRenderStateDesc.CullMode = D3D11_CULL_BACK;
     drawingRenderStateDesc.FillMode = D3D11_FILL_SOLID;
-    drawingRenderStateDesc.DepthClipEnable = true; // Feature level 9_1 requires DepthClipEnable == true
+    drawingRenderStateDesc.DepthClipEnable = true;
 
-    // Создание состояния прорисовки
+    // Create rasterize state
     D3D11_RASTERIZER_DESC shadowRenderStateDesc;
     ZeroMemory(&shadowRenderStateDesc, sizeof(D3D11_RASTERIZER_DESC));
     shadowRenderStateDesc.CullMode = D3D11_CULL_FRONT;
     shadowRenderStateDesc.FillMode = D3D11_FILL_SOLID;
     shadowRenderStateDesc.DepthClipEnable = true;
-
-    // Создание окна просмотра
     
     // Init viewport for shadow rendering
     shadowMapViewport = {};
@@ -361,7 +359,6 @@ void Graphics::PrepareRenderScene()
 void Graphics::PrepareRenderShadowMap()
 {
     context->RSSetState(shadowRasterState);
-    //context->RSSetViewports(1, &shadowMapViewport);
     context->OMSetRenderTargets(0, nullptr, shadowDepthView);
     context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 

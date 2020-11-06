@@ -1,5 +1,5 @@
-Texture2D txDiffuse : register(t0);        // Буфер текстуры
-SamplerState samLinear : register(s0);     // Буфер образца
+Texture2D txDiffuse : register(t0);        
+SamplerState samLinear : register(s0);     
 
 cbuffer CBuf : register(b0)
 {

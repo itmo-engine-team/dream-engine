@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <filesystem>
 
 class JsonTest
 {
@@ -41,26 +42,66 @@ public:
         std::cout << age;
     }
 
-    void JsonTest::TestJsCreate(std::string objectName, std::string name, int age)
+    void JsonTest::TestJsCreate(std::string fileRelativePath, std::string name, int age)
     {
+        std::string pathToFile = fileRelativePath;
         json j;
-        j["Object name"] = objectName;
+        std::filesystem::path p(pathToFile);
+
+        if (!std::filesystem::exists(pathToFile))
+        {
+            create_directories(p.parent_path());
+        }
+        std::cout << p.extension().string();
+        j["Object name"] = p.stem().string();
         j["Name"] = name;
         j["Age"] = age;
-
-        std::ofstream file("Person.json");
+       
+        std::ofstream file(pathToFile);
         file << std::setw(4) << j << std::endl;
+    }
+
+    void JsonTest::FindAssets()
+    {
+       // std::vector<json> findedAssets;
+        std::string directory_name = "Content";
+        std::string extension = ".asset";
+
+        try // Exception for directories not found
+        {
+            for (auto& p : std::filesystem::recursive_directory_iterator(directory_name)) //For all files in folders
+            {
+                if (p.path().extension() != extension)
+                    continue;
+
+                std::ifstream file(p.path());
+                json j;
+                file >> j;
+                
+                std::cout << j["Name"];
+            }
+        }
+        catch (std::exception& e)
+        {
+            std::cout << "Error: " << e.what() << '\n';
+        }
     }
 };
 
 TEST(JSonTest, CreateTest)
 {
     JsonTest* jsonCreater = new JsonTest();
-    jsonCreater->TestJsCreate("Person", "Alex", 25);
+    jsonCreater->TestJsCreate("Content/Person1.asset", "Alex", 25);
 }
 
 TEST(JSonTest, ReadTest)
 {
     JsonTest* jsonReader = new JsonTest();
     jsonReader->TestJsRead();
+}
+
+TEST(JSonTest, FindTest)
+{
+    JsonTest* jsonFinde = new JsonTest();
+    jsonFinde->FindAssets();
 }

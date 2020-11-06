@@ -18,9 +18,15 @@
     <ClInclude Include="BlankClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AssetServices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlankClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetServices.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

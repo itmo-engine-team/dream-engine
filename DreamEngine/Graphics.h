@@ -32,6 +32,7 @@ public:
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
 
     void CreateImGuiFrame();
+    void SwitchWindow();
 
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -41,6 +42,9 @@ public:
 
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
+
+    bool GameMode = false;
+    bool EditMode = false;
 
 private:
    

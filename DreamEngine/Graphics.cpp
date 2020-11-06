@@ -96,6 +96,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 
     direct2DInitialize(hWnd);
     setupImGui(hWnd);
+    SwitchWindow();
 
     return true;
 }
@@ -189,9 +190,32 @@ void Graphics::setupImGui(HWND hWnd)
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiBackendFlags_HasMouseCursors;
+    io.ConfigFlags |= ImGuiFocusedFlags_AnyWindow;
     ImGui_ImplWin32_Init(hWnd);
     ImGui_ImplDX11_Init(device, context);
     ImGui::StyleColorsDark();
+}
+
+void Graphics::SwitchWindow()
+{
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+    ImGui::SetNextWindowPos(ImVec2(0, 300));
+
+    // create ImGui window
+    ImGui::Begin("Switch mode");
+    ImGui::SetWindowSize(ImVec2(200, 100));
+    ImGui::Checkbox("Game mode", &this->GameMode);
+    ImGui::Checkbox("Edit mode", &this->EditMode);
+    ImGui::End();
+
+    // assemble together draw data
+    ImGui::Render();
+   
+    // render draw data
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
 
 ID3D11Device* Graphics::GetDevice()
@@ -231,13 +255,17 @@ ID3D11DepthStencilView* Graphics::GetDepthStencilView()
 
 void Graphics::CreateImGuiFrame()
 {
+    bool show_another_window = true;
     // start the ImGuiFrame
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
-
+    
+    ImGui::SetNextWindowPos(ImVec2(0, 150));
     // create ImGui window
-    ImGui::Begin("Test window");
+    ImGui::Begin("GameRender");
+    
+    ImGui::SetWindowSize(ImVec2(200, 100));
     ImGui::End();
 
     // assemble together draw data

@@ -4,8 +4,7 @@
 
 using namespace DirectX::SimpleMath;
 
-struct CameraBuffer
+struct alignas(sizeof(Vector4)) CameraBuffer
 {
     Vector3 CameraPosition;
-    float Padding;
 };

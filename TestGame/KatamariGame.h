@@ -42,7 +42,7 @@ private:
     ModelData* playerModel;
     ModelData* quardModel;
 
-    Shader* shader;
+    TexturedShader* shader;
     TexturedShader* texturedShader;
     TexturedShader* texturedShadowShader;
     Texture* texture;

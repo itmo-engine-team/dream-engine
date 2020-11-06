@@ -172,6 +172,7 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="LightBuffer.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ModelDataBuffer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturedShader.h" />
     <ClInclude Include="Vertex.h" />

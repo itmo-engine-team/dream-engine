@@ -4,8 +4,7 @@
 
 class Texture;
 
-class TexturedShader :
-    public Shader
+class TexturedShader : public Shader
 {
 public:
 
@@ -14,10 +13,12 @@ public:
     void Init() override;
 
     void SetShader() override;
+    bool HasTexture() const;
 
 protected:
 
     Texture* texture = nullptr;
+    bool hasTexture;
 
 };
 

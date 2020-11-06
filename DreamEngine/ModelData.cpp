@@ -2,13 +2,13 @@
 
 #include "MeshRenderer.h"
 
-ModelData::ModelData(Shader* shader)
+ModelData::ModelData(TexturedShader* shader)
     : shader(shader)
 {
 
 }
 
-ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, Shader* shader)
+ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, TexturedShader* shader)
     : shader(shader)
 {
     pMeshRenderer->ProcessModel(this, filePath);
@@ -24,7 +24,7 @@ std::vector<MeshData*> ModelData::GetMeshDataList() const
     return meshesData;
 }
 
-Shader* ModelData::GetShader() const
+TexturedShader* ModelData::GetShader() const
 {
     return shader;
 }

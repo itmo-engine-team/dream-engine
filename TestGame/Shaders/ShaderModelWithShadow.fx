@@ -4,6 +4,8 @@ SamplerState samLinear : register(s0);
 Texture2D depthMapTexture : register(t1); 
 SamplerState SampleTypeClamp : register(s1); 
 
+// VS Constant Buffers
+
 cbuffer CBuf : register(b0)
 {
 	matrix World;
@@ -26,8 +28,16 @@ cbuffer LightBuffer : register(b1)
 cbuffer CameraBuffer : register(b2)
 {
 	float3 cameraPosition;
-	float cameraPadding;
 };
+
+// PS Constant Buffers
+
+cbuffer ModelDataBuffer : register(b3)
+{
+    float HasTexture;
+};
+
+// Input Data
 
 struct VS_DATA
 {
@@ -42,11 +52,13 @@ struct PS_DATA
 	float4 pos : SV_POSITION;
 	float4 color : COLOR;
 	float3 normal : NORMAL;
-	float2 tex : TEXCOORD0;
 	float3 viewDirection : TEXCOORD1;	
     float4 lightViewPosition : TEXCOORD2;
     float3 lightPos : TEXCOORD3;
+    float2 tex : TEXCOORD;
 };
+
+// Vertex Shader
 
 PS_DATA VSMain(VS_DATA input)
 {
@@ -60,8 +72,8 @@ PS_DATA VSMain(VS_DATA input)
     output.lightViewPosition = mul(output.lightViewPosition, lightView);
     output.lightViewPosition = mul(output.lightViewPosition, lightProjection);
 	
-	output.color = input.color;
-	output.tex = input.tex;
+    output.color = input.color;
+    output.tex = input.tex;
 
 	// Calculate the normal vector against the world matrix only.
 	output.normal = mul(float4(input.normal, 0.0f), World);
@@ -77,9 +89,11 @@ PS_DATA VSMain(VS_DATA input)
 	return output;
 }
 
+// Pixel Shader
+
 float4 PSMain(PS_DATA input) : SV_Target
 {
-    float4 textureColor = txDiffuse.Sample(samLinear, input.tex);
+    float4 textureColor = HasTexture > 0.0f ? txDiffuse.Sample(samLinear, input.tex) : input.color;
 
     float bias = 0.01f;
 

@@ -10,7 +10,7 @@ using namespace Microsoft::WRL;
 using namespace DirectX::SimpleMath;
 
 class Engine;
-class Shader;
+class TexturedShader;
 class Transform;
 class Graphics;
 
@@ -18,7 +18,7 @@ class MeshObject
 {
 public:
 
-    MeshObject(Engine* engine, Transform* transform, MeshData* meshData, Shader* shader);
+    MeshObject(Engine* engine, Transform* transform, MeshData* meshData, TexturedShader* shader);
 
     void Draw();
     bool RenderShadowMap();
@@ -28,7 +28,7 @@ protected:
     Engine* engine;
     Transform* transform;
     MeshData* meshData;
-    Shader* shader;
+    TexturedShader* shader;
     Graphics* graphics;
 
     ComPtr<ID3D11Buffer> indexBuffer;
@@ -37,10 +37,10 @@ protected:
     ComPtr<ID3D11Buffer> constantBuffer;
     ComPtr<ID3D11Buffer> lightBuffer;
     ComPtr<ID3D11Buffer> cameraBuffer;
+    ID3D11Buffer* modelDataBuffer;
     D3D11_SUBRESOURCE_DATA* csd;
 
     UINT stride;
     UINT offset = 0u;
 
 };
-

@@ -132,6 +132,9 @@
     <ClInclude Include="LightActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ModelDataBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">

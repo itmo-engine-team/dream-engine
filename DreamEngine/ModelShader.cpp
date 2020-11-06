@@ -1,8 +1,8 @@
-#include "TexturedShader.h"
+#include "ModelShader.h"
 
 #include "Texture.h"
 
-TexturedShader::TexturedShader(Graphics* graphics,
+ModelShader::ModelShader(Graphics* graphics,
                                const wchar_t* shaderPath,
                                Texture* texture)
     : Shader(graphics, shaderPath), texture(texture)
@@ -10,7 +10,7 @@ TexturedShader::TexturedShader(Graphics* graphics,
     hasTexture = texture != nullptr;
 }
 
-void TexturedShader::SetShader()
+void ModelShader::SetShader()
 {
     Shader::SetShader();
 
@@ -18,12 +18,12 @@ void TexturedShader::SetShader()
         texture->setTexture();
 }
 
-bool TexturedShader::HasTexture() const
+bool ModelShader::HasTexture() const
 {
     return hasTexture;
 }
 
-void TexturedShader::Init()
+void ModelShader::Init()
 {
     D3D11_INPUT_ELEMENT_DESC inputElements[] = {
         {

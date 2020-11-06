@@ -174,7 +174,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ModelDataBuffer.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="TexturedShader.h" />
+    <ClInclude Include="ModelShader.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Game.h" />
@@ -206,7 +206,7 @@
     <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TexturedShader.cpp" />
+    <ClCompile Include="ModelShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />

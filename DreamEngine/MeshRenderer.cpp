@@ -26,7 +26,7 @@ bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePat
     return true;
 }
 
-ModelData* MeshRenderer::CreateBoxModel(TexturedShader* shader, Vector4 color, Vector3 boxSize)
+ModelData* MeshRenderer::CreateBoxModel(ModelShader* shader, Vector4 color, Vector3 boxSize)
 {
     ModelData* modelData = new ModelData(shader);
 
@@ -147,7 +147,7 @@ ModelData* MeshRenderer::CreateBoxModel(TexturedShader* shader, Vector4 color, V
     return modelData;
 }
 
-ModelData* MeshRenderer::CreateQuardModel(TexturedShader* shader, Vector3 quardSize)
+ModelData* MeshRenderer::CreateQuardModel(ModelShader* shader, Vector3 quardSize)
 {
     ModelData* modelData = new ModelData(shader);
 

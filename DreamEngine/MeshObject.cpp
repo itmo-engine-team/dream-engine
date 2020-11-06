@@ -4,7 +4,7 @@
 
 #include "Engine.h"
 
-#include "TexturedShader.h"
+#include "ModelShader.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"
@@ -13,7 +13,7 @@
 #include "ErrorLogger.h"
 #include "ModelDataBuffer.h"
 
-MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData, TexturedShader* shader)
+MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData, ModelShader* shader)
     : engine(engine), transform(transform), meshData(meshData), shader(shader)
 {
     graphics = engine->GetGraphics();

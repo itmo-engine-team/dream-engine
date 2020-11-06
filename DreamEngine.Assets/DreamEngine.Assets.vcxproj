@@ -140,13 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BlankClass.h" />
-    <ClInclude Include="JsonCreater.h" />
-    <ClInclude Include="JsonReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlankClass.cpp" />
-    <ClCompile Include="JsonCreater.cpp" />
-    <ClCompile Include="JsonReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

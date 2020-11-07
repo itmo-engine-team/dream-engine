@@ -59,7 +59,7 @@ public:
 
 protected:
 
-    bool isActive;
+    bool isActive = true;
 
     Transform* transform;
 

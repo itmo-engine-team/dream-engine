@@ -122,7 +122,15 @@ void Engine::update()
 
 void Engine::render()
 {   
+    // Render shadow map
+    graphics->PrepareRenderShadowMap();
+    game->RenderShadowMap();
+
+    // Render scene
+    graphics->PrepareRenderScene();
+  
     graphics->SwitchWindow();
+
     float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     graphics->GetContext()->ClearRenderTargetView(graphics->GetRenderTargetView(), color);
     graphics->GetContext()->ClearDepthStencilView(graphics->GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);

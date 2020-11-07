@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "MeshData.h"
-#include "Shader.h"
+#include "ModelShader.h"
 
 class MeshRenderer;
 
@@ -11,19 +11,19 @@ class ModelData
 {
 public:
 
-    ModelData(Shader* shader);
-    ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, Shader* shader);
+    ModelData(ModelShader* shader);
+    ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, ModelShader* shader);
 
     void AddMeshData(MeshData* pMeshData);
     std::vector<MeshData*> GetMeshDataList() const;
 
-    Shader* GetShader() const;
+    ModelShader* GetShader() const;
 
 protected:
 
     std::vector<MeshData*> meshesData;
 
-    Shader* shader;
+    ModelShader* shader;
 
 };
 

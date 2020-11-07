@@ -51,24 +51,34 @@ void KatamariGame::Init(Engine* engine)
     texture = new Texture(engine, L"Meshes/eyeball/eyes_blue.jpg");
     gameAssetManager->AddTexture(texture);
 
-    texturedShader = new TexturedShader(engine, L"Shaders/ShaderTextured.fx", texture);
+    shadowMapTexture = new Texture(engine, engine->GetGraphics()->shadowMap);
+    gameAssetManager->AddTexture(texture);
+
+    texturedShader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderModelWithShadow.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
+     
+    texturedShadowShader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderModelOnlyTexture.fx", shadowMapTexture);
+    texturedShadowShader->Init();
+    gameAssetManager->AddShader(texturedShadowShader);
 
-    shader = new Shader(engine, L"Shaders/Shader.fx");
+    shader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderModelWithShadow.fx", nullptr);
     shader->Init();
     gameAssetManager->AddShader(shader);
 
     // Init Meshes
 
-    planeModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 2, 0.1, 2 });
+    planeModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 3, 0.1, 3 });
     boxModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
+    quardModel = MeshRenderer::CreateQuardModel(texturedShadowShader, { 1, 1, 1 });
+
     playerModel = new ModelData(engine->GetMeshRenderer(), 
         "Meshes/eyeball/eyeball-mod.obj", texturedShader);
 
     gameAssetManager->AddModel(planeModel);
     gameAssetManager->AddModel(boxModel);
     gameAssetManager->AddModel(playerModel);
+    gameAssetManager->AddModel(quardModel);
 
     // Init objects
 
@@ -88,6 +98,9 @@ void KatamariGame::Init(Engine* engine)
     box3->AddComponent(new StaticModelComponent(this, box3, new Transform({ 0, 0, 0 }), boxModel));
     gameAssetManager->AddActor(box3);
 
+    quard = new Actor(this, new Transform({ 1, 1, 0 }));
+    quard->AddComponent(new StaticModelComponent(this, quard, new Transform({ 0, 0, 0 }), quardModel));
+
     katamariPlayer = new KatamariSphere(this, new Transform({ 0, 0.8, 0 }));
     playerSphere = new StaticModelComponent(this, katamariPlayer, new Transform({ 0, 0, 0 }), playerModel);
     katamariPlayer->AddComponent(playerSphere);
@@ -95,11 +108,25 @@ void KatamariGame::Init(Engine* engine)
 
     spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
     gameAssetManager->AddActor(spectatorActor);
+
+    lightActor = new LightActor(this, new Transform({ 0, 0, 0 }));
+    lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0 }), boxModel));
+    lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0.5 }),
+        MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.03, 0.03, 0.5 })));
+
+    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.65f);
+    lightActor->GetTransform()->AddWorldRotation(Vector3::UnitY, 0.75f);
+    lightActor->GetTransform()->SetWorldPosition({ -10, 10, -10 });
 }
 
 CameraComponent* KatamariGame::GetCamera() const
 {
     return spectatorActor->GetCameraComponent();
+}
+
+LightComponent* KatamariGame::GetLight() const
+{
+    return lightActor->GetLightComponent();
 }
 
 void KatamariGame::Update()
@@ -134,6 +161,13 @@ void KatamariGame::Update()
     /*collisionCheck(box1);
     collisionCheck(box2);
     collisionCheck(box3);*/
+}
+
+void KatamariGame::Render()
+{
+    Game::Render();
+    quard->Draw();
+    lightActor->Draw();
 }
 
 void KatamariGame::collisionCheck(GameObject* gameObject)

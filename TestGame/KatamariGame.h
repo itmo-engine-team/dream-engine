@@ -4,8 +4,10 @@
 #include "SpectatorActor.h"
 #include "KatamariSphere.h"
 #include "CameraComponent.h"
+#include "LightComponent.h"
 #include "StaticModelComponent.h"
-#include "TexturedShader.h"
+#include "ModelShader.h"
+#include "LightActor.h"
 
 class KatamariGame : public Game
 {
@@ -16,12 +18,15 @@ public:
 
     void Init(Engine* engine) override;
     void Update() override;
+    void Render() override;
 
     CameraComponent* GetCamera() const override;
+    LightComponent* GetLight() const override;
 
 private:
 
     SpectatorActor* spectatorActor;
+    LightActor* lightActor;
 
     KatamariSphere* katamariPlayer;
     StaticModelComponent* playerSphere;
@@ -30,14 +35,18 @@ private:
     Actor* box1;
     Actor* box2;
     Actor* box3;
+    Actor* quard;
 
     ModelData* planeModel;
     ModelData* boxModel;
     ModelData* playerModel;
+    ModelData* quardModel;
 
-    Shader* shader;
-    TexturedShader* texturedShader;
+    ModelShader* shader;
+    ModelShader* texturedShader;
+    ModelShader* texturedShadowShader;
     Texture* texture;
+    Texture* shadowMapTexture;
 
     void collisionCheck(GameObject* gameObject);
 

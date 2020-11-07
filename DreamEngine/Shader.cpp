@@ -1,15 +1,14 @@
 #include "Shader.h"
 
-#include "Engine.h"
+#include "Graphics.h"
 
 #include <d3dcompiler.h>
 
 #include "ErrorLogger.h"
 
-Shader::Shader(Engine* engine, const wchar_t* shaderPath)
-    : shaderPath(std::wstring(shaderPath))
+Shader::Shader(Graphics* graphics, const wchar_t* shaderPath)
+    : graphics(graphics), shaderPath(std::wstring(shaderPath))
 {
-    graphics = engine->GetGraphics();
 }
 
 void Shader::SetShader()
@@ -80,7 +79,10 @@ void Shader::initInternal(D3D11_INPUT_ELEMENT_DESC* inputElements, const int ele
         // If there was nothing in the error message then it simply could not find the shader file itself.
         else
         {
-            ErrorLogger::DirectXLog(hr, Error, "Missing Shader file", __FILE__, __FUNCTION__, __LINE__);
+            const std::wstring msg = L"Missing Shader file with name: " + shaderPath;
+            ErrorLogger::DirectXLog(hr, Error, 
+                std::string(msg.begin(), msg.end()), 
+                __FILE__, __FUNCTION__, __LINE__);
         }
         return;
     }

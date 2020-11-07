@@ -39,6 +39,14 @@ void Game::Render()
     }
 }
 
+void Game::RenderShadowMap()
+{
+    for (auto actor : gameAssetManager->GetActors())
+    {
+        actor->DrawShadowMap();
+    }
+}
+
 void Game::SetGameDeltaTimeMultiplier(float deltaTimeMultiplier)
 {
     gameDeltaTimeMultiplier = std::clamp(deltaTimeMultiplier, 0.0f, 1.0f);

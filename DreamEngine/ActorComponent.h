@@ -14,6 +14,7 @@ public:
     void Init();
     void Update();
     void Draw();
+    void DrawShadowMap();
 
 protected:
 
@@ -23,6 +24,6 @@ protected:
     virtual void onInit();
     virtual void onUpdate();
     virtual void onDraw();
-
+    virtual void onDrawShadowMap();
 };
 

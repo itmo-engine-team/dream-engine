@@ -30,12 +30,12 @@ public:
 
     std::vector<ActorComponent*> GetComponents() const;
 
-    template<class C>
-    C FindComponent() 
+    template<class ComponentClass>
+    ComponentClass FindComponent()
     {
         for each (auto component in components)
         {
-            if (C castedComponent = dynamic_cast<C>(component))
+            if (ComponentClass castedComponent = dynamic_cast<ComponentClass>(component))
             {
                 return castedComponent;
             }
@@ -43,13 +43,13 @@ public:
         return nullptr;
     }
 
-    template<class C>
-    std::vector<C> FindComponents()
+    template<class ComponentClass>
+    std::vector<ComponentClass> FindComponents()
     {
-        auto foundComponents = std::vector<C>();
+        auto foundComponents = std::vector<ComponentClass>();
         for each (auto component in components)
         {
-            if (C castedComponent = dynamic_cast<C>(component))
+            if (ComponentClass castedComponent = dynamic_cast<ComponentClass>(component))
             {
                 foundComponents.push_back(castedComponent);
             }

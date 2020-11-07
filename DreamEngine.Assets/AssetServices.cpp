@@ -24,9 +24,11 @@ std::vector<json> AssetServices::FindAssets()
     std::string directory_name = "Content";
     std::string extension = ".asset";
 
-    try // Exception for directories not found
+    // Exception for directories not found
+    try 
     {
-        for (auto& p : std::filesystem::recursive_directory_iterator(directory_name)) //For all files in folders
+        // For all files in folders
+        for (auto& p : std::filesystem::recursive_directory_iterator(directory_name)) 
         {
             if (p.path().extension() != extension)
                 continue;

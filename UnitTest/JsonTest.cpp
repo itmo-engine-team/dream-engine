@@ -6,12 +6,14 @@
 #include <iomanip>
 #include <filesystem>
 
-class JsonTest
+class JsonTest /*: public ::testing::Test*/
 {
     using json = nlohmann::json;
-public: 
-    void JsonTest::TestJsRead()
-    {
+
+public:
+
+   static  void JsonTest::TestJsRead()
+   {
         std::ifstream file("Person.json");
         json j;
 
@@ -40,10 +42,10 @@ public:
         std::cout << objectName << "\n";
         std::cout << name << "\n";
         std::cout << age;
-    }
+   }
 
-    void JsonTest::TestJsCreate(std::string fileRelativePath, std::string name, int age)
-    {
+   static void JsonTest::TestJsCreate(std::string fileRelativePath, std::string name, int age)
+   {
         std::string pathToFile = fileRelativePath;
         json j;
         std::filesystem::path p(pathToFile);
@@ -59,11 +61,10 @@ public:
        
         std::ofstream file(pathToFile);
         file << std::setw(4) << j << std::endl;
-    }
+   }
 
-    void JsonTest::FindAssets()
-    {
-       // std::vector<json> findedAssets;
+   static void JsonTest::FindAssets()
+   {
         std::string directory_name = "Content";
         std::string extension = ".asset";
 
@@ -85,23 +86,20 @@ public:
         {
             std::cout << "Error: " << e.what() << '\n';
         }
-    }
+   }
 };
 
-TEST(JSonTest, CreateTest)
-{
-    JsonTest* jsonCreater = new JsonTest();
-    jsonCreater->TestJsCreate("Content/Person1.asset", "Alex", 25);
+TEST(JsonTest, CreateTest)
+{   
+    JsonTest::TestJsCreate("Content/Person1.asset", "Alex", 25);
 }
 
-TEST(JSonTest, ReadTest)
-{
-    JsonTest* jsonReader = new JsonTest();
-    jsonReader->TestJsRead();
+TEST(JsonTest, ReadTest)
+{    
+    JsonTest::TestJsRead();
 }
 
-TEST(JSonTest, FindTest)
+TEST(JsonTest, FindTest)
 {
-    JsonTest* jsonFinde = new JsonTest();
-    jsonFinde->FindAssets();
+    JsonTest::FindAssets();
 }

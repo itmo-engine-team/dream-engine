@@ -1,5 +1,6 @@
 #include "AssetServices.h"
 
+#include <iomanip>
 #include <iostream>
 
 json AssetServices::CreateAsset(std::string fileRelativePath)
@@ -10,8 +11,6 @@ json AssetServices::CreateAsset(std::string fileRelativePath)
     CheckAndCreateFolder(pathVar);
 
     j["Object name"] = pathVar.stem().string();
-    /*j["Name"] = name;
-    j["Age"] = age;*/
     
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;

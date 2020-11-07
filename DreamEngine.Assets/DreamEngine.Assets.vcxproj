@@ -141,11 +141,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AssetServices.h" />
-    <ClInclude Include="BlankClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetServices.cpp" />
-    <ClCompile Include="BlankClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

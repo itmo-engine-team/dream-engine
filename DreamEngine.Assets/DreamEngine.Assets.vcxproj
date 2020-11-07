@@ -140,9 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AssetNode.h" />
     <ClInclude Include="AssetServices.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssetNode.cpp" />
     <ClCompile Include="AssetServices.cpp" />
   </ItemGroup>
   <ItemGroup>

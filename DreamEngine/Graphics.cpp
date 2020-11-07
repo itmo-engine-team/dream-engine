@@ -230,7 +230,7 @@ void Graphics::SwitchWindow()
 
     if (editMode == true)
     {
-        CreateImGuiFrame();
+        createShadowViewport();
     }
 
     // assemble together draw data
@@ -386,7 +386,7 @@ bool Graphics::GetGameMode()
     return gameMode;
 }
 
-void Graphics::CreateImGuiFrame()
+void Graphics::createShadowViewport()
 {
     ImGui::Begin("ShadowRender");
     ImGui::Image(shadowResourceView, ImVec2(300, 300));

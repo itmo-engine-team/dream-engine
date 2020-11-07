@@ -32,7 +32,6 @@ public:
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
 
-    void CreateImGuiFrame();
     void SwitchWindow();
 
     void PrepareRenderScene();
@@ -52,6 +51,8 @@ public:
     ID3D11DepthStencilView* shadowDepthView = nullptr;
     ID3D11ShaderResourceView* shadowResourceView = nullptr;
     ID3D11SamplerState* shadowSamplerState = nullptr;
+
+    ID3D11ShaderResourceView* textureResourceView = nullptr;
 
     bool GetGameMode();
 
@@ -89,5 +90,7 @@ private:
     bool gameMode = false;
     bool editMode = false;
 
-    bool initDepthShadowMap();
+    bool initDepthShadowMap(); 
+    
+    void createShadowViewport();
 };

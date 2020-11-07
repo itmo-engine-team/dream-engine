@@ -6,13 +6,13 @@
 #include <iomanip>
 #include <filesystem>
 
-class JsonTest /*: public ::testing::Test*/
+class JsonTest : public ::testing::Test
 {
     using json = nlohmann::json;
 
 public:
 
-   static  void JsonTest::TestJsRead()
+   void JsonTest::TestJsRead()
    {
         std::ifstream file("Person.json");
         json j;
@@ -44,7 +44,7 @@ public:
         std::cout << age;
    }
 
-   static void JsonTest::TestJsCreate(std::string fileRelativePath, std::string name, int age)
+   void JsonTest::TestJsCreate(std::string fileRelativePath, std::string name, int age)
    {
         std::string pathToFile = fileRelativePath;
         json j;
@@ -63,7 +63,7 @@ public:
         file << std::setw(4) << j << std::endl;
    }
 
-   static void JsonTest::FindAssets()
+   void JsonTest::FindAssets()
    {
         std::string directory_name = "Content";
         std::string extension = ".asset";
@@ -89,17 +89,17 @@ public:
    }
 };
 
-TEST(JsonTest, CreateTest)
+TEST_F(JsonTest, CreateTest)
 {   
     JsonTest::TestJsCreate("Content/Person1.asset", "Alex", 25);
 }
 
-TEST(JsonTest, ReadTest)
+TEST_F(JsonTest, ReadTest)
 {    
     JsonTest::TestJsRead();
 }
 
-TEST(JsonTest, FindTest)
+TEST_F(JsonTest, FindTest)
 {
-    JsonTest::FindAssets();
+    FindAssets();
 }

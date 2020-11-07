@@ -42,6 +42,11 @@ void Actor::DrawShadowMap()
     }
 }
 
+bool Actor::IsActive() const
+{
+    return isActive;
+}
+
 Transform* Actor::GetTransform() const
 {
     return transform;
@@ -66,6 +71,11 @@ float Actor::GetActorDeltaTime()
 {
     actorDeltaTime = game->GetGameDeltaTime() * actorDeltaTimeMultiplier;
     return actorDeltaTime;
+}
+
+std::vector<ActorComponent*> Actor::GetComponents() const
+{
+    return components;
 }
 
 void Actor::onUpdate()

@@ -388,8 +388,8 @@ bool Graphics::GetGameMode()
 
 void Graphics::CreateImGuiFrame()
 {
-    ImGui::Begin("GameRender");
-    ImGui::SetWindowSize(ImVec2(200, 100));
+    ImGui::Begin("ShadowRender");
+    ImGui::Image(shadowResourceView, ImVec2(300, 300));
     ImGui::End();
 }
 

@@ -18,7 +18,6 @@ public:
     bool ProcessModel(ModelData* modelData, const std::string& filePath);
 
     static ModelData* CreateBoxModel(ModelShader* shader, Vector4 color, Vector3 boxSize);
-    static ModelData* CreateQuardModel(ModelShader* shader, Vector3 quardSize);
 
 protected:
 

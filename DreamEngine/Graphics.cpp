@@ -100,6 +100,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 
     direct2DInitialize(hWnd);
     setupImGui(hWnd);
+    SwitchWindow();
 
     return true;
 }
@@ -192,10 +193,62 @@ void Graphics::setupImGui(HWND hWnd)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    ImGui_ImplWin32_Init(hWnd);
-    ImGui_ImplDX11_Init(device, context);
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+
+#if 1
+    io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleFonts;     
+    io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleViewports; 
+#endif
+    
     ImGui::StyleColorsDark();
+    ImGuiStyle& style = ImGui::GetStyle();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        style.WindowRounding = 0.0f;
+        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+    }
+
+    ImGui_ImplWin32_Init(hWnd);
+    ImGui_ImplDX11_Init(device, context);  
+}
+
+void Graphics::SwitchWindow()
+{
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    // create ImGui window
+    ImGui::Begin("Switch mode");
+    ImGui::SetWindowSize(ImVec2(200, 100));
+    ImGui::Checkbox("Game mode", &this->gameMode);
+    ImGui::Checkbox("Edit mode", &this->editMode);
+    ImGui::End();
+
+    if (editMode == true)
+    {
+        CreateImGuiFrame();
+    }
+
+    // assemble together draw data
+    ImGui::Render();
+
+    context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+
+    // render draw data
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+    }
+
+    swapChain->Present(1, 0);
 }
 
 bool Graphics::initDepthShadowMap()
@@ -328,22 +381,16 @@ ID3D11DepthStencilView* Graphics::GetDepthStencilView()
     return depthStencilView;
 }
 
+bool Graphics::GetGameMode()
+{
+    return gameMode;
+}
+
 void Graphics::CreateImGuiFrame()
 {
-    // start the ImGuiFrame
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
-
-    // create ImGui window
-    ImGui::Begin("Test window");
+    ImGui::Begin("GameRender");
+    ImGui::SetWindowSize(ImVec2(200, 100));
     ImGui::End();
-
-    // assemble together draw data
-    ImGui::Render();
-
-    // render draw data
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
 
 void Graphics::PrepareRenderScene()

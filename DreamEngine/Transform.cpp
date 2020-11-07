@@ -189,7 +189,9 @@ void Transform::AddRelativeRotation(Vector3 axis, float angle)
 
 void Transform::AddWorldRotation(const Vector3 axis, const float angle)
 {
-    relativeMatrix = GetWorldMatrix() * Matrix::CreateFromAxisAngle(axis, angle);
+    const auto translation = Matrix::CreateTranslation(relativeMatrix.Translation());
+    relativeMatrix = GetWorldMatrix() * translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle);
+    relativeMatrix *= translation;
 
     if (parent)
     {

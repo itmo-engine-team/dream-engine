@@ -140,9 +140,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AssetInfo.h" />
+    <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AssetServices.h" />
+    <ClInclude Include="AssetType.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssetInfo.cpp" />
+    <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AssetServices.cpp" />
   </ItemGroup>
   <ItemGroup>

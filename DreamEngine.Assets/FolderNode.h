@@ -37,6 +37,9 @@ protected:
     void SetChildAssetNode(AssetNode* childNode);
     void SetChildAssetNode(std::vector<AssetNode*> childNodes);
 
+    void RemoveChildFolderNode(FolderNode* childNode);
+    void RemoveChildAssetNode(AssetNode* childNode);
+
 private:
 
     FolderNodeStruct nodeStruct;

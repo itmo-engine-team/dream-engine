@@ -55,3 +55,15 @@ void FolderNode::SetChildAssetNode(std::vector<AssetNode*> childNodes)
 {
     nodeStruct.ChildAssetNode.insert(std::end(nodeStruct.ChildAssetNode), std::begin(childNodes), std::end(childNodes));
 }
+
+void FolderNode::RemoveChildFolderNode(FolderNode* childNode)
+{
+  auto iterator =  std::find(nodeStruct.ChildFolderNode.begin(), nodeStruct.ChildFolderNode.end(), childNode);
+  nodeStruct.ChildFolderNode.erase(iterator);
+}
+
+void FolderNode::RemoveChildAssetNode(AssetNode* childNode)
+{
+    auto iterator = std::find(nodeStruct.ChildAssetNode.begin(), nodeStruct.ChildAssetNode.end(), childNode);
+    nodeStruct.ChildAssetNode.erase(iterator);
+}

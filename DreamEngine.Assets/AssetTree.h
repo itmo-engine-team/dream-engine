@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AssetNode.h"
+//#include "AssetNode.h"
 #include "FolderNode.h"
 
 class AssetTree

@@ -1,22 +1,13 @@
 #pragma once
 
+#include "AssetNode.h"
 #include <string>
 #include <vector>
-#include "AssetTree.h"
-#include "AssetNode.h"
+
+class AssetNode;
 
 class FolderNode
 {
-
-protected:
-
-    struct FolderNodeStruct
-    {
-        std::string NodeName;
-        FolderNode* ParentNode;
-        std::vector<FolderNode*> ChildFolderNode;
-        std::vector<AssetNode*> ChildAssetNode;
-    };
 
 public:
 
@@ -40,7 +31,9 @@ protected:
     void RemoveChildFolderNode(FolderNode* childNode);
     void RemoveChildAssetNode(AssetNode* childNode);
 
-private:
 
-    FolderNodeStruct nodeStruct;
+    std::string NodeName;
+    FolderNode* ParentNode;
+    std::vector<FolderNode*> ChildFolderList;
+    std::vector<AssetNode*> ChildAssetList;
 };

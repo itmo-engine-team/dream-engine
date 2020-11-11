@@ -3,14 +3,15 @@
 #include <iomanip>
 #include <iostream>
 
-json AssetServices::CreateAsset(std::string fileRelativePath)
+json AssetServices::CreateAsset(AssetNode* node)
 {
     json j;
-    std::filesystem::path pathVar(fileRelativePath);
+    
+    std::filesystem::path pathVar(CreatePath(node->GetParentNode(), node->GetNodeName()));
 
     CheckAndCreateFolder(pathVar);
 
-    j["Object name"] = pathVar.stem().string();
+    j["Object name"] = node->GetNodeName();
     
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;
@@ -46,6 +47,17 @@ std::vector<json> AssetServices::FindAssets()
     }
 
     return foundAssets;
+}
+
+std::string AssetServices::CreatePath(FolderNode* fNode, std::string pastPath)
+{
+    std::string path = pastPath;
+    path = fNode->GetNodeName() + "/" + path;
+
+    if (fNode->GetParentNode() != nullptr)
+       path = CreatePath(fNode->GetParentNode(), path);
+
+    return path;
 }
 
 void CheckAndCreateFolder(std::filesystem::path fileRelativePath)

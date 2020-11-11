@@ -141,10 +141,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AssetNode.h" />
+    <ClInclude Include="FolderNode.h" />
     <ClInclude Include="AssetServices.h" />
+    <ClInclude Include="AssetTree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetNode.cpp" />
+    <ClCompile Include="AssetTree.cpp" />
+    <ClCompile Include="FolderNode.cpp" />
     <ClCompile Include="AssetServices.cpp" />
   </ItemGroup>
   <ItemGroup>

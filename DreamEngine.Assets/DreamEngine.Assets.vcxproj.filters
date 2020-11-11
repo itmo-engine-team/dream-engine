@@ -18,12 +18,24 @@
     <ClInclude Include="AssetServices.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AssetTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="AssetNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetServices.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AssetNode.cpp">

@@ -11,6 +11,7 @@ using json = nlohmann::json;
 namespace AssetServices
 {
     json CreateAsset(AssetNode* node);
+    void RemoveAsset(AssetNode* node);
 
     std::vector<json> FindAssets();
 

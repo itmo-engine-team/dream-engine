@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <iostream>
 
+
 json AssetServices::CreateAsset(AssetNode* node)
 {
     json j;
@@ -17,6 +18,19 @@ json AssetServices::CreateAsset(AssetNode* node)
     file << std::setw(4) << j << std::endl;
 
     return j;
+}
+
+void AssetServices::RemoveAsset(AssetNode* node)
+{
+    std::filesystem::path pathVar(CreatePath(node->GetParentNode(), node->GetNodeName()));
+    try
+    {
+        remove(pathVar);
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "Error: " << e.what() << '\n';
+    }
 }
 
 std::vector<json> AssetServices::FindAssets()

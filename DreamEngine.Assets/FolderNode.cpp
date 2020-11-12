@@ -2,68 +2,68 @@
 
 FolderNode::FolderNode(std::string nodeName, FolderNode* parentNode)
 {
-    NodeName = nodeName;
-    ParentNode = parentNode;
+    name = nodeName;
+    parent = parentNode;
 }
 
-std::string FolderNode::GetNodeName()
+std::string FolderNode::GetName()
 {
-    return NodeName;
+    return name;
 }
 
-FolderNode* FolderNode::GetParentNode()
+FolderNode* FolderNode::GetParent()
 {
-    return ParentNode;
+    return parent;
 }
 
 std::vector<FolderNode*> FolderNode::GetChildFolderNode()
 {
-    return  ChildFolderList;
+    return childFolderList;
 }
 
 std::vector<AssetNode*> FolderNode::GetChildAssetNode()
 {
-    return  ChildAssetList;
+    return childAssetList;
 }
 
 void FolderNode::setNodeName(std::string nodeName)
 {
-    NodeName = nodeName;
+    name = nodeName;
 }
 
 void FolderNode::setParentNode(FolderNode* parentNode)
 {
-    ParentNode = parentNode;
+    parent = parentNode;
 }
 
-void FolderNode::setChildFolderNode(FolderNode* childNode)
+void FolderNode::addChildFolderNode(FolderNode* childNode)
 {
-    ChildFolderList.push_back(childNode);
+    childFolderList.push_back(childNode);
 }
 
-void FolderNode::setChildFolderNode(std::vector<FolderNode*> childNodes)
+void FolderNode::addChildFolderNodes(std::vector<FolderNode*> childNodes)
 {
-    ChildFolderList.insert(std::end(ChildFolderList), std::begin(childNodes), std::end(childNodes));
+    childFolderList.insert(std::end(childFolderList), std::begin(childNodes), std::end(childNodes));
 }
 
-void FolderNode::setChildAssetNode(AssetNode* childNode)
+void FolderNode::addChildAssetNode(AssetNode* childNode)
 {
-    ChildAssetList.push_back(childNode);
+    childAssetList.push_back(childNode);
 }
 
-void FolderNode::setChildAssetNode(std::vector<AssetNode*> childNodes)
+void FolderNode::addChildAssetNodes(std::vector<AssetNode*> childNodes)
 {
-    ChildAssetList.insert(std::end(ChildAssetList), std::begin(childNodes), std::end(childNodes));
+    childAssetList.insert(std::end(childAssetList), std::begin(childNodes), std::end(childNodes));
 }
 
 void FolderNode::removeChildFolderNode(FolderNode* childNode)
 {
-  auto iterator =  std::find(ChildFolderList.begin(), ChildFolderList.end(), childNode);
-  ChildFolderList.erase(iterator);
+    auto iterator = std::find(childFolderList.begin(), childFolderList.end(), childNode);
+    childFolderList.erase(iterator);
 }
 
 void FolderNode::removeChildAssetNode(AssetNode* childNode)
 {
-    auto iterator = std::find(ChildAssetList.begin(), ChildAssetList.end(), childNode);
-    ChildAssetList.erase(iterator);
+    auto iterator = std::find(childAssetList.begin(), childAssetList.end(), childNode);
+    childAssetList.erase(iterator);
 }

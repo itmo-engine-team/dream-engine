@@ -1,10 +1,16 @@
 #pragma once
 
-//#include "AssetNode.h"
 #include "FolderNode.h"
 
 class AssetTree
 {
+
+private:
+
+    AssetTree();
+    AssetTree(const AssetTree&) = delete;
+    void operator=(const AssetTree&) = delete;
+
 public:
 
     static AssetTree& GetInstance();
@@ -20,11 +26,7 @@ public:
 
 private:
 
-    AssetTree();
-    AssetTree(const AssetTree&) = delete;
-    void operator=(const AssetTree&) = delete;
-
-    static AssetTree  instance;
-    static FolderNode* rootnode;
+    static AssetTree instance;
+    static FolderNode* rootNode;
 
 };

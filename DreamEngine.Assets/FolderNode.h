@@ -1,8 +1,9 @@
 #pragma once
 
-#include "AssetNode.h"
 #include <string>
 #include <vector>
+
+#include "AssetNode.h"
 
 class AssetNode;
 
@@ -11,29 +12,35 @@ class FolderNode
 
 public:
 
-    std::string GetNodeName();
-    FolderNode* GetParentNode();
+    std::string GetName();
+    FolderNode* GetParent();
     std::vector<FolderNode*> GetChildFolderNode();
     std::vector<AssetNode*> GetChildAssetNode();
 
 protected:
 
-    FolderNode(std::string nodeName, FolderNode* parentNode);
     friend class AssetTree;
+
+    FolderNode(std::string nodeName, FolderNode* parentNode);
+    
 
     void setNodeName(std::string nodeName);
     void setParentNode(FolderNode* parentNode);
-    void setChildFolderNode(FolderNode* childNode);
-    void setChildFolderNode(std::vector<FolderNode*> childNodes);
-    void setChildAssetNode(AssetNode* childNode);
-    void setChildAssetNode(std::vector<AssetNode*> childNodes);
+
+    void addChildFolderNode(FolderNode* childNode);
+    void addChildFolderNodes(std::vector<FolderNode*> childNodes);
+    void addChildAssetNode(AssetNode* childNode);
+    void addChildAssetNodes(std::vector<AssetNode*> childNodes);
 
     void removeChildFolderNode(FolderNode* childNode);
     void removeChildAssetNode(AssetNode* childNode);
 
+private:
 
-    std::string NodeName;
-    FolderNode* ParentNode;
-    std::vector<FolderNode*> ChildFolderList;
-    std::vector<AssetNode*> ChildAssetList;
+    std::string name;
+    FolderNode* parent;
+
+    std::vector<FolderNode*> childFolderList;
+    std::vector<AssetNode*> childAssetList;
+
 };

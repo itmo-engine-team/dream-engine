@@ -2,18 +2,18 @@
 
 AssetNode::AssetNode(std::string nodeName, FolderNode* parentNode)
 {
-    NodeName = nodeName;
-    ParentNode = parentNode;
+    name = nodeName;
+    parent = parentNode;
 }
 
-std::string AssetNode::GetNodeName()
+std::string AssetNode::GetName()
 {
-    return NodeName;
+    return name;
 }
 
-FolderNode* AssetNode::GetParentNode()
+FolderNode* AssetNode::GetParent()
 {
-    return ParentNode;
+    return parent;
 }
 
 AssetNode::AssetNode()
@@ -22,10 +22,10 @@ AssetNode::AssetNode()
 
 void AssetNode::setNodeName(std::string nodeName)
 {
-    NodeName = nodeName;
+    name = nodeName;
 }
 
 void AssetNode::setParentNode(FolderNode* parentNode)
 {
-    ParentNode = parentNode;
+    parent = parentNode;
 }

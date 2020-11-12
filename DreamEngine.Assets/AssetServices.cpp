@@ -3,16 +3,17 @@
 #include <iomanip>
 #include <iostream>
 
-
 json AssetServices::CreateAsset(AssetNode* node)
 {
     json j;
     
-    std::filesystem::path pathVar(CreatePath(node->GetParentNode(), node->GetNodeName()));
+    std::string pathVar(CreateFolderPath(node->GetParent()));
 
     CheckAndCreateFolder(pathVar);
 
-    j["Object name"] = node->GetNodeName();
+    pathVar = pathVar + "/" +  node->GetName() + ".asset";
+
+    j["Object name"] = node->GetName();
     
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;
@@ -22,7 +23,7 @@ json AssetServices::CreateAsset(AssetNode* node)
 
 void AssetServices::RemoveAsset(AssetNode* node)
 {
-    std::filesystem::path pathVar(CreatePath(node->GetParentNode(), node->GetNodeName()));
+    std::filesystem::path pathVar(CreateFolderPath(node->GetParent()));
     try
     {
         remove(pathVar);
@@ -65,7 +66,7 @@ std::vector<json> AssetServices::FindAssets()
 
 void AssetServices::RemoveFolder(FolderNode* folderNode, bool isRecursive)
 {
-    std::filesystem::path pathVar(CreatePath(folderNode->GetParentNode(), folderNode->GetNodeName()));
+    std::filesystem::path pathVar(CreateFolderPath(folderNode->GetParent()));
 
     if (isRecursive)
         remove_all(pathVar);
@@ -73,13 +74,15 @@ void AssetServices::RemoveFolder(FolderNode* folderNode, bool isRecursive)
         remove(pathVar);
 }
 
-std::string AssetServices::CreatePath(FolderNode* fNode, std::string pastPath)
+std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
 {
-    std::string path = pastPath;
-    path = fNode->GetNodeName() + "/" + path;
+   std::string path;
+   FolderNode* currentNode = folderNode;
 
-    if (fNode->GetParentNode() != nullptr)
-       path = CreatePath(fNode->GetParentNode(), path);
+   while(currentNode != nullptr )
+   {
+       path = currentNode->GetName() + "/" + path;
+   }
 
     return path;
 }

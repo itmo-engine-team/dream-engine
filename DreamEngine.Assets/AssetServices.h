@@ -16,6 +16,7 @@ namespace AssetServices
     std::vector<json> FindAssets();
 
     void CheckAndCreateFolder(std::filesystem::path fileRelativePath);
+    void RemoveFolder(FolderNode* folderNode, bool isRecursive);
 
     std::string CreatePath(FolderNode* fNode, std::string pastPath);
 }

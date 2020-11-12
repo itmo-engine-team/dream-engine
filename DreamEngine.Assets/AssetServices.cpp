@@ -63,6 +63,16 @@ std::vector<json> AssetServices::FindAssets()
     return foundAssets;
 }
 
+void AssetServices::RemoveFolder(FolderNode* folderNode, bool isRecursive)
+{
+    std::filesystem::path pathVar(CreatePath(folderNode->GetParentNode(), folderNode->GetNodeName()));
+
+    if (isRecursive)
+        remove_all(pathVar);
+    else
+        remove(pathVar);
+}
+
 std::string AssetServices::CreatePath(FolderNode* fNode, std::string pastPath)
 {
     std::string path = pastPath;

@@ -7,11 +7,9 @@ json AssetServices::CreateAsset(AssetNode* node)
 {
     json j;
     
-    std::string pathVar(CreateFolderPath(node->GetParent()));
+    std::string pathVar(CreateAssetPath(node));
 
     CheckAndCreateFolder(pathVar);
-
-    pathVar = pathVar + "/" +  node->GetName() + ".asset";
 
     j["Object name"] = node->GetName();
     
@@ -23,7 +21,7 @@ json AssetServices::CreateAsset(AssetNode* node)
 
 void AssetServices::RemoveAsset(AssetNode* node)
 {
-    std::filesystem::path pathVar(CreateFolderPath(node->GetParent()));
+    std::filesystem::path pathVar(CreateAssetPath(node));
     try
     {
         remove(pathVar);
@@ -34,34 +32,34 @@ void AssetServices::RemoveAsset(AssetNode* node)
     }
 }
 
-std::vector<json> AssetServices::FindAssets()
+AssetTree* AssetServices::FindAssetTree()
 {
-    std::vector<json> foundAssets;
+    AssetTree* assetTree;
     std::string directory_name = "Content";
     std::string extension = ".asset";
 
-    // Exception for directories not found
-    try 
-    {
-        // For all files in folders
-        for (auto& p : std::filesystem::recursive_directory_iterator(directory_name)) 
-        {
-            if (p.path().extension() != extension)
-                continue;
+    //// Exception for directories not found
+    //try 
+    //{
+    //    // For all files in folders
+    //    for (auto& p : std::filesystem::recursive_directory_iterator(directory_name)) 
+    //    {
+    //        if (p.path().extension() != extension)
+    //            continue;
 
-            std::ifstream file(p.path());
-            json j;
-            file >> j;
+    //        std::ifstream file(p.path());
+    //        json j;
+    //        file >> j;
 
-            foundAssets.push_back(j);
-        }
-    }
-    catch (std::exception& e)
-    {
-        std::cout << "Error: " << e.what() << '\n';
-    }
+    //        foundAssets.push_back(j);
+    //    }
+    //}
+    //catch (std::exception& e)
+    //{
+    //    std::cout << "Error: " << e.what() << '\n';
+    //}
 
-    return foundAssets;
+    return assetTree;
 }
 
 void AssetServices::RemoveFolder(FolderNode* folderNode, bool isRecursive)
@@ -82,7 +80,24 @@ std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
    while(currentNode != nullptr )
    {
        path = currentNode->GetName() + "/" + path;
+       currentNode = currentNode->GetParent();
    }
+
+    return path;
+}
+
+std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
+{
+    std::string path;
+    FolderNode* currentNode = assetNode->GetParent();
+
+    path = assetNode->GetName() + ".asset";
+
+    while (currentNode != nullptr)
+    {
+        path = currentNode->GetName() + "/" + path;
+        currentNode = currentNode->GetParent();
+    }
 
     return path;
 }

@@ -23,7 +23,6 @@ protected:
 
     FolderNode(std::string nodeName, FolderNode* parentNode);
     
-
     void setNodeName(std::string nodeName);
     void setParentNode(FolderNode* parentNode);
 

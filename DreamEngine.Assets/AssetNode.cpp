@@ -1,5 +1,9 @@
 #include "AssetNode.h"
 
+AssetNode::AssetNode()
+{
+}
+
 AssetNode::AssetNode(std::string nodeName, FolderNode* parentNode)
 {
     name = nodeName;
@@ -14,10 +18,6 @@ std::string AssetNode::GetName()
 FolderNode* AssetNode::GetParent()
 {
     return parent;
-}
-
-AssetNode::AssetNode()
-{
 }
 
 void AssetNode::setNodeName(std::string nodeName)

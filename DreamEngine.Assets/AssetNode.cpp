@@ -20,12 +20,12 @@ AssetNode::AssetNode()
 {
 }
 
-void AssetNode::SetNodeName(std::string nodeName)
+void AssetNode::setNodeName(std::string nodeName)
 {
     NodeName = nodeName;
 }
 
-void AssetNode::SetParentNode(FolderNode* parentNode)
+void AssetNode::setParentNode(FolderNode* parentNode)
 {
     ParentNode = parentNode;
 }

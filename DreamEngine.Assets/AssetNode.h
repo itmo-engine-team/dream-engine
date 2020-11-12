@@ -19,8 +19,8 @@ protected:
     AssetNode(std::string nodeName, FolderNode* parentNode);
     friend class AssetTree;
 
-    void SetNodeName(std::string nodeName);
-    void SetParentNode(FolderNode* parentNode);
+    void setNodeName(std::string nodeName);
+    void setParentNode(FolderNode* parentNode);
 
     std::string NodeName;
     FolderNode* ParentNode;

@@ -21,15 +21,15 @@ protected:
     FolderNode(std::string nodeName, FolderNode* parentNode);
     friend class AssetTree;
 
-    void SetNodeName(std::string nodeName);
-    void SetParentNode(FolderNode* parentNode);
-    void SetChildFolderNode(FolderNode* childNode);
-    void SetChildFolderNode(std::vector<FolderNode*> childNodes);
-    void SetChildAssetNode(AssetNode* childNode);
-    void SetChildAssetNode(std::vector<AssetNode*> childNodes);
+    void setNodeName(std::string nodeName);
+    void setParentNode(FolderNode* parentNode);
+    void setChildFolderNode(FolderNode* childNode);
+    void setChildFolderNode(std::vector<FolderNode*> childNodes);
+    void setChildAssetNode(AssetNode* childNode);
+    void setChildAssetNode(std::vector<AssetNode*> childNodes);
 
-    void RemoveChildFolderNode(FolderNode* childNode);
-    void RemoveChildAssetNode(AssetNode* childNode);
+    void removeChildFolderNode(FolderNode* childNode);
+    void removeChildAssetNode(AssetNode* childNode);
 
 
     std::string NodeName;

@@ -51,7 +51,7 @@ void KatamariGame::Init(Engine* engine)
     texture = new Texture(engine, L"Meshes/eyeball/eyes_blue.jpg");
     gameAssetManager->AddTexture(texture);
 
-    shadowMapTexture = new Texture(engine, engine->GetGraphics()->shadowMap);
+    shadowMapTexture = new Texture(engine, engine->GetGraphics()->GetShadowMap());
     gameAssetManager->AddTexture(texture);
 
     texturedShader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderModelWithShadow.fx", texture);

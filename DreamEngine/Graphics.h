@@ -45,14 +45,8 @@ public:
 
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
-    
-    // Variables for Shadows
-    ID3D11Texture2D* shadowMap = nullptr;
-    ID3D11DepthStencilView* shadowDepthView = nullptr;
-    ID3D11ShaderResourceView* shadowResourceView = nullptr;
-    ID3D11SamplerState* shadowSamplerState = nullptr;
 
-    ID3D11ShaderResourceView* textureResourceView = nullptr;
+    ID3D11Texture2D* GetShadowMap();
 
     bool GetGameMode();
 
@@ -82,6 +76,12 @@ private:
     std::vector<D3D11_VIEWPORT> viewports;
     D3D11_VIEWPORT viewport;
     D3D11_VIEWPORT shadowMapViewport;
+    
+    // Variables for Shadows
+    ID3D11Texture2D* shadowMap = nullptr;
+    ID3D11DepthStencilView* shadowDepthView = nullptr;
+    ID3D11ShaderResourceView* shadowResourceView = nullptr;
+    ID3D11SamplerState* shadowSamplerState = nullptr;
 
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);

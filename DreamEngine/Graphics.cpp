@@ -381,6 +381,11 @@ ID3D11DepthStencilView* Graphics::GetDepthStencilView()
     return depthStencilView;
 }
 
+ID3D11Texture2D* Graphics::GetShadowMap()
+{
+    return shadowMap;
+}
+
 bool Graphics::GetGameMode()
 {
     return gameMode;

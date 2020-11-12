@@ -147,6 +147,37 @@ ModelData* MeshRenderer::CreateBoxModel(ModelShader* shader, Vector4 color, Vect
     return modelData;
 }
 
+ModelData* MeshRenderer::CreateSquareModel(ModelShader* shader, Vector3 quardSize)
+{
+    ModelData* modelData = new ModelData(shader);
+
+    std::vector<Vertex> vertices = {
+        // Front vertices
+        {
+            {-quardSize.x, -quardSize.y, -quardSize.z}, Vector2(1, 1), -Vector3::UnitZ
+        },
+        {
+            {-quardSize.x, +quardSize.y, -quardSize.z}, Vector2(1, 0), -Vector3::UnitZ
+        },
+        {
+            {+quardSize.x, +quardSize.y, -quardSize.z}, Vector2(0, 0), -Vector3::UnitZ
+        },
+        {
+            {+quardSize.x, -quardSize.y, -quardSize.z}, Vector2(0, 1), -Vector3::UnitZ
+        },
+    };
+    std::vector<DWORD> indices = {
+        // front face
+        0, 1, 2,
+        0, 2, 3,
+    };
+
+    auto meshData = new MeshData(vertices, indices);
+    modelData->AddMeshData(meshData);
+
+    return modelData;
+}
+
 void MeshRenderer::processNode(ModelData* modelData, aiNode* node, const aiScene* scene)
 {
     for (UINT i = 0; i < node->mNumMeshes; i++)

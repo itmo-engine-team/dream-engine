@@ -39,21 +39,22 @@ void AssetTree::RemoveFolderNode(FolderNode* folderNode, bool isRecursive)
     }
     else
     {
-       FolderNode* parentNode = folderNode->GetParent();
+        FolderNode* parentNode = folderNode->GetParent();
 
-       for (auto* assetNode : folderNode->GetChildAssetNode())
-       {
-           assetNode->setParentNode(parentNode);
-       }
-       parentNode->addChildAssetNodes(folderNode->GetChildAssetNode());
 
-       for (auto* childFolderNode : folderNode->GetChildFolderNode())
-       {
-           childFolderNode->setParentNode(parentNode);
-       }
-       parentNode->addChildFolderNodes(folderNode->GetChildFolderNode());
+        parentNode->removeChildFolderNode(folderNode);
 
-       parentNode->removeChildFolderNode(folderNode);
+        for (auto* assetNode : folderNode->GetChildAssetNode())
+        {
+            assetNode->setParentNode(parentNode);
+        }
+        parentNode->addChildAssetNodes(folderNode->GetChildAssetNode());
+
+        for (auto* childFolderNode : folderNode->GetChildFolderNode())
+        {
+            childFolderNode->setParentNode(parentNode);
+        }
+        parentNode->addChildFolderNodes(folderNode->GetChildFolderNode());
     }
 }
 

@@ -82,14 +82,14 @@ private:
     ID3D11DepthStencilView* shadowDepthView = nullptr;
     ID3D11ShaderResourceView* shadowResourceView = nullptr;
     ID3D11SamplerState* shadowSamplerState = nullptr;
+    
+    bool gameMode = false;
+    bool editMode = false;
 
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     void setupImGui(HWND hWnd);
   
-    bool gameMode = false;
-    bool editMode = false;
-
     bool initDepthShadowMap(); 
     
     void createShadowViewport();

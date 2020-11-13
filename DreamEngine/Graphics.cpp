@@ -94,8 +94,6 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
-    viewports.push_back(viewport);
-
     initDepthShadowMap();
 
     direct2DInitialize(hWnd);
@@ -320,12 +318,10 @@ bool Graphics::initDepthShadowMap()
     // Init viewport for shadow rendering
     shadowMapViewport = {};
     ZeroMemory(&shadowMapViewport, sizeof(D3D11_VIEWPORT));
-    shadowMapViewport.Height = 600;
-    shadowMapViewport.Width = 800;
+    shadowMapViewport.Height = SHADOW_MAP_SIZE;
+    shadowMapViewport.Width = SHADOW_MAP_SIZE;
     shadowMapViewport.MinDepth = 0.f;
     shadowMapViewport.MaxDepth = 1.f;
-
-    viewports.push_back(shadowMapViewport);
 
     // Creating a texture sample (description) 
     D3D11_SAMPLER_DESC sampDesc;
@@ -410,6 +406,8 @@ void Graphics::PrepareRenderScene()
 
 void Graphics::PrepareRenderShadowMap()
 {
+    context->RSSetViewports(1, &shadowMapViewport);
+
     context->RSSetState(shadowRasterState);
     context->OMSetRenderTargets(0, nullptr, shadowDepthView);
     context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);

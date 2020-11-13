@@ -35,7 +35,6 @@ private:
     Actor* box1;
     Actor* box2;
     Actor* box3;
-    Actor* quard;
 
     ModelData* planeModel;
     ModelData* boxModel;
@@ -44,7 +43,6 @@ private:
 
     ModelShader* shader;
     ModelShader* texturedShader;
-    ModelShader* texturedShadowShader;
     Texture* texture;
     Texture* shadowMapTexture;
 

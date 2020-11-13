@@ -230,7 +230,7 @@ void Graphics::SwitchWindow()
 
     if (editMode == true)
     {
-        CreateImGuiFrame();
+        createShadowViewport();
     }
 
     // assemble together draw data
@@ -381,15 +381,20 @@ ID3D11DepthStencilView* Graphics::GetDepthStencilView()
     return depthStencilView;
 }
 
+ID3D11Texture2D* Graphics::GetShadowMap()
+{
+    return shadowMap;
+}
+
 bool Graphics::GetGameMode()
 {
     return gameMode;
 }
 
-void Graphics::CreateImGuiFrame()
+void Graphics::createShadowViewport()
 {
-    ImGui::Begin("GameRender");
-    ImGui::SetWindowSize(ImVec2(200, 100));
+    ImGui::Begin("ShadowRender");
+    ImGui::Image(shadowResourceView, ImVec2(300, 300));
     ImGui::End();
 }
 

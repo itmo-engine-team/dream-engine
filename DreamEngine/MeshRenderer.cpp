@@ -147,7 +147,7 @@ ModelData* MeshRenderer::CreateBoxModel(ModelShader* shader, Vector4 color, Vect
     return modelData;
 }
 
-ModelData* MeshRenderer::CreateQuardModel(ModelShader* shader, Vector3 quardSize)
+ModelData* MeshRenderer::CreateSquareModel(ModelShader* shader, Vector3 quardSize)
 {
     ModelData* modelData = new ModelData(shader);
 

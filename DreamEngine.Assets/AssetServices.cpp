@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <iostream>
 
+
+
 json AssetServices::CreateAsset(AssetNode* node)
 {
     json j;
@@ -28,58 +30,50 @@ void AssetServices::RemoveAsset(AssetNode* node)
     }
     catch (std::exception& e)
     {
-        std::cout << "Error: " << e.what() << '\n';
+        std::string error = std::string("Remove asset error. Extension: ") + e.what();
+        ErrorLogger::Log(Warning, error);
     }
 }
 
 AssetTree* AssetServices::FindAssetTree()
 {
-    ClearAssetTree();
-
     std::string directory_name = "Content";
     std::string extension = ".asset";
 
     AssetTree* assetTree = &AssetTree::GetInstance();
-    std::vector<FolderNode*> queueFolders;
-    queueFolders.push_back(assetTree->GetRootNode());
+    assetTree->ClearAssetTree();
+
+    std::vector<FolderNode*> foldersQueue;
+    foldersQueue.push_back(assetTree->GetRootNode());
 
     // Exception for directories not found
-    try 
+   
+    while(foldersQueue.size() > 0)
     {
-        while(queueFolders.size() > 0)
+        FolderNode* currentFolderNode = foldersQueue.at(0);
+
+        std::filesystem::directory_iterator endIntr;
+        for(std::filesystem::directory_iterator itr(directory_name); itr != endIntr; ++itr)
         {
-            FolderNode* currentFolderNode = queueFolders.at(0);
-
-            std::filesystem::directory_iterator endIntr;
-            for(std::filesystem::directory_iterator itr(directory_name); itr != endIntr; ++itr)
+            if(is_directory(itr->status()))
             {
-                if(is_directory(itr->status()))
-                {
-                    FolderNode* childFolderNode = assetTree->CreateFolderNode(itr->path().filename().string(), currentFolderNode);
-                    assetTree->AddFolderNode(childFolderNode, currentFolderNode);
-                    queueFolders.push_back(childFolderNode);
-                }
-                else
-                {
-                    if (itr->path().extension() != extension) return;
+                FolderNode* childFolderNode = assetTree->CreateFolderNode(itr->path().filename().string(), currentFolderNode);
+                foldersQueue.push_back(childFolderNode);
+            }
+            else
+            {
+                if (itr->path().extension() != extension) continue;
 
-                    AssetNode* childAssetNode = assetTree->CreateAssetNode(itr->path().filename().string(), currentFolderNode);
-                    assetTree->AddAssetNode(childAssetNode, currentFolderNode);
-                }
+                assetTree->CreateAssetNode(itr->path().filename().string(), currentFolderNode); 
             }
         }
     }
-    catch (std::exception& e)
-    {
-        std::cout << "Error: " << e.what() << '\n';
-    }
-
     return assetTree;
 }
 
 void AssetServices::RemoveFolder(FolderNode* folderNode, bool isRecursive)
 {
-    std::filesystem::path pathVar(CreateFolderPath(folderNode->GetParent()));
+    std::filesystem::path pathVar(CreateFolderPath(folderNode));
 
     if (isRecursive)
         remove_all(pathVar);
@@ -102,12 +96,11 @@ std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
 }
 
 std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
-{
+{ 
     std::string path;
-    FolderNode* currentNode = assetNode->GetParent();
-
     path = assetNode->GetName() + ".asset";
 
+    FolderNode* currentNode = assetNode->GetParent();
     while (currentNode != nullptr)
     {
         path = currentNode->GetName() + "/" + path;
@@ -117,11 +110,6 @@ std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
     return path;
 }
 
-void AssetServices::ClearAssetTree()
-{
-    AssetTree* assetTree = &AssetTree::GetInstance();
-    assetTree->RemoveFolderNode(assetTree->GetRootNode(), true);
-}
 
 void CheckAndCreateFolder(std::filesystem::path fileRelativePath)
 {

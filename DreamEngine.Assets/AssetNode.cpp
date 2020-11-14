@@ -8,6 +8,7 @@ AssetNode::AssetNode(std::string nodeName, FolderNode* parentNode)
 {
     name = nodeName;
     parent = parentNode;
+    AssetTree::GetInstance().AddAssetNode(this, parentNode);
 }
 
 std::string AssetNode::GetName()

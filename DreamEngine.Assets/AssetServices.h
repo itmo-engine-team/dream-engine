@@ -5,6 +5,7 @@
 #include <filesystem>
 
 #include "AssetTree.h"
+#include "ErrorLogger.h"
 
 using json = nlohmann::json;
 
@@ -21,7 +22,5 @@ namespace AssetServices
 
     std::string CreateFolderPath(FolderNode* folderNode);
     std::string CreateAssetPath(AssetNode* assetNode);
-
-    void ClearAssetTree();
 
 }

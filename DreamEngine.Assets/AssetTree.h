@@ -28,6 +28,8 @@ public:
     void MoveFolderNode(FolderNode* folderNode, FolderNode* newParentNode);
     void MoveAssetNode(AssetNode* assetNode, FolderNode* newParentNode);
 
+    void ClearAssetTree();
+
 private:
 
     static AssetTree instance;

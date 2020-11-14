@@ -34,30 +34,45 @@ void AssetServices::RemoveAsset(AssetNode* node)
 
 AssetTree* AssetServices::FindAssetTree()
 {
-    AssetTree* assetTree;
+    ClearAssetTree();
+
     std::string directory_name = "Content";
     std::string extension = ".asset";
 
-    //// Exception for directories not found
-    //try 
-    //{
-    //    // For all files in folders
-    //    for (auto& p : std::filesystem::recursive_directory_iterator(directory_name)) 
-    //    {
-    //        if (p.path().extension() != extension)
-    //            continue;
+    AssetTree* assetTree = &AssetTree::GetInstance();
+    std::vector<FolderNode*> queueFolders;
+    queueFolders.push_back(assetTree->GetRootNode());
 
-    //        std::ifstream file(p.path());
-    //        json j;
-    //        file >> j;
+    // Exception for directories not found
+    try 
+    {
+        while(queueFolders.size() > 0)
+        {
+            FolderNode* currentFolderNode = queueFolders.at(0);
 
-    //        foundAssets.push_back(j);
-    //    }
-    //}
-    //catch (std::exception& e)
-    //{
-    //    std::cout << "Error: " << e.what() << '\n';
-    //}
+            std::filesystem::directory_iterator endIntr;
+            for(std::filesystem::directory_iterator itr(directory_name); itr != endIntr; ++itr)
+            {
+                if(is_directory(itr->status()))
+                {
+                    FolderNode* childFolderNode = assetTree->CreateFolderNode(itr->path().filename().string(), currentFolderNode);
+                    assetTree->AddFolderNode(childFolderNode, currentFolderNode);
+                    queueFolders.push_back(childFolderNode);
+                }
+                else
+                {
+                    if (itr->path().extension() != extension) return;
+
+                    AssetNode* childAssetNode = assetTree->CreateAssetNode(itr->path().filename().string(), currentFolderNode);
+                    assetTree->AddAssetNode(childAssetNode, currentFolderNode);
+                }
+            }
+        }
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "Error: " << e.what() << '\n';
+    }
 
     return assetTree;
 }
@@ -100,6 +115,12 @@ std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
     }
 
     return path;
+}
+
+void AssetServices::ClearAssetTree()
+{
+    AssetTree* assetTree = &AssetTree::GetInstance();
+    assetTree->RemoveFolderNode(assetTree->GetRootNode(), true);
 }
 
 void CheckAndCreateFolder(std::filesystem::path fileRelativePath)

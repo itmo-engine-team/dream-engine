@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "AssetServices.h"
 #include "AssetNode.h"
 
 class AssetNode;
@@ -14,8 +15,8 @@ public:
 
     std::string GetName();
     FolderNode* GetParent();
-    std::vector<FolderNode*> GetChildFolderNode();
-    std::vector<AssetNode*> GetChildAssetNode();
+    std::vector<FolderNode*> GetChildFolderList();
+    std::vector<AssetNode*> GetChildAssetList();
 
 protected:
 

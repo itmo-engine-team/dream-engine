@@ -11,6 +11,21 @@ AssetTree& AssetTree::GetInstance()
     return instance;
 }
 
+FolderNode* AssetTree::GetRootNode()
+{
+    return rootNode;
+}
+
+FolderNode* AssetTree::CreateFolderNode(std::string nodeName, FolderNode* parentNode)
+{
+   return new FolderNode(nodeName, parentNode);
+}
+
+AssetNode* AssetTree::CreateAssetNode(std::string nodeName, FolderNode* parentNode)
+{
+    return new AssetNode(nodeName, parentNode);
+}
+
 void AssetTree::AddAssetNode(AssetNode* assetNode, FolderNode* parentNode)
 {
     parentNode->addChildAssetNode(assetNode);
@@ -27,38 +42,47 @@ void AssetTree::RemoveFolderNode(FolderNode* folderNode, bool isRecursive)
 {
     if(isRecursive)
     {
-        for(AssetNode* assetNode : folderNode->GetChildAssetNode())
+        if (folderNode->GetParent() != nullptr)
+        {
+            folderNode->GetParent()->removeChildFolderNode(folderNode);
+        }
+
+        for(AssetNode* assetNode : folderNode->GetChildAssetList())
         {
             RemoveAssetNode(assetNode);
         }
 
-        for (FolderNode* childFolderNode : folderNode->GetChildFolderNode())
+        for (FolderNode* childFolderNode : folderNode->GetChildFolderList())
         {
             RemoveFolderNode(childFolderNode, isRecursive);
         }
     }
     else
     {
+        if (folderNode->GetParent() == nullptr) return;
+
         FolderNode* parentNode = folderNode->GetParent();
 
         parentNode->removeChildFolderNode(folderNode);
 
-        for (auto* assetNode : folderNode->GetChildAssetNode())
+        for (auto* assetNode : folderNode->GetChildAssetList())
         {
             assetNode->setParentNode(parentNode);
         }
-        parentNode->addChildAssetNodes(folderNode->GetChildAssetNode());
+        parentNode->addChildAssetNodes(folderNode->GetChildAssetList());
 
-        for (auto* childFolderNode : folderNode->GetChildFolderNode())
+        for (auto* childFolderNode : folderNode->GetChildFolderList())
         {
             childFolderNode->setParentNode(parentNode);
         }
-        parentNode->addChildFolderNodes(folderNode->GetChildFolderNode());
+        parentNode->addChildFolderNodes(folderNode->GetChildFolderList());
     }
 }
 
 void AssetTree::RemoveAssetNode(AssetNode* assetNode)
 {
+    if (assetNode->GetParent() == nullptr) return;
+
     FolderNode* parentNode = assetNode->GetParent();
     parentNode->removeChildAssetNode(assetNode);
 }

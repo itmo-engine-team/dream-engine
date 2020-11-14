@@ -14,6 +14,10 @@ private:
 public:
 
     static AssetTree& GetInstance();
+    static FolderNode* GetRootNode();
+
+    FolderNode* CreateFolderNode(std::string nodeName, FolderNode* parentNode);
+    AssetNode* CreateAssetNode(std::string nodeName, FolderNode* parentNode);
 
     void AddAssetNode(AssetNode* assetNode, FolderNode* parentNode);
     void AddFolderNode(FolderNode* folderNode, FolderNode* parentNode);

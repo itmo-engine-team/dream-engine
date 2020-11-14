@@ -16,12 +16,12 @@ FolderNode* FolderNode::GetParent()
     return parent;
 }
 
-std::vector<FolderNode*> FolderNode::GetChildFolderNode()
+std::vector<FolderNode*> FolderNode::GetChildFolderList()
 {
     return childFolderList;
 }
 
-std::vector<AssetNode*> FolderNode::GetChildAssetNode()
+std::vector<AssetNode*> FolderNode::GetChildAssetList()
 {
     return childAssetList;
 }

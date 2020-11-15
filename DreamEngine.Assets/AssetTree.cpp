@@ -42,6 +42,10 @@ void AssetTree::RemoveFolderNode(FolderNode* folderNode, bool isRecursive)
 {
     if(isRecursive)
     {
+        if (folderNode->GetParent() != nullptr)
+        {
+            folderNode->GetParent()->removeChildFolderNode(folderNode);
+        }
 
         for(AssetNode* assetNode : folderNode->GetChildAssetList())
         {
@@ -52,12 +56,7 @@ void AssetTree::RemoveFolderNode(FolderNode* folderNode, bool isRecursive)
         {
             RemoveFolderNode(childFolderNode, isRecursive);
         }
-
-        if (folderNode->GetParent() != nullptr)
-        {
-            folderNode->GetParent()->removeChildFolderNode(folderNode);
-            delete folderNode;
-        }
+        
     }
     else
     {
@@ -79,14 +78,23 @@ void AssetTree::RemoveFolderNode(FolderNode* folderNode, bool isRecursive)
         }
         parentNode->addChildFolderNodes(folderNode->GetChildFolderList());
 
+    }
+
+    // Deleted if folderNode != RootNode
+    if (folderNode->GetParent() != nullptr)
+    {
         delete folderNode;
     }
+   
 }
 
 void AssetTree::RemoveAssetNode(AssetNode* assetNode)
 {
-    if (assetNode->GetParent() == nullptr) return;
-
+    if (assetNode->GetParent() == nullptr)
+    {
+        ErrorLogger::Log(Warning, "Cannot remove the assetNode without parent");
+        return;
+    }
     FolderNode* parentNode = assetNode->GetParent();
     parentNode->removeChildAssetNode(assetNode);
 
@@ -97,7 +105,7 @@ void AssetTree::MoveFolderNode(FolderNode* folderNode, FolderNode* newParentNode
 {
     if (folderNode->GetParent() == nullptr)
     {
-        ErrorLogger::Log(Warning, "Cannot move the Content folder");
+        ErrorLogger::Log(Warning, "Cannot move the Root folder");
         return;
     }
 

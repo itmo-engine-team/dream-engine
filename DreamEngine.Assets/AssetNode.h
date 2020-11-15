@@ -17,6 +17,7 @@ public:
 protected:
 
     friend class AssetTree;
+    friend class FolderNode;
 
     AssetNode();
     AssetNode(std::string nodeName, FolderNode* parentNode);

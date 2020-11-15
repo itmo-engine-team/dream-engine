@@ -3,8 +3,6 @@
 #include <iomanip>
 #include <iostream>
 
-
-
 json AssetServices::CreateAsset(AssetNode* node)
 {
     json j;
@@ -45,17 +43,16 @@ AssetTree* AssetServices::FindAssetTree()
 
     std::vector<FolderNode*> foldersQueue;
     foldersQueue.push_back(assetTree->GetRootNode());
-
-    // Exception for directories not found
    
-    while(foldersQueue.size() > 0)
+    while (foldersQueue.size() > 0)
     {
         FolderNode* currentFolderNode = foldersQueue.at(0);
+        foldersQueue.erase(foldersQueue.begin());
 
         std::filesystem::directory_iterator endIntr;
-        for(std::filesystem::directory_iterator itr(directory_name); itr != endIntr; ++itr)
+        for (std::filesystem::directory_iterator itr(directory_name); itr != endIntr; ++itr)
         {
-            if(is_directory(itr->status()))
+            if (is_directory(itr->status()))
             {
                 FolderNode* childFolderNode = assetTree->CreateFolderNode(itr->path().filename().string(), currentFolderNode);
                 foldersQueue.push_back(childFolderNode);
@@ -86,7 +83,7 @@ std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
    std::string path;
    FolderNode* currentNode = folderNode;
 
-   while(currentNode != nullptr )
+   while (currentNode != nullptr)
    {
        path = currentNode->GetName() + "/" + path;
        currentNode = currentNode->GetParent();

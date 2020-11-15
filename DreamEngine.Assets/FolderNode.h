@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-#include "AssetServices.h"
 #include "AssetNode.h"
 
 class AssetNode;

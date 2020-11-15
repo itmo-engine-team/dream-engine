@@ -1,4 +1,5 @@
 #include "AssetTree.h"
+#include "ErrorLogger.h"
 
 FolderNode* AssetTree::rootNode = new FolderNode("Content", nullptr);
 

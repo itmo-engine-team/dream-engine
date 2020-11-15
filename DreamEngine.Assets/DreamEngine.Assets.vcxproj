@@ -117,6 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Common;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,18 +141,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AssetNode.h" />
+    <ClInclude Include="FolderNode.h" />
     <ClInclude Include="AssetInfo.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AssetServices.h" />
     <ClInclude Include="AssetType.h" />
+    <ClInclude Include="AssetTree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetInfo.cpp" />
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="AssetNode.cpp" />
+    <ClCompile Include="AssetTree.cpp" />
+    <ClCompile Include="FolderNode.cpp" />
     <ClCompile Include="AssetServices.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
+      <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

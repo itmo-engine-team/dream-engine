@@ -95,14 +95,7 @@ std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
 std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
 { 
     std::string path;
-    path = assetNode->GetName() + ".asset";
-
-    FolderNode* currentNode = assetNode->GetParent();
-    while (currentNode != nullptr)
-    {
-        path = currentNode->GetName() + "/" + path;
-        currentNode = currentNode->GetParent();
-    }
+    path = CreateFolderPath(assetNode->GetParent()) + "/" + assetNode->GetName() + ".asset";
 
     return path;
 }

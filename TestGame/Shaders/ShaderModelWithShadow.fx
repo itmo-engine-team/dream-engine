@@ -2,7 +2,7 @@ Texture2D txDiffuse : register(t0);
 SamplerState samLinear : register(s0);     
 
 Texture2D depthMapTexture : register(t1); 
-SamplerState SampleTypeClamp : register(s1); 
+SamplerState depthMapSampler : register(s1); 
 
 // VS Constant Buffers
 
@@ -52,10 +52,9 @@ struct PS_DATA
 	float4 pos : SV_POSITION;
 	float4 color : COLOR;
 	float3 normal : NORMAL;
+    float2 tex : TEXCOORD;
 	float3 viewDirection : TEXCOORD1;	
     float4 lightViewPosition : TEXCOORD2;
-    float3 lightPos : TEXCOORD3;
-    float2 tex : TEXCOORD;
 };
 
 // Vertex Shader
@@ -95,7 +94,7 @@ float4 PSMain(PS_DATA input) : SV_Target
 {
     float4 textureColor = HasTexture > 0.0f ? txDiffuse.Sample(samLinear, input.tex) : input.color;
 
-    float bias = 0.01f;
+    float bias = 0.001f;
 
     float2 projectTexCoord;
     projectTexCoord.x = input.lightViewPosition.x / input.lightViewPosition.w / 2.0f + 0.5f;
@@ -109,12 +108,14 @@ float4 PSMain(PS_DATA input) : SV_Target
 	    && (saturate(projectTexCoord.y) == projectTexCoord.y))
     {
         float depthValue = depthMapTexture.Sample(SampleTypeClamp, float2(projectTexCoord.x, 1.0f - projectTexCoord.y)).r;
+        float depthValue = depthMapTexture.Sample(depthMapSampler, float2(projectTexCoord.x, 1.0f - projectTexCoord.y)).r;
 		// Calculate the depth of the light.
         float lightDepthValue = input.lightViewPosition.z / input.lightViewPosition.w;
 
         lightDepthValue = lightDepthValue - bias;
 		
        if (lightDepthValue <= depthValue)
+        if (lightDepthValue <= depthValue)
         {
             float lightIntensity = saturate(dot(input.normal, lightDir));
             if (lightIntensity > 0.0f)

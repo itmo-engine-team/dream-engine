@@ -94,29 +94,25 @@ float4 PSMain(PS_DATA input) : SV_Target
 {
     float4 textureColor = HasTexture > 0.0f ? txDiffuse.Sample(samLinear, input.tex) : input.color;
 
-    float bias = 0.001f;
-
     float2 projectTexCoord;
     projectTexCoord.x = input.lightViewPosition.x / input.lightViewPosition.w / 2.0f + 0.5f;
     projectTexCoord.y = input.lightViewPosition.y / input.lightViewPosition.w / 2.0f + 0.5f;
 
     float4 finalColor = ambientColor;
     float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
-    float3 lightDir = -lightDirection;
     
     if ((saturate(projectTexCoord.x) == projectTexCoord.x)
 	    && (saturate(projectTexCoord.y) == projectTexCoord.y))
     {
-        float depthValue = depthMapTexture.Sample(SampleTypeClamp, float2(projectTexCoord.x, 1.0f - projectTexCoord.y)).r;
         float depthValue = depthMapTexture.Sample(depthMapSampler, float2(projectTexCoord.x, 1.0f - projectTexCoord.y)).r;
-		// Calculate the depth of the light.
         float lightDepthValue = input.lightViewPosition.z / input.lightViewPosition.w;
 
+        float bias = 0.001f;
         lightDepthValue = lightDepthValue - bias;
 		
-       if (lightDepthValue <= depthValue)
         if (lightDepthValue <= depthValue)
         {
+            float3 lightDir = -lightDirection;
             float lightIntensity = saturate(dot(input.normal, lightDir));
             if (lightIntensity > 0.0f)
             {

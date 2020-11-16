@@ -35,6 +35,7 @@ cbuffer CameraBuffer : register(b2)
 cbuffer ModelDataBuffer : register(b3)
 {
     float HasTexture;
+    float HasLight;
     float HasShadow;
 };
 
@@ -117,7 +118,7 @@ float4 PSCalculateLightColor(PS_DATA input, float4 textureColor)
 
 float4 PSCalculateLightColorWithShadow(PS_DATA input, float4 textureColor)
 {
-    float4 lightColor = ambientColor;
+    float4 lightColor = ambientColor * textureColor;
 
     float2 projectTexCoord;
     projectTexCoord.x = input.lightViewPosition.x / input.lightViewPosition.w / 2.0f + 0.5f;
@@ -145,9 +146,14 @@ float4 PSMain(PS_DATA input) : SV_Target
 {
     float4 textureColor = HasTexture > 0.0f ? txDiffuse.Sample(samLinear, input.tex) : input.color;
 
-    float4 finalColor = HasShadow > 0.0f
-        ? PSCalculateLightColorWithShadow(input, textureColor) 
-        : PSCalculateLightColor(input, textureColor);
+    if (HasLight > 0.0f)
+    {
+        float4 finalColor = HasShadow > 0.0f
+            ? PSCalculateLightColorWithShadow(input, textureColor)
+            : PSCalculateLightColor(input, textureColor);
+
+        return finalColor;
+    }
     
-    return finalColor;
+    return textureColor;
 }

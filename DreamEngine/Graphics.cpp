@@ -382,6 +382,16 @@ ID3D11Texture2D* Graphics::GetShadowMap()
     return shadowMap;
 }
 
+bool Graphics::HasLight() const
+{
+    return hasLight;
+}
+
+bool Graphics::HasShadow() const
+{
+    return hasShadow;
+}
+
 bool Graphics::GetGameMode()
 {
     return gameMode;
@@ -404,7 +414,7 @@ void Graphics::PrepareRenderScene()
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
-void Graphics::PrepareRenderShadowMap()
+void Graphics::PrepareRenderShadowMap() const
 {
     context->RSSetViewports(1, &shadowMapViewport);
 

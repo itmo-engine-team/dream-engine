@@ -151,8 +151,8 @@ void MeshObject::Draw()
     const ModelDataBuffer modelDataBufferData =
     {
         shader->HasTexture() ? 1.0f : -1.0f,
-        true,
-        true,
+        graphics->HasLight() ? 1.0f : -1.0f,
+        graphics->HasShadow() ? 1.0f : -1.0f,
     };
     graphics->GetContext()->UpdateSubresource(modelDataBuffer, 0, NULL, &modelDataBufferData, 0, 0);
     graphics->GetContext()->PSSetConstantBuffers(3u, 1u, &modelDataBuffer);

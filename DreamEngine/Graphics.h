@@ -35,7 +35,7 @@ public:
     void SwitchWindow();
 
     void PrepareRenderScene();
-    void PrepareRenderShadowMap();
+    void PrepareRenderShadowMap() const;
 
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -47,6 +47,9 @@ public:
     ID3D11DepthStencilView* GetDepthStencilView();
 
     ID3D11Texture2D* GetShadowMap();
+
+    bool HasLight() const;
+    bool HasShadow() const;
 
     bool GetGameMode();
 
@@ -83,7 +86,10 @@ private:
     IDWriteFactory* writeFactory = nullptr;
     IDWriteTextFormat* textFormat;
     RECT rect;
-    
+
+    bool hasLight = true;
+    bool hasShadow = true;
+
     bool gameMode = false;
     bool editMode = false;
 

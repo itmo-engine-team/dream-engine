@@ -94,12 +94,11 @@ float4 PSMain(PS_DATA input) : SV_Target
 {
     float4 textureColor = HasTexture > 0.0f ? txDiffuse.Sample(samLinear, input.tex) : input.color;
 
+    float4 lightColor = ambientColor;
+
     float2 projectTexCoord;
     projectTexCoord.x = input.lightViewPosition.x / input.lightViewPosition.w / 2.0f + 0.5f;
     projectTexCoord.y = input.lightViewPosition.y / input.lightViewPosition.w / 2.0f + 0.5f;
-
-    float4 finalColor = ambientColor;
-    float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
     
     if ((saturate(projectTexCoord.x) == projectTexCoord.x)
 	    && (saturate(projectTexCoord.y) == projectTexCoord.y))
@@ -116,18 +115,19 @@ float4 PSMain(PS_DATA input) : SV_Target
             float lightIntensity = saturate(dot(input.normal, lightDir));
             if (lightIntensity > 0.0f)
             {
-				// Determine the final diffuse color based on the diffuse color and the amount of light intensity.
-                finalColor += (diffuseColor * lightIntensity);
-				// Saturate the ambient and diffuse color.
-                finalColor = saturate(finalColor);
+				// Diffuse light
+                lightColor += (diffuseColor * lightIntensity);
+                lightColor = saturate(lightColor);
+
+                // Specular light
                 float3 reflection = normalize(2 * lightIntensity * input.normal - lightDir);
-                specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
+                float4 specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
+                lightColor = saturate(lightColor + specular);
             }
         }
     }
     
-    finalColor = finalColor * textureColor;
-    finalColor = saturate(finalColor + specular);
+    float4 finalColor = lightColor * textureColor;
      
     return finalColor;
 }

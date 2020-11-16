@@ -91,9 +91,10 @@ PS_DATA VSMain(VS_DATA input)
 
 // Pixel Shader
 
-float4 PSCalculateLightColor(PS_DATA input)
+float4 PSCalculateLightColor(PS_DATA input, float4 textureColor)
 {
     float4 lightColor = ambientColor;
+    float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
     float3 lightDir = -lightDirection;
     float lightIntensity = saturate(dot(input.normal, lightDir));
@@ -105,14 +106,16 @@ float4 PSCalculateLightColor(PS_DATA input)
 
         // Specular light
         float3 reflection = normalize(2 * lightIntensity * input.normal - lightDir);
-        float4 specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
-        lightColor = saturate(lightColor + specular);
+        specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
     }
+
+    lightColor *= textureColor;
+    lightColor = saturate(lightColor + specular);
 
     return lightColor;
 }
 
-float4 PSCalculateLightColorWithShadow(PS_DATA input)
+float4 PSCalculateLightColorWithShadow(PS_DATA input, float4 textureColor)
 {
     float4 lightColor = ambientColor;
 
@@ -131,7 +134,7 @@ float4 PSCalculateLightColorWithShadow(PS_DATA input)
 
         if (lightDepthValue <= depthValue)
         {
-            lightColor = PSCalculateLightColor(input);
+            lightColor = PSCalculateLightColor(input, textureColor);
         }
     }
 
@@ -142,9 +145,9 @@ float4 PSMain(PS_DATA input) : SV_Target
 {
     float4 textureColor = HasTexture > 0.0f ? txDiffuse.Sample(samLinear, input.tex) : input.color;
 
-    float4 lightColor = HasShadow > 0.0f ? PSCalculateLightColorWithShadow(input) : PSCalculateLightColor(input);
+    float4 finalColor = HasShadow > 0.0f
+        ? PSCalculateLightColorWithShadow(input, textureColor) 
+        : PSCalculateLightColor(input, textureColor);
     
-    float4 finalColor = lightColor * textureColor;
-     
     return finalColor;
 }

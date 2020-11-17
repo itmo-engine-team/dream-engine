@@ -73,7 +73,7 @@ bool Window::WindowInitialize(HINSTANCE hInstance, WNDCLASSEX wc)
     SetForegroundWindow(hWnd);
     SetFocus(hWnd);
 
-    ShowCursor(false);
+    ShowCursor(true);
 }
 
 HWND Window::GetWnd() const

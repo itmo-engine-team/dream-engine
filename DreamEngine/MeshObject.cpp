@@ -4,15 +4,16 @@
 
 #include "Engine.h"
 
-#include "Shader.h"
+#include "ModelShader.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"
 #include "Vertex.h"
 
 #include "ErrorLogger.h"
+#include "ModelDataBuffer.h"
 
-MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData, Shader* shader)
+MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData, ModelShader* shader)
     : engine(engine), transform(transform), meshData(meshData), shader(shader)
 {
     graphics = engine->GetGraphics();
@@ -89,6 +90,15 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     hr = graphics->GetDevice()->CreateBuffer(&cameraBufferDesc, NULL, &cameraBuffer);
     ErrorLogger::DirectXLog(hr, Error, "Failed to create CameraBuffer", __FILE__, __FUNCTION__, __LINE__);
 
+    CD3D11_BUFFER_DESC modelDataBufferDesc;
+    modelDataBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+    modelDataBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+    modelDataBufferDesc.CPUAccessFlags = 0u;
+    modelDataBufferDesc.MiscFlags = 0u;
+    modelDataBufferDesc.ByteWidth = sizeof(ModelDataBuffer);
+    modelDataBufferDesc.StructureByteStride = 0u;
+    hr = graphics->GetDevice()->CreateBuffer(&modelDataBufferDesc, NULL, &modelDataBuffer);
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create ModelDataBuffer", __FILE__, __FUNCTION__, __LINE__);
 }
 
 void MeshObject::Draw()
@@ -121,7 +131,6 @@ void MeshObject::Draw()
     {
         Vector4{0.15f, 0.15f, 0.15f, 1.0f},
         Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        engine->GetGame()->GetLight()->GetTransform()->GetWorldPosition(),
         engine->GetGame()->GetLight()->GetDirection(),
         100.0f,
         {1.0f, 1.0f, 1.0f, 1.0f }
@@ -132,12 +141,21 @@ void MeshObject::Draw()
     // Update Constant Buffer
     const CameraBuffer cameraBufferData =
     {
-        engine->GetGame()->GetCamera()->GetTransform()->GetWorldPosition(),
-        0.0f
+        engine->GetGame()->GetCamera()->GetTransform()->GetWorldPosition()
     };
 
     graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(2u, 1u, cameraBuffer.GetAddressOf());
+
+    // Update Constant Buffer
+    const ModelDataBuffer modelDataBufferData =
+    {
+        shader->HasTexture() ? 1.0f : -1.0f,
+        graphics->HasLight() ? 1.0f : -1.0f,
+        graphics->HasShadow() ? 1.0f : -1.0f,
+    };
+    graphics->GetContext()->UpdateSubresource(modelDataBuffer, 0, NULL, &modelDataBufferData, 0, 0);
+    graphics->GetContext()->PSSetConstantBuffers(3u, 1u, &modelDataBuffer);
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 }

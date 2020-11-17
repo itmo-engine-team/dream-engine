@@ -42,6 +42,11 @@ void Actor::DrawShadowMap()
     }
 }
 
+bool Actor::IsActive() const
+{
+    return isActive;
+}
+
 void Actor::RenderDeferred()
 {
     // Draw shadow map for components
@@ -75,6 +80,11 @@ float Actor::GetActorDeltaTime()
 {
     actorDeltaTime = game->GetGameDeltaTime() * actorDeltaTimeMultiplier;
     return actorDeltaTime;
+}
+
+std::vector<ActorComponent*> Actor::GetComponents() const
+{
+    return components;
 }
 
 void Actor::onUpdate()

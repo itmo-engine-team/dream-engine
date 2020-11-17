@@ -130,22 +130,22 @@ void Engine::render()
 
     // Render scene
     graphics->PrepareRenderScene();
+  
+    graphics->SwitchWindow();
 
     float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     graphics->GetContext()->ClearRenderTargetView(graphics->GetRenderTargetView(), color);
     graphics->GetContext()->ClearDepthStencilView(graphics->GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+    
+    if (graphics->GetGameMode() == true)
+    {
+        graphics->GetAnnotation()->BeginEvent(L"BeginDraw");
+        game->Render();
+        graphics->GetAnnotation()->EndEvent();
+    }
 
-    graphics->GetAnnotation()->BeginEvent(L"BeginDraw");
-    game->Render();
-    graphics->GetAnnotation()->EndEvent();
-
-    // Render text
+    /*// Add text on Scene
     wchar_t pretext[200];
     swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);
-    graphics->DrawTextOnScene(400, 100, pretext);
-
-    // Render ImGui
-    graphics->CreateImGuiFrame();
-
-    graphics->GetSwapChain()->Present(1, 0);
+    graphics->DrawTextOnScene(400, 100, pretext);*/
 }

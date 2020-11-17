@@ -94,12 +94,11 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
-    viewports.push_back(viewport);
-
     initDepthShadowMap();
 
     direct2DInitialize(hWnd);
     setupImGui(hWnd);
+    SwitchWindow();
 
     return true;
 }
@@ -192,18 +191,70 @@ void Graphics::setupImGui(HWND hWnd)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    ImGui_ImplWin32_Init(hWnd);
-    ImGui_ImplDX11_Init(device, context);
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+
+#if 1
+    io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleFonts;     
+    io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleViewports; 
+#endif
+    
     ImGui::StyleColorsDark();
+    ImGuiStyle& style = ImGui::GetStyle();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        style.WindowRounding = 0.0f;
+        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+    }
+
+    ImGui_ImplWin32_Init(hWnd);
+    ImGui_ImplDX11_Init(device, context);  
+}
+
+void Graphics::SwitchWindow()
+{
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    // create ImGui window
+    ImGui::Begin("Switch mode");
+    ImGui::SetWindowSize(ImVec2(200, 100));
+    ImGui::Checkbox("Game mode", &this->gameMode);
+    ImGui::Checkbox("Edit mode", &this->editMode);
+    ImGui::End();
+
+    if (editMode == true)
+    {
+        createShadowViewport();
+    }
+
+    // assemble together draw data
+    ImGui::Render();
+
+    context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+
+    // render draw data
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+    }
+
+    swapChain->Present(1, 0);
 }
 
 bool Graphics::initDepthShadowMap()
 {
-    depthShader = new DepthShader(this, L"Shaders/DepthShaderV2.fx");
+    depthShader = new DepthShader(this, L"Shaders/ShaderDepthTexture.fx");
     depthShader->Init();
 
-    /// Создание буфера глубины
+    // Creating a depth buffer
     D3D11_TEXTURE2D_DESC shadowMapDesc;
     ZeroMemory(&shadowMapDesc, sizeof(D3D11_TEXTURE2D_DESC));
     shadowMapDesc.Format = DXGI_FORMAT_R24G8_TYPELESS;
@@ -216,7 +267,7 @@ bool Graphics::initDepthShadowMap()
 
     HRESULT hr = device->CreateTexture2D(&shadowMapDesc, nullptr, &shadowMap);
 
-    // Создание представления ресурсов
+    // Creating a resource view
     D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
     ZeroMemory(&depthStencilViewDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
     depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -233,7 +284,7 @@ bool Graphics::initDepthShadowMap()
 
     hr = device->CreateShaderResourceView(shadowMap, &shaderResourceViewDesc, &shadowResourceView);
 
-    // Создание состояния сравнения
+    // Create comparisonSamplerDesc
     D3D11_SAMPLER_DESC comparisonSamplerDesc;
     ZeroMemory(&comparisonSamplerDesc, sizeof(D3D11_SAMPLER_DESC));
     comparisonSamplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
@@ -250,31 +301,27 @@ bool Graphics::initDepthShadowMap()
     comparisonSamplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
     comparisonSamplerDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT;
 
-    // Создание состояния сравнения
+    // Create state of comparison
     D3D11_RASTERIZER_DESC drawingRenderStateDesc;
     ZeroMemory(&drawingRenderStateDesc, sizeof(D3D11_RASTERIZER_DESC));
     drawingRenderStateDesc.CullMode = D3D11_CULL_BACK;
     drawingRenderStateDesc.FillMode = D3D11_FILL_SOLID;
-    drawingRenderStateDesc.DepthClipEnable = true; // Feature level 9_1 requires DepthClipEnable == true
+    drawingRenderStateDesc.DepthClipEnable = true;
 
-    // Создание состояния прорисовки
+    // Create rasterize state
     D3D11_RASTERIZER_DESC shadowRenderStateDesc;
     ZeroMemory(&shadowRenderStateDesc, sizeof(D3D11_RASTERIZER_DESC));
     shadowRenderStateDesc.CullMode = D3D11_CULL_FRONT;
     shadowRenderStateDesc.FillMode = D3D11_FILL_SOLID;
     shadowRenderStateDesc.DepthClipEnable = true;
-
-    // Создание окна просмотра
     
     // Init viewport for shadow rendering
     shadowMapViewport = {};
     ZeroMemory(&shadowMapViewport, sizeof(D3D11_VIEWPORT));
-    shadowMapViewport.Height = 600;
-    shadowMapViewport.Width = 800;
+    shadowMapViewport.Height = SHADOW_MAP_SIZE;
+    shadowMapViewport.Width = SHADOW_MAP_SIZE;
     shadowMapViewport.MinDepth = 0.f;
     shadowMapViewport.MaxDepth = 1.f;
-
-    viewports.push_back(shadowMapViewport);
 
     // Creating a texture sample (description) 
     D3D11_SAMPLER_DESC sampDesc;
@@ -330,22 +377,31 @@ ID3D11DepthStencilView* Graphics::GetDepthStencilView()
     return depthStencilView;
 }
 
-void Graphics::CreateImGuiFrame()
+ID3D11Texture2D* Graphics::GetShadowMap()
 {
-    // start the ImGuiFrame
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
+    return shadowMap;
+}
 
-    // create ImGui window
-    ImGui::Begin("Test window");
+bool Graphics::HasLight() const
+{
+    return hasLight;
+}
+
+bool Graphics::HasShadow() const
+{
+    return hasShadow;
+}
+
+bool Graphics::GetGameMode()
+{
+    return gameMode;
+}
+
+void Graphics::createShadowViewport()
+{
+    ImGui::Begin("ShadowRender");
+    ImGui::Image(shadowResourceView, ImVec2(300, 300));
     ImGui::End();
-
-    // assemble together draw data
-    ImGui::Render();
-
-    // render draw data
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
 
 void Graphics::PrepareRenderScene()
@@ -358,10 +414,11 @@ void Graphics::PrepareRenderScene()
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
-void Graphics::PrepareRenderShadowMap()
+void Graphics::PrepareRenderShadowMap() const
 {
+    context->RSSetViewports(1, &shadowMapViewport);
+
     context->RSSetState(shadowRasterState);
-    //context->RSSetViewports(1, &shadowMapViewport);
     context->OMSetRenderTargets(0, nullptr, shadowDepthView);
     context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 

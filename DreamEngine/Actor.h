@@ -19,6 +19,8 @@ public:
     void DrawShadowMap();
     void RenderDeferred();
 
+    bool IsActive() const;
+
     Transform* GetTransform() const;
 
     void AddComponent(ActorComponent* component);
@@ -27,7 +29,38 @@ public:
     float GetActorDeltaTimeMultiplier();
     float GetActorDeltaTime();
 
+    std::vector<ActorComponent*> GetComponents() const;
+
+    template<class ComponentClass>
+    ComponentClass FindComponent()
+    {
+        for each (auto component in components)
+        {
+            if (ComponentClass castedComponent = dynamic_cast<ComponentClass>(component))
+            {
+                return castedComponent;
+            }
+        }
+        return nullptr;
+    }
+
+    template<class ComponentClass>
+    std::vector<ComponentClass> FindComponents()
+    {
+        auto foundComponents = std::vector<ComponentClass>();
+        for each (auto component in components)
+        {
+            if (ComponentClass castedComponent = dynamic_cast<ComponentClass>(component))
+            {
+                foundComponents.push_back(castedComponent);
+            }
+        }
+        return foundComponents;
+    }
+
 protected:
+
+    bool isActive = true;
 
     Transform* transform;
 

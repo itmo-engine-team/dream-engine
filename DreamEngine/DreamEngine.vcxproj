@@ -122,7 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -175,8 +175,9 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="LightBuffer.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ModelDataBuffer.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="TexturedShader.h" />
+    <ClInclude Include="ModelShader.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Game.h" />
@@ -211,7 +212,7 @@
     <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TexturedShader.cpp" />
+    <ClCompile Include="ModelShader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
@@ -225,6 +226,9 @@
     <ClCompile Include="SpectatorActor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
+      <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
       <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
     </ProjectReference>

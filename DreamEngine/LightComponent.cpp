@@ -5,13 +5,13 @@
 LightComponent::LightComponent(Game* game, Actor* actor, Vector3 position, Vector3 direction)
     : SceneComponent(game, actor, new Transform(position)), direction(direction)
 {
-    projectionMatrix = Matrix::CreateOrthographic(5, 5, 0.1f, 100);
+    projectionMatrix = Matrix::CreateOrthographic(20, 20, 0.1f, 100);
 }
 
 Matrix LightComponent::GetViewMatrix() const
 {
-    const Vector3 target = Vector3::Transform(direction, transform->GetWorldMatrix());
-    return Matrix::CreateLookAt(transform->GetWorldPosition(), Vector3{ 0,0,0 } , Vector3::UnitY);
+    const Vector3 target = -Vector3::Transform(direction, transform->GetWorldMatrix());
+    return Matrix::CreateLookAt(transform->GetWorldPosition(), target, Vector3::UnitY);
 }
 
 Matrix LightComponent::GetProjectionMatrix() const
@@ -21,7 +21,7 @@ Matrix LightComponent::GetProjectionMatrix() const
 
 Vector3 LightComponent::GetDirection() const
 {
-    return Vector3::Transform(direction, transform->GetWorldMatrix());
+    auto v = -Vector3::Transform(direction, transform->GetWorldMatrix());
+    v.Normalize();
+    return v;
 }
-
-

@@ -6,7 +6,7 @@
 #include "CameraComponent.h"
 #include "LightComponent.h"
 #include "StaticModelComponent.h"
-#include "TexturedShader.h"
+#include "ModelShader.h"
 #include "LightActor.h"
 
 
@@ -36,16 +36,14 @@ private:
     Actor* box1;
     Actor* box2;
     Actor* box3;
-    Actor* quard;
 
     ModelData* planeModel;
     ModelData* boxModel;
     ModelData* playerModel;
     ModelData* quardModel;
 
-    Shader* shader;
-    TexturedShader* texturedShader;
-    TexturedShader* texturedShadowShader;
+    ModelShader* shader;
+    ModelShader* texturedShader;
     Texture* texture;
     Texture* shadowMapTexture;
 

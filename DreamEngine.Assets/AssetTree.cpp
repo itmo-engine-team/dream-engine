@@ -3,10 +3,6 @@
 
 FolderNode* AssetTree::rootNode = new FolderNode("Content", nullptr);
 
-AssetTree::AssetTree()
-{
-}
-
 AssetTree& AssetTree::GetInstance()
 {
     return instance;
@@ -17,14 +13,14 @@ FolderNode* AssetTree::GetRootNode()
     return rootNode;
 }
 
-FolderNode* AssetTree::CreateFolderNode(std::string nodeName, FolderNode* parentNode)
+FolderNode* AssetTree::CreateFolderNode(std::string nodeName, FolderNode* parentNode) const
 {
-   return new FolderNode(nodeName, parentNode);
+   return new FolderNode(std::move(nodeName), parentNode);
 }
 
-AssetNode* AssetTree::CreateAssetNode(std::string nodeName, FolderNode* parentNode)
+AssetNode* AssetTree::CreateAssetNode(AssetInfo* assetInfo, std::string nodeName, FolderNode* parentNode) const
 {
-    return new AssetNode(nodeName, parentNode);
+    return new AssetNode(assetInfo, std::move(nodeName), parentNode);
 }
 
 void AssetTree::AddAssetNode(AssetNode* assetNode, FolderNode* parentNode)

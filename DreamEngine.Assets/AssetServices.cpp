@@ -1,27 +1,28 @@
 #include "AssetServices.h"
 
 #include <iomanip>
-#include <iostream>
 
-json AssetServices::CreateAsset(AssetNode* node)
+#include "ErrorLogger.h"
+
+json AssetServices::CreateAssetFile(AssetNode* node)
 {
     json j;
-    
-    std::string pathVar(CreateAssetPath(node));
+
+    const std::string pathVar(CreateAssetPath(node));
 
     CheckAndCreateFolder(pathVar);
 
     j["Object name"] = node->GetName();
-    
+
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;
 
     return j;
 }
 
-void AssetServices::RemoveAsset(AssetNode* node)
+void AssetServices::RemoveAssetFile(AssetNode* node)
 {
-    std::filesystem::path pathVar(CreateAssetPath(node));
+    const std::filesystem::path pathVar(CreateAssetPath(node));
     try
     {
         remove(pathVar);
@@ -35,42 +36,47 @@ void AssetServices::RemoveAsset(AssetNode* node)
 
 AssetTree* AssetServices::FindAssetTree()
 {
-    std::string directory_name = "Content";
-    std::string extension = ".asset";
+    const std::string directoryName = "Content";
+    const std::string extension = ".asset";
 
     AssetTree* assetTree = &AssetTree::GetInstance();
     assetTree->ClearAssetTree();
 
     std::vector<FolderNode*> foldersQueue;
     foldersQueue.push_back(assetTree->GetRootNode());
-   
-    while (foldersQueue.size() > 0)
+
+    while (!foldersQueue.empty())
     {
         FolderNode* currentFolderNode = foldersQueue.at(0);
         foldersQueue.erase(foldersQueue.begin());
 
-        std::filesystem::directory_iterator endIntr;
-        for (std::filesystem::directory_iterator itr(directory_name); itr != endIntr; ++itr)
+        std::filesystem::directory_iterator endItr;
+        for (std::filesystem::directory_iterator itr(directoryName); itr != endItr; ++itr)
         {
             if (is_directory(itr->status()))
             {
-                FolderNode* childFolderNode = assetTree->CreateFolderNode(itr->path().filename().string(), currentFolderNode);
+                FolderNode* childFolderNode = assetTree->CreateFolderNode(
+                    itr->path().filename().string(), currentFolderNode);
                 foldersQueue.push_back(childFolderNode);
             }
             else
             {
                 if (itr->path().extension() != extension) continue;
 
-                assetTree->CreateAssetNode(itr->path().filename().string(), currentFolderNode); 
+                // TODO implement converting json file to AssetInfo
+                AssetInfo* assetInfo = nullptr;
+
+                assetTree->CreateAssetNode(
+                    assetInfo, itr->path().filename().string(), currentFolderNode);
             }
         }
     }
     return assetTree;
 }
 
-void AssetServices::RemoveFolder(FolderNode* folderNode, bool isRecursive)
+void AssetServices::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
 {
-    std::filesystem::path pathVar(CreateFolderPath(folderNode));
+    const std::filesystem::path pathVar(CreateFolderPath(folderNode));
 
     if (isRecursive)
         remove_all(pathVar);
@@ -80,28 +86,28 @@ void AssetServices::RemoveFolder(FolderNode* folderNode, bool isRecursive)
 
 std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
 {
-   std::string path;
-   FolderNode* currentNode = folderNode;
+    std::string path;
+    FolderNode* currentNode = folderNode;
 
-   while (currentNode != nullptr)
-   {
-       path = currentNode->GetName() + "/" + path;
-       currentNode = currentNode->GetParent();
-   }
+    while (currentNode != nullptr)
+    {
+        path = currentNode->GetName() + "/" + path;
+        currentNode = currentNode->GetParent();
+    }
 
     return path;
 }
 
 std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
-{ 
-    std::string path;
-    path = CreateFolderPath(assetNode->GetParent()) + "/" + assetNode->GetName() + ".asset";
+{
+    std::string path = CreateFolderPath(
+        assetNode->GetParent()) + "/" + assetNode->GetName() + ".asset";
 
     return path;
 }
 
 
-void CheckAndCreateFolder(std::filesystem::path fileRelativePath)
+void AssetServices::CheckAndCreateFolder(std::filesystem::path fileRelativePath)
 {
     if (!exists(fileRelativePath.parent_path()))
         create_directories(fileRelativePath.parent_path());

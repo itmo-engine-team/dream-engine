@@ -35,7 +35,7 @@ public:
     void SwitchWindow();
 
     void PrepareRenderScene();
-    void PrepareRenderShadowMap();
+    void PrepareRenderShadowMap() const;
 
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -48,21 +48,35 @@ public:
 
     ID3D11Texture2D* GetShadowMap();
 
+    bool HasLight() const;
+    bool HasShadow() const;
+
     bool GetGameMode();
 
 private:
-   
+
+    const FLOAT SHADOW_MAP_SIZE = 1024;
+
     ID3D11Device* device;
     ID3D11DeviceContext* context;
     IDXGISwapChain* swapChain;
-    ID3D11RenderTargetView* renderTargetView;
     ID3DUserDefinedAnnotation* annotation;
     ID3D11RasterizerState* rasterState;
-    ID3D11RasterizerState* shadowRasterState;
 
     ID3D11Texture2D* depthStencil = nullptr;                     // Depth buffer texture
     ID3D11DepthStencilView* depthStencilView = nullptr;          // View object, depth buffer
     Shader* depthShader;
+
+    ID3D11RenderTargetView* renderTargetView;
+    D3D11_VIEWPORT viewport;
+
+    // Variables for Shadows
+    ID3D11Texture2D* shadowMap = nullptr;
+    ID3D11DepthStencilView* shadowDepthView = nullptr;
+    ID3D11ShaderResourceView* shadowResourceView = nullptr;
+    ID3D11RasterizerState* shadowRasterState;
+    ID3D11SamplerState* shadowSamplerState = nullptr;
+    D3D11_VIEWPORT shadowMapViewport;
 
     // Variables for Direct2D initialization
     ID2D1Factory* factory = nullptr;
@@ -73,16 +87,9 @@ private:
     IDWriteTextFormat* textFormat;
     RECT rect;
 
-    std::vector<D3D11_VIEWPORT> viewports;
-    D3D11_VIEWPORT viewport;
-    D3D11_VIEWPORT shadowMapViewport;
-    
-    // Variables for Shadows
-    ID3D11Texture2D* shadowMap = nullptr;
-    ID3D11DepthStencilView* shadowDepthView = nullptr;
-    ID3D11ShaderResourceView* shadowResourceView = nullptr;
-    ID3D11SamplerState* shadowSamplerState = nullptr;
-    
+    bool hasLight = true;
+    bool hasShadow = true;
+
     bool gameMode = false;
     bool editMode = false;
 

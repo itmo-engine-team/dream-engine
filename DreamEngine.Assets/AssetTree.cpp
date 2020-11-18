@@ -13,14 +13,14 @@ FolderNode* AssetTree::GetRootNode()
     return rootNode;
 }
 
-FolderNode* AssetTree::CreateFolderNode(std::string nodeName, FolderNode* parentNode) const
+FolderNode* AssetTree::CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const
 {
-   return new FolderNode(std::move(nodeName), parentNode);
+   return new FolderNode(nodeName, parentNode);
 }
 
-AssetNode* AssetTree::CreateAssetNode(AssetInfo* assetInfo, std::string nodeName, FolderNode* parentNode) const
+AssetNode* AssetTree::CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const
 {
-    return new AssetNode(assetInfo, std::move(nodeName), parentNode);
+    return new AssetNode(assetInfo, nodeName, parentNode);
 }
 
 void AssetTree::AddAssetNode(AssetNode* assetNode, FolderNode* parentNode)

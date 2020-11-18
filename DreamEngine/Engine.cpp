@@ -123,6 +123,7 @@ void Engine::update()
 void Engine::render()
 {
     game->PrepareDeferredBuffer();
+    game->RenderDeferred();
 
     // Render shadow map
     graphics->PrepareRenderShadowMap();

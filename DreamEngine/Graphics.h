@@ -90,7 +90,7 @@ private:
     bool hasLight = true;
     bool hasShadow = true;
 
-    bool gameMode = false;
+    bool gameMode = true;
     bool editMode = false;
 
     bool direct2DInitialize(HWND hWnd);

@@ -36,9 +36,9 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
         &bd,
         &sd,
         vertexBuffer.GetAddressOf()
-        );
+    );
     ErrorLogger::DirectXLog(hr, Error, "Failed to create VertexBuffer", __FILE__, __FUNCTION__, __LINE__);
-	
+
     stride = sizeof(Vertex);
 
     // Create Index buffer
@@ -57,7 +57,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
         &ibd,
         &isd,
         indexBuffer.GetAddressOf()
-        );
+    );
     ErrorLogger::DirectXLog(hr, Error, "Failed to create IndexBuffer", __FILE__, __FUNCTION__, __LINE__);
 
     CD3D11_BUFFER_DESC cbd;
@@ -79,7 +79,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     lightBufferDesc.StructureByteStride = 0;
     hr = graphics->GetDevice()->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
     ErrorLogger::DirectXLog(hr, Error, "Failed to create LightBuffer", __FILE__, __FUNCTION__, __LINE__);
-	
+
     D3D11_BUFFER_DESC cameraBufferDesc;
     cameraBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     cameraBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -109,7 +109,7 @@ void MeshObject::Draw()
         vertexBuffer.GetAddressOf(),
         &stride,
         &offset
-        );
+    );
     graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -188,9 +188,42 @@ bool MeshObject::RenderShadowMap()
 
 bool MeshObject::RenderDeferred()
 {
-   engine->GetGame()->lightShader->Render(engine->GetGraphics()->GetContext(), meshData->GetIndicesCount(), transform->GetWorldMatrix(), engine->GetGame()->GetCamera()->GetViewMatrix(), engine->GetGame()->GetCamera()->GetProjectionMatrix(),
-       engine->GetGame()->deferredBuffers->GetShaderResourceView(0), engine->GetGame()->deferredBuffers->GetShaderResourceView(1),
-        engine->GetGame()->GetLight()->GetDirection());
+    /*engine->GetGame()->lightShader->Render(engine->GetGraphics()->GetContext(), meshData->GetIndicesCount(), transform->GetWorldMatrix(), engine->GetGame()->GetCamera()->GetViewMatrix(), engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+        engine->GetGame()->deferredBuffers->GetShaderResourceView(0), engine->GetGame()->deferredBuffers->GetShaderResourceView(1),
+        engine->GetGame()->GetLight()->GetDirection());*/
 
-   return true;
+    shader->SetShader();
+
+    // Set model vertex and index buffers
+    graphics->GetContext()->IASetVertexBuffers(
+        0u,
+        1u,
+        vertexBuffer.GetAddressOf(),
+        &stride,
+        &offset
+    );
+    graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+    graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    // Update Constant Buffer
+    const ConstantBuffer cb =
+    {
+        transform->GetWorldMatrix(),
+        engine->GetGame()->GetCamera()->GetViewMatrix(),
+        engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+    };
+    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
+
+    // Update Constant Buffer
+    const ModelDataBuffer modelDataBufferData =
+    {
+        shader->HasTexture() ? 1.0f : -1.0f,
+    };
+    graphics->GetContext()->UpdateSubresource(modelDataBuffer, 0, NULL, &modelDataBufferData, 0, 0);
+    graphics->GetContext()->PSSetConstantBuffers(3u, 1u, &modelDataBuffer);
+
+    graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
+
+    return true;
 }

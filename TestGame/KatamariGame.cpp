@@ -56,7 +56,7 @@ void KatamariGame::Init(Engine* engine)
     shadowMapTexture = new Texture(engine, engine->GetGraphics()->GetShadowMap());
     gameAssetManager->AddTexture(texture);
 
-    texturedShader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderModel.fx", texture);
+    texturedShader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderDeferred.fx", texture);
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
 
@@ -83,13 +83,9 @@ void KatamariGame::Init(Engine* engine)
     result = deferredBuffers->Initialize(engine->GetGraphics()->GetDevice(), engine->GetScreenWidth(), engine->GetScreenHeight(), 100, 0.1f);
     if (!result)
     {
-       
-       // MessageBox(hwnd, L"Could not initialize the deferred buffers object.", L"Error", MB_OK);
+        ErrorLogger::Log(Error, "Error initializing DeferredBuffers");
         return;
     }
-
-
-
 
     // Init Meshes
 
@@ -103,7 +99,7 @@ void KatamariGame::Init(Engine* engine)
     gameAssetManager->AddModel(boxModel);
     gameAssetManager->AddModel(playerModel);
     gameAssetManager->AddModel(quardModel);
-    ModelWithTex = playerModel;
+
     // Init objects
 
     plane = new Actor(this, new Transform({ 0, 0, 0 }));

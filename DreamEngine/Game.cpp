@@ -33,10 +33,16 @@ void Game::Update()
 
 void Game::Render()
 {
-
     for (auto actor : gameAssetManager->GetActors())
     {
         actor->Draw();
+    }
+}
+
+void Game::RenderDeferred()
+{
+    for (auto actor : gameAssetManager->GetActors())
+    {
         actor->RenderDeferred();
     }
 }

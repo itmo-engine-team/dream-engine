@@ -2,13 +2,22 @@
 Texture2D txColor : register(t0);
 Texture2D txNormal : register(t1);
 
-SamplerState samLinear : register(s0);     // ֱףפונ מבנאחצא
+SamplerState samLinear : register(s0);
+
+// VS Constant Buffers
 
 cbuffer CBuf : register(b0)
 {
 	matrix World;
 	matrix View;
 	matrix Projection;
+};
+
+// PS Constant Buffers
+
+cbuffer ModelDataBuffer : register(b3)
+{
+	float HasTexture;
 };
 
 struct VS_DATA
@@ -27,7 +36,7 @@ struct PS_DATA
 	float2 tex : TEXCOORD;
 };
 
-// Deferref
+// Render targets
 struct PS_Deferred
 {
 	float4 color : SV_Target0;
@@ -56,9 +65,9 @@ PS_DATA VSMain(VS_DATA input)
 PS_Deferred PSMain(PS_DATA input) : SV_Target
 {
 	// Sample the colors from the color render texture using the point sampler at this texture coordinate location.
-	float4 textureColor = txColor.Sample(samLinear, input.tex);
+	float4 textureColor = HasTexture > 0.0f ? txColor.Sample(samLinear, input.tex) : input.color;
 
-	//For Defered
+	// Fill render targets
 	PS_Deferred output;
 	output.color = textureColor;
 	output.normal = float4(input.normal, 1.0f);

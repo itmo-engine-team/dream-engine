@@ -24,6 +24,7 @@ public:
     virtual void Init(Engine* engine);
     virtual void Update();
     virtual void Render();
+    virtual void RenderDeferred();
     void RenderShadowMap();
     void PrepareDeferredBuffer();
 
@@ -42,7 +43,5 @@ protected:
     float gameDeltaTime;
     float gameDeltaTimeMultiplier = 1;
 
-
-    ModelData* ModelWithTex;
 };
 

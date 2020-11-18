@@ -2,7 +2,6 @@
 
 DeferredBuffers::DeferredBuffers()
 {
-
 	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
 		renderTargetTextureArray[i] = nullptr;
@@ -28,8 +27,6 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
 	D3D11_TEXTURE2D_DESC depthBufferDesc;
 	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
-	int i;
-
 
 	// Store the width and height of the render texture.
 	textureWidth = texWidth;
@@ -51,7 +48,7 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 	textureDesc.MiscFlags = 0;
 
 	// Create the render target textures.
-	for (i = 0; i < BUFFER_COUNT; i++)
+	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
 		result = device->CreateTexture2D(&textureDesc, NULL, &renderTargetTextureArray[i]);
 		if (FAILED(result))
@@ -66,7 +63,7 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 
 	// Create the render target views.
-	for (i = 0; i < BUFFER_COUNT; i++)
+	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
 		result = device->CreateRenderTargetView(renderTargetTextureArray[i], &renderTargetViewDesc, &renderTargetViewArray[i]);
 		if (FAILED(result))
@@ -82,7 +79,7 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
 	// Create the shader resource views.
-	for (i = 0; i < BUFFER_COUNT; i++)
+	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
 		result = device->CreateShaderResourceView(renderTargetTextureArray[i], &shaderResourceViewDesc, &shaderResourceViewArray[i]);
 		if (FAILED(result))

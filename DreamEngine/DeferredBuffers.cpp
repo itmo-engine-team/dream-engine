@@ -1,18 +1,17 @@
-#include "deferredbuffers.h"
+#include "DeferredBuffers.h"
 
 DeferredBuffers::DeferredBuffers()
 {
-	int i;
 
-	for (i = 0; i < BUFFER_COUNT; i++)
+	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
-		renderTargetTextureArray[i] = 0;
-		renderTargetViewArray[i] = 0;
-		shaderResourceViewArray[i] = 0;
+		renderTargetTextureArray[i] = nullptr;
+		renderTargetViewArray[i] = nullptr;
+		shaderResourceViewArray[i] = nullptr;
 	}
 
-	depthStencilBuffer = 0;
-	depthStencilView = 0;
+	depthStencilBuffer = nullptr;
+	depthStencilView = nullptr;
 }
 
 

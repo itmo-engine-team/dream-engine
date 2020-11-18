@@ -5,15 +5,14 @@
 #include <filesystem>
 
 #include "AssetTree.h"
-#include "ErrorLogger.h"
 
 using json = nlohmann::json;
 
 namespace AssetServices
 {
 
-    json CreateAsset(AssetNode* node);
-    void RemoveAsset(AssetNode* node);
+    json CreateAssetFile(AssetNode* node);
+    void RemoveAssetFile(AssetNode* node);
 
     AssetTree* FindAssetTree();
 

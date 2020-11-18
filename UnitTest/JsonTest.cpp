@@ -4,7 +4,7 @@
 
 TEST(JsonTest, CreateTest)
 {   
-    AssetServices::CreateAsset("Content/Person1.asset");
+    AssetServices::CreateAssetFile("Content/Person1.asset");
 }
 
 TEST(JsonTest, ReadTest)

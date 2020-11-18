@@ -174,7 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\ShaderDepthTexture.fx">
-    <FxCompile Include="Shaders\DepthShader.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PSMain</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
     </FxCompile>
@@ -193,7 +192,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shaders\ShaderModel.fx">
-    <FxCompile Include="Shaders\Shader.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PSMain</EntryPointName>
     </FxCompile>

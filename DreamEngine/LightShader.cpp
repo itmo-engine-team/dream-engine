@@ -6,7 +6,7 @@
 #include "LightBuffer.h"
 
 
-LightShader::LightShader(Graphics* graphics, const wchar_t* shaderPath, Texture* texture) : TexturedShader(graphics, shaderPath, texture)
+LightShader::LightShader(Graphics* graphics, const wchar_t* shaderPath, Texture* texture) : ModelShader(graphics, shaderPath, texture)
 {
 	vertexShader = 0;
 	pixelShader = 0;

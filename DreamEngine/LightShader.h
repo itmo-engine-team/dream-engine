@@ -4,11 +4,11 @@
 
 #include "SimpleMath.h"
 #include "Graphics.h"
-#include "TexturedShader.h"
+#include "ModelShader.h"
 
 using namespace DirectX::SimpleMath;
 
-class LightShader : public TexturedShader
+class LightShader : public ModelShader
 {
 private:
 	struct MatrixBufferType

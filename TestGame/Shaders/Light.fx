@@ -21,7 +21,6 @@ cbuffer LightBuffer : register(b1)
 	float padding;
 };
 
-
 struct VertexInputType
 {
 	float4 position : POSITION;
@@ -35,11 +34,9 @@ struct PixelInputType
 	float3 viewDirection : TEXCOORD1;
 };
 
-
 PixelInputType VSMain(VertexInputType input)
 {
 	PixelInputType output;
-    
     
     // Change the position vector to be 4 units for proper matrix calculations.
 	input.position.w = 1.0f;
@@ -59,7 +56,6 @@ PixelInputType VSMain(VertexInputType input)
 	output.viewDirection = (1.0f, 1.0f, 1.0f) - worldPosition.xyz;
 	output.viewDirection = normalize(output.viewDirection);
 
-    
 	return output;
 }
 

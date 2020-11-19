@@ -60,7 +60,7 @@ void KatamariGame::Init(Engine* engine)
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
 
-    shader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderModel.fx", nullptr);
+    shader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderDeferred.fx", nullptr);
     shader->Init();
     gameAssetManager->AddShader(shader);
 
@@ -68,9 +68,9 @@ void KatamariGame::Init(Engine* engine)
     bool result;
 
     // Create the light shader object.
-    lightShader = new LightShader(engine->GetGraphics(), L"Shaders/Light.fx", texture);
+    lightShader = new LightShader(engine->GetGraphics(), L"Shaders/Light.fx");
     // Initialize the light shader object.
-    lightShader->Initialize();
+    lightShader->Init();
     gameAssetManager->AddShader(lightShader);
 
     deferredBuffers = new DeferredBuffers; 

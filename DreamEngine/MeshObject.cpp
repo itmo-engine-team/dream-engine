@@ -188,22 +188,9 @@ bool MeshObject::RenderShadowMap()
 
 bool MeshObject::RenderDeferred()
 {
-    /*engine->GetGame()->lightShader->Render(engine->GetGraphics()->GetContext(), meshData->GetIndicesCount(), transform->GetWorldMatrix(), engine->GetGame()->GetCamera()->GetViewMatrix(), engine->GetGame()->GetCamera()->GetProjectionMatrix(),
-        engine->GetGame()->deferredBuffers->GetShaderResourceView(0), engine->GetGame()->deferredBuffers->GetShaderResourceView(1),
-        engine->GetGame()->GetLight()->GetDirection());*/
-
-    shader->SetShader();
-
-    // Set model vertex and index buffers
-    graphics->GetContext()->IASetVertexBuffers(
-        0u,
-        1u,
-        vertexBuffer.GetAddressOf(),
-        &stride,
-        &offset
-    );
-    graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
-    graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    engine->GetGame()->lightShader->SetShader(
+        engine->GetGame()->deferredBuffers->GetShaderResourceView(0),
+    engine->GetGame()->deferredBuffers->GetShaderResourceView(1));
 
     // Update Constant Buffer
     const ConstantBuffer cb =
@@ -211,17 +198,32 @@ bool MeshObject::RenderDeferred()
         transform->GetWorldMatrix(),
         engine->GetGame()->GetCamera()->GetViewMatrix(),
         engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+        engine->GetGame()->GetLight()->GetViewMatrix(),
+        engine->GetGame()->GetLight()->GetProjectionMatrix(),
     };
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
 
-    // Update Constant Buffer
-    const ModelDataBuffer modelDataBufferData =
+    const LightBuffer lb =
     {
-        shader->HasTexture() ? 1.0f : -1.0f,
+        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
+        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
+        engine->GetGame()->GetLight()->GetDirection(),
+        100.0f,
+        {1.0f, 1.0f, 1.0f, 1.0f }
     };
-    graphics->GetContext()->UpdateSubresource(modelDataBuffer, 0, NULL, &modelDataBufferData, 0, 0);
-    graphics->GetContext()->PSSetConstantBuffers(3u, 1u, &modelDataBuffer);
+    graphics->GetContext()->UpdateSubresource(lightBuffer.Get(), 0, NULL, &lb, 0, 0);
+    graphics->GetContext()->PSSetConstantBuffers(1u, 1u, lightBuffer.GetAddressOf());
+
+    // Update Constant Buffer
+    /*const CameraBuffer cameraBufferData =
+    {
+        engine->GetGame()->GetCamera()->GetTransform()->GetWorldPosition()
+    };
+
+    graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBufferData, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(2u, 1u, cameraBuffer.GetAddressOf());
+    */
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 

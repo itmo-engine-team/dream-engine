@@ -127,14 +127,15 @@ void Engine::render()
     game->RenderShadowMap();
 
     // Render scene
+    graphics->PrepareRenderSceneMap(screenWidth, screenHeight);
+    game->Render();
+
     graphics->PrepareRenderScene();
   
-    graphics->SwitchWindow();
-
     float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     graphics->GetContext()->ClearRenderTargetView(graphics->GetRenderTargetView(), color);
     graphics->GetContext()->ClearDepthStencilView(graphics->GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-    
+
     if (graphics->GetGameMode() == true)
     {
         graphics->GetAnnotation()->BeginEvent(L"BeginDraw");
@@ -142,6 +143,7 @@ void Engine::render()
         graphics->GetAnnotation()->EndEvent();
     }
 
+    graphics->SwitchWindow();
     /*// Add text on Scene
     wchar_t pretext[200];
     swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);

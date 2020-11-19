@@ -69,7 +69,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     descDepth.SampleDesc.Count = 1;
     descDepth.SampleDesc.Quality = 0;
     descDepth.Usage = D3D11_USAGE_DEFAULT;
-    descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;     // view - depth buffer
+    descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
     descDepth.CPUAccessFlags = 0;
     descDepth.MiscFlags = 0;
 
@@ -97,6 +97,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewports.push_back(viewport);
 
     initDepthShadowMap();
+    initSceneMap(screenWidth, screenHeight);
 
     direct2DInitialize(hWnd);
     setupImGui(hWnd);
@@ -231,6 +232,7 @@ void Graphics::SwitchWindow()
     if (editMode == true)
     {
         createShadowViewport();
+        createGameViewport();
     }
 
     // assemble together draw data
@@ -247,7 +249,7 @@ void Graphics::SwitchWindow()
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();
     }
-
+    
     swapChain->Present(1, 0);
 }
 
@@ -345,6 +347,39 @@ bool Graphics::initDepthShadowMap()
     return true;
 }
 
+bool Graphics::initSceneMap(int screenWidth, int screenHeight)
+{
+    // Creating a depth buffer
+    D3D11_TEXTURE2D_DESC sceneMapDesc;
+    ZeroMemory(&sceneMapDesc, sizeof(D3D11_TEXTURE2D_DESC));
+    sceneMapDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    sceneMapDesc.MipLevels = 1;
+    sceneMapDesc.ArraySize = 1;
+    sceneMapDesc.SampleDesc.Count = 1;
+    sceneMapDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+    sceneMapDesc.Height = screenHeight;
+    sceneMapDesc.Width = screenWidth;
+
+    HRESULT hr = device->CreateTexture2D(&sceneMapDesc, nullptr, &sceneMap);
+
+    D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
+    renderTargetViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+    renderTargetViewDesc.Texture2D.MipSlice = 0;
+
+    hr = device->CreateRenderTargetView(sceneMap, &renderTargetViewDesc, &sceneRenderTargetView);
+
+    D3D11_SHADER_RESOURCE_VIEW_DESC sceneResourceViewDesc;
+    sceneResourceViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    sceneResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    sceneResourceViewDesc.Texture2D.MostDetailedMip = 0;
+    sceneResourceViewDesc.Texture2D.MipLevels = 1;
+
+    hr = device->CreateShaderResourceView(sceneMap, &sceneResourceViewDesc, &sceneResourceView);
+
+    return true;
+}
+
 
 ID3D11Device* Graphics::GetDevice()
 {
@@ -398,6 +433,13 @@ void Graphics::createShadowViewport()
     ImGui::End();
 }
 
+void Graphics::createGameViewport()
+{
+    ImGui::Begin("GameViewport");
+    ImGui::Image(sceneResourceView, ImVec2(400, 300));
+    ImGui::End();
+}
+
 void Graphics::PrepareRenderScene()
 {
     context->RSSetState(rasterState);
@@ -415,4 +457,31 @@ void Graphics::PrepareRenderShadowMap()
     context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
     depthShader->SetShader();
+}
+
+void Graphics::PrepareRenderSceneMap(int screenWidth, int screenHeight)
+{
+    context->ClearState();
+
+    context->OMSetRenderTargets(1, &sceneRenderTargetView, depthStencilView);
+
+    //TODO: move shadows
+    context->PSSetShaderResources(1, 1, &shadowResourceView); 
+    context->PSSetSamplers(1, 1, &shadowSamplerState);
+
+    D3D11_VIEWPORT viewport = {};
+    viewport.Width = static_cast<float>(screenWidth);
+    viewport.Height = static_cast<float>(screenHeight);
+    viewport.TopLeftX = 0;
+    viewport.TopLeftY = 0;
+    viewport.MinDepth = 0;
+    viewport.MaxDepth = 1.0f;
+    
+    context->RSSetViewports(1, &viewport);
+    context->RSSetState(rasterState);
+
+    float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+    context->ClearRenderTargetView(sceneRenderTargetView, clearColor);
+    context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }

@@ -36,6 +36,7 @@ public:
 
     void PrepareRenderScene();
     void PrepareRenderShadowMap();
+    void PrepareRenderSceneMap(int screenWidth, int screenHeight);
 
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -82,6 +83,11 @@ private:
     ID3D11DepthStencilView* shadowDepthView = nullptr;
     ID3D11ShaderResourceView* shadowResourceView = nullptr;
     ID3D11SamplerState* shadowSamplerState = nullptr;
+
+    // Variables for GameRenderMap
+    ID3D11Texture2D* sceneMap = nullptr;
+    ID3D11RenderTargetView* sceneRenderTargetView;
+    ID3D11ShaderResourceView* sceneResourceView = nullptr;
     
     bool gameMode = false;
     bool editMode = false;
@@ -91,7 +97,9 @@ private:
     void setupImGui(HWND hWnd);
   
     bool initDepthShadowMap(); 
+    bool initSceneMap(int screenWidth, int screenHeight);
     
     void createShadowViewport();
+    void createGameViewport();
 
 };

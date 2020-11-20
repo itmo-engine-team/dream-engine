@@ -33,11 +33,10 @@ public:
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
 
     void SwitchWindow();
-
-    void PrepareRenderScene();
-    void PrepareRenderShadowMap();
+    
+    void PrepareRenderShadowMap() const;
     void PrepareRenderSceneMap(int screenWidth, int screenHeight);
-
+  
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
     IDXGISwapChain* GetSwapChain();
@@ -49,21 +48,35 @@ public:
 
     ID3D11Texture2D* GetShadowMap();
 
+    bool HasLight() const;
+    bool HasShadow() const;
+
     bool GetGameMode();
 
 private:
-   
+
+    const FLOAT SHADOW_MAP_SIZE = 1024;
+
     ID3D11Device* device;
     ID3D11DeviceContext* context;
     IDXGISwapChain* swapChain;
-    ID3D11RenderTargetView* renderTargetView;
     ID3DUserDefinedAnnotation* annotation;
     ID3D11RasterizerState* rasterState;
-    ID3D11RasterizerState* shadowRasterState;
 
     ID3D11Texture2D* depthStencil = nullptr;                     // Depth buffer texture
     ID3D11DepthStencilView* depthStencilView = nullptr;          // View object, depth buffer
     Shader* depthShader;
+
+    ID3D11RenderTargetView* renderTargetView;
+    D3D11_VIEWPORT viewport;
+
+    // Variables for Shadows
+    ID3D11Texture2D* shadowMap = nullptr;
+    ID3D11DepthStencilView* shadowDepthView = nullptr;
+    ID3D11ShaderResourceView* shadowResourceView = nullptr;
+    ID3D11RasterizerState* shadowRasterState;
+    ID3D11SamplerState* shadowSamplerState = nullptr;
+    D3D11_VIEWPORT shadowMapViewport;
 
     // Variables for Direct2D initialization
     ID2D1Factory* factory = nullptr;
@@ -73,22 +86,15 @@ private:
     IDWriteFactory* writeFactory = nullptr;
     IDWriteTextFormat* textFormat;
     RECT rect;
-
-    std::vector<D3D11_VIEWPORT> viewports;
-    D3D11_VIEWPORT viewport;
-    D3D11_VIEWPORT shadowMapViewport;
-    
-    // Variables for Shadows
-    ID3D11Texture2D* shadowMap = nullptr;
-    ID3D11DepthStencilView* shadowDepthView = nullptr;
-    ID3D11ShaderResourceView* shadowResourceView = nullptr;
-    ID3D11SamplerState* shadowSamplerState = nullptr;
-
+  
     // Variables for GameRenderMap
     ID3D11Texture2D* sceneMap = nullptr;
     ID3D11RenderTargetView* sceneRenderTargetView;
     ID3D11ShaderResourceView* sceneResourceView = nullptr;
-    
+  
+    bool hasLight = true;
+    bool hasShadow = true;
+  
     bool gameMode = false;
     bool editMode = false;
 

@@ -94,8 +94,6 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
-    viewports.push_back(viewport);
-
     initDepthShadowMap();
     initSceneMap(screenWidth, screenHeight);
 
@@ -322,12 +320,10 @@ bool Graphics::initDepthShadowMap()
     // Init viewport for shadow rendering
     shadowMapViewport = {};
     ZeroMemory(&shadowMapViewport, sizeof(D3D11_VIEWPORT));
-    shadowMapViewport.Height = 600;
-    shadowMapViewport.Width = 800;
+    shadowMapViewport.Height = SHADOW_MAP_SIZE;
+    shadowMapViewport.Width = SHADOW_MAP_SIZE;
     shadowMapViewport.MinDepth = 0.f;
     shadowMapViewport.MaxDepth = 1.f;
-
-    viewports.push_back(shadowMapViewport);
 
     // Creating a texture sample (description) 
     D3D11_SAMPLER_DESC sampDesc;
@@ -420,6 +416,16 @@ ID3D11Texture2D* Graphics::GetShadowMap()
     return shadowMap;
 }
 
+bool Graphics::HasLight() const
+{
+    return hasLight;
+}
+
+bool Graphics::HasShadow() const
+{
+    return hasShadow;
+}
+
 bool Graphics::GetGameMode()
 {
     return gameMode;
@@ -449,8 +455,10 @@ void Graphics::PrepareRenderScene()
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
-void Graphics::PrepareRenderShadowMap()
+void Graphics::PrepareRenderShadowMap() const
 {
+    context->RSSetViewports(1, &shadowMapViewport);
+
     context->RSSetState(shadowRasterState);
     context->OMSetRenderTargets(0, nullptr, shadowDepthView);
     context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);

@@ -121,7 +121,7 @@ void Engine::update()
 }
 
 void Engine::render()
-{   
+{
     // Render shadow map
     graphics->PrepareRenderShadowMap();
     game->RenderShadowMap();

@@ -5,7 +5,7 @@
 LightComponent::LightComponent(Game* game, Actor* actor, Vector3 position, Vector3 direction)
     : SceneComponent(game, actor, new Transform(position)), direction(direction)
 {
-    projectionMatrix = Matrix::CreateOrthographic(5, 5, 0.1f, 100);
+    projectionMatrix = Matrix::CreateOrthographic(20, 20, 0.1f, 100);
 }
 
 Matrix LightComponent::GetViewMatrix() const

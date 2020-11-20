@@ -380,7 +380,6 @@ bool Graphics::initSceneMap(int screenWidth, int screenHeight)
     return true;
 }
 
-
 ID3D11Device* Graphics::GetDevice()
 {
     return device;

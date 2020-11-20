@@ -34,6 +34,7 @@ public:
 
     void SwitchWindow();
     
+    void PrepareRenderScene();
     void PrepareRenderShadowMap() const;
     void PrepareRenderSceneMap(int screenWidth, int screenHeight);
   

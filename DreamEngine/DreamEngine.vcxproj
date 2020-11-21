@@ -174,6 +174,7 @@
     <ClInclude Include="CameraBuffer.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="LightBuffer.h" />
+    <ClInclude Include="OrthoWindow.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ModelDataBuffer.h" />
     <ClInclude Include="Texture.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshObject.cpp" />
     <ClCompile Include="ModelData.cpp" />
+    <ClCompile Include="OrthoWindow.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ModelShader.cpp" />

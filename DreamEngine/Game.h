@@ -23,8 +23,8 @@ public:
 
     virtual void Init(Engine* engine);
     virtual void Update();
-    virtual void Render();
     virtual void RenderDeferred();
+    virtual void RenderLight();
     void RenderShadowMap();
     void PrepareDeferredBuffer();
 

@@ -31,7 +31,7 @@ void Game::Update()
     }
 }
 
-void Game::Render()
+void Game::RenderDeferred()
 {
     for (auto actor : gameAssetManager->GetActors())
     {
@@ -39,7 +39,7 @@ void Game::Render()
     }
 }
 
-void Game::RenderDeferred()
+void Game::RenderLight()
 {
     for (auto actor : gameAssetManager->GetActors())
     {

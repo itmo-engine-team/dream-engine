@@ -15,7 +15,7 @@ void StaticModelComponent::onDraw()
 {
     for (auto meshObject : meshObjects)
     {
-        meshObject->Draw();
+        meshObject->RenderDeferred();
     }
 }
 
@@ -31,6 +31,6 @@ void StaticModelComponent::onRenderDeferred()
 {
     for (auto meshObject : meshObjects)
     {
-        meshObject->RenderDeferred();
+        meshObject->RenderLight();
     }
 }

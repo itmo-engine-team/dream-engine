@@ -101,7 +101,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     ErrorLogger::DirectXLog(hr, Error, "Failed to create ModelDataBuffer", __FILE__, __FUNCTION__, __LINE__);
 }
 
-void MeshObject::Draw()
+void MeshObject::RenderDeferred()
 {
     graphics->GetContext()->IASetVertexBuffers(
         0u,
@@ -186,7 +186,7 @@ bool MeshObject::RenderShadowMap()
     return true;
 }
 
-bool MeshObject::RenderDeferred()
+bool MeshObject::RenderLight()
 {
     engine->GetGame()->lightShader->SetShader(
         engine->GetGame()->deferredBuffers->GetShaderResourceView(0),
@@ -214,16 +214,6 @@ bool MeshObject::RenderDeferred()
     };
     graphics->GetContext()->UpdateSubresource(lightBuffer.Get(), 0, NULL, &lb, 0, 0);
     graphics->GetContext()->PSSetConstantBuffers(1u, 1u, lightBuffer.GetAddressOf());
-
-    // Update Constant Buffer
-    /*const CameraBuffer cameraBufferData =
-    {
-        engine->GetGame()->GetCamera()->GetTransform()->GetWorldPosition()
-    };
-
-    graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBufferData, 0, 0);
-    graphics->GetContext()->VSSetConstantBuffers(2u, 1u, cameraBuffer.GetAddressOf());
-    */
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 

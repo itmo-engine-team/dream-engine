@@ -410,8 +410,12 @@ void Graphics::PrepareRenderScene()
     context->RSSetViewports(1, &viewport);
     context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
-    context->PSSetShaderResources(1, 1, &shadowResourceView);
-    context->PSSetSamplers(1, 1, &shadowSamplerState);
+    float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+    context->ClearRenderTargetView(renderTargetView, color);
+    context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+    /*context->PSSetShaderResources(1, 1, &shadowResourceView);
+    context->PSSetSamplers(1, 1, &shadowSamplerState);*/
 }
 
 void Graphics::PrepareRenderShadowMap() const

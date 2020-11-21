@@ -20,9 +20,9 @@ public:
 
     MeshObject(Engine* engine, Transform* transform, MeshData* meshData, ModelShader* shader);
 
-    void Draw();
+    void RenderDeferred();
     bool RenderShadowMap();
-    bool RenderDeferred();
+    bool RenderLight();
 
 protected:
 

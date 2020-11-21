@@ -15,6 +15,8 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
     window = new Window(this);
     window->WindowInitialize(hInstance, wc);
 
+    orthoWindow = new OrthoWindow(this);
+
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
 }
@@ -38,6 +40,7 @@ void Engine::Init()
 {
     // Init Game
     game->Init(this);
+    orthoWindow->Initialize(graphics->GetDevice(), screenWidth, screenHeight);
 }
 
 bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
@@ -139,7 +142,7 @@ void Engine::render()
     graphics->PrepareRenderScene();
 
     // Light rendering
-    game->RenderLight();
+    orthoWindow->Render(graphics->GetContext());
 
     graphics->SwitchWindow();
 

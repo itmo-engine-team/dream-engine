@@ -16,6 +16,7 @@
 #include "Game.h"
 
 #include "InputSystem.h"
+#include "OrthoWindow.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -53,6 +54,8 @@ protected:
     Graphics* graphics;
     GameAssetManager* gameAssetManager;
     MeshRenderer* meshRenderer;
+
+    OrthoWindow* orthoWindow;
 
     InputSystem* inputSystem = nullptr;
 

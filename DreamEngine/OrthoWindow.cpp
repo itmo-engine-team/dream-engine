@@ -1,8 +1,13 @@
-
 #include "OrthoWindow.h"
 
+#include "Engine.h"
 
-OrthoWindow::OrthoWindow()
+#include "ErrorLogger.h"
+#include "LightBuffer.h"
+#include "ConstantBuffer.h"
+
+
+OrthoWindow::OrthoWindow(Engine* engine) : engine(engine)
 {
 	m_vertexBuffer = 0;
 	m_indexBuffer = 0;
@@ -44,8 +49,14 @@ void OrthoWindow::Shutdown()
 
 void OrthoWindow::Render(ID3D11DeviceContext* deviceContext)
 {
+	engine->GetGame()->lightShader->SetShader(
+		engine->GetGame()->deferredBuffers->GetShaderResourceView(0),
+		engine->GetGame()->deferredBuffers->GetShaderResourceView(1));
+
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	RenderBuffers(deviceContext);
+
+	deviceContext->DrawIndexed(GetIndexCount(), 0, 0);
 }
 
 
@@ -172,6 +183,27 @@ bool OrthoWindow::InitializeBuffers(ID3D11Device* device, int windowWidth, int w
 	delete[] indices;
 	indices = 0;
 
+	/*CD3D11_BUFFER_DESC cbd;
+	cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cbd.Usage = D3D11_USAGE_DEFAULT;
+	cbd.CPUAccessFlags = 0u;
+	cbd.MiscFlags = 0u;
+	cbd.ByteWidth = sizeof(ConstantBuffer);
+	cbd.StructureByteStride = 0u;
+	auto hr = device->CreateBuffer(&cbd, NULL, &constantBuffer);
+	ErrorLogger::DirectXLog(hr, Error, "Failed to create ConstantBuffer", __FILE__, __FUNCTION__, __LINE__);
+	*/
+
+	D3D11_BUFFER_DESC lightBufferDesc;
+	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	lightBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	lightBufferDesc.CPUAccessFlags = 0u;
+	lightBufferDesc.MiscFlags = 0;
+	lightBufferDesc.ByteWidth = sizeof(LightBuffer);
+	lightBufferDesc.StructureByteStride = 0;
+	auto hr = device->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
+	ErrorLogger::DirectXLog(hr, Error, "Failed to create LightBuffer", __FILE__, __FUNCTION__, __LINE__);
+
 	return true;
 }
 
@@ -212,4 +244,27 @@ void OrthoWindow::RenderBuffers(ID3D11DeviceContext* deviceContext)
 
 	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// Update Constant Buffer
+	/*const ConstantBuffer cb =
+	{
+		transform->GetWorldMatrix(),
+		engine->GetGame()->GetCamera()->GetViewMatrix(),
+		engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+		engine->GetGame()->GetLight()->GetViewMatrix(),
+		engine->GetGame()->GetLight()->GetProjectionMatrix(),
+	};
+	graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
+	graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());*/
+
+	const LightBuffer lb =
+	{
+		Vector4{0.15f, 0.15f, 0.15f, 1.0f},
+		Vector4{1.0f, 1.0f, 1.0f, 1.0f},
+		engine->GetGame()->GetLight()->GetDirection(),
+		100.0f,
+		{1.0f, 1.0f, 1.0f, 1.0f }
+	};
+	deviceContext->UpdateSubresource(lightBuffer, 0, NULL, &lb, 0, 0);
+	deviceContext->PSSetConstantBuffers(1u, 1u, &lightBuffer);
 }

@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include <SimpleMath.h>
 
+class Engine;
 using namespace  DirectX::SimpleMath;
 
 class OrthoWindow
@@ -15,7 +16,7 @@ private:
 	};
 
 public:
-	OrthoWindow();
+	OrthoWindow(Engine* engine);
 	OrthoWindow(const OrthoWindow&);
 	~OrthoWindow();
 
@@ -31,6 +32,12 @@ private:
 	void RenderBuffers(ID3D11DeviceContext*);
 
 private:
-	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
+	Engine* engine;
+
+	ID3D11Buffer* m_vertexBuffer;
+	ID3D11Buffer* m_indexBuffer;
 	int m_vertexCount, m_indexCount;
+
+	ID3D11Buffer* constantBuffer;
+	ID3D11Buffer* lightBuffer;
 };

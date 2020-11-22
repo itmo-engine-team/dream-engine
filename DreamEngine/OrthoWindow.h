@@ -9,6 +9,7 @@ using namespace  DirectX::SimpleMath;
 class OrthoWindow
 {
 private:
+
 	struct VertexType
 	{
 		Vector3 position;
@@ -16,6 +17,7 @@ private:
 	};
 
 public:
+
 	OrthoWindow(Engine* engine);
 	OrthoWindow(const OrthoWindow&);
 	~OrthoWindow();
@@ -32,6 +34,7 @@ private:
 	void RenderBuffers(ID3D11DeviceContext*);
 
 private:
+
 	Engine* engine;
 
 	ID3D11Buffer* m_vertexBuffer;
@@ -40,4 +43,7 @@ private:
 
 	ID3D11Buffer* constantBuffer;
 	ID3D11Buffer* lightBuffer;
+
+	Matrix orthoProjMatrix;
+	
 };

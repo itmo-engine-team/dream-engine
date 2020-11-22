@@ -11,6 +11,12 @@ OrthoWindow::OrthoWindow(Engine* engine) : engine(engine)
 {
 	m_vertexBuffer = 0;
 	m_indexBuffer = 0;
+
+	orthoProjMatrix = Matrix::CreateOrthographic(
+		engine->GetScreenWidth(),
+		engine->GetScreenHeight(),
+		0.1f, 1000.0f
+	);
 }
 
 
@@ -183,7 +189,7 @@ bool OrthoWindow::InitializeBuffers(ID3D11Device* device, int windowWidth, int w
 	delete[] indices;
 	indices = 0;
 
-	/*CD3D11_BUFFER_DESC cbd;
+	CD3D11_BUFFER_DESC cbd;
 	cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	cbd.Usage = D3D11_USAGE_DEFAULT;
 	cbd.CPUAccessFlags = 0u;
@@ -192,7 +198,6 @@ bool OrthoWindow::InitializeBuffers(ID3D11Device* device, int windowWidth, int w
 	cbd.StructureByteStride = 0u;
 	auto hr = device->CreateBuffer(&cbd, NULL, &constantBuffer);
 	ErrorLogger::DirectXLog(hr, Error, "Failed to create ConstantBuffer", __FILE__, __FUNCTION__, __LINE__);
-	*/
 
 	D3D11_BUFFER_DESC lightBufferDesc;
 	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -201,7 +206,7 @@ bool OrthoWindow::InitializeBuffers(ID3D11Device* device, int windowWidth, int w
 	lightBufferDesc.MiscFlags = 0;
 	lightBufferDesc.ByteWidth = sizeof(LightBuffer);
 	lightBufferDesc.StructureByteStride = 0;
-	auto hr = device->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
+	hr = device->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
 	ErrorLogger::DirectXLog(hr, Error, "Failed to create LightBuffer", __FILE__, __FUNCTION__, __LINE__);
 
 	return true;
@@ -246,16 +251,16 @@ void OrthoWindow::RenderBuffers(ID3D11DeviceContext* deviceContext)
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Update Constant Buffer
-	/*const ConstantBuffer cb =
+	const ConstantBuffer cb =
 	{
-		transform->GetWorldMatrix(),
-		engine->GetGame()->GetCamera()->GetViewMatrix(),
-		engine->GetGame()->GetCamera()->GetProjectionMatrix(),
+		Matrix::Identity,
+		Matrix::Identity,
+		orthoProjMatrix,
 		engine->GetGame()->GetLight()->GetViewMatrix(),
 		engine->GetGame()->GetLight()->GetProjectionMatrix(),
 	};
-	graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
-	graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());*/
+	deviceContext->UpdateSubresource(constantBuffer, 0, NULL, &cb, 0, 0);
+	deviceContext->VSSetConstantBuffers(0u, 1u, &constantBuffer);
 
 	const LightBuffer lb =
 	{

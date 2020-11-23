@@ -132,9 +132,6 @@
     <ClInclude Include="DeferredBuffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DeferredShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LightShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -231,9 +228,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DeferredBuffers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DeferredShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LightShader.cpp">

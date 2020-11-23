@@ -153,7 +153,6 @@
   <ItemGroup>
     <ClInclude Include="DepthShader.h" />
     <ClInclude Include="DeferredBuffers.h" />
-    <ClInclude Include="DeferredShader.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -196,7 +195,6 @@
   <ItemGroup>
     <ClCompile Include="DepthShader.cpp" />
     <ClCompile Include="DeferredBuffers.cpp" />
-    <ClCompile Include="DeferredShader.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />

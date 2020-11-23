@@ -31,19 +31,11 @@ void Game::Update()
     }
 }
 
-void Game::RenderDeferred()
+void Game::Render()
 {
     for (auto actor : gameAssetManager->GetActors())
     {
         actor->Draw();
-    }
-}
-
-void Game::RenderLight()
-{
-    for (auto actor : gameAssetManager->GetActors())
-    {
-        actor->RenderDeferred();
     }
 }
 

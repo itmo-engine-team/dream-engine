@@ -19,7 +19,7 @@ public:
 
     void Init(Engine* engine) override;
     void Update() override;
-    void RenderDeferred() override;
+    void Render() override;
 
     CameraComponent* GetCamera() const override;
     LightComponent* GetLight() const override;

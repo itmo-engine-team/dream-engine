@@ -179,9 +179,9 @@ void KatamariGame::Update()
     collisionCheck(box3);*/
 }
 
-void KatamariGame::RenderDeferred()
+void KatamariGame::Render()
 {
-    Game::RenderDeferred();
+    Game::Render();
     lightActor->Draw();
 }
 

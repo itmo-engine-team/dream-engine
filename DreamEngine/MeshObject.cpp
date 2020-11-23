@@ -101,7 +101,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     ErrorLogger::DirectXLog(hr, Error, "Failed to create ModelDataBuffer", __FILE__, __FUNCTION__, __LINE__);
 }
 
-void MeshObject::RenderDeferred()
+void MeshObject::Render()
 {
     graphics->GetContext()->IASetVertexBuffers(
         0u,
@@ -180,40 +180,6 @@ bool MeshObject::RenderShadowMap()
     };
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
-
-    graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
-
-    return true;
-}
-
-bool MeshObject::RenderLight()
-{
-    engine->GetGame()->lightShader->SetShader(
-        engine->GetGame()->deferredBuffers->GetShaderResourceView(0),
-    engine->GetGame()->deferredBuffers->GetShaderResourceView(1));
-
-    // Update Constant Buffer
-    const ConstantBuffer cb =
-    {
-        transform->GetWorldMatrix(),
-        engine->GetGame()->GetCamera()->GetViewMatrix(),
-        engine->GetGame()->GetCamera()->GetProjectionMatrix(),
-        engine->GetGame()->GetLight()->GetViewMatrix(),
-        engine->GetGame()->GetLight()->GetProjectionMatrix(),
-    };
-    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
-    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
-
-    const LightBuffer lb =
-    {
-        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
-        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        engine->GetGame()->GetLight()->GetDirection(),
-        100.0f,
-        {1.0f, 1.0f, 1.0f, 1.0f }
-    };
-    graphics->GetContext()->UpdateSubresource(lightBuffer.Get(), 0, NULL, &lb, 0, 0);
-    graphics->GetContext()->PSSetConstantBuffers(1u, 1u, lightBuffer.GetAddressOf());
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 

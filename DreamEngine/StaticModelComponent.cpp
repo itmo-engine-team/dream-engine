@@ -15,7 +15,7 @@ void StaticModelComponent::onDraw()
 {
     for (auto meshObject : meshObjects)
     {
-        meshObject->RenderDeferred();
+        meshObject->Render();
     }
 }
 
@@ -24,13 +24,5 @@ void StaticModelComponent::onDrawShadowMap()
     for (auto meshObject : meshObjects)
     {
         meshObject->RenderShadowMap();
-    }
-}
-
-void StaticModelComponent::onRenderDeferred()
-{
-    for (auto meshObject : meshObjects)
-    {
-        meshObject->RenderLight();
     }
 }

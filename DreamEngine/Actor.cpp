@@ -47,15 +47,6 @@ bool Actor::IsActive() const
     return isActive;
 }
 
-void Actor::RenderDeferred()
-{
-    // Draw shadow map for components
-    for (auto component : components)
-    {
-        component->RenderDeferred();
-    }
-}
-
 Transform* Actor::GetTransform() const
 {
     return transform;

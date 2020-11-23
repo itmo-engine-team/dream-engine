@@ -129,7 +129,7 @@ void Engine::render()
     game->PrepareDeferredBuffer();
 
     graphics->GetAnnotation()->BeginEvent(L"Deferred");
-    game->RenderDeferred();
+    game->Render();
     graphics->GetAnnotation()->EndEvent();
 
     // TODO Move to deferred
@@ -142,7 +142,6 @@ void Engine::render()
     graphics->GetAnnotation()->BeginEvent(L"Scene");
     if (graphics->IsEditMode())
     {
-        
         graphics->PrepareRenderSceneMap(screenWidth, screenHeight);
 
         // Scene rendering

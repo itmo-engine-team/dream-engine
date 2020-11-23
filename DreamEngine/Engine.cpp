@@ -127,22 +127,33 @@ void Engine::render()
 {
     // Deferred renders to textures
     game->PrepareDeferredBuffer();
-    if (graphics->GetGameMode() == true)
-    {
-        graphics->GetAnnotation()->BeginEvent(L"BeginDraw");
-        game->RenderDeferred();
-        graphics->GetAnnotation()->EndEvent();
-    }
-    
+
+    graphics->GetAnnotation()->BeginEvent(L"Deferred");
+    game->RenderDeferred();
+    graphics->GetAnnotation()->EndEvent();
+
+    // TODO Move to deferred
     // Render shadow map
     /*graphics->PrepareRenderShadowMap();
     game->RenderShadowMap();*/
 
-    // Render scene
-    graphics->PrepareRenderScene();
+    graphics->PrepareRenderScene(); // TODO Clear scene without rendering
 
-    // Light rendering
-    orthoWindow->Render(graphics->GetContext());
+    graphics->GetAnnotation()->BeginEvent(L"Scene");
+    if (graphics->IsEditMode())
+    {
+        
+        graphics->PrepareRenderSceneMap(screenWidth, screenHeight);
+
+        // Scene rendering
+        orthoWindow->Render(graphics->GetContext());
+    }
+    else if (graphics->IsGameMode())
+    {
+        // Scene rendering
+        orthoWindow->Render(graphics->GetContext());
+    }
+    graphics->GetAnnotation()->EndEvent();
 
     graphics->SwitchWindow();
 

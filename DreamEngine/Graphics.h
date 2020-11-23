@@ -33,10 +33,11 @@ public:
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
 
     void SwitchWindow();
-
+    
     void PrepareRenderScene();
     void PrepareRenderShadowMap() const;
-
+    void PrepareRenderSceneMap(int screenWidth, int screenHeight);
+  
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
     IDXGISwapChain* GetSwapChain();
@@ -51,7 +52,8 @@ public:
     bool HasLight() const;
     bool HasShadow() const;
 
-    bool GetGameMode();
+    bool IsGameMode() const;
+    bool IsEditMode() const;
 
 private:
 
@@ -86,7 +88,12 @@ private:
     IDWriteFactory* writeFactory = nullptr;
     IDWriteTextFormat* textFormat;
     RECT rect;
-
+  
+    // Variables for GameRenderMap
+    ID3D11Texture2D* sceneMap = nullptr;
+    ID3D11RenderTargetView* sceneRenderTargetView;
+    ID3D11ShaderResourceView* sceneResourceView = nullptr;
+  
     bool hasLight = true;
     bool hasShadow = true;
 
@@ -98,7 +105,9 @@ private:
     void setupImGui(HWND hWnd);
   
     bool initDepthShadowMap(); 
+    bool initSceneMap(int screenWidth, int screenHeight);
     
     void createShadowViewport();
+    void createGameViewport();
 
 };

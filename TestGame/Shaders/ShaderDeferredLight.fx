@@ -24,6 +24,13 @@ cbuffer LightBuffer : register(b1)
     float4 specularColor;
 };
 
+cbuffer ModelDataBuffer : register(b2)
+{
+    float HasTexture;
+    float HasLight;
+    float HasShadows;
+};
+
 struct VertexInputType
 {
     float4 position : POSITION;
@@ -62,7 +69,7 @@ PixelInputType VSMain(VertexInputType input)
     return output;
 }
 
-float4 PSCalculateLightColor(DeferredData deferredData)
+float4 PSCalculateLight(DeferredData deferredData)
 {
     float4 lightColor = ambientColor;
     float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -86,7 +93,7 @@ float4 PSCalculateLightColor(DeferredData deferredData)
     return lightColor;
 }
 
-float4 PSCalculateLightColorWithShadow(DeferredData deferredData)
+float4 PSCalculateLightWithShadow(DeferredData deferredData)
 {
     float4 lightColor = ambientColor * deferredData.color;
 
@@ -107,7 +114,7 @@ float4 PSCalculateLightColorWithShadow(DeferredData deferredData)
 
         if (lightDepthValue <= depthValue)
         {
-            lightColor = PSCalculateLightColor(deferredData);
+            lightColor = PSCalculateLight(deferredData);
         }
     }
 
@@ -122,6 +129,16 @@ float4 PSMain(PixelInputType input) : SV_TARGET
     deferredData.viewDirection = specularTexture.Sample(deferredSampler, input.tex).xyz;
     deferredData.lightViewPos = lightViewPosTexture.Sample(deferredSampler, input.tex);
 
-    return PSCalculateLightColorWithShadow(deferredData);
+    if (HasLight > 0.0f)
+    {
+        if (HasShadows > 0.0f)
+        {
+            return PSCalculateLightWithShadow(deferredData);
+        }
+        
+        return PSCalculateLight(deferredData);
+    }
+
+    return deferredData.color;
 }
 

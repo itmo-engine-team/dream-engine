@@ -5,6 +5,7 @@
 #include "ErrorLogger.h"
 #include "LightBuffer.h"
 #include "ConstantBuffer.h"
+#include "ModelDataBuffer.h"
 
 OrthoWindow::OrthoWindow(Engine* engine) : engine(engine)
 {
@@ -199,6 +200,16 @@ bool OrthoWindow::InitializeBuffers(ID3D11Device* device, int windowWidth, int w
 	hr = device->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
 	ErrorLogger::DirectXLog(hr, Error, "Failed to create LightBuffer", __FILE__, __FUNCTION__, __LINE__);
 
+	CD3D11_BUFFER_DESC modelDataBufferDesc;
+	modelDataBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	modelDataBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	modelDataBufferDesc.CPUAccessFlags = 0u;
+	modelDataBufferDesc.MiscFlags = 0u;
+	modelDataBufferDesc.ByteWidth = sizeof(ModelDataBuffer);
+	modelDataBufferDesc.StructureByteStride = 0u;
+	hr = device->CreateBuffer(&modelDataBufferDesc, NULL, &modelDataBuffer);
+	ErrorLogger::DirectXLog(hr, Error, "Failed to create ModelDataBuffer", __FILE__, __FUNCTION__, __LINE__);
+
 	return true;
 }
 
@@ -259,4 +270,14 @@ void OrthoWindow::RenderBuffers(ID3D11DeviceContext* deviceContext)
 	};
 	deviceContext->UpdateSubresource(lightBuffer, 0, NULL, &lb, 0, 0);
 	deviceContext->PSSetConstantBuffers(1u, 1u, &lightBuffer);
+
+	// Update Constant Buffer
+	const ModelDataBuffer modelDataBufferData =
+	{
+		0.0f,  // not using
+		engine->GetGraphics()->HasLight() ? 1.0f : -1.0f,
+		engine->GetGraphics()->HasShadow() ? 1.0f : -1.0f,
+	};
+	deviceContext->UpdateSubresource(modelDataBuffer, 0, NULL, &modelDataBufferData, 0, 0);
+	deviceContext->PSSetConstantBuffers(2u, 1u, &modelDataBuffer);
 }

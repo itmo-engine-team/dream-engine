@@ -42,6 +42,7 @@ private:
 
 	ID3D11Buffer* constantBuffer;
 	ID3D11Buffer* lightBuffer;
+	ID3D11Buffer* modelDataBuffer;
 
 	Matrix orthoProjMatrix;
 	

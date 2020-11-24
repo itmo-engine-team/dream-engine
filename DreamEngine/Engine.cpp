@@ -132,10 +132,11 @@ void Engine::render()
     game->Render();
     graphics->GetAnnotation()->EndEvent();
 
-    // TODO Move to deferred
     // Render shadow map
-    /*graphics->PrepareRenderShadowMap();
-    game->RenderShadowMap();*/
+    graphics->GetAnnotation()->BeginEvent(L"ShadowMap");
+    graphics->PrepareRenderShadowMap();
+    game->RenderShadowMap();
+    graphics->GetAnnotation()->EndEvent();
 
     graphics->PrepareRenderScene(); // TODO Clear scene without rendering
 

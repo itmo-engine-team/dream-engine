@@ -7,7 +7,7 @@ class DeferredBuffers
 
 public:
 
-	static const int BUFFER_COUNT = 3;
+	static const int BUFFER_COUNT = 4;
 
 	DeferredBuffers();
 	~DeferredBuffers();

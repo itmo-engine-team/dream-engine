@@ -460,8 +460,8 @@ void Graphics::PrepareRenderScene()
     context->ClearRenderTargetView(renderTargetView, color);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-    /*context->PSSetShaderResources(1, 1, &shadowResourceView);
-    context->PSSetSamplers(1, 1, &shadowSamplerState);*/
+    context->PSSetShaderResources(4, 1, &shadowResourceView);
+    context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
 void Graphics::PrepareRenderShadowMap() const
@@ -480,10 +480,6 @@ void Graphics::PrepareRenderSceneMap(int screenWidth, int screenHeight)
     context->ClearState();
 
     context->OMSetRenderTargets(1, &sceneRenderTargetView, depthStencilView);
-
-    //TODO: move shadows
-    context->PSSetShaderResources(1, 1, &shadowResourceView); 
-    context->PSSetSamplers(1, 1, &shadowSamplerState);
 
     D3D11_VIEWPORT viewport = {};
     viewport.Width = static_cast<float>(screenWidth);

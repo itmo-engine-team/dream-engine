@@ -11,6 +11,8 @@ cbuffer CBuf : register(b0)
     matrix World;
     matrix View;
     matrix Projection;
+    matrix lightView;
+    matrix lightProjection;
 };
 
 cbuffer CameraBuffer : register(b2)
@@ -49,7 +51,7 @@ struct PS_DATA
     float3 normal : NORMAL;
     float2 tex : TEXCOORD;
     float3 viewDirection : TEXCOORD1;
-    //float4 lightViewPosition : TEXCOORD2;
+    float4 lightViewPosition : TEXCOORD2;
 };
 
 // Render targets
@@ -58,6 +60,7 @@ struct PS_Deferred
     float4 color : SV_Target0;
     float4 normal : SV_Target1;
     float4 specular : SV_Target2;
+    float4 lightViewPos : SV_Target3;
 };
 
 PS_DATA VSMain(VS_DATA input)
@@ -69,9 +72,9 @@ PS_DATA VSMain(VS_DATA input)
     output.pos = mul(output.pos, View);
     output.pos = mul(output.pos, Projection);
 
-    /*output.lightViewPosition = mul(float4(input.pos, 1.0f), World);
+    output.lightViewPosition = mul(float4(input.pos, 1.0f), World);
     output.lightViewPosition = mul(output.lightViewPosition, lightView);
-    output.lightViewPosition = mul(output.lightViewPosition, lightProjection);*/
+    output.lightViewPosition = mul(output.lightViewPosition, lightProjection);
 
     output.color = input.color;
     output.tex = input.tex;
@@ -99,8 +102,8 @@ PS_Deferred PSMain(PS_DATA input) : SV_Target
     PS_Deferred output;
     output.color = textureColor;
     output.normal = float4(input.normal, 1.0f);
-
     output.specular = float4(input.viewDirection, specularPower);
+    output.lightViewPos = input.lightViewPosition;
 
     return output;
 }

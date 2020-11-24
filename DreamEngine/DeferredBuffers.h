@@ -7,6 +7,8 @@ class DeferredBuffers
 
 public:
 
+	static const int BUFFER_COUNT = 3;
+
 	DeferredBuffers();
 	~DeferredBuffers();
 
@@ -19,10 +21,9 @@ public:
 		float red, float green, float blue, float alpha);
 
 	ID3D11ShaderResourceView* GetShaderResourceView(int view) const;
+    ID3D11ShaderResourceView* const* GetShaderResourceViewArray() const;
 
 private:
-
-	static const int BUFFER_COUNT = 3;
 
 	int textureWidth, textureHeight;
 

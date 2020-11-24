@@ -216,3 +216,8 @@ ID3D11ShaderResourceView* DeferredBuffers::GetShaderResourceView(int view) const
 {
 	return shaderResourceViewArray[view];
 }
+
+ID3D11ShaderResourceView* const* DeferredBuffers::GetShaderResourceViewArray() const
+{
+	return shaderResourceViewArray;
+}

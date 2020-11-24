@@ -22,6 +22,4 @@ private:
 
 	ID3D11SamplerState* samplerState = nullptr;
 
-	void setShaderResource(ID3D11ShaderResourceView* resourceView, int index);
-
 };

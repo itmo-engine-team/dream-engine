@@ -60,16 +60,7 @@ void LightShader::SetShader(DeferredBuffers* deferredBuffers)
 {
 	Shader::SetShader();
 
-
-
-	// Set shader texture resources in the pixel shader.
-	setShaderResource(deferredBuffers->GetShaderResourceView(0), 0);
-	setShaderResource(deferredBuffers->GetShaderResourceView(1), 1);
-	setShaderResource(deferredBuffers->GetShaderResourceView(2), 2);
+	graphics->GetContext()->PSSetShaderResources(0, DeferredBuffers::BUFFER_COUNT,
+		deferredBuffers->GetShaderResourceViewArray());
 	graphics->GetContext()->PSSetSamplers(0, 1, &samplerState);
-}
-
-void LightShader::setShaderResource(ID3D11ShaderResourceView* resourceView, const int index)
-{
-	graphics->GetContext()->PSSetShaderResources(index, 1, &resourceView);
 }

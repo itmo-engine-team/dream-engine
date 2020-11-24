@@ -460,6 +460,7 @@ void Graphics::PrepareRenderScene()
     context->ClearRenderTargetView(renderTargetView, color);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+    // Set shadow map
     context->PSSetShaderResources(4, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
@@ -496,4 +497,8 @@ void Graphics::PrepareRenderSceneMap(int screenWidth, int screenHeight)
 
     context->ClearRenderTargetView(sceneRenderTargetView, clearColor);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+    // Set shadow map
+    context->PSSetShaderResources(4, 1, &shadowResourceView);
+    context->PSSetSamplers(1, 1, &shadowSamplerState);
 }

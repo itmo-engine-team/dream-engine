@@ -49,7 +49,7 @@
     <FxCompile Include="Shaders\ShaderDeferred.fx">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\Light.fx">
+    <FxCompile Include="Shaders\ShaderDeferredLight.fx">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

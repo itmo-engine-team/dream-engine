@@ -1,7 +1,5 @@
 #include "KatamariGame.h"
 
-#include <iostream>
-
 #include "ErrorLogger.h"
 #include "SimpleMath.h"
 
@@ -68,8 +66,7 @@ void KatamariGame::Init(Engine* engine)
     bool result;
 
     // Create the light shader object.
-    lightShader = new LightShader(engine->GetGraphics(), L"Shaders/Light.fx");
-    // Initialize the light shader object.
+    lightShader = new LightShader(engine->GetGraphics(), L"Shaders/ShaderDeferredLight.fx");
     lightShader->Init();
     gameAssetManager->AddShader(lightShader);
 

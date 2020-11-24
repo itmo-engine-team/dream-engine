@@ -1,5 +1,6 @@
 Texture2D colorTexture : register(t0);
 Texture2D normalTexture : register(t1);
+Texture2D specularTexture : register(t2);
 
 SamplerState SampleTypePoint : register(s0);
 
@@ -49,23 +50,36 @@ PixelInputType VSMain(VertexInputType input)
     return output;
 }
 
+float4 PSCalculateLightColor(float4 color, float3 normal, float3 viewDirection)
+{
+    float4 lightColor = ambientColor;
+    float4 specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
+    float3 lightDir = -lightDirection;
+    float lightIntensity = saturate(dot(normal, lightDir));
+    if (lightIntensity > 0.0f)
+    {
+        // Diffuse light
+        lightColor += (diffuseColor * lightIntensity);
+        lightColor = saturate(lightColor);
+
+        // Specular light
+        float3 reflection = normalize(2 * lightIntensity * normal - lightDir);
+        specular = pow(saturate(dot(reflection, viewDirection)), specularPower);
+    }
+
+    lightColor *= color;
+    lightColor = saturate(lightColor + specular);
+
+    return lightColor;
+}
+
 float4 PSMain(PixelInputType input) : SV_TARGET
 {
-    // Sample the colors from the color render texture using the point sampler at this texture coordinate location.
     float4 colors = colorTexture.Sample(SampleTypePoint, input.tex);
-
-    // Sample the normals from the normal render texture using the point sampler at this texture coordinate location.
     float4 normals = normalTexture.Sample(SampleTypePoint, input.tex);
+    float4 speculars = specularTexture.Sample(SampleTypePoint, input.tex);
 
-    // Invert the light direction for calculations.
-    float3 lightDir = -lightDirection;
-
-    // Calculate the amount of light on this pixel.
-    float lightIntensity = saturate(dot(normals.xyz, lightDir));
-
-    // Determine the final amount of diffuse color based on the color of the pixel combined with the light intensity.
-    float4 outputColor = saturate(colors * lightIntensity);
-
-    return outputColor;
+    return PSCalculateLightColor(colors, normals.xyz, speculars.xyz);
 }
 

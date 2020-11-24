@@ -4,6 +4,8 @@
 
 #include "Shader.h"
 
+class DeferredBuffers;
+
 class LightShader : public Shader
 {
 
@@ -14,10 +16,12 @@ public:
 
 	void Init() override;
 
-	void SetShader(ID3D11ShaderResourceView* colorTexture, ID3D11ShaderResourceView* normalTexture);
+	void SetShader(DeferredBuffers* deferredBuffers);
 
 private:
 
 	ID3D11SamplerState* samplerState = nullptr;
+
+	void setShaderResource(ID3D11ShaderResourceView* resourceView, int index);
 
 };

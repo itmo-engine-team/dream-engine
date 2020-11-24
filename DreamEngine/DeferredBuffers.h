@@ -22,7 +22,7 @@ public:
 
 private:
 
-	static const int BUFFER_COUNT = 2;
+	static const int BUFFER_COUNT = 3;
 
 	int textureWidth, textureHeight;
 

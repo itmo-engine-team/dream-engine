@@ -44,9 +44,7 @@ void OrthoWindow::Shutdown()
 
 void OrthoWindow::Render(ID3D11DeviceContext* deviceContext)
 {
-	engine->GetGame()->lightShader->SetShader(
-		engine->GetGame()->deferredBuffers->GetShaderResourceView(0),
-		engine->GetGame()->deferredBuffers->GetShaderResourceView(1));
+	engine->GetGame()->lightShader->SetShader(engine->GetGame()->deferredBuffers);
 
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	RenderBuffers(deviceContext);

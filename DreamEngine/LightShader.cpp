@@ -3,6 +3,7 @@
 #include <d3dcompiler.h>
 
 #include "Graphics.h"
+#include "DeferredBuffers.h"
 #include "ErrorLogger.h"
 
 LightShader::LightShader(Graphics* graphics, const wchar_t* shaderPath)
@@ -55,12 +56,20 @@ void LightShader::Init()
 	initInternal(polygonLayout, numElements);
 }
 
-void LightShader::SetShader(ID3D11ShaderResourceView* colorTexture, ID3D11ShaderResourceView* normalTexture)
+void LightShader::SetShader(DeferredBuffers* deferredBuffers)
 {
 	Shader::SetShader();
 
+
+
 	// Set shader texture resources in the pixel shader.
-	graphics->GetContext()->PSSetShaderResources(0, 1, &colorTexture);
-	graphics->GetContext()->PSSetShaderResources(1, 1, &normalTexture);
+	setShaderResource(deferredBuffers->GetShaderResourceView(0), 0);
+	setShaderResource(deferredBuffers->GetShaderResourceView(1), 1);
+	setShaderResource(deferredBuffers->GetShaderResourceView(2), 2);
 	graphics->GetContext()->PSSetSamplers(0, 1, &samplerState);
+}
+
+void LightShader::setShaderResource(ID3D11ShaderResourceView* resourceView, const int index)
+{
+	graphics->GetContext()->PSSetShaderResources(index, 1, &resourceView);
 }

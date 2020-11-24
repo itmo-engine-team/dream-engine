@@ -9,10 +9,10 @@ class Texture
 {
 public:
 
-    Texture(Engine* engine, const wchar_t* texturePath, const wchar_t* normalPath);
+    Texture(Engine* engine, const wchar_t* texturePath);
     Texture(Engine* engine, ID3D11Texture2D* texture);
 
-    void setTexture();
+    void SetTexture();
 
 protected:
 
@@ -20,7 +20,6 @@ protected:
     Graphics* graphics;
 
     ID3D11ShaderResourceView* textureResource = nullptr;    // Texture object
-    ID3D11ShaderResourceView* normalResource = nullptr;    // Normal object
     ID3D11SamplerState* samplerState = nullptr;    // texture blending
 
 };

@@ -2,7 +2,6 @@
 
 #include <d3d11.h>
 
-#include "Graphics.h"
 #include "Shader.h"
 
 class LightShader : public Shader

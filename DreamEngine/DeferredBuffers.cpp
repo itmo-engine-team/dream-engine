@@ -1,4 +1,5 @@
 #include "DeferredBuffers.h"
+#include "ErrorLogger.h"
 
 DeferredBuffers::DeferredBuffers()
 {
@@ -13,11 +14,9 @@ DeferredBuffers::DeferredBuffers()
 	depthStencilView = nullptr;
 }
 
-
 DeferredBuffers::~DeferredBuffers()
 {
 }
-
 
 bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeight, float screenDepth, float screenNear)
 {
@@ -53,6 +52,8 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 		result = device->CreateTexture2D(&textureDesc, NULL, &renderTargetTextureArray[i]);
 		if (FAILED(result))
 		{
+			ErrorLogger::DirectXLog(result, Error, "Error creating RenderTargetTexture",
+				__FILE__, __FUNCTION__, __LINE__);
 			return false;
 		}
 	}
@@ -68,6 +69,8 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 		result = device->CreateRenderTargetView(renderTargetTextureArray[i], &renderTargetViewDesc, &renderTargetViewArray[i]);
 		if (FAILED(result))
 		{
+			ErrorLogger::DirectXLog(result, Error, "Error creating RenderTargetView",
+				__FILE__, __FUNCTION__, __LINE__);
 			return false;
 		}
 	}
@@ -84,6 +87,8 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 		result = device->CreateShaderResourceView(renderTargetTextureArray[i], &shaderResourceViewDesc, &shaderResourceViewArray[i]);
 		if (FAILED(result))
 		{
+			ErrorLogger::DirectXLog(result, Error, "Error creating ShaderResourceView",
+				__FILE__, __FUNCTION__, __LINE__);
 			return false;
 		}
 	}
@@ -108,6 +113,8 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 	result = device->CreateTexture2D(&depthBufferDesc, NULL, &depthStencilBuffer);
 	if (FAILED(result))
 	{
+		ErrorLogger::DirectXLog(result, Error, "Error creating DepthStencilBuffer",
+			__FILE__, __FUNCTION__, __LINE__);
 		return false;
 	}
 
@@ -123,12 +130,14 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 	result = device->CreateDepthStencilView(depthStencilBuffer, &depthStencilViewDesc, &depthStencilView);
 	if (FAILED(result))
 	{
+		ErrorLogger::DirectXLog(result, Error, "Error creating DepthStencilView",
+			__FILE__, __FUNCTION__, __LINE__);
 		return false;
 	}
 
 	// Setup the viewport for rendering.
-	viewport.Width = (float)textureWidth;
-	viewport.Height = (float)textureHeight;
+	viewport.Width = static_cast<float>(textureWidth);
+	viewport.Height = static_cast<float>(textureHeight);
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
 	viewport.TopLeftX = 0.0f;
@@ -137,48 +146,41 @@ bool DeferredBuffers::Initialize(ID3D11Device* device, int texWidth, int texHeig
 	return true;
 }
 
-
 void DeferredBuffers::Shutdown()
 {
-	int i;
-
-
 	if (depthStencilView)
 	{
 		depthStencilView->Release();
-		depthStencilView = 0;
+		depthStencilView = nullptr;
 	}
 
 	if (depthStencilBuffer)
 	{
 		depthStencilBuffer->Release();
-		depthStencilBuffer = 0;
+		depthStencilBuffer = nullptr;
 	}
 
-	for (i = 0; i < BUFFER_COUNT; i++)
+	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
 		if (shaderResourceViewArray[i])
 		{
 			shaderResourceViewArray[i]->Release();
-			shaderResourceViewArray[i] = 0;
+			shaderResourceViewArray[i] = nullptr;
 		}
 
 		if (renderTargetViewArray[i])
 		{
 			renderTargetViewArray[i]->Release();
-			renderTargetViewArray[i] = 0;
+			renderTargetViewArray[i] = nullptr;
 		}
 
 		if (renderTargetTextureArray[i])
 		{
 			renderTargetTextureArray[i]->Release();
-			renderTargetTextureArray[i] = 0;
+			renderTargetTextureArray[i] = nullptr;
 		}
 	}
-
-	return;
 }
-
 
 void DeferredBuffers::SetRenderTargets(ID3D11DeviceContext* deviceContext)
 {
@@ -187,16 +189,12 @@ void DeferredBuffers::SetRenderTargets(ID3D11DeviceContext* deviceContext)
 
 	// Set the viewport.
 	deviceContext->RSSetViewports(1, &viewport);
-
-	return;
 }
 
 
 void DeferredBuffers::ClearRenderTargets(ID3D11DeviceContext* deviceContext, float red, float green, float blue, float alpha)
 {
 	float color[4];
-	int i;
-
 
 	// Setup the color to clear the buffer to.
 	color[0] = red;
@@ -205,19 +203,16 @@ void DeferredBuffers::ClearRenderTargets(ID3D11DeviceContext* deviceContext, flo
 	color[3] = alpha;
 
 	// Clear the render target buffers.
-	for (i = 0; i < BUFFER_COUNT; i++)
+	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
 		deviceContext->ClearRenderTargetView(renderTargetViewArray[i], color);
 	}
 
 	// Clear the depth buffer.
 	deviceContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-	return;
 }
 
-
-ID3D11ShaderResourceView* DeferredBuffers::GetShaderResourceView(int view)
+ID3D11ShaderResourceView* DeferredBuffers::GetShaderResourceView(int view) const
 {
 	return shaderResourceViewArray[view];
 }

@@ -15,7 +15,7 @@ void ModelShader::SetShader()
     Shader::SetShader();
 
     if (texture != nullptr)
-        texture->setTexture();
+        texture->SetTexture();
 }
 
 bool ModelShader::HasTexture() const

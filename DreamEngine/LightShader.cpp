@@ -2,8 +2,8 @@
 
 #include <d3dcompiler.h>
 
+#include "Graphics.h"
 #include "ErrorLogger.h"
-
 
 LightShader::LightShader(Graphics* graphics, const wchar_t* shaderPath)
     : Shader(graphics, shaderPath)
@@ -13,7 +13,6 @@ LightShader::LightShader(Graphics* graphics, const wchar_t* shaderPath)
 LightShader::~LightShader()
 {
 }
-
 
 void LightShader::Init()
 {
@@ -55,7 +54,6 @@ void LightShader::Init()
     const int numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 	initInternal(polygonLayout, numElements);
 }
-
 
 void LightShader::SetShader(ID3D11ShaderResourceView* colorTexture, ID3D11ShaderResourceView* normalTexture)
 {

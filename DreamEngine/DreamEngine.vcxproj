@@ -122,7 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)ImGui.Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -155,14 +155,6 @@
     <ClInclude Include="DeferredBuffers.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="ImGui\imconfig.h" />
-    <ClInclude Include="ImGui\imgui.h" />
-    <ClInclude Include="ImGui\imgui_impl_dx11.h" />
-    <ClInclude Include="ImGui\imgui_impl_win32.h" />
-    <ClInclude Include="ImGui\imgui_internal.h" />
-    <ClInclude Include="ImGui\imstb_rectpack.h" />
-    <ClInclude Include="ImGui\imstb_textedit.h" />
-    <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="LightActor.h" />
     <ClInclude Include="LightComponent.h" />
     <ClInclude Include="LightShader.h" />
@@ -197,11 +189,6 @@
     <ClCompile Include="DeferredBuffers.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="ImGui\imgui.cpp" />
-    <ClCompile Include="ImGui\imgui_draw.cpp" />
-    <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
-    <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="LightActor.cpp" />
     <ClCompile Include="LightComponent.cpp" />
     <ClCompile Include="LightShader.cpp" />
@@ -231,6 +218,9 @@
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
       <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
+      <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

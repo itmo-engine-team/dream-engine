@@ -129,10 +129,19 @@
     <ClInclude Include="LightActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeferredBuffers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ModelDataBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ModelShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthoWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -218,7 +227,16 @@
     <ClCompile Include="LightActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DeferredBuffers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ModelShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthoWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

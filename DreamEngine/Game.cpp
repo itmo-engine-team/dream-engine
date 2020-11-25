@@ -39,8 +39,9 @@ void Game::Render()
     }
 }
 
-void Game::RenderShadowMap()
+void Game::RenderShadowMap() 
 {
+    
     for (auto actor : gameAssetManager->GetActors())
     {
         actor->DrawShadowMap();
@@ -61,4 +62,9 @@ float Game::GetGameDeltaTime()
 {
     gameDeltaTime = engine->GetDeltaTime() * gameDeltaTimeMultiplier;
     return gameDeltaTime;
+}
+
+LightShader* Game::GetLightShader()
+{
+    return lightShader;
 }

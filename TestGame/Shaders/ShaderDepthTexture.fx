@@ -33,6 +33,5 @@ float4 PSMain(PS_DATA input) : SV_Target
 {
 	// Get the depth value of the pixel by dividing the Z pixel depth by the homogeneous W coordinate.
     float depthValue = input.depthPos.z / input.depthPos.w;
-    //return float4(depthValue, depthValue, depthValue, 1.0f); 
     return float4(input.depthPos.xyz, 1.0f);
 }

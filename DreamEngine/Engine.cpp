@@ -15,6 +15,8 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
     window = new Window(this);
     window->WindowInitialize(hInstance, wc);
 
+    orthoWindow = new OrthoWindow(this);
+
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
 }
@@ -38,6 +40,7 @@ void Engine::Init()
 {
     // Init Game
     game->Init(this);
+    orthoWindow->Initialize(graphics->GetDevice(), screenWidth, screenHeight);
 }
 
 bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
@@ -122,28 +125,38 @@ void Engine::update()
 
 void Engine::render()
 {
+    // Deferred renders to textures
+    graphics->PrepareDeferredBuffer();
+
+    graphics->GetAnnotation()->BeginEvent(L"Deferred");
+    game->Render();
+    graphics->GetAnnotation()->EndEvent();
+
     // Render shadow map
+    graphics->GetAnnotation()->BeginEvent(L"ShadowMap");
     graphics->PrepareRenderShadowMap();
     game->RenderShadowMap();
+    graphics->GetAnnotation()->EndEvent();
 
-    // Render scene
-    graphics->PrepareRenderSceneMap(screenWidth, screenHeight);
-    game->Render();
+    graphics->PrepareRenderScene(); // TODO Clear scene without rendering
 
-    graphics->PrepareRenderScene();
-  
-    float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    graphics->GetContext()->ClearRenderTargetView(graphics->GetRenderTargetView(), color);
-    graphics->GetContext()->ClearDepthStencilView(graphics->GetDepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-    if (graphics->GetGameMode() == true)
+    graphics->GetAnnotation()->BeginEvent(L"Scene");
+    if (graphics->IsEditMode())
     {
-        graphics->GetAnnotation()->BeginEvent(L"BeginDraw");
-        game->Render();
-        graphics->GetAnnotation()->EndEvent();
+        graphics->PrepareRenderSceneMap(screenWidth, screenHeight);
+
+        // Scene rendering
+        orthoWindow->Render(graphics->GetContext());
     }
+    else if (graphics->IsGameMode())
+    {
+        // Scene rendering
+        orthoWindow->Render(graphics->GetContext());
+    }
+    graphics->GetAnnotation()->EndEvent();
 
     graphics->SwitchWindow();
+
     /*// Add text on Scene
     wchar_t pretext[200];
     swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);

@@ -20,7 +20,7 @@ public:
 
     MeshObject(Engine* engine, Transform* transform, MeshData* meshData, ModelShader* shader);
 
-    void Draw();
+    void Render();
     bool RenderShadowMap();
 
 protected:

@@ -3,11 +3,6 @@
 #include "ErrorLogger.h"
 #include "DepthShader.h"
 
-Graphics::Graphics()
-{
-
-}
-
 bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 {
     HRESULT res;
@@ -93,6 +88,8 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewport.TopLeftY = 0;
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
+
+    InitializeDeferredBuffer(screenWidth, screenHeight);
 
     initDepthShadowMap();
     initSceneMap(screenWidth, screenHeight);
@@ -416,6 +413,11 @@ ID3D11Texture2D* Graphics::GetShadowMap()
     return shadowMap;
 }
 
+DeferredBuffers* Graphics::GetDeferredBuffers()
+{
+    return deferredBuffers;
+}
+
 bool Graphics::HasLight() const
 {
     return hasLight;
@@ -426,7 +428,12 @@ bool Graphics::HasShadow() const
     return hasShadow;
 }
 
-bool Graphics::GetGameMode()
+bool Graphics::IsEditMode() const
+{
+    return editMode;
+}
+
+bool Graphics::IsGameMode() const
 {
     return gameMode;
 }
@@ -451,7 +458,12 @@ void Graphics::PrepareRenderScene()
     context->RSSetViewports(1, &viewport);
     context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
-    context->PSSetShaderResources(1, 1, &shadowResourceView);
+    float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+    context->ClearRenderTargetView(renderTargetView, color);
+    context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+    // Set shadow map
+    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
@@ -472,10 +484,6 @@ void Graphics::PrepareRenderSceneMap(int screenWidth, int screenHeight)
 
     context->OMSetRenderTargets(1, &sceneRenderTargetView, depthStencilView);
 
-    //TODO: move shadows
-    context->PSSetShaderResources(1, 1, &shadowResourceView); 
-    context->PSSetSamplers(1, 1, &shadowSamplerState);
-
     D3D11_VIEWPORT viewport = {};
     viewport.Width = static_cast<float>(screenWidth);
     viewport.Height = static_cast<float>(screenHeight);
@@ -491,4 +499,34 @@ void Graphics::PrepareRenderSceneMap(int screenWidth, int screenHeight)
 
     context->ClearRenderTargetView(sceneRenderTargetView, clearColor);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+    // Set shadow map
+    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
+    context->PSSetSamplers(1, 1, &shadowSamplerState);
+}
+
+void Graphics::PrepareDeferredBuffer()
+{
+    deferredBuffers->SetRenderTargets(context);
+
+    deferredBuffers->ClearRenderTargets(context, 0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void Graphics::InitializeDeferredBuffer(int screenWidth, int screenHeight)
+{
+    deferredBuffers = new DeferredBuffers;
+    if (!deferredBuffers)
+    {
+        ErrorLogger::Log(Error, "Error create new deferred buffer");
+        return;
+    }
+
+    // Initialize the deferred buffers object.
+    bool result;
+    result = deferredBuffers->Initialize(device, screenWidth, screenHeight, 100, 0.1f);
+    if (!result)
+    {
+        ErrorLogger::Log(Error, "Error initializing DeferredBuffers");
+    }
+
 }

@@ -15,7 +15,7 @@ void StaticModelComponent::onDraw()
 {
     for (auto meshObject : meshObjects)
     {
-        meshObject->Draw();
+        meshObject->Render();
     }
 }
 

@@ -36,9 +36,9 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
         &bd,
         &sd,
         vertexBuffer.GetAddressOf()
-        );
+    );
     ErrorLogger::DirectXLog(hr, Error, "Failed to create VertexBuffer", __FILE__, __FUNCTION__, __LINE__);
-	
+
     stride = sizeof(Vertex);
 
     // Create Index buffer
@@ -57,7 +57,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
         &ibd,
         &isd,
         indexBuffer.GetAddressOf()
-        );
+    );
     ErrorLogger::DirectXLog(hr, Error, "Failed to create IndexBuffer", __FILE__, __FUNCTION__, __LINE__);
 
     CD3D11_BUFFER_DESC cbd;
@@ -79,7 +79,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     lightBufferDesc.StructureByteStride = 0;
     hr = graphics->GetDevice()->CreateBuffer(&lightBufferDesc, NULL, &lightBuffer);
     ErrorLogger::DirectXLog(hr, Error, "Failed to create LightBuffer", __FILE__, __FUNCTION__, __LINE__);
-	
+
     D3D11_BUFFER_DESC cameraBufferDesc;
     cameraBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     cameraBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -101,7 +101,7 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     ErrorLogger::DirectXLog(hr, Error, "Failed to create ModelDataBuffer", __FILE__, __FUNCTION__, __LINE__);
 }
 
-void MeshObject::Draw()
+void MeshObject::Render()
 {
     graphics->GetContext()->IASetVertexBuffers(
         0u,
@@ -109,7 +109,7 @@ void MeshObject::Draw()
         vertexBuffer.GetAddressOf(),
         &stride,
         &offset
-        );
+    );
     graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 

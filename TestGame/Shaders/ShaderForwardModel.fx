@@ -22,7 +22,6 @@ cbuffer LightBuffer : register(b1)
     float3 lightDirection;
     float specularPower;
     float4 specularColor;
-    float lightPadding;
 };
 
 cbuffer CameraBuffer : register(b2)

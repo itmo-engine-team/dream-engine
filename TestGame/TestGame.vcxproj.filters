@@ -43,7 +43,13 @@
     <FxCompile Include="Shaders\ShaderDepthTexture.fx">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\ShaderModel.fx">
+    <FxCompile Include="Shaders\ShaderDeferredLight.fx">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\ShaderForwardModel.fx">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\ShaderDeferredModel.fx">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

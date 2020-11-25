@@ -25,5 +25,6 @@ protected:
     virtual void onUpdate();
     virtual void onDraw();
     virtual void onDrawShadowMap();
+
 };
 

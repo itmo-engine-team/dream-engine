@@ -30,7 +30,7 @@ public:
 
     Graphics() = default;
     bool DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd);
-    void InitializaeDeferredBuffer(int screenWidth, int screenHeight);
+    void InitializeDeferredBuffer(int screenWidth, int screenHeight);
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
 

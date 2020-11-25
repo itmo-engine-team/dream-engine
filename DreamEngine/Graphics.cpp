@@ -501,7 +501,7 @@ void Graphics::PrepareRenderSceneMap(int screenWidth, int screenHeight)
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
     // Set shadow map
-    context->PSSetShaderResources(4, 1, &shadowResourceView);
+    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
@@ -512,7 +512,7 @@ void Graphics::PrepareDeferredBuffer()
     deferredBuffers->ClearRenderTargets(context, 0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void Graphics::InitializaeDeferredBuffer(int screenWidth, int screenHeight)
+void Graphics::InitializeDeferredBuffer(int screenWidth, int screenHeight)
 {
     deferredBuffers = new DeferredBuffers;
     if (!deferredBuffers)

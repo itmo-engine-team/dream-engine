@@ -40,5 +40,6 @@ protected:
     float gameDeltaTimeMultiplier = 1;
 
     LightShader* lightShader;
+
 };
 

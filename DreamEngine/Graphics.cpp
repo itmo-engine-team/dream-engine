@@ -89,7 +89,7 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
-    InitializaeDeferredBuffer(screenWidth, screenHeight);
+    InitializeDeferredBuffer(screenWidth, screenHeight);
 
     initDepthShadowMap();
     initSceneMap(screenWidth, screenHeight);

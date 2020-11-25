@@ -67,7 +67,7 @@ PS_DATA VSMain(VS_DATA input)
 {
     PS_DATA output;
 
-    //Calculate the position of the vertex against the world, view, and projection matrices.
+    // Calculate the position of the vertex against the world, view, and projection matrices.
     output.pos = mul(float4(input.pos, 1.0f), World);
     output.pos = mul(output.pos, View);
     output.pos = mul(output.pos, Projection);

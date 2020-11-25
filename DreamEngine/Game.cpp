@@ -48,15 +48,6 @@ void Game::RenderShadowMap()
     }
 }
 
-void Game::PrepareDeferredBuffer()
-{
-    // Set the render buffers to be the render target.
-    deferredBuffers->SetRenderTargets(engine->GetGraphics()->GetContext());
-
-    // Clear the render buffers.
-    deferredBuffers->ClearRenderTargets(engine->GetGraphics()->GetContext(), 0.0f, 0.0f, 0.0f, 1.0f);
-}
-
 void Game::SetGameDeltaTimeMultiplier(float deltaTimeMultiplier)
 {
     gameDeltaTimeMultiplier = std::clamp(deltaTimeMultiplier, 0.0f, 1.0f);
@@ -71,4 +62,9 @@ float Game::GetGameDeltaTime()
 {
     gameDeltaTime = engine->GetDeltaTime() * gameDeltaTimeMultiplier;
     return gameDeltaTime;
+}
+
+LightShader* Game::GetLightShader()
+{
+    return lightShader;
 }

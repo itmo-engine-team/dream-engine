@@ -126,7 +126,7 @@ void Engine::update()
 void Engine::render()
 {
     // Deferred renders to textures
-    game->PrepareDeferredBuffer();
+    graphics->PrepareDeferredBuffer();
 
     graphics->GetAnnotation()->BeginEvent(L"Deferred");
     game->Render();

@@ -9,6 +9,7 @@
 #include "ImGui/imgui_impl_dx11.h"
 #include "ImGui/imgui_impl_win32.h"
 #include "Shader.h"
+#include "DeferredBuffers.h"
 #include <vector>
 
 #pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
@@ -27,8 +28,9 @@ class Graphics
 {
 public:
 
-    Graphics();
+    Graphics() = default;
     bool DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd);
+    void InitializaeDeferredBuffer(int screenWidth, int screenHeight);
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
 
@@ -37,6 +39,7 @@ public:
     void PrepareRenderScene();
     void PrepareRenderShadowMap() const;
     void PrepareRenderSceneMap(int screenWidth, int screenHeight);
+    void PrepareDeferredBuffer();
   
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -48,6 +51,8 @@ public:
     ID3D11DepthStencilView* GetDepthStencilView();
 
     ID3D11Texture2D* GetShadowMap();
+
+    DeferredBuffers* GetDeferredBuffers();
 
     bool HasLight() const;
     bool HasShadow() const;
@@ -110,4 +115,5 @@ private:
     void createShadowViewport();
     void createGameViewport();
 
+    DeferredBuffers* deferredBuffers;
 };

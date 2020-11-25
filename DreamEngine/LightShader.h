@@ -11,15 +11,15 @@ class LightShader : public Shader
 
 public:
 
-	LightShader(Graphics* graphics, const wchar_t* shaderPath);
-	~LightShader();
+    LightShader(Graphics* graphics, const wchar_t* shaderPath);
+    ~LightShader() = default;
 
-	void Init() override;
+    void Init() override;
 
-	void SetShader(DeferredBuffers* deferredBuffers);
+    void SetShader(DeferredBuffers* deferredBuffers);
 
 private:
 
-	ID3D11SamplerState* samplerState = nullptr;
+    ID3D11SamplerState* samplerState = nullptr;
 
 };

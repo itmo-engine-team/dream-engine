@@ -3,11 +3,6 @@
 #include "ErrorLogger.h"
 #include "DepthShader.h"
 
-Graphics::Graphics()
-{
-
-}
-
 bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 {
     HRESULT res;
@@ -93,6 +88,8 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     viewport.TopLeftY = 0;
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
+
+    InitializaeDeferredBuffer(screenWidth, screenHeight);
 
     initDepthShadowMap();
     initSceneMap(screenWidth, screenHeight);
@@ -416,6 +413,11 @@ ID3D11Texture2D* Graphics::GetShadowMap()
     return shadowMap;
 }
 
+DeferredBuffers* Graphics::GetDeferredBuffers()
+{
+    return deferredBuffers;
+}
+
 bool Graphics::HasLight() const
 {
     return hasLight;
@@ -461,7 +463,7 @@ void Graphics::PrepareRenderScene()
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
     // Set shadow map
-    context->PSSetShaderResources(4, 1, &shadowResourceView);
+    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
@@ -501,4 +503,30 @@ void Graphics::PrepareRenderSceneMap(int screenWidth, int screenHeight)
     // Set shadow map
     context->PSSetShaderResources(4, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
+}
+
+void Graphics::PrepareDeferredBuffer()
+{
+    deferredBuffers->SetRenderTargets(context);
+
+    deferredBuffers->ClearRenderTargets(context, 0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void Graphics::InitializaeDeferredBuffer(int screenWidth, int screenHeight)
+{
+    deferredBuffers = new DeferredBuffers;
+    if (!deferredBuffers)
+    {
+        ErrorLogger::Log(Error, "Error create new deferred buffer");
+        return;
+    }
+
+    // Initialize the deferred buffers object.
+    bool result;
+    result = deferredBuffers->Initialize(device, screenWidth, screenHeight, 100, 0.1f);
+    if (!result)
+    {
+        ErrorLogger::Log(Error, "Error initializing DeferredBuffers");
+    }
+
 }

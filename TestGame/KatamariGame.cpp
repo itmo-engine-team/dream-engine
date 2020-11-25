@@ -63,26 +63,10 @@ void KatamariGame::Init(Engine* engine)
     gameAssetManager->AddShader(shader);
 
     // Deferred
-    bool result;
-
     // Create the light shader object.
     lightShader = new LightShader(engine->GetGraphics(), L"Shaders/ShaderDeferredLight.fx");
     lightShader->Init();
     gameAssetManager->AddShader(lightShader);
-
-    deferredBuffers = new DeferredBuffers; 
-    if (!deferredBuffers)
-    {
-        return;
-    }
-
-    // Initialize the deferred buffers object.
-    result = deferredBuffers->Initialize(engine->GetGraphics()->GetDevice(), engine->GetScreenWidth(), engine->GetScreenHeight(), 100, 0.1f);
-    if (!result)
-    {
-        ErrorLogger::Log(Error, "Error initializing DeferredBuffers");
-        return;
-    }
 
     // Init Meshes
 

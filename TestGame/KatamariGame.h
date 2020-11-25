@@ -9,7 +9,6 @@
 #include "ModelShader.h"
 #include "LightActor.h"
 
-
 class KatamariGame : public Game
 {
 public:

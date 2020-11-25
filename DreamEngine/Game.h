@@ -3,7 +3,6 @@
 #include "CameraComponent.h"
 #include "GameAssetManager.h"
 #include "LightComponent.h"
-#include "DeferredBuffers.h"
 #include "LightShader.h"
 
 class Engine;
@@ -25,14 +24,12 @@ public:
     virtual void Update();
     virtual void Render();
     void RenderShadowMap();
-    void PrepareDeferredBuffer();
 
     void SetGameDeltaTimeMultiplier(float deltaTimeMultiplier);
     float GetGameDeltaTimeMultiplier();
     float GetGameDeltaTime();
 
-    DeferredBuffers* deferredBuffers;
-    LightShader* lightShader;
+    LightShader* GetLightShader();
 
 protected:
 
@@ -42,5 +39,6 @@ protected:
     float gameDeltaTime;
     float gameDeltaTimeMultiplier = 1;
 
+    LightShader* lightShader;
 };
 

@@ -3,10 +3,13 @@
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
+#include "EditorWindowAssetBrowser.h"
 
 Editor::Editor(ID3D11Device* device, ID3D11DeviceContext* context, const HWND hWnd)
 {
     initImGui(device, context, hWnd);
+
+    windows.push_back(new EditorWindowAssetBrowser);
 }
 
 Editor::~Editor()

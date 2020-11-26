@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorWindow.h" />
+    <ClInclude Include="EditorWindowAssetBrowser.h" />
     <ClInclude Include="EditorWindowGameViewport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
+    <ClCompile Include="EditorWindowAssetBrowser.cpp" />
     <ClCompile Include="EditorWindowGameViewport.cpp" />
   </ItemGroup>
   <ItemGroup>

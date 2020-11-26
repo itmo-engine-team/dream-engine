@@ -24,6 +24,9 @@
     <ClInclude Include="EditorWindowGameViewport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorWindowAssetBrowser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorWindowGameViewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowAssetBrowser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

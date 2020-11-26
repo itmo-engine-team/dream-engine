@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include "Editor.h"
+
 Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
     : game(game), inputSystem(inputSystem)
 {
@@ -19,6 +21,8 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
 
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
+
+    editor = new Editor(window->GetWnd());
 }
 
 Engine::~Engine()
@@ -138,10 +142,9 @@ void Engine::render()
     game->RenderShadowMap();
     graphics->GetAnnotation()->EndEvent();
 
-    graphics->PrepareRenderScene(); // TODO Clear scene without rendering
-
     if (isGameMode)
     {
+        graphics->PrepareRenderScene();
         renderScene();
     }
     else
@@ -150,6 +153,7 @@ void Engine::render()
 
         renderScene();
 
+        graphics->PrepareRenderScene();
         graphics->SwitchWindow();
     }
 

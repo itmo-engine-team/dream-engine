@@ -20,6 +20,8 @@
 
 using namespace DirectX::SimpleMath;
 
+class Editor;
+
 class Engine
 {
 public:
@@ -48,9 +50,10 @@ public:
 
 protected:
 
-    bool isGameMode = false;
+    bool isGameMode = true;
 
     Game* game;
+    Editor* editor;
 
     Window* window;
     Graphics* graphics;

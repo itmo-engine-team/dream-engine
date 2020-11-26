@@ -225,8 +225,6 @@ void Graphics::SwitchWindow()
     // assemble together draw data
     ImGui::Render();
 
-    context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
-
     // render draw data
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 

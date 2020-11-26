@@ -52,8 +52,7 @@ void Editor::initImGui(const HWND hWnd)
     }
 
     ImGui_ImplWin32_Init(hWnd);
-    // TODO
-    // ImGui_ImplDX11_Init(device, context);
+    //ImGui_ImplDX11_Init(device, context);
 }
 
 void Editor::startImGuiFrame()
@@ -67,9 +66,6 @@ void Editor::finishImGuiFrame()
 {
     // assemble together draw data
     ImGui::Render();
-
-    // TODO
-    // context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
     // render draw data
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

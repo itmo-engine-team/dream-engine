@@ -99,6 +99,11 @@ private:
     bool gameMode = false;
     bool editMode = false;
 
+    bool shadowViewport = false;
+    bool gameViewport = false;
+    bool switchWindow = false;
+    bool assetBrowser = true;
+
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     void setupImGui(HWND hWnd);
@@ -108,5 +113,7 @@ private:
     
     void createShadowViewport();
     void createGameViewport();
+    void mainEditorMenu();
+    void createAssetBrowser();
 
 };

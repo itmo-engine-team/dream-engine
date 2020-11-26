@@ -33,8 +33,6 @@ public:
     void InitializeDeferredBuffer(int screenWidth, int screenHeight);
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
-
-    void SwitchWindow();
     
     void PrepareRenderScene();
     void PrepareRenderShadowMap() const;
@@ -99,10 +97,6 @@ private:
     bool hasLight = true;
     bool hasShadow = true;
 
-    bool shadowViewport = false;
-    bool gameViewport = false;
-    bool assetBrowser = true;
-
     bool direct2DInitialize(HWND hWnd);
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     void setupImGui(HWND hWnd);
@@ -110,10 +104,9 @@ private:
     bool initDepthShadowMap(); 
     bool initSceneMap(int screenWidth, int screenHeight);
     
-    void createShadowViewport();
+    /*void createShadowViewport();
     void createGameViewport();
-    void mainEditorMenu();
-    void createAssetBrowser();
-
+    void createAssetBrowser();*/
+    
     DeferredBuffers* deferredBuffers;
 };

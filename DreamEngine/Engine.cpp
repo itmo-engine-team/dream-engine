@@ -22,7 +22,7 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
 
-    editor = new Editor(window->GetWnd());
+    editor = new Editor(graphics->GetDevice(), graphics->GetContext(), window->GetWnd());
 }
 
 Engine::~Engine()
@@ -125,6 +125,7 @@ int Engine::GetScreenHeight() const
 void Engine::update()
 {
     game->Update();
+    editor->Update();
 }
 
 void Engine::render()
@@ -154,7 +155,7 @@ void Engine::render()
         renderScene();
 
         graphics->PrepareRenderScene();
-        graphics->SwitchWindow();
+        editor->Render();
     }
 
     /*// Add text on Scene

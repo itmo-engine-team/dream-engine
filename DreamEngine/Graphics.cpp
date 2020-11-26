@@ -96,7 +96,6 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 
     direct2DInitialize(hWnd);
     setupImGui(hWnd);
-    SwitchWindow();
 
     return true;
 }
@@ -209,31 +208,6 @@ void Graphics::setupImGui(HWND hWnd)
 
     ImGui_ImplWin32_Init(hWnd);
     ImGui_ImplDX11_Init(device, context);  
-}
-
-void Graphics::SwitchWindow()
-{
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
-
-    mainEditorMenu();
-    if (shadowViewport) { createShadowViewport(); }
-    if (gameViewport) { createGameViewport(); }
-    if (assetBrowser) { createAssetBrowser(); }
-
-    // assemble together draw data
-    ImGui::Render();
-
-    // render draw data
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-    ImGuiIO& io = ImGui::GetIO();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-        ImGui::UpdatePlatformWindows();
-        ImGui::RenderPlatformWindowsDefault();
-    }
 }
 
 bool Graphics::initDepthShadowMap()
@@ -416,7 +390,7 @@ bool Graphics::HasShadow() const
     return hasShadow;
 }
 
-void Graphics::createShadowViewport()
+/*void Graphics::createShadowViewport()
 {
     ImGui::Begin("ShadowRender");
     ImGui::Image(shadowResourceView, ImVec2(300, 300));
@@ -428,33 +402,6 @@ void Graphics::createGameViewport()
     ImGui::Begin("GameViewport");
     ImGui::Image(sceneResourceView, ImVec2(400, 300));
     ImGui::End();
-}
-
-void Graphics::mainEditorMenu()
-{
-    if (ImGui::BeginMainMenuBar())
-    {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("New")) {}
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("Editor"))
-        {
-            if (ImGui::MenuItem("Save Layout", "")) {}
-            if (ImGui::MenuItem("Load Layout", "")) {} 
-            ImGui::Separator();
-            if (ImGui::MenuItem("Close All ", "")) {}
-            if (ImGui::BeginMenu("Windows", "")) 
-            {
-                if (ImGui::MenuItem("Shadow Viewport", " ", &shadowViewport)) {}
-                if (ImGui::MenuItem("Game Viewport", " ", &gameViewport)) {}
-                ImGui::EndMenu();
-            }
-            ImGui::EndMenu();
-        }
-        ImGui::EndMainMenuBar();
-    }
 }
 
 void Graphics::createAssetBrowser()
@@ -508,7 +455,7 @@ void Graphics::createAssetBrowser()
                 {
                     ImGui::Text("geometry element");
                     ImGui::SameLine();
-                    if (ImGui::SmallButton("open")) { /* do something*/ }
+                    if (ImGui::SmallButton("open")) { /* do something*/ /*}
                     ImGui::TreePop();
                 }
             }
@@ -562,7 +509,7 @@ void Graphics::createAssetBrowser()
     }
 
     ImGui::End();  
-}
+}*/
 
 void Graphics::PrepareRenderScene()
 {

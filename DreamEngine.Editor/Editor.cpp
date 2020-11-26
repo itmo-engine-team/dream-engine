@@ -4,9 +4,9 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
-Editor::Editor(const HWND hWnd)
+Editor::Editor(ID3D11Device* device, ID3D11DeviceContext* context, const HWND hWnd)
 {
-    initImGui(hWnd);
+    initImGui(device, context, hWnd);
 }
 
 Editor::~Editor()
@@ -29,7 +29,7 @@ void Editor::Render()
     finishImGuiFrame();
 }
 
-void Editor::initImGui(const HWND hWnd)
+void Editor::initImGui(ID3D11Device* device, ID3D11DeviceContext* context, const HWND hWnd)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -52,7 +52,7 @@ void Editor::initImGui(const HWND hWnd)
     }
 
     ImGui_ImplWin32_Init(hWnd);
-    //ImGui_ImplDX11_Init(device, context);
+    ImGui_ImplDX11_Init(device, context);
 }
 
 void Editor::startImGuiFrame()
@@ -88,8 +88,40 @@ void Editor::updateWindows()
 
 void Editor::renderWindows()
 {
+    renderMainEditorMenu();
+    /*if (shadowViewport) { createShadowViewport(); }
+    if (gameViewport) { createGameViewport(); }
+    if (assetBrowser) { createAssetBrowser(); }*/
+
     for (EditorWindow* window : windows)
     {
         window->Render();
+    }
+}
+
+void Editor::renderMainEditorMenu()
+{
+    if (ImGui::BeginMainMenuBar())
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("New")) {}
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Editor"))
+        {
+            if (ImGui::MenuItem("Save Layout", "")) {}
+            if (ImGui::MenuItem("Load Layout", "")) {}
+            ImGui::Separator();
+            if (ImGui::MenuItem("Close All ", "")) {}
+            if (ImGui::BeginMenu("Windows", ""))
+            {
+                /*if (ImGui::MenuItem("Shadow Viewport", " ", &shadowViewport)) {}
+                if (ImGui::MenuItem("Game Viewport", " ", &gameViewport)) {}*/
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
     }
 }

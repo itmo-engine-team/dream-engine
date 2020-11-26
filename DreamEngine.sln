@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sol2.TestProject", "Sol2.Te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui.Sources", "ImGui.Sources\ImGui.Sources.vcxproj", "{788A7F63-A1DA-4C0F-855E-A471192C13BC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DreamEngine.Editor", "DreamEngine.Editor\DreamEngine.Editor.vcxproj", "{496CEF75-6810-4145-AE01-AB4D64C2CB25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -101,6 +103,14 @@ Global
 		{788A7F63-A1DA-4C0F-855E-A471192C13BC}.Release|x64.Build.0 = Release|x64
 		{788A7F63-A1DA-4C0F-855E-A471192C13BC}.Release|x86.ActiveCfg = Release|Win32
 		{788A7F63-A1DA-4C0F-855E-A471192C13BC}.Release|x86.Build.0 = Release|Win32
+		{496CEF75-6810-4145-AE01-AB4D64C2CB25}.Debug|x64.ActiveCfg = Debug|x64
+		{496CEF75-6810-4145-AE01-AB4D64C2CB25}.Debug|x64.Build.0 = Debug|x64
+		{496CEF75-6810-4145-AE01-AB4D64C2CB25}.Debug|x86.ActiveCfg = Debug|Win32
+		{496CEF75-6810-4145-AE01-AB4D64C2CB25}.Debug|x86.Build.0 = Debug|Win32
+		{496CEF75-6810-4145-AE01-AB4D64C2CB25}.Release|x64.ActiveCfg = Release|x64
+		{496CEF75-6810-4145-AE01-AB4D64C2CB25}.Release|x64.Build.0 = Release|x64
+		{496CEF75-6810-4145-AE01-AB4D64C2CB25}.Release|x86.ActiveCfg = Release|Win32
+		{496CEF75-6810-4145-AE01-AB4D64C2CB25}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

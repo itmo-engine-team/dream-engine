@@ -217,20 +217,10 @@ void Graphics::SwitchWindow()
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
-    // create ImGui window
-    ImGui::Begin("Switch mode");
-    ImGui::SetWindowSize(ImVec2(200, 100));
-    ImGui::Checkbox("Game mode", &this->gameMode);
-    ImGui::Checkbox("Edit mode", &this->editMode);
-    ImGui::End();
-
-    if (editMode == true)
-    {
-        mainEditorMenu();
-        if (shadowViewport) { createShadowViewport(); }
-        if (gameViewport) { createGameViewport(); }
-        if (assetBrowser) { createAssetBrowser(); }
-    }
+    mainEditorMenu();
+    if (shadowViewport) { createShadowViewport(); }
+    if (gameViewport) { createGameViewport(); }
+    if (assetBrowser) { createAssetBrowser(); }
 
     // assemble together draw data
     ImGui::Render();
@@ -246,8 +236,6 @@ void Graphics::SwitchWindow()
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();
     }
-    
-    swapChain->Present(1, 0);
 }
 
 bool Graphics::initDepthShadowMap()
@@ -430,16 +418,6 @@ bool Graphics::HasShadow() const
     return hasShadow;
 }
 
-bool Graphics::IsEditMode() const
-{
-    return editMode;
-}
-
-bool Graphics::IsGameMode() const
-{
-    return gameMode;
-}
-
 void Graphics::createShadowViewport()
 {
     ImGui::Begin("ShadowRender");
@@ -473,7 +451,6 @@ void Graphics::mainEditorMenu()
             {
                 if (ImGui::MenuItem("Shadow Viewport", " ", &shadowViewport)) {}
                 if (ImGui::MenuItem("Game Viewport", " ", &gameViewport)) {}
-                if (ImGui::MenuItem("Switch Mode", " ", &switchWindow)) {}
                 ImGui::EndMenu();
             }
             ImGui::EndMenu();

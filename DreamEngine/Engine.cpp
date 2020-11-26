@@ -140,25 +140,30 @@ void Engine::render()
 
     graphics->PrepareRenderScene(); // TODO Clear scene without rendering
 
-    graphics->GetAnnotation()->BeginEvent(L"Scene");
-    if (graphics->IsEditMode())
+    if (isGameMode)
+    {
+        renderScene();
+    }
+    else
     {
         graphics->PrepareRenderSceneMap(screenWidth, screenHeight);
 
-        // Scene rendering
-        orthoWindow->Render(graphics->GetContext());
-    }
-    else if (graphics->IsGameMode())
-    {
-        // Scene rendering
-        orthoWindow->Render(graphics->GetContext());
-    }
-    graphics->GetAnnotation()->EndEvent();
+        renderScene();
 
-    graphics->SwitchWindow();
+        graphics->SwitchWindow();
+    }
 
     /*// Add text on Scene
     wchar_t pretext[200];
     swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);
     graphics->DrawTextOnScene(400, 100, pretext);*/
+
+    graphics->GetSwapChain()->Present(1, 0);
+}
+
+void Engine::renderScene()
+{
+    graphics->GetAnnotation()->BeginEvent(L"Scene");
+    orthoWindow->Render(graphics->GetContext());
+    graphics->GetAnnotation()->EndEvent();
 }

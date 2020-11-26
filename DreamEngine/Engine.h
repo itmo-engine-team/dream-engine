@@ -48,6 +48,8 @@ public:
 
 protected:
 
+    bool isGameMode = false;
+
     Game* game;
 
     Window* window;
@@ -69,5 +71,6 @@ protected:
 
     virtual void update();
     void render();
+    void renderScene();
 
 };

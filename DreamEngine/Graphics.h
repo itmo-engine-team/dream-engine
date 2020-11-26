@@ -57,9 +57,6 @@ public:
     bool HasLight() const;
     bool HasShadow() const;
 
-    bool IsGameMode() const;
-    bool IsEditMode() const;
-
 private:
 
     const FLOAT SHADOW_MAP_SIZE = 1024;
@@ -102,12 +99,8 @@ private:
     bool hasLight = true;
     bool hasShadow = true;
 
-    bool gameMode = true;
-    bool editMode = false;
-
     bool shadowViewport = false;
     bool gameViewport = false;
-    bool switchWindow = false;
     bool assetBrowser = true;
 
     bool direct2DInitialize(HWND hWnd);

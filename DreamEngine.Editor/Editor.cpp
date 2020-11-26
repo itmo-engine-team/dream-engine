@@ -92,12 +92,12 @@ void Editor::updateWindows()
 void Editor::renderWindows()
 {
     renderMainEditorMenu();
-    /*if (shadowViewport) { createShadowViewport(); }
-    if (gameViewport) { createGameViewport(); }
-    if (assetBrowser) { createAssetBrowser(); }*/
 
     for (EditorWindow* window : windows)
     {
+        if (!window->IsVisible())
+            continue;
+
         window->Render();
     }
 }
@@ -119,8 +119,13 @@ void Editor::renderMainEditorMenu()
             if (ImGui::MenuItem("Close All ", "")) {}
             if (ImGui::BeginMenu("Windows", ""))
             {
-                /*if (ImGui::MenuItem("Shadow Viewport", " ", &shadowViewport)) {}
-                if (ImGui::MenuItem("Game Viewport", " ", &gameViewport)) {}*/
+                for (EditorWindow* window : windows)
+                {
+                    bool selected = window->IsVisible();
+                    ImGui::MenuItem(window->GetName().data(), " ", &selected);
+                    window->SetVisible(selected);
+                }
+                
                 ImGui::EndMenu();
             }
             ImGui::EndMenu();

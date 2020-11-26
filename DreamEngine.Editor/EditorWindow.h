@@ -15,9 +15,14 @@ public:
 
     std::string GetName() const;
 
+    bool IsVisible() const;
+    void SetVisible(bool isVisible);
+
 private:
 
     std::string name;
+
+    bool isVisible = true;
 
 };
 

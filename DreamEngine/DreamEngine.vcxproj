@@ -154,7 +154,6 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="LightActor.h" />
     <ClInclude Include="LightComponent.h" />
-    <ClInclude Include="Window.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="Transform.h" />
@@ -171,7 +170,6 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="LightActor.cpp" />
     <ClCompile Include="LightComponent.cpp" />
-    <ClCompile Include="Window.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="Transform.cpp" />

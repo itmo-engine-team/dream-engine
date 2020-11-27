@@ -3,11 +3,11 @@
 #include <d3d11.h>
 #include <SimpleMath.h>
 
-struct LightBuffer;
 using namespace DirectX::SimpleMath;
 
 class Graphics;
 struct ConstantBuffer;
+struct LightBuffer;
 
 class OrthoWindow
 {

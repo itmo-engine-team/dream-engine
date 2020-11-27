@@ -40,7 +40,7 @@ public:
 
 protected:
 
-    bool isGameMode = true;
+    bool isGameMode = false;
 
     Game* game;
     Editor* editor;

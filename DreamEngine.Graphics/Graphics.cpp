@@ -65,11 +65,11 @@ bool Graphics::DirectXInitialize()
     // Structure with parameters: 
     D3D11_TEXTURE2D_DESC descDepth;
     ZeroMemory(&descDepth, sizeof(descDepth));
-    descDepth.Width = window->GetScreenWidth();      // Width
-    descDepth.Height = window->GetScreenHeight();    // height of the texture
-    descDepth.MipLevels = 1;                         // interpolation level
+    descDepth.Width = window->GetScreenWidth();
+    descDepth.Height = window->GetScreenHeight();
+    descDepth.MipLevels = 1;                         
     descDepth.ArraySize = 1;
-    descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT; // Format (pixel size)
+    descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
     descDepth.SampleDesc.Count = 1;
     descDepth.SampleDesc.Quality = 0;
     descDepth.Usage = D3D11_USAGE_DEFAULT;

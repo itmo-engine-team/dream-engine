@@ -92,7 +92,7 @@ bool Graphics::DirectXInitialize()
 
     viewport = {};
     viewport.Width = window->GetScreenWidth();
-    viewport.Height = window->GetScreenWidth();
+    viewport.Height = window->GetScreenHeight();
     viewport.TopLeftX = 0;
     viewport.TopLeftY = 0;
     viewport.MinDepth = 0;
@@ -321,8 +321,8 @@ bool Graphics::initSceneMap()
     sceneMapDesc.ArraySize = 1;
     sceneMapDesc.SampleDesc.Count = 1;
     sceneMapDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-    sceneMapDesc.Height = window->GetScreenWidth();
-    sceneMapDesc.Width = window->GetScreenHeight();
+    sceneMapDesc.Width = window->GetScreenWidth();
+    sceneMapDesc.Height = window->GetScreenHeight();
 
     HRESULT hr = device->CreateTexture2D(&sceneMapDesc, nullptr, &sceneMap);
 

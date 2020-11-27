@@ -1,6 +1,8 @@
 #include "AssetServices.h"
 
 #include <iomanip>
+#include <iostream>
+
 
 #include "ErrorLogger.h"
 
@@ -23,6 +25,7 @@ json AssetServices::CreateAssetFile(AssetNode* node)
 void AssetServices::RemoveAssetFile(AssetNode* node)
 {
     const std::filesystem::path pathVar(CreateAssetPath(node));
+    
     try
     {
         remove(pathVar);
@@ -34,13 +37,15 @@ void AssetServices::RemoveAssetFile(AssetNode* node)
     }
 }
 
-AssetTree* AssetServices::FindAssetTree()
+AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
 {
-    const std::string directoryName = "Content";
+    const std::string directoryName = rootNodeName;
     const std::string extension = ".asset";
 
-    AssetTree* assetTree = &AssetTree::GetInstance();
-    assetTree->ClearAssetTree();
+    AssetTree* assetTree = new AssetTree(rootNodeName);
+
+    const std::string pathVar(CreateFolderPath(assetTree->GetRootNode()));
+    CheckAndCreateFolder(pathVar);
 
     std::vector<FolderNode*> foldersQueue;
     foldersQueue.push_back(assetTree->GetRootNode());
@@ -51,7 +56,7 @@ AssetTree* AssetServices::FindAssetTree()
         foldersQueue.erase(foldersQueue.begin());
 
         std::filesystem::directory_iterator endItr;
-        for (std::filesystem::directory_iterator itr(directoryName); itr != endItr; ++itr)
+        for (std::filesystem::directory_iterator itr(pathVar); itr != endItr; ++itr)
         {
             if (is_directory(itr->status()))
             {
@@ -67,7 +72,7 @@ AssetTree* AssetServices::FindAssetTree()
                 AssetInfo* assetInfo = nullptr;
 
                 assetTree->CreateAssetNode(
-                    assetInfo, itr->path().filename().string(), currentFolderNode);
+                    assetInfo, itr->path().stem().string(), currentFolderNode);
             }
         }
     }
@@ -94,7 +99,6 @@ std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
         path = currentNode->GetName() + "/" + path;
         currentNode = currentNode->GetParent();
     }
-
     return path;
 }
 
@@ -102,7 +106,7 @@ std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
 {
     std::string path = CreateFolderPath(assetNode->GetParent()) +
         "/" + assetNode->GetName() + ".asset";
-
+    std::cout << assetNode->GetName();
     return path;
 }
 

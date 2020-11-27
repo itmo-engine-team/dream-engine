@@ -14,7 +14,7 @@ namespace AssetServices
     json CreateAssetFile(AssetNode* node);
     void RemoveAssetFile(AssetNode* node);
 
-    AssetTree* FindAssetTree();
+    AssetTree* FindAssetTree(std::string rootNodeName);
 
     void CheckAndCreateFolder(std::filesystem::path fileRelativePath);
     void RemoveFolder(FolderNode* folderNode, bool isRecursive);

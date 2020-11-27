@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Windows.h>
-#include "StringConverter.h"
 #include <fstream>
 
 enum LogType

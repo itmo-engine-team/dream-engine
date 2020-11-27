@@ -1,10 +1,10 @@
-#include "pch.h"
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "ErrorLogger.h"
 
 #include <ctime>
+
+#include "StringConverter.h"
 
 void ErrorLogger::Log(LogType type, std::string message)
 {

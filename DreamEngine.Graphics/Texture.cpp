@@ -1,13 +1,12 @@
-#include "Engine.h"
-
 #include "Texture.h"
+
 #include "ErrorLogger.h"
 #include <WICTextureLoader.h>
 
-Texture::Texture(Engine* engine, const wchar_t* texturePath) : engine(engine)
-{
-    graphics = engine->GetGraphics();
+#include "Graphics.h"
 
+Texture::Texture(Graphics* graphics, const wchar_t* texturePath) : graphics(graphics)
+{
     // Loading a texture from file
     auto hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(),
         texturePath, nullptr, &textureResource, 0);
@@ -29,9 +28,8 @@ Texture::Texture(Engine* engine, const wchar_t* texturePath) : engine(engine)
         __FILE__, __FUNCTION__, __LINE__);
 }
 
-Texture::Texture(Engine* engine, ID3D11Texture2D* texture)
+Texture::Texture(Graphics* graphics, ID3D11Texture2D* texture) : graphics(graphics)
 {
-    graphics = engine->GetGraphics();
 
     D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
     ZeroMemory(&shaderResourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));

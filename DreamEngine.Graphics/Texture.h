@@ -2,21 +2,19 @@
 
 #include <d3d11.h>
 
-class Engine;
 class Graphics;
 
 class Texture
 {
 public:
 
-    Texture(Engine* engine, const wchar_t* texturePath);
-    Texture(Engine* engine, ID3D11Texture2D* texture);
+    Texture(Graphics* graphics, const wchar_t* texturePath);
+    Texture(Graphics* graphics, ID3D11Texture2D* texture);
 
     void SetTexture();
 
 protected:
 
-    Engine* engine;
     Graphics* graphics;
 
     ID3D11ShaderResourceView* textureResource = nullptr;    // Texture object

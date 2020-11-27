@@ -90,7 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -164,6 +164,12 @@
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
       <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
+      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
+      <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine\DreamEngine.vcxproj">
       <Project>{c53678ba-fba5-4bea-889f-46b846cc0a0e}</Project>

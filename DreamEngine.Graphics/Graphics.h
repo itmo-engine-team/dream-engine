@@ -1,28 +1,22 @@
 #pragma once
 
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "d3dcompiler.lib")
+#pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "RuntimeObject.lib")
+
+#pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
+#pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
+#pragma comment(lib,"dwrite.lib")
+
 #include <d3d.h>
 #include <d3d11_1.h>
 #include <d2d1.h>
 #include <dwrite.h>
 
-#include "imgui.h"
-#include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
 #include "Shader.h"
 #include "DeferredBuffers.h"
-#include <vector>
-
-#pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
-#pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
-
-#pragma comment(lib,"d3dcompiler.lib")
-
-#pragma comment(lib,"dwrite.lib")
-#pragma comment(lib,"d3d11.lib")
-
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "RuntimeObject.lib")
 
 class Graphics
 {
@@ -93,6 +87,8 @@ private:
     ID3D11Texture2D* sceneMap = nullptr;
     ID3D11RenderTargetView* sceneRenderTargetView;
     ID3D11ShaderResourceView* sceneResourceView = nullptr;
+
+    DeferredBuffers* deferredBuffers;
   
     bool hasLight = true;
     bool hasShadow = true;
@@ -103,10 +99,5 @@ private:
   
     bool initDepthShadowMap(); 
     bool initSceneMap(int screenWidth, int screenHeight);
-    
-    /*void createShadowViewport();
-    void createGameViewport();
-    void createAssetBrowser();*/
-    
-    DeferredBuffers* deferredBuffers;
+
 };

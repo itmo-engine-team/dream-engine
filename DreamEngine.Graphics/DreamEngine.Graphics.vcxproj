@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -117,6 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Logger;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,8 +141,58 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CameraBuffer.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="DeferredBuffers.h" />
+    <ClInclude Include="DepthShader.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="LightBuffer.h" />
+    <ClInclude Include="LightShader.h" />
+    <ClInclude Include="MeshData.h" />
+    <ClInclude Include="MeshObject.h" />
+    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="ModelData.h" />
+    <ClInclude Include="ModelDataBuffer.h" />
+    <ClInclude Include="ModelShader.h" />
+    <ClInclude Include="OrthoWindow.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DeferredBuffers.cpp" />
+    <ClCompile Include="DepthShader.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="LightShader.cpp" />
+    <ClCompile Include="MeshData.cpp" />
+    <ClCompile Include="MeshObject.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="ModelData.cpp" />
+    <ClCompile Include="ModelShader.cpp" />
+    <ClCompile Include="OrthoWindow.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
+      <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets" Condition="Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" />
+    <Import Project="..\packages\Assimp.3.0.0\build\native\Assimp.targets" Condition="Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" />
+    <Import Project="..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.3.0.0\build\native\Assimp.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets'))" />
+  </Target>
 </Project>

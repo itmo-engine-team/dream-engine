@@ -1,11 +1,9 @@
 #include "AssetTree.h"
 #include "ErrorLogger.h"
 
-FolderNode* AssetTree::rootNode = new FolderNode("Content", nullptr);
-
-AssetTree& AssetTree::GetInstance()
+AssetTree::AssetTree(std::string rootNodeName) 
 {
-    return instance;
+    rootNode = new FolderNode(rootNodeName, nullptr);
 }
 
 FolderNode* AssetTree::GetRootNode()

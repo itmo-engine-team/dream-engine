@@ -5,15 +5,11 @@
 class AssetTree
 {
 
-    AssetTree() = default;
-
 public:
 
-    AssetTree(const AssetTree&) = delete;
-    void operator=(const AssetTree&) = delete;
+    AssetTree(std::string rootNodeName);
 
-    static AssetTree& GetInstance();
-    static FolderNode* GetRootNode();
+    FolderNode* GetRootNode();
 
     FolderNode* CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const;
     AssetNode* CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const;
@@ -31,7 +27,6 @@ public:
 
 private:
 
-    static AssetTree instance;
-    static FolderNode* rootNode;
+    FolderNode* rootNode;
 
 };

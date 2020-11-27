@@ -17,21 +17,25 @@
 
 #include "Shader.h"
 #include "DeferredBuffers.h"
+#include "Window.h"
+#include "LightShader.h"
 
 class Graphics
 {
 public:
 
-    Graphics() = default;
-    bool DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd);
-    void InitializeDeferredBuffer(int screenWidth, int screenHeight);
+    Graphics(Window* window);
+    bool DirectXInitialize();
+    void InitializeDeferredBuffer();
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     
     void PrepareRenderScene();
     void PrepareRenderShadowMap() const;
-    void PrepareRenderSceneMap(int screenWidth, int screenHeight);
+    void PrepareRenderSceneMap();
     void PrepareDeferredBuffer();
+
+    Window* GetWindow() const;
   
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -45,6 +49,7 @@ public:
     ID3D11Texture2D* GetShadowMap();
 
     DeferredBuffers* GetDeferredBuffers();
+    LightShader* GetLightShader();
 
     bool HasLight() const;
     bool HasShadow() const;
@@ -52,6 +57,8 @@ public:
 private:
 
     const FLOAT SHADOW_MAP_SIZE = 1024;
+
+    Window* window;
 
     ID3D11Device* device;
     ID3D11DeviceContext* context;
@@ -89,15 +96,16 @@ private:
     ID3D11ShaderResourceView* sceneResourceView = nullptr;
 
     DeferredBuffers* deferredBuffers;
+    LightShader* lightShader;
   
     bool hasLight = true;
     bool hasShadow = true;
 
-    bool direct2DInitialize(HWND hWnd);
+    bool direct2DInitialize();
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
-    void setupImGui(HWND hWnd);
+    void setupImGui();
   
     bool initDepthShadowMap(); 
-    bool initSceneMap(int screenWidth, int screenHeight);
+    bool initSceneMap();
 
 };

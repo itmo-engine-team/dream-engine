@@ -2,22 +2,19 @@
 
 #include <d3dcompiler.h>
 
-#include "Engine.h"
+#include "Graphics.h"
 
 #include "ModelShader.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"
-#include "Vertex.h"
 
 #include "ErrorLogger.h"
 #include "ModelDataBuffer.h"
 
-MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData, ModelShader* shader)
-    : engine(engine), transform(transform), meshData(meshData), shader(shader)
+MeshObject::MeshObject(Graphics* graphics, MeshData* meshData, ModelShader* shader)
+    : graphics(graphics), meshData(meshData), shader(shader)
 {
-    graphics = engine->GetGraphics();
-
     HRESULT hr;
 
     // Create Vertex Buffer
@@ -101,7 +98,8 @@ MeshObject::MeshObject(Engine* engine, Transform* transform, MeshData* meshData,
     ErrorLogger::DirectXLog(hr, Error, "Failed to create ModelDataBuffer", __FILE__, __FUNCTION__, __LINE__);
 }
 
-void MeshObject::Render()
+void MeshObject::Render(const ConstantBuffer constantBufferData,
+    const LightBuffer lightBufferData, const CameraBuffer cameraBufferData)
 {
     graphics->GetContext()->IASetVertexBuffers(
         0u,
@@ -116,34 +114,33 @@ void MeshObject::Render()
     shader->SetShader();
 
     // Update Constant Buffer
-    const ConstantBuffer cb =
+    /*const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
         engine->GetGame()->GetCamera()->GetViewMatrix(),
         engine->GetGame()->GetCamera()->GetProjectionMatrix(),
         engine->GetGame()->GetLight()->GetViewMatrix(),
         engine->GetGame()->GetLight()->GetProjectionMatrix(),
-    };
-    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
+    };*/
+    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &constantBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
 
-    const LightBuffer lb =
+    /*const LightBuffer lb =
     {
         Vector4{0.15f, 0.15f, 0.15f, 1.0f},
         Vector4{1.0f, 1.0f, 1.0f, 1.0f},
         engine->GetGame()->GetLight()->GetDirection(),
         100.0f,
         {1.0f, 1.0f, 1.0f, 1.0f }
-    };
-    graphics->GetContext()->UpdateSubresource(lightBuffer.Get(), 0, NULL, &lb, 0, 0);
+    };*/
+    graphics->GetContext()->UpdateSubresource(lightBuffer.Get(), 0, NULL, &lightBufferData, 0, 0);
     graphics->GetContext()->PSSetConstantBuffers(1u, 1u, lightBuffer.GetAddressOf());
 
     // Update Constant Buffer
-    const CameraBuffer cameraBufferData =
+    /*const CameraBuffer cameraBufferData =
     {
         engine->GetGame()->GetCamera()->GetTransform()->GetWorldPosition()
-    };
-
+    };*/
     graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(2u, 1u, cameraBuffer.GetAddressOf());
 
@@ -160,7 +157,7 @@ void MeshObject::Render()
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 }
 
-bool MeshObject::RenderShadowMap()
+bool MeshObject::RenderShadowMap(const ConstantBuffer constantBufferData)
 {
     graphics->GetContext()->IASetVertexBuffers(
         0u,
@@ -172,13 +169,13 @@ bool MeshObject::RenderShadowMap()
     graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    const ConstantBuffer cb =
+    /*const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
         engine->GetGame()->GetLight()->GetViewMatrix(),
         engine->GetGame()->GetLight()->GetProjectionMatrix(),
-    };
-    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &cb, 0, 0);
+    };*/
+    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &constantBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);

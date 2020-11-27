@@ -3,8 +3,11 @@
 #include <d3d11.h>
 #include <SimpleMath.h>
 
-class Engine;
+struct LightBuffer;
 using namespace DirectX::SimpleMath;
+
+class Graphics;
+struct ConstantBuffer;
 
 class OrthoWindow
 {
@@ -19,12 +22,13 @@ private:
 
 public:
 
-    OrthoWindow(Engine* engine);
+    OrthoWindow(Graphics* graphics);
     ~OrthoWindow();
 
     bool Initialize(ID3D11Device* device, int windowWidth, int windowHeight);
     void Shutdown();
-    void Render(ID3D11DeviceContext* deviceContext);
+    void Render(ID3D11DeviceContext* deviceContext,
+        ConstantBuffer constantBufferData, LightBuffer lightBufferData);
 
     int GetIndexCount();
 
@@ -32,9 +36,10 @@ private:
 
     bool InitializeBuffers(ID3D11Device* device, int windowWidth, int windowHeight);
     void ShutdownBuffers();
-    void RenderBuffers(ID3D11DeviceContext* deviceContext);
+    void RenderBuffers(ID3D11DeviceContext* deviceContext,
+        ConstantBuffer constantBufferData, LightBuffer lightBufferData);
 
-    Engine* engine;
+    Graphics* graphics;
 
     ID3D11Buffer* vertexBuffer;
     ID3D11Buffer* indexBuffer;

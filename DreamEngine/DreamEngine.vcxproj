@@ -122,7 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Editor;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)ImGui.Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Editor;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)ImGui.Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -221,6 +221,9 @@
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Editor\DreamEngine.Editor.vcxproj">
       <Project>{496cef75-6810-4145-ae01-ab4d64c2cb25}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
+      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
       <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>

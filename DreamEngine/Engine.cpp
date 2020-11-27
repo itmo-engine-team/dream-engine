@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include "Editor.h"
+
 Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
     : game(game), inputSystem(inputSystem)
 {
@@ -19,6 +21,8 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
 
     graphics = new Graphics();
     graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
+
+    editor = new Editor(graphics->GetDevice(), graphics->GetContext(), window->GetWnd());
 }
 
 Engine::~Engine()
@@ -121,6 +125,7 @@ int Engine::GetScreenHeight() const
 void Engine::update()
 {
     game->Update();
+    editor->Update();
 }
 
 void Engine::render()
@@ -138,27 +143,32 @@ void Engine::render()
     game->RenderShadowMap();
     graphics->GetAnnotation()->EndEvent();
 
-    graphics->PrepareRenderScene(); // TODO Clear scene without rendering
-
-    graphics->GetAnnotation()->BeginEvent(L"Scene");
-    if (graphics->IsEditMode())
+    if (isGameMode)
+    {
+        graphics->PrepareRenderScene();
+        renderScene();
+    }
+    else
     {
         graphics->PrepareRenderSceneMap(screenWidth, screenHeight);
 
-        // Scene rendering
-        orthoWindow->Render(graphics->GetContext());
-    }
-    else if (graphics->IsGameMode())
-    {
-        // Scene rendering
-        orthoWindow->Render(graphics->GetContext());
-    }
-    graphics->GetAnnotation()->EndEvent();
+        renderScene();
 
-    graphics->SwitchWindow();
+        graphics->PrepareRenderScene();
+        editor->Render();
+    }
 
     /*// Add text on Scene
     wchar_t pretext[200];
     swprintf(pretext, 200, L"Number of unattached objects: %u\nNumber of attached objects: %u", 4, 0);
     graphics->DrawTextOnScene(400, 100, pretext);*/
+
+    graphics->GetSwapChain()->Present(1, 0);
+}
+
+void Engine::renderScene()
+{
+    graphics->GetAnnotation()->BeginEvent(L"Scene");
+    orthoWindow->Render(graphics->GetContext());
+    graphics->GetAnnotation()->EndEvent();
 }

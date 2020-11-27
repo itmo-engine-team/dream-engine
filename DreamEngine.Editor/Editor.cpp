@@ -3,10 +3,13 @@
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
+#include "EditorWindowAssetBrowser.h"
 
-Editor::Editor(const HWND hWnd)
+Editor::Editor(ID3D11Device* device, ID3D11DeviceContext* context, const HWND hWnd)
 {
-    initImGui(hWnd);
+    initImGui(device, context, hWnd);
+
+    windows.push_back(new EditorWindowAssetBrowser);
 }
 
 Editor::~Editor()
@@ -29,7 +32,7 @@ void Editor::Render()
     finishImGuiFrame();
 }
 
-void Editor::initImGui(const HWND hWnd)
+void Editor::initImGui(ID3D11Device* device, ID3D11DeviceContext* context, const HWND hWnd)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -52,8 +55,7 @@ void Editor::initImGui(const HWND hWnd)
     }
 
     ImGui_ImplWin32_Init(hWnd);
-    // TODO
-    // ImGui_ImplDX11_Init(device, context);
+    ImGui_ImplDX11_Init(device, context);
 }
 
 void Editor::startImGuiFrame()
@@ -67,9 +69,6 @@ void Editor::finishImGuiFrame()
 {
     // assemble together draw data
     ImGui::Render();
-
-    // TODO
-    // context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 
     // render draw data
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -92,8 +91,45 @@ void Editor::updateWindows()
 
 void Editor::renderWindows()
 {
+    renderMainEditorMenu();
+
     for (EditorWindow* window : windows)
     {
+        if (!window->IsVisible())
+            continue;
+
         window->Render();
+    }
+}
+
+void Editor::renderMainEditorMenu()
+{
+    if (ImGui::BeginMainMenuBar())
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("New")) {}
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Editor"))
+        {
+            if (ImGui::MenuItem("Save Layout", "")) {}
+            if (ImGui::MenuItem("Load Layout", "")) {}
+            ImGui::Separator();
+            if (ImGui::MenuItem("Close All ", "")) {}
+            if (ImGui::BeginMenu("Windows", ""))
+            {
+                for (EditorWindow* window : windows)
+                {
+                    bool selected = window->IsVisible();
+                    ImGui::MenuItem(window->GetName().data(), " ", &selected);
+                    window->SetVisible(selected);
+                }
+                
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
     }
 }

@@ -96,7 +96,6 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
 
     direct2DInitialize(hWnd);
     setupImGui(hWnd);
-    SwitchWindow();
 
     return true;
 }
@@ -209,45 +208,6 @@ void Graphics::setupImGui(HWND hWnd)
 
     ImGui_ImplWin32_Init(hWnd);
     ImGui_ImplDX11_Init(device, context);  
-}
-
-void Graphics::SwitchWindow()
-{
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
-
-    // create ImGui window
-    ImGui::Begin("Switch mode");
-    ImGui::SetWindowSize(ImVec2(200, 100));
-    ImGui::Checkbox("Game mode", &this->gameMode);
-    ImGui::Checkbox("Edit mode", &this->editMode);
-    ImGui::End();
-
-    if (editMode == true)
-    {
-        mainEditorMenu();
-        if (shadowViewport) { createShadowViewport(); }
-        if (gameViewport) { createGameViewport(); }
-        if (assetBrowser) { createAssetBrowser(); }
-    }
-
-    // assemble together draw data
-    ImGui::Render();
-
-    context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
-
-    // render draw data
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-    ImGuiIO& io = ImGui::GetIO();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-        ImGui::UpdatePlatformWindows();
-        ImGui::RenderPlatformWindowsDefault();
-    }
-    
-    swapChain->Present(1, 0);
 }
 
 bool Graphics::initDepthShadowMap()
@@ -430,17 +390,7 @@ bool Graphics::HasShadow() const
     return hasShadow;
 }
 
-bool Graphics::IsEditMode() const
-{
-    return editMode;
-}
-
-bool Graphics::IsGameMode() const
-{
-    return gameMode;
-}
-
-void Graphics::createShadowViewport()
+/*void Graphics::createShadowViewport()
 {
     ImGui::Begin("ShadowRender");
     ImGui::Image(shadowResourceView, ImVec2(300, 300));
@@ -454,140 +404,10 @@ void Graphics::createGameViewport()
     ImGui::End();
 }
 
-void Graphics::mainEditorMenu()
-{
-    if (ImGui::BeginMainMenuBar())
-    {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("New")) {}
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("Editor"))
-        {
-            if (ImGui::MenuItem("Save Layout", "")) {}
-            if (ImGui::MenuItem("Load Layout", "")) {} 
-            ImGui::Separator();
-            if (ImGui::MenuItem("Close All ", "")) {}
-            if (ImGui::BeginMenu("Windows", "")) 
-            {
-                if (ImGui::MenuItem("Shadow Viewport", " ", &shadowViewport)) {}
-                if (ImGui::MenuItem("Game Viewport", " ", &gameViewport)) {}
-                if (ImGui::MenuItem("Switch Mode", " ", &switchWindow)) {}
-                ImGui::EndMenu();
-            }
-            ImGui::EndMenu();
-        }
-        ImGui::EndMainMenuBar();
-    }
-}
-
 void Graphics::createAssetBrowser()
 {
-    ImGui::Begin(" "); 
     
-    ImGui::End();
-
-    ImGui::Begin("Content Browser");
-
-    ImGuiIO& io = ImGui::GetIO();
-    ImTextureID my_tex_id = io.Fonts->TexID;
-    float my_tex_w = (float)io.Fonts->TexWidth;
-    float my_tex_h = (float)io.Fonts->TexHeight;
-
-    ImVec2 size = ImVec2(16.0f, 16.0f);                     // Size of the image we want to make visible
-    ImVec2 uv0 = ImVec2(0.0f, 0.0f);                        // UV coordinates for lower-left
-    ImVec2 uv1 = ImVec2(32.0f / my_tex_w, 32.0f / my_tex_h);// UV coordinates for (32,32) in our texture
-    ImVec4 bg_col = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);         // Black background
-    ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);       // No tint
-    ImGui::ImageButton(my_tex_id, size, uv0, uv1, 3, bg_col, tint_col);
-    ImGui::SameLine();
-    if (ImGui::Button("Add New >"))
-    { 
-        ImGui::MenuItem("(demo menu)", NULL, false, false);
-        if (ImGui::MenuItem("New", "")) {}
-        if (ImGui::MenuItem("Save", "")) {}
-        if (ImGui::MenuItem("Delete ", "")) {}
-        if (ImGui::MenuItem("Move", "")) {}
-        if (ImGui::MenuItem("Duplicate", " ")) {}
-        if (ImGui::MenuItem("Rename", " ")) {}
-        if (ImGui::MenuItem("Back", " ")) {}
-    }
-
-    ImGui::End();
-   
-    ImGui::Begin("Content");
-    if (ImGui::TreeNode("Content"))
-    {
-        if (ImGui::TreeNode(" "))
-        {
-            ImGui::SameLine();
-            ImGui::Text("Geometry");
-
-            for (int i = 0; i < 5; i++)
-            {
-                if (i == 0)
-                    ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
-                if (ImGui::TreeNode((void*)(intptr_t)i, "Child %d", i))
-                {
-                    ImGui::Text("geometry element");
-                    ImGui::SameLine();
-                    if (ImGui::SmallButton("open")) { /* do something*/ }
-                    ImGui::TreePop();
-                }
-            }
-            ImGui::TreePop();
-        }
-        ImGui::TreePop();
-    }
-
-    if (ImGui::TreeNode("Engine Content"))
-    {
-        if (ImGui::TreeNode("Assests"))
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                if (i == 0)
-                    ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
-                if (ImGui::TreeNode((void*)(intptr_t)i, "Child %d", i))
-                {
-                    ImGui::Text("asset");
-                    ImGui::SameLine();
-                    if (ImGui::SmallButton("open")) {}
-                    ImGui::TreePop();
-                }
-            }
-            ImGui::TreePop();
-        }
-        ImGui::TreePop();
-    }
-
-    if (ImGui::TreeNode("C++"))
-    {
-        if (ImGui::TreeNode("Files"))
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                if (i == 0)
-                    ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
-                if (ImGui::TreeNode((void*)(intptr_t)i, "Child %d", i))
-                {
-                    ImGui::Text("file");
-                    ImGui::SameLine();
-                    if (ImGui::SmallButton("open")) {   }
-                    ImGui::TreePop();
-                }
-            }
-            ImGui::TreePop();
-        }
-        ImGui::TreePop();
-    }
-
-    ImGui::End();  
-}
+}*/
 
 void Graphics::PrepareRenderScene()
 {

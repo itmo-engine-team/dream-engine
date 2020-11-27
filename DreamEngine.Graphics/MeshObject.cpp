@@ -113,34 +113,12 @@ void MeshObject::Render(const ConstantBuffer constantBufferData,
 
     shader->SetShader();
 
-    // Update Constant Buffer
-    /*const ConstantBuffer cb =
-    {
-        transform->GetWorldMatrix(),
-        engine->GetGame()->GetCamera()->GetViewMatrix(),
-        engine->GetGame()->GetCamera()->GetProjectionMatrix(),
-        engine->GetGame()->GetLight()->GetViewMatrix(),
-        engine->GetGame()->GetLight()->GetProjectionMatrix(),
-    };*/
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &constantBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
 
-    /*const LightBuffer lb =
-    {
-        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
-        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        engine->GetGame()->GetLight()->GetDirection(),
-        100.0f,
-        {1.0f, 1.0f, 1.0f, 1.0f }
-    };*/
     graphics->GetContext()->UpdateSubresource(lightBuffer.Get(), 0, NULL, &lightBufferData, 0, 0);
     graphics->GetContext()->PSSetConstantBuffers(1u, 1u, lightBuffer.GetAddressOf());
 
-    // Update Constant Buffer
-    /*const CameraBuffer cameraBufferData =
-    {
-        engine->GetGame()->GetCamera()->GetTransform()->GetWorldPosition()
-    };*/
     graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(2u, 1u, cameraBuffer.GetAddressOf());
 
@@ -169,12 +147,6 @@ bool MeshObject::RenderShadowMap(const ConstantBuffer constantBufferData)
     graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    /*const ConstantBuffer cb =
-    {
-        transform->GetWorldMatrix(),
-        engine->GetGame()->GetLight()->GetViewMatrix(),
-        engine->GetGame()->GetLight()->GetProjectionMatrix(),
-    };*/
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &constantBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
 

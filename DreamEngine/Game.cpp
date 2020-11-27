@@ -63,8 +63,3 @@ float Game::GetGameDeltaTime()
     gameDeltaTime = engine->GetDeltaTime() * gameDeltaTimeMultiplier;
     return gameDeltaTime;
 }
-
-LightShader* Game::GetLightShader()
-{
-    return lightShader;
-}

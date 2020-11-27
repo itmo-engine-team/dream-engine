@@ -256,25 +256,10 @@ void OrthoWindow::RenderBuffers(ID3D11DeviceContext* deviceContext,
     deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     // Update Constant Buffer
-    /*const ConstantBuffer cb =
-    {
-        Matrix::Identity,
-        Matrix::Identity,
-        orthoProjMatrix,
-        engine->GetGame()->GetLight()->GetViewMatrix(),
-        engine->GetGame()->GetLight()->GetProjectionMatrix(),
-    };*/
+    constantBufferData.ProjectionMatrix = orthoProjMatrix;
     deviceContext->UpdateSubresource(constantBuffer, 0, NULL, &constantBufferData, 0, 0);
     deviceContext->VSSetConstantBuffers(0u, 1u, &constantBuffer);
 
-    /*const LightBuffer lb =
-    {
-        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
-        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        engine->GetGame()->GetLight()->GetDirection(),
-        100.0f,
-        {1.0f, 1.0f, 1.0f, 1.0f }
-    };*/
     deviceContext->UpdateSubresource(lightBuffer, 0, NULL, &lightBufferData, 0, 0);
     deviceContext->PSSetConstantBuffers(1u, 1u, &lightBuffer);
 

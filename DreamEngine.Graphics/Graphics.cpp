@@ -490,6 +490,9 @@ Window* Graphics::GetWindow() const
 
 void Graphics::InitializeDeferredBuffer()
 {
+    lightShader = new LightShader(this, L"Shaders/ShaderDeferredLight.fx");
+    lightShader->Init();
+
     deferredBuffers = new DeferredBuffers;
     if (!deferredBuffers)
     {

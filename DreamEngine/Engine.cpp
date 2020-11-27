@@ -1,26 +1,27 @@
 #include "Engine.h"
 
+#include "Graphics.h"
 #include "Editor.h"
+
+#include "ConstantBuffer.h"
+#include "LightBuffer.h"
 
 Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
     : game(game), inputSystem(inputSystem)
 {
-    screenWidth = 1200;
-    screenHeight = 800;
-
     dwStartTick = GetTickCount();
 
     meshRenderer = new MeshRenderer();
 
     gameAssetManager = new GameAssetManager(this);
 
-    window = new Window(this);
+    window = new Window(1200, 800);
     window->WindowInitialize(hInstance, wc);
 
-    orthoWindow = new OrthoWindow(this);
+    graphics = new Graphics(window);
+    graphics->DirectXInitialize();
 
-    graphics = new Graphics();
-    graphics->DirectXInitialize(screenWidth, screenHeight, window->GetWnd());
+    orthoWindow = new OrthoWindow(graphics);
 
     editor = new Editor(graphics->GetDevice(), graphics->GetContext(), window->GetWnd());
 }
@@ -44,7 +45,8 @@ void Engine::Init()
 {
     // Init Game
     game->Init(this);
-    orthoWindow->Initialize(graphics->GetDevice(), screenWidth, screenHeight);
+    orthoWindow->Initialize(graphics->GetDevice(),
+        graphics->GetWindow()->GetScreenWidth(), graphics->GetWindow()->GetScreenHeight());
 }
 
 bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
@@ -64,11 +66,6 @@ bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM l
 Graphics* Engine::GetGraphics() const
 {
     return graphics;
-}
-
-Window* Engine::GetWindow() const
-{
-    return window;
 }
 
 GameAssetManager* Engine::GetGameAssetManager() const
@@ -112,16 +109,6 @@ float Engine::GetDeltaTime() const
     return deltaTime;
 }
 
-int Engine::GetScreenWidth() const
-{
-    return screenWidth;
-}
-
-int Engine::GetScreenHeight() const
-{
-    return screenHeight;
-}
-
 void Engine::update()
 {
     game->Update();
@@ -150,7 +137,7 @@ void Engine::render()
     }
     else
     {
-        graphics->PrepareRenderSceneMap(screenWidth, screenHeight);
+        graphics->PrepareRenderSceneMap();
 
         renderScene();
 
@@ -169,6 +156,25 @@ void Engine::render()
 void Engine::renderScene()
 {
     graphics->GetAnnotation()->BeginEvent(L"Scene");
-    orthoWindow->Render(graphics->GetContext());
+
+    const ConstantBuffer cb =
+    {
+        Matrix::Identity,
+        Matrix::Identity,
+        Matrix::Identity,
+        game->GetLight()->GetViewMatrix(),
+        game->GetLight()->GetProjectionMatrix(),
+    };
+
+    const LightBuffer lb =
+    {
+        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
+        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
+        game->GetLight()->GetDirection(),
+        100.0f,
+        {1.0f, 1.0f, 1.0f, 1.0f }
+    };
+
+    orthoWindow->Render(graphics->GetContext(), cb, lb);
     graphics->GetAnnotation()->EndEvent();
 }

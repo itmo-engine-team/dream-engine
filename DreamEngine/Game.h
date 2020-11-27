@@ -29,8 +29,6 @@ public:
     float GetGameDeltaTimeMultiplier();
     float GetGameDeltaTime();
 
-    LightShader* GetLightShader();
-
 protected:
 
     Engine* engine;
@@ -38,8 +36,6 @@ protected:
 
     float gameDeltaTime;
     float gameDeltaTimeMultiplier = 1;
-
-    LightShader* lightShader;
 
 };
 

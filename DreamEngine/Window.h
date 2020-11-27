@@ -2,23 +2,25 @@
 
 #include <d3d.h>
 
-class Engine;
-
 class Window
 {
 public:
 
-    Window(Engine* engine);
+    Window(int screenWidth, int screenHeight);
 
     bool WindowInitialize(HINSTANCE hInstance, WNDCLASSEX wc);
 
     HWND GetWnd() const;
 
+    int GetScreenWidth() const;
+    int GetScreenHeight() const;
+
 private:
 
-    Engine* engine;
-
     HWND hWnd;
+
+    int screenWidth = 0;
+    int screenHeight = 0;
 
 };
 

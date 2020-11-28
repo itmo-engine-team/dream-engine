@@ -29,6 +29,11 @@ TEST(AssetTest, CreateFolders)
     FolderModificationResult folderStruct = assetTree->CreateFolderNode("Folder1", assetTree->GetRootNode());
     if(folderStruct.resault)
         AssetServices::CreateFolder(folderStruct.folderNode);
+    else
+    {
+        printf(folderStruct.error.c_str());
+        return;
+    }
 
     AssetModificationResult assetStruct = assetTree->CreateAssetNode(nullptr, "Person1", folderStruct.folderNode);
     if (assetStruct.resault)
@@ -38,6 +43,11 @@ TEST(AssetTest, CreateFolders)
     folderStruct = assetTree->CreateFolderNode("Folder2", assetTree->GetRootNode()->GetChildFolderList()[0]);
     if (folderStruct.resault)
         AssetServices::CreateFolder(folderStruct.folderNode);
+    else
+    {
+        printf(folderStruct.error.c_str());
+        return;
+    }
 
     assetStruct = assetTree->CreateAssetNode(nullptr, "Person2.1", folderStruct.folderNode);
     if (assetStruct.resault)
@@ -52,6 +62,11 @@ TEST(AssetTest, CreateFolders)
     folderStruct = assetTree->CreateFolderNode("Folder3.1", assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildFolderList()[0]);
     if (folderStruct.resault)
         AssetServices::CreateFolder(folderStruct.folderNode);
+    else
+    {
+        printf(folderStruct.error.c_str());
+        return;
+    }
 
     assetStruct = assetTree->CreateAssetNode(nullptr, "Person3.1", folderStruct.folderNode);
     if (assetStruct.resault)
@@ -60,6 +75,11 @@ TEST(AssetTest, CreateFolders)
     folderStruct = assetTree->CreateFolderNode("Folder3.2", assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildFolderList()[0]);
     if (assetStruct.resault)
         AssetServices::CreateFolder(folderStruct.folderNode);
+    else
+    {
+        printf(folderStruct.error.c_str());
+        return;
+    }
 
     assetStruct = assetTree->CreateAssetNode(nullptr, "Person3.2", folderStruct.folderNode);
     if (assetStruct.resault)

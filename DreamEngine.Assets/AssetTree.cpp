@@ -20,7 +20,7 @@ FolderModificationResult AssetTree::CreateFolderNode(const std::string& nodeName
 
        folderStruct.resault = false;
        folderStruct.folderNode = nullptr;
-       folderStruct.error = "This folder already exists";
+       folderStruct.error = nodeName + " folder already exists";
        return folderStruct;
    }
 
@@ -38,7 +38,7 @@ AssetModificationResult AssetTree::CreateAssetNode(AssetInfo* assetInfo, const s
 
         assetStruct.resault = false;
         assetStruct.assetNode = nullptr;
-        assetStruct.error = "This asset already exists";
+        assetStruct.error = nodeName + " asset already exists";
         return assetStruct;
     }
 

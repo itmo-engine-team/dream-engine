@@ -23,14 +23,19 @@
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="EditorWindowAssetBrowser.h" />
     <ClInclude Include="EditorWindowGameViewport.h" />
+    <ClInclude Include="EditorWindowShadowViewport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="EditorWindowAssetBrowser.cpp" />
     <ClCompile Include="EditorWindowGameViewport.cpp" />
+    <ClCompile Include="EditorWindowShadowViewport.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
+      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
       <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>
     </ProjectReference>
@@ -142,7 +147,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.Sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

@@ -104,7 +104,10 @@ void AssetServices::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
         std::filesystem::path newPath = parentPath + itr->path().filename().string();
 
         if (!MoveFileEx(itr->path().c_str(), newPath.c_str(), (MOVEFILE_WRITE_THROUGH, MOVEFILE_REPLACE_EXISTING)))
-            printf("MoveFileEx failed with error %d\n", GetLastError());
+        {
+           std::string error = std::string("MoveFileEx failed with error %d\n", GetLastError());
+           ErrorLogger::Log(Warning, error);
+        }
             
     }
     remove(oldPath);
@@ -131,6 +134,35 @@ std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
     return path;
 }
 
+void AssetServices::MoveFolder(FolderNode* folderNode, FolderNode* newParent)
+{
+    const std::filesystem::path oldPath = CreateFolderPath(folderNode);
+    const std::string parentPath = CreateFolderPath(newParent);
+    const std::filesystem::path newPath = parentPath + folderNode->GetName();
+    
+    if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), (MOVEFILE_WRITE_THROUGH, MOVEFILE_REPLACE_EXISTING)))
+    {
+        printf(oldPath.string().c_str() );
+        printf("\n" );
+        printf(oldPath.stem().string().c_str());
+        printf("\n");
+        std::string error = "MoveFileEx failed with error: " + GetLastError();
+        ErrorLogger::Log(Warning, error);
+    }
+}
+
+void AssetServices::MoveAsset(AssetNode* assetNode, FolderNode* newParent)
+{
+    const std::filesystem::path oldPath = CreateAssetPath(assetNode);
+    const std::string parentPath = CreateFolderPath(newParent);
+    const std::filesystem::path newPath = parentPath + assetNode->GetName();
+
+    if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), (MOVEFILE_WRITE_THROUGH, MOVEFILE_REPLACE_EXISTING)))
+    {
+        std::string error = std::string("MoveFileEx failed with error %d\n", GetLastError());
+        ErrorLogger::Log(Warning, error);
+    }
+}
 
 void AssetServices::CheckFolderExist(std::filesystem::path fileRelativePath)
 {

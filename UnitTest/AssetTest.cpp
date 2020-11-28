@@ -73,3 +73,23 @@ TEST(AssetTest, NoRecursiveRemoveFolder)
     AssetServices::RemoveFolder(folderNode, false);
     assetTree->RemoveFolderNode(folderNode, false);
 }
+
+TEST(AssetTest, MoveFolder)
+{
+    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+
+    FolderNode* folderNode = assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildFolderList()[0];
+
+    AssetServices::MoveFolder(folderNode, assetTree->GetRootNode());
+    assetTree->MoveFolderNode(folderNode, assetTree->GetRootNode());
+}
+
+TEST(AssetTest, MoveAsset)
+{
+    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+
+    AssetNode* assetNode = assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildAssetList()[0];
+
+    AssetServices::MoveAsset(assetNode, assetTree->GetRootNode());
+    assetTree->MoveAssetNode(assetNode, assetTree->GetRootNode());
+}

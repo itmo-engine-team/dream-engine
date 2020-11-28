@@ -23,4 +23,6 @@ namespace AssetServices
     std::string CreateFolderPath(FolderNode* folderNode);
     std::string CreateAssetPath(AssetNode* assetNode);
 
+    void MoveFolder(FolderNode* folderNode, FolderNode* newParent);
+    void MoveAsset(AssetNode* assetNode, FolderNode* newParent);
 }

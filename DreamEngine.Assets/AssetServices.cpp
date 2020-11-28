@@ -12,7 +12,7 @@ json AssetServices::CreateAssetFile(AssetNode* node)
 
     const std::string pathVar(CreateAssetPath(node));
 
-    CheckAndCreateFolder(pathVar);
+    CheckFolderExist(pathVar);
 
     j["Object name"] = node->GetName();
 
@@ -43,9 +43,7 @@ AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
     const std::string extension = ".asset";
 
     AssetTree* assetTree = new AssetTree(rootNodeName);
-
-    const std::string pathVar(CreateFolderPath(assetTree->GetRootNode()));
-    CheckAndCreateFolder(pathVar);
+    CreateFolder(assetTree->GetRootNode());
 
     std::vector<FolderNode*> foldersQueue;
     foldersQueue.push_back(assetTree->GetRootNode());
@@ -54,6 +52,8 @@ AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
     {
         FolderNode* currentFolderNode = foldersQueue.at(0);
         foldersQueue.erase(foldersQueue.begin());
+
+        const std::string pathVar = CreateFolderPath(currentFolderNode);
 
         std::filesystem::directory_iterator endItr;
         for (std::filesystem::directory_iterator itr(pathVar); itr != endItr; ++itr)
@@ -79,14 +79,35 @@ AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
     return assetTree;
 }
 
+std::string AssetServices::CreateFolder(FolderNode* folderNode)
+{
+    const std::string pathVar(CreateFolderPath(folderNode));
+    CheckFolderExist(pathVar);
+    return pathVar;
+}
+
 void AssetServices::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
 {
-    const std::filesystem::path pathVar(CreateFolderPath(folderNode));
+    const std::filesystem::path oldPath(CreateFolderPath(folderNode));
 
     if (isRecursive)
-        remove_all(pathVar);
-    else
-        remove(pathVar);
+    {
+        remove_all(oldPath);
+        return;
+    }
+
+    const std::string parentPath(CreateFolderPath(folderNode->GetParent()));
+
+    std::filesystem::directory_iterator endItr;
+    for (std::filesystem::directory_iterator itr(oldPath); itr != endItr; ++itr)
+    {
+        std::filesystem::path newPath = parentPath + itr->path().filename().string();
+
+        if (!MoveFileEx(itr->path().c_str(), newPath.c_str(), (MOVEFILE_WRITE_THROUGH, MOVEFILE_REPLACE_EXISTING)))
+            printf("MoveFileEx failed with error %d\n", GetLastError());
+            
+    }
+    remove(oldPath);
 }
 
 std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
@@ -106,12 +127,12 @@ std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
 {
     std::string path = CreateFolderPath(assetNode->GetParent()) +
         "/" + assetNode->GetName() + ".asset";
-    std::cout << assetNode->GetName();
+
     return path;
 }
 
 
-void AssetServices::CheckAndCreateFolder(std::filesystem::path fileRelativePath)
+void AssetServices::CheckFolderExist(std::filesystem::path fileRelativePath)
 {
     if (!exists(fileRelativePath.parent_path()))
         create_directories(fileRelativePath.parent_path());

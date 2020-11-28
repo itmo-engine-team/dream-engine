@@ -16,7 +16,8 @@ namespace AssetServices
 
     AssetTree* FindAssetTree(std::string rootNodeName);
 
-    void CheckAndCreateFolder(std::filesystem::path fileRelativePath);
+    std::string CreateFolder(FolderNode* folderNode);
+    void CheckFolderExist(std::filesystem::path fileRelativePath);
     void RemoveFolder(FolderNode* folderNode, bool isRecursive);
 
     std::string CreateFolderPath(FolderNode* folderNode);

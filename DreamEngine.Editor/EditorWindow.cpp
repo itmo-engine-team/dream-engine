@@ -1,6 +1,7 @@
 #include "EditorWindow.h"
 
-EditorWindow::EditorWindow(std::string name) : name(std::move(name))
+EditorWindow::EditorWindow(std::string name, Graphics* graphics)
+    : name(std::move(name)), graphics(graphics)
 {
 
 }

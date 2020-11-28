@@ -1,7 +1,10 @@
 #include "EditorWindowGameViewport.h"
 
-EditorWindowGameViewport::EditorWindowGameViewport(std::string name)
-    : EditorWindow(std::move(name))
+#include "imgui.h"
+#include "Graphics.h"
+
+EditorWindowGameViewport::EditorWindowGameViewport(Graphics* graphics)
+    : EditorWindow("Game Viewport", graphics)
 {
 
 }
@@ -13,5 +16,7 @@ void EditorWindowGameViewport::Update()
 
 void EditorWindowGameViewport::Render()
 {
-    // TODO render window
+    ImGui::Begin("GameViewport");
+    ImGui::Image(graphics->GetSceneResourceView(), ImVec2(400, 300));
+    ImGui::End();
 }

@@ -2,12 +2,14 @@
 
 #include <string>
 
+class Graphics;
+
 class EditorWindow
 {
 
 public:
 
-    EditorWindow(std::string name);
+    EditorWindow(std::string name, Graphics* graphics);
     virtual ~EditorWindow() = default;
 
     virtual void Update() = 0;
@@ -17,6 +19,10 @@ public:
 
     bool IsVisible() const;
     void SetVisible(bool isVisible);
+
+protected:
+
+    Graphics* graphics;
 
 private:
 

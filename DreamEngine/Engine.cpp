@@ -19,11 +19,10 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
     window->WindowInitialize(hInstance, wc);
 
     graphics = new Graphics(window);
-    graphics->DirectXInitialize();
 
     orthoWindow = new OrthoWindow(graphics);
 
-    editor = new Editor(graphics->GetDevice(), graphics->GetContext(), window->GetWnd());
+    editor = new Editor(graphics);
 }
 
 Engine::~Engine()
@@ -119,7 +118,6 @@ void Engine::render()
 {
     // Deferred renders to textures
     graphics->PrepareDeferredBuffer();
-
     graphics->GetAnnotation()->BeginEvent(L"Deferred");
     game->Render();
     graphics->GetAnnotation()->EndEvent();
@@ -137,10 +135,11 @@ void Engine::render()
     }
     else
     {
+        // Render game to scene map
         graphics->PrepareRenderSceneMap();
-
         renderScene();
 
+        // Render editor
         graphics->PrepareRenderScene();
         editor->Render();
     }

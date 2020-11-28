@@ -1,8 +1,8 @@
 #include "EditorWindowAssetBrowser.h"
 #include "imgui.h"
 
-EditorWindowAssetBrowser::EditorWindowAssetBrowser()
-    : EditorWindow("Asset Browser")
+EditorWindowAssetBrowser::EditorWindowAssetBrowser(Graphics* graphics)
+    : EditorWindow("Asset Browser", graphics)
 {
 
 }

@@ -3,13 +3,20 @@
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
+
+#include "Graphics.h"
+
 #include "EditorWindowAssetBrowser.h"
+#include "EditorWindowShadowViewport.h"
+#include "EditorWindowGameViewport.h"
 
-Editor::Editor(ID3D11Device* device, ID3D11DeviceContext* context, const HWND hWnd)
+Editor::Editor(Graphics* graphics) : graphics(graphics)
 {
-    initImGui(device, context, hWnd);
+    initImGui();
 
-    windows.push_back(new EditorWindowAssetBrowser);
+    windows.push_back(new EditorWindowAssetBrowser(graphics));
+    windows.push_back(new EditorWindowShadowViewport(graphics));
+    windows.push_back(new EditorWindowGameViewport(graphics));
 }
 
 Editor::~Editor()
@@ -32,7 +39,7 @@ void Editor::Render()
     finishImGuiFrame();
 }
 
-void Editor::initImGui(ID3D11Device* device, ID3D11DeviceContext* context, const HWND hWnd)
+void Editor::initImGui()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -54,8 +61,8 @@ void Editor::initImGui(ID3D11Device* device, ID3D11DeviceContext* context, const
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
-    ImGui_ImplWin32_Init(hWnd);
-    ImGui_ImplDX11_Init(device, context);
+    ImGui_ImplWin32_Init(graphics->GetWindow()->GetWnd());
+    ImGui_ImplDX11_Init(graphics->GetDevice(), graphics->GetContext());
 }
 
 void Editor::startImGuiFrame()

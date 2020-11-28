@@ -1,43 +1,41 @@
 #pragma once
 
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "d3dcompiler.lib")
+#pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "RuntimeObject.lib")
+
+#pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
+#pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
+#pragma comment(lib,"dwrite.lib")
+
 #include <d3d.h>
 #include <d3d11_1.h>
 #include <d2d1.h>
 #include <dwrite.h>
 
-#include "imgui.h"
-#include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
 #include "Shader.h"
 #include "DeferredBuffers.h"
-#include <vector>
-
-#pragma comment(lib, "d2d1.lib") // This is what D2D1CreateFactory makes to work
-#pragma comment(lib, "Dwrite") // This is what DWriteCreateFactory makes to work
-
-#pragma comment(lib,"d3dcompiler.lib")
-
-#pragma comment(lib,"dwrite.lib")
-#pragma comment(lib,"d3d11.lib")
-
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "RuntimeObject.lib")
+#include "Window.h"
+#include "LightShader.h"
 
 class Graphics
 {
 public:
 
-    Graphics() = default;
-    bool DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd);
-    void InitializeDeferredBuffer(int screenWidth, int screenHeight);
+    Graphics(Window* window);
+    bool DirectXInitialize();
+    void InitializeDeferredBuffer();
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     
     void PrepareRenderScene();
     void PrepareRenderShadowMap() const;
-    void PrepareRenderSceneMap(int screenWidth, int screenHeight);
+    void PrepareRenderSceneMap();
     void PrepareDeferredBuffer();
+
+    Window* GetWindow() const;
   
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -51,6 +49,7 @@ public:
     ID3D11Texture2D* GetShadowMap();
 
     DeferredBuffers* GetDeferredBuffers();
+    LightShader* GetLightShader();
 
     bool HasLight() const;
     bool HasShadow() const;
@@ -58,6 +57,8 @@ public:
 private:
 
     const FLOAT SHADOW_MAP_SIZE = 1024;
+
+    Window* window;
 
     ID3D11Device* device;
     ID3D11DeviceContext* context;
@@ -93,20 +94,18 @@ private:
     ID3D11Texture2D* sceneMap = nullptr;
     ID3D11RenderTargetView* sceneRenderTargetView;
     ID3D11ShaderResourceView* sceneResourceView = nullptr;
+
+    DeferredBuffers* deferredBuffers;
+    LightShader* lightShader;
   
     bool hasLight = true;
     bool hasShadow = true;
 
-    bool direct2DInitialize(HWND hWnd);
+    bool direct2DInitialize();
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
-    void setupImGui(HWND hWnd);
+    void setupImGui();
   
     bool initDepthShadowMap(); 
-    bool initSceneMap(int screenWidth, int screenHeight);
-    
-    /*void createShadowViewport();
-    void createGameViewport();
-    void createAssetBrowser();*/
-    
-    DeferredBuffers* deferredBuffers;
+    bool initSceneMap();
+
 };

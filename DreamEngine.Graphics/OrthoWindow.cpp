@@ -1,20 +1,20 @@
 #include "OrthoWindow.h"
 
-#include "Engine.h"
+#include "Graphics.h"
 
 #include "ErrorLogger.h"
 #include "LightBuffer.h"
 #include "ConstantBuffer.h"
 #include "ModelDataBuffer.h"
 
-OrthoWindow::OrthoWindow(Engine* engine) : engine(engine)
+OrthoWindow::OrthoWindow(Graphics* graphics) : graphics(graphics)
 {
-    vertexBuffer = 0;
-    indexBuffer = 0;
+    vertexBuffer = nullptr;
+    indexBuffer = nullptr;
 
     orthoProjMatrix = Matrix::CreateOrthographic(
-        engine->GetScreenWidth(),
-        engine->GetScreenHeight(),
+        graphics->GetWindow()->GetScreenWidth(),
+        graphics->GetWindow()->GetScreenHeight(),
         0.1f, 1000.0f
     );
 }
@@ -44,14 +44,15 @@ void OrthoWindow::Shutdown()
     ShutdownBuffers();
 }
 
-void OrthoWindow::Render(ID3D11DeviceContext* deviceContext)
+void OrthoWindow::Render(ID3D11DeviceContext* deviceContext,
+    ConstantBuffer constantBufferData, LightBuffer lightBufferData)
 {
-    engine->GetGame()->GetLightShader()->SetShader(engine->GetGraphics()->GetDeferredBuffers());
+    graphics->GetLightShader()->SetShader(graphics->GetDeferredBuffers());
 
     // Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
-    RenderBuffers(deviceContext);
+    RenderBuffers(deviceContext, constantBufferData, lightBufferData);
 
-    deviceContext->DrawIndexed(GetIndexCount(), 0, 0);
+    graphics->GetContext()->DrawIndexed(GetIndexCount(), 0, 0);
 }
 
 int OrthoWindow::GetIndexCount()
@@ -235,7 +236,8 @@ void OrthoWindow::ShutdownBuffers()
     }
 }
 
-void OrthoWindow::RenderBuffers(ID3D11DeviceContext* deviceContext)
+void OrthoWindow::RenderBuffers(ID3D11DeviceContext* deviceContext, 
+    ConstantBuffer constantBufferData, LightBuffer lightBufferData)
 {
     unsigned int stride;
     unsigned int offset;
@@ -254,34 +256,19 @@ void OrthoWindow::RenderBuffers(ID3D11DeviceContext* deviceContext)
     deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     // Update Constant Buffer
-    const ConstantBuffer cb =
-    {
-        Matrix::Identity,
-        Matrix::Identity,
-        orthoProjMatrix,
-        engine->GetGame()->GetLight()->GetViewMatrix(),
-        engine->GetGame()->GetLight()->GetProjectionMatrix(),
-    };
-    deviceContext->UpdateSubresource(constantBuffer, 0, NULL, &cb, 0, 0);
+    constantBufferData.ProjectionMatrix = orthoProjMatrix;
+    deviceContext->UpdateSubresource(constantBuffer, 0, NULL, &constantBufferData, 0, 0);
     deviceContext->VSSetConstantBuffers(0u, 1u, &constantBuffer);
 
-    const LightBuffer lb =
-    {
-        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
-        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        engine->GetGame()->GetLight()->GetDirection(),
-        100.0f,
-        {1.0f, 1.0f, 1.0f, 1.0f }
-    };
-    deviceContext->UpdateSubresource(lightBuffer, 0, NULL, &lb, 0, 0);
+    deviceContext->UpdateSubresource(lightBuffer, 0, NULL, &lightBufferData, 0, 0);
     deviceContext->PSSetConstantBuffers(1u, 1u, &lightBuffer);
 
     // Update Constant Buffer
     const ModelDataBuffer modelDataBufferData =
     {
         0.0f,  // not using
-        engine->GetGraphics()->HasLight() ? 1.0f : -1.0f,
-        engine->GetGraphics()->HasShadow() ? 1.0f : -1.0f,
+        graphics->HasLight() ? 1.0f : -1.0f,
+        graphics->HasShadow() ? 1.0f : -1.0f,
     };
     deviceContext->UpdateSubresource(modelDataBuffer, 0, NULL, &modelDataBufferData, 0, 0);
     deviceContext->PSSetConstantBuffers(2u, 1u, &modelDataBuffer);

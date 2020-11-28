@@ -1,23 +1,32 @@
 #include "Graphics.h"
 
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+
 #include "ErrorLogger.h"
 #include "DepthShader.h"
 
-bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
+Graphics::Graphics(Window* window) : window(window)
+{
+
+}
+
+bool Graphics::DirectXInitialize()
 {
     HRESULT res;
 
     DXGI_SWAP_CHAIN_DESC swapDesc = {};
     swapDesc.BufferCount = 1;
-    swapDesc.BufferDesc.Width = screenWidth;
-    swapDesc.BufferDesc.Height = screenHeight;
+    swapDesc.BufferDesc.Width = window->GetScreenWidth();
+    swapDesc.BufferDesc.Height = window->GetScreenHeight();
     swapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     swapDesc.BufferDesc.RefreshRate.Numerator = 60;
     swapDesc.BufferDesc.RefreshRate.Denominator = 1;
     swapDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
     swapDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
     swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-    swapDesc.OutputWindow = hWnd;
+    swapDesc.OutputWindow = window->GetWnd();
     swapDesc.Windowed = true;
     swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
     swapDesc.Flags = 0;
@@ -56,11 +65,11 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     // Structure with parameters: 
     D3D11_TEXTURE2D_DESC descDepth;
     ZeroMemory(&descDepth, sizeof(descDepth));
-    descDepth.Width = screenWidth;      // Width
-    descDepth.Height = screenHeight;    // height of the texture
-    descDepth.MipLevels = 1;            // interpolation level
+    descDepth.Width = window->GetScreenWidth();
+    descDepth.Height = window->GetScreenHeight();
+    descDepth.MipLevels = 1;                         
     descDepth.ArraySize = 1;
-    descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT; // Format (pixel size)
+    descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
     descDepth.SampleDesc.Count = 1;
     descDepth.SampleDesc.Quality = 0;
     descDepth.Usage = D3D11_USAGE_DEFAULT;
@@ -82,25 +91,25 @@ bool Graphics::DirectXInitialize(int screenWidth, int screenHeight, HWND hWnd)
     device->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView);
 
     viewport = {};
-    viewport.Width = screenWidth;
-    viewport.Height = screenHeight;
+    viewport.Width = window->GetScreenWidth();
+    viewport.Height = window->GetScreenHeight();
     viewport.TopLeftX = 0;
     viewport.TopLeftY = 0;
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
-    InitializeDeferredBuffer(screenWidth, screenHeight);
+    InitializeDeferredBuffer();
 
     initDepthShadowMap();
-    initSceneMap(screenWidth, screenHeight);
+    initSceneMap();
 
-    direct2DInitialize(hWnd);
-    setupImGui(hWnd);
+    direct2DInitialize();
+    setupImGui();
 
     return true;
 }
 
-bool Graphics::direct2DInitialize(HWND hWnd)
+bool Graphics::direct2DInitialize()
 {
     D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory);
 
@@ -184,7 +193,7 @@ void Graphics::configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText)
 
 }
 
-void Graphics::setupImGui(HWND hWnd)
+void Graphics::setupImGui()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -206,7 +215,7 @@ void Graphics::setupImGui(HWND hWnd)
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
-    ImGui_ImplWin32_Init(hWnd);
+    ImGui_ImplWin32_Init(window->GetWnd());
     ImGui_ImplDX11_Init(device, context);  
 }
 
@@ -302,7 +311,7 @@ bool Graphics::initDepthShadowMap()
     return true;
 }
 
-bool Graphics::initSceneMap(int screenWidth, int screenHeight)
+bool Graphics::initSceneMap()
 {
     // Creating a depth buffer
     D3D11_TEXTURE2D_DESC sceneMapDesc;
@@ -312,8 +321,8 @@ bool Graphics::initSceneMap(int screenWidth, int screenHeight)
     sceneMapDesc.ArraySize = 1;
     sceneMapDesc.SampleDesc.Count = 1;
     sceneMapDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-    sceneMapDesc.Height = screenHeight;
-    sceneMapDesc.Width = screenWidth;
+    sceneMapDesc.Width = window->GetScreenWidth();
+    sceneMapDesc.Height = window->GetScreenHeight();
 
     HRESULT hr = device->CreateTexture2D(&sceneMapDesc, nullptr, &sceneMap);
 
@@ -380,6 +389,11 @@ DeferredBuffers* Graphics::GetDeferredBuffers()
     return deferredBuffers;
 }
 
+LightShader* Graphics::GetLightShader()
+{
+    return lightShader;
+}
+
 bool Graphics::HasLight() const
 {
     return hasLight;
@@ -435,15 +449,15 @@ void Graphics::PrepareRenderShadowMap() const
     depthShader->SetShader();
 }
 
-void Graphics::PrepareRenderSceneMap(int screenWidth, int screenHeight)
+void Graphics::PrepareRenderSceneMap()
 {
     context->ClearState();
 
     context->OMSetRenderTargets(1, &sceneRenderTargetView, depthStencilView);
 
     D3D11_VIEWPORT viewport = {};
-    viewport.Width = static_cast<float>(screenWidth);
-    viewport.Height = static_cast<float>(screenHeight);
+    viewport.Width = static_cast<float>(window->GetScreenWidth());
+    viewport.Height = static_cast<float>(window->GetScreenWidth());
     viewport.TopLeftX = 0;
     viewport.TopLeftY = 0;
     viewport.MinDepth = 0;
@@ -469,8 +483,16 @@ void Graphics::PrepareDeferredBuffer()
     deferredBuffers->ClearRenderTargets(context, 0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void Graphics::InitializeDeferredBuffer(int screenWidth, int screenHeight)
+Window* Graphics::GetWindow() const
 {
+    return window;
+}
+
+void Graphics::InitializeDeferredBuffer()
+{
+    lightShader = new LightShader(this, L"Shaders/ShaderDeferredLight.fx");
+    lightShader->Init();
+
     deferredBuffers = new DeferredBuffers;
     if (!deferredBuffers)
     {
@@ -480,7 +502,8 @@ void Graphics::InitializeDeferredBuffer(int screenWidth, int screenHeight)
 
     // Initialize the deferred buffers object.
     bool result;
-    result = deferredBuffers->Initialize(device, screenWidth, screenHeight, 100, 0.1f);
+    result = deferredBuffers->Initialize(
+        device, window->GetScreenWidth(), window->GetScreenHeight(), 100, 0.1f);
     if (!result)
     {
         ErrorLogger::Log(Error, "Error initializing DeferredBuffers");

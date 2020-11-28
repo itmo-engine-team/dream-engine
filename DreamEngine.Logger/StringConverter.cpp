@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "StringConverter.h"
 
 std::wstring StringConverter::StringToWide(std::string str)

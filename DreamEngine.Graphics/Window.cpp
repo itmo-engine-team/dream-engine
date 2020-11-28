@@ -1,9 +1,11 @@
 #include "Window.h"
 
-#include "Engine.h"
+#include "ErrorLogger.h"
 
-Window::Window(Engine* engine) : engine(engine)
+Window::Window(int screenWidth, int screenHeight)
+    : screenWidth(screenWidth), screenHeight(screenHeight)
 {
+
 }
 
 bool Window::WindowInitialize(HINSTANCE hInstance, WNDCLASSEX wc)
@@ -33,11 +35,11 @@ bool Window::WindowInitialize(HINSTANCE hInstance, WNDCLASSEX wc)
     // game->screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
     // Place the window in the middle of the screen.
-    const int posX = (GetSystemMetrics(SM_CXSCREEN) - engine->GetScreenWidth()) / 2;
-    const int posY = (GetSystemMetrics(SM_CYSCREEN) - engine->GetScreenHeight()) / 2;
+    const int posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth) / 2;
+    const int posY = (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
 
     RECT windowRect = { 0, 0,
-        static_cast<LONG>(engine->GetScreenWidth()), static_cast<LONG>(engine->GetScreenHeight()) };
+        static_cast<LONG>(screenWidth), static_cast<LONG>(screenHeight) };
     AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
 
     auto dwStyle = WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX | WS_THICKFRAME; // WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP
@@ -62,7 +64,7 @@ bool Window::WindowInitialize(HINSTANCE hInstance, WNDCLASSEX wc)
 
         if (RegisterRawInputDevices(&rid, 1, sizeof(rid)) == FALSE)
         {
-            std::cout << "Failed to register raw input devices.\n";
+            ErrorLogger::Log(Error, "Failed to register raw input devices.\n");
             exit(-1);
         }
 
@@ -79,4 +81,14 @@ bool Window::WindowInitialize(HINSTANCE hInstance, WNDCLASSEX wc)
 HWND Window::GetWnd() const
 {
     return hWnd;
+}
+
+int Window::GetScreenWidth() const
+{
+    return screenWidth;
+}
+
+int Window::GetScreenHeight() const
+{
+    return screenHeight;
 }

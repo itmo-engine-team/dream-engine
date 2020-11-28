@@ -3,30 +3,29 @@
 #include <d3d11.h>
 
 #include "MeshData.h"
-#include "SimpleMath.h"
 #include <wrl/client.h>
 
 using namespace Microsoft::WRL;
-using namespace DirectX::SimpleMath;
 
-class Engine;
 class ModelShader;
 class Transform;
 class Graphics;
+struct CameraBuffer;
+struct LightBuffer;
+struct ConstantBuffer;
 
 class MeshObject
 {
 public:
 
-    MeshObject(Engine* engine, Transform* transform, MeshData* meshData, ModelShader* shader);
+    MeshObject(Graphics* graphics, MeshData* meshData, ModelShader* shader);
 
-    void Render();
-    bool RenderShadowMap();
+    void Render(ConstantBuffer constantBufferData,
+        LightBuffer lightBufferData, CameraBuffer cameraBufferData);
+    bool RenderShadowMap(ConstantBuffer constantBufferData);
 
 protected:
 
-    Engine* engine;
-    Transform* transform;
     MeshData* meshData;
     ModelShader* shader;
     Graphics* graphics;

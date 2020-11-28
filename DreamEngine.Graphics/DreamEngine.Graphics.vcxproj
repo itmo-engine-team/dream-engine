@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c53678ba-fba5-4bea-889f-46b846cc0a0e}</ProjectGuid>
-    <RootNamespace>DreamEngine</RootNamespace>
+    <ProjectGuid>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</ProjectGuid>
+    <RootNamespace>DreamEngineGraphics</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -86,13 +86,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -102,13 +100,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -118,14 +114,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Editor;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Logger;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -135,64 +130,60 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CameraBuffer.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="DeferredBuffers.h" />
+    <ClInclude Include="DepthShader.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="LightBuffer.h" />
+    <ClInclude Include="LightShader.h" />
+    <ClInclude Include="MeshData.h" />
+    <ClInclude Include="MeshObject.h" />
+    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="ModelData.h" />
+    <ClInclude Include="ModelDataBuffer.h" />
+    <ClInclude Include="ModelShader.h" />
+    <ClInclude Include="OrthoWindow.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vertex.h" />
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DeferredBuffers.cpp" />
+    <ClCompile Include="DepthShader.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="LightShader.cpp" />
+    <ClCompile Include="MeshData.cpp" />
+    <ClCompile Include="MeshObject.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="ModelData.cpp" />
+    <ClCompile Include="ModelShader.cpp" />
+    <ClCompile Include="OrthoWindow.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="LightActor.h" />
-    <ClInclude Include="LightComponent.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameAssetManager.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="ActorComponent.h" />
-    <ClInclude Include="CameraComponent.h" />
-    <ClInclude Include="SceneComponent.h" />
-    <ClInclude Include="StaticModelComponent.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="SpectatorActor.h" />
-    <ClInclude Include="MathUtils.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="LightActor.cpp" />
-    <ClCompile Include="LightComponent.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameAssetManager.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="ActorComponent.cpp" />
-    <ClCompile Include="CameraComponent.cpp" />
-    <ClCompile Include="SceneComponent.cpp" />
-    <ClCompile Include="StaticModelComponent.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="SpectatorActor.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
-      <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
+    <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
+      <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
-      <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Editor\DreamEngine.Editor.vcxproj">
-      <Project>{496cef75-6810-4145-ae01-ab4d64c2cb25}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
-      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
+    <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
+      <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

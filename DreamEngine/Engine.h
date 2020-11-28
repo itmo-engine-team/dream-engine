@@ -1,13 +1,5 @@
 #pragma once
 
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dcompiler.lib")
-#pragma comment(lib, "dxguid.lib")
-
-#include <iostream>
-
-#include "Graphics.h"
 #include "SimpleMath.h"
 #include "MeshRenderer.h"
 #include "Window.h"
@@ -20,6 +12,7 @@
 
 using namespace DirectX::SimpleMath;
 
+class Graphics;
 class Editor;
 
 class Engine
@@ -38,15 +31,12 @@ public:
     Game* GetGame() const;
 
     Graphics* GetGraphics() const;
-    Window* GetWindow() const;
     GameAssetManager* GetGameAssetManager() const;
     MeshRenderer* GetMeshRenderer() const;
 
     InputSystem* GetInputSystem() const;
 
     float GetDeltaTime() const;
-    int GetScreenWidth() const;
-    int GetScreenHeight() const;
 
 protected:
 
@@ -66,9 +56,6 @@ protected:
 
     float deltaTime = 0;
     float currentTime = 0;
-
-    int screenWidth = 0;
-    int screenHeight = 0;
 
     DWORD dwStartTick;
 

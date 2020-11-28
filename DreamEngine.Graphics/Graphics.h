@@ -25,8 +25,6 @@ class Graphics
 public:
 
     Graphics(Window* window);
-    bool DirectXInitialize();
-    void InitializeDeferredBuffer();
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     
@@ -40,13 +38,16 @@ public:
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
     IDXGISwapChain* GetSwapChain();
-    ID3D11RenderTargetView* GetRenderTargetView();
+    ID3D11RenderTargetView* GetBackBufferRenderTargetView();
     ID3DUserDefinedAnnotation* GetAnnotation();
 
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
 
+    ID3D11ShaderResourceView* GetSceneResourceView();
+
     ID3D11Texture2D* GetShadowMap();
+    ID3D11ShaderResourceView* GetShadowMapResourceView();
 
     DeferredBuffers* GetDeferredBuffers();
     LightShader* GetLightShader();
@@ -70,7 +71,7 @@ private:
     ID3D11DepthStencilView* depthStencilView = nullptr;          // View object, depth buffer
     Shader* depthShader;
 
-    ID3D11RenderTargetView* renderTargetView;
+    ID3D11RenderTargetView* backBufferRenderTargetView;
     D3D11_VIEWPORT viewport;
 
     // Variables for Shadows
@@ -88,7 +89,6 @@ private:
 
     IDWriteFactory* writeFactory = nullptr;
     IDWriteTextFormat* textFormat;
-    RECT rect;
   
     // Variables for GameRenderMap
     ID3D11Texture2D* sceneMap = nullptr;
@@ -101,9 +101,12 @@ private:
     bool hasLight = true;
     bool hasShadow = true;
 
-    bool direct2DInitialize();
+    bool initDirectX();
+    void initDeferredBuffer();
+    bool initDirect2D();
+    void initImGui();
+
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
-    void setupImGui();
   
     bool initDepthShadowMap(); 
     bool initSceneMap();

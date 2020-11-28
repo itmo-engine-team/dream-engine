@@ -9,10 +9,10 @@
 
 Graphics::Graphics(Window* window) : window(window)
 {
-
+    initDirectX();
 }
 
-bool Graphics::DirectXInitialize()
+bool Graphics::initDirectX()
 {
     HRESULT res;
 
@@ -42,7 +42,7 @@ bool Graphics::DirectXInitialize()
     ID3D11Texture2D* backTex;
     res = swapChain->GetBuffer(0, IID_ID3D11Texture2D, (void**)&backTex);
     ErrorLogger::DirectXLog(res, Error, "Failed to initialize BackBuffer", __FILE__, __FUNCTION__, __LINE__);
-    res = device->CreateRenderTargetView(backTex, nullptr, &renderTargetView);
+    res = device->CreateRenderTargetView(backTex, nullptr, &backBufferRenderTargetView);
     ErrorLogger::DirectXLog(res, Error, "Failed to create RenderTargetView", __FILE__, __FUNCTION__, __LINE__);
 
     context->QueryInterface(IID_ID3DUserDefinedAnnotation, (void**)&annotation);
@@ -98,23 +98,23 @@ bool Graphics::DirectXInitialize()
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
-    InitializeDeferredBuffer();
+    initDeferredBuffer();
 
     initDepthShadowMap();
     initSceneMap();
 
-    direct2DInitialize();
-    setupImGui();
+    initDirect2D();
+    initImGui();
 
     return true;
 }
 
-bool Graphics::direct2DInitialize()
+bool Graphics::initDirect2D()
 {
     D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory);
 
     ID3D11Resource* res;
-    this->renderTargetView->GetResource(&res);
+    this->backBufferRenderTargetView->GetResource(&res);
 
     IDXGISurface* surface;
     res->QueryInterface(__uuidof(IDXGISurface), reinterpret_cast<void**>(&surface));
@@ -193,7 +193,7 @@ void Graphics::configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText)
 
 }
 
-void Graphics::setupImGui()
+void Graphics::initImGui()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -359,9 +359,9 @@ IDXGISwapChain* Graphics::GetSwapChain()
     return swapChain;
 }
 
-ID3D11RenderTargetView* Graphics::GetRenderTargetView()
+ID3D11RenderTargetView* Graphics::GetBackBufferRenderTargetView()
 {
-    return renderTargetView;
+    return backBufferRenderTargetView;
 }
 
 ID3DUserDefinedAnnotation* Graphics::GetAnnotation()
@@ -379,9 +379,19 @@ ID3D11DepthStencilView* Graphics::GetDepthStencilView()
     return depthStencilView;
 }
 
+ID3D11ShaderResourceView* Graphics::GetSceneResourceView()
+{
+    return sceneResourceView;
+}
+
 ID3D11Texture2D* Graphics::GetShadowMap()
 {
     return shadowMap;
+}
+
+ID3D11ShaderResourceView* Graphics::GetShadowMapResourceView()
+{
+    return shadowResourceView;
 }
 
 DeferredBuffers* Graphics::GetDeferredBuffers()
@@ -404,33 +414,14 @@ bool Graphics::HasShadow() const
     return hasShadow;
 }
 
-/*void Graphics::createShadowViewport()
-{
-    ImGui::Begin("ShadowRender");
-    ImGui::Image(shadowResourceView, ImVec2(300, 300));
-    ImGui::End();
-}
-
-void Graphics::createGameViewport()
-{
-    ImGui::Begin("GameViewport");
-    ImGui::Image(sceneResourceView, ImVec2(400, 300));
-    ImGui::End();
-}
-
-void Graphics::createAssetBrowser()
-{
-    
-}*/
-
 void Graphics::PrepareRenderScene()
 {
     context->RSSetState(rasterState);
     context->RSSetViewports(1, &viewport);
-    context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+    context->OMSetRenderTargets(1, &backBufferRenderTargetView, depthStencilView);
 
     float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    context->ClearRenderTargetView(renderTargetView, color);
+    context->ClearRenderTargetView(backBufferRenderTargetView, color);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
     // Set shadow map
@@ -454,14 +445,6 @@ void Graphics::PrepareRenderSceneMap()
     context->ClearState();
 
     context->OMSetRenderTargets(1, &sceneRenderTargetView, depthStencilView);
-
-    D3D11_VIEWPORT viewport = {};
-    viewport.Width = static_cast<float>(window->GetScreenWidth());
-    viewport.Height = static_cast<float>(window->GetScreenWidth());
-    viewport.TopLeftX = 0;
-    viewport.TopLeftY = 0;
-    viewport.MinDepth = 0;
-    viewport.MaxDepth = 1.0f;
     
     context->RSSetViewports(1, &viewport);
     context->RSSetState(rasterState);
@@ -488,7 +471,7 @@ Window* Graphics::GetWindow() const
     return window;
 }
 
-void Graphics::InitializeDeferredBuffer()
+void Graphics::initDeferredBuffer()
 {
     lightShader = new LightShader(this, L"Shaders/ShaderDeferredLight.fx");
     lightShader->Init();

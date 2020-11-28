@@ -59,10 +59,11 @@ AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
         for (std::filesystem::directory_iterator itr(pathVar); itr != endItr; ++itr)
         {
             if (is_directory(itr->status()))
-            {
-                FolderNode* childFolderNode = assetTree->CreateFolderNode(
+            {        
+                FolderModificationResult childFolderStruct = assetTree->CreateFolderNode(
                     itr->path().filename().string(), currentFolderNode);
-                foldersQueue.push_back(childFolderNode);
+                if(childFolderStruct.resault)
+                    foldersQueue.push_back(childFolderStruct.folderNode);
             }
             else
             {
@@ -103,7 +104,7 @@ void AssetServices::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
     {
         std::filesystem::path newPath = parentPath + itr->path().filename().string();
 
-        if (!MoveFileEx(itr->path().c_str(), newPath.c_str(), (MOVEFILE_WRITE_THROUGH, MOVEFILE_REPLACE_EXISTING)))
+        if (!MoveFileEx(itr->path().c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
         {
            std::string error = std::string("MoveFileEx failed with error %d\n", GetLastError());
            ErrorLogger::Log(Warning, error);
@@ -140,12 +141,8 @@ void AssetServices::MoveFolder(FolderNode* folderNode, FolderNode* newParent)
     const std::string parentPath = CreateFolderPath(newParent);
     const std::filesystem::path newPath = parentPath + folderNode->GetName();
     
-    if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), (MOVEFILE_WRITE_THROUGH, MOVEFILE_REPLACE_EXISTING)))
+    if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
     {
-        printf(oldPath.string().c_str() );
-        printf("\n" );
-        printf(oldPath.stem().string().c_str());
-        printf("\n");
         std::string error = "MoveFileEx failed with error: " + GetLastError();
         ErrorLogger::Log(Warning, error);
     }
@@ -157,7 +154,7 @@ void AssetServices::MoveAsset(AssetNode* assetNode, FolderNode* newParent)
     const std::string parentPath = CreateFolderPath(newParent);
     const std::filesystem::path newPath = parentPath + assetNode->GetName();
 
-    if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), (MOVEFILE_WRITE_THROUGH, MOVEFILE_REPLACE_EXISTING)))
+    if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
     {
         std::string error = std::string("MoveFileEx failed with error %d\n", GetLastError());
         ErrorLogger::Log(Warning, error);

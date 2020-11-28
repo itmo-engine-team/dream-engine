@@ -2,6 +2,20 @@
 
 #include "FolderNode.h"
 
+struct AssetModificationResult
+{
+    bool resault;
+    AssetNode* assetNode;
+    std::string error;
+};
+
+struct FolderModificationResult
+{
+    bool resault;
+    FolderNode* folderNode;
+    std::string error;
+};
+
 class AssetTree
 {
 
@@ -11,8 +25,8 @@ public:
 
     FolderNode* GetRootNode();
 
-    FolderNode* CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const;
-    AssetNode* CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const;
+    FolderModificationResult CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const;
+    AssetModificationResult CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const;
 
     void AddAssetNode(AssetNode* assetNode, FolderNode* parentNode);
     void AddFolderNode(FolderNode* folderNode, FolderNode* parentNode);

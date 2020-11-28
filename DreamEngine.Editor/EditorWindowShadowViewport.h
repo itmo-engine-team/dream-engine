@@ -2,12 +2,12 @@
 
 #include "EditorWindow.h"
 
-class EditorWindowGameViewport : public EditorWindow
+class EditorWindowShadowViewport : public EditorWindow
 {
 
 public:
 
-    EditorWindowGameViewport(Graphics* graphics);
+    EditorWindowShadowViewport(Graphics* graphics);
 
     void Update() override;
     void Render() override;

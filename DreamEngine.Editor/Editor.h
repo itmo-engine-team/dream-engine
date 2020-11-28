@@ -6,12 +6,14 @@
 
 #include "EditorWindow.h"
 
+class Graphics;
+
 class Editor
 {
 
 public:
 
-    Editor(ID3D11Device* device, ID3D11DeviceContext* context, HWND hWnd);
+    Editor(Graphics* graphics);
     ~Editor();
 
     void Update();
@@ -19,9 +21,10 @@ public:
 
 private:
 
+    Graphics* graphics;
     std::vector<EditorWindow*> windows;
 
-    void initImGui(ID3D11Device* device, ID3D11DeviceContext* context, HWND hWnd);
+    void initImGui();
     void startImGuiFrame();
     void finishImGuiFrame();
 

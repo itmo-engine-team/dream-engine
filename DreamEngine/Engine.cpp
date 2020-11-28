@@ -22,7 +22,7 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
 
     orthoWindow = new OrthoWindow(graphics);
 
-    editor = new Editor(graphics->GetDevice(), graphics->GetContext(), window->GetWnd());
+    editor = new Editor(graphics);
 }
 
 Engine::~Engine()

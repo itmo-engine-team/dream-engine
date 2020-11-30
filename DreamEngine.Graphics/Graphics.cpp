@@ -106,6 +106,9 @@ bool Graphics::initDirectX()
     initDirect2D();
     initImGui();
 
+    modelShader = new ModelShader(this, L"Shaders/ShaderDeferredModel.fx");
+    modelShader->Init();
+
     return true;
 }
 
@@ -346,6 +349,8 @@ bool Graphics::initSceneMap()
 
 void Graphics::setSceneRenderResources()
 {
+    //modelShader->SetShader();
+
     // Set shadow map
     context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
@@ -409,6 +414,11 @@ DeferredBuffers* Graphics::GetDeferredBuffers()
 LightShader* Graphics::GetLightShader()
 {
     return lightShader;
+}
+
+ModelShader* Graphics::GetModelShader()
+{
+    return modelShader;
 }
 
 bool Graphics::HasLight() const

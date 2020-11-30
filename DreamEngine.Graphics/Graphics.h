@@ -19,6 +19,7 @@
 #include "DeferredBuffers.h"
 #include "Window.h"
 #include "LightShader.h"
+#include "ModelShader.h"
 
 class Graphics
 {
@@ -51,6 +52,7 @@ public:
 
     DeferredBuffers* GetDeferredBuffers();
     LightShader* GetLightShader();
+    ModelShader* GetModelShader();
 
     bool HasLight() const;
     bool HasShadow() const;
@@ -97,7 +99,8 @@ private:
 
     DeferredBuffers* deferredBuffers;
     LightShader* lightShader;
-  
+    ModelShader* modelShader;
+
     bool hasLight = true;
     bool hasShadow = true;
 

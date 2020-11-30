@@ -111,7 +111,7 @@ void MeshObject::Render(const ConstantBuffer constantBufferData,
     graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    shader->SetShader();
+    graphics->GetModelShader()->SetShader();
     if (meshData->GetTexture() != nullptr)
         meshData->GetTexture()->SetTexture();
 

@@ -61,6 +61,8 @@ private:
 
     const FLOAT SHADOW_MAP_SIZE = 1024;
 
+    std::wstring graphicsPath;
+
     Window* window;
 
     ID3D11Device* device;

@@ -9,6 +9,10 @@
 
 Graphics::Graphics(Window* window) : window(window)
 {
+    std::string solutionPath = SOLUTION_DIR;
+    graphicsPath = std::wstring(solutionPath.begin(), solutionPath.end())
+        + L"DreamEngine.Graphics/";
+
     initDirectX();
 }
 
@@ -105,8 +109,9 @@ bool Graphics::initDirectX()
 
     initDirect2D();
     initImGui();
-
-    modelShader = new ModelShader(this, L"Shaders/ShaderDeferredModel.fx");
+    
+    std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDeferredModel.fx";
+    modelShader = new ModelShader(this, shaderPath.data());
     modelShader->Init();
 
     return true;
@@ -224,7 +229,8 @@ void Graphics::initImGui()
 
 bool Graphics::initDepthShadowMap()
 {
-    depthShader = new DepthShader(this, L"Shaders/ShaderDepthTexture.fx");
+    std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDepthTexture.fx";
+    depthShader = new DepthShader(this, shaderPath.data());
     depthShader->Init();
 
     // Creating a depth buffer
@@ -486,7 +492,8 @@ Window* Graphics::GetWindow() const
 
 void Graphics::initDeferredBuffer()
 {
-    lightShader = new LightShader(this, L"Shaders/ShaderDeferredLight.fx");
+    std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDeferredLight.fx";
+    lightShader = new LightShader(this, shaderPath.data());
     lightShader->Init();
 
     deferredBuffers = new DeferredBuffers;

@@ -65,7 +65,7 @@ AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
             }
             else
             {
-                if (itr->path().extension() != EXTENSION) continue;
+                if (itr->path().extension() != ASSET_FILE_EXTENSION) continue;
 
                 // TODO implement converting json file to AssetInfo
                 AssetInfo* assetInfo = nullptr;

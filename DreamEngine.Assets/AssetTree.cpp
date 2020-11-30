@@ -31,20 +31,20 @@ FolderModificationResult AssetTree::CreateFolderNode(const std::string& nodeName
 
 AssetModificationResult AssetTree::CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const
 {
-    AssetModificationResult assetStruct;
+    AssetModificationResult assetResult;
     for (AssetNode* assetNode : parentNode->GetChildAssetList())
     {
         if (assetNode->GetName() != nodeName) continue;
 
-        assetStruct.isSuccess = false;
-        assetStruct.assetNode = nullptr;
-        assetStruct.error = nodeName + " asset already exists";
-        return assetStruct;
+        assetResult.isSuccess = false;
+        assetResult.assetNode = nullptr;
+        assetResult.error = nodeName + " asset already exists";
+        return assetResult;
     }
 
-    assetStruct.isSuccess = true;
-    assetStruct.assetNode = new AssetNode(assetInfo, nodeName, parentNode);
-    return assetStruct;
+    assetResult.isSuccess = true;
+    assetResult.assetNode = new AssetNode(assetInfo, nodeName, parentNode);
+    return assetResult;
 }
 
 void AssetTree::AddAssetNode(AssetNode* assetNode, FolderNode* parentNode)

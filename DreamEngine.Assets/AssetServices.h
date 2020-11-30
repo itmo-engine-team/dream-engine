@@ -6,12 +6,13 @@
 
 #include "AssetTree.h"
 
-const std::string EXTENSION = ".asset";
+
 
 using json = nlohmann::json;
 
 namespace AssetServices
 {
+    const std::string ASSET_FILE_EXTENSION = ".asset";
 
     json CreateAssetFile(AssetNode* node);
     void RemoveAssetFile(AssetNode* node);

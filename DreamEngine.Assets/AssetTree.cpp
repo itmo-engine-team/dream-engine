@@ -1,11 +1,9 @@
 #include "AssetTree.h"
 #include "ErrorLogger.h"
 
-FolderNode* AssetTree::rootNode = new FolderNode("Content", nullptr);
-
-AssetTree& AssetTree::GetInstance()
+AssetTree::AssetTree(std::string rootNodeName) 
 {
-    return instance;
+    rootNode = new FolderNode(rootNodeName, nullptr);
 }
 
 FolderNode* AssetTree::GetRootNode()
@@ -13,14 +11,40 @@ FolderNode* AssetTree::GetRootNode()
     return rootNode;
 }
 
-FolderNode* AssetTree::CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const
+FolderModificationResult AssetTree::CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const
 {
-   return new FolderNode(nodeName, parentNode);
+   FolderModificationResult folderResult;
+   for (FolderNode* folderNode : parentNode->GetChildFolderList())
+   {
+       if (folderNode->GetName() != nodeName) continue;
+
+       folderResult.isSuccess = false;
+       folderResult.folderNode = nullptr;
+       folderResult.error = nodeName + " folder already exists";
+       return folderResult;
+   }
+
+   folderResult.isSuccess = true;
+   folderResult.folderNode = new FolderNode(nodeName, parentNode);
+   return folderResult;
 }
 
-AssetNode* AssetTree::CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const
+AssetModificationResult AssetTree::CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const
 {
-    return new AssetNode(assetInfo, nodeName, parentNode);
+    AssetModificationResult assetResult;
+    for (AssetNode* assetNode : parentNode->GetChildAssetList())
+    {
+        if (assetNode->GetName() != nodeName) continue;
+
+        assetResult.isSuccess = false;
+        assetResult.assetNode = nullptr;
+        assetResult.error = nodeName + " asset already exists";
+        return assetResult;
+    }
+
+    assetResult.isSuccess = true;
+    assetResult.assetNode = new AssetNode(assetInfo, nodeName, parentNode);
+    return assetResult;
 }
 
 void AssetTree::AddAssetNode(AssetNode* assetNode, FolderNode* parentNode)

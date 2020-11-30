@@ -26,9 +26,9 @@ bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePat
     return true;
 }
 
-ModelData* MeshRenderer::CreateBoxModel(ModelShader* shader, Vector4 color, Vector3 boxSize)
+ModelData* MeshRenderer::CreateBoxModel(Vector4 color, Vector3 boxSize)
 {
-    ModelData* modelData = new ModelData(shader);
+    ModelData* modelData = new ModelData();
 
     std::vector<Vertex> vertices = {
         // Front vertices
@@ -147,9 +147,9 @@ ModelData* MeshRenderer::CreateBoxModel(ModelShader* shader, Vector4 color, Vect
     return modelData;
 }
 
-ModelData* MeshRenderer::CreateSquareModel(ModelShader* shader, Vector3 quardSize)
+ModelData* MeshRenderer::CreateSquareModel(Vector3 quardSize)
 {
-    ModelData* modelData = new ModelData(shader);
+    ModelData* modelData = new ModelData();
 
     std::vector<Vertex> vertices = {
         // Front vertices

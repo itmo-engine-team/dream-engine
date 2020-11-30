@@ -6,7 +6,6 @@
 #include "CameraComponent.h"
 #include "LightComponent.h"
 #include "StaticModelComponent.h"
-#include "ModelShader.h"
 #include "LightActor.h"
 
 class KatamariGame : public Game
@@ -39,12 +38,9 @@ private:
     ModelData* planeModel;
     ModelData* boxModel;
     ModelData* playerModel;
-
-    ModelShader* shader;
-    ModelShader* texturedShader;
+    
     Texture* texture;
 
     void collisionCheck(GameObject* gameObject);
 
 };
-

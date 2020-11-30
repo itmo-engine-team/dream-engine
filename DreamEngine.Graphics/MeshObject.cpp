@@ -5,15 +5,14 @@
 #include "ErrorLogger.h"
 #include "Graphics.h"
 
-#include "ModelShader.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"
 #include "ModelDataBuffer.h"
 #include "Texture.h"
 
-MeshObject::MeshObject(Graphics* graphics, MeshData* meshData, ModelShader* shader)
-    : graphics(graphics), meshData(meshData), shader(shader)
+MeshObject::MeshObject(Graphics* graphics, MeshData* meshData)
+    : graphics(graphics), meshData(meshData)
 {
     HRESULT hr;
 

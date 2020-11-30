@@ -593,3 +593,6 @@ references/*
 
 # Exclude folder for meshes
 !**/Meshes/**/*.obj
+
+# Content folder in test
+UnitTest/Content

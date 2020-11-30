@@ -2,21 +2,31 @@
 
 #include "FolderNode.h"
 
+struct AssetModificationResult
+{
+    bool isSuccess;
+    AssetNode* assetNode;
+    std::string error;
+};
+
+struct FolderModificationResult
+{
+    bool isSuccess;
+    FolderNode* folderNode;
+    std::string error;
+};
+
 class AssetTree
 {
 
-    AssetTree() = default;
-
 public:
 
-    AssetTree(const AssetTree&) = delete;
-    void operator=(const AssetTree&) = delete;
+    AssetTree(std::string rootNodeName);
 
-    static AssetTree& GetInstance();
-    static FolderNode* GetRootNode();
+    FolderNode* GetRootNode();
 
-    FolderNode* CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const;
-    AssetNode* CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const;
+    FolderModificationResult CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const;
+    AssetModificationResult CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const;
 
     void AddAssetNode(AssetNode* assetNode, FolderNode* parentNode);
     void AddFolderNode(FolderNode* folderNode, FolderNode* parentNode);
@@ -31,7 +41,6 @@ public:
 
 private:
 
-    static AssetTree instance;
-    static FolderNode* rootNode;
+    FolderNode* rootNode;
 
 };

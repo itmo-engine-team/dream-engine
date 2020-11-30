@@ -4,7 +4,8 @@ FolderNode::FolderNode(std::string nodeName, FolderNode* parentNode)
 {
     name = nodeName;
     parent = parentNode;
-    parentNode->addChildFolderNode(this);
+    if (parentNode != nullptr)
+        parentNode->addChildFolderNode(this);
 }
 
 std::string FolderNode::GetName()

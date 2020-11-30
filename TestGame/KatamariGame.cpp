@@ -52,14 +52,11 @@ void KatamariGame::Init(Engine* engine)
     texture = new Texture(engine->GetGraphics(), L"Meshes/eyeball/eyes_blue.jpg");
     gameAssetManager->AddTexture(texture);
 
-    shadowMapTexture = new Texture(engine->GetGraphics(), engine->GetGraphics()->GetShadowMap());
-    gameAssetManager->AddTexture(texture);
-
-    texturedShader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderDeferredModel.fx", texture);
+    texturedShader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderDeferredModel.fx");
     texturedShader->Init();
     gameAssetManager->AddShader(texturedShader);
 
-    shader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderDeferredModel.fx", nullptr);
+    shader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderDeferredModel.fx");
     shader->Init();
     gameAssetManager->AddShader(shader);
 
@@ -69,12 +66,11 @@ void KatamariGame::Init(Engine* engine)
     boxModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
 
     playerModel = new ModelData(engine->GetMeshRenderer(), 
-        "Meshes/eyeball/eyeball-mod.obj", texturedShader);
+        "Meshes/eyeball/eyeball-mod.obj", texturedShader, texture);
 
     gameAssetManager->AddModel(planeModel);
     gameAssetManager->AddModel(boxModel);
     gameAssetManager->AddModel(playerModel);
-    gameAssetManager->AddModel(quardModel);
 
     // Init objects
 

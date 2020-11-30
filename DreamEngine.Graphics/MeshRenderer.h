@@ -23,7 +23,7 @@ public:
 protected:
 
     void processNode(ModelData* modelData, aiNode* node, const aiScene* scene);
-    static MeshData* processMesh(aiMesh* mesh, const aiScene* scene);
+    static MeshData* processMesh(aiMesh* mesh, const aiScene* scene, Texture* texture);
 
 };
 

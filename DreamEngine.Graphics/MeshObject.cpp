@@ -2,15 +2,15 @@
 
 #include <d3dcompiler.h>
 
+#include "ErrorLogger.h"
 #include "Graphics.h"
 
 #include "ModelShader.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"
-
-#include "ErrorLogger.h"
 #include "ModelDataBuffer.h"
+#include "Texture.h"
 
 MeshObject::MeshObject(Graphics* graphics, MeshData* meshData, ModelShader* shader)
     : graphics(graphics), meshData(meshData), shader(shader)
@@ -112,6 +112,8 @@ void MeshObject::Render(const ConstantBuffer constantBufferData,
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     shader->SetShader();
+    if (meshData->GetTexture() != nullptr)
+        meshData->GetTexture()->SetTexture();
 
     graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &constantBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
@@ -125,7 +127,7 @@ void MeshObject::Render(const ConstantBuffer constantBufferData,
     // Update Constant Buffer
     const ModelDataBuffer modelDataBufferData =
     {
-        shader->HasTexture() ? 1.0f : -1.0f,
+        meshData->GetTexture() != nullptr ? 1.0f : -1.0f,
         graphics->HasLight() ? 1.0f : -1.0f,
         graphics->HasShadow() ? 1.0f : -1.0f,
     };

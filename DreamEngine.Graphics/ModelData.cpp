@@ -8,8 +8,8 @@ ModelData::ModelData(ModelShader* shader)
 
 }
 
-ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, ModelShader* shader)
-    : shader(shader)
+ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, ModelShader* shader, Texture* texture)
+    : shader(shader), texture(texture)
 {
     pMeshRenderer->ProcessModel(this, filePath);
 }
@@ -27,4 +27,9 @@ std::vector<MeshData*> ModelData::GetMeshDataList() const
 ModelShader* ModelData::GetShader() const
 {
     return shader;
+}
+
+Texture* ModelData::GetTexture() const
+{
+    return texture;
 }

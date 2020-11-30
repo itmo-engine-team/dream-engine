@@ -9,18 +9,14 @@ class ModelShader : public Shader
 {
 public:
 
-    ModelShader(Graphics* graphics, const wchar_t* shaderPath, Texture* texture);
+    ModelShader(Graphics* graphics, const wchar_t* shaderPath);
 
     void Init() override;
 
     void SetShader() override;
-    bool HasTexture() const;
 
 protected:
 
-    bool hasTexture;
-
-    Texture* texture = nullptr;
     TextureSampler* sampler = nullptr;
 
 };

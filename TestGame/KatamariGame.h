@@ -39,12 +39,10 @@ private:
     ModelData* planeModel;
     ModelData* boxModel;
     ModelData* playerModel;
-    ModelData* quardModel;
 
     ModelShader* shader;
     ModelShader* texturedShader;
     Texture* texture;
-    Texture* shadowMapTexture;
 
     void collisionCheck(GameObject* gameObject);
 

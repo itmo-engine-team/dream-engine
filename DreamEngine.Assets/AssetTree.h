@@ -4,14 +4,14 @@
 
 struct AssetModificationResult
 {
-    bool resault;
+    bool isSuccess;
     AssetNode* assetNode;
     std::string error;
 };
 
 struct FolderModificationResult
 {
-    bool resault;
+    bool isSuccess;
     FolderNode* folderNode;
     std::string error;
 };

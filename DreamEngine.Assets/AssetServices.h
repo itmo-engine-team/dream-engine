@@ -6,6 +6,8 @@
 
 #include "AssetTree.h"
 
+const std::string EXTENSION = ".asset";
+
 using json = nlohmann::json;
 
 namespace AssetServices
@@ -18,11 +20,11 @@ namespace AssetServices
 
     std::string CreateFolder(FolderNode* folderNode);
     void CheckFolderExist(std::filesystem::path fileRelativePath);
-    void RemoveFolder(FolderNode* folderNode, bool isRecursive);
+    FolderModificationResult RemoveFolder(FolderNode* folderNode, bool isRecursive);
 
     std::string CreateFolderPath(FolderNode* folderNode);
     std::string CreateAssetPath(AssetNode* assetNode);
 
-    void MoveFolder(FolderNode* folderNode, FolderNode* newParent);
-    void MoveAsset(AssetNode* assetNode, FolderNode* newParent);
+    FolderModificationResult MoveFolder(FolderNode* folderNode, FolderNode* newParent);
+    AssetModificationResult MoveAsset(AssetNode* assetNode, FolderNode* newParent);
 }

@@ -13,20 +13,20 @@ FolderNode* AssetTree::GetRootNode()
 
 FolderModificationResult AssetTree::CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const
 {
-   FolderModificationResult folderStruct;
+   FolderModificationResult folderResult;
    for (FolderNode* folderNode : parentNode->GetChildFolderList())
    {
        if (folderNode->GetName() != nodeName) continue;
 
-       folderStruct.resault = false;
-       folderStruct.folderNode = nullptr;
-       folderStruct.error = nodeName + " folder already exists";
-       return folderStruct;
+       folderResult.isSuccess = false;
+       folderResult.folderNode = nullptr;
+       folderResult.error = nodeName + " folder already exists";
+       return folderResult;
    }
 
-   folderStruct.resault = true;
-   folderStruct.folderNode = new FolderNode(nodeName, parentNode);
-   return folderStruct;
+   folderResult.isSuccess = true;
+   folderResult.folderNode = new FolderNode(nodeName, parentNode);
+   return folderResult;
 }
 
 AssetModificationResult AssetTree::CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const
@@ -36,13 +36,13 @@ AssetModificationResult AssetTree::CreateAssetNode(AssetInfo* assetInfo, const s
     {
         if (assetNode->GetName() != nodeName) continue;
 
-        assetStruct.resault = false;
+        assetStruct.isSuccess = false;
         assetStruct.assetNode = nullptr;
         assetStruct.error = nodeName + " asset already exists";
         return assetStruct;
     }
 
-    assetStruct.resault = true;
+    assetStruct.isSuccess = true;
     assetStruct.assetNode = new AssetNode(assetInfo, nodeName, parentNode);
     return assetStruct;
 }

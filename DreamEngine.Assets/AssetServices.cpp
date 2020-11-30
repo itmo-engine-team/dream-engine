@@ -3,7 +3,6 @@
 #include <iomanip>
 #include <iostream>
 
-
 #include "ErrorLogger.h"
 
 json AssetServices::CreateAssetFile(AssetNode* node)
@@ -40,8 +39,7 @@ void AssetServices::RemoveAssetFile(AssetNode* node)
 AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
 {
     const std::string directoryName = rootNodeName;
-    const std::string extension = ".asset";
-
+   
     AssetTree* assetTree = new AssetTree(rootNodeName);
     CreateFolder(assetTree->GetRootNode());
 
@@ -60,14 +58,14 @@ AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
         {
             if (is_directory(itr->status()))
             {        
-                FolderModificationResult childFolderStruct = assetTree->CreateFolderNode(
+                FolderModificationResult childFolderResult = assetTree->CreateFolderNode(
                     itr->path().filename().string(), currentFolderNode);
-                if(childFolderStruct.resault)
-                    foldersQueue.push_back(childFolderStruct.folderNode);
+                if(childFolderResult.isSuccess)
+                    foldersQueue.push_back(childFolderResult.folderNode);
             }
             else
             {
-                if (itr->path().extension() != extension) continue;
+                if (itr->path().extension() != EXTENSION) continue;
 
                 // TODO implement converting json file to AssetInfo
                 AssetInfo* assetInfo = nullptr;
@@ -87,14 +85,17 @@ std::string AssetServices::CreateFolder(FolderNode* folderNode)
     return pathVar;
 }
 
-void AssetServices::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
+FolderModificationResult AssetServices::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
 {
     const std::filesystem::path oldPath(CreateFolderPath(folderNode));
+    FolderModificationResult folderResult;
 
     if (isRecursive)
     {
         remove_all(oldPath);
-        return;
+        folderResult.isSuccess = true;
+        folderResult.folderNode = nullptr;
+        return folderResult;
     }
 
     const std::string parentPath(CreateFolderPath(folderNode->GetParent()));
@@ -106,12 +107,20 @@ void AssetServices::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
 
         if (!MoveFileEx(itr->path().c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
         {
-           std::string error = std::string("MoveFileEx failed with error %d\n", GetLastError());
-           ErrorLogger::Log(Warning, error);
+            folderResult.folderNode = folderNode;
+            folderResult.isSuccess = false;
+            folderResult.error = std::string("MoveFileEx failed with error %d\n", GetLastError());
+    
+            ErrorLogger::Log(Warning, folderResult.error);
+            return folderResult;
         }
             
     }
     remove(oldPath);
+
+    folderResult.isSuccess = true;
+    folderResult.folderNode = nullptr;
+    return folderResult;
 }
 
 std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
@@ -135,30 +144,46 @@ std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
     return path;
 }
 
-void AssetServices::MoveFolder(FolderNode* folderNode, FolderNode* newParent)
+FolderModificationResult AssetServices::MoveFolder(FolderNode* folderNode, FolderNode* newParent)
 {
     const std::filesystem::path oldPath = CreateFolderPath(folderNode);
     const std::string parentPath = CreateFolderPath(newParent);
     const std::filesystem::path newPath = parentPath + folderNode->GetName();
+    FolderModificationResult folderResult;
     
     if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
     {
-        std::string error = "MoveFileEx failed with error: " + GetLastError();
-        ErrorLogger::Log(Warning, error);
+        folderResult.isSuccess = false;
+        folderResult.error = std::string("MoveFileEx failed with error %d\n", GetLastError());
+        folderResult.folderNode = nullptr;
+
+        ErrorLogger::Log(Warning, folderResult.error);
+        return folderResult;
     }
+    folderResult.isSuccess = true;
+    folderResult.folderNode = folderNode;
+    return folderResult;
 }
 
-void AssetServices::MoveAsset(AssetNode* assetNode, FolderNode* newParent)
+AssetModificationResult AssetServices::MoveAsset(AssetNode* assetNode, FolderNode* newParent)
 {
     const std::filesystem::path oldPath = CreateAssetPath(assetNode);
     const std::string parentPath = CreateFolderPath(newParent);
     const std::filesystem::path newPath = parentPath + assetNode->GetName();
+    AssetModificationResult assetResult;
 
     if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
     {
-        std::string error = std::string("MoveFileEx failed with error %d\n", GetLastError());
-        ErrorLogger::Log(Warning, error);
+        assetResult.isSuccess = false;
+        assetResult.error = std::string("MoveFileEx failed with error %d\n", GetLastError());
+        assetResult.assetNode = nullptr;
+
+        ErrorLogger::Log(Warning, assetResult.error);
+        return assetResult;
     }
+    assetResult.isSuccess = true;
+    assetResult.assetNode = assetNode;
+    return assetResult;
 }
 
 void AssetServices::CheckFolderExist(std::filesystem::path fileRelativePath)

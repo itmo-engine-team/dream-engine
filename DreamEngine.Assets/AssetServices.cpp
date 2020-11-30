@@ -186,6 +186,30 @@ AssetModificationResult AssetServices::MoveAsset(AssetNode* assetNode, FolderNod
     return assetResult;
 }
 
+AssetTree* AssetServices::CreateDebugAssetTree()
+{
+    AssetTree* assetTree = new AssetTree("Content");
+
+    // First layer
+    assetTree->CreateAssetNode(nullptr, "Asset11", assetTree->GetRootNode());
+    assetTree->CreateAssetNode(nullptr, "Asset12", assetTree->GetRootNode());
+    FolderNode* folder1 = assetTree->CreateFolderNode("Folder1", assetTree->GetRootNode()).folderNode;
+
+    // Second layer
+    assetTree->CreateAssetNode(nullptr, "Asset21", folder1);
+    FolderNode* folder21 = assetTree->CreateFolderNode("Folder21", folder1).folderNode;
+    FolderNode* folder22 = assetTree->CreateFolderNode("Folder22", folder1).folderNode;
+
+    // Third layer
+    assetTree->CreateAssetNode(nullptr, "Asset311", folder21);
+    assetTree->CreateAssetNode(nullptr, "Asset312", folder21);
+
+    assetTree->CreateAssetNode(nullptr, "Asset321", folder22);
+    assetTree->CreateAssetNode(nullptr, "Asset322", folder22);
+
+    return assetTree;
+}
+
 void AssetServices::CheckFolderExist(std::filesystem::path fileRelativePath)
 {
     if (!exists(fileRelativePath.parent_path()))

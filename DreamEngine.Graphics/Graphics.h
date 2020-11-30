@@ -111,4 +111,6 @@ private:
     bool initDepthShadowMap(); 
     bool initSceneMap();
 
+    void setSceneRenderResources();
+
 };

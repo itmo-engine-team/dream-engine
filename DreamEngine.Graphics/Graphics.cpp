@@ -344,6 +344,13 @@ bool Graphics::initSceneMap()
     return true;
 }
 
+void Graphics::setSceneRenderResources()
+{
+    // Set shadow map
+    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
+    context->PSSetSamplers(1, 1, &shadowSamplerState);
+}
+
 ID3D11Device* Graphics::GetDevice()
 {
     return device;
@@ -424,9 +431,7 @@ void Graphics::PrepareRenderScene()
     context->ClearRenderTargetView(backBufferRenderTargetView, color);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-    // Set shadow map
-    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
-    context->PSSetSamplers(1, 1, &shadowSamplerState);
+    setSceneRenderResources();
 }
 
 void Graphics::PrepareRenderShadowMap() const
@@ -454,9 +459,7 @@ void Graphics::PrepareRenderSceneMap()
     context->ClearRenderTargetView(sceneRenderTargetView, clearColor);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
-    // Set shadow map
-    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
-    context->PSSetSamplers(1, 1, &shadowSamplerState);
+    setSceneRenderResources();
 }
 
 void Graphics::PrepareDeferredBuffer()

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shader.h"
+#include "TextureSampler.h"
 
 class Texture;
 
@@ -17,8 +18,10 @@ public:
 
 protected:
 
-    Texture* texture = nullptr;
     bool hasTexture;
+
+    Texture* texture = nullptr;
+    TextureSampler* sampler = nullptr;
 
 };
 

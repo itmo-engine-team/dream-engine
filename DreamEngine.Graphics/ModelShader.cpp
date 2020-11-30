@@ -8,14 +8,17 @@ ModelShader::ModelShader(Graphics* graphics,
     : Shader(graphics, shaderPath), texture(texture)
 {
     hasTexture = texture != nullptr;
+    sampler = new TextureSampler(graphics);
 }
 
 void ModelShader::SetShader()
 {
     Shader::SetShader();
 
-    if (texture != nullptr)
+    if (texture != nullptr) {
         texture->SetTexture();
+        sampler->SetSampler();
+    }
 }
 
 bool ModelShader::HasTexture() const

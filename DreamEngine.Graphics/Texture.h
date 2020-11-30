@@ -11,14 +11,14 @@ public:
     Texture(Graphics* graphics, const wchar_t* texturePath);
     Texture(Graphics* graphics, ID3D11Texture2D* texture);
 
-    void SetTexture();
+    void SetTexture(int slot = 0);
+    ID3D11ShaderResourceView* GetShaderResourceView() const;
 
 protected:
 
     Graphics* graphics;
 
-    ID3D11ShaderResourceView* textureResource = nullptr;    // Texture object
-    ID3D11SamplerState* samplerState = nullptr;    // texture blending
+    ID3D11ShaderResourceView* textureResource = nullptr;
 
 };
 

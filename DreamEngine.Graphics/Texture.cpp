@@ -12,7 +12,7 @@ Texture::Texture(Graphics* graphics, const wchar_t* texturePath) : graphics(grap
         texturePath, nullptr, &textureResource, 0);
 
     // Creating a texture sample (description) 
-    D3D11_SAMPLER_DESC sampDesc;
+    /*D3D11_SAMPLER_DESC sampDesc;
     ZeroMemory(&sampDesc, sizeof(sampDesc));
     sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;      // Type of filtering
     sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;         // Setting coordinates
@@ -26,6 +26,7 @@ Texture::Texture(Graphics* graphics, const wchar_t* texturePath) : graphics(grap
     hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &samplerState);
     ErrorLogger::DirectXLog(hr, Error, "Failed create SamplerState",
         __FILE__, __FUNCTION__, __LINE__);
+    */
 }
 
 Texture::Texture(Graphics* graphics, ID3D11Texture2D* texture) : graphics(graphics)
@@ -40,7 +41,7 @@ Texture::Texture(Graphics* graphics, ID3D11Texture2D* texture) : graphics(graphi
     auto hr = graphics->GetDevice()->CreateShaderResourceView(texture, &shaderResourceViewDesc, &textureResource);
 
     // Creating a texture sample (description) 
-    D3D11_SAMPLER_DESC sampDesc;
+    /*D3D11_SAMPLER_DESC sampDesc;
     ZeroMemory(&sampDesc, sizeof(sampDesc));
     sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;      // Type of filtering
     sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;         // Setting coordinates
@@ -53,10 +54,15 @@ Texture::Texture(Graphics* graphics, ID3D11Texture2D* texture) : graphics(graphi
     // Creating a texturing sample interface
     hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &samplerState);
     ErrorLogger::DirectXLog(hr, Error, "Failed create SamplerState", __FILE__, __FUNCTION__, __LINE__);
+    */
 }
 
-void Texture::SetTexture()
+void Texture::SetTexture(int slot)
 {
-    graphics->GetContext()->PSSetShaderResources(0, 1, &textureResource);
-    graphics->GetContext()->PSSetSamplers(0, 1, &samplerState);
+    graphics->GetContext()->PSSetShaderResources(slot, 1, &textureResource);
+}
+
+ID3D11ShaderResourceView* Texture::GetShaderResourceView() const
+{
+    return textureResource;
 }

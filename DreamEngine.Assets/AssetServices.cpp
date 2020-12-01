@@ -106,7 +106,7 @@ FolderModificationResult AssetServices::RemoveFolder(FolderNode* folderNode, con
         {
 
             FolderModificationResult folderResult = { false, nullptr, std::string(
-                    "MoveFileEx failed with error %d\n", GetLastError())
+                "MoveFileEx failed with error %d\n", GetLastError())
             };
             folderResult.node = folderNode;
     
@@ -150,7 +150,7 @@ FolderModificationResult AssetServices::MoveFolder(FolderNode* folderNode, Folde
     if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
     {
         FolderModificationResult folderResult = { false, nullptr, std::string(
-                "MoveFileEx failed with error %d\n", GetLastError())
+            "MoveFileEx failed with error %d\n", GetLastError())
         };
 
         ErrorLogger::Log(Warning, folderResult.error);

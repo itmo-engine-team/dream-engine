@@ -21,31 +21,31 @@ void EditorWindowAssetBrowser::Render()
 {
     ImGui::Begin(" ");
 
-    createFilter();
+    drawFilter();
     if (currentParentNode)
     {
-        folderLayout(currentParentNode);
+        drawFolderLayout(currentParentNode);
     }
 
     ImGui::End();
 
     ImGui::Begin(GetName().data());
 
-    createCommandMenu();
+    drawCommandMenu();
 
     ImGui::End();
 
     ImGui::Begin("Content");
 
-    //add folder icon
+    // Add folder icon
     ImGui::Image(iconFolder->GetShaderResourceView(), ImVec2(15, 15));
     ImGui::SameLine();
 
-    //begin tree
+    // Begin tree
     if (ImGui::TreeNode(assetTree->GetRootNode()->GetName().c_str()))
     {
         currentParentNode = assetTree->GetRootNode();
-        addTreeFolders(currentParentNode);
+        drawChildrenFolders(currentParentNode);
 
         ImGui::TreePop();
     }
@@ -53,7 +53,7 @@ void EditorWindowAssetBrowser::Render()
     ImGui::End();
 }
 
-void EditorWindowAssetBrowser::createFilter()
+void EditorWindowAssetBrowser::drawFilter()
 {
     ImGui::Image(iconFilter->GetShaderResourceView(), ImVec2(20, 20));
     ImGui::SameLine();
@@ -67,7 +67,7 @@ void EditorWindowAssetBrowser::createFilter()
             ImGui::BulletText("%s", fileNames[i]);
 }
 
-void EditorWindowAssetBrowser::popupContextMenu()
+void EditorWindowAssetBrowser::drawPopupContextMenu()
 {
     if (ImGui::BeginPopupContextItem())
     {
@@ -83,39 +83,39 @@ void EditorWindowAssetBrowser::popupContextMenu()
     }
 }
 
-void EditorWindowAssetBrowser::folderLayout(FolderNode* parentNode)
+void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
 {
     ImVec2 buttonSize(40, 40);
     ImGuiStyle& style = ImGui::GetStyle();
-    int folders_count = parentNode->GetChildFolderList().size();
+    int foldersCount = parentNode->GetChildFolderList().size();
     float windowVisible = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
 
-    int assets_count = parentNode->GetChildAssetList().size();
+    int assetsCount = parentNode->GetChildAssetList().size();
 
-    for (int i = 0; i < folders_count; i++)
+    for (int i = 0; i < foldersCount; i++)
     {
         ImGui::PushID(i);
 
         ImGui::BeginGroup();
-        if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize)) //need to fix
+        if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize)) // TODO: fix draw folders
         {
             currentParentNode = parentNode->GetChildFolderList()[i];
-            folderLayout(currentParentNode);
+            drawFolderLayout(currentParentNode);
         }
         ImGui::Text(parentNode->GetChildFolderList()[i]->GetName().c_str());
         ImGui::EndGroup();
 
         float lastButton = ImGui::GetItemRectMax().x;
         float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
-        if (i + 1 < folders_count && nextButton < windowVisible)
+        if (i + 1 < foldersCount && nextButton < windowVisible)
             ImGui::SameLine();
         ImGui::PopID();
     }
 
-    if (folders_count)
+    if (foldersCount)
         ImGui::SameLine();
 
-    for (int i = 0; i < assets_count; i++)
+    for (int i = 0; i < assetsCount; i++)
     {
         ImGui::PushID(i);
 
@@ -126,13 +126,13 @@ void EditorWindowAssetBrowser::folderLayout(FolderNode* parentNode)
 
         float lastButton = ImGui::GetItemRectMax().x;
         float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
-        if (i + 1 < assets_count && nextButton < windowVisible)
+        if (i + 1 < assetsCount && nextButton < windowVisible)
             ImGui::SameLine();
         ImGui::PopID();
     }
 }
 
-void EditorWindowAssetBrowser::createCommandMenu()
+void EditorWindowAssetBrowser::drawCommandMenu()
 {
     ImGui::Image(iconFile->GetShaderResourceView(), ImVec2(20, 20));
     ImGui::SameLine();
@@ -154,7 +154,7 @@ void EditorWindowAssetBrowser::createCommandMenu()
     }
 }
 
-void EditorWindowAssetBrowser::addTreeFolders(FolderNode* parentNode)
+void EditorWindowAssetBrowser::drawChildrenFolders(FolderNode* parentNode)
 {
     for (int i = 0; i < parentNode->GetChildFolderList().size(); i++)
     {
@@ -163,13 +163,13 @@ void EditorWindowAssetBrowser::addTreeFolders(FolderNode* parentNode)
         if (ImGui::TreeNode(parentNode->GetChildFolderList()[i]->GetName().c_str()))
         {
             currentParentNode = parentNode->GetChildFolderList()[i];
-            addTreeFolders(currentParentNode);
+            drawChildrenFolders(currentParentNode);
             ImGui::TreePop();
         }
     }
 }
 
-void EditorWindowAssetBrowser::addTreeAssets(FolderNode* parentNode)
+void EditorWindowAssetBrowser::drawChildrenAssets(FolderNode* parentNode)
 {
     for (int i = 0; i < parentNode->GetChildAssetList().size(); i++)
     {

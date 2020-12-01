@@ -18,7 +18,7 @@ public:
 private:
 
     AssetTree* assetTree;
-    FolderNode* rootNode;
+
     FolderNode* currentParentNode = nullptr;
 
     Texture* iconFolder;
@@ -28,12 +28,12 @@ private:
 
     const char* fileNames[];
     
-    void createFilter();
-    void popupContextMenu();
-    void folderLayout(FolderNode* parentNode);
-    void createCommandMenu();
-    void addTreeFolders(FolderNode* parentNode);
-    void addTreeAssets(FolderNode* parentNode);
+    void drawFilter();
+    void drawPopupContextMenu();
+    void drawFolderLayout(FolderNode* parentNode);
+    void drawCommandMenu();
+    void drawChildrenFolders(FolderNode* parentNode);
+    void drawChildrenAssets(FolderNode* parentNode);
 
 };
 

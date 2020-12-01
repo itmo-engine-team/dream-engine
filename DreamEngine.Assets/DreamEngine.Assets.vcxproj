@@ -148,6 +148,8 @@
     <ClInclude Include="AssetServices.h" />
     <ClInclude Include="AssetType.h" />
     <ClInclude Include="AssetTree.h" />
+    <ClInclude Include="Libraries\id.hpp" />
+    <ClInclude Include="TreeModificationResult.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetInfo.cpp" />

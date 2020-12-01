@@ -5,7 +5,6 @@
 #include "assimp/Importer.hpp"
 
 #include "ModelData.h"
-#include "ModelShader.h"
 
 using namespace Assimp;
 
@@ -13,7 +12,7 @@ class MeshRenderer
 {
 public:
 
-    MeshRenderer();
+    MeshRenderer() = default;
 
     bool ProcessModel(ModelData* modelData, const std::string& filePath);
 

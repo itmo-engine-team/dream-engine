@@ -10,7 +10,7 @@ class ModelData
 {
 public:
 
-    ModelData();
+    ModelData() = default;
     ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, Texture* texture);
 
     void AddMeshData(MeshData* pMeshData);

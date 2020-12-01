@@ -3,11 +3,6 @@
 #include "assimp/postprocess.h"
 #include "ErrorLogger.h"
 
-MeshRenderer::MeshRenderer()
-{
-
-}
-
 bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePath)
 {
     Importer importer;

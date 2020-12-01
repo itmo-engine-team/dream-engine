@@ -2,6 +2,8 @@
 
 #include "EditorWindow.h"
 #include "Texture.h"
+#include "AssetTree.h"
+#include "AssetServices.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
 {
@@ -13,19 +15,25 @@ public:
     void Update() override;
     void Render() override;
 
-    
-
 private:
+
+    AssetTree* assetTree;
+    FolderNode* rootNode;
+    FolderNode* currentParentNode = nullptr;
 
     Texture* iconFolder;
     Texture* iconFile;
     Texture* iconFilter;
+    Texture* iconAsset;
 
-    bool layoutChange;
     const char* fileNames[];
     
+    void createFilter();
     void popupContextMenu();
-    void fileLayout();
-    void folderLayout();
+    void folderLayout(FolderNode* parentNode);
+    void createCommandMenu();
+    void addTreeFolders(FolderNode* parentNode);
+    void addTreeAssets(FolderNode* parentNode);
+
 };
 

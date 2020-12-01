@@ -7,7 +7,6 @@
 
 using namespace Microsoft::WRL;
 
-class ModelShader;
 class Transform;
 class Graphics;
 struct CameraBuffer;
@@ -18,7 +17,7 @@ class MeshObject
 {
 public:
 
-    MeshObject(Graphics* graphics, MeshData* meshData, ModelShader* shader);
+    MeshObject(Graphics* graphics, MeshData* meshData);
 
     void Render(ConstantBuffer constantBufferData,
         LightBuffer lightBufferData, CameraBuffer cameraBufferData);
@@ -26,9 +25,8 @@ public:
 
 protected:
 
-    MeshData* meshData;
-    ModelShader* shader;
     Graphics* graphics;
+    MeshData* meshData;
 
     ComPtr<ID3D11Buffer> indexBuffer;
     ComPtr<ID3D11Buffer> vertexBuffer;

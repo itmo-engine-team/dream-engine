@@ -19,6 +19,7 @@
 #include "DeferredBuffers.h"
 #include "Window.h"
 #include "LightShader.h"
+#include "ModelShader.h"
 
 class Graphics
 {
@@ -51,6 +52,7 @@ public:
 
     DeferredBuffers* GetDeferredBuffers();
     LightShader* GetLightShader();
+    ModelShader* GetModelShader();
 
     bool HasLight() const;
     bool HasShadow() const;
@@ -58,6 +60,8 @@ public:
 private:
 
     const FLOAT SHADOW_MAP_SIZE = 1024;
+
+    std::wstring graphicsPath;
 
     Window* window;
 
@@ -97,7 +101,8 @@ private:
 
     DeferredBuffers* deferredBuffers;
     LightShader* lightShader;
-  
+    ModelShader* modelShader;
+
     bool hasLight = true;
     bool hasShadow = true;
 
@@ -110,5 +115,7 @@ private:
   
     bool initDepthShadowMap(); 
     bool initSceneMap();
+
+    void setSceneRenderResources();
 
 };

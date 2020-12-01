@@ -2,12 +2,9 @@
 
 #include "Texture.h"
 
-ModelShader::ModelShader(Graphics* graphics,
-                               const wchar_t* shaderPath,
-                               Texture* texture)
-    : Shader(graphics, shaderPath), texture(texture)
+ModelShader::ModelShader(Graphics* graphics, const wchar_t* shaderPath)
+    : Shader(graphics, shaderPath)
 {
-    hasTexture = texture != nullptr;
     sampler = new TextureSampler(graphics);
 }
 
@@ -15,15 +12,7 @@ void ModelShader::SetShader()
 {
     Shader::SetShader();
 
-    if (texture != nullptr) {
-        texture->SetTexture();
-        sampler->SetSampler();
-    }
-}
-
-bool ModelShader::HasTexture() const
-{
-    return hasTexture;
+    sampler->SetSampler();
 }
 
 void ModelShader::Init()

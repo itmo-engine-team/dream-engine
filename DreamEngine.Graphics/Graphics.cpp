@@ -9,6 +9,10 @@
 
 Graphics::Graphics(Window* window) : window(window)
 {
+    std::string solutionPath = SOLUTION_DIR;
+    graphicsPath = std::wstring(solutionPath.begin(), solutionPath.end())
+        + L"DreamEngine.Graphics/";
+
     initDirectX();
 }
 
@@ -105,6 +109,10 @@ bool Graphics::initDirectX()
 
     initDirect2D();
     initImGui();
+    
+    std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDeferredModel.fx";
+    modelShader = new ModelShader(this, shaderPath.data());
+    modelShader->Init();
 
     return true;
 }
@@ -221,7 +229,8 @@ void Graphics::initImGui()
 
 bool Graphics::initDepthShadowMap()
 {
-    depthShader = new DepthShader(this, L"Shaders/ShaderDepthTexture.fx");
+    std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDepthTexture.fx";
+    depthShader = new DepthShader(this, shaderPath.data());
     depthShader->Init();
 
     // Creating a depth buffer
@@ -344,6 +353,15 @@ bool Graphics::initSceneMap()
     return true;
 }
 
+void Graphics::setSceneRenderResources()
+{
+    //modelShader->SetShader();
+
+    // Set shadow map
+    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
+    context->PSSetSamplers(1, 1, &shadowSamplerState);
+}
+
 ID3D11Device* Graphics::GetDevice()
 {
     return device;
@@ -404,6 +422,11 @@ LightShader* Graphics::GetLightShader()
     return lightShader;
 }
 
+ModelShader* Graphics::GetModelShader()
+{
+    return modelShader;
+}
+
 bool Graphics::HasLight() const
 {
     return hasLight;
@@ -424,9 +447,7 @@ void Graphics::PrepareRenderScene()
     context->ClearRenderTargetView(backBufferRenderTargetView, color);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-    // Set shadow map
-    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
-    context->PSSetSamplers(1, 1, &shadowSamplerState);
+    setSceneRenderResources();
 }
 
 void Graphics::PrepareRenderShadowMap() const
@@ -454,9 +475,7 @@ void Graphics::PrepareRenderSceneMap()
     context->ClearRenderTargetView(sceneRenderTargetView, clearColor);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
-    // Set shadow map
-    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
-    context->PSSetSamplers(1, 1, &shadowSamplerState);
+    setSceneRenderResources();
 }
 
 void Graphics::PrepareDeferredBuffer()
@@ -473,7 +492,8 @@ Window* Graphics::GetWindow() const
 
 void Graphics::initDeferredBuffer()
 {
-    lightShader = new LightShader(this, L"Shaders/ShaderDeferredLight.fx");
+    std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDeferredLight.fx";
+    lightShader = new LightShader(this, shaderPath.data());
     lightShader->Init();
 
     deferredBuffers = new DeferredBuffers;

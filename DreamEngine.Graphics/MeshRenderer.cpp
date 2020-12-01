@@ -3,11 +3,6 @@
 #include "assimp/postprocess.h"
 #include "ErrorLogger.h"
 
-MeshRenderer::MeshRenderer()
-{
-
-}
-
 bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePath)
 {
     Importer importer;
@@ -26,9 +21,9 @@ bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePat
     return true;
 }
 
-ModelData* MeshRenderer::CreateBoxModel(ModelShader* shader, Vector4 color, Vector3 boxSize)
+ModelData* MeshRenderer::CreateBoxModel(Vector4 color, Vector3 boxSize)
 {
-    ModelData* modelData = new ModelData(shader);
+    ModelData* modelData = new ModelData();
 
     std::vector<Vertex> vertices = {
         // Front vertices
@@ -147,9 +142,9 @@ ModelData* MeshRenderer::CreateBoxModel(ModelShader* shader, Vector4 color, Vect
     return modelData;
 }
 
-ModelData* MeshRenderer::CreateSquareModel(ModelShader* shader, Vector3 quardSize)
+ModelData* MeshRenderer::CreateSquareModel(Vector3 quardSize)
 {
-    ModelData* modelData = new ModelData(shader);
+    ModelData* modelData = new ModelData();
 
     std::vector<Vertex> vertices = {
         // Front vertices
@@ -183,7 +178,7 @@ void MeshRenderer::processNode(ModelData* modelData, aiNode* node, const aiScene
     for (UINT i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        modelData->AddMeshData(processMesh(mesh, scene));
+        modelData->AddMeshData(processMesh(mesh, scene, modelData->GetTexture()));
     }
 
     for (UINT i = 0; i < node->mNumChildren; i++)
@@ -192,7 +187,7 @@ void MeshRenderer::processNode(ModelData* modelData, aiNode* node, const aiScene
     }
 }
 
-MeshData* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
+MeshData* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene, Texture* texture)
 {
     std::vector<Vertex> vertices;
     std::vector<DWORD> indices;
@@ -224,5 +219,5 @@ MeshData* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
             indices.push_back(face.mIndices[j]);
     }
 
-    return new MeshData(vertices, indices);
+    return new MeshData(vertices, indices, texture);
 }

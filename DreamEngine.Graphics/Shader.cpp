@@ -88,12 +88,14 @@ void Shader::initInternal(D3D11_INPUT_ELEMENT_DESC* inputElements, const int ele
     }
 
     // Create vertex shader
-    device->CreateVertexShader(
+    hr = device->CreateVertexShader(
         vertexBC->GetBufferPointer(),
         vertexBC->GetBufferSize(),
         nullptr,
         &vertexShader
         );
+    ErrorLogger::DirectXLog(hr, Error, "Failed to create VertexShader",
+        __FILE__, __FUNCTION__, __LINE__);
 
     // Do not delete - Saved to not forget that shader can be modified with macros
     // D3D_SHADER_MACRO Shader_Macros[] = { "TEST", "1", "TCOLOR", "float4(0.0f, 1.0f, 0.0f, 1.0f)", nullptr, nullptr };

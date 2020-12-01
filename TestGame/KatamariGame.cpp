@@ -52,29 +52,17 @@ void KatamariGame::Init(Engine* engine)
     texture = new Texture(engine->GetGraphics(), L"Meshes/eyeball/eyes_blue.jpg");
     gameAssetManager->AddTexture(texture);
 
-    shadowMapTexture = new Texture(engine->GetGraphics(), engine->GetGraphics()->GetShadowMap());
-    gameAssetManager->AddTexture(texture);
-
-    texturedShader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderDeferredModel.fx", texture);
-    texturedShader->Init();
-    gameAssetManager->AddShader(texturedShader);
-
-    shader = new ModelShader(engine->GetGraphics(), L"Shaders/ShaderDeferredModel.fx", nullptr);
-    shader->Init();
-    gameAssetManager->AddShader(shader);
-
     // Init Meshes
 
-    planeModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 3, 0.1, 3 });
-    boxModel = MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
+    planeModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 3, 0.1, 3 });
+    boxModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
 
     playerModel = new ModelData(engine->GetMeshRenderer(), 
-        "Meshes/eyeball/eyeball-mod.obj", texturedShader);
+        "Meshes/eyeball/eyeball-mod.obj", texture);
 
     gameAssetManager->AddModel(planeModel);
     gameAssetManager->AddModel(boxModel);
     gameAssetManager->AddModel(playerModel);
-    gameAssetManager->AddModel(quardModel);
 
     // Init objects
 
@@ -105,7 +93,7 @@ void KatamariGame::Init(Engine* engine)
     lightActor = new LightActor(this, new Transform({ -10, 10, -10 }));
     lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0 }), boxModel));
     lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0.5 }),
-        MeshRenderer::CreateBoxModel(shader, { 1, 1, 1, 1 }, { 0.03, 0.03, 0.5 })));
+        MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.03, 0.03, 0.5 })));
 
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.65f);
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitY, 0.75f);

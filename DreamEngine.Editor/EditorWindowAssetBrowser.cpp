@@ -156,13 +156,13 @@ void EditorWindowAssetBrowser::drawCommandMenu()
 
 void EditorWindowAssetBrowser::drawChildrenFolders(FolderNode* parentNode)
 {
-    for (int i = 0; i < parentNode->GetChildFolderList().size(); i++)
+    for (auto i : parentNode->GetChildFolderList())
     {
         ImGui::Image(iconFolder->GetShaderResourceView(), ImVec2(15, 15));
         ImGui::SameLine();
-        if (ImGui::TreeNode(parentNode->GetChildFolderList()[i]->GetName().c_str()))
+        if (ImGui::TreeNode(i->GetName().c_str()))
         {
-            currentParentNode = parentNode->GetChildFolderList()[i];
+            currentParentNode = i;
             drawChildrenFolders(currentParentNode);
             ImGui::TreePop();
         }
@@ -171,10 +171,10 @@ void EditorWindowAssetBrowser::drawChildrenFolders(FolderNode* parentNode)
 
 void EditorWindowAssetBrowser::drawChildrenAssets(FolderNode* parentNode)
 {
-    for (int i = 0; i < parentNode->GetChildAssetList().size(); i++)
+    for (auto i : parentNode->GetChildAssetList())
     {
         ImGui::Image(iconAsset->GetShaderResourceView(), ImVec2(15, 15));
         ImGui::SameLine();
-        ImGui::Selectable(parentNode->GetChildAssetList()[i]->GetName().c_str());
+        ImGui::Selectable(i->GetName().c_str());
     }
 }

@@ -105,7 +105,7 @@ FolderModificationResult AssetServices::RemoveFolder(FolderNode* folderNode, con
         if (!MoveFileEx(itr->path().c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
         {
 
-            FolderModificationResult folderResult = { std::string(
+            FolderModificationResult folderResult = { false, nullptr, std::string(
                     "MoveFileEx failed with error %d\n", GetLastError())
             };
             folderResult.node = folderNode;
@@ -149,7 +149,7 @@ FolderModificationResult AssetServices::MoveFolder(FolderNode* folderNode, Folde
     
     if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
     {
-        FolderModificationResult folderResult = {std::string(
+        FolderModificationResult folderResult = { false, nullptr, std::string(
                 "MoveFileEx failed with error %d\n", GetLastError())
         };
 
@@ -157,7 +157,7 @@ FolderModificationResult AssetServices::MoveFolder(FolderNode* folderNode, Folde
         return folderResult;
     }
     
-    return { folderNode };
+    return { true, folderNode };
 }
 
 AssetModificationResult AssetServices::MoveAsset(AssetNode* assetNode, FolderNode* newParent)
@@ -168,7 +168,7 @@ AssetModificationResult AssetServices::MoveAsset(AssetNode* assetNode, FolderNod
 
     if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
     {
-        AssetModificationResult assetResult = { std::string(
+        AssetModificationResult assetResult = { false, nullptr, std::string(
             "MoveFileEx failed with error %d\n", GetLastError())
         };
 
@@ -176,7 +176,7 @@ AssetModificationResult AssetServices::MoveAsset(AssetNode* assetNode, FolderNod
         return assetResult;
     }
     
-    return { assetNode };
+    return { true, assetNode };
 }
 
 void AssetServices::CheckFolderExist(std::filesystem::path fileRelativePath)

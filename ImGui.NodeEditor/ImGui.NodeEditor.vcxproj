@@ -18,53 +18,22 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Editor.h" />
-    <ClInclude Include="EditorWindow.h" />
-    <ClInclude Include="EditorWindowAssetBrowser.h" />
-    <ClInclude Include="EditorWindowGameViewport.h" />
-    <ClInclude Include="EditorWindowShadowViewport.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Editor.cpp" />
-    <ClCompile Include="EditorWindow.cpp" />
-    <ClCompile Include="EditorWindowAssetBrowser.cpp" />
-    <ClCompile Include="EditorWindowGameViewport.cpp" />
-    <ClCompile Include="EditorWindowShadowViewport.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
-      <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
-      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ImGui.NodeEditor\ImGui.NodeEditor.vcxproj">
-      <Project>{e068ee80-0ee6-4eed-bfb5-ae7a6ff3743b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
-      <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{496cef75-6810-4145-ae01-ab4d64c2cb25}</ProjectGuid>
-    <RootNamespace>DreamEngineEditor</RootNamespace>
+    <ProjectGuid>{e068ee80-0ee6-4eed-bfb5-ae7a6ff3743b}</ProjectGuid>
+    <RootNamespace>ImGuiNodeEditor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -77,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -117,14 +86,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -134,14 +100,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -151,16 +114,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.Sources</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -170,27 +130,41 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="crude_json.cpp" />
+    <ClCompile Include="imgui_canvas.cpp" />
+    <ClCompile Include="imgui_node_editor.cpp" />
+    <ClCompile Include="imgui_node_editor_api.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="crude_json.h" />
+    <ClInclude Include="imgui_bezier_math.h" />
+    <ClInclude Include="imgui_canvas.h" />
+    <ClInclude Include="imgui_extra_math.h" />
+    <ClInclude Include="imgui_node_editor.h" />
+    <ClInclude Include="imgui_node_editor_internal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui_bezier_math.inl" />
+    <None Include="imgui_extra_math.inl" />
+    <None Include="imgui_node_editor_internal.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
+      <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" />
   </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets'))" />
-  </Target>
 </Project>

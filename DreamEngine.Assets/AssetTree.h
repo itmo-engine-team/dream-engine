@@ -1,20 +1,7 @@
 #pragma once
 
+#include "TreeModificationResult.h"
 #include "FolderNode.h"
-
-struct AssetModificationResult
-{
-    bool isSuccess;
-    AssetNode* assetNode;
-    std::string error;
-};
-
-struct FolderModificationResult
-{
-    bool isSuccess;
-    FolderNode* folderNode;
-    std::string error;
-};
 
 class AssetTree
 {

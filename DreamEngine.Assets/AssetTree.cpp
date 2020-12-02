@@ -1,7 +1,7 @@
 #include "AssetTree.h"
 #include "ErrorLogger.h"
 
-AssetTree::AssetTree(std::string rootNodeName) 
+AssetTree::AssetTree(std::string rootNodeName)
 {
     rootNode = new FolderNode(rootNodeName, nullptr);
 }
@@ -13,38 +13,26 @@ FolderNode* AssetTree::GetRootNode()
 
 FolderModificationResult AssetTree::CreateFolderNode(const std::string& nodeName, FolderNode* parentNode) const
 {
-   FolderModificationResult folderResult;
-   for (FolderNode* folderNode : parentNode->GetChildFolderList())
-   {
-       if (folderNode->GetName() != nodeName) continue;
+    for (FolderNode* folderNode : parentNode->GetChildFolderList())
+    {
+        if (folderNode->GetName() != nodeName) continue;
 
-       folderResult.isSuccess = false;
-       folderResult.folderNode = nullptr;
-       folderResult.error = nodeName + " folder already exists";
-       return folderResult;
-   }
-
-   folderResult.isSuccess = true;
-   folderResult.folderNode = new FolderNode(nodeName, parentNode);
-   return folderResult;
+        return { false, nullptr, nodeName + " folder already exists" };
+    }
+    
+    return { true, new FolderNode(nodeName, parentNode) };
 }
 
 AssetModificationResult AssetTree::CreateAssetNode(AssetInfo* assetInfo, const std::string& nodeName, FolderNode* parentNode) const
 {
-    AssetModificationResult assetResult;
     for (AssetNode* assetNode : parentNode->GetChildAssetList())
     {
         if (assetNode->GetName() != nodeName) continue;
-
-        assetResult.isSuccess = false;
-        assetResult.assetNode = nullptr;
-        assetResult.error = nodeName + " asset already exists";
-        return assetResult;
+        
+        return { false, nullptr, nodeName + " asset already exists" };
     }
 
-    assetResult.isSuccess = true;
-    assetResult.assetNode = new AssetNode(assetInfo, nodeName, parentNode);
-    return assetResult;
+    return { true, new AssetNode(assetInfo, nodeName, parentNode) };
 }
 
 void AssetTree::AddAssetNode(AssetNode* assetNode, FolderNode* parentNode)
@@ -61,14 +49,14 @@ void AssetTree::AddFolderNode(FolderNode* folderNode, FolderNode* parentNode)
 
 void AssetTree::RemoveFolderNode(FolderNode* folderNode, bool isRecursive)
 {
-    if(isRecursive)
+    if (isRecursive)
     {
         if (folderNode->GetParent() != nullptr)
         {
             folderNode->GetParent()->removeChildFolderNode(folderNode);
         }
 
-        for(AssetNode* assetNode : folderNode->GetChildAssetList())
+        for (AssetNode* assetNode : folderNode->GetChildAssetList())
         {
             RemoveAssetNode(assetNode);
         }
@@ -77,7 +65,7 @@ void AssetTree::RemoveFolderNode(FolderNode* folderNode, bool isRecursive)
         {
             RemoveFolderNode(childFolderNode, isRecursive);
         }
-        
+
     }
     else
     {
@@ -106,7 +94,7 @@ void AssetTree::RemoveFolderNode(FolderNode* folderNode, bool isRecursive)
     {
         delete folderNode;
     }
-   
+
 }
 
 void AssetTree::RemoveAssetNode(AssetNode* assetNode)
@@ -139,14 +127,14 @@ void AssetTree::MoveAssetNode(AssetNode* assetNode, FolderNode* newParentNode)
 {
     newParentNode->addChildAssetNode(assetNode);
 
-    if(assetNode->GetParent() != nullptr)
+    if (assetNode->GetParent() != nullptr)
         assetNode->GetParent()->removeChildAssetNode(assetNode);
 
     assetNode->setParentNode(newParentNode);
 }
 
 void AssetTree::ClearAssetTree()
-{   
-   this->RemoveFolderNode(rootNode, true);
+{
+    this->RemoveFolderNode(rootNode, true);
 }
 

@@ -28,4 +28,6 @@ namespace AssetServices
 
     FolderModificationResult MoveFolder(FolderNode* folderNode, FolderNode* newParent);
     AssetModificationResult MoveAsset(AssetNode* assetNode, FolderNode* newParent);
+
+    AssetTree* CreateDebugAssetTree();
 }

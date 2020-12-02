@@ -1,15 +1,17 @@
 #include "EditorWindowAssetBrowser.h"
-#include "imgui.h"
 
-EditorWindowAssetBrowser::EditorWindowAssetBrowser(Graphics* graphics)
-    : EditorWindow("Asset Browser", graphics)
+#include "imgui.h"
+#include "Editor.h"
+
+EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
+    : EditorWindow("Asset Browser", editor)
 {
     assetTree = AssetServices::CreateDebugAssetTree();
 
-    iconFolder = new Texture(graphics, L"Engine/Editor/icons/folder.png");
-    iconFile = new Texture(graphics, L"Engine/Editor/icons/file.png");
-    iconFilter = new Texture(graphics, L"Engine/Editor/icons/filter.png");
-    iconAsset = new Texture(graphics, L"Engine/Editor/icons/asset.png");
+    iconFolder = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/folder.png").c_str());
+    iconFile = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/file.png").c_str());
+    iconFilter = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/filter.png").c_str());
+    iconAsset = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/asset.png").c_str());
 }
 
 void EditorWindowAssetBrowser::Update()

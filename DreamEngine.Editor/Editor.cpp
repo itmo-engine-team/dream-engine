@@ -12,11 +12,14 @@
 
 Editor::Editor(Graphics* graphics) : graphics(graphics)
 {
+    std::string solutionPath = SOLUTION_DIR;
+    editorProjectPath = std::wstring(solutionPath.begin(), solutionPath.end()) + L"DreamEngine.Editor/";
+
     initImGui();
 
-    windows.push_back(new EditorWindowAssetBrowser(graphics));
-    windows.push_back(new EditorWindowShadowViewport(graphics));
-    windows.push_back(new EditorWindowGameViewport(graphics));
+    windows.push_back(new EditorWindowAssetBrowser(this));
+    windows.push_back(new EditorWindowShadowViewport(this));
+    windows.push_back(new EditorWindowGameViewport(this));
 }
 
 Editor::~Editor()
@@ -37,6 +40,21 @@ void Editor::Render()
     startImGuiFrame();
     renderWindows();
     finishImGuiFrame();
+}
+
+std::wstring Editor::GetEditorProjectPath() const
+{
+    return editorProjectPath;
+}
+
+std::wstring Editor::GetPathFromEditor(const std::wstring path) const
+{
+    return editorProjectPath + path;
+}
+
+Graphics* Editor::GetGraphics() const
+{
+    return graphics;
 }
 
 void Editor::initImGui()

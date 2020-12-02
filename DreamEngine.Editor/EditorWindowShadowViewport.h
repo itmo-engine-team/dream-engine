@@ -7,7 +7,7 @@ class EditorWindowShadowViewport : public EditorWindow
 
 public:
 
-    EditorWindowShadowViewport(Graphics* graphics);
+    EditorWindowShadowViewport(Editor* editor);
 
     void Update() override;
     void Render() override;

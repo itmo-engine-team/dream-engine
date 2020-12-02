@@ -7,7 +7,7 @@ class EditorWindowGameViewport : public EditorWindow
 
 public:
 
-    EditorWindowGameViewport(Graphics* graphics);
+    EditorWindowGameViewport(Editor* editor);
 
     void Update() override;
     void Render() override;

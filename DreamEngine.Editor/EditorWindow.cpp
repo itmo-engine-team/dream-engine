@@ -1,7 +1,7 @@
 #include "EditorWindow.h"
 
-EditorWindow::EditorWindow(std::string name, Graphics* graphics)
-    : name(std::move(name)), graphics(graphics)
+EditorWindow::EditorWindow(std::string name, Editor* editor)
+    : name(std::move(name)), editor(editor)
 {
 
 }

@@ -10,7 +10,7 @@ class EditorWindowAssetBrowser : public EditorWindow
 
 public:
 
-    EditorWindowAssetBrowser(Graphics* graphics);
+    EditorWindowAssetBrowser(Editor* editor);
 
     void Update() override;
     void Render() override;

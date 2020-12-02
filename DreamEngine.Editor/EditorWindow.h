@@ -2,14 +2,14 @@
 
 #include <string>
 
-class Graphics;
+class Editor;
 
 class EditorWindow
 {
 
 public:
 
-    EditorWindow(std::string name, Graphics* graphics);
+    EditorWindow(std::string name, Editor* editor);
     virtual ~EditorWindow() = default;
 
     virtual void Update() = 0;
@@ -22,7 +22,7 @@ public:
 
 protected:
 
-    Graphics* graphics;
+    Editor* editor;
 
 private:
 

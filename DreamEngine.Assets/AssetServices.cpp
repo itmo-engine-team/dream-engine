@@ -186,12 +186,12 @@ AssetTree* AssetServices::CreateDebugAssetTree()
     // First layer
     assetTree->CreateAssetNode(nullptr, "Asset11", assetTree->GetRootNode());
     assetTree->CreateAssetNode(nullptr, "Asset12", assetTree->GetRootNode());
-    FolderNode* folder1 = assetTree->CreateFolderNode("Folder1", assetTree->GetRootNode()).folderNode;
+    FolderNode* folder1 = assetTree->CreateFolderNode("Folder1", assetTree->GetRootNode()).node;
 
     // Second layer
     assetTree->CreateAssetNode(nullptr, "Asset21", folder1);
-    FolderNode* folder21 = assetTree->CreateFolderNode("Folder21", folder1).folderNode;
-    FolderNode* folder22 = assetTree->CreateFolderNode("Folder22", folder1).folderNode;
+    FolderNode* folder21 = assetTree->CreateFolderNode("Folder21", folder1).node;
+    FolderNode* folder22 = assetTree->CreateFolderNode("Folder22", folder1).node;
 
     // Third layer
     assetTree->CreateAssetNode(nullptr, "Asset311", folder21);
@@ -201,6 +201,17 @@ AssetTree* AssetServices::CreateDebugAssetTree()
     assetTree->CreateAssetNode(nullptr, "Asset322", folder22);
 
     return assetTree;
+}
+
+EngineConfigInfo AssetServices::CreateEngineConfig(std::filesystem::path pathToConfig)
+{
+    json j;
+    CheckFolderExist(pathToConfig);
+    if(!exists(pathToConfig))
+    {
+        std::ofstream file(pathToConfig);
+        file << std::setw(4) << j << std::endl;
+    }
 }
 
 void AssetServices::CheckFolderExist(std::filesystem::path fileRelativePath)

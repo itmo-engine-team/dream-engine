@@ -4,9 +4,8 @@
 #include <fstream>
 #include <filesystem>
 
+#include"EngineConfigInfo.h"
 #include "AssetTree.h"
-
-
 
 using json = nlohmann::json;
 
@@ -30,4 +29,6 @@ namespace AssetServices
     AssetModificationResult MoveAsset(AssetNode* assetNode, FolderNode* newParent);
 
     AssetTree* CreateDebugAssetTree();
+
+    EngineConfigInfo CreateEngineConfig(std::filesystem::path pathToConfig);
 }

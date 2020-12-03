@@ -1,4 +1,4 @@
-#include "AssetServices.h"
+#include "AssetService.h"
 
 #include <iomanip>
 #include <iostream>
@@ -6,7 +6,7 @@
 #include"Serializer.h"
 #include "ErrorLogger.h"
 
-void AssetServices::CreateAssetFile(AssetNode* node)
+void AssetService::CreateAssetFile(AssetNode* node)
 {
     json j;
 
@@ -21,7 +21,7 @@ void AssetServices::CreateAssetFile(AssetNode* node)
 
 }
 
-void AssetServices::RemoveAssetFile(AssetNode* node)
+void AssetService::RemoveAssetFile(AssetNode* node)
 {
     const std::filesystem::path pathVar(CreateAssetPath(node));
     
@@ -36,7 +36,7 @@ void AssetServices::RemoveAssetFile(AssetNode* node)
     }
 }
 
-AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
+AssetTree* AssetService::FindAssetTree(std::string rootNodeName)
 {
     const std::string directoryName = rootNodeName;
    
@@ -78,14 +78,14 @@ AssetTree* AssetServices::FindAssetTree(std::string rootNodeName)
     return assetTree;
 }
 
-std::string AssetServices::CreateFolder(FolderNode* folderNode)
+std::string AssetService::CreateFolder(FolderNode* folderNode)
 {
     const std::string pathVar(CreateFolderPath(folderNode));
     CheckFolderExist(pathVar);
     return pathVar;
 }
 
-FolderModificationResult AssetServices::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
+FolderModificationResult AssetService::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
 {
     const std::filesystem::path oldPath(CreateFolderPath(folderNode));
 
@@ -120,7 +120,7 @@ FolderModificationResult AssetServices::RemoveFolder(FolderNode* folderNode, con
     return { true };
 }
 
-std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
+std::string AssetService::CreateFolderPath(FolderNode* folderNode)
 {
     std::string path;
     FolderNode* currentNode = folderNode;
@@ -133,7 +133,7 @@ std::string AssetServices::CreateFolderPath(FolderNode* folderNode)
     return path;
 }
 
-std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
+std::string AssetService::CreateAssetPath(AssetNode* assetNode)
 {
     std::string path = CreateFolderPath(assetNode->GetParent()) +
         "/" + assetNode->GetName() + ASSET_FILE_EXTENSION;
@@ -141,7 +141,7 @@ std::string AssetServices::CreateAssetPath(AssetNode* assetNode)
     return path;
 }
 
-FolderModificationResult AssetServices::MoveFolder(FolderNode* folderNode, FolderNode* newParent)
+FolderModificationResult AssetService::MoveFolder(FolderNode* folderNode, FolderNode* newParent)
 {
     const std::filesystem::path oldPath = CreateFolderPath(folderNode);
     const std::string parentPath = CreateFolderPath(newParent);
@@ -160,7 +160,7 @@ FolderModificationResult AssetServices::MoveFolder(FolderNode* folderNode, Folde
     return { true, folderNode };
 }
 
-AssetModificationResult AssetServices::MoveAsset(AssetNode* assetNode, FolderNode* newParent)
+AssetModificationResult AssetService::MoveAsset(AssetNode* assetNode, FolderNode* newParent)
 {
     const std::filesystem::path oldPath = CreateAssetPath(assetNode);
     const std::string parentPath = CreateFolderPath(newParent);
@@ -179,7 +179,7 @@ AssetModificationResult AssetServices::MoveAsset(AssetNode* assetNode, FolderNod
     return { true, assetNode };
 }
 
-AssetTree* AssetServices::CreateDebugAssetTree()
+AssetTree* AssetService::CreateDebugAssetTree()
 {
     AssetTree* assetTree = new AssetTree("Content");
 
@@ -203,15 +203,21 @@ AssetTree* AssetServices::CreateDebugAssetTree()
     return assetTree;
 }
 
-Serializer* AssetServices::createSerializerActor(Serializer* actor, std::filesystem::path pathToConfig)
+void AssetService::SerializeActor(Serializer* actor, std::filesystem::path pathToConfig)
 {
     json j;
+    j = actor->ToJson();
+
+    std::ofstream file(pathToConfig);
+    file << std::setw(4) << j << std::endl;
+}
+
+Serializer* AssetService::createSerializerActor(Serializer* actor, std::filesystem::path pathToConfig)
+{  
     CheckFolderExist(pathToConfig);
     if (!exists(pathToConfig))
     {
-        j = actor->ToJson();
-        std::ofstream file(pathToConfig);
-        file << std::setw(4) << j << std::endl;
+        SerializeActor(actor, pathToConfig);
         return actor;
     }
 
@@ -219,7 +225,7 @@ Serializer* AssetServices::createSerializerActor(Serializer* actor, std::filesys
     return actor;
 }
 
-void AssetServices::CheckFolderExist(std::filesystem::path fileRelativePath)
+void AssetService::CheckFolderExist(std::filesystem::path fileRelativePath)
 {
     if (!exists(fileRelativePath.parent_path()))
         create_directories(fileRelativePath.parent_path());

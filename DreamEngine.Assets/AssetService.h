@@ -6,12 +6,12 @@
 
 class Serializer;
 
-class AssetServices
+class AssetService
 {
 
 public:
 
-    AssetServices() = delete;
+    AssetService() = delete;
 
     inline static const std::string ASSET_FILE_EXTENSION = ".asset";
 
@@ -33,12 +33,14 @@ public:
     static AssetTree* CreateDebugAssetTree();
 
     template <class T = Serializer>
-    static T* CreateActorFromJson(std::filesystem::path pathToConfig)
+    static T* DeserializeActor(std::filesystem::path pathToConfig)
     {
         T* actor = new T();
         actor = static_cast<T*>(createSerializerActor(actor, pathToConfig));
         return actor;
     }
+
+    static void SerializeActor(Serializer* actor, std::filesystem::path pathToConfig);
 
 private:
 

@@ -146,7 +146,7 @@
     <ClInclude Include="FolderNode.h" />
     <ClInclude Include="AssetInfo.h" />
     <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="AssetServices.h" />
+    <ClInclude Include="AssetService.h" />
     <ClInclude Include="AssetType.h" />
     <ClInclude Include="AssetTree.h" />
     <ClInclude Include="Libraries\id.hpp" />
@@ -160,7 +160,7 @@
     <ClCompile Include="AssetTree.cpp" />
     <ClCompile Include="EngineConfigInfo.cpp" />
     <ClCompile Include="FolderNode.cpp" />
-    <ClCompile Include="AssetServices.cpp" />
+    <ClCompile Include="AssetService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

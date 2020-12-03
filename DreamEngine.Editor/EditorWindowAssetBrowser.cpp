@@ -4,7 +4,7 @@
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Graphics* graphics)
     : EditorWindow("Asset Browser", graphics)
 {
-    assetTree = AssetServices::CreateDebugAssetTree();
+    assetTree = AssetService::CreateDebugAssetTree();
 
     iconFolder = new Texture(graphics, L"Engine/Editor/icons/folder.png");
     iconFile = new Texture(graphics, L"Engine/Editor/icons/file.png");

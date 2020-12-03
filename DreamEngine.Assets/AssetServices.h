@@ -1,34 +1,46 @@
 #pragma once
 
-#include "nlohmann/json.hpp"
-#include <fstream>
 #include <filesystem>
 
-#include"EngineConfigInfo.h"
 #include "AssetTree.h"
 
-using json = nlohmann::json;
+class Serializer;
 
-namespace AssetServices
+class AssetServices
 {
-    const std::string ASSET_FILE_EXTENSION = ".asset";
 
-    json CreateAssetFile(AssetNode* node);
-    void RemoveAssetFile(AssetNode* node);
+public:
 
-    AssetTree* FindAssetTree(std::string rootNodeName);
+    AssetServices() = delete;
 
-    std::string CreateFolder(FolderNode* folderNode);
-    void CheckFolderExist(std::filesystem::path fileRelativePath);
-    FolderModificationResult RemoveFolder(FolderNode* folderNode, bool isRecursive);
+    inline static const std::string ASSET_FILE_EXTENSION = ".asset";
 
-    std::string CreateFolderPath(FolderNode* folderNode);
-    std::string CreateAssetPath(AssetNode* assetNode);
+    static void CreateAssetFile(AssetNode* node);
+    static void RemoveAssetFile(AssetNode* node);
 
-    FolderModificationResult MoveFolder(FolderNode* folderNode, FolderNode* newParent);
-    AssetModificationResult MoveAsset(AssetNode* assetNode, FolderNode* newParent);
+    static AssetTree* FindAssetTree(std::string rootNodeName);
 
-    AssetTree* CreateDebugAssetTree();
+    static std::string CreateFolder(FolderNode* folderNode);
+    static void CheckFolderExist(std::filesystem::path fileRelativePath);
+    static FolderModificationResult RemoveFolder(FolderNode* folderNode, bool isRecursive);
 
-    EngineConfigInfo CreateEngineConfig(std::filesystem::path pathToConfig);
-}
+    static std::string CreateFolderPath(FolderNode* folderNode);
+    static std::string CreateAssetPath(AssetNode* assetNode);
+
+    static FolderModificationResult MoveFolder(FolderNode* folderNode, FolderNode* newParent);
+    static AssetModificationResult MoveAsset(AssetNode* assetNode, FolderNode* newParent);
+
+    static AssetTree* CreateDebugAssetTree();
+
+    template <class T = Serializer>
+    static T* CreateActorFromJson(std::filesystem::path pathToConfig)
+    {
+        T* actor = new T();
+        actor = static_cast<T*>(createSerializerActor(actor, pathToConfig));
+        return actor;
+    }
+
+private:
+
+    static Serializer* createSerializerActor(Serializer* actor, std::filesystem::path pathToConfig);
+};

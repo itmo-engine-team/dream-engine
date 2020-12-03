@@ -3,9 +3,10 @@
 #include <iomanip>
 #include <iostream>
 
+#include"Serializer.h"
 #include "ErrorLogger.h"
 
-json AssetServices::CreateAssetFile(AssetNode* node)
+void AssetServices::CreateAssetFile(AssetNode* node)
 {
     json j;
 
@@ -18,7 +19,6 @@ json AssetServices::CreateAssetFile(AssetNode* node)
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;
 
-    return j;
 }
 
 void AssetServices::RemoveAssetFile(AssetNode* node)
@@ -203,15 +203,20 @@ AssetTree* AssetServices::CreateDebugAssetTree()
     return assetTree;
 }
 
-EngineConfigInfo AssetServices::CreateEngineConfig(std::filesystem::path pathToConfig)
+Serializer* AssetServices::createSerializerActor(Serializer* actor, std::filesystem::path pathToConfig)
 {
     json j;
     CheckFolderExist(pathToConfig);
-    if(!exists(pathToConfig))
+    if (!exists(pathToConfig))
     {
+        j = actor->ToJson();
         std::ofstream file(pathToConfig);
         file << std::setw(4) << j << std::endl;
+        return actor;
     }
+
+    actor = actor->FromJson(pathToConfig);
+    return actor;
 }
 
 void AssetServices::CheckFolderExist(std::filesystem::path fileRelativePath)

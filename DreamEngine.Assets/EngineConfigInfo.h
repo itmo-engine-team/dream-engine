@@ -1,12 +1,16 @@
 #pragma once
-#include <string>
 
-class EngineConfigInfo
+#include "Serializer.h"
+
+class EngineConfigInfo : public Serializer
 {
 
-protected:
-    bool isGameMode;
-
 public:
+
     EngineConfigInfo(bool isGameMode = false);
+
+    json ToJson() override;   
+    Serializer* FromJson(std::filesystem::path pathToConfig) override;
+
+    bool isGameMode = false;
 };

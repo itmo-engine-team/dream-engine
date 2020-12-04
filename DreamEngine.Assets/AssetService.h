@@ -4,7 +4,7 @@
 
 #include "AssetTree.h"
 
-class Serializer;
+class Serializable;
 
 class AssetService
 {
@@ -32,17 +32,17 @@ public:
 
     static AssetTree* CreateDebugAssetTree();
 
-    template <class T = Serializer>
-    static T* DeserializeActor(std::filesystem::path pathToConfig)
+    template <class T = Serializable>
+    static T* DeserializeFromFile(std::filesystem::path pathToConfig)
     {
-        T* actor = new T();
-        actor = static_cast<T*>(createSerializerActor(actor, pathToConfig));
-        return actor;
+        T* serializable = new T();
+        createSerializable(serializable, pathToConfig);
+        return serializable;
     }
 
-    static void SerializeActor(Serializer* actor, std::filesystem::path pathToConfig);
+    static void SerializeToFile(Serializable* serializable, std::filesystem::path pathToFile);
 
 private:
 
-    static Serializer* createSerializerActor(Serializer* actor, std::filesystem::path pathToConfig);
+    static void createSerializable(Serializable* serializable, std::filesystem::path pathToFile);
 };

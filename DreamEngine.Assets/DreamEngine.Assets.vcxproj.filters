@@ -45,10 +45,10 @@
     <ClInclude Include="EngineConfigInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Serializer.h">
+    <ClInclude Include="AssetService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AssetService.h">
+    <ClInclude Include="Serializable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

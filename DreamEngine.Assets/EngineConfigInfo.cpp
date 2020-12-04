@@ -1,22 +1,18 @@
 #include "EngineConfigInfo.h"
 
-EngineConfigInfo::EngineConfigInfo(bool isGameMode) : isGameMode(isGameMode)
+void EngineConfigInfo::FromJson(Json json)
 {
+    isGameMode = json["isGameMode"].get<bool>();
 }
 
-Serializer* EngineConfigInfo::FromJson(std::filesystem::path pathToConfig)
+bool EngineConfigInfo::IsGameMode()
 {
-    std::ifstream i(pathToConfig);
-    json j;
-    i >> j;
-
-    isGameMode = j["isGameMode"].get<bool>();
-
-    return this;
+    return isGameMode;
 }
 
-json EngineConfigInfo::ToJson()
+Json EngineConfigInfo::ToJson()
 {
-   json j = json{ {"isGameMode", isGameMode}};
-   return j;
+    Json json = Serializable::ToJson();
+    json["isGameMode"] = isGameMode;
+    return json;
 }

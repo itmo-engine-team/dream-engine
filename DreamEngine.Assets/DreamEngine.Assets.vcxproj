@@ -150,7 +150,7 @@
     <ClInclude Include="AssetType.h" />
     <ClInclude Include="AssetTree.h" />
     <ClInclude Include="Libraries\id.hpp" />
-    <ClInclude Include="Serializer.h" />
+    <ClInclude Include="Serializable.h" />
     <ClInclude Include="TreeModificationResult.h" />
   </ItemGroup>
   <ItemGroup>

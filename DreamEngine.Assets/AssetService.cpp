@@ -3,12 +3,12 @@
 #include <iomanip>
 #include <iostream>
 
-#include"Serializer.h"
+#include "Serializable.h"
 #include "ErrorLogger.h"
 
 void AssetService::CreateAssetFile(AssetNode* node)
 {
-    json j;
+    Json j;
 
     const std::string pathVar(CreateAssetPath(node));
 
@@ -24,7 +24,7 @@ void AssetService::CreateAssetFile(AssetNode* node)
 void AssetService::RemoveAssetFile(AssetNode* node)
 {
     const std::filesystem::path pathVar(CreateAssetPath(node));
-    
+
     try
     {
         remove(pathVar);
@@ -39,7 +39,7 @@ void AssetService::RemoveAssetFile(AssetNode* node)
 AssetTree* AssetService::FindAssetTree(std::string rootNodeName)
 {
     const std::string directoryName = rootNodeName;
-   
+
     AssetTree* assetTree = new AssetTree(rootNodeName);
     CreateFolder(assetTree->GetRootNode());
 
@@ -57,10 +57,10 @@ AssetTree* AssetService::FindAssetTree(std::string rootNodeName)
         for (std::filesystem::directory_iterator itr(pathVar); itr != endItr; ++itr)
         {
             if (is_directory(itr->status()))
-            {        
+            {
                 FolderModificationResult childFolderResult = assetTree->CreateFolderNode(
                     itr->path().filename().string(), currentFolderNode);
-                if(childFolderResult.isSuccess)
+                if (childFolderResult.isSuccess)
                     foldersQueue.push_back(childFolderResult.node);
             }
             else
@@ -109,14 +109,14 @@ FolderModificationResult AssetService::RemoveFolder(FolderNode* folderNode, cons
                 "MoveFileEx failed with error %d\n", GetLastError())
             };
             folderResult.node = folderNode;
-    
+
             ErrorLogger::Log(Warning, folderResult.error);
             return folderResult;
         }
-            
+
     }
     remove(oldPath);
-    
+
     return { true };
 }
 
@@ -146,7 +146,7 @@ FolderModificationResult AssetService::MoveFolder(FolderNode* folderNode, Folder
     const std::filesystem::path oldPath = CreateFolderPath(folderNode);
     const std::string parentPath = CreateFolderPath(newParent);
     const std::filesystem::path newPath = parentPath + folderNode->GetName();
-    
+
     if (!MoveFileEx(oldPath.c_str(), newPath.c_str(), MOVEFILE_WRITE_THROUGH))
     {
         FolderModificationResult folderResult = { false, nullptr, std::string(
@@ -156,7 +156,7 @@ FolderModificationResult AssetService::MoveFolder(FolderNode* folderNode, Folder
         ErrorLogger::Log(Warning, folderResult.error);
         return folderResult;
     }
-    
+
     return { true, folderNode };
 }
 
@@ -175,7 +175,7 @@ AssetModificationResult AssetService::MoveAsset(AssetNode* assetNode, FolderNode
         ErrorLogger::Log(Warning, assetResult.error);
         return assetResult;
     }
-    
+
     return { true, assetNode };
 }
 
@@ -203,26 +203,28 @@ AssetTree* AssetService::CreateDebugAssetTree()
     return assetTree;
 }
 
-void AssetService::SerializeActor(Serializer* actor, std::filesystem::path pathToConfig)
+void AssetService::SerializeToFile(Serializable* serializable, std::filesystem::path pathToFile)
 {
-    json j;
-    j = actor->ToJson();
+    Json j;
+    j = serializable->ToJson();
 
-    std::ofstream file(pathToConfig);
+    std::ofstream file(pathToFile);
     file << std::setw(4) << j << std::endl;
 }
 
-Serializer* AssetService::createSerializerActor(Serializer* actor, std::filesystem::path pathToConfig)
-{  
-    CheckFolderExist(pathToConfig);
-    if (!exists(pathToConfig))
+void AssetService::createSerializable(Serializable* serializable, std::filesystem::path pathToFile)
+{
+    CheckFolderExist(pathToFile);
+    if (!exists(pathToFile))
     {
-        SerializeActor(actor, pathToConfig);
-        return actor;
+        SerializeToFile(serializable, pathToFile);
+        return;
     }
 
-    actor = actor->FromJson(pathToConfig);
-    return actor;
+    std::ifstream file(pathToFile);
+    Json json;
+    file >> json;
+    serializable->FromJson(json);
 }
 
 void AssetService::CheckFolderExist(std::filesystem::path fileRelativePath)

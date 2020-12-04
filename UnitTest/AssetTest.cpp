@@ -11,11 +11,11 @@ TEST(AssetTest, CreateAsset)
     if (assetResult.isSuccess)
         AssetService::CreateAssetFile(assetResult.node);
     else
-        printf(assetResult.error.c_str());   
+        printf(assetResult.error.c_str());
 }
 
 TEST(AssetTest, RemoveAsset)
-{    
+{
     AssetTree* assetTree = AssetService::FindAssetTree("Content");
 
     AssetService::RemoveAssetFile(assetTree->GetRootNode()->GetChildAssetList()[0]);
@@ -154,15 +154,15 @@ TEST(AssetTest, MoveAsset)
         printf(assetResult.error.c_str());
 }
 
-TEST(AssetTest, CreateEngineConfig)
+TEST(AssetTest, ImportFromFile)
 {
-    EngineConfigInfo* test = AssetService::DeserializeActor<EngineConfigInfo>("Content/EngineConfig.json");
-    std::cout<<test->isGameMode;
+    EngineConfigInfo* test = AssetService::DeserializeFromFile<EngineConfigInfo>("Content/EngineConfig.json");
+    std::cout << test->IsGameMode();
 }
 
 TEST(AssetTest, SaveEngineConfig)
 {
-    EngineConfigInfo* test = new EngineConfigInfo(true);
-    AssetService::SerializeActor(test, "Content/EngineConfig.json");
-    std::cout << test->isGameMode;
+    EngineConfigInfo* test = new EngineConfigInfo();
+    AssetService::SerializeToFile(test, "Content/EngineConfig.json");
+    std::cout << test->IsGameMode();
 }

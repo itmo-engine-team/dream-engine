@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AssetInfoFactory.h" />
     <ClInclude Include="AssetNode.h" />
     <ClInclude Include="EngineConfigInfo.h" />
     <ClInclude Include="FolderNode.h" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetInfo.cpp" />
+    <ClCompile Include="AssetInfoFactory.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AssetNode.cpp" />
     <ClCompile Include="AssetTree.cpp" />

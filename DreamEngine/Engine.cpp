@@ -2,6 +2,7 @@
 
 #include "Graphics.h"
 #include "Editor.h"
+#include "AssetManager.h"
 
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
@@ -22,7 +23,9 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
 
     orthoWindow = new OrthoWindow(graphics);
 
-    editor = new Editor(graphics);
+    assetManager = new AssetManager();
+
+    editor = new Editor(graphics, assetManager);
 }
 
 Engine::~Engine()
@@ -101,6 +104,11 @@ void Engine::DoFrame()
 Game* Engine::GetGame() const
 {
     return game;
+}
+
+AssetManager* Engine::GetAssetManager() const
+{
+    return assetManager;
 }
 
 float Engine::GetDeltaTime() const

@@ -10,6 +10,7 @@
 #include "InputSystem.h"
 #include "OrthoWindow.h"
 
+class AssetManager;
 using namespace DirectX::SimpleMath;
 
 class Graphics;
@@ -29,6 +30,7 @@ public:
     void DoFrame();
 
     Game* GetGame() const;
+    AssetManager* GetAssetManager() const;
 
     Graphics* GetGraphics() const;
     GameAssetManager* GetGameAssetManager() const;
@@ -44,6 +46,7 @@ protected:
 
     Game* game;
     Editor* editor;
+    AssetManager* assetManager;
 
     Window* window;
     Graphics* graphics;

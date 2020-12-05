@@ -53,7 +53,7 @@ void PongGame::Init(Engine* engine)
 
     planeModel = MeshRenderer::CreateBoxModel({ 0, 0.8, 0.8, 1 }, { 5.5f, 0.1f, 3.7f });
     wallModel = MeshRenderer::CreateBoxModel({ 0.8f, 0.8f, 0.8f, 0.5f }, { 5.5f, 0.5f, 0.1f });
-    gateModel = MeshRenderer::CreateBoxModel({ 0.8f, 0.8f, 0.8f, 0.5f }, { 0.1f, 0.5f, 4.2f });
+   // gateModel = MeshRenderer::CreateBoxModel({ 0.8f, 0.8f, 0.8f, 0.5f }, { 0.1f, 0.5f, 4.2f });
     playerModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.1f, 0.1f, 0.5f });
     ballModel = new ModelData(engine->GetMeshRenderer(),
         "Meshes/eyeball/eyeball-mod.obj", texture);
@@ -80,11 +80,11 @@ void PongGame::Init(Engine* engine)
 
     // Gate
     gate1 = new Gate(this, new Transform({ -5.7f, 0, 0 }));
-    gate1->AddComponent(new StaticModelComponent(this, gate1, new Transform({ 0, 0, 0 }), gateModel));
+    //gate1->AddComponent(new StaticModelComponent(this, gate1, new Transform({ 0, 0, 0 }), gateModel));
     gameAssetManager->AddActor(gate1);
 
     gate2 = new Gate(this, new Transform({ 5.7f, 0, 0 }));
-    gate2->AddComponent(new StaticModelComponent(this, gate2, new Transform({ 0, 0, 0 }), gateModel));
+    //gate2->AddComponent(new StaticModelComponent(this, gate2, new Transform({ 0, 0, 0 }), gateModel));
     gameAssetManager->AddActor(gate2);
 
     // Init ball
@@ -195,35 +195,69 @@ void PongGame::collisionCheck()
 
     if (lastHittedActor != wall1 && ball->collider->Contains(*wall1->collider) )
     {
+        float directionDelta = rand() % 25 / 100.0f;
         lastHittedActor = wall1;
-        ball->Direction->z = -ball->Direction->z;
+        generateNewDirectionZ(directionDelta);
+        return;
     }
 
     if (lastHittedActor != wall2 && ball->collider->Contains(*wall2->collider))
     {
+        float directionDelta = rand() % 25 / 100.0f;
         lastHittedActor = wall2;
-        ball->Direction->z = -ball->Direction->z;
+        generateNewDirectionZ(directionDelta);
+        return;
     }
 
     if (lastHittedActor != player1 && ball->collider->Contains(*player1->collider))
     {
+        float directionDelta = rand() % 25 / 100.0f;
         lastHittedActor = player1;
-        ball->Direction->z = -ball->Direction->z;
-        ball->Direction->x = -ball->Direction->x;
+        generateNewDirectionZ(directionDelta);
+        generateNewDirectionX(directionDelta);
+        return;
     }
 
     if (lastHittedActor != player2 && ball->collider->Contains(*player2->collider))
     {
+        float directionDelta = rand() % 25 / 100.0f;
         lastHittedActor = player2;
-        ball->Direction->z = -ball->Direction->z;
-        ball->Direction->x = -ball->Direction->x;
+        generateNewDirectionZ(directionDelta);
+        generateNewDirectionX(directionDelta);
     }
 }
 
 void PongGame::resetBall()
 {
     lastHittedActor = nullptr;
+    ball->Direction = new Vector3{ 1.0f, 1.0f, 1.0f };
     ball->GetTransform()->SetWorldPosition({ 0, ball->GetTransform()->GetWorldPosition().y, 0 });
     ball->SpeedX = ball->SPEED / GetEngine()->GetGraphics()->GetWindow()->GetScreenWidth();
     ball->SpeedZ = ball->SPEED / GetEngine()->GetGraphics()->GetWindow()->GetScreenHeight();
+}
+
+void PongGame::generateNewDirectionZ(float directionDelta)
+{
+    float newDirectionZ = std::clamp(ball->Direction->z + directionDelta, -1.0f, 1.0f);
+    if (newDirectionZ != 0 && (newDirectionZ > 0.5f || newDirectionZ < -0.5f))
+    {
+        ball->Direction->z = -newDirectionZ;
+    }
+    else
+    {
+        ball->Direction->z = -ball->Direction->z;
+    }
+}
+
+void PongGame::generateNewDirectionX(float directionDelta)
+{
+    float newDirectionX = std::clamp(ball->Direction->x + directionDelta, -1.0f, 1.0f);
+    if (newDirectionX != 0 && (newDirectionX > 0.5f || newDirectionX < -0.5f))
+    {
+        ball->Direction->x = -newDirectionX;
+    }
+    else
+    {
+        ball->Direction->x = -ball->Direction->x;
+    }
 }

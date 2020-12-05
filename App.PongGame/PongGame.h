@@ -60,4 +60,6 @@ private:
 
     void collisionCheck();
     void resetBall();
+    void generateNewDirectionZ(float directionDelta);
+    void generateNewDirectionX(float directionDelta);
 };

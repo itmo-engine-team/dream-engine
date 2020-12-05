@@ -6,7 +6,7 @@
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     : EditorWindow("Asset Browser", editor)
 {
-    assetTree = AssetServices::CreateDebugAssetTree();
+    assetTree = AssetService::CreateDebugAssetTree();
 
     iconFolder = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/folder.png").c_str());
     iconFile = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/file.png").c_str());

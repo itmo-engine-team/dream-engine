@@ -3,7 +3,7 @@
 #include "EditorWindow.h"
 #include "Texture.h"
 #include "AssetTree.h"
-#include "AssetServices.h"
+#include "AssetService.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
 {

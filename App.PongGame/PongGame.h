@@ -2,18 +2,18 @@
 
 #include "Engine.h"
 #include "SpectatorActor.h"
-#include "KatamariSphere.h"
+#include "Ball.h"
 #include "CameraComponent.h"
 #include "LightComponent.h"
 #include "StaticModelComponent.h"
 #include "LightActor.h"
 
-class KatamariGame : public Game
+class PongGame : public Game
 {
 public:
 
-    KatamariGame();
-    ~KatamariGame();
+    PongGame();
+    ~PongGame();
 
     void Init(Engine* engine) override;
     void Update() override;
@@ -27,7 +27,7 @@ private:
     SpectatorActor* spectatorActor;
     LightActor* lightActor;
 
-    KatamariSphere* katamariPlayer;
+    Ball* katamariPlayer;
     StaticModelComponent* playerSphere;
 
     Actor* plane;

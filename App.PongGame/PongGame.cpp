@@ -1,4 +1,4 @@
-#include "KatamariGame.h"
+#include "PongGame.h"
 
 #include "ErrorLogger.h"
 #include "SimpleMath.h"
@@ -8,12 +8,12 @@
 
 using namespace DirectX::SimpleMath;
 
-KatamariGame::KatamariGame() : Game()
+PongGame::PongGame() : Game()
 {
     
 }
 
-KatamariGame::~KatamariGame()
+PongGame::~PongGame()
 {
     delete spectatorActor;
     spectatorActor = nullptr;
@@ -43,7 +43,7 @@ KatamariGame::~KatamariGame()
     plane = nullptr;
 }
 
-void KatamariGame::Init(Engine* engine)
+void PongGame::Init(Engine* engine)
 {
     Game::Init(engine);
 
@@ -82,7 +82,7 @@ void KatamariGame::Init(Engine* engine)
     box3->AddComponent(new StaticModelComponent(this, box3, new Transform({ 0, 0, 0 }), boxModel));
     gameAssetManager->AddActor(box3);
 
-    katamariPlayer = new KatamariSphere(this, new Transform({ 0, 0.8, 0 }));
+    katamariPlayer = new Ball(this, new Transform({ 0, 0.8, 0 }));
     playerSphere = new StaticModelComponent(this, katamariPlayer, new Transform({ 0, 0, 0 }), playerModel);
     katamariPlayer->AddComponent(playerSphere);
     gameAssetManager->AddActor(katamariPlayer);
@@ -99,17 +99,17 @@ void KatamariGame::Init(Engine* engine)
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitY, 0.75f);
 }
 
-CameraComponent* KatamariGame::GetCamera() const
+CameraComponent* PongGame::GetCamera() const
 {
     return spectatorActor->GetCameraComponent();
 }
 
-LightComponent* KatamariGame::GetLight() const
+LightComponent* PongGame::GetLight() const
 {
     return lightActor->GetLightComponent();
 }
 
-void KatamariGame::Update()
+void PongGame::Update()
 {
     Game::Update();
 
@@ -143,13 +143,13 @@ void KatamariGame::Update()
     collisionCheck(box3);*/
 }
 
-void KatamariGame::Render()
+void PongGame::Render()
 {
     Game::Render();
     lightActor->Draw();
 }
 
-void KatamariGame::collisionCheck(GameObject* gameObject)
+void PongGame::collisionCheck(GameObject* gameObject)
 {
     /*if (!gameObject->Transform->HasParent() && katamariSphere->collider->Contains(gameObject->Transform->GetWorldPosition()))
     {

@@ -63,3 +63,8 @@ float Game::GetGameDeltaTime()
     gameDeltaTime = engine->GetDeltaTime() * gameDeltaTimeMultiplier;
     return gameDeltaTime;
 }
+
+void Game::Render2D()
+{
+
+}

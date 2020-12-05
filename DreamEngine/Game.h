@@ -29,6 +29,8 @@ public:
     float GetGameDeltaTimeMultiplier();
     float GetGameDeltaTime();
 
+    virtual void Render2D();
+
 protected:
 
     Engine* engine;

@@ -17,5 +17,6 @@ void Ball::onUpdate()
 
     float PosX = transform->GetWorldPosition().x + SpeedX * Direction->x;
     float PosZ = transform->GetWorldPosition().z + SpeedZ * Direction->z;
-    transform->SetWorldPosition({ PosX, 0, PosZ });
+    transform->SetWorldPosition({ PosX, transform->GetWorldPosition().y, PosZ });
 }
+

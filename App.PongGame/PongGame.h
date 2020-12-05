@@ -4,6 +4,8 @@
 #include "SpectatorActor.h"
 #include "Ball.h"
 #include "Player.h"
+#include "Wall.h"
+#include "Gate.h"
 #include "CameraComponent.h"
 #include "LightComponent.h"
 #include "StaticModelComponent.h"
@@ -21,6 +23,7 @@ public:
     void Init(Engine* engine) override;
     void Update() override;
     void Render() override;
+    void Render2D() override;
 
     CameraComponent* GetCamera() const override;
     LightComponent* GetLight() const override;
@@ -37,16 +40,24 @@ private:
     Player* player2;
 
     Actor* plane;
-    Actor* wall1;
-    Actor* wall2;
+    Wall* wall1;
+    Wall* wall2;
+    Gate* gate1;
+    Gate* gate2;
+
+    Actor* lastHittedActor;
 
     ModelData* planeModel;
     ModelData* wallModel;
+    ModelData* gateModel;
     ModelData* playerModel;
     ModelData* ballModel;
+
+    int player1Score = 0;
+    int player2Score = 0;
     
     Texture* texture;
 
-    void collisionCheck(GameObject* gameObject);
-
+    void collisionCheck();
+    void resetBall();
 };

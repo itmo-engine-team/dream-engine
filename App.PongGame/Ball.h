@@ -16,9 +16,10 @@ class Ball : public Actor
 {
 public:
 
-    const float SPEED = 5.0f;
+    const float SPEED = 50.0f;
     float SpeedX;
     float SpeedZ;
+    bool isHitted = false;
 
     Ball(Game* game, Transform* transform);
 

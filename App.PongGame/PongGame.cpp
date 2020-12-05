@@ -1,7 +1,5 @@
 #include "PongGame.h"
 
-#include <iostream>
-
 #include "ErrorLogger.h"
 #include "SimpleMath.h"
 
@@ -53,8 +51,9 @@ void PongGame::Init(Engine* engine)
 
     // Init Meshes
 
-    planeModel = MeshRenderer::CreateBoxModel({ 0, 0.8, 0.8, 1 }, { 3.5f, 0.1f, 2 });
-    wallModel = MeshRenderer::CreateBoxModel({ 0.8f, 0.8f, 0.8f, 0.5f }, { 3.5f, 0.1f, 0.1f });
+    planeModel = MeshRenderer::CreateBoxModel({ 0, 0.8, 0.8, 1 }, { 5.5f, 0.1f, 3.7f });
+    wallModel = MeshRenderer::CreateBoxModel({ 0.8f, 0.8f, 0.8f, 0.5f }, { 5.5f, 0.5f, 0.1f });
+    gateModel = MeshRenderer::CreateBoxModel({ 0.8f, 0.8f, 0.8f, 0.5f }, { 0.1f, 0.5f, 4.2f });
     playerModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.1f, 0.1f, 0.5f });
     ballModel = new ModelData(engine->GetMeshRenderer(),
         "Meshes/eyeball/eyeball-mod.obj", texture);
@@ -70,41 +69,45 @@ void PongGame::Init(Engine* engine)
     plane->AddComponent(new StaticModelComponent(this, plane, new Transform({ 0, 0, 0 }), planeModel));
     gameAssetManager->AddActor(plane);
 
-    wall1 = new Actor(this, new Transform({ 0, 0.2f, 1.9f }));
+    // Wall
+    wall1 = new Wall(this, new Transform({ 0, 0.2f, 3.6f }));
     wall1->AddComponent(new StaticModelComponent(this, wall1, new Transform({ 0, 0, 0 }), wallModel));
     gameAssetManager->AddActor(wall1);
 
-    wall2 = new Actor(this, new Transform({ 0, 0.2f, -1.9f }));
+    wall2 = new Wall(this, new Transform({ 0, 0.2f, -3.6f }));
     wall2->AddComponent(new StaticModelComponent(this, wall2, new Transform({ 0, 0, 0 }), wallModel));
     gameAssetManager->AddActor(wall2);
 
-   /* box3 = new Actor(this, new Transform({ 1, 1, 0 }));
-    box3->AddComponent(new StaticModelComponent(this, box3, new Transform({ 0, 0, 0 }), wallModel));
-    gameAssetManager->AddActor(box3);*/
+    // Gate
+    gate1 = new Gate(this, new Transform({ -5.7f, 0, 0 }));
+    gate1->AddComponent(new StaticModelComponent(this, gate1, new Transform({ 0, 0, 0 }), gateModel));
+    gameAssetManager->AddActor(gate1);
+
+    gate2 = new Gate(this, new Transform({ 5.7f, 0, 0 }));
+    gate2->AddComponent(new StaticModelComponent(this, gate2, new Transform({ 0, 0, 0 }), gateModel));
+    gameAssetManager->AddActor(gate2);
 
     // Init ball
-    ball = new Ball(this, new Transform({ 0, 0.8f, 0 }));
+    ball = new Ball(this, new Transform({ 0, 0.8, 0 }));
     ballSphere = new StaticModelComponent(this, ball, new Transform({ 0, 0, 0 }), ballModel);
     ball->AddComponent(ballSphere);
     gameAssetManager->AddActor(ball);
-
-    ball->SpeedX = ball->SPEED / GetEngine()->GetGraphics()->GetWindow()->GetScreenWidth();
-    ball->SpeedZ = ball->SPEED / GetEngine()->GetGraphics()->GetWindow()->GetScreenHeight();
+    resetBall();
 
     //Create Players
-    player1 = new Player(this, new Transform({ 2.9f, 0.8f, 0 }));
+    player1 = new Player(this, new Transform({ 4.9f, 0.8f, 0 }));
     player1->AddComponent(new StaticModelComponent(this, player1, new Transform({ 0, 0, 0 }), playerModel));
     gameAssetManager->AddActor(player1);
 
-    player2 = new Player(this, new Transform({ -2.9f, 0.8f, 0 }));
+    player2 = new Player(this, new Transform({ -4.9f, 0.8f, 0 }));
     player2->AddComponent(new StaticModelComponent(this, player2, new Transform({ 0, 0, 0 }), playerModel));
     gameAssetManager->AddActor(player2);
 
-    spectatorActor = new SpectatorActor(this, new Transform({ 0, 10, 0 }));
+    spectatorActor = new SpectatorActor(this, new Transform({ 0, 17, 0 }));
     gameAssetManager->AddActor(spectatorActor);
     spectatorActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 1.57f);
 
-    lightActor = new LightActor(this, new Transform({ -10, 10, -10 }));
+    lightActor = new LightActor(this, new Transform({ -15, 15, -15 }));
     lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0 }), wallModel));
     lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0.5 }),
         MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.03f, 0.03f, 0.5 })));
@@ -127,51 +130,100 @@ void PongGame::Update()
 {
     Game::Update();
 
+    collisionCheck();
+
     // Skip if camera moves
     if (engine->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return; 
 
-    // Update sphere movement
+    // Update player location
     if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_W))
     {
-        if (player1->GetTransform()->GetWorldPosition().z > 1.24f) return;
+        if (player1->GetTransform()->GetWorldPosition().z > 2.8f) return;
 
-        player1->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() * 1.5f });
+        player1->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() * 5.5f });
     }
     if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_S))
     {
-        if (player1->GetTransform()->GetWorldPosition().z < -1.24f) return;
+        if (player1->GetTransform()->GetWorldPosition().z < -2.8f) return;
 
-        player1->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() * 1.5f });
+        player1->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() * 5.5f });
     }
     if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Arrow_Up))
     {
-        if (player2->GetTransform()->GetWorldPosition().z > 1.24f) return;
+        if (player2->GetTransform()->GetWorldPosition().z > 2.8f) return;
 
-        player2->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() * 1.5f });
+        player2->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() * 5.5f });
     }
     if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Arrow_Down))
     {
-        if (player2->GetTransform()->GetWorldPosition().z < -1.24f) return;
+        if (player2->GetTransform()->GetWorldPosition().z < -2.8f) return;
 
-        player2->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() * 1.5f });
+        player2->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() * 5.5f });
         //playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, engine->GetDeltaTime());
-    }
-
-    /*collisionCheck(box1);
-    collisionCheck(box2);
-    collisionCheck(box3);*/
+    } 
 }
 
 void PongGame::Render()
 {
     Game::Render();
-    lightActor->Draw();
+    lightActor->Draw();   
 }
 
-void PongGame::collisionCheck(GameObject* gameObject)
+void PongGame::Render2D()
 {
-    /*if (!gameObject->Transform->HasParent() && katamariSphere->collider->Contains(gameObject->Transform->GetWorldPosition()))
+    wchar_t pretext[200];
+    swprintf(pretext, 200, L"Player 1: %d\nPlayer 2: %d", player1Score, player2Score);
+    GetEngine()->GetGraphics()->DrawTextOnScene(400, 100, pretext);
+}
+
+void PongGame::collisionCheck()
+{
+
+    if (ball->collider->Contains(*gate1->collider))
     {
-        gameObject->Transform->SetParent(katamariSphere->Transform);
-    }*/
+        player1Score++;
+        resetBall();
+        return;
+    }
+
+    if (ball->collider->Contains(*gate2->collider))
+    {
+        player2Score++;
+        resetBall();
+        return;
+    }
+
+    if (lastHittedActor != wall1 && ball->collider->Contains(*wall1->collider) )
+    {
+        lastHittedActor = wall1;
+        ball->Direction->z = -ball->Direction->z;
+    }
+
+    if (lastHittedActor != wall2 && ball->collider->Contains(*wall2->collider))
+    {
+        lastHittedActor = wall2;
+        ball->Direction->z = -ball->Direction->z;
+    }
+
+    if (lastHittedActor != player1 && ball->collider->Contains(*player1->collider))
+    {
+        lastHittedActor = player1;
+        ball->Direction->z = -ball->Direction->z;
+        ball->Direction->x = -ball->Direction->x;
+    }
+
+    if (lastHittedActor != player2 && ball->collider->Contains(*player2->collider))
+    {
+        lastHittedActor = player2;
+        ball->Direction->z = -ball->Direction->z;
+        ball->Direction->x = -ball->Direction->x;
+    }
+}
+
+void PongGame::resetBall()
+{
+    lastHittedActor = nullptr;
+    ball->GetTransform()->SetWorldPosition({ 0, ball->GetTransform()->GetWorldPosition().y, 0 });
+    ball->SpeedX = ball->SPEED / GetEngine()->GetGraphics()->GetWindow()->GetScreenWidth();
+    ball->SpeedZ = ball->SPEED / GetEngine()->GetGraphics()->GetWindow()->GetScreenHeight();
 }

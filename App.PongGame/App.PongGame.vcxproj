@@ -150,15 +150,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PongGame.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Gate.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PongGame.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">

@@ -51,6 +51,9 @@
     <ClInclude Include="Serializable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AssetInfoFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetTree.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AssetService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetInfoFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

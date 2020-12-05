@@ -1,9 +1,11 @@
 #pragma once
 
 #include <map>
+#include <set>
 
-#include "AssetType.h"
 #include "AssetInfo.h"
+#include "AssetType.h"
+#include "AssetTree.h"
 
 class AssetManager
 {
@@ -13,26 +15,21 @@ public:
     AssetManager();
     ~AssetManager();
 
-    template<class AssetInfoClass = AssetInfo>
-    AssetInfoClass BuildNewAsset(AssetType type)
-    {
-        const auto newId = assetLastIdMap[type] + 1;
-        assetLastIdMap[type] = newId;
+    void AddNewAsset(AssetInfo* assetInfo, const std::string& assetName, FolderNode* parentFolderNode);
 
-        auto assetInfo = AssetInfoClass(newId);
-
-        return assetInfo;
-    }
+    AssetTree* GetContentAssetTree() const; 
 
 private:
 
-    std::map<AssetType, std::map<int, AssetInfo*>> assetMap;
-    std::map<AssetType, int> assetLastIdMap;
+    std::map<AssetType, std::map<unsigned int, AssetInfo*>> assetMap;
+    std::set<unsigned int> idSet;
 
-    void addAssetInfoToMap(AssetInfo* assetInfo)
-    {
-        assetMap[assetInfo->GetAssetType()][assetInfo->GetId()] = assetInfo;
-    }
+    AssetTree* contentAssetTree;
+
+    void initAssetTree(AssetTree* assetTree);
+    void addAssetInfoToMap(AssetInfo* assetInfo);
+
+    unsigned int generateNewId() const;
 
 };
 

@@ -1,13 +1,19 @@
 #include "AssetInfo.h"
 
-AssetInfo::AssetInfo(const int id, const AssetType type) : id(id), type(type)
+AssetInfo::AssetInfo(const AssetType type) : type(type)
 {
 
 }
 
-int AssetInfo::GetId() const
+unsigned int AssetInfo::GetId() const
 {
     return id;
+}
+
+
+void AssetInfo::setId(unsigned int id)
+{
+    this->id = id;
 }
 
 AssetType AssetInfo::GetAssetType() const

@@ -2,21 +2,31 @@
 
 #include "AssetType.h"
 
+class AssetManager;
+
 class AssetInfo
 {
 
 public:
 
-    AssetInfo(int id, AssetType type);
+    AssetInfo(AssetType type);
     ~AssetInfo() = default;
 
-    int GetId() const;
+    unsigned int GetId() const;
+
     AssetType GetAssetType() const;
 
 protected:
 
-    int id;
+    unsigned int id;
+
     AssetType type;
+
+private:
+
+    friend AssetManager;
+
+    void setId(unsigned int id);
 
 };
 

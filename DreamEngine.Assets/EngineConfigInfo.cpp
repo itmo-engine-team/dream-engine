@@ -1,8 +1,21 @@
 #include "EngineConfigInfo.h"
 
+Json EngineConfigInfo::ToJson()
+{
+    Json json = Serializable::ToJson();
+
+    json["isGameMode"] = isGameMode;
+    json["screenWidth"] = screenWidth;
+    json["screenHeight"] = screenHeight;
+
+    return json;
+}
+
 void EngineConfigInfo::FromJson(Json json)
 {
     isGameMode = json["isGameMode"].get<bool>();
+    screenWidth = json["screenWidth"].get<int>();
+    screenHeight = json["screenHeight"].get<int>();
 }
 
 bool EngineConfigInfo::IsGameMode()
@@ -10,9 +23,12 @@ bool EngineConfigInfo::IsGameMode()
     return isGameMode;
 }
 
-Json EngineConfigInfo::ToJson()
+int EngineConfigInfo::GetScreenWidth() const
 {
-    Json json = Serializable::ToJson();
-    json["isGameMode"] = isGameMode;
-    return json;
+    return screenWidth;
+}
+
+int EngineConfigInfo::GetScreenHeight() const
+{
+    return screenHeight;
 }

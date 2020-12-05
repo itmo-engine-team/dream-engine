@@ -591,8 +591,10 @@ references/*
 
 **LogData*.txt
 
-# Exclude folder for meshes
+# Include folder for meshes
 !**/Meshes/**/*.obj
+
+**/Engine/config.json
 
 # Content folder in test
 UnitTest/Content

@@ -1,5 +1,7 @@
 #include "PongGame.h"
 
+#include <iostream>
+
 #include "ErrorLogger.h"
 #include "SimpleMath.h"
 
@@ -18,26 +20,23 @@ PongGame::~PongGame()
     delete spectatorActor;
     spectatorActor = nullptr;
 
-    delete katamariPlayer;
-    katamariPlayer = nullptr;
+    delete ball;
+    ball = nullptr;
 
-    delete box3;
-    box3 = nullptr;
+    delete wall2;
+    wall2 = nullptr;
 
-    delete box2;
-    box2 = nullptr;
-
-    delete box1;
-    box1 = nullptr;
+    delete wall1;
+    wall1 = nullptr;
 
     delete plane;
     plane = nullptr;
 
-    delete playerModel;
-    playerModel = nullptr;
+    delete ballModel;
+    ballModel = nullptr;
 
-    delete boxModel;
-    boxModel = nullptr;
+    delete wallModel;
+    wallModel = nullptr;
 
     delete plane;
     plane = nullptr;
@@ -54,15 +53,16 @@ void PongGame::Init(Engine* engine)
 
     // Init Meshes
 
-    planeModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 3, 0.1, 3 });
-    boxModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
-
-    playerModel = new ModelData(engine->GetMeshRenderer(), 
+    planeModel = MeshRenderer::CreateBoxModel({ 0, 0.8, 0.8, 1 }, { 3.5f, 0.1f, 2 });
+    wallModel = MeshRenderer::CreateBoxModel({ 0.8f, 0.8f, 0.8f, 0.5f }, { 3.5f, 0.1f, 0.1f });
+    playerModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.1f, 0.1f, 0.5f });
+    ballModel = new ModelData(engine->GetMeshRenderer(),
         "Meshes/eyeball/eyeball-mod.obj", texture);
 
     gameAssetManager->AddModel(planeModel);
-    gameAssetManager->AddModel(boxModel);
+    gameAssetManager->AddModel(wallModel);
     gameAssetManager->AddModel(playerModel);
+    gameAssetManager->AddModel(ballModel);
 
     // Init objects
 
@@ -70,30 +70,44 @@ void PongGame::Init(Engine* engine)
     plane->AddComponent(new StaticModelComponent(this, plane, new Transform({ 0, 0, 0 }), planeModel));
     gameAssetManager->AddActor(plane);
 
-    box1 = new Actor(this, new Transform({ -1, 1, 0 }));
-    box1->AddComponent(new StaticModelComponent(this, box1, new Transform({ 0, 0, 0 }), boxModel));
-    gameAssetManager->AddActor(box1);
+    wall1 = new Actor(this, new Transform({ 0, 0.2f, 1.9f }));
+    wall1->AddComponent(new StaticModelComponent(this, wall1, new Transform({ 0, 0, 0 }), wallModel));
+    gameAssetManager->AddActor(wall1);
 
-    box2 = new Actor(this, new Transform({ -0.5, 1, -1 }));
-    box2->AddComponent(new StaticModelComponent(this, box2, new Transform({ 0, 0, 0 }), boxModel));
-    gameAssetManager->AddActor(box2);
+    wall2 = new Actor(this, new Transform({ 0, 0.2f, -1.9f }));
+    wall2->AddComponent(new StaticModelComponent(this, wall2, new Transform({ 0, 0, 0 }), wallModel));
+    gameAssetManager->AddActor(wall2);
 
-    box3 = new Actor(this, new Transform({ 1, 1, 0 }));
-    box3->AddComponent(new StaticModelComponent(this, box3, new Transform({ 0, 0, 0 }), boxModel));
-    gameAssetManager->AddActor(box3);
+   /* box3 = new Actor(this, new Transform({ 1, 1, 0 }));
+    box3->AddComponent(new StaticModelComponent(this, box3, new Transform({ 0, 0, 0 }), wallModel));
+    gameAssetManager->AddActor(box3);*/
 
-    katamariPlayer = new Ball(this, new Transform({ 0, 0.8, 0 }));
-    playerSphere = new StaticModelComponent(this, katamariPlayer, new Transform({ 0, 0, 0 }), playerModel);
-    katamariPlayer->AddComponent(playerSphere);
-    gameAssetManager->AddActor(katamariPlayer);
+    // Init ball
+    ball = new Ball(this, new Transform({ 0, 0.8f, 0 }));
+    ballSphere = new StaticModelComponent(this, ball, new Transform({ 0, 0, 0 }), ballModel);
+    ball->AddComponent(ballSphere);
+    gameAssetManager->AddActor(ball);
 
-    spectatorActor = new SpectatorActor(this, new Transform({ 0, 1, -6 }));
+    ball->SpeedX = ball->SPEED / GetEngine()->GetGraphics()->GetWindow()->GetScreenWidth();
+    ball->SpeedZ = ball->SPEED / GetEngine()->GetGraphics()->GetWindow()->GetScreenHeight();
+
+    //Create Players
+    player1 = new Player(this, new Transform({ 2.9f, 0.8f, 0 }));
+    player1->AddComponent(new StaticModelComponent(this, player1, new Transform({ 0, 0, 0 }), playerModel));
+    gameAssetManager->AddActor(player1);
+
+    player2 = new Player(this, new Transform({ -2.9f, 0.8f, 0 }));
+    player2->AddComponent(new StaticModelComponent(this, player2, new Transform({ 0, 0, 0 }), playerModel));
+    gameAssetManager->AddActor(player2);
+
+    spectatorActor = new SpectatorActor(this, new Transform({ 0, 10, 0 }));
     gameAssetManager->AddActor(spectatorActor);
+    spectatorActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 1.57f);
 
     lightActor = new LightActor(this, new Transform({ -10, 10, -10 }));
-    lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0 }), boxModel));
+    lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0 }), wallModel));
     lightActor->AddComponent(new StaticModelComponent(this, lightActor, new Transform({ 0, 0, 0.5 }),
-        MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.03, 0.03, 0.5 })));
+        MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.03f, 0.03f, 0.5 })));
 
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.65f);
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitY, 0.75f);
@@ -119,23 +133,28 @@ void PongGame::Update()
     // Update sphere movement
     if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_W))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() });
-        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, engine->GetDeltaTime());
-    }
-    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_A))
-    {
-        katamariPlayer->GetTransform()->AddWorldPosition({ engine->GetDeltaTime(), 0.0f, 0.0f });
-        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -engine->GetDeltaTime());
+        if (player1->GetTransform()->GetWorldPosition().z > 1.24f) return;
+
+        player1->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() * 1.5f });
     }
     if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_S))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() });
-        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -engine->GetDeltaTime());
+        if (player1->GetTransform()->GetWorldPosition().z < -1.24f) return;
+
+        player1->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() * 1.5f });
     }
-    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_D))
+    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Arrow_Up))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ -engine->GetDeltaTime(), 0.0f, 0.0f });
-        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, engine->GetDeltaTime());
+        if (player2->GetTransform()->GetWorldPosition().z > 1.24f) return;
+
+        player2->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() * 1.5f });
+    }
+    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Arrow_Down))
+    {
+        if (player2->GetTransform()->GetWorldPosition().z < -1.24f) return;
+
+        player2->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() * 1.5f });
+        //playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, engine->GetDeltaTime());
     }
 
     /*collisionCheck(box1);

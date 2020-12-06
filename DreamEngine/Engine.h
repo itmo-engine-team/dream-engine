@@ -15,6 +15,7 @@ using namespace DirectX::SimpleMath;
 
 class Graphics;
 class Editor;
+class EngineConfigInfo;
 
 class Engine
 {
@@ -42,11 +43,13 @@ public:
 
 protected:
 
-    bool isGameMode = false;
+    bool isGameMode = true;
 
     Game* game;
     Editor* editor;
     AssetManager* assetManager;
+
+    EngineConfigInfo* engineConfigInfo;
 
     Window* window;
     Graphics* graphics;

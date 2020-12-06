@@ -6,17 +6,22 @@
 
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
+#include "AssetService.h"
+#include "EngineConfigInfo.h"
 
 Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
     : game(game), inputSystem(inputSystem)
 {
+    engineConfigInfo = AssetService::DeserializeFromFile<EngineConfigInfo>("Engine/config.json");
+    isGameMode = engineConfigInfo->IsGameMode();
+
     dwStartTick = GetTickCount();
 
     meshRenderer = new MeshRenderer();
 
     gameAssetManager = new GameAssetManager(this);
 
-    window = new Window(1200, 800);
+    window = new Window(engineConfigInfo->GetScreenWidth(), engineConfigInfo->GetScreenHeight());
     window->WindowInitialize(hInstance, wc);
 
     graphics = new Graphics(window);

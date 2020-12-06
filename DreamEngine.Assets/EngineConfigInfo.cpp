@@ -13,9 +13,9 @@ Json EngineConfigInfo::ToJson()
 
 void EngineConfigInfo::FromJson(Json json)
 {
-    isGameMode = json["isGameMode"].get<bool>();
-    screenWidth = json["screenWidth"].get<int>();
-    screenHeight = json["screenHeight"].get<int>();
+    initVariable(json, "isGameMode", &isGameMode);
+    initVariable(json, "screenWidth", &screenWidth);
+    initVariable(json, "screenHeight", &screenHeight);
 }
 
 bool EngineConfigInfo::IsGameMode()

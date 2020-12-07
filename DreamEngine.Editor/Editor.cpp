@@ -64,7 +64,9 @@ void Editor::initImGui()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    imnodes::Initialize(); // NodeTree initialize
+    
+    // nodeTree initialize
+    imnodes::Initialize(); 
 
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
@@ -109,8 +111,6 @@ void Editor::finishImGuiFrame()
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();
     }
-
-   // imnodes::Shutdown();
 }
 
 void Editor::updateWindows()

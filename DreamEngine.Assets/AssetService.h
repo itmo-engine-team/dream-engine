@@ -30,6 +30,9 @@ public:
     static FolderModificationResult MoveFolder(FolderNode* folderNode, FolderNode* newParent);
     static AssetModificationResult MoveAsset(AssetNode* assetNode, FolderNode* newParent);
 
+    static FolderModificationResult RenameFolder(FolderNode* folderNode, std::string newName);
+    static AssetModificationResult RenameAsset(AssetNode* assetNode, std::string newName);
+
     static AssetTree* CreateDebugAssetTree();
 
     template <class T = Serializable>

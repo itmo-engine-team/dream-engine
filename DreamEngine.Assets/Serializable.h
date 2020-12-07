@@ -14,12 +14,12 @@ protected:
 
     friend AssetService;
 
-    virtual Json ToJson()
+    virtual Json toJson()
     {
         return {};
     }
 
-    virtual void FromJson(Json json) = 0;
+    virtual void fromJson(Json json) = 0;
 
     template <typename type>
     void initVariable(Json json, std::string varName, type* var)

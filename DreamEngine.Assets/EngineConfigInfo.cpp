@@ -1,8 +1,8 @@
 #include "EngineConfigInfo.h"
 
-Json EngineConfigInfo::ToJson()
+Json EngineConfigInfo::toJson()
 {
-    Json json = Serializable::ToJson();
+    Json json = Serializable::toJson();
 
     json["isGameMode"] = isGameMode;
     json["screenWidth"] = screenWidth;
@@ -11,7 +11,7 @@ Json EngineConfigInfo::ToJson()
     return json;
 }
 
-void EngineConfigInfo::FromJson(Json json)
+void EngineConfigInfo::fromJson(Json json)
 {
     initVariable(json, "isGameMode", &isGameMode);
     initVariable(json, "screenWidth", &screenWidth);

@@ -24,6 +24,9 @@ public:
     void MoveFolderNode(FolderNode* folderNode, FolderNode* newParentNode);
     void MoveAssetNode(AssetNode* assetNode, FolderNode* newParentNode);
 
+    void RenameFolderNode(FolderNode* folderNode, std::string newName);
+    void RenameAssetNode(AssetNode* assetNode, std::string newName);
+
     void ClearAssetTree();
 
 private:

@@ -31,7 +31,7 @@ void AssetService::RemoveAssetFile(AssetNode* node)
     }
     catch (std::exception& e)
     {
-        std::string error = std::string("Remove asset error. Extension: ") + e.what();
+        std::string error = std::string("Remove asset error. ") + e.what();
         ErrorLogger::Log(Warning, error);
     }
 }
@@ -179,6 +179,28 @@ AssetModificationResult AssetService::MoveAsset(AssetNode* assetNode, FolderNode
     return { true, assetNode };
 }
 
+FolderModificationResult AssetService::RenameFolder(FolderNode* folderNode, std::string newName)
+{
+    std::filesystem::path oldPath = CreateFolderPath(folderNode);
+    std::filesystem::path newPath = oldPath.parent_path().string() + "/" + newName;
+
+    if (rename(oldPath.string().c_str(), newPath.string().c_str()) == 0)
+        return { true, folderNode };
+
+    return { false, nullptr, "Rename error" };
+}
+
+AssetModificationResult AssetService::RenameAsset(AssetNode* assetNode, std::string newName)
+{
+    std::filesystem::path oldPath = CreateAssetPath(assetNode);
+    std::filesystem::path newPath = oldPath.parent_path().string() + "/" + newName + oldPath.extension().string();
+        
+    if (rename(oldPath.string().c_str(), newPath.string().c_str()) == 0)
+        return { true, assetNode };
+    
+    return { false, nullptr, "Rename error" };    
+}
+
 AssetTree* AssetService::CreateDebugAssetTree()
 {
     AssetTree* assetTree = new AssetTree("Content");
@@ -206,7 +228,7 @@ AssetTree* AssetService::CreateDebugAssetTree()
 void AssetService::SerializeToFile(Serializable* serializable, std::filesystem::path pathToFile)
 {
     Json j;
-    j = serializable->ToJson();
+    j = serializable->toJson();
 
     std::ofstream file(pathToFile);
     file << std::setw(4) << j << std::endl;
@@ -224,7 +246,7 @@ void AssetService::createSerializable(Serializable* serializable, std::filesyste
     std::ifstream file(pathToFile);
     Json json;
     file >> json;
-    serializable->FromJson(json);
+    serializable->fromJson(json);
 }
 
 void AssetService::CheckFolderExist(std::filesystem::path fileRelativePath)

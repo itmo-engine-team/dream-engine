@@ -44,9 +44,6 @@
     <ProjectReference Include="..\ImGui.AnotherNodeEditor\ImGui.AnotherNodeEditor.vcxproj">
       <Project>{71bcec1f-48b5-4a01-887b-5be37c1df5ca}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\ImGui.NodeEditor\ImGui.NodeEditor.vcxproj">
-      <Project>{e068ee80-0ee6-4eed-bfb5-ae7a6ff3743b}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
       <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>
     </ProjectReference>
@@ -171,7 +168,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

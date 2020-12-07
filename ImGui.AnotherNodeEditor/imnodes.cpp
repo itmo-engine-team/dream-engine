@@ -1514,6 +1514,28 @@ inline ImRect get_node_title_rect(const NodeData& node)
             ImVec2(0.f, expanded_title_rect.GetHeight()));
 }
 
+inline ImRect get_node_title_custom_up_rect(const NodeData& node)
+{
+    ImRect expanded_title_rect = node.title_bar_content_rect;
+    expanded_title_rect.Expand(node.layout_style.padding);
+
+    return ImRect(
+        expanded_title_rect.Min + ImVec2(node.rect.GetWidth() / 6, 0.f),
+        expanded_title_rect.Min + ImVec2(node.rect.GetWidth() - (node.rect.GetWidth()/6), 0.f) +
+        ImVec2(0.f, expanded_title_rect.GetHeight() - 10));
+}
+
+inline ImRect get_node_title_custom_down_rect(const NodeData& node)
+{
+    ImRect expanded_title_rect = node.title_bar_content_rect;
+    expanded_title_rect.Expand(node.layout_style.padding);
+
+    return ImRect(
+        expanded_title_rect.Min + ImVec2(node.rect.GetWidth() / 6, expanded_title_rect.GetHeight()/2),
+        expanded_title_rect.Min + ImVec2(node.rect.GetWidth() - (node.rect.GetWidth() / 6), 0.f) +
+        ImVec2(0.f, expanded_title_rect.GetHeight()*2));
+}
+
 void draw_grid(EditorContext& editor, const ImVec2& canvas_size)
 {
     const ImVec2 offset = editor.panning;
@@ -1781,6 +1803,86 @@ void draw_node(EditorContext& editor, const int node_idx)
     }
 }
 
+// custom Node
+void draw_custom_node(EditorContext& editor, const int node_idx)
+{
+    const NodeData& node = editor.nodes.pool[node_idx];
+    ImGui::SetCursorPos(node.origin + editor.panning);
+
+    const bool node_hovered = is_node_hovered(node, node_idx, editor.pins) && mouse_in_canvas() &&
+        editor.click_interaction_type != ClickInteractionType_BoxSelection;
+
+    ImU32 node_background = node.color_style.background;
+    ImU32 titlebar_background = node.color_style.titlebar;
+
+    if (editor.selected_node_indices.contains(node_idx))
+    {
+        node_background = node.color_style.background_selected;
+        titlebar_background = node.color_style.titlebar_selected;
+    }
+    else if (node_hovered)
+    {
+        node_background = node.color_style.background_hovered;
+        titlebar_background = node.color_style.titlebar_hovered;
+    }
+
+    {
+        // node base
+        g.canvas_draw_list->AddRectFilled(
+            node.rect.Min, node.rect.Max, node_background, node.layout_style.corner_rounding);
+
+        // title bar:
+        if (node.title_bar_content_rect.GetHeight() > 0.f)
+        {
+            ImRect title_bar_rect = get_node_title_custom_up_rect(node);
+
+            g.canvas_draw_list->AddRectFilled(
+                title_bar_rect.Min,
+                title_bar_rect.Max,
+                titlebar_background,
+                node.layout_style.corner_rounding,
+                ImDrawCornerFlags_Top);
+
+           /* ImRect title_bar_down_rect = get_node_title_custom_down_rect(node);
+
+            g.canvas_draw_list->AddRectFilled(
+                title_bar_down_rect.Min,
+                title_bar_down_rect.Max,
+                titlebar_background,
+                node.layout_style.corner_rounding,
+                ImDrawCornerFlags_Top);*/
+        }
+
+        if ((g.style.flags & StyleFlags_NodeOutline) != 0)
+        {
+            g.canvas_draw_list->AddRect(
+                node.rect.Min,
+                node.rect.Max,
+                node.color_style.outline,
+                node.layout_style.corner_rounding,
+                ImDrawCornerFlags_All,
+                node.layout_style.border_thickness);
+        }
+    }
+
+    for (int i = 0; i < node.pin_indices.size(); ++i)
+    {
+        draw_pin(editor, node.pin_indices[i], g.left_mouse_clicked);
+    }
+
+    if (node_hovered)
+    {
+        g.hovered_node_idx = node_idx;
+        const bool node_ui_interaction = g.interactive_node_idx == node_idx;
+        if (g.left_mouse_clicked && !node_ui_interaction)
+        {
+            begin_node_selection(editor, node_idx);
+        }
+    }
+}
+
+///////////////////
+
 bool is_link_hovered(const LinkBezierData& link_data)
 {
     // We render pins and nodes on top of links. In order to prevent link interaction when a pin or
@@ -1895,6 +1997,53 @@ void end_pin_attribute()
     pin.attribute_rect = get_item_rect();
     node.pin_indices.push_back(g.current_pin_idx);
 }
+
+void end_pin_input_attribute()
+{
+    assert(g.current_scope == Scope_Attribute);
+    g.current_scope = Scope_Node;
+
+    ImGui::PopID();
+    ImGui::EndGroup();
+
+    if (ImGui::IsItemActive())
+    {
+        g.active_attribute = true;
+        g.active_attribute_id = g.current_attribute_id;
+        g.interactive_node_idx = g.current_node_idx;
+    }
+
+    EditorContext& editor = editor_context_get();
+    PinData& pin = editor.pins.pool[g.current_pin_idx];
+    NodeData& node = editor.nodes.pool[g.current_node_idx];
+    pin.attribute_rect = get_item_rect();
+    pin.attribute_rect.Min = ImVec2(node.rect.Min.x/2, pin.attribute_rect.Min.y - 8);
+    node.pin_indices.push_back(g.current_pin_idx);
+}
+
+void end_pin_output_attribute()
+{
+    assert(g.current_scope == Scope_Attribute);
+    g.current_scope = Scope_Node;
+
+    ImGui::PopID();
+    ImGui::EndGroup();
+
+    if (ImGui::IsItemActive())
+    {
+        g.active_attribute = true;
+        g.active_attribute_id = g.current_attribute_id;
+        g.interactive_node_idx = g.current_node_idx;
+    }
+
+    EditorContext& editor = editor_context_get();
+    PinData& pin = editor.pins.pool[g.current_pin_idx];
+    NodeData& node = editor.nodes.pool[g.current_node_idx];
+    pin.attribute_rect = get_item_rect();
+    pin.attribute_rect.Min = ImVec2(node.rect.Min.x / 2, node.rect.Max.y + 20);
+    node.pin_indices.push_back(g.current_pin_idx);
+}
+
 } // namespace
 
 // [SECTION] API implementation
@@ -1909,8 +2058,8 @@ Style::Style()
     : grid_spacing(32.f), node_corner_rounding(4.f), node_padding_horizontal(8.f),
       node_padding_vertical(8.f), node_border_thickness(1.f), link_thickness(3.f),
       link_line_segments_per_length(0.1f), link_hover_distance(10.f), pin_circle_radius(4.f),
-      pin_quad_side_length(7.f), pin_triangle_side_length(9.5), pin_line_thickness(1.f),
-      pin_hover_radius(10.f), pin_offset(0.f),
+      pin_quad_side_length(12.f), pin_triangle_side_length(9.5), pin_line_thickness(1.f),
+      pin_hover_radius(10.f), pin_offset(-99.f),
       flags(StyleFlags(StyleFlags_NodeOutline | StyleFlags_GridLines)), colors()
 {
 }
@@ -1969,7 +2118,7 @@ void Initialize()
     g.current_attribute_flags = AttributeFlags_None;
     g.attribute_flag_stack.push_back(g.current_attribute_flags);
 
-    StyleColorsDark();
+    StyleColorsCustom();
 }
 
 void Shutdown()
@@ -2050,6 +2199,31 @@ void StyleColorsLight()
     g.style.colors[ColorStyle_GridBackground] = IM_COL32(225, 225, 225, 255);
     g.style.colors[ColorStyle_GridLine] = IM_COL32(180, 180, 180, 100);
     g.style.flags = StyleFlags(StyleFlags_None);
+}
+
+void StyleColorsCustom()
+{
+    g.style.colors[ColorStyle_NodeBackground] = IM_COL32(50, 50, 50, 255);
+    g.style.colors[ColorStyle_NodeBackgroundHovered] = IM_COL32(75, 75, 75, 255);
+    g.style.colors[ColorStyle_NodeBackgroundSelected] = IM_COL32(75, 75, 75, 255);
+    g.style.colors[ColorStyle_NodeOutline] = IM_COL32(100, 100, 100, 255);
+    // title bar colors match ImGui's titlebg colors
+    g.style.colors[ColorStyle_TitleBar] = IM_COL32(41, 74, 122, 255);
+    g.style.colors[ColorStyle_TitleBarHovered] = IM_COL32(66, 150, 250, 255);
+    g.style.colors[ColorStyle_TitleBarSelected] = IM_COL32(66, 150, 250, 255);
+    // link colors match ImGui's slider grab colors
+    g.style.colors[ColorStyle_Link] = IM_COL32(61, 133, 224, 200);
+    g.style.colors[ColorStyle_LinkHovered] = IM_COL32(66, 150, 250, 255);
+    g.style.colors[ColorStyle_LinkSelected] = IM_COL32(66, 150, 250, 255);
+    // pin colors match ImGui's button colors
+    g.style.colors[ColorStyle_Pin] = IM_COL32(102, 102, 0, 180);
+    g.style.colors[ColorStyle_PinHovered] = IM_COL32(51, 51, 0, 255);
+
+    g.style.colors[ColorStyle_BoxSelector] = IM_COL32(61, 133, 224, 30);
+    g.style.colors[ColorStyle_BoxSelectorOutline] = IM_COL32(61, 133, 224, 150);
+
+    g.style.colors[ColorStyle_GridBackground] = IM_COL32(40, 40, 50, 200);
+    g.style.colors[ColorStyle_GridLine] = IM_COL32(200, 200, 200, 40);
 }
 
 void BeginNodeEditor()
@@ -2188,6 +2362,77 @@ void EndNodeEditor()
     ImGui::EndGroup();
 }
 
+void EndCustomNodeEditor()
+{
+    assert(g.current_scope == Scope_Editor);
+    g.current_scope = Scope_None;
+
+    EditorContext& editor = editor_context_get();
+
+    // Resolve which node is actually on top and being hovered. This needs to be done before any of
+    // the nodes can be rendered.
+
+    g.hovered_node_idx = resolve_hovered_node(editor);
+
+    // Render the nodes and resolve which pin the mouse is hovering over. The hovered pin is needed
+    // for handling click interactions.
+
+    for (int node_idx = 0; node_idx < editor.nodes.pool.size(); ++node_idx)
+    {
+        if (editor.nodes.in_use[node_idx])
+        {
+            draw_list_activate_node_background(node_idx);
+            draw_custom_node(editor, node_idx);
+        }
+    }
+
+    // In order to render the links underneath the nodes, we want to first select the bottom draw
+    // channel.
+    g.canvas_draw_list->ChannelsSetCurrent(0);
+
+    for (int link_idx = 0; link_idx < editor.links.pool.size(); ++link_idx)
+    {
+        if (editor.links.in_use[link_idx])
+        {
+            draw_link(editor, link_idx);
+        }
+    }
+
+    // Render the click interaction UI elements (partial links, box selector) on top of everything
+    // else.
+
+    draw_list_append_click_interaction_channel();
+    draw_list_activate_click_interaction_channel();
+
+    if (g.left_mouse_clicked || g.middle_mouse_clicked)
+    {
+        begin_canvas_interaction(editor);
+    }
+
+    click_interaction_update(editor);
+
+    // At this point, draw commands have been issued for all nodes (and pins). Update the node pool
+    // to detect unused node slots and remove those indices from the depth stack before sorting the
+    // node draw commands by depth.
+    object_pool_update(editor.nodes);
+    object_pool_update(editor.pins);
+
+    draw_list_sort_channels_by_depth(editor.node_depth_order);
+
+    // After the links have been rendered, the link pool can be updated as well.
+    object_pool_update(editor.links);
+
+    // Finally, merge the draw channels
+    g.canvas_draw_list->ChannelsMerge();
+
+    // pop style
+    ImGui::EndChild();      // end scrolling region
+    ImGui::PopStyleColor(); // pop child window background color
+    ImGui::PopStyleVar();   // pop window padding
+    ImGui::PopStyleVar();   // pop frame padding
+    ImGui::EndGroup();
+}
+
 void BeginNode(const int node_id)
 {
     // Remember to call BeginNodeEditor before calling BeginNode
@@ -2245,6 +2490,28 @@ void EndNode()
     }
 }
 
+void EndCustomNode()
+{
+    assert(g.current_scope == Scope_Node);
+    g.current_scope = Scope_Editor;
+
+    EditorContext& editor = editor_context_get();
+
+    // The node's rectangle depends on the ImGui UI group size.
+    ImGui::EndGroup();
+    ImGui::PopID();
+
+    NodeData& node = editor.nodes.pool[g.current_node_idx];
+    node.rect = get_item_rect();
+    node.rect.Max = ImVec2(node.rect.Max.x + 100, node.rect.Max.y + 30);
+    node.rect.Expand(node.layout_style.padding);
+
+    if (node.rect.Contains(g.mouse_pos))
+    {
+        g.node_indices_overlapping_with_mouse.push_back(g.current_node_idx);
+    }
+}
+
 ImVec2 GetNodeDimensions(int node_id)
 {
     EditorContext& editor = editor_context_get();
@@ -2274,19 +2541,34 @@ void EndNodeTitleBar()
     ImGui::SetCursorPos(grid_space_to_editor_space(editor, get_node_content_origin(node)));
 }
 
+void EndNodeTreeTitleBar()
+{
+    assert(g.current_scope == Scope_Node);
+    ImGui::EndGroup();
+
+    EditorContext& editor = editor_context_get();
+    NodeData& node = editor.nodes.pool[g.current_node_idx];
+    node.title_bar_content_rect = get_item_rect();
+
+    ImGui::ItemAdd(get_node_title_custom_up_rect(node), ImGui::GetID("title_bar"));
+    //ImGui::ItemAdd(get_node_title_custom_down_rect(node), ImGui::GetID("title_bar_down"));
+
+    ImGui::SetCursorPos(grid_space_to_editor_space(editor, get_node_content_origin(node)));
+}
+
 void BeginInputAttribute(const int id, const PinShape shape)
 {
     begin_pin_attribute(id, AttributeType_Input, shape, g.current_node_idx);
 }
 
-void EndInputAttribute() { end_pin_attribute(); }
+void EndInputAttribute() { end_pin_input_attribute(); }
 
 void BeginOutputAttribute(const int id, const PinShape shape)
 {
     begin_pin_attribute(id, AttributeType_Output, shape, g.current_node_idx);
 }
 
-void EndOutputAttribute() { end_pin_attribute(); }
+void EndOutputAttribute() { end_pin_output_attribute(); }
 
 void BeginStaticAttribute(const int id)
 {

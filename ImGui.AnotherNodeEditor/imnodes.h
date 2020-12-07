@@ -174,11 +174,13 @@ Style& GetStyle();
 void StyleColorsDark(); // on by default
 void StyleColorsClassic();
 void StyleColorsLight();
+void StyleColorsCustom();
 
 // The top-level function call. Call this before calling BeginNode/EndNode. Calling this function
 // will result the node editor grid workspace being rendered.
 void BeginNodeEditor();
 void EndNodeEditor();
+void EndCustomNodeEditor();
 
 // Use PushColorStyle and PopColorStyle to modify Style::colors mid-frame.
 void PushColorStyle(ColorStyle item, unsigned int color);
@@ -188,6 +190,7 @@ void PopStyleVar();
 
 void BeginNode(int id);
 void EndNode();
+void EndCustomNode();
 
 ImVec2 GetNodeDimensions(int id);
 
@@ -196,6 +199,7 @@ ImVec2 GetNodeDimensions(int id);
 // layout of the node will be incorrect.
 void BeginNodeTitleBar();
 void EndNodeTitleBar();
+void EndNodeTreeTitleBar();
 
 // Attributes are ImGui UI elements embedded within the node. Attributes can have pin shapes
 // rendered next to them. Links are created between pins.
@@ -207,10 +211,10 @@ void EndNodeTitleBar();
 // Each attribute id must be unique.
 
 // Create an input attribute block. The pin is rendered on left side.
-void BeginInputAttribute(int id, PinShape shape = PinShape_CircleFilled);
+void BeginInputAttribute(int id, PinShape shape = PinShape_QuadFilled);
 void EndInputAttribute();
 // Create an output attribute block. The pin is rendered on the right side.
-void BeginOutputAttribute(int id, PinShape shape = PinShape_CircleFilled);
+void BeginOutputAttribute(int id, PinShape shape = PinShape_QuadFilled);
 void EndOutputAttribute();
 // Create a static attribute block. A static attribute has no pin, and therefore can't be linked to
 // anything. However, you can still use IsAttributeActive() and IsAnyAttributeActive() to check for

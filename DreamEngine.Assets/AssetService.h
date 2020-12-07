@@ -15,11 +15,11 @@ public:
 
     inline static const std::string ASSET_FILE_EXTENSION = ".asset";
 
-    static std::string CreateFolder(FolderNode* folderNode);
-    static void CreateAssetFile(AssetNode* node);
+    static FolderModificationResult CreateFolder(FolderNode* folderNode);
+    static AssetModificationResult CreateAssetFile(AssetNode* node);
  
     static FolderModificationResult RemoveFolder(FolderNode* folderNode, bool isRecursive);
-    static void RemoveAssetFile(AssetNode* node);
+    static AssetModificationResult RemoveAssetFile(AssetNode* node);
 
     static std::string CreateFolderPath(FolderNode* folderNode);
     static std::string CreateAssetPath(AssetNode* assetNode);
@@ -31,8 +31,6 @@ public:
     static AssetModificationResult RenameAsset(AssetNode* assetNode, std::string newName);
 
     static AssetTree* CreateDebugAssetTree();
-
-    static void CheckFolderExist(std::filesystem::path fileRelativePath);
 
     static AssetTree* FindAssetTree(std::string rootNodeName);
 
@@ -51,4 +49,5 @@ public:
 private:
 
     static void createSerializable(Serializable* serializable, std::filesystem::path pathToFile);
+    static bool checkFolderExist(std::filesystem::path fileRelativePath);
 };

@@ -6,33 +6,38 @@
 #include "Serializable.h"
 #include "ErrorLogger.h"
 
-void AssetService::CreateAssetFile(AssetNode* node)
+AssetModificationResult AssetService::CreateAssetFile(AssetNode* node)
 {
     Json j;
 
     const std::string pathVar(CreateAssetPath(node));
 
-    CheckFolderExist(pathVar);
+    checkFolderExist(pathVar);
 
     j["Object name"] = node->GetName();
 
+    if (!std::filesystem::exists(pathVar))
+        return { false, nullptr, "File already exist"};
+        
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;
-
+    return  { true };
 }
 
-void AssetService::RemoveAssetFile(AssetNode* node)
+AssetModificationResult AssetService::RemoveAssetFile(AssetNode* node)
 {
     const std::filesystem::path pathVar(CreateAssetPath(node));
 
     try
     {
         remove(pathVar);
+        return { true };
     }
     catch (std::exception& e)
     {
         std::string error = std::string("Remove asset error. ") + e.what();
         ErrorLogger::Log(Warning, error);
+        return { false, nullptr, error };
     }
 }
 
@@ -104,11 +109,14 @@ AssetModificationResult AssetService::DuplicateAsset(AssetNode* assetNode, std::
     }  
 }
 
-std::string AssetService::CreateFolder(FolderNode* folderNode)
+FolderModificationResult AssetService::CreateFolder(FolderNode* folderNode)
 {
     const std::string pathVar(CreateFolderPath(folderNode));
-    CheckFolderExist(pathVar);
-    return pathVar;
+    bool result = checkFolderExist(pathVar);
+    if (result)
+        return { true };
+
+    return { false, nullptr, "Folder already exist" };
 }
 
 FolderModificationResult AssetService::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
@@ -262,7 +270,7 @@ void AssetService::SerializeToFile(Serializable* serializable, std::filesystem::
 
 void AssetService::createSerializable(Serializable* serializable, std::filesystem::path pathToFile)
 {
-    CheckFolderExist(pathToFile);
+    checkFolderExist(pathToFile);
     if (!exists(pathToFile))
     {
         SerializeToFile(serializable, pathToFile);
@@ -275,9 +283,12 @@ void AssetService::createSerializable(Serializable* serializable, std::filesyste
     serializable->fromJson(json);
 }
 
-void AssetService::CheckFolderExist(std::filesystem::path fileRelativePath)
+bool AssetService::checkFolderExist(std::filesystem::path fileRelativePath)
 {
-    if (!exists(fileRelativePath.parent_path()))
-        create_directories(fileRelativePath.parent_path());
+    if (exists(fileRelativePath.parent_path()))
+        return false;
+
+    create_directories(fileRelativePath.parent_path());
+    return true;
 }
 

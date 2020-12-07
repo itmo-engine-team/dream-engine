@@ -158,7 +158,6 @@ FolderModificationResult AssetManager::MoveFolder(FolderNode* folderNode, Folder
     {
         contentAssetTree->MoveFolderNode(folderNode, newParentFolderNode);
         return { true, nullptr };
-        
     }
 
     FolderModificationResult result = AssetService::MoveFolder(folderNode, newParentFolderNode);
@@ -166,7 +165,6 @@ FolderModificationResult AssetManager::MoveFolder(FolderNode* folderNode, Folder
         contentAssetTree->MoveFolderNode(folderNode, newParentFolderNode);
     return result;
 }
-
 
 AssetTree* AssetManager::GetContentAssetTree() const
 {

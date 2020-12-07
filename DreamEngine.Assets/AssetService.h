@@ -15,14 +15,11 @@ public:
 
     inline static const std::string ASSET_FILE_EXTENSION = ".asset";
 
-    static void CreateAssetFile(AssetNode* node);
-    static void RemoveAssetFile(AssetNode* node);
-
-    static AssetTree* FindAssetTree(std::string rootNodeName);
-
     static std::string CreateFolder(FolderNode* folderNode);
-    static void CheckFolderExist(std::filesystem::path fileRelativePath);
+    static void CreateAssetFile(AssetNode* node);
+ 
     static FolderModificationResult RemoveFolder(FolderNode* folderNode, bool isRecursive);
+    static void RemoveAssetFile(AssetNode* node);
 
     static std::string CreateFolderPath(FolderNode* folderNode);
     static std::string CreateAssetPath(AssetNode* assetNode);
@@ -34,6 +31,12 @@ public:
     static AssetModificationResult RenameAsset(AssetNode* assetNode, std::string newName);
 
     static AssetTree* CreateDebugAssetTree();
+
+    static void CheckFolderExist(std::filesystem::path fileRelativePath);
+
+    static AssetTree* FindAssetTree(std::string rootNodeName);
+
+    static AssetModificationResult DuplicateAsset(AssetNode* assetNode, std::string& newNodeName);
 
     template <class T = Serializable>
     static T* DeserializeFromFile(std::filesystem::path pathToConfig)

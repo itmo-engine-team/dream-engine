@@ -27,6 +27,8 @@ public:
     void RenameFolderNode(FolderNode* folderNode, std::string newName);
     void RenameAssetNode(AssetNode* assetNode, std::string newName);
 
+    void DuplicateAssetNode(AssetNode* assetNode, std::string newNodeName);
+
     void ClearAssetTree();
 
 private:

@@ -185,3 +185,16 @@ TEST(AssetTest, RenameAsset)
     else
         printf(assetResult.error.c_str());
 }
+
+TEST(AssetTest, DuplicateAsset)
+{
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
+    AssetNode* assetNode = assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildAssetList()[1];
+
+    std::string newName;
+    AssetModificationResult assetResult = AssetService::DuplicateAsset(assetNode, newName);
+    if (assetResult.isSuccess)
+        assetTree->DuplicateAssetNode(assetNode, newName);
+    else
+        printf(assetResult.error.c_str());
+}

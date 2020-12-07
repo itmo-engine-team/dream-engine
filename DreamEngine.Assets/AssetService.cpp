@@ -78,6 +78,32 @@ AssetTree* AssetService::FindAssetTree(std::string rootNodeName)
     return assetTree;
 }
 
+AssetModificationResult AssetService::DuplicateAsset(AssetNode* assetNode, std::string& newNodeName)
+{
+    std::filesystem::path oldPath = CreateAssetPath(assetNode);
+    std::filesystem::path newPath;
+    int i = 1;
+    do
+    {
+        newPath = oldPath;
+        newPath = newPath.parent_path().string() + "/" + newPath.stem().string() + "_" + std::to_string(i) + newPath.extension().string();
+        i++;
+    }
+    while (exists(newPath));
+
+    try 
+    {
+        std::filesystem::copy_file(oldPath.string().c_str(), newPath.c_str());
+        newNodeName = newPath.stem().string();
+        return { true };
+    }
+    catch (std::filesystem::filesystem_error& e) 
+    {
+        std::string error = "Could not duplicate this file: " ;
+        return { false, nullptr, error + e.what() };
+    }  
+}
+
 std::string AssetService::CreateFolder(FolderNode* folderNode)
 {
     const std::string pathVar(CreateFolderPath(folderNode));
@@ -182,9 +208,9 @@ AssetModificationResult AssetService::MoveAsset(AssetNode* assetNode, FolderNode
 FolderModificationResult AssetService::RenameFolder(FolderNode* folderNode, std::string newName)
 {
     std::filesystem::path oldPath = CreateFolderPath(folderNode);
-    std::filesystem::path newPath = oldPath.parent_path().string() + "/" + newName;
+    std::string newPath = oldPath.parent_path().string() + "/" + newName;
 
-    if (rename(oldPath.string().c_str(), newPath.string().c_str()) == 0)
+    if (rename(oldPath.string().c_str(), newPath.c_str()) == 0)
         return { true, folderNode };
 
     return { false, nullptr, "Rename error" };
@@ -193,9 +219,9 @@ FolderModificationResult AssetService::RenameFolder(FolderNode* folderNode, std:
 AssetModificationResult AssetService::RenameAsset(AssetNode* assetNode, std::string newName)
 {
     std::filesystem::path oldPath = CreateAssetPath(assetNode);
-    std::filesystem::path newPath = oldPath.parent_path().string() + "/" + newName + oldPath.extension().string();
+    std::string newPath = oldPath.parent_path().string() + "/" + newName + oldPath.extension().string();
         
-    if (rename(oldPath.string().c_str(), newPath.string().c_str()) == 0)
+    if (rename(oldPath.string().c_str(), newPath.c_str()) == 0)
         return { true, assetNode };
     
     return { false, nullptr, "Rename error" };    

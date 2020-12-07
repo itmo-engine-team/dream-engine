@@ -10,10 +10,12 @@
 #include "InputSystem.h"
 #include "OrthoWindow.h"
 
+class AssetManager;
 using namespace DirectX::SimpleMath;
 
 class Graphics;
 class Editor;
+class EngineConfigInfo;
 
 class Engine
 {
@@ -29,6 +31,7 @@ public:
     void DoFrame();
 
     Game* GetGame() const;
+    AssetManager* GetAssetManager() const;
 
     Graphics* GetGraphics() const;
     GameAssetManager* GetGameAssetManager() const;
@@ -40,10 +43,13 @@ public:
 
 protected:
 
-    bool isGameMode = false;
+    bool isGameMode = true;
 
     Game* game;
     Editor* editor;
+    AssetManager* assetManager;
+
+    EngineConfigInfo* engineConfigInfo;
 
     Window* window;
     Graphics* graphics;

@@ -2,27 +2,35 @@
 
 #include "Graphics.h"
 #include "Editor.h"
+#include "AssetManager.h"
 
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
+#include "AssetService.h"
+#include "EngineConfigInfo.h"
 
 Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
     : game(game), inputSystem(inputSystem)
 {
+    engineConfigInfo = AssetService::DeserializeFromFile<EngineConfigInfo>("Engine/config.json");
+    isGameMode = engineConfigInfo->IsGameMode();
+
     dwStartTick = GetTickCount();
 
     meshRenderer = new MeshRenderer();
 
     gameAssetManager = new GameAssetManager(this);
 
-    window = new Window(1200, 800);
+    window = new Window(engineConfigInfo->GetScreenWidth(), engineConfigInfo->GetScreenHeight());
     window->WindowInitialize(hInstance, wc);
 
     graphics = new Graphics(window);
 
     orthoWindow = new OrthoWindow(graphics);
 
-    editor = new Editor(graphics);
+    assetManager = new AssetManager();
+
+    editor = new Editor(graphics, assetManager);
 }
 
 Engine::~Engine()
@@ -101,6 +109,11 @@ void Engine::DoFrame()
 Game* Engine::GetGame() const
 {
     return game;
+}
+
+AssetManager* Engine::GetAssetManager() const
+{
+    return assetManager;
 }
 
 float Engine::GetDeltaTime() const

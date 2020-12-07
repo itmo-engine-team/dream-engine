@@ -1,35 +1,36 @@
 #include "pch.h"
 
-#include "AssetServices.h"
+#include "AssetService.h"
+#include "EngineConfigInfo.h"
 
 TEST(AssetTest, CreateAsset)
 {
-    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
     AssetModificationResult assetResult = assetTree->CreateAssetNode(nullptr, "Person", assetTree->GetRootNode());
 
     if (assetResult.isSuccess)
-        AssetServices::CreateAssetFile(assetResult.assetNode);
+        AssetService::CreateAssetFile(assetResult.node);
     else
-        printf(assetResult.error.c_str());   
+        printf(assetResult.error.c_str());
 }
 
 TEST(AssetTest, RemoveAsset)
-{    
-    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+{
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
 
-    AssetServices::RemoveAssetFile(assetTree->GetRootNode()->GetChildAssetList()[0]);
+    AssetService::RemoveAssetFile(assetTree->GetRootNode()->GetChildAssetList()[0]);
     assetTree->RemoveAssetNode(assetTree->GetRootNode()->GetChildAssetList()[0]);
 }
 
 TEST(AssetTest, CreateFolders)
 {
-    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
 
     // First layer
     FolderModificationResult folderResult = assetTree->CreateFolderNode("Folder1", assetTree->GetRootNode());
     if (folderResult.isSuccess)
     {
-        AssetServices::CreateFolder(folderResult.folderNode);
+        AssetService::CreateFolder(folderResult.node);
     }
     else
     {
@@ -37,9 +38,9 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    AssetModificationResult assetResult = assetTree->CreateAssetNode(nullptr, "Person1", folderResult.folderNode);
+    AssetModificationResult assetResult = assetTree->CreateAssetNode(nullptr, "Person1", folderResult.node);
     if (assetResult.isSuccess)
-        AssetServices::CreateAssetFile(assetResult.assetNode);
+        AssetService::CreateAssetFile(assetResult.node);
     else
         printf(assetResult.error.c_str());
 
@@ -47,7 +48,7 @@ TEST(AssetTest, CreateFolders)
     folderResult = assetTree->CreateFolderNode("Folder2", assetTree->GetRootNode()->GetChildFolderList()[0]);
     if (folderResult.isSuccess)
     {
-        AssetServices::CreateFolder(folderResult.folderNode);
+        AssetService::CreateFolder(folderResult.node);
     }
     else
     {
@@ -55,15 +56,15 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person2.1", folderResult.folderNode);
+    assetResult = assetTree->CreateAssetNode(nullptr, "Person2.1", folderResult.node);
     if (assetResult.isSuccess)
-        AssetServices::CreateAssetFile(assetResult.assetNode);
+        AssetService::CreateAssetFile(assetResult.node);
     else
         printf(assetResult.error.c_str());
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person2.2", folderResult.folderNode);
+    assetResult = assetTree->CreateAssetNode(nullptr, "Person2.2", folderResult.node);
     if (assetResult.isSuccess)
-        AssetServices::CreateAssetFile(assetResult.assetNode);
+        AssetService::CreateAssetFile(assetResult.node);
     else
         printf(assetResult.error.c_str());
 
@@ -72,7 +73,7 @@ TEST(AssetTest, CreateFolders)
     folderResult = assetTree->CreateFolderNode("Folder3.1", assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildFolderList()[0]);
     if (folderResult.isSuccess)
     {
-        AssetServices::CreateFolder(folderResult.folderNode);
+        AssetService::CreateFolder(folderResult.node);
     }
     else
     {
@@ -80,16 +81,16 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person3.1", folderResult.folderNode);
+    assetResult = assetTree->CreateAssetNode(nullptr, "Person3.1", folderResult.node);
     if (assetResult.isSuccess)
-        AssetServices::CreateAssetFile(assetResult.assetNode);
+        AssetService::CreateAssetFile(assetResult.node);
     else
         printf(assetResult.error.c_str());
 
     folderResult = assetTree->CreateFolderNode("Folder3.2", assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildFolderList()[0]);
     if (assetResult.isSuccess)
     {
-        AssetServices::CreateFolder(folderResult.folderNode);
+        AssetService::CreateFolder(folderResult.node);
     }
     else
     {
@@ -97,30 +98,30 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person3.2", folderResult.folderNode);
+    assetResult = assetTree->CreateAssetNode(nullptr, "Person3.2", folderResult.node);
     if (assetResult.isSuccess)
-        AssetServices::CreateAssetFile(assetResult.assetNode);
+        AssetService::CreateAssetFile(assetResult.node);
     else
         printf(assetResult.error.c_str());
 }
 
 TEST(AssetTest, RecursiveRemoveFolder)
 {
-    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
 
     FolderNode* folderNode = assetTree->GetRootNode()->GetChildFolderList()[0];
 
-    AssetServices::RemoveFolder(folderNode, true);
+    AssetService::RemoveFolder(folderNode, true);
     assetTree->RemoveFolderNode(folderNode, true);
 }
 
 TEST(AssetTest, NoRecursiveRemoveFolder)
 {
-    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
 
     FolderNode* folderNode = assetTree->GetRootNode()->GetChildFolderList()[0];
 
-    FolderModificationResult folderResult = AssetServices::RemoveFolder(folderNode, false);
+    FolderModificationResult folderResult = AssetService::RemoveFolder(folderNode, false);
     if (folderResult.isSuccess)
         assetTree->RemoveFolderNode(folderNode, false);
     else
@@ -129,11 +130,11 @@ TEST(AssetTest, NoRecursiveRemoveFolder)
 
 TEST(AssetTest, MoveFolder)
 {
-    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
 
     FolderNode* folderNode = assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildFolderList()[0];
 
-    FolderModificationResult folderResult = AssetServices::MoveFolder(folderNode, assetTree->GetRootNode());
+    FolderModificationResult folderResult = AssetService::MoveFolder(folderNode, assetTree->GetRootNode());
     if (folderResult.isSuccess)
         assetTree->MoveFolderNode(folderNode, assetTree->GetRootNode());
     else
@@ -142,13 +143,26 @@ TEST(AssetTest, MoveFolder)
 
 TEST(AssetTest, MoveAsset)
 {
-    AssetTree* assetTree = AssetServices::FindAssetTree("Content");
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
 
     AssetNode* assetNode = assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildAssetList()[0];
 
-    AssetModificationResult assetResult = AssetServices::MoveAsset(assetNode, assetTree->GetRootNode());
+    AssetModificationResult assetResult = AssetService::MoveAsset(assetNode, assetTree->GetRootNode());
     if (assetResult.isSuccess)
         assetTree->MoveAssetNode(assetNode, assetTree->GetRootNode());
     else
         printf(assetResult.error.c_str());
+}
+
+TEST(AssetTest, ImportFromFile)
+{
+    EngineConfigInfo* test = AssetService::DeserializeFromFile<EngineConfigInfo>("Content/EngineConfig.json");
+    std::cout << test->IsGameMode();
+}
+
+TEST(AssetTest, SaveEngineConfig)
+{
+    EngineConfigInfo* test = new EngineConfigInfo();
+    AssetService::SerializeToFile(test, "Content/EngineConfig.json");
+    std::cout << test->IsGameMode();
 }

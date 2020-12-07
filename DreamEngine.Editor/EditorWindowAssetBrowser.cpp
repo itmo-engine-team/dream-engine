@@ -2,11 +2,12 @@
 
 #include "imgui.h"
 #include "Editor.h"
+#include "AssetManager.h"
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     : EditorWindow("Asset Browser", editor)
 {
-    assetTree = AssetServices::CreateDebugAssetTree();
+    assetTree = editor->GetAssetManager()->GetContentAssetTree();
 
     iconFolder = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/folder.png").c_str());
     iconFile = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/file.png").c_str());

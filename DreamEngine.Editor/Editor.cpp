@@ -12,7 +12,8 @@
 #include "EditorWindowGameViewport.h"
 #include "EditorWindowBehaviorTreeViewport.h"
 
-Editor::Editor(Graphics* graphics) : graphics(graphics)
+Editor::Editor(Graphics* graphics, AssetManager* assetManager)
+    : graphics(graphics), assetManager(assetManager)
 {
     std::string solutionPath = SOLUTION_DIR;
     editorProjectPath = std::wstring(solutionPath.begin(), solutionPath.end()) + L"DreamEngine.Editor/";
@@ -58,6 +59,11 @@ std::wstring Editor::GetPathFromEditor(const std::wstring path) const
 Graphics* Editor::GetGraphics() const
 {
     return graphics;
+}
+
+AssetManager* Editor::GetAssetManager() const
+{
+    return assetManager;
 }
 
 void Editor::initImGui()

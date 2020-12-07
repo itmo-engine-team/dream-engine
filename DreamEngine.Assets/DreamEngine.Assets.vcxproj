@@ -141,23 +141,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AssetInfoFactory.h" />
     <ClInclude Include="AssetNode.h" />
+    <ClInclude Include="EngineConfigInfo.h" />
     <ClInclude Include="FolderNode.h" />
     <ClInclude Include="AssetInfo.h" />
     <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="AssetServices.h" />
+    <ClInclude Include="AssetService.h" />
     <ClInclude Include="AssetType.h" />
     <ClInclude Include="AssetTree.h" />
     <ClInclude Include="Libraries\id.hpp" />
+    <ClInclude Include="Serializable.h" />
     <ClInclude Include="TreeModificationResult.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetInfo.cpp" />
+    <ClCompile Include="AssetInfoFactory.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AssetNode.cpp" />
     <ClCompile Include="AssetTree.cpp" />
+    <ClCompile Include="EngineConfigInfo.cpp" />
     <ClCompile Include="FolderNode.cpp" />
-    <ClCompile Include="AssetServices.cpp" />
+    <ClCompile Include="AssetService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

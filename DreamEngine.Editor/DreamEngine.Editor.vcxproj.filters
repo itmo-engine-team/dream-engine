@@ -33,6 +33,9 @@
     <ClInclude Include="EditorWindowShadowViewport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorWindowBehaviorTreeViewport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorWindowShadowViewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowBehaviorTreeViewport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,12 +3,14 @@
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
+#include "imnodes.h"
 
 #include "Graphics.h"
 
 #include "EditorWindowAssetBrowser.h"
 #include "EditorWindowShadowViewport.h"
 #include "EditorWindowGameViewport.h"
+#include "EditorWindowBehaviorTreeViewport.h"
 
 Editor::Editor(Graphics* graphics, AssetManager* assetManager)
     : graphics(graphics), assetManager(assetManager)
@@ -21,6 +23,7 @@ Editor::Editor(Graphics* graphics, AssetManager* assetManager)
     windows.push_back(new EditorWindowAssetBrowser(this));
     windows.push_back(new EditorWindowShadowViewport(this));
     windows.push_back(new EditorWindowGameViewport(this));
+    windows.push_back(new EditorWindowBehaviorTreeViewport(this));
 }
 
 Editor::~Editor()
@@ -67,6 +70,10 @@ void Editor::initImGui()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+    
+    // nodeTree initialize
+    imnodes::Initialize(); 
+
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking

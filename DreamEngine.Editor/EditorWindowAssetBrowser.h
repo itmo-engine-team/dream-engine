@@ -30,6 +30,7 @@ private:
     
     void drawFilter();
     void drawPopupContextMenu();
+    void drawPopupModalWindow();
     void drawFolderLayout(FolderNode* parentNode);
     void drawCommandMenu();
     void drawChildrenFolders(FolderNode* parentNode);

@@ -35,7 +35,9 @@ void EditorWindowAssetBrowser::Render()
     ImGui::Begin(GetName().data());
 
     drawCommandMenu();
-
+    ImGui::SameLine();
+    drawPopupModalWindow();
+   
     ImGui::End();
 
     ImGui::Begin("Content");
@@ -82,6 +84,33 @@ void EditorWindowAssetBrowser::drawPopupContextMenu()
         if (ImGui::MenuItem("Rename", " ")) {}
         if (ImGui::MenuItem("Back", " "))
             ImGui::CloseCurrentPopup();
+        ImGui::EndPopup();
+    }
+}
+
+void EditorWindowAssetBrowser::drawPopupModalWindow()
+{
+    if (ImGui::Button("Modal window"))
+        ImGui::OpenPopup("Test?");
+
+    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+
+    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+    if (ImGui::BeginPopupModal("Test?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::Text("This is a test window.\nJust close it and never open again.\n\n");
+        ImGui::Separator();
+
+        static bool dont_ask_me_next_time = false;
+        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
+        ImGui::Checkbox("Don't ask me next time", &dont_ask_me_next_time);
+        ImGui::PopStyleVar();
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+        ImGui::SetItemDefaultFocus();
+        ImGui::SameLine();
+        if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
         ImGui::EndPopup();
     }
 }

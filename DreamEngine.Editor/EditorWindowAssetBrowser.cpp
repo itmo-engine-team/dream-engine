@@ -169,7 +169,7 @@ void EditorWindowAssetBrowser::drawCommandMenu()
     ImGui::Image(iconFile->GetShaderResourceView(), ImVec2(20, 20));
     ImGui::SameLine();
 
-    if (ImGui::Button("Add > "))
+    if (ImGui::Button("Edit > "))
         ImGui::OpenPopup("my_select_popup");
 
     if (ImGui::BeginPopup("my_select_popup"))
@@ -184,6 +184,10 @@ void EditorWindowAssetBrowser::drawCommandMenu()
 
         ImGui::EndPopup();
     }
+
+    ImGui::SameLine();
+    if (ImGui::Button("Back")){}
+
 }
 
 void EditorWindowAssetBrowser::drawChildrenFolders(FolderNode* parentNode)

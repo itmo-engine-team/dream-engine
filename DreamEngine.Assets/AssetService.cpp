@@ -109,6 +109,18 @@ AssetModificationResult AssetService::DuplicateAsset(AssetNode* assetNode, std::
     }  
 }
 
+AssetModificationResult AssetService::SaveAsset(AssetNode* assetNode)
+{
+    std::filesystem::path path = CreateAssetPath(assetNode);
+
+    Json j;
+    //TODO: fill json with data from assetInfo
+    std::ofstream file(path);
+    file << std::setw(4) << j << std::endl;
+
+    return { true };
+}
+
 FolderModificationResult AssetService::CreateFolder(FolderNode* folderNode)
 {
     const std::string pathVar(CreateFolderPath(folderNode));

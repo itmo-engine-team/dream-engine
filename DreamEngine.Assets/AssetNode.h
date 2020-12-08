@@ -26,6 +26,7 @@ protected:
 
     void setNodeName(std::string nodeName);
     void setParentNode(FolderNode* parentNode);
+    void setAssetInfo(AssetInfo* info);
 
 private:
 

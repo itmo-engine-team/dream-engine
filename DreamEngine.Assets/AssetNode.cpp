@@ -30,3 +30,8 @@ void AssetNode::setParentNode(FolderNode* parentNode)
 {
     parent = parentNode;
 }
+
+void AssetNode::setAssetInfo(AssetInfo* info)
+{
+    assetInfo = info;
+}

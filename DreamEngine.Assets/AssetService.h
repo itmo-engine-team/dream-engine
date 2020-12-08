@@ -30,11 +30,11 @@ public:
     static FolderModificationResult RenameFolder(FolderNode* folderNode, std::string newName);
     static AssetModificationResult RenameAsset(AssetNode* assetNode, std::string newName);
 
-    static AssetTree* CreateDebugAssetTree();
-
     static AssetTree* FindAssetTree(std::string rootNodeName);
 
     static AssetModificationResult DuplicateAsset(AssetNode* assetNode, std::string& newNodeName);
+
+    static AssetModificationResult SaveAsset(AssetNode* assetNode);
 
     template <class T = Serializable>
     static T* DeserializeFromFile(std::filesystem::path pathToConfig)
@@ -43,8 +43,9 @@ public:
         createSerializable(serializable, pathToConfig);
         return serializable;
     }
-
     static void SerializeToFile(Serializable* serializable, std::filesystem::path pathToFile);
+
+    static AssetTree* CreateDebugAssetTree();
 
 private:
 

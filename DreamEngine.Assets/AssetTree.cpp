@@ -143,12 +143,6 @@ void AssetTree::RenameAssetNode(AssetNode* assetNode, std::string newName)
     assetNode->setNodeName(newName);
 }
 
-void AssetTree::DuplicateAssetNode(AssetNode* assetNode, std::string newNodeName)
-{
-    AssetNode* newAssetNode = new AssetNode(assetNode->assetInfo, newNodeName, assetNode->GetParent());
-    newAssetNode->GetParent()->addChildAssetNode(newAssetNode);
-}
-
 void AssetTree::ClearAssetTree()
 {
     this->RemoveFolderNode(rootNode, true);

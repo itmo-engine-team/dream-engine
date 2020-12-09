@@ -17,11 +17,11 @@ AssetModificationResult AssetService::CreateAssetFile(AssetNode* node)
     j["Object name"] = node->GetName();
 
     if (!std::filesystem::exists(pathVar))
-        return { false, nullptr, "File already exist"};
+        return { false, node, "File already exist"};
         
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;
-    return  { true };
+    return  { true, node };
 }
 
 AssetModificationResult AssetService::RemoveAssetFile(AssetNode* node)
@@ -31,13 +31,13 @@ AssetModificationResult AssetService::RemoveAssetFile(AssetNode* node)
     try
     {
         remove(pathVar);
-        return { true };
+        return { true, node };
     }
     catch (std::exception& e)
     {
         std::string error = std::string("Remove asset error. ") + e.what();
         ErrorLogger::Log(Warning, error);
-        return { false, nullptr, error };
+        return { false, node, error };
     }
 }
 
@@ -83,32 +83,6 @@ AssetTree* AssetService::FindAssetTree(std::string rootNodeName)
     return assetTree;
 }
 
-AssetModificationResult AssetService::DuplicateAsset(AssetNode* assetNode, std::string& newNodeName)
-{
-    std::filesystem::path oldPath = CreateAssetPath(assetNode);
-    std::filesystem::path newPath;
-    int i = 1;
-    do
-    {
-        newPath = oldPath;
-        newPath = newPath.parent_path().string() + "/" + newPath.stem().string() + "_" + std::to_string(i) + newPath.extension().string();
-        i++;
-    }
-    while (exists(newPath));
-
-    try 
-    {
-        std::filesystem::copy_file(oldPath.string().c_str(), newPath.c_str());
-        newNodeName = newPath.stem().string();
-        return { true };
-    }
-    catch (std::filesystem::filesystem_error& e) 
-    {
-        std::string error = "Could not duplicate this file: " ;
-        return { false, nullptr, error + e.what() };
-    }  
-}
-
 AssetModificationResult AssetService::SaveAsset(AssetNode* assetNode)
 {
     std::filesystem::path path = CreateAssetPath(assetNode);
@@ -126,9 +100,9 @@ FolderModificationResult AssetService::CreateFolder(FolderNode* folderNode)
     const std::string pathVar(CreateFolderPath(folderNode));
     bool result = checkFolderExist(pathVar);
     if (result)
-        return { true };
+        return { true, folderNode };
 
-    return { false, nullptr, "Folder already exist" };
+    return { false, folderNode, "Folder already exist" };
 }
 
 FolderModificationResult AssetService::RemoveFolder(FolderNode* folderNode, const bool isRecursive)

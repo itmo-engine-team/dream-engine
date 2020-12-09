@@ -32,8 +32,6 @@ public:
 
     static AssetTree* FindAssetTree(std::string rootNodeName);
 
-    static AssetModificationResult DuplicateAsset(AssetNode* assetNode, std::string& newNodeName);
-
     static AssetModificationResult SaveAsset(AssetNode* assetNode);
 
     template <class T = Serializable>

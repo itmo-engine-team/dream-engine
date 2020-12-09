@@ -6,33 +6,38 @@
 #include "Serializable.h"
 #include "ErrorLogger.h"
 
-void AssetService::CreateAssetFile(AssetNode* node)
+AssetModificationResult AssetService::CreateAssetFile(AssetNode* node)
 {
     Json j;
 
     const std::string pathVar(CreateAssetPath(node));
 
-    CheckFolderExist(pathVar);
+    checkFolderExist(pathVar);
 
     j["Object name"] = node->GetName();
 
+    if (!std::filesystem::exists(pathVar))
+        return { false, node, "File already exist"};
+        
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;
-
+    return  { true, node };
 }
 
-void AssetService::RemoveAssetFile(AssetNode* node)
+AssetModificationResult AssetService::RemoveAssetFile(AssetNode* node)
 {
     const std::filesystem::path pathVar(CreateAssetPath(node));
 
     try
     {
         remove(pathVar);
+        return { true, node };
     }
     catch (std::exception& e)
     {
-        std::string error = std::string("Remove asset error. Extension: ") + e.what();
+        std::string error = std::string("Remove asset error. ") + e.what();
         ErrorLogger::Log(Warning, error);
+        return { false, node, error };
     }
 }
 
@@ -78,11 +83,26 @@ AssetTree* AssetService::FindAssetTree(std::string rootNodeName)
     return assetTree;
 }
 
-std::string AssetService::CreateFolder(FolderNode* folderNode)
+AssetModificationResult AssetService::SaveAsset(AssetNode* assetNode)
+{
+    std::filesystem::path path = CreateAssetPath(assetNode);
+
+    Json j;
+    //TODO: fill json with data from assetInfo
+    std::ofstream file(path);
+    file << std::setw(4) << j << std::endl;
+
+    return { true };
+}
+
+FolderModificationResult AssetService::CreateFolder(FolderNode* folderNode)
 {
     const std::string pathVar(CreateFolderPath(folderNode));
-    CheckFolderExist(pathVar);
-    return pathVar;
+    bool result = checkFolderExist(pathVar);
+    if (result)
+        return { true, folderNode };
+
+    return { false, folderNode, "Folder already exist" };
 }
 
 FolderModificationResult AssetService::RemoveFolder(FolderNode* folderNode, const bool isRecursive)
@@ -179,6 +199,28 @@ AssetModificationResult AssetService::MoveAsset(AssetNode* assetNode, FolderNode
     return { true, assetNode };
 }
 
+FolderModificationResult AssetService::RenameFolder(FolderNode* folderNode, std::string newName)
+{
+    std::filesystem::path oldPath = CreateFolderPath(folderNode);
+    std::string newPath = oldPath.parent_path().string() + "/" + newName;
+
+    if (rename(oldPath.string().c_str(), newPath.c_str()) == 0)
+        return { true, folderNode };
+
+    return { false, nullptr, "Rename error" };
+}
+
+AssetModificationResult AssetService::RenameAsset(AssetNode* assetNode, std::string newName)
+{
+    std::filesystem::path oldPath = CreateAssetPath(assetNode);
+    std::string newPath = oldPath.parent_path().string() + "/" + newName + oldPath.extension().string();
+        
+    if (rename(oldPath.string().c_str(), newPath.c_str()) == 0)
+        return { true, assetNode };
+    
+    return { false, nullptr, "Rename error" };    
+}
+
 AssetTree* AssetService::CreateDebugAssetTree()
 {
     AssetTree* assetTree = new AssetTree("Content");
@@ -206,7 +248,7 @@ AssetTree* AssetService::CreateDebugAssetTree()
 void AssetService::SerializeToFile(Serializable* serializable, std::filesystem::path pathToFile)
 {
     Json j;
-    j = serializable->ToJson();
+    j = serializable->toJson();
 
     std::ofstream file(pathToFile);
     file << std::setw(4) << j << std::endl;
@@ -214,7 +256,7 @@ void AssetService::SerializeToFile(Serializable* serializable, std::filesystem::
 
 void AssetService::createSerializable(Serializable* serializable, std::filesystem::path pathToFile)
 {
-    CheckFolderExist(pathToFile);
+    checkFolderExist(pathToFile);
     if (!exists(pathToFile))
     {
         SerializeToFile(serializable, pathToFile);
@@ -224,12 +266,15 @@ void AssetService::createSerializable(Serializable* serializable, std::filesyste
     std::ifstream file(pathToFile);
     Json json;
     file >> json;
-    serializable->FromJson(json);
+    serializable->fromJson(json);
 }
 
-void AssetService::CheckFolderExist(std::filesystem::path fileRelativePath)
+bool AssetService::checkFolderExist(std::filesystem::path fileRelativePath)
 {
-    if (!exists(fileRelativePath.parent_path()))
-        create_directories(fileRelativePath.parent_path());
+    if (exists(fileRelativePath.parent_path()))
+        return false;
+
+    create_directories(fileRelativePath.parent_path());
+    return true;
 }
 

@@ -133,6 +133,16 @@ void AssetTree::MoveAssetNode(AssetNode* assetNode, FolderNode* newParentNode)
     assetNode->setParentNode(newParentNode);
 }
 
+void AssetTree::RenameFolderNode(FolderNode* folderNode, std::string newName)
+{
+    folderNode->setNodeName(newName);
+}
+
+void AssetTree::RenameAssetNode(AssetNode* assetNode, std::string newName)
+{
+    assetNode->setNodeName(newName);
+}
+
 void AssetTree::ClearAssetTree()
 {
     this->RemoveFolderNode(rootNode, true);

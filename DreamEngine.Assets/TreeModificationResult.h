@@ -13,7 +13,7 @@ struct TreeModificationResult
     std::string error;
     
     TreeModificationResult(bool isSuccess, T* node = nullptr, std::string error = "")
-        : isSuccess(isSuccess), node(node), error("") {}
+        : isSuccess(isSuccess), node(node), error(error) {}
 };
 
 struct AssetModificationResult : TreeModificationResult<AssetNode>

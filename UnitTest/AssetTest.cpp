@@ -38,7 +38,13 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    AssetModificationResult assetResult = assetTree->CreateAssetNode(nullptr, "Person1", folderResult.node);
+    AssetModificationResult assetResult = assetTree->CreateAssetNode(nullptr, "Person1.1", folderResult.node);
+    if (assetResult.isSuccess)
+        AssetService::CreateAssetFile(assetResult.node);
+    else
+        printf(assetResult.error.c_str());
+
+    assetResult = assetTree->CreateAssetNode(nullptr, "Person1.2", folderResult.node);
     if (assetResult.isSuccess)
         AssetService::CreateAssetFile(assetResult.node);
     else
@@ -165,4 +171,17 @@ TEST(AssetTest, SaveEngineConfig)
     EngineConfigInfo* test = new EngineConfigInfo();
     AssetService::SerializeToFile(test, "Content/EngineConfig.json");
     std::cout << test->IsGameMode();
+}
+
+TEST(AssetTest, RenameAsset)
+{
+    AssetTree* assetTree = AssetService::FindAssetTree("Content");
+    AssetNode* assetNode = assetTree->GetRootNode()->GetChildFolderList()[0]->GetChildAssetList()[1];
+
+    std::string newName = "Person1.12";
+    AssetModificationResult assetResult = AssetService::RenameAsset(assetNode, newName);
+    if (assetResult.isSuccess)
+        assetTree->RenameAssetNode(assetNode, newName);
+    else
+        printf(assetResult.error.c_str());
 }

@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "Editor.h"
 #include "AssetManager.h"
+#include "EditorPopupModalText.h"
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     : EditorWindow("Asset Browser", editor)
@@ -36,7 +37,7 @@ void EditorWindowAssetBrowser::Render()
 
     drawCommandMenu();
     ImGui::SameLine();
-    drawPopupModalWindow();
+    drawTestPopupModalOpenButton();
     ImGui::SameLine();
     ImGui::Text(assetPath.c_str());
    
@@ -88,31 +89,25 @@ void EditorWindowAssetBrowser::drawPopupContextMenu()
     }
 }
 
-void EditorWindowAssetBrowser::drawPopupModalWindow()
+void EditorWindowAssetBrowser::drawTestPopupModalOpenButton()
 {
     if (ImGui::Button("Modal window"))
-        ImGui::OpenPopup("Test?");
+        testPopupModalText = new EditorPopupModalText("Test Dialog", "Just close it and forget.");
 
-    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+    drawTestPopupModal();
+}
 
-    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+void EditorWindowAssetBrowser::drawTestPopupModal()
+{
+    if (testPopupModalText == nullptr)
+        return;
+    testPopupModalText->Draw();
 
-    if (ImGui::BeginPopupModal("Test?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-    {
-        ImGui::Text("This is a test window.\nJust close it and never open again.\n\n");
-        ImGui::Separator();
+    if (!testPopupModalText->IsFinished())
+        return;
 
-        static bool dont_ask_me_next_time = false;
-        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
-        ImGui::Checkbox("Don't ask me next time", &dont_ask_me_next_time);
-        ImGui::PopStyleVar();
-
-        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-        ImGui::SetItemDefaultFocus();
-        ImGui::SameLine();
-        if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-        ImGui::EndPopup();
-    }
+    delete testPopupModalText;
+    testPopupModalText = nullptr;
 }
 
 void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)

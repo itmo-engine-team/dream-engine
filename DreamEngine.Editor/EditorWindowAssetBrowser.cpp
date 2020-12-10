@@ -37,6 +37,8 @@ void EditorWindowAssetBrowser::Render()
     drawCommandMenu();
     ImGui::SameLine();
     drawPopupModalWindow();
+    ImGui::SameLine();
+    ImGui::Text(assetPath.c_str());
    
     ImGui::End();
 
@@ -82,8 +84,6 @@ void EditorWindowAssetBrowser::drawPopupContextMenu()
         if (ImGui::MenuItem("Move", "")) {}
         if (ImGui::MenuItem("Duplicate", " ")) {}
         if (ImGui::MenuItem("Rename", " ")) {}
-        if (ImGui::MenuItem("Back", " "))
-            ImGui::CloseCurrentPopup();
         ImGui::EndPopup();
     }
 }
@@ -180,7 +180,6 @@ void EditorWindowAssetBrowser::drawCommandMenu()
         if (ImGui::Selectable("Move")) {}
         if (ImGui::Selectable("Duplicate")) {}
         if (ImGui::Selectable("Rename")) {}
-        if (ImGui::Selectable("Back")) {}
 
         ImGui::EndPopup();
     }
@@ -199,6 +198,7 @@ void EditorWindowAssetBrowser::drawChildrenFolders(FolderNode* parentNode)
         if (ImGui::TreeNode(childFolderNode->GetName().c_str()))
         {
             currentParentNode = childFolderNode;
+            assetPath = AssetService::CreateFolderPath(currentParentNode);
             drawChildrenFolders(currentParentNode);
             ImGui::TreePop();
         }

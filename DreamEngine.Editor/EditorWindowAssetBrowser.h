@@ -26,6 +26,8 @@ private:
     Texture* iconFilter;
     Texture* iconAsset;
 
+    std::string assetPath;
+
     const char* fileNames[];
     
     void drawFilter();

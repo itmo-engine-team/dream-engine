@@ -11,7 +11,7 @@ public:
 
     AssetInfo(AssetType type);
     AssetInfo(AssetInfo& assetInfo);
-    ~AssetInfo();
+    ~AssetInfo() = default;
 
     unsigned int GetId() const;
 

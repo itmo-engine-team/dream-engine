@@ -17,7 +17,7 @@ public:
     AssetModificationResult AddNewAsset(AssetInfo* assetInfo, const std::string& assetName, FolderNode* parentFolderNode);
     AssetModificationResult RemoveAsset(AssetNode* assetNode);
     AssetModificationResult RenameAsset(AssetNode* assetNode, const std::string& newName);
-    AssetModificationResult DuplicateAsset(AssetNode* assetNode);
+    AssetModificationResult DuplicateAsset(AssetNode* assetNode, const std::string& newName);
     AssetModificationResult MoveAsset(AssetNode* assetNode, FolderNode* newParentFolderNode);
     AssetModificationResult SaveAsset(AssetNode* assetNode);
 

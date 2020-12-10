@@ -41,6 +41,9 @@
     <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
       <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
+      <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ImGui.AnotherNodeEditor\ImGui.AnotherNodeEditor.vcxproj">
       <Project>{71bcec1f-48b5-4a01-887b-5be37c1df5ca}</Project>
     </ProjectReference>
@@ -171,7 +174,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

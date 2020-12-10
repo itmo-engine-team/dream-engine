@@ -12,24 +12,25 @@ void ErrorLogger::Log(LogType type, std::string message)
 	switch (type)
 	{
 	case Error:
-		errorMessage += "\nERROR: ";
+		errorMessage += "ERROR: ";
 		break;
 	case Warning:
-		errorMessage += "\nWARNING: ";
+		errorMessage += "WARNING: ";
 		break;
 	case Info:
-		errorMessage += "\nINFO: ";
+		errorMessage += "INFO: ";
 		break;
 	}	
 	errorMessage += message;
 
+	errorMessage = "\n" + errorMessage + "\n";
+
 	std::ofstream logFile;
-	
 	logFile.open("Log\\log.txt", std::ios::app);
 
 	if (logFile.is_open() == true)
 	{
-		logFile << "\n" << errorMessage << "\n" << std::endl;
+		logFile << errorMessage << std::endl;
 		logFile.close();
 	}
 	printf(errorMessage.c_str());
@@ -37,7 +38,6 @@ void ErrorLogger::Log(LogType type, std::string message)
 
 void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, const std::string& file, const std::string& function, int line)
 {
-	
 	if (!FAILED(hr)) return;
 		
 	std::ofstream logFile;
@@ -50,13 +50,13 @@ void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, c
 	switch (type)
 	{
 	case Warning:
-		errorMessage += "\nWARNING: ";
+		errorMessage += "WARNING: ";
 		break;
 	case Error:
-		errorMessage += "\nERROR: ";
+		errorMessage += "ERROR: ";
 		break;
 	case Info:
-		errorMessage += "\nINFO: ";
+		errorMessage += "INFO: ";
 		break;
 	}
 		
@@ -64,9 +64,11 @@ void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, c
 	errorMessage += "\nFile: " + file;
 	errorMessage += "\nFunction: " + function + " [" + std::to_string(line) + "] ";
 
+	errorMessage = "\n" + errorMessage + "\n";
+
 	if (logFile.is_open() == true)
 	{
-		logFile << "\n" << errorMessage << "\n" <<std::endl;
+		logFile << errorMessage <<std::endl;
 		logFile.close();
 	}
 	
@@ -74,14 +76,10 @@ void ErrorLogger::DirectXLog(HRESULT hr, LogType type, const std::string& msg, c
 	{
 	case Error:
 		printf(errorMessage.c_str());
-		//MessageBoxA(GetActiveWindow(), error_message.c_str(), "Error", MB_ICONERROR);
 		exit(0);
 	default:
 		printf(errorMessage.c_str());
 	}
-	
-	printf(errorMessage.c_str());
-
 }
 
 char* ErrorLogger::GetDate()

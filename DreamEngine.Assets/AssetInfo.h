@@ -10,6 +10,7 @@ class AssetInfo
 public:
 
     AssetInfo(AssetType type);
+    AssetInfo(AssetInfo& assetInfo);
     ~AssetInfo() = default;
 
     unsigned int GetId() const;

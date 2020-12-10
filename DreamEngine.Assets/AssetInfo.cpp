@@ -5,6 +5,11 @@ AssetInfo::AssetInfo(const AssetType type) : type(type)
 
 }
 
+AssetInfo::AssetInfo(AssetInfo& assetInfo)
+{
+    type = assetInfo.type;
+}
+
 unsigned int AssetInfo::GetId() const
 {
     return id;

@@ -36,6 +36,12 @@
     <ClInclude Include="EditorWindowBehaviorTreeViewport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorPopupModal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -54,6 +60,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorWindowBehaviorTreeViewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

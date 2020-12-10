@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
+    <ClInclude Include="EditorPopupModal.h" />
+    <ClInclude Include="EditorPopupModalText.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="EditorWindowAssetBrowser.h" />
     <ClInclude Include="EditorWindowBehaviorTreeViewport.h" />
@@ -28,6 +30,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="EditorPopupModal.cpp" />
+    <ClCompile Include="EditorPopupModalText.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="EditorWindowAssetBrowser.cpp" />
     <ClCompile Include="EditorWindowBehaviorTreeViewport.cpp" />

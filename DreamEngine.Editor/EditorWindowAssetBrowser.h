@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "AssetTree.h"
 #include "AssetService.h"
+#include "EditorPopupModalText.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
 {
@@ -28,15 +29,19 @@ private:
 
     std::string assetPath;
 
+    EditorPopupModalText* testPopupModalText;
+
     const char* fileNames[];
     
     void drawFilter();
     void drawPopupContextMenu();
-    void drawPopupModalWindow();
     void drawFolderLayout(FolderNode* parentNode);
     void drawCommandMenu();
     void drawChildrenFolders(FolderNode* parentNode);
     void drawChildrenAssets(FolderNode* parentNode);
+
+    void drawTestPopupModalOpenButton();
+    void drawTestPopupModal();
 
 };
 

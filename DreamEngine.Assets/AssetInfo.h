@@ -1,27 +1,28 @@
 #pragma once
 
 #include "AssetType.h"
+#include "Serializable.h"
 
 class AssetManager;
 
-class AssetInfo
+class AssetInfo : public Serializable
 {
 
 public:
 
     AssetInfo(AssetType type);
     AssetInfo(AssetInfo& assetInfo);
-    ~AssetInfo() = default;
 
     unsigned int GetId() const;
-
     AssetType GetAssetType() const;
 
 protected:
 
     unsigned int id;
-
     AssetType type;
+
+    Json toJson() override;
+    void fromJson(Json json) override;
 
 private:
 
@@ -31,3 +32,12 @@ private:
 
 };
 
+class AssetInfoCreator
+{
+
+public:
+
+    virtual AssetInfo* Create() = 0;
+    virtual AssetInfo* Duplicate(AssetInfo& assetInfo) = 0;
+
+};

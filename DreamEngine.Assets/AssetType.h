@@ -8,7 +8,6 @@ enum class AssetType
     Scene,
     Model,
     Texture,
-    Shader,
 };
 
 const std::array<AssetType, 5> ALL_ASSET_TYPES = {
@@ -16,5 +15,4 @@ const std::array<AssetType, 5> ALL_ASSET_TYPES = {
     AssetType::Scene,
     AssetType::Model,
     AssetType::Texture,
-    AssetType::Shader,
 };

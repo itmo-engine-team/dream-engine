@@ -16,6 +16,22 @@ unsigned int AssetInfo::GetId() const
 }
 
 
+Json AssetInfo::toJson()
+{
+    Json json = Serializable::toJson();
+
+    json["id"] = id;
+    json["type"] = type;
+
+    return json;
+}
+
+void AssetInfo::fromJson(Json json)
+{
+    initVariable(json, "id", &id);
+    initVariable(json, "type", &id);
+}
+
 void AssetInfo::setId(unsigned int id)
 {
     this->id = id;

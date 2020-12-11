@@ -16,20 +16,20 @@
     <Filter Include="Libraries">
       <UniqueIdentifier>{62c59b4d-40e9-4b86-b28d-0b3b3563a0a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AssetInfo">
+      <UniqueIdentifier>{e8375030-eb19-4eb9-bb84-eca4a69c86d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AssetInfo">
+      <UniqueIdentifier>{f50dac2f-eb94-463e-acff-f5fa2a782f59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AssetTree">
+      <UniqueIdentifier>{2c7d4ccc-ad0b-454d-89e8-42de50a69806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AssetTree">
+      <UniqueIdentifier>{74dfdbe9-f9eb-4f5c-9096-287c2c561afd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssetTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FolderNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AssetType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -38,9 +38,6 @@
     </ClInclude>
     <ClInclude Include="Libraries\id.hpp">
       <Filter>Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="TreeModificationResult.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineConfigInfo.h">
       <Filter>Header Files</Filter>
@@ -54,20 +51,32 @@
     <ClInclude Include="AssetInfoFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorAssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetNode.h">
+      <Filter>Header Files\AssetTree</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetTree.h">
+      <Filter>Header Files\AssetTree</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderNode.h">
+      <Filter>Header Files\AssetTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureAssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeModificationResult.h">
+      <Filter>Header Files\AssetTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssetTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FolderNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -77,7 +86,28 @@
     <ClCompile Include="AssetService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AssetInfoFactory.cpp">
+    <ClCompile Include="AssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorAssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelAssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetNode.cpp">
+      <Filter>Source Files\AssetTree</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureAssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderNode.cpp">
+      <Filter>Source Files\AssetTree</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetTree.cpp">
+      <Filter>Source Files\AssetTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Serializable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

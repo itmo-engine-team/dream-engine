@@ -5,6 +5,7 @@
 
 #include "AssetService.h"
 #include "ErrorLogger.h"
+#include "AssetInfoFactory.h"
 
 AssetManager::AssetManager()
 {
@@ -95,7 +96,7 @@ AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const st
 AssetModificationResult AssetManager::DuplicateAsset(AssetNode* assetNode, const std::string& newName)
 {
     AssetInfo* originalInfo = assetNode->GetAssetInfo();
-    AssetInfo* duplicateAssetInfo = new AssetInfo(*originalInfo);
+    AssetInfo* duplicateAssetInfo = AssetInfoFactory::Duplicate(*originalInfo);
 
     AssetModificationResult result = AddNewAsset(duplicateAssetInfo, newName, assetNode->GetParent());
     return result;

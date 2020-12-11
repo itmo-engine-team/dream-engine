@@ -31,5 +31,7 @@ Json ModelAssetInfo::toJson()
 
 void ModelAssetInfo::fromJson(Json json)
 {
+    AssetInfo::fromJson(json);
+
     initVariable(json, "modelPath", &modelPath);
 }

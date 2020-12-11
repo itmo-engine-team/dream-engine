@@ -30,5 +30,7 @@ Json TextureAssetInfo::toJson()
 
 void TextureAssetInfo::fromJson(Json json)
 {
+    AssetInfo::fromJson(json);
+
     initVariable(json, "texturePath", &texturePath);
 }

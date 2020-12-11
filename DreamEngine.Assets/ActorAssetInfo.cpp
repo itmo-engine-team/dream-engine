@@ -19,5 +19,5 @@ Json ActorAssetInfo::toJson()
 
 void ActorAssetInfo::fromJson(Json json)
 {
-
+    AssetInfo::fromJson(json);
 }

@@ -7,8 +7,8 @@ class EngineConfigInfo : public Serializable
 
 public:
 
-    Json ToJson() override;
-    void FromJson(Json json) override;
+    Json toJson() override;
+    void fromJson(Json json) override;
     bool IsGameMode();
 
     int GetScreenWidth() const;

@@ -8,9 +8,10 @@
 
 AssetManager::AssetManager()
 {
-    // TODO uncomment when ready to not use real folder structure
-    // contentAssetTree = AssetServices::FindAssetTree("Content");
-    contentAssetTree = AssetService::CreateDebugAssetTree();
+    if (isDebugTree)
+        contentAssetTree = AssetService::FindAssetTree("Content");
+    else
+        contentAssetTree = AssetService::CreateDebugAssetTree();
 
     initAssetTree(contentAssetTree);
 }
@@ -20,15 +21,188 @@ AssetManager::~AssetManager()
     delete contentAssetTree;
 }
 
-void AssetManager::AddNewAsset(AssetInfo* assetInfo, const std::string& assetName, FolderNode* parentFolderNode)
+AssetModificationResult AssetManager::AddNewAsset(
+    AssetInfo* assetInfo, const std::string& assetName, FolderNode* parentFolderNode)
 {
+    // Generate id
     const auto newId = generateNewId();
     idSet.insert(newId);
     assetInfo->setId(newId);
 
-    addAssetInfoToMap(assetInfo);
+    // Add asset to map
+    const bool isAddedToMap = addAssetInfoToMap(assetInfo);
+    if (!isAddedToMap)
+    {
+        idSet.erase(newId);
+        assetInfo->setId(0);
 
-    contentAssetTree->CreateAssetNode(assetInfo, assetName, parentFolderNode);
+        return { false, nullptr, "Error while generating id for new asset" };
+    }
+    
+    AssetModificationResult result = contentAssetTree->CreateAssetNode(assetInfo, assetName, parentFolderNode);
+    if (!result.isSuccess)
+        return result;
+
+    if (!isDebugTree)
+    {
+        AssetNode* assetNode = result.node;
+        result = AssetService::CreateAssetFile(assetNode);
+
+        if (!result.isSuccess)
+        {
+            contentAssetTree->RemoveAssetNode(assetNode);
+        }
+        return result;
+    }
+
+    return result;
+}
+
+AssetModificationResult AssetManager::RemoveAsset(AssetNode* assetNode)
+{
+    if (isDebugTree)
+    {
+        contentAssetTree->RemoveAssetNode(assetNode);
+        delete assetNode;
+        return { true, nullptr };
+    }
+    
+    AssetModificationResult result = AssetService::RemoveAssetFile(assetNode);
+    if (!result.isSuccess)
+        return { false, assetNode };
+
+    contentAssetTree->RemoveAssetNode(assetNode);
+    delete assetNode;
+    return { true, nullptr };
+}
+
+AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const std::string& newName)
+{
+    for (auto neighborAssetNode : assetNode->GetParent()->GetChildAssetList())
+    {
+        if (neighborAssetNode->GetName() == newName)
+            return { false, assetNode, "This name is already exist in folder" };
+    }
+
+    AssetModificationResult result = AssetService::RenameAsset(assetNode, newName);
+    if (!result.isSuccess)
+        return result;
+
+    contentAssetTree->RenameAssetNode(assetNode, newName);
+    return { true, assetNode };
+}
+
+AssetModificationResult AssetManager::DuplicateAsset(AssetNode* assetNode, const std::string& newName)
+{
+    AssetInfo* originalInfo = assetNode->GetAssetInfo();
+    AssetInfo* duplicateAssetInfo = new AssetInfo(*originalInfo);
+
+    AssetModificationResult result = AddNewAsset(duplicateAssetInfo, newName, assetNode->GetParent());
+    return result;
+}
+
+AssetModificationResult AssetManager::MoveAsset(AssetNode* assetNode, FolderNode* newParentFolderNode)
+{
+    // Check for equal names
+    for (AssetNode* newNeighborAssetNode : newParentFolderNode->GetChildAssetList())
+    {
+        if (assetNode->GetName() == newNeighborAssetNode->GetName())
+            return { false, assetNode,
+                assetNode->GetName() + " asset is already exist in new folder" };
+    }
+
+    if (isDebugTree)
+    {
+        contentAssetTree->MoveAssetNode(assetNode, newParentFolderNode);
+        return { true, assetNode };
+    }
+
+    // Move asset
+    AssetModificationResult result = AssetService::MoveAsset(assetNode, newParentFolderNode);
+    if (result.isSuccess)
+        contentAssetTree->MoveAssetNode(assetNode, newParentFolderNode);
+
+    return result;
+}
+
+AssetModificationResult AssetManager::SaveAsset(AssetNode* assetNode)
+{
+    AssetModificationResult result = AssetService::SaveAsset(assetNode);
+    return result;
+}
+
+FolderModificationResult AssetManager::CreateFolder(const std::string& assetName, FolderNode* parentFolderNode)
+{
+    FolderModificationResult result = contentAssetTree->CreateFolderNode(assetName, parentFolderNode);
+
+    if (isDebugTree)
+        return result;
+
+    if (result.isSuccess)
+    {
+        FolderNode* folderNode = result.node;
+        result = AssetService::CreateFolder(folderNode);
+        if (!result.isSuccess)
+        {
+            contentAssetTree->RemoveFolderNode(folderNode, true);
+        }
+
+        return result;
+    }
+
+    return result;
+}
+
+FolderModificationResult AssetManager::RemoveFolder(FolderNode* folderNode, bool isRecursive)
+{
+    if (isDebugTree)
+    {
+        contentAssetTree->RemoveFolderNode(folderNode, isRecursive);
+        return { true, nullptr };
+    }
+
+    FolderModificationResult result = AssetService::RemoveFolder(folderNode, isRecursive);
+    if (result.isSuccess)
+        contentAssetTree->RemoveFolderNode(folderNode, isRecursive);
+
+    return result;
+}
+
+FolderModificationResult AssetManager::RenameFolder(FolderNode* folderNode, const std::string& newName)
+{
+    for (auto neighborFolderNode : folderNode->GetParent()->GetChildFolderList())
+    {
+        if (neighborFolderNode->GetName() == newName)
+            return { false, folderNode, "Folder with this name is already exist" };
+    }
+
+    FolderModificationResult result = AssetService::RenameFolder(folderNode, newName);
+    if (!result.isSuccess)
+        return result;
+
+    contentAssetTree->RenameFolderNode(folderNode, newName);
+    return { false, folderNode, "Not Implemented Yet" };
+}
+
+FolderModificationResult AssetManager::MoveFolder(FolderNode* folderNode, FolderNode* newParentFolderNode)
+{
+    for (FolderNode* neighborFolderNode : newParentFolderNode->GetChildFolderList())
+    {
+        if (folderNode->GetName() == neighborFolderNode->GetName())
+            return { false, folderNode,
+                folderNode->GetName() + " folder is already exist in new place" };
+    }
+
+    if (isDebugTree)
+    {
+        contentAssetTree->MoveFolderNode(folderNode, newParentFolderNode);
+        return { true, nullptr };
+    }
+
+    FolderModificationResult result = AssetService::MoveFolder(folderNode, newParentFolderNode);
+    if (result.isSuccess)
+        contentAssetTree->MoveFolderNode(folderNode, newParentFolderNode);
+    return result;
 }
 
 AssetTree* AssetManager::GetContentAssetTree() const
@@ -67,14 +241,17 @@ void AssetManager::initAssetTree(AssetTree* assetTree)
     }
 }
 
-void AssetManager::addAssetInfoToMap(AssetInfo* assetInfo)
+bool AssetManager::addAssetInfoToMap(AssetInfo* assetInfo)
 {
-    assetMap[assetInfo->GetAssetType()][assetInfo->GetId()] = assetInfo;
+    if (assetMap.find(assetInfo->GetId()) != assetMap.end()) return false;
+
+    assetMap[assetInfo->GetId()] = assetInfo;
+    return true;
 }
 
 unsigned int AssetManager::generateNewId() const
 {
     const unsigned int newId = $ID();
 
-    return idSet.find(newId) == idSet.end() ? newId : generateNewId();
+    return newId > 0 && idSet.find(newId) == idSet.end() ? newId : generateNewId();
 }

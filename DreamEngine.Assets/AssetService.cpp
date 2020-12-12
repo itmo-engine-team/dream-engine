@@ -13,7 +13,7 @@ AssetModificationResult AssetService::CreateAssetFile(AssetNode* node)
 
     checkFolderExist(pathVar);
 
-    if (!std::filesystem::exists(pathVar))
+    if (std::filesystem::exists(pathVar))
         return { false, node, "File already exist"};
 
     Json j = node->GetAssetInfo()->toJson();

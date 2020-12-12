@@ -41,8 +41,11 @@ Json AssetInfo::toJson()
 
 void AssetInfo::fromJson(Json json)
 {
+    std::string stringType;
+    initVariable(json, "type", &stringType);
+    type = AssetInfoFactory::GetAssetTypeByString(stringType);
+
     initVariable(json, "id", &id);
-    initVariable(json, "type", &type);
     initVariable(json, "name", &name);
 }
 

@@ -2,15 +2,17 @@
 
 #include "AssetService.h"
 #include "EngineConfigInfo.h"
+#include "ActorAssetInfo.h"
 
 TEST(AssetTest, CreateAsset)
 {
     AssetTree* assetTree = AssetService::FindAssetTree("Content");
-    AssetModificationResult assetResult = assetTree->CreateAssetNode(nullptr, "Person", assetTree->GetRootNode());
+    AssetModificationResult assetResult = assetTree->CreateAssetNode(new ActorAssetInfo(), "Person", assetTree->GetRootNode());
 
     if (assetResult.isSuccess)
-        AssetService::CreateAssetFile(assetResult.node);
-    else
+        assetResult = AssetService::CreateAssetFile(assetResult.node);
+
+    if (!assetResult.isSuccess)
         printf(assetResult.error.c_str());
 }
 
@@ -38,13 +40,14 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    AssetModificationResult assetResult = assetTree->CreateAssetNode(nullptr, "Person1.1", folderResult.node);
+    AssetModificationResult assetResult = assetTree->CreateAssetNode(
+        new ActorAssetInfo(), "Person1.1", folderResult.node);
     if (assetResult.isSuccess)
         AssetService::CreateAssetFile(assetResult.node);
     else
         printf(assetResult.error.c_str());
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person1.2", folderResult.node);
+    assetResult = assetTree->CreateAssetNode(new ActorAssetInfo(), "Person1.2", folderResult.node);
     if (assetResult.isSuccess)
         AssetService::CreateAssetFile(assetResult.node);
     else
@@ -62,13 +65,13 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person2.1", folderResult.node);
+    assetResult = assetTree->CreateAssetNode(new ActorAssetInfo(), "Person2.1", folderResult.node);
     if (assetResult.isSuccess)
         AssetService::CreateAssetFile(assetResult.node);
     else
         printf(assetResult.error.c_str());
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person2.2", folderResult.node);
+    assetResult = assetTree->CreateAssetNode(new ActorAssetInfo(), "Person2.2", folderResult.node);
     if (assetResult.isSuccess)
         AssetService::CreateAssetFile(assetResult.node);
     else
@@ -87,7 +90,7 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person3.1", folderResult.node);
+    assetResult = assetTree->CreateAssetNode(new ActorAssetInfo(), "Person3.1", folderResult.node);
     if (assetResult.isSuccess)
         AssetService::CreateAssetFile(assetResult.node);
     else
@@ -104,7 +107,7 @@ TEST(AssetTest, CreateFolders)
         return;
     }
 
-    assetResult = assetTree->CreateAssetNode(nullptr, "Person3.2", folderResult.node);
+    assetResult = assetTree->CreateAssetNode(new ActorAssetInfo(), "Person3.2", folderResult.node);
     if (assetResult.isSuccess)
         AssetService::CreateAssetFile(assetResult.node);
     else

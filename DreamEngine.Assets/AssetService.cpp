@@ -3,22 +3,21 @@
 #include <iomanip>
 #include <iostream>
 
+#include "AssetInfoFactory.h"
 #include "Serializable.h"
 #include "ErrorLogger.h"
 
 AssetModificationResult AssetService::CreateAssetFile(AssetNode* node)
 {
-    Json j;
-
     const std::string pathVar(CreateAssetPath(node));
 
     checkFolderExist(pathVar);
 
-    j["Object name"] = node->GetName();
-
     if (!std::filesystem::exists(pathVar))
         return { false, node, "File already exist"};
-        
+
+    Json j = node->GetAssetInfo()->toJson();
+
     std::ofstream file(pathVar);
     file << std::setw(4) << j << std::endl;
     return  { true, node };
@@ -72,8 +71,22 @@ AssetTree* AssetService::FindAssetTree(std::string rootNodeName)
             {
                 if (itr->path().extension() != ASSET_FILE_EXTENSION) continue;
 
-                // TODO implement converting json file to AssetInfo
-                AssetInfo* assetInfo = nullptr;
+                std::ifstream file(itr->path().c_str());
+                Json json;
+                file >> json;
+
+
+                std::string stringAssetType;
+                if (!json.contains("type"))
+                {
+                    ErrorLogger::Log(Error, "Asset " + itr->path().string() + " has no type attribute");
+                    continue;
+                }
+
+                stringAssetType = json["type"].get<std::string>();
+                AssetType assetType = AssetInfoFactory::GetAssetTypeByString(stringAssetType);
+                AssetInfo* assetInfo = AssetInfoFactory::Create(assetType);
+                assetInfo->fromJson(json);
 
                 assetTree->CreateAssetNode(
                     assetInfo, itr->path().stem().string(), currentFolderNode);
@@ -87,8 +100,7 @@ AssetModificationResult AssetService::SaveAsset(AssetNode* assetNode)
 {
     std::filesystem::path path = CreateAssetPath(assetNode);
 
-    Json j;
-    //TODO: fill json with data from assetInfo
+    Json j = assetNode->GetAssetInfo()->toJson();
     std::ofstream file(path);
     file << std::setw(4) << j << std::endl;
 

@@ -1,5 +1,7 @@
 #include "AssetInfo.h"
 
+#include "AssetInfoFactory.h"
+
 AssetInfo::AssetInfo(const AssetType type) : type(type)
 {
 
@@ -31,7 +33,7 @@ Json AssetInfo::toJson()
     Json json = Serializable::toJson();
 
     json["id"] = id;
-    json["type"] = type;
+    json["type"] = AssetInfoFactory::GetAssetTypeStringName(type);
     json["name"] = name;
 
     return json;
@@ -39,8 +41,6 @@ Json AssetInfo::toJson()
 
 void AssetInfo::fromJson(Json json)
 {
-    Serializable::fromJson(json);
-
     initVariable(json, "id", &id);
     initVariable(json, "type", &type);
     initVariable(json, "name", &name);

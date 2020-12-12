@@ -25,6 +25,8 @@ public:
 
 protected:
 
+    friend AssetService;
+
     AssetNode* node;
 
     unsigned int id;

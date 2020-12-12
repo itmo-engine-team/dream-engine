@@ -8,6 +8,8 @@ enum class AssetType
     Scene,
     Model,
     Texture,
+
+    Unknown
 };
 
 const std::array<AssetType, 5> ALL_ASSET_TYPES = {

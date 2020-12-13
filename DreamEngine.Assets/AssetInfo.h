@@ -1,27 +1,41 @@
 #pragma once
 
 #include "AssetType.h"
+#include "Serializable.h"
 
 class AssetManager;
+class AssetNode;
 
-class AssetInfo
+class AssetInfo : public Serializable
 {
 
 public:
 
     AssetInfo(AssetType type);
     AssetInfo(AssetInfo& assetInfo);
-    ~AssetInfo() = default;
+    virtual ~AssetInfo() = default;
+
+    AssetNode* GetAssetNode() const;
+    void SetAssetNode(AssetNode* node);
 
     unsigned int GetId() const;
-
     AssetType GetAssetType() const;
+
+    const std::string& GetName() const;
+    void SetName(const std::string& name);
 
 protected:
 
-    unsigned int id;
+    friend AssetService;
 
+    AssetNode* node;
+
+    unsigned int id;
     AssetType type;
+    std::string name;
+
+    Json toJson() override;
+    void fromJson(Json json) override;
 
 private:
 
@@ -31,3 +45,14 @@ private:
 
 };
 
+class AssetInfoCreator
+{
+
+public:
+
+    virtual ~AssetInfoCreator() = default;
+
+    virtual AssetInfo* Create() = 0;
+    virtual AssetInfo* Duplicate(AssetInfo& assetInfo) = 0;
+
+};

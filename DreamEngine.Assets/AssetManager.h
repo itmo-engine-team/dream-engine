@@ -14,7 +14,7 @@ public:
     AssetManager();
     ~AssetManager();
 
-    AssetModificationResult AddNewAsset(AssetInfo* assetInfo, const std::string& assetName, FolderNode* parentFolderNode);
+    AssetModificationResult CreateAsset(AssetType assetType, const std::string& assetName, FolderNode* parentFolderNode);
     AssetModificationResult RemoveAsset(AssetNode* assetNode);
     AssetModificationResult RenameAsset(AssetNode* assetNode, const std::string& newName);
     AssetModificationResult DuplicateAsset(AssetNode* assetNode, const std::string& newName);
@@ -39,6 +39,8 @@ private:
     AssetTree* contentAssetTree;
 
     void initAssetTree(AssetTree* assetTree);
+
+    AssetModificationResult addNewAsset(AssetInfo* assetInfo, FolderNode* parentFolderNode);
     bool addAssetInfoToMap(AssetInfo* assetInfo);
 
     unsigned int generateNewId() const;

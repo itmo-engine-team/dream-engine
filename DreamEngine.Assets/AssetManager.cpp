@@ -10,9 +10,9 @@
 AssetManager::AssetManager()
 {
     if (isDebugTree)
-        contentAssetTree = AssetService::FindAssetTree("Content");
-    else
         contentAssetTree = AssetService::CreateDebugAssetTree();
+    else
+        contentAssetTree = AssetService::FindAssetTree("Content");
 
     initAssetTree(contentAssetTree);
 }

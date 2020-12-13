@@ -64,7 +64,7 @@ const std::string& AssetInfo::GetName() const
     return name;
 }
 
-void AssetInfo::SetName(std::string& name)
+void AssetInfo::SetName(const std::string& name)
 {
     this->name = name;
 }

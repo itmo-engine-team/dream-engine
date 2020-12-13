@@ -13,6 +13,7 @@ public:
 
     AssetInfo(AssetType type);
     AssetInfo(AssetInfo& assetInfo);
+    virtual ~AssetInfo() = default;
 
     AssetNode* GetAssetNode() const;
     void SetAssetNode(AssetNode* node);
@@ -21,7 +22,7 @@ public:
     AssetType GetAssetType() const;
 
     const std::string& GetName() const;
-    void SetName(std::string& name);
+    void SetName(const std::string& name);
 
 protected:
 

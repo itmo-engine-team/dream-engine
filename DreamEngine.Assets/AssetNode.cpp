@@ -1,5 +1,7 @@
 #include "AssetNode.h"
 
+#include "FolderNode.h"
+
 AssetNode::AssetNode(AssetInfo* assetInfo, std::string nodeName, FolderNode* parentNode)
     : assetInfo(assetInfo), name(std::move(nodeName)), parent(parentNode)
 {

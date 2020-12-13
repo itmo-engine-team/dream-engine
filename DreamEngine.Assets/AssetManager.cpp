@@ -5,13 +5,14 @@
 
 #include "AssetService.h"
 #include "ErrorLogger.h"
+#include "AssetInfoFactory.h"
 
 AssetManager::AssetManager()
 {
     if (isDebugTree)
-        contentAssetTree = AssetService::FindAssetTree("Content");
-    else
         contentAssetTree = AssetService::CreateDebugAssetTree();
+    else
+        contentAssetTree = AssetService::FindAssetTree("Content");
 
     initAssetTree(contentAssetTree);
 }
@@ -21,41 +22,13 @@ AssetManager::~AssetManager()
     delete contentAssetTree;
 }
 
-AssetModificationResult AssetManager::AddNewAsset(
-    AssetInfo* assetInfo, const std::string& assetName, FolderNode* parentFolderNode)
+AssetModificationResult AssetManager::CreateAsset(
+    AssetType assetType, const std::string& assetName, FolderNode* parentFolderNode)
 {
-    // Generate id
-    const auto newId = generateNewId();
-    idSet.insert(newId);
-    assetInfo->setId(newId);
+    AssetInfo* assetInfo = AssetInfoFactory::Create(assetType);
+    assetInfo->SetName(assetName);
 
-    // Add asset to map
-    const bool isAddedToMap = addAssetInfoToMap(assetInfo);
-    if (!isAddedToMap)
-    {
-        idSet.erase(newId);
-        assetInfo->setId(0);
-
-        return { false, nullptr, "Error while generating id for new asset" };
-    }
-    
-    AssetModificationResult result = contentAssetTree->CreateAssetNode(assetInfo, assetName, parentFolderNode);
-    if (!result.isSuccess)
-        return result;
-
-    if (!isDebugTree)
-    {
-        AssetNode* assetNode = result.node;
-        result = AssetService::CreateAssetFile(assetNode);
-
-        if (!result.isSuccess)
-        {
-            contentAssetTree->RemoveAssetNode(assetNode);
-        }
-        return result;
-    }
-
-    return result;
+    return addNewAsset(assetInfo, parentFolderNode);
 }
 
 AssetModificationResult AssetManager::RemoveAsset(AssetNode* assetNode)
@@ -95,9 +68,10 @@ AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const st
 AssetModificationResult AssetManager::DuplicateAsset(AssetNode* assetNode, const std::string& newName)
 {
     AssetInfo* originalInfo = assetNode->GetAssetInfo();
-    AssetInfo* duplicateAssetInfo = new AssetInfo(*originalInfo);
+    AssetInfo* duplicateAssetInfo = AssetInfoFactory::Duplicate(*originalInfo);
+    duplicateAssetInfo->SetName(newName);
 
-    AssetModificationResult result = AddNewAsset(duplicateAssetInfo, newName, assetNode->GetParent());
+    AssetModificationResult result = addNewAsset(duplicateAssetInfo, assetNode->GetParent());
     return result;
 }
 
@@ -239,6 +213,53 @@ void AssetManager::initAssetTree(AssetTree* assetTree)
             folderQueue.push(folderNode);
         }
     }
+}
+
+AssetModificationResult AssetManager::addNewAsset(AssetInfo* assetInfo, FolderNode* parentFolderNode)
+{
+    // Generate id
+    const auto newId = generateNewId();
+    idSet.insert(newId);
+    assetInfo->setId(newId);
+
+    // Add asset to map
+    const bool isAddedToMap = addAssetInfoToMap(assetInfo);
+    if (!isAddedToMap)
+    {
+        idSet.erase(newId);
+        delete assetInfo;
+        assetInfo = nullptr;
+
+        return { false, nullptr, "Error while generating id for new asset" };
+    }
+
+    AssetModificationResult result = contentAssetTree->CreateAssetNode(
+        assetInfo, assetInfo->GetName(), parentFolderNode);
+    if (!result.isSuccess)
+    {
+        idSet.erase(newId);
+        delete assetInfo;
+        assetInfo = nullptr;
+
+        return result;
+    }
+
+    if (!isDebugTree)
+    {
+        AssetNode* assetNode = result.node;
+        result = AssetService::CreateAssetFile(assetNode);
+
+        if (!result.isSuccess)
+        {
+            idSet.erase(newId);
+            delete assetInfo;
+            assetInfo = nullptr;
+
+            contentAssetTree->RemoveAssetNode(assetNode);
+        }
+    }
+
+    return result;
 }
 
 bool AssetManager::addAssetInfoToMap(AssetInfo* assetInfo)

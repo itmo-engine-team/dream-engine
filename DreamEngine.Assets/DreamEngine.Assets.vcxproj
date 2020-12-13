@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ActorAssetInfo.h" />
     <ClInclude Include="AssetInfoFactory.h" />
     <ClInclude Include="AssetNode.h" />
     <ClInclude Include="EngineConfigInfo.h" />
@@ -151,18 +152,23 @@
     <ClInclude Include="AssetType.h" />
     <ClInclude Include="AssetTree.h" />
     <ClInclude Include="Libraries\id.hpp" />
+    <ClInclude Include="ModelAssetInfo.h" />
     <ClInclude Include="Serializable.h" />
+    <ClInclude Include="TextureAssetInfo.h" />
     <ClInclude Include="TreeModificationResult.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActorAssetInfo.cpp" />
     <ClCompile Include="AssetInfo.cpp" />
-    <ClCompile Include="AssetInfoFactory.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AssetNode.cpp" />
     <ClCompile Include="AssetTree.cpp" />
     <ClCompile Include="EngineConfigInfo.cpp" />
     <ClCompile Include="FolderNode.cpp" />
     <ClCompile Include="AssetService.cpp" />
+    <ClCompile Include="ModelAssetInfo.cpp" />
+    <ClCompile Include="Serializable.cpp" />
+    <ClCompile Include="TextureAssetInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

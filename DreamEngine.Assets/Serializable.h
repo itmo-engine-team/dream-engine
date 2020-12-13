@@ -1,7 +1,6 @@
 #pragma once
 
 #include "nlohmann/json.hpp"
-#include "ErrorLogger.h"
 
 using Json = nlohmann::json;
 
@@ -27,6 +26,9 @@ protected:
         if (json.contains(varName))
             *var = json[varName].get<type>();
         else
-            ErrorLogger::Log(Warning, varName + " not found in json file");
+            log(varName + " not found in json file");
     }
+
+    void log(std::string message);
+
 };

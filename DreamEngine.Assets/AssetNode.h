@@ -2,10 +2,8 @@
 
 #include <string>
 
-#include "FolderNode.h"
-#include "AssetInfo.h"
-
 class FolderNode;
+class AssetInfo;
 
 class AssetNode
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <array>
+#include <vector>
 
 enum class AssetType
 {
@@ -12,7 +12,7 @@ enum class AssetType
     Unknown
 };
 
-const std::array<AssetType, 5> ALL_ASSET_TYPES = {
+const std::vector<AssetType> ALL_ASSET_TYPES = {
     AssetType::Actor,
     AssetType::Scene,
     AssetType::Model,

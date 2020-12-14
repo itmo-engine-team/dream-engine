@@ -5,6 +5,8 @@
 class BTGameNodeSelector : public BTGameNode
 {
 
+public:
+
     bool Run() override;
 
 };

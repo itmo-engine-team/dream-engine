@@ -142,12 +142,16 @@
   <ItemGroup>
     <ClInclude Include="BehaviorTreeGame.h" />
     <ClInclude Include="BTGameNode.h" />
+    <ClInclude Include="BTGameNodeRoot.h" />
     <ClInclude Include="BTGameNodeSelector.h" />
+    <ClInclude Include="BTGameNodeSequence.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp" />
     <ClCompile Include="BTGameNode.cpp" />
+    <ClCompile Include="BTGameNodeRoot.cpp" />
     <ClCompile Include="BTGameNodeSelector.cpp" />
+    <ClCompile Include="BTGameNodeSequence.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

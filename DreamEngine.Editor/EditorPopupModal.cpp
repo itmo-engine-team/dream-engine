@@ -2,6 +2,15 @@
 
 #include "imgui.h"
 
+bool EditorPopupModal::DrawPipeline(EditorPopupModal* popup)
+{
+    if (popup == nullptr)
+        return false;
+    popup->Draw();
+
+    return popup->IsFinished();
+}
+
 EditorPopupModal::EditorPopupModal(std::string name) : name(std::move(name))
 {
 

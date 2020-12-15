@@ -107,11 +107,7 @@ void EditorWindowAssetBrowser::drawPopupContextMenu()
 
 void EditorWindowAssetBrowser::drawNewPopup()
 {
-    if (newAssetPopupModal == nullptr)
-        return;
-    newAssetPopupModal->Draw();
-
-    if (!newAssetPopupModal->IsFinished())
+    if (!EditorPopupModal::DrawPipeline(newAssetPopupModal))
         return;
 
     if (newAssetPopupModal->GetResult())
@@ -128,16 +124,12 @@ void EditorWindowAssetBrowser::drawNewPopup()
 
 void EditorWindowAssetBrowser::drawDeletePopup()
 {
-    if (deleteAssetPopupModal == nullptr)
-        return;
-    deleteAssetPopupModal->Draw();
-
-    if (!deleteAssetPopupModal->IsFinished())
+    if (!EditorPopupModal::DrawPipeline(deleteAssetPopupModal))
         return;
 
     if (deleteAssetPopupModal->GetResult())
     {
-        
+        // TODO add functionality
     }
 
     delete deleteAssetPopupModal;

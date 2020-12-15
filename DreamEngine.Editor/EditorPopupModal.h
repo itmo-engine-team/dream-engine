@@ -7,6 +7,9 @@ class EditorPopupModal
 
 public:
 
+    // Return true if popup is finished
+    static bool DrawPipeline(EditorPopupModal* popup);
+
     EditorPopupModal(std::string name);
     virtual ~EditorPopupModal() = default;
 

@@ -46,7 +46,15 @@ void EditorPopupModal::finish(const bool isSuccess)
 {
     result = isSuccess;
     isFinished = true;
-    onFinish();
 
-    ImGui::CloseCurrentPopup();
+    if (onFinish())
+    {
+        // If validation success
+        ImGui::CloseCurrentPopup();
+    }
+    else
+    {
+        result = false;
+        isFinished = false;
+    }
 }

@@ -19,13 +19,13 @@ protected:
 
     std::string name;
 
-    bool isFinished = false;
-    bool result = false;
     bool isStarted = false;
+    bool isFinished = false;
+    bool result = false; // Shows if OK button was clicked 
 
     void finish(bool isSuccess);
 
-    virtual void onFinish() {}
+    virtual bool onFinish() { return true; }
     virtual void onDrawPopup() = 0;
 
 };

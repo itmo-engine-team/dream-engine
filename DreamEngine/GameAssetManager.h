@@ -3,18 +3,15 @@
 #include <vector>
 
 #include "Actor.h"
-#include "Shader.h"
 #include "Texture.h"
 #include "ModelData.h"
-
-class Engine;
 
 class GameAssetManager
 {
 
 public:
 
-    GameAssetManager(Engine* engine);
+    GameAssetManager();
     ~GameAssetManager();
 
     // GameObjects
@@ -27,20 +24,16 @@ public:
     std::vector<ModelData*> GetModelData() const;
 
     // Graphics objects
-    void AddShader(Shader* shader);
     void AddTexture(Texture* texture);
     void AddModel(ModelData* modelData);
 
 protected:
-
-    Engine* engine;
 
     // GameObjects
     std::vector<GameObject*> gameObjects;
     std::vector<Actor*> actors;
 
     // Graphics objects
-    std::vector<Shader*> shaders;
     std::vector<Texture*> textures;
     std::vector<ModelData*> models;
 

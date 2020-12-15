@@ -21,11 +21,14 @@
 #include "LightShader.h"
 #include "ModelShader.h"
 
+class MeshRenderer;
+
 class Graphics
 {
 public:
 
     Graphics(Window* window);
+    ~Graphics();
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     
@@ -53,6 +56,8 @@ public:
     DeferredBuffers* GetDeferredBuffers();
     LightShader* GetLightShader();
     ModelShader* GetModelShader();
+
+    MeshRenderer* GetMeshRenderer() const;
 
     bool HasLight() const;
     bool HasShadow() const;
@@ -102,6 +107,8 @@ private:
     DeferredBuffers* deferredBuffers;
     LightShader* lightShader;
     ModelShader* modelShader;
+
+    MeshRenderer* meshRenderer;
 
     bool hasLight = true;
     bool hasShadow = true;

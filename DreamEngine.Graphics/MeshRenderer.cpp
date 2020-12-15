@@ -1,7 +1,13 @@
 #include "MeshRenderer.h"
 
+#include "assimp/scene.h"
+#include "assimp/mesh.h"
+#include "assimp/Importer.hpp"
 #include "assimp/postprocess.h"
+
 #include "ErrorLogger.h"
+
+using namespace Assimp;
 
 bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePath)
 {

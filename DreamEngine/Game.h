@@ -1,11 +1,11 @@
 #pragma once
 
 #include "CameraComponent.h"
-#include "GameAssetManager.h"
 #include "LightComponent.h"
-#include "LightShader.h"
+#include "InputSystem.h"
 
-class Engine;
+class Graphics;
+class GameAssetManager;
 
 class Game
 {
@@ -14,14 +14,14 @@ public:
 
     Game();
 
-    Engine* GetEngine() const;
-
+    InputSystem* GetInputSystem() const;
+    Graphics* GetGraphics() const;
     GameAssetManager* GetGameAssetManager() const;
     virtual CameraComponent* GetCamera() const = 0;
     virtual LightComponent* GetLight() const = 0;
 
-    virtual void Init(Engine* engine);
-    virtual void Update();
+    virtual void Init(InputSystem* inputSystem, Graphics* graphics);
+    virtual void Update(float engineDeltaTime);
     virtual void Render();
     void RenderShadowMap();
 
@@ -31,10 +31,12 @@ public:
 
 protected:
 
-    Engine* engine;
+    InputSystem* inputSystem;
+    Graphics* graphics;
+
     GameAssetManager* gameAssetManager;
 
-    float gameDeltaTime;
+    float engineDeltaTime;
     float gameDeltaTimeMultiplier = 1;
 
 };

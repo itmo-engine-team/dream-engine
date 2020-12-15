@@ -1,15 +1,20 @@
 #include "Game.h"
 
-#include "Engine.h"
+#include "GameAssetManager.h"
 
 Game::Game()
 {
-
+    gameAssetManager = new GameAssetManager();
 }
 
-Engine* Game::GetEngine() const
+InputSystem* Game::GetInputSystem() const
 {
-    return engine;
+    return inputSystem;
+}
+
+Graphics* Game::GetGraphics() const
+{
+    return graphics;
 }
 
 GameAssetManager* Game::GetGameAssetManager() const
@@ -17,14 +22,16 @@ GameAssetManager* Game::GetGameAssetManager() const
     return gameAssetManager;
 }
 
-void Game::Init(Engine* engine)
+void Game::Init(InputSystem* inputSystem, Graphics* graphics)
 {
-    this->engine = engine;
-    this->gameAssetManager = engine->GetGameAssetManager();
+    this->inputSystem = inputSystem;
+    this->graphics = graphics;
 }
 
-void Game::Update()
+void Game::Update(const float engineDeltaTime)
 {
+    this->engineDeltaTime = engineDeltaTime;
+
     for (auto actor : gameAssetManager->GetActors())
     {
         actor->Update();
@@ -60,6 +67,5 @@ float Game::GetGameDeltaTimeMultiplier()
 
 float Game::GetGameDeltaTime()
 {
-    gameDeltaTime = engine->GetDeltaTime() * gameDeltaTimeMultiplier;
-    return gameDeltaTime;
+    return engineDeltaTime * gameDeltaTimeMultiplier;
 }

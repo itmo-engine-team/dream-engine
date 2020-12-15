@@ -17,10 +17,6 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
 
     dwStartTick = GetTickCount();
 
-    meshRenderer = new MeshRenderer();
-
-    gameAssetManager = new GameAssetManager(this);
-
     window = new Window(engineConfigInfo->GetScreenWidth(), engineConfigInfo->GetScreenHeight());
     window->WindowInitialize(hInstance, wc);
 
@@ -41,9 +37,6 @@ Engine::~Engine()
     delete window;
     window = nullptr;
 
-    delete meshRenderer;
-    meshRenderer = nullptr;
-
     delete inputSystem;
     inputSystem = nullptr;
 }
@@ -51,7 +44,7 @@ Engine::~Engine()
 void Engine::Init()
 {
     // Init Game
-    game->Init(this);
+    game->Init(inputSystem, graphics);
     orthoWindow->Initialize(graphics->GetDevice(),
         graphics->GetWindow()->GetScreenWidth(), graphics->GetWindow()->GetScreenHeight());
 }
@@ -73,16 +66,6 @@ bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM l
 Graphics* Engine::GetGraphics() const
 {
     return graphics;
-}
-
-GameAssetManager* Engine::GetGameAssetManager() const
-{
-    return gameAssetManager;
-}
-
-MeshRenderer* Engine::GetMeshRenderer() const
-{
-    return meshRenderer;
 }
 
 InputSystem* Engine::GetInputSystem() const
@@ -123,7 +106,7 @@ float Engine::GetDeltaTime() const
 
 void Engine::update()
 {
-    game->Update();
+    game->Update(deltaTime);
     editor->Update();
 }
 

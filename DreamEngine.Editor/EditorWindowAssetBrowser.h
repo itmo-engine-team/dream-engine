@@ -5,6 +5,8 @@
 #include "AssetTree.h"
 #include "AssetService.h"
 #include "EditorPopupModalText.h"
+#include "EditorPopupModalNew.h"
+#include "EditorPopupModalDelete.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
 {
@@ -19,6 +21,7 @@ public:
 private:
 
     AssetTree* assetTree;
+    AssetManager* assetManager;
 
     FolderNode* currentParentNode = nullptr;
 
@@ -30,6 +33,8 @@ private:
     std::string assetPath;
 
     EditorPopupModalText* testPopupModalText;
+    EditorPopupModalNew* newAssetPopupModal;
+    EditorPopupModalDelete* deleteAssetPopupModal;
 
     const char* fileNames[];
     
@@ -39,9 +44,8 @@ private:
     void drawCommandMenu();
     void drawChildrenFolders(FolderNode* parentNode);
     void drawChildrenAssets(FolderNode* parentNode);
-
-    void drawTestPopupModalOpenButton();
-    void drawTestPopupModal();
+    void drawNewPopup();
+    void drawDeletePopup();
+    void drawPopups();
 
 };
-

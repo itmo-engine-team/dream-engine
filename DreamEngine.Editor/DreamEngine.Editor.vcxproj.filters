@@ -42,6 +42,12 @@
     <ClInclude Include="EditorPopupModalText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorPopupModalNew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalDelete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -66,6 +72,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorPopupModalText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalNew.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalDelete.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

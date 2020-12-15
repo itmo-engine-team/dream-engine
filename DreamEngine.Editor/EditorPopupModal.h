@@ -21,6 +21,7 @@ protected:
 
     bool isFinished = false;
     bool result = false;
+    bool isStarted = false;
 
     void finish(bool isSuccess);
 

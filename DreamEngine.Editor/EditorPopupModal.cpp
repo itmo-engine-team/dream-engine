@@ -4,7 +4,7 @@
 
 EditorPopupModal::EditorPopupModal(std::string name) : name(std::move(name))
 {
-    ImGui::OpenPopup(this->name.data());
+
 }
 
 bool EditorPopupModal::IsFinished() const
@@ -19,6 +19,12 @@ bool EditorPopupModal::GetResult() const
 
 void EditorPopupModal::Draw()
 {
+    if (!isStarted)
+    {
+        ImGui::OpenPopup(this->name.data());
+        isStarted = true;
+    }
+
     ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(),
         ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 

@@ -141,14 +141,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BehaviorTreeGame.h" />
+    <ClInclude Include="BTCompositeNode.h" />
     <ClInclude Include="BTGameNode.h" />
+    <ClInclude Include="BTGameNodeLogic.h" />
     <ClInclude Include="BTGameNodeRoot.h" />
     <ClInclude Include="BTGameNodeSelector.h" />
     <ClInclude Include="BTGameNodeSequence.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp" />
+    <ClCompile Include="BTCompositeNode.cpp" />
     <ClCompile Include="BTGameNode.cpp" />
+    <ClCompile Include="BTGameNodeLogic.cpp" />
     <ClCompile Include="BTGameNodeRoot.cpp" />
     <ClCompile Include="BTGameNodeSelector.cpp" />
     <ClCompile Include="BTGameNodeSequence.cpp" />

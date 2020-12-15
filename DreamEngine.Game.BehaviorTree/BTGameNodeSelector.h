@@ -1,11 +1,13 @@
 #pragma once
 
-#include "BTGameNode.h"
+#include "BTCompositeNode.h"
 
-class BTGameNodeSelector : public BTGameNode
+class BTGameNodeSelector : public BTCompositeNode
 {
 
 public:
+
+    BTGameNodeSelector(BTGameNode* parentNode);
 
     bool Run() override;
 

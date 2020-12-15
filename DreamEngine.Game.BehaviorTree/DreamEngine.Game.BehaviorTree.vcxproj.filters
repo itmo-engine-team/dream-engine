@@ -30,6 +30,12 @@
     <ClInclude Include="BTGameNodeRoot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BTGameNodeLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BTCompositeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -45,6 +51,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BTGameNodeRoot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNodeLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BTCompositeNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,29 +1,22 @@
 #pragma once
 
-#include <vector>
-
 class BTGameNode
 {
 
 protected:
 
     BTGameNode* parent;
-    std::vector<BTGameNode*> children;
-    int childrenCount;
 
 public:
 
-    BTGameNode(BTGameNode* parentNode, std::vector<BTGameNode*> childrenNodes);
+    BTGameNode(BTGameNode* parentNode);
     virtual ~BTGameNode() = default;
 
     virtual bool Run() = 0;
 
-    virtual void SetParent(BTGameNode* parentNode);
-    void SetChildren(std::vector<BTGameNode*> childrenNodes);
+    void SetParent(BTGameNode* parentNode);
 
-    virtual BTGameNode* GetParent();
-    std::vector<BTGameNode*> GetChildren();
-    int GetChildrenCount();
+    BTGameNode* GetParent() const;
 
 };
 

@@ -6,6 +6,7 @@
 #include "EditorPopupModalText.h"
 #include "EditorPopupModalNewAsset.h"
 #include "EditorPopupModalDelete.h"
+#include "ErrorLogger.h"
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     : EditorWindow("Asset Browser", editor)
@@ -229,25 +230,39 @@ void EditorWindowAssetBrowser::drawCommandMenu()
     if (ImGui::Button("Back")){}
 }
 
-void EditorWindowAssetBrowser::drawFolderTreeNode(FolderNode* folderNode)
+void EditorWindowAssetBrowser::drawFolderTreeNode(FolderNode* folderNode, int level)
 {
+    drawFolderTreeNodePadding(level);
+
     ImGui::Image(iconFolder->GetShaderResourceView(), ImVec2(15, 15));
     ImGui::SameLine();
 
     bool treeExpanded = false;
 
-    if (ImGui::TreeNodeEx(folderNode->GetName().c_str(), ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen))
-    {
-        treeExpanded = true;
+    auto flags = ImGuiTreeNodeFlags_OpenOnDoubleClick
+        | ImGuiTreeNodeFlags_FramePadding
+        | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
-        currentParentNode = folderNode;
+    if (currentParentNode == folderNode)
+        flags |= ImGuiTreeNodeFlags_Selected;
+
+    if (ImGui::TreeNodeEx(folderNode->GetName().c_str(), flags))
+    {
+
+        if (ImGui::IsItemClicked())
+        {
+            currentParentNode = folderNode;
+        }
+
+        treeExpanded = true;
+        
         assetPath = AssetService::CreateFolderPath(currentParentNode);
 
         drawFolderContextMenu(folderNode);
 
         for (auto childFolderNode : folderNode->GetChildFolderList())
         {
-            drawFolderTreeNode(childFolderNode);
+            drawFolderTreeNode(childFolderNode, level + 1);
         }
 
         //ImGui::TreePop();
@@ -255,9 +270,29 @@ void EditorWindowAssetBrowser::drawFolderTreeNode(FolderNode* folderNode)
 
     if (!treeExpanded)
     {
+        if (ImGui::IsItemClicked())
+        {
+            currentParentNode = folderNode;
+        }
+
         drawFolderContextMenu(folderNode);
     }
     
+}
+
+void EditorWindowAssetBrowser::drawFolderTreeNodePadding(int level)
+{
+    if (level == 0) return;
+
+    const static std::string PADDING_CONST = " ";
+    std::string padding;
+
+    for (int i = 0; i < level; i++)
+    {
+        padding += PADDING_CONST;
+    }
+    ImGui::Text(padding.data());
+    ImGui::SameLine();
 }
 
 void EditorWindowAssetBrowser::drawChildrenAssets(FolderNode* parentNode)

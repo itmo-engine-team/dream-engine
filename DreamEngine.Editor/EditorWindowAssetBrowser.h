@@ -44,12 +44,14 @@ private:
     void drawAssetContextMenu();
     void drawFolderLayout(FolderNode* parentNode);
     void drawCommandMenu();
-    void drawFolderTreeNode(FolderNode* folderNode);
+    void drawFolderTreeNode(FolderNode* folderNode, int level = 0);
+    void drawFolderTreeNodePadding(int level);
     void drawChildrenAssets(FolderNode* parentNode);
 
     void drawNewAssetPopup();
     void drawNewFolderPopup();
     void drawDeletePopup();
     void drawPopups();
+
 
 };

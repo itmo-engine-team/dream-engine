@@ -53,9 +53,7 @@ protected:
 
     Window* window;
     Graphics* graphics;
-    GameAssetManager* gameAssetManager;
-    MeshRenderer* meshRenderer;
-
+    
     OrthoWindow* orthoWindow;
 
     InputSystem* inputSystem = nullptr;

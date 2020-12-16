@@ -1,12 +1,10 @@
 #pragma once
 
-#include "assimp/scene.h"
-#include "assimp/mesh.h"
-#include "assimp/Importer.hpp"
-
 #include "ModelData.h"
 
-using namespace Assimp;
+struct aiMesh;
+struct aiScene;
+struct aiNode;
 
 class MeshRenderer
 {
@@ -25,4 +23,3 @@ protected:
     static MeshData* processMesh(aiMesh* mesh, const aiScene* scene, Texture* texture);
 
 };
-

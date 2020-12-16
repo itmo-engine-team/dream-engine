@@ -4,6 +4,9 @@
 #include "Texture.h"
 #include "AssetTree.h"
 #include "AssetService.h"
+#include "EditorPopupModalText.h"
+#include "EditorPopupModalNewAsset.h"
+#include "EditorPopupModalDelete.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
 {
@@ -18,6 +21,7 @@ public:
 private:
 
     AssetTree* assetTree;
+    AssetManager* assetManager;
 
     FolderNode* currentParentNode = nullptr;
 
@@ -25,6 +29,11 @@ private:
     Texture* iconFile;
     Texture* iconFilter;
     Texture* iconAsset;
+
+    std::string assetPath;
+
+    EditorPopupModalNewAsset* newAssetPopupModal;
+    EditorPopupModalDelete* deleteAssetPopupModal;
 
     const char* fileNames[];
     
@@ -35,5 +44,8 @@ private:
     void drawChildrenFolders(FolderNode* parentNode);
     void drawChildrenAssets(FolderNode* parentNode);
 
-};
+    void drawNewPopup();
+    void drawDeletePopup();
+    void drawPopups();
 
+};

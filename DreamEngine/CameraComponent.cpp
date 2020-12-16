@@ -8,8 +8,8 @@ CameraComponent::CameraComponent(Game* game, Actor* actor, Vector3 position, Vec
 {
     projectionMatrix = Matrix::CreatePerspectiveFieldOfView(
         120,
-        static_cast<float>(game->GetEngine()->GetGraphics()->GetWindow()->GetScreenWidth()) 
-            / static_cast<float>(game->GetEngine()->GetGraphics()->GetWindow()->GetScreenHeight()),
+        static_cast<float>(game->GetGraphics()->GetWindow()->GetScreenWidth()) 
+            / static_cast<float>(game->GetGraphics()->GetWindow()->GetScreenHeight()),
         0.01f, 100.0f);
 }
 

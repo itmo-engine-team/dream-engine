@@ -6,14 +6,23 @@
 
 #include "ErrorLogger.h"
 #include "DepthShader.h"
+#include "MeshRenderer.h"
 
 Graphics::Graphics(Window* window) : window(window)
 {
+    meshRenderer = new MeshRenderer();
+
     std::string solutionPath = SOLUTION_DIR;
     graphicsPath = std::wstring(solutionPath.begin(), solutionPath.end())
         + L"DreamEngine.Graphics/";
 
     initDirectX();
+}
+
+Graphics::~Graphics()
+{
+    delete meshRenderer;
+    meshRenderer = nullptr;
 }
 
 bool Graphics::initDirectX()
@@ -425,6 +434,11 @@ LightShader* Graphics::GetLightShader()
 ModelShader* Graphics::GetModelShader()
 {
     return modelShader;
+}
+
+MeshRenderer* Graphics::GetMeshRenderer() const
+{
+    return meshRenderer;
 }
 
 bool Graphics::HasLight() const

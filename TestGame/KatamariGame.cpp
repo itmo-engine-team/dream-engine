@@ -3,8 +3,10 @@
 #include "ErrorLogger.h"
 #include "SimpleMath.h"
 
+#include "GameAssetManager.h"
 #include "Graphics.h"
 #include "Texture.h"
+#include "MeshRenderer.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -43,13 +45,13 @@ KatamariGame::~KatamariGame()
     plane = nullptr;
 }
 
-void KatamariGame::Init(Engine* engine)
+void KatamariGame::Init(InputSystem* inputSystem, Graphics* graphics)
 {
-    Game::Init(engine);
+    Game::Init(inputSystem, graphics);
 
     // Init Shaders
 
-    texture = new Texture(engine->GetGraphics(), L"Meshes/eyeball/eyes_blue.jpg");
+    texture = new Texture(graphics, L"Meshes/eyeball/eyes_blue.jpg");
     gameAssetManager->AddTexture(texture);
 
     // Init Meshes
@@ -57,7 +59,7 @@ void KatamariGame::Init(Engine* engine)
     planeModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 3, 0.1, 3 });
     boxModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
 
-    playerModel = new ModelData(engine->GetMeshRenderer(), 
+    playerModel = new ModelData(graphics->GetMeshRenderer(),
         "Meshes/eyeball/eyeball-mod.obj", texture);
 
     gameAssetManager->AddModel(planeModel);
@@ -109,33 +111,33 @@ LightComponent* KatamariGame::GetLight() const
     return lightActor->GetLightComponent();
 }
 
-void KatamariGame::Update()
+void KatamariGame::Update(float engineDeltaTime)
 {
-    Game::Update();
+    Game::Update(engineDeltaTime);
 
     // Skip if camera moves
-    if (engine->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return; 
+    if (inputSystem->IsMouseButtonPressed(MouseInput::Right)) return; 
 
     // Update sphere movement
-    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_W))
+    if (inputSystem->IsKeyPressed(KeyboardInput::Key_W))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, engine->GetDeltaTime() });
-        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, engine->GetDeltaTime());
+        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, GetGameDeltaTime() });
+        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, GetGameDeltaTime());
     }
-    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_A))
+    if (inputSystem->IsKeyPressed(KeyboardInput::Key_A))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ engine->GetDeltaTime(), 0.0f, 0.0f });
-        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -engine->GetDeltaTime());
+        katamariPlayer->GetTransform()->AddWorldPosition({ GetGameDeltaTime(), 0.0f, 0.0f });
+        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, -GetGameDeltaTime());
     }
-    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_S))
+    if (inputSystem->IsKeyPressed(KeyboardInput::Key_S))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -engine->GetDeltaTime() });
-        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -engine->GetDeltaTime());
+        katamariPlayer->GetTransform()->AddWorldPosition({ 0.0f, 0.0f, -GetGameDeltaTime() });
+        playerSphere->GetTransform()->AddRelativeRotation({ 1, 0, 0 }, -GetGameDeltaTime());
     }
-    if (engine->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_D))
+    if (inputSystem->IsKeyPressed(KeyboardInput::Key_D))
     {
-        katamariPlayer->GetTransform()->AddWorldPosition({ -engine->GetDeltaTime(), 0.0f, 0.0f });
-        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, engine->GetDeltaTime());
+        katamariPlayer->GetTransform()->AddWorldPosition({ -GetGameDeltaTime(), 0.0f, 0.0f });
+        playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, GetGameDeltaTime());
     }
 
     /*collisionCheck(box1);

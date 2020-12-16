@@ -13,7 +13,7 @@ StaticModelComponent::StaticModelComponent(Game* game, Actor* actor,
 {
     for (auto meshData : modelData->GetMeshDataList())
     {
-        meshObjects.push_back(new MeshObject(game->GetEngine()->GetGraphics(), meshData));
+        meshObjects.push_back(new MeshObject(game->GetGraphics(), meshData));
     }
 }
 

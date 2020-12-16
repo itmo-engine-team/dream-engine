@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine.h"
+#include "Game.h"
 #include "SpectatorActor.h"
 #include "KatamariSphere.h"
 #include "CameraComponent.h"
@@ -15,8 +15,8 @@ public:
     KatamariGame();
     ~KatamariGame();
 
-    void Init(Engine* engine) override;
-    void Update() override;
+    void Init(InputSystem* inputSystem, Graphics* graphics) override;
+    void Update(float engineDeltaTime) override;
     void Render() override;
 
     CameraComponent* GetCamera() const override;

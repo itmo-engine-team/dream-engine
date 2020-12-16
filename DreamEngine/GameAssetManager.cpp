@@ -1,6 +1,6 @@
 #include "GameAssetManager.h"
 
-GameAssetManager::GameAssetManager(Engine* engine) : engine(engine)
+GameAssetManager::GameAssetManager()
 {
 
 }
@@ -34,11 +34,6 @@ std::vector<Actor*> GameAssetManager::GetActors() const
 std::vector<ModelData*> GameAssetManager::GetModelData() const
 {
     return models;
-}
-
-void GameAssetManager::AddShader(Shader* shader)
-{
-    shaders.push_back(shader);
 }
 
 void GameAssetManager::AddTexture(Texture* texture)

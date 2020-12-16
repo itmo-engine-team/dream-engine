@@ -104,7 +104,11 @@ void EditorWindowAssetBrowser::drawNewAssetPopup()
 
     if (newAssetPopupModal->GetResult())
     {
-        assetManager->CreateAsset(newAssetPopupModal->selectedAssetType,newAssetPopupModal->GetAssetName(), currentParentNode); 
+        assetManager->CreateAsset(
+            newAssetPopupModal->selectedAssetType,
+            newAssetPopupModal->GetAssetName(),
+            newAssetPopupModal->GetFolderNode()
+        );
     }
 
     delete newAssetPopupModal;

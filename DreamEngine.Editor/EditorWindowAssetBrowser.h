@@ -32,7 +32,6 @@ private:
 
     std::string assetPath;
 
-    EditorPopupModalText* testPopupModalText;
     EditorPopupModalNewAsset* newAssetPopupModal;
     EditorPopupModalDelete* deleteAssetPopupModal;
 
@@ -44,6 +43,7 @@ private:
     void drawCommandMenu();
     void drawChildrenFolders(FolderNode* parentNode);
     void drawChildrenAssets(FolderNode* parentNode);
+
     void drawNewPopup();
     void drawDeletePopup();
     void drawPopups();

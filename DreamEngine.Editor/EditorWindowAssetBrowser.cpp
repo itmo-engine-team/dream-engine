@@ -112,10 +112,7 @@ void EditorWindowAssetBrowser::drawNewPopup()
 
     if (newAssetPopupModal->GetResult())
     {
-        if (newAssetPopupModal->assetNamePublic != "")
-        {
-            assetManager->CreateAsset(newAssetPopupModal->selectedAssetType,newAssetPopupModal->assetNamePublic, currentParentNode);
-        }
+        assetManager->CreateAsset(newAssetPopupModal->selectedAssetType,newAssetPopupModal->GetAssetName(), currentParentNode); 
     }
 
     delete newAssetPopupModal;

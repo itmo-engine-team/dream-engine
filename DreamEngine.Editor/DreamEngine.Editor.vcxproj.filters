@@ -48,6 +48,9 @@
     <ClInclude Include="EditorPopupModalNewAsset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorPopupModalNewFolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorPopupModalNewAsset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalNewFolder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

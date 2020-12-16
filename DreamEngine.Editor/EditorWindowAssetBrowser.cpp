@@ -56,8 +56,7 @@ void EditorWindowAssetBrowser::Render()
 
     if (ImGui::TreeNodeEx(assetTree->GetRootNode()->GetName().c_str(), ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen))
     {
-        drawPopupContextMenu();
-        ImGui::SetKeyboardFocusHere();
+        drawFolderContextMenu();
         assetPath = AssetService::CreateFolderPath(currentParentNode);
         drawChildrenFolders(currentParentNode);
 
@@ -83,7 +82,7 @@ void EditorWindowAssetBrowser::drawFilter()
             ImGui::BulletText("%s", fileNames[i]);
 }
 
-void EditorWindowAssetBrowser::drawPopupContextMenu()
+void EditorWindowAssetBrowser::drawFolderContextMenu()
 {
     if (ImGui::BeginPopupContextItem())
     {
@@ -94,7 +93,7 @@ void EditorWindowAssetBrowser::drawPopupContextMenu()
 
         if (ImGui::Selectable("Delete"))
         {
-            // TODO: init draw delete popup
+            deleteFolderPopupModal = new EditorPopupModalDelete("Delete Folder", true);
         }
 
         if (ImGui::Selectable("Move")) {}
@@ -105,7 +104,11 @@ void EditorWindowAssetBrowser::drawPopupContextMenu()
     }
 }
 
-void EditorWindowAssetBrowser::drawNewPopup()
+void EditorWindowAssetBrowser::drawAssetContextMenu()
+{
+}
+
+void EditorWindowAssetBrowser::drawNewAssetPopup()
 {
     if (!EditorPopupModal::DrawPipeline(newAssetPopupModal))
         return;
@@ -119,23 +122,37 @@ void EditorWindowAssetBrowser::drawNewPopup()
     newAssetPopupModal = nullptr;
 }
 
-void EditorWindowAssetBrowser::drawDeletePopup()
+void EditorWindowAssetBrowser::drawNewFolderPopup()
 {
-    if (!EditorPopupModal::DrawPipeline(deleteAssetPopupModal))
+    if (!EditorPopupModal::DrawPipeline(newAssetPopupModal))
         return;
 
-    if (deleteAssetPopupModal->GetResult())
+    if (newAssetPopupModal->GetResult())
     {
-        // TODO add functionality
+        assetManager->CreateAsset(newAssetPopupModal->selectedAssetType, newAssetPopupModal->GetAssetName(), currentParentNode);
     }
 
-    delete deleteAssetPopupModal;
-    deleteAssetPopupModal = nullptr;
+    delete newAssetPopupModal;
+    newAssetPopupModal = nullptr;
+}
+
+void EditorWindowAssetBrowser::drawDeletePopup()
+{
+    if (!EditorPopupModal::DrawPipeline(deleteFolderPopupModal))
+        return;
+
+    if (deleteFolderPopupModal->GetResult())
+    {
+        assetManager->RemoveFolder(currentParentNode, deleteFolderPopupModal->GetIsRecursive());
+    }
+
+    delete deleteFolderPopupModal;
+    deleteFolderPopupModal = nullptr;
 }
 
 void EditorWindowAssetBrowser::drawPopups()
 {
-    drawNewPopup();
+    drawNewAssetPopup();
     drawDeletePopup();
 }
 
@@ -235,7 +252,7 @@ void EditorWindowAssetBrowser::drawChildrenFolders(FolderNode* parentNode)
             //ImGui::TreePop();
         }
 
-        drawPopupContextMenu();
+        drawFolderContextMenu();
     }
 }
 

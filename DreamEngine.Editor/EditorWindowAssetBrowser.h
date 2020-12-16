@@ -6,6 +6,7 @@
 #include "AssetService.h"
 #include "EditorPopupModalText.h"
 #include "EditorPopupModalNewAsset.h"
+#include "EditorPopupModalNewFolder.h"
 #include "EditorPopupModalDelete.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
@@ -33,18 +34,21 @@ private:
     std::string assetPath;
 
     EditorPopupModalNewAsset* newAssetPopupModal;
-    EditorPopupModalDelete* deleteAssetPopupModal;
+    EditorPopupModalNewFolder* newFolderPopupModal;
+    EditorPopupModalDelete* deleteFolderPopupModal;
 
     const char* fileNames[];
     
     void drawFilter();
-    void drawPopupContextMenu();
+    void drawFolderContextMenu();
+    void drawAssetContextMenu();
     void drawFolderLayout(FolderNode* parentNode);
     void drawCommandMenu();
     void drawChildrenFolders(FolderNode* parentNode);
     void drawChildrenAssets(FolderNode* parentNode);
 
-    void drawNewPopup();
+    void drawNewAssetPopup();
+    void drawNewFolderPopup();
     void drawDeletePopup();
     void drawPopups();
 

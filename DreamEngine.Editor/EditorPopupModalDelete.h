@@ -8,11 +8,14 @@ class EditorPopupModalDelete : public EditorPopupModal
 {
 public:
 
-    EditorPopupModalDelete(std::string name);
+    EditorPopupModalDelete(std::string name, bool isFolder);
+    bool GetIsRecursive();
 
 protected:
 
     std::string text;
+    bool checkIsFolder;
+    bool isRecursive = false;
 
     void onDrawPopup() override;
 

@@ -8,6 +8,7 @@ bool BTGameNodeSequence::Run()
 {
     for (BTGameNode* gameNode : children)
     {
+        iterator++;
         if (!gameNode->Run())
             return false;
     }

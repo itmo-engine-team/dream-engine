@@ -17,7 +17,7 @@ BTGameNode* BTGameNodeRoot::GetChild()
 
 bool BTGameNodeRoot::Run()
 {
-   bool resault =  child->Run();
-   return resault;
+   bool result =  child->Run();
+   return result;
 }
 

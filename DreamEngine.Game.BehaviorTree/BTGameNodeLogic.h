@@ -9,6 +9,8 @@ public:
 
     BTGameNodeLogic(BTGameNode* parentNode);
 
+    bool result = false;
+
     bool Run() override;
 
 };

@@ -6,6 +6,6 @@ BTGameNodeLogic::BTGameNodeLogic(BTGameNode* parentNode) : BTGameNode(parentNode
 
 bool BTGameNodeLogic::Run()
 {
-    return true;
+    return result;
 }
 

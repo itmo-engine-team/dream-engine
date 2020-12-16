@@ -4,7 +4,13 @@ BehaviorTreeGame::BehaviorTreeGame(BTGameNodeRoot* rootNode) : rootNode(rootNode
 {
 }
 
-void BehaviorTreeGame::Update()
+bool BehaviorTreeGame::Update()
 {
-    rootNode->Run();
+    bool result = rootNode->Run();
+    return result; 
+}
+
+BTGameNodeRoot* BehaviorTreeGame::GetRootNode()
+{
+    return rootNode;
 }

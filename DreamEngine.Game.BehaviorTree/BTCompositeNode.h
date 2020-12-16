@@ -19,5 +19,7 @@ public:
 
     std::vector<BTGameNode*> GetChildren() const;
     int GetChildrenCount() const;
+
+    int iterator = 0;
 };
 

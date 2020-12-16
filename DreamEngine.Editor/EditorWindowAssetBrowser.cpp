@@ -4,7 +4,7 @@
 #include "Editor.h"
 #include "AssetManager.h"
 #include "EditorPopupModalText.h"
-#include "EditorPopupModalNew.h"
+#include "EditorPopupModalNewAsset.h"
 #include "EditorPopupModalDelete.h"
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
@@ -89,7 +89,7 @@ void EditorWindowAssetBrowser::drawPopupContextMenu()
     {
         if (ImGui::Selectable("New"))
         {
-            newAssetPopupModal = new EditorPopupModalNew("New Asset");
+            newAssetPopupModal = new EditorPopupModalNewAsset("New Asset");
         }
 
         if (ImGui::Selectable("Delete"))
@@ -203,7 +203,7 @@ void EditorWindowAssetBrowser::drawCommandMenu()
     {
         if (ImGui::Selectable("New"))
         {
-            newAssetPopupModal = new EditorPopupModalNew("New Asset");
+            newAssetPopupModal = new EditorPopupModalNewAsset("New Asset");
         }
 
         if (ImGui::Selectable("Delete")) 

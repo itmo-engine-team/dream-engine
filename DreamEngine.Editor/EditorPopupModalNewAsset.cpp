@@ -1,15 +1,15 @@
-#include "EditorPopupModalNew.h"
+#include "EditorPopupModalNewAsset.h"
 #include "AssetInfoFactory.h"
 
 #include "imgui.h"
 
-EditorPopupModalNew::EditorPopupModalNew(std::string name)
+EditorPopupModalNewAsset::EditorPopupModalNewAsset(std::string name)
     : EditorPopupModal(name)
 {
     assetFactory = new AssetInfoFactory();
 }
 
-void EditorPopupModalNew::onDrawPopup()
+void EditorPopupModalNewAsset::onDrawPopup()
 {
     int sizeStr = assetFactory->MAP_ASSET_TYPE_TO_STRING.size();
     std::string* tempStrMass = new std::string[sizeStr];

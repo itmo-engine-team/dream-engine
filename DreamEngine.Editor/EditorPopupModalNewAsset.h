@@ -4,14 +4,14 @@
 #include "AssetInfoFactory.h"
 #include <string>
 
-class EditorPopupModalNew : public EditorPopupModal
+class EditorPopupModalNewAsset : public EditorPopupModal
 {
 public:
 
     std::string assetNamePublic;
     AssetType selectedAssetType;
 
-    EditorPopupModalNew(std::string name);
+    EditorPopupModalNewAsset(std::string name);
 
 protected:
 

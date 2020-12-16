@@ -5,7 +5,7 @@
 #include "AssetTree.h"
 #include "AssetService.h"
 #include "EditorPopupModalText.h"
-#include "EditorPopupModalNew.h"
+#include "EditorPopupModalNewAsset.h"
 #include "EditorPopupModalDelete.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
@@ -33,7 +33,7 @@ private:
     std::string assetPath;
 
     EditorPopupModalText* testPopupModalText;
-    EditorPopupModalNew* newAssetPopupModal;
+    EditorPopupModalNewAsset* newAssetPopupModal;
     EditorPopupModalDelete* deleteAssetPopupModal;
 
     const char* fileNames[];

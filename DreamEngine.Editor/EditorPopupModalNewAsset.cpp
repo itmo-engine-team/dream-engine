@@ -31,14 +31,14 @@ void EditorPopupModalNewAsset::onDrawPopup()
     {
         for (int n = 0; n < sizeStr; n++)
         {
-            const bool is_selected = (currentType == n);
+            const bool isSelected = (currentType == n);
 
-            if (ImGui::Selectable(tempStrMass[n].c_str(), is_selected))
+            if (ImGui::Selectable(tempStrMass[n].c_str(), isSelected))
             {
                 currentType = n;
                 selectedAssetType = AssetInfoFactory::GetAssetTypeByString(tempStrMass[n]);
             }
-            if (is_selected)
+            if (isSelected)
                 ImGui::SetItemDefaultFocus();
         }
         ImGui::EndCombo();

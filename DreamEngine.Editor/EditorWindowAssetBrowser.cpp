@@ -13,6 +13,9 @@ EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     assetTree = editor->GetAssetManager()->GetContentAssetTree();
     assetManager = editor->GetAssetManager();
 
+    currentParentNode = assetTree->GetRootNode();
+    assetPath = AssetService::CreateFolderPath(currentParentNode);
+
     iconFolder = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/folder.png").c_str());
     iconFile = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/file.png").c_str());
     iconFilter = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/filter.png").c_str());
@@ -46,22 +49,8 @@ void EditorWindowAssetBrowser::Render()
     ImGui::End();
 
     ImGui::Begin("Content");
-
-    // Add folder icon
-    ImGui::Image(iconFolder->GetShaderResourceView(), ImVec2(15, 15));
-    ImGui::SameLine();
-
-    // Begin tree
-    currentParentNode = assetTree->GetRootNode();
-
-    if (ImGui::TreeNodeEx(assetTree->GetRootNode()->GetName().c_str(), ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen))
-    {
-        drawFolderContextMenu();
-        assetPath = AssetService::CreateFolderPath(currentParentNode);
-        drawChildrenFolders(currentParentNode);
-
-       // ImGui::TreePop();
-    }
+    
+    drawFolderTreeNode(assetTree->GetRootNode());
     
     ImGui::End();
 
@@ -82,13 +71,13 @@ void EditorWindowAssetBrowser::drawFilter()
             ImGui::BulletText("%s", fileNames[i]);
 }
 
-void EditorWindowAssetBrowser::drawFolderContextMenu()
+void EditorWindowAssetBrowser::drawFolderContextMenu(FolderNode* selectedFolderNode)
 {
     if (ImGui::BeginPopupContextItem())
     {
         if (ImGui::Selectable("New"))
         {
-            newAssetPopupModal = new EditorPopupModalNewAsset("New Asset");
+            newAssetPopupModal = new EditorPopupModalNewAsset(selectedFolderNode);
         }
 
         if (ImGui::Selectable("Delete"))
@@ -217,7 +206,7 @@ void EditorWindowAssetBrowser::drawCommandMenu()
     {
         if (ImGui::Selectable("New"))
         {
-            newAssetPopupModal = new EditorPopupModalNewAsset("New Asset");
+            newAssetPopupModal = new EditorPopupModalNewAsset(currentParentNode);
         }
 
         if (ImGui::Selectable("Delete")) 
@@ -236,24 +225,35 @@ void EditorWindowAssetBrowser::drawCommandMenu()
     if (ImGui::Button("Back")){}
 }
 
-void EditorWindowAssetBrowser::drawChildrenFolders(FolderNode* parentNode)
+void EditorWindowAssetBrowser::drawFolderTreeNode(FolderNode* folderNode)
 {
-    for (auto childFolderNode : parentNode->GetChildFolderList())
+    ImGui::Image(iconFolder->GetShaderResourceView(), ImVec2(15, 15));
+    ImGui::SameLine();
+
+    bool treeExpanded = false;
+
+    if (ImGui::TreeNodeEx(folderNode->GetName().c_str(), ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen))
     {
-        ImGui::Image(iconFolder->GetShaderResourceView(), ImVec2(15, 15));
-        ImGui::SameLine();
-        
-        if (ImGui::TreeNodeEx(childFolderNode->GetName().c_str(), ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen))
+        treeExpanded = true;
+
+        currentParentNode = folderNode;
+        assetPath = AssetService::CreateFolderPath(currentParentNode);
+
+        drawFolderContextMenu(folderNode);
+
+        for (auto childFolderNode : folderNode->GetChildFolderList())
         {
-            currentParentNode = childFolderNode;
-            assetPath = AssetService::CreateFolderPath(currentParentNode);
-            
-            drawChildrenFolders(currentParentNode);
-            //ImGui::TreePop();
+            drawFolderTreeNode(childFolderNode);
         }
 
-        drawFolderContextMenu();
+        //ImGui::TreePop();
     }
+
+    if (!treeExpanded)
+    {
+        drawFolderContextMenu(folderNode);
+    }
+    
 }
 
 void EditorWindowAssetBrowser::drawChildrenAssets(FolderNode* parentNode)

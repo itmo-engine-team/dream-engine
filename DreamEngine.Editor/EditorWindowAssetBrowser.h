@@ -40,11 +40,11 @@ private:
     const char* fileNames[];
     
     void drawFilter();
-    void drawFolderContextMenu();
+    void drawFolderContextMenu(FolderNode* selectedFolderNode);
     void drawAssetContextMenu();
     void drawFolderLayout(FolderNode* parentNode);
     void drawCommandMenu();
-    void drawChildrenFolders(FolderNode* parentNode);
+    void drawFolderTreeNode(FolderNode* folderNode);
     void drawChildrenAssets(FolderNode* parentNode);
 
     void drawNewAssetPopup();

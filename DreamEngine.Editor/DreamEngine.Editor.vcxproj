@@ -22,6 +22,7 @@
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorPopupModal.h" />
     <ClInclude Include="EditorPopupModalDelete.h" />
+    <ClInclude Include="EditorPopupModalFolderBase.h" />
     <ClInclude Include="EditorPopupModalNewAsset.h" />
     <ClInclude Include="EditorPopupModalNewFolder.h" />
     <ClInclude Include="EditorPopupModalText.h" />
@@ -35,6 +36,7 @@
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorPopupModal.cpp" />
     <ClCompile Include="EditorPopupModalDelete.cpp" />
+    <ClCompile Include="EditorPopupModalFolderBase.cpp" />
     <ClCompile Include="EditorPopupModalNewAsset.cpp" />
     <ClCompile Include="EditorPopupModalNewFolder.cpp" />
     <ClCompile Include="EditorPopupModalText.cpp" />

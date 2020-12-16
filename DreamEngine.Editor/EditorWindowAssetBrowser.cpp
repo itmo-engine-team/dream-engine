@@ -25,7 +25,7 @@ EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
 
 void EditorWindowAssetBrowser::Update()
 {
-
+    assetPath = AssetService::CreateFolderPath(currentParentNode);
 }
 
 void EditorWindowAssetBrowser::Render()
@@ -154,9 +154,9 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
 {
     ImVec2 buttonSize(40, 40);
     ImGuiStyle& style = ImGui::GetStyle();
-    int foldersCount = parentNode->GetChildFolderList().size();
     float windowVisible = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
 
+    int foldersCount = parentNode->GetChildFolderList().size();
     int assetsCount = parentNode->GetChildAssetList().size();
 
     for (int i = 0; i < foldersCount; i++)
@@ -167,7 +167,6 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
         if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize)) // TODO: fix draw folders
         {
             currentParentNode = parentNode->GetChildFolderList()[i];
-            drawFolderLayout(currentParentNode);
         }
         ImGui::Text(parentNode->GetChildFolderList()[i]->GetName().c_str());
         ImGui::EndGroup();

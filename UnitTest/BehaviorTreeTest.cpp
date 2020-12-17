@@ -16,18 +16,17 @@ TEST(BehaviorTreeTest, SequencerTest)
     BTGameNodeSequence* sequence = new BTGameNodeSequence(tree->GetRootNode());
 
     BTGameNodeLogic* logic1 = new BTGameNodeLogic(sequence);
-    logic1->result = true;
+    logic1->TestCheckResult = true;
 
     BTGameNodeLogic* logic2 = new BTGameNodeLogic(sequence);
-    logic2->result = false;
+    logic2->TestCheckResult = false;
 
     BTGameNodeLogic* logic3 = new BTGameNodeLogic(sequence);
-    logic3->result = true;
+    logic3->TestCheckResult = true;
 
     bool result = tree->Update();
 
     std::cout << result << "\n";
-    std::cout << sequence->iterator;
 }
 
 TEST(BehaviorTreeTest, SelectorTest)
@@ -37,16 +36,15 @@ TEST(BehaviorTreeTest, SelectorTest)
     BTGameNodeSelector* selector = new BTGameNodeSelector(tree->GetRootNode());
 
     BTGameNodeLogic* logic1 = new BTGameNodeLogic(selector);
-    logic1->result = false;
+    logic1->TestCheckResult = false;
 
     BTGameNodeLogic* logic2 = new BTGameNodeLogic(selector);
-    logic2->result = false;
+    logic2->TestCheckResult = false;
 
     BTGameNodeLogic* logic3 = new BTGameNodeLogic(selector);
-    logic3->result = true;
+    logic3->TestCheckResult = true;
    
     bool result = tree->Update();
 
     std::cout << result << "\n";
-    std::cout << selector->iterator;
 }

@@ -9,9 +9,10 @@ public:
 
     BTGameNodeLogic() = delete;
     BTGameNodeLogic(BTGameNodeRoot* parentNode);
-    BTGameNodeLogic(BTCompositeNode* parentNode);
+    BTGameNodeLogic(BTGameNodeComposite* parentNode);
 
-    bool result = false;
+    //TODO: delete after all tests end
+    bool TestCheckResult = false;
 
     bool Run() override;
 

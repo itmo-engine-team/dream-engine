@@ -23,7 +23,9 @@ void BTGameNodeRoot::RemoveChild()
 
 bool BTGameNodeRoot::Run()
 {
-   bool result =  child->Run();
-   return result;
+    if (child == nullptr)
+        return false;
+
+    return child->Run();
 }
 

@@ -1,20 +1,16 @@
 #pragma once
 
 class BTGameNodeRoot;
-class BTCompositeNode;
+class BTGameNodeComposite;
 
 class BTGameNode
 {
-
-protected:
-
-    BTGameNode* parent;
 
 public:
 
     BTGameNode() = default;
     BTGameNode(BTGameNodeRoot* parentNode);
-    BTGameNode(BTCompositeNode* parentNode);
+    BTGameNode(BTGameNodeComposite* parentNode);
     
     virtual ~BTGameNode() = default;
 
@@ -24,5 +20,8 @@ public:
 
     BTGameNode* GetParent() const;
 
+protected:
+
+    BTGameNode* parent;
 };
 

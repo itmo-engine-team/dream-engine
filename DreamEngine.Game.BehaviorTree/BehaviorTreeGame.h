@@ -5,14 +5,14 @@
 class BehaviorTreeGame
 {
 
-protected:
-
-    BTGameNodeRoot* rootNode;
-
 public:
 
     BehaviorTreeGame();
 
     bool Update();
     BTGameNodeRoot* GetRootNode();
+
+protected:
+
+    BTGameNodeRoot* rootNode;
 };

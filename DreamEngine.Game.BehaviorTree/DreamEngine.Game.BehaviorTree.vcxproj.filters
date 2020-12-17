@@ -33,7 +33,7 @@
     <ClInclude Include="BTGameNodeLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BTCompositeNode.h">
+    <ClInclude Include="BTGameNodeComposite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,7 +56,7 @@
     <ClCompile Include="BTGameNodeLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BTCompositeNode.cpp">
+    <ClCompile Include="BTGameNodeComposite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

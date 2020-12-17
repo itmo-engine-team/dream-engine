@@ -2,14 +2,12 @@
 
 BehaviorTreeGame::BehaviorTreeGame()
 {
-    BTGameNodeRoot* root = new BTGameNodeRoot();
-    rootNode = root;
+    rootNode = new BTGameNodeRoot();
 }
 
 bool BehaviorTreeGame::Update()
 {
-    bool result = rootNode->Run();
-    return result; 
+    return rootNode->Run();
 }
 
 BTGameNodeRoot* BehaviorTreeGame::GetRootNode()

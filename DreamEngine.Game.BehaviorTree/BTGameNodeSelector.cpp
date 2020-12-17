@@ -1,18 +1,17 @@
 #include "BTGameNodeSelector.h"
 
-BTGameNodeSelector::BTGameNodeSelector(BTCompositeNode* parentNode) : BTCompositeNode(parentNode)
+BTGameNodeSelector::BTGameNodeSelector(BTGameNodeComposite* parentNode) : BTGameNodeComposite(parentNode)
 {
 }
 
-BTGameNodeSelector::BTGameNodeSelector(BTGameNodeRoot* parentNode) : BTCompositeNode(parentNode)
+BTGameNodeSelector::BTGameNodeSelector(BTGameNodeRoot* parentNode) : BTGameNodeComposite(parentNode)
 {
 }
 
 bool BTGameNodeSelector::Run()
 {
-    for ( BTGameNode* gameNode : children)
+    for (BTGameNode* gameNode : children)
     {
-        iterator++;
         if (gameNode->Run())
             return true;
     }

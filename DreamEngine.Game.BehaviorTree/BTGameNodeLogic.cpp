@@ -4,12 +4,12 @@ BTGameNodeLogic::BTGameNodeLogic(BTGameNodeRoot* parentNode) : BTGameNode(parent
 {
 }
 
-BTGameNodeLogic::BTGameNodeLogic(BTCompositeNode* parentNode) : BTGameNode(parentNode)
+BTGameNodeLogic::BTGameNodeLogic(BTGameNodeComposite* parentNode) : BTGameNode(parentNode)
 {
 }
 
 bool BTGameNodeLogic::Run()
 {
-    return result;
+    return TestCheckResult;
 }
 

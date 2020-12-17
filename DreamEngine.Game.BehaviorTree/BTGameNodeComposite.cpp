@@ -1,35 +1,31 @@
-#include "BTCompositeNode.h"
+#include "BTGameNodeComposite.h"
 
 #include "BTGameNodeRoot.h"
 
-BTCompositeNode::BTCompositeNode(BTCompositeNode* parentNode) : BTGameNode(parentNode)
+BTGameNodeComposite::BTGameNodeComposite(BTGameNodeComposite* parentNode) : BTGameNode(parentNode)
 {
-    childrenCount = 0;
 }
 
-BTCompositeNode::BTCompositeNode(BTGameNodeRoot* parentNode) : BTGameNode(parentNode)
+BTGameNodeComposite::BTGameNodeComposite(BTGameNodeRoot* parentNode) : BTGameNode(parentNode)
 {
-    childrenCount = 0;
 }
 
-void BTCompositeNode::AddChild(BTGameNode* childrenNodes)
+void BTGameNodeComposite::AddChild(BTGameNode* childNod)
 {
-    children.push_back(childrenNodes);
-    childrenCount++;
+    children.push_back(childNod);
 }
 
-bool BTCompositeNode::RemoveChild(BTGameNode* childNode)
+bool BTGameNodeComposite::RemoveChild(BTGameNode* childNode)
 {
     auto result = std::find(children.begin(), children.end(), childNode);
     if (result == std::end(children))
         return false;
 
     children.erase(result);
-    childrenCount--;
     return true;
 }
 
-bool BTCompositeNode::SwapChildren(BTGameNode* childNode1, BTGameNode* childNode2)
+bool BTGameNodeComposite::SwapChildren(BTGameNode* childNode1, BTGameNode* childNode2)
 {
     auto iterator1 = std::find(children.begin(), children.end(), childNode1);
     auto iterator2 = std::find(children.begin(), children.end(), childNode2);
@@ -45,12 +41,7 @@ bool BTCompositeNode::SwapChildren(BTGameNode* childNode1, BTGameNode* childNode
     return true;
 }
 
-std::vector<BTGameNode*> BTCompositeNode::GetChildren() const
+std::vector<BTGameNode*> BTGameNodeComposite::GetChildren() const
 {
     return children;
-}
-
-int BTCompositeNode::GetChildrenCount() const
-{
-    return childrenCount;
 }

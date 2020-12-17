@@ -1,6 +1,6 @@
 #include "CameraComponent.h"
 
-#include "Engine.h"
+#include "Game.h"
 #include "Graphics.h"
 
 CameraComponent::CameraComponent(Game* game, Actor* actor, Vector3 position, Vector3 direction)

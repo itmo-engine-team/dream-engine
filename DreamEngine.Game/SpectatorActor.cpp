@@ -1,6 +1,6 @@
 #include "SpectatorActor.h"
 
-#include "Engine.h"
+#include "Game.h"
 
 SpectatorActor::SpectatorActor(Game* game, Transform* transform) : Actor(game, transform)
 {

@@ -1,7 +1,6 @@
 #include "StaticModelComponent.h"
 
 #include "Game.h"
-#include "Engine.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"

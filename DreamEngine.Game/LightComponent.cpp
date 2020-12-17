@@ -1,7 +1,5 @@
 #include "LightComponent.h"
 
-#include "Engine.h"
-
 LightComponent::LightComponent(Game* game, Actor* actor, Vector3 position, Vector3 direction)
     : SceneComponent(game, actor, new Transform(position)), direction(direction)
 {

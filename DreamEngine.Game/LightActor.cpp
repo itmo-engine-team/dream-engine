@@ -1,7 +1,5 @@
 #include "LightActor.h"
 
-#include "Engine.h"
-
 LightActor::LightActor(Game* game, Transform* transform) : Actor(game, transform)
 {
     lightComponent = new LightComponent(game, this);

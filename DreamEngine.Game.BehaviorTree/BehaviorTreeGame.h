@@ -1,13 +1,18 @@
 #pragma once
-#include "BTGameNode.h"
+
+#include "BTGameNodeRoot.h"
+
 class BehaviorTreeGame
 {
 
-protected:
-
-    BTGameNode* rootNode;
-
 public:
 
-    void Update();
+    BehaviorTreeGame();
+
+    bool Update();
+    BTGameNodeRoot* GetRootNode();
+
+protected:
+
+    BTGameNodeRoot* rootNode;
 };

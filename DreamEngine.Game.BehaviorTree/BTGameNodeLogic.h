@@ -7,7 +7,9 @@ class BTGameNodeLogic : public BTGameNode
 
 public:
 
-    BTGameNodeLogic(BTGameNode* parentNode);
+    BTGameNodeLogic() = delete;
+    BTGameNodeLogic(BTGameNodeRoot* parentNode);
+    BTGameNodeLogic(BTCompositeNode* parentNode);
 
     bool result = false;
 

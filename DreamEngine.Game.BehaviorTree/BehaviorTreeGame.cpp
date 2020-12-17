@@ -1,7 +1,9 @@
 #include "BehaviorTreeGame.h"
 
-BehaviorTreeGame::BehaviorTreeGame(BTGameNodeRoot* rootNode) : rootNode(rootNode)
+BehaviorTreeGame::BehaviorTreeGame()
 {
+    BTGameNodeRoot* root = new BTGameNodeRoot();
+    rootNode = root;
 }
 
 bool BehaviorTreeGame::Update()

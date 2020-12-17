@@ -122,7 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Editor;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Game.BehaviorTree;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Editor;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,6 +151,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIComponent.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="LightActor.h" />
     <ClInclude Include="LightComponent.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="MathUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIComponent.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="LightActor.cpp" />
     <ClCompile Include="LightComponent.cpp" />
@@ -190,6 +192,9 @@
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Editor\DreamEngine.Editor.vcxproj">
       <Project>{496cef75-6810-4145-ae01-ab4d64c2cb25}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Game.BehaviorTree\DreamEngine.Game.BehaviorTree.vcxproj">
+      <Project>{e6f2d4c3-b745-463e-ba3c-d2f781e41047}</Project>
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
       <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>

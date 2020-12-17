@@ -1,7 +1,16 @@
 #include "BTGameNode.h"
 
-BTGameNode::BTGameNode(BTGameNode* parentNode) : parent(parentNode)
+#include "BTGameNodeRoot.h"
+#include "BTCompositeNode.h"
+
+BTGameNode::BTGameNode(BTGameNodeRoot* parentNode) : parent(parentNode)
 {
+    parentNode->SetChild(this);
+}
+
+BTGameNode::BTGameNode(BTCompositeNode* parentNode) : parent(parentNode)
+{
+    parentNode->AddChild(this);
 }
 
 void BTGameNode::SetParent(BTGameNode* parentNode) 

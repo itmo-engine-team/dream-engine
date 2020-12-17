@@ -11,7 +11,7 @@ protected:
 
 public:
 
-    BehaviorTreeGame(BTGameNodeRoot* rootNode);
+    BehaviorTreeGame();
 
     bool Update();
     BTGameNodeRoot* GetRootNode();

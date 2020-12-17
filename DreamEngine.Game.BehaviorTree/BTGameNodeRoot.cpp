@@ -1,7 +1,8 @@
 #include "BTGameNodeRoot.h"
 
-BTGameNodeRoot::BTGameNodeRoot() : BTGameNode(nullptr)
+BTGameNodeRoot::BTGameNodeRoot()
 {
+    parent = nullptr;
     child = nullptr;
 }
 
@@ -13,6 +14,11 @@ void BTGameNodeRoot::SetChild(BTGameNode* childNode)
 BTGameNode* BTGameNodeRoot::GetChild()
 {
     return child;
+}
+
+void BTGameNodeRoot::RemoveChild()
+{
+    child = nullptr;
 }
 
 bool BTGameNodeRoot::Run()

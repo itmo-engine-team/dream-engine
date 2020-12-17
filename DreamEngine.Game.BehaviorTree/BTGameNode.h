@@ -1,5 +1,8 @@
 #pragma once
 
+class BTGameNodeRoot;
+class BTCompositeNode;
+
 class BTGameNode
 {
 
@@ -9,7 +12,10 @@ protected:
 
 public:
 
-    BTGameNode(BTGameNode* parentNode);
+    BTGameNode() = default;
+    BTGameNode(BTGameNodeRoot* parentNode);
+    BTGameNode(BTCompositeNode* parentNode);
+    
     virtual ~BTGameNode() = default;
 
     virtual bool Run() = 0;

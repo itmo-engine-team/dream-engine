@@ -1,6 +1,10 @@
 #include "BTGameNodeLogic.h"
 
-BTGameNodeLogic::BTGameNodeLogic(BTGameNode* parentNode) : BTGameNode(parentNode)
+BTGameNodeLogic::BTGameNodeLogic(BTGameNodeRoot* parentNode) : BTGameNode(parentNode)
+{
+}
+
+BTGameNodeLogic::BTGameNodeLogic(BTCompositeNode* parentNode) : BTGameNode(parentNode)
 {
 }
 

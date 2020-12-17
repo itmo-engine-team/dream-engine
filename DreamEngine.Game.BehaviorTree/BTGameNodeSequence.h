@@ -7,7 +7,9 @@ class BTGameNodeSequence : public BTCompositeNode
 
 public:
 
-    BTGameNodeSequence(BTGameNode* parentNode);
+    BTGameNodeSequence() = delete;
+    BTGameNodeSequence(BTGameNodeRoot* parentNode);
+    BTGameNodeSequence(BTCompositeNode* parentNode);
 
     bool Run() override;
 };

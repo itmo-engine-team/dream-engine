@@ -1,6 +1,10 @@
 #include "BTGameNodeSequence.h"
 
-BTGameNodeSequence::BTGameNodeSequence(BTGameNode* parentNode) : BTCompositeNode(parentNode)
+BTGameNodeSequence::BTGameNodeSequence(BTGameNodeRoot* parentNode) : BTCompositeNode(parentNode)
+{
+}
+
+BTGameNodeSequence::BTGameNodeSequence(BTCompositeNode* parentNode) : BTCompositeNode(parentNode)
 {
 }
 

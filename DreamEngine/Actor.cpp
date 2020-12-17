@@ -11,6 +11,17 @@ Actor::Actor(Game* game, Transform* transform)
 
 }
 
+void Actor::Init()
+{
+    onInit();
+
+    // Update components
+    for (auto component : components)
+    {
+        component->Init();
+    }
+}
+
 void Actor::Update()
 {
     onUpdate();
@@ -20,8 +31,6 @@ void Actor::Update()
     {
         component->Update();
     }
-
-    // Trigger event AfterUpdate
 }
 
 void Actor::Draw()
@@ -76,6 +85,10 @@ float Actor::GetActorDeltaTime()
 std::vector<ActorComponent*> Actor::GetComponents() const
 {
     return components;
+}
+
+void Actor::onInit()
+{
 }
 
 void Actor::onUpdate()

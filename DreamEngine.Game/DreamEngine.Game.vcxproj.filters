@@ -13,20 +13,44 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Actor">
+      <UniqueIdentifier>{9e4737ff-56c5-4312-b711-a350a4885860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component">
+      <UniqueIdentifier>{f635b88b-cb39-451a-a6e4-9a63de7bd164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component\Scene">
+      <UniqueIdentifier>{d6a780e4-bfdf-4520-826f-9855401ccfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component\Inherited">
+      <UniqueIdentifier>{1095f278-1de4-4ea1-af6e-060568849ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Inherited">
+      <UniqueIdentifier>{a6b3d8b7-14e5-4e56-8c6f-0cc0a57e5142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component\Scene\Inherited">
+      <UniqueIdentifier>{89c2b24e-3b8e-4bcb-9f4b-48362a6c2ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor">
+      <UniqueIdentifier>{651c6f10-7b8c-4cb5-9a84-42d65a7304bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Component">
+      <UniqueIdentifier>{a11c404a-3272-46bd-86a1-e7aee00fdd1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Inherited">
+      <UniqueIdentifier>{7764993e-6dca-44d8-a61c-69b183d36075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Component\Inherited">
+      <UniqueIdentifier>{a4d3e6a1-7f62-4a73-aeb4-6f241bc44392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Component\Scene">
+      <UniqueIdentifier>{15b5c6da-eb7d-4699-9931-bcdbcb4279e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Component\Scene\Inherited">
+      <UniqueIdentifier>{a751f06a-4c02-49dd-976a-186aa0a4fe93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AIComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,38 +60,38 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LightActor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LightComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpectatorActor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticModelComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Source Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponent.cpp">
+      <Filter>Source Files\Actor\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="LightActor.cpp">
+      <Filter>Source Files\Actor\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="SpectatorActor.cpp">
+      <Filter>Source Files\Actor\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneComponent.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="AIComponent.cpp">
+      <Filter>Source Files\Actor\Component\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="LightComponent.cpp">
+      <Filter>Source Files\Actor\Component\Scene\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticModelComponent.cpp">
+      <Filter>Source Files\Actor\Component\Scene\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Source Files\Actor\Component\Scene\Inherited</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AIComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -77,26 +101,38 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LightActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LightComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MathUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpectatorActor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticModelComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponent.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="AIComponent.h">
+      <Filter>Header Files\Actor\Component\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="LightActor.h">
+      <Filter>Header Files\Actor\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="SpectatorActor.h">
+      <Filter>Header Files\Actor\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Header Files\Actor\Component\Scene\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="LightComponent.h">
+      <Filter>Header Files\Actor\Component\Scene\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticModelComponent.h">
+      <Filter>Header Files\Actor\Component\Scene\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneComponent.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

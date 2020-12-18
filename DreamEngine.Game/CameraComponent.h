@@ -1,13 +1,13 @@
 #pragma once
 
 #include "SimpleMath.h"
-#include "SceneComponent.h"
+#include "ActorComponentScene.h"
 
 using namespace DirectX::SimpleMath;
 
 class Game;
 
-class CameraComponent : public SceneComponent
+class CameraComponent : public ActorComponentScene
 {
 public:
 

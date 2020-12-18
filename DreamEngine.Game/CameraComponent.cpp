@@ -4,7 +4,7 @@
 #include "Graphics.h"
 
 CameraComponent::CameraComponent(Game* game, Actor* actor, Vector3 position, Vector3 direction)
-    : SceneComponent(game, actor, new Transform(position)), direction(direction)
+    : ActorComponentScene(game, actor, new Transform(position)), direction(direction)
 {
     projectionMatrix = Matrix::CreatePerspectiveFieldOfView(
         120,

@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "ActorComponent.h"
+#include "ActorComponentScene.h"
 
 class Game;
 
@@ -65,6 +66,7 @@ protected:
     Transform* transform;
 
     std::vector<ActorComponent*> components;
+    std::vector<ActorComponentScene*> sceneComponents;
 
     float actorDeltaTime;
     float actorDeltaTimeMultiplier = 1;

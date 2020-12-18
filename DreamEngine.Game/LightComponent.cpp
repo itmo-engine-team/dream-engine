@@ -1,7 +1,7 @@
 #include "LightComponent.h"
 
 LightComponent::LightComponent(Game* game, Actor* actor, Vector3 position, Vector3 direction)
-    : SceneComponent(game, actor, new Transform(position)), direction(direction)
+    : ActorComponentScene(game, actor, new Transform(position)), direction(direction)
 {
     projectionMatrix = Matrix::CreateOrthographic(10, 10, 0.1f, 100);
 }

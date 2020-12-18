@@ -1,10 +1,10 @@
 #pragma once
 
-#include "SceneComponent.h"
+#include "ActorComponentScene.h"
 #include "ModelData.h"
 #include "MeshObject.h"
 
-class StaticModelComponent : public SceneComponent
+class StaticModelComponent : public ActorComponentScene
 {
 
 public:

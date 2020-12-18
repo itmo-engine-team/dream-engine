@@ -8,7 +8,7 @@
 
 StaticModelComponent::StaticModelComponent(Game* game, Actor* actor,
     Transform* transform, ModelData* modelData)
-    : SceneComponent(game, actor, transform), modelData(modelData)
+    : ActorComponentScene(game, actor, transform), modelData(modelData)
 {
     for (auto meshData : modelData->GetMeshDataList())
     {

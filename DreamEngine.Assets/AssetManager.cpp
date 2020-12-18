@@ -57,6 +57,12 @@ AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const st
             return { false, assetNode, "This name is already exist in folder" };
     }
 
+    if (isDebugTree)
+    {
+        contentAssetTree->RenameAssetNode(assetNode, newName);
+        return { true, assetNode };
+    }
+
     AssetModificationResult result = AssetService::RenameAsset(assetNode, newName);
     if (!result.isSuccess)
         return result;
@@ -150,12 +156,18 @@ FolderModificationResult AssetManager::RenameFolder(FolderNode* folderNode, cons
             return { false, folderNode, "Folder with this name is already exist" };
     }
 
+    if (isDebugTree)
+    {
+        contentAssetTree->RenameFolderNode(folderNode, newName);
+        return { true, folderNode };
+    }
+
     FolderModificationResult result = AssetService::RenameFolder(folderNode, newName);
     if (!result.isSuccess)
         return result;
 
     contentAssetTree->RenameFolderNode(folderNode, newName);
-    return { false, folderNode, "Not Implemented Yet" };
+    return { true, folderNode };
 }
 
 FolderModificationResult AssetManager::MoveFolder(FolderNode* folderNode, FolderNode* newParentFolderNode)

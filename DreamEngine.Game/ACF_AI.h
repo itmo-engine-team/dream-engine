@@ -3,12 +3,12 @@
 #include "BehaviorTreeGame.h"
 #include "ActorComponent.h"
 
-class AIComponent : public ActorComponent
+class ACF_AI : public ActorComponent
 {
 
 public:
 
-    AIComponent(Game* game, Actor* actor);
+    ACF_AI(Game* game, Actor* actor);
 
     BehaviorTreeGame* GetBehaviorTree();
 

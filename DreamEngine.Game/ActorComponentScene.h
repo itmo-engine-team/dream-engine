@@ -3,12 +3,12 @@
 #include "ActorComponent.h"
 #include "Transform.h"
 
-class SceneComponent : public ActorComponent
+class ActorComponentScene : public ActorComponent
 {
 
 public:
 
-    SceneComponent(Game* game, Actor* actor, Transform* transform);
+    ActorComponentScene(Game* game, Actor* actor, Transform* transform);
 
     Transform* GetTransform() const;
 

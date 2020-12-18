@@ -1,4 +1,4 @@
-#include "StaticModelComponent.h"
+#include "ACS_StaticModel.h"
 
 #include "Game.h"
 #include "ConstantBuffer.h"
@@ -6,9 +6,9 @@
 #include "CameraBuffer.h"
 #include "MeshObject.h"
 
-StaticModelComponent::StaticModelComponent(Game* game, Actor* actor,
+ACS_StaticModel::ACS_StaticModel(Game* game, Actor* actor,
     Transform* transform, ModelData* modelData)
-    : SceneComponent(game, actor, transform), modelData(modelData)
+    : ActorComponentScene(game, actor, transform), modelData(modelData)
 {
     for (auto meshData : modelData->GetMeshDataList())
     {
@@ -16,7 +16,7 @@ StaticModelComponent::StaticModelComponent(Game* game, Actor* actor,
     }
 }
 
-void StaticModelComponent::onDraw()
+void ACS_StaticModel::onDraw()
 {
     const ConstantBuffer cb =
     {
@@ -47,7 +47,7 @@ void StaticModelComponent::onDraw()
     }
 }
 
-void StaticModelComponent::onDrawShadowMap()
+void ACS_StaticModel::onDrawShadowMap()
 {
     const ConstantBuffer cb =
     {

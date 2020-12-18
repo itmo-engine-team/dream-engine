@@ -143,32 +143,34 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorComponent.cpp" />
-    <ClCompile Include="AIComponent.cpp" />
-    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="ACF_AI.cpp" />
+    <ClCompile Include="ACS_Camera.cpp" />
+    <ClCompile Include="ActorComponentFixed.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="LightActor.cpp" />
-    <ClCompile Include="LightComponent.cpp" />
-    <ClCompile Include="SceneComponent.cpp" />
-    <ClCompile Include="SpectatorActor.cpp" />
-    <ClCompile Include="StaticModelComponent.cpp" />
+    <ClCompile Include="A_Light.cpp" />
+    <ClCompile Include="ACS_Light.cpp" />
+    <ClCompile Include="ActorComponentScene.cpp" />
+    <ClCompile Include="A_Spectator.cpp" />
+    <ClCompile Include="ACS_StaticModel.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorComponent.h" />
-    <ClInclude Include="AIComponent.h" />
-    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="ACF_AI.h" />
+    <ClInclude Include="ACS_Camera.h" />
+    <ClInclude Include="ActorComponentFixed.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="LightActor.h" />
-    <ClInclude Include="LightComponent.h" />
+    <ClInclude Include="A_Light.h" />
+    <ClInclude Include="ACS_Light.h" />
     <ClInclude Include="MathUtils.h" />
-    <ClInclude Include="SceneComponent.h" />
-    <ClInclude Include="SpectatorActor.h" />
-    <ClInclude Include="StaticModelComponent.h" />
+    <ClInclude Include="ActorComponentScene.h" />
+    <ClInclude Include="A_Spectator.h" />
+    <ClInclude Include="ACS_StaticModel.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>

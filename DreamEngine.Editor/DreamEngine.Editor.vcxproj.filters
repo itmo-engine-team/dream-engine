@@ -54,13 +54,13 @@
     <ClInclude Include="EditorPopupModalRenameFolder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EditorPopupModalDuplicateAsset.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EditorPopupModalDeleteFolder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditorPopupModalDeleteAsset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalDuplicateAsset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,13 +101,13 @@
     <ClCompile Include="EditorPopupModalRenameFolder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EditorPopupModalDuplicateAsset.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EditorPopupModalDeleteFolder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorPopupModalDeleteAsset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalDuplicateAsset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "CameraComponent.h"
-#include "LightComponent.h"
+#include "ACS_Camera.h"
+#include "ACS_Light.h"
 #include "InputSystem.h"
 
 class Graphics;
@@ -17,8 +17,8 @@ public:
     InputSystem* GetInputSystem() const;
     Graphics* GetGraphics() const;
     GameAssetManager* GetGameAssetManager() const;
-    virtual CameraComponent* GetCamera() const = 0;
-    virtual LightComponent* GetLight() const = 0;
+    virtual ACS_Camera* GetCamera() const = 0;
+    virtual ACS_Light* GetLight() const = 0;
 
     virtual void Init(InputSystem* inputSystem, Graphics* graphics);
     virtual void Update(float engineDeltaTime);

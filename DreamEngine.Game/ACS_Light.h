@@ -7,11 +7,11 @@ using namespace DirectX::SimpleMath;
 
 class Game;
 
-class LightComponent : public ActorComponentScene
+class ACS_Light : public ActorComponentScene
 {
 public:
 
-    LightComponent(Game* game, Actor* actor, Vector3 position = Vector3::Zero, Vector3 direction = Vector3::UnitZ);
+    ACS_Light(Game* game, Actor* actor, Vector3 position = Vector3::Zero, Vector3 direction = Vector3::UnitZ);
 
     Matrix GetViewMatrix() const;
     Matrix GetProjectionMatrix() const;

@@ -34,14 +34,14 @@
     <Filter Include="Source Files\Actor\Component\Scene">
       <UniqueIdentifier>{15b5c6da-eb7d-4699-9931-bcdbcb4279e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Actor\Component\Static">
-      <UniqueIdentifier>{1095f278-1de4-4ea1-af6e-060568849ded}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Actor\Inherited">
       <UniqueIdentifier>{7764993e-6dca-44d8-a61c-69b183d36075}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Actor\Component\Fixed">
       <UniqueIdentifier>{a4d3e6a1-7f62-4a73-aeb4-6f241bc44392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component\Fixed">
+      <UniqueIdentifier>{1095f278-1de4-4ea1-af6e-060568849ded}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,29 +63,29 @@
     <ClCompile Include="ActorComponent.cpp">
       <Filter>Source Files\Actor\Component</Filter>
     </ClCompile>
-    <ClCompile Include="LightActor.cpp">
-      <Filter>Source Files\Actor\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="SpectatorActor.cpp">
-      <Filter>Source Files\Actor\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="AIComponent.cpp">
-      <Filter>Source Files\Actor\Component\Fixed</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
-      <Filter>Source Files\Actor\Component\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="LightComponent.cpp">
-      <Filter>Source Files\Actor\Component\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticModelComponent.cpp">
-      <Filter>Source Files\Actor\Component\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="ActorComponentFixed.cpp">
       <Filter>Source Files\Actor\Component</Filter>
     </ClCompile>
     <ClCompile Include="ActorComponentScene.cpp">
       <Filter>Source Files\Actor\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ACS_Camera.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ACS_Light.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ACS_StaticModel.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_AI.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="A_Light.cpp">
+      <Filter>Source Files\Actor\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="A_Spectator.cpp">
+      <Filter>Source Files\Actor\Inherited</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,29 +110,29 @@
     <ClInclude Include="ActorComponent.h">
       <Filter>Header Files\Actor\Component</Filter>
     </ClInclude>
-    <ClInclude Include="AIComponent.h">
-      <Filter>Header Files\Actor\Component\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="LightActor.h">
-      <Filter>Header Files\Actor\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="SpectatorActor.h">
-      <Filter>Header Files\Actor\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraComponent.h">
-      <Filter>Header Files\Actor\Component\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="LightComponent.h">
-      <Filter>Header Files\Actor\Component\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticModelComponent.h">
-      <Filter>Header Files\Actor\Component\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="ActorComponentFixed.h">
       <Filter>Header Files\Actor\Component</Filter>
     </ClInclude>
     <ClInclude Include="ActorComponentScene.h">
       <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ACS_Camera.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ACS_Light.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ACS_StaticModel.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_AI.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="A_Light.h">
+      <Filter>Header Files\Actor\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="A_Spectator.h">
+      <Filter>Header Files\Actor\Inherited</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,19 +1,19 @@
-#include "SpectatorActor.h"
+#include "A_Spectator.h"
 
 #include "Game.h"
 
-SpectatorActor::SpectatorActor(Game* game, Transform* transform) : Actor(game, transform)
+A_Spectator::A_Spectator(Game* game, Transform* transform) : Actor(game, transform)
 {
-    cameraComponent = new CameraComponent(game, this);
+    cameraComponent = new ACS_Camera(game, this);
     AddComponent(cameraComponent);
 }
 
-CameraComponent* SpectatorActor::GetCameraComponent() const
+ACS_Camera* A_Spectator::GetCameraComponent() const
 {
     return cameraComponent;
 }
 
-void SpectatorActor::onUpdate()
+void A_Spectator::onUpdate()
 {
     // Activates only with right button
     if (!game->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return;
@@ -44,13 +44,13 @@ void SpectatorActor::onUpdate()
     }
 }
 
-void SpectatorActor::Rotate(const float dx, const float dy) const
+void A_Spectator::Rotate(const float dx, const float dy) const
 {
     transform->AddLocalRotation(Vector3::UnitY, dx * rotationSpeed);
     transform->AddLocalRotation(Vector3::UnitX, dy * rotationSpeed);
 }
 
-void SpectatorActor::Translate(const Vector3 translation) const
+void A_Spectator::Translate(const Vector3 translation) const
 {
     transform->AddLocalPosition(translation * moveSpeed);
 }

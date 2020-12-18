@@ -7,11 +7,11 @@ using namespace DirectX::SimpleMath;
 
 class Game;
 
-class CameraComponent : public ActorComponentScene
+class ACS_Camera : public ActorComponentScene
 {
 public:
 
-    CameraComponent(Game* game, Actor* actor,
+    ACS_Camera(Game* game, Actor* actor,
         Vector3 position = Vector3::Zero, Vector3 direction = Vector3::UnitZ);
 
     Matrix GetViewMatrix() const;

@@ -1,23 +1,23 @@
 #pragma once
 
 #include "Actor.h"
-#include "CameraComponent.h"
+#include "ACS_Camera.h"
 
-class SpectatorActor : public Actor
+class A_Spectator : public Actor
 {
 
 public:
 
-    SpectatorActor(Game* game, Transform* transform);
+    A_Spectator(Game* game, Transform* transform);
 
-    CameraComponent* GetCameraComponent() const;
+    ACS_Camera* GetCameraComponent() const;
 
     void Rotate(float dx, float dy) const;
     void Translate(Vector3 translation) const;
 
 protected:
 
-    CameraComponent* cameraComponent = nullptr;
+    ACS_Camera* cameraComponent = nullptr;
 
     float rotationSpeed = 0.1;
     float moveSpeed = 1;

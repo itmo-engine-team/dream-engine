@@ -36,7 +36,6 @@ AssetModificationResult AssetManager::RemoveAsset(AssetNode* assetNode)
     if (isDebugTree)
     {
         contentAssetTree->RemoveAssetNode(assetNode);
-        delete assetNode;
         return { true, nullptr };
     }
     
@@ -45,7 +44,6 @@ AssetModificationResult AssetManager::RemoveAsset(AssetNode* assetNode)
         return { false, assetNode };
 
     contentAssetTree->RemoveAssetNode(assetNode);
-    delete assetNode;
     return { true, nullptr };
 }
 

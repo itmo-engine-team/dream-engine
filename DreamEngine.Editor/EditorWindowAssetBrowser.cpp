@@ -4,8 +4,7 @@
 #include "Editor.h"
 #include "AssetManager.h"
 #include "EditorPopupModalText.h"
-#include "EditorPopupModalNewAsset.h"
-#include "EditorPopupModalDelete.h"
+
 #include "ErrorLogger.h"
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
@@ -76,26 +75,51 @@ void EditorWindowAssetBrowser::drawFolderContextMenu(FolderNode* selectedFolderN
 {
     if (ImGui::BeginPopupContextItem())
     {
-        if (ImGui::Selectable("New"))
+        if (ImGui::Selectable("New Folder"))
+        {
+            newFolderPopupModal = new EditorPopupModalNewFolder(selectedFolderNode);
+        }
+
+        if (ImGui::Selectable("New Asset"))
         {
             newAssetPopupModal = new EditorPopupModalNewAsset(selectedFolderNode);
         }
 
         if (ImGui::Selectable("Delete"))
         {
-            deleteFolderPopupModal = new EditorPopupModalDelete("Delete Folder", true);
+            deleteFolderPopupModal = new EditorPopupModalDeleteFolder(selectedFolderNode);
         }
 
         if (ImGui::Selectable("Move")) {}
-        if (ImGui::Selectable("Duplicate")) {}
-        if (ImGui::Selectable("Rename")) {}
+        if (ImGui::Selectable("Duplicate")) 
+        {
+            
+        }
+        if (ImGui::Selectable("Rename")) 
+        {
+            renameFolderPopupModal = new EditorPopupModalRenameFolder(selectedFolderNode);
+        }
         
         ImGui::EndPopup();
     }
 }
 
-void EditorWindowAssetBrowser::drawAssetContextMenu()
+void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode)
 {
+    if (ImGui::BeginPopupContextItem())
+    {
+        if (ImGui::Selectable("Delete"))
+        {
+            deleteAssetPopupModal = new EditorPopupModalDeleteAsset(selectedAssetNode);
+            currentAssetNode = selectedAssetNode;
+        }
+
+        if (ImGui::Selectable("Move")) {}
+        if (ImGui::Selectable("Duplicate")) {}
+        if (ImGui::Selectable("Rename")) {}
+
+        ImGui::EndPopup();
+    }
 }
 
 void EditorWindowAssetBrowser::drawNewAssetPopup()
@@ -118,36 +142,81 @@ void EditorWindowAssetBrowser::drawNewAssetPopup()
 
 void EditorWindowAssetBrowser::drawNewFolderPopup()
 {
-    if (!EditorPopupModal::DrawPipeline(newAssetPopupModal))
+    if (!EditorPopupModal::DrawPipeline(newFolderPopupModal))
         return;
 
-    if (newAssetPopupModal->GetResult())
+    if (newFolderPopupModal->GetResult())
     {
-        assetManager->CreateAsset(newAssetPopupModal->selectedAssetType, newAssetPopupModal->GetAssetName(), currentParentNode);
+        assetManager->CreateFolder(
+            newFolderPopupModal->GetFolderName(),
+            newFolderPopupModal->GetFolderNode()
+        );
     }
 
-    delete newAssetPopupModal;
-    newAssetPopupModal = nullptr;
+    delete newFolderPopupModal;
+    newFolderPopupModal = nullptr;
 }
 
-void EditorWindowAssetBrowser::drawDeletePopup()
+void EditorWindowAssetBrowser::drawDeleteFolderPopup()
 {
     if (!EditorPopupModal::DrawPipeline(deleteFolderPopupModal))
         return;
 
     if (deleteFolderPopupModal->GetResult())
     {
-        assetManager->RemoveFolder(currentParentNode, deleteFolderPopupModal->GetIsRecursive());
+       auto result = assetManager->RemoveFolder(deleteFolderPopupModal->GetFolderNode(), deleteFolderPopupModal->GetIsRecursive());
+
+       if (result.isSuccess)
+       {
+           currentParentNode = assetTree->GetRootNode();
+       }
     }
 
     delete deleteFolderPopupModal;
     deleteFolderPopupModal = nullptr;
 }
 
+void EditorWindowAssetBrowser::drawDeleteAssetPopup()
+{
+    if (!EditorPopupModal::DrawPipeline(deleteAssetPopupModal))
+        return;
+
+    if (deleteAssetPopupModal->GetResult())
+    {
+        auto result = assetManager->RemoveAsset(currentAssetNode);
+
+        if (result.isSuccess)
+        {
+            //TODO: fix delete asset
+        }
+    }
+
+    delete deleteAssetPopupModal;
+    deleteAssetPopupModal = nullptr;
+}
+
+void EditorWindowAssetBrowser::drawRenameFolderPopup()
+{
+    if (!EditorPopupModal::DrawPipeline(renameFolderPopupModal))
+        return;
+
+    if (renameFolderPopupModal->GetResult())
+    {
+        auto result = assetManager->RenameFolder(renameFolderPopupModal->GetFolderNode(), renameFolderPopupModal->GetNewFolderName());
+        if (result.isSuccess){}
+    }
+
+    delete renameFolderPopupModal;
+    renameFolderPopupModal = nullptr;
+}
+
 void EditorWindowAssetBrowser::drawPopups()
 {
     drawNewAssetPopup();
-    drawDeletePopup();
+    drawNewFolderPopup();
+    drawDeleteFolderPopup();
+    drawDeleteAssetPopup();
+    drawRenameFolderPopup();
 }
 
 void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
@@ -164,10 +233,13 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
         ImGui::PushID(i);
 
         ImGui::BeginGroup();
-        if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize)) // TODO: fix draw folders
+        if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize))
         {
             currentParentNode = parentNode->GetChildFolderList()[i];
         }
+        
+        drawFolderContextMenu(parentNode->GetChildFolderList()[i]);
+
         ImGui::Text(parentNode->GetChildFolderList()[i]->GetName().c_str());
         ImGui::EndGroup();
 
@@ -186,7 +258,13 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
         ImGui::PushID(i);
 
         ImGui::BeginGroup();
-        ImGui::ImageButton(iconAsset->GetShaderResourceView(), buttonSize); 
+        if (ImGui::ImageButton(iconAsset->GetShaderResourceView(), buttonSize))
+        {
+            currentAssetNode = parentNode->GetChildAssetList()[i];
+        }
+
+        drawAssetContextMenu(parentNode->GetChildAssetList()[i]);
+
         ImGui::Text(parentNode->GetChildAssetList()[i]->GetName().c_str());
         ImGui::EndGroup();
 

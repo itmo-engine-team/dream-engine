@@ -1,12 +1,14 @@
 #pragma once
 
-#include "EditorPopupModal.h"
+#include "EditorPopupModalFolderBase.h"
 
-class EditorPopupModalNewFolder : public EditorPopupModal
+class FolderNode;
+
+class EditorPopupModalNewFolder : public EditorPopupModalFolderBase
 {
 public:
 
-    EditorPopupModalNewFolder(std::string name);
+    EditorPopupModalNewFolder(FolderNode* parentFolderNode);
 
     std::string GetFolderName();
 
@@ -16,7 +18,6 @@ protected:
 
     void onDrawPopup() override;
     bool onFinish() override;
-
 
 };
 

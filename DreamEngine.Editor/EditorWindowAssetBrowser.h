@@ -7,7 +7,9 @@
 #include "EditorPopupModalText.h"
 #include "EditorPopupModalNewAsset.h"
 #include "EditorPopupModalNewFolder.h"
-#include "EditorPopupModalDelete.h"
+#include "EditorPopupModalDeleteFolder.h"
+#include "EditorPopupModalDeleteAsset.h"
+#include "EditorPopupModalRenameFolder.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
 {
@@ -25,6 +27,7 @@ private:
     AssetManager* assetManager;
 
     FolderNode* currentParentNode = nullptr;
+    AssetNode* currentAssetNode = nullptr;
 
     Texture* iconFolder;
     Texture* iconFile;
@@ -35,13 +38,15 @@ private:
 
     EditorPopupModalNewAsset* newAssetPopupModal;
     EditorPopupModalNewFolder* newFolderPopupModal;
-    EditorPopupModalDelete* deleteFolderPopupModal;
+    EditorPopupModalDeleteFolder* deleteFolderPopupModal;
+    EditorPopupModalDeleteAsset* deleteAssetPopupModal;
+    EditorPopupModalRenameFolder* renameFolderPopupModal;
 
     const char* fileNames[];
     
     void drawFilter();
     void drawFolderContextMenu(FolderNode* selectedFolderNode);
-    void drawAssetContextMenu();
+    void drawAssetContextMenu(AssetNode* selectedAssetNode);
     void drawFolderLayout(FolderNode* parentNode);
     void drawCommandMenu();
     void drawFolderTreeNode(FolderNode* folderNode, int level = 0);
@@ -50,8 +55,9 @@ private:
 
     void drawNewAssetPopup();
     void drawNewFolderPopup();
-    void drawDeletePopup();
+    void drawDeleteFolderPopup();
+    void drawDeleteAssetPopup();
+    void drawRenameFolderPopup();
     void drawPopups();
-
 
 };

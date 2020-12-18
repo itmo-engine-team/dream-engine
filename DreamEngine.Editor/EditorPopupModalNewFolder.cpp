@@ -2,8 +2,8 @@
 
 #include "imgui.h"
 
-EditorPopupModalNewFolder::EditorPopupModalNewFolder(std::string name)
-    : EditorPopupModal(name)
+EditorPopupModalNewFolder::EditorPopupModalNewFolder(FolderNode* parentFolderNode)
+    : EditorPopupModalFolderBase("New Folder", parentFolderNode)
 {
 
 }
@@ -22,6 +22,8 @@ void EditorPopupModalNewFolder::onDrawPopup()
 
 bool EditorPopupModalNewFolder::onFinish()
 {
+    if (!result) return true;
+
     if (folderNamePublic.empty())
         return false;
     else

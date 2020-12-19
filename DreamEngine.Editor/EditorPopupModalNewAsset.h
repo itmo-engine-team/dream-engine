@@ -1,18 +1,22 @@
 #pragma once
 
-#include "EditorPopupModal.h"
-#include "AssetInfoFactory.h"
-#include <string>
+#include "EditorPopupModalFolderBase.h"
 
-class EditorPopupModalNewAsset : public EditorPopupModal
+#include <string>
+#include "AssetInfoFactory.h"
+
+class FolderNode;
+
+class EditorPopupModalNewAsset : public EditorPopupModalFolderBase
 {
 public:
 
-    std::string GetAssetName();
-    
-    AssetType selectedAssetType;
+    EditorPopupModalNewAsset(FolderNode* parentFolderNode);
 
-    EditorPopupModalNewAsset(std::string name);
+    std::string GetAssetName();
+
+    AssetType GetAssetType();
+    
 
 protected:
 
@@ -20,6 +24,8 @@ protected:
 
     std::string assetNamePublic;
     std::string* tempStrMass;
+
+    AssetType selectedAssetType;
 
     void onDrawPopup() override;
     bool onFinish() override;

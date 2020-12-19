@@ -8,8 +8,13 @@ std::string EditorPopupModalNewAsset::GetAssetName()
     return assetNamePublic;
 }
 
-EditorPopupModalNewAsset::EditorPopupModalNewAsset(std::string name)
-    : EditorPopupModal(name)
+AssetType EditorPopupModalNewAsset::GetAssetType()
+{
+    return selectedAssetType;
+}
+
+EditorPopupModalNewAsset::EditorPopupModalNewAsset(FolderNode* parentFolderNode)
+    : EditorPopupModalFolderBase("New Asset", parentFolderNode)
 {
     sizeStr = AssetInfoFactory::MAP_ASSET_TYPE_TO_STRING.size();
     tempStrMass = new std::string[sizeStr];
@@ -51,6 +56,8 @@ void EditorPopupModalNewAsset::onDrawPopup()
 
 bool EditorPopupModalNewAsset::onFinish()
 {
+    if (!result) return true;
+
     if (assetNamePublic.empty())
         return false;
     else

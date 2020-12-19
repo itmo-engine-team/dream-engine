@@ -6,7 +6,13 @@
 #include "AssetService.h"
 #include "EditorPopupModalText.h"
 #include "EditorPopupModalNewAsset.h"
-#include "EditorPopupModalDelete.h"
+#include "EditorPopupModalNewFolder.h"
+#include "EditorPopupModalDeleteFolder.h"
+#include "EditorPopupModalDeleteAsset.h"
+#include "EditorPopupModalRenameFolder.h"
+#include "EditorPopupModalRenameAsset.h"
+#include "EditorPopupModalDuplicateAsset.h"
+#include "EditorPopupModalError.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
 {
@@ -24,6 +30,7 @@ private:
     AssetManager* assetManager;
 
     FolderNode* currentParentNode = nullptr;
+    AssetNode* currentAssetNode = nullptr;
 
     Texture* iconFolder;
     Texture* iconFile;
@@ -33,19 +40,35 @@ private:
     std::string assetPath;
 
     EditorPopupModalNewAsset* newAssetPopupModal;
-    EditorPopupModalDelete* deleteAssetPopupModal;
+    EditorPopupModalNewFolder* newFolderPopupModal;
+    EditorPopupModalDeleteFolder* deleteFolderPopupModal;
+    EditorPopupModalDeleteAsset* deleteAssetPopupModal;
+    EditorPopupModalRenameFolder* renameFolderPopupModal;
+    EditorPopupModalRenameAsset* renameAssetPopupModal;
+    EditorPopupModalDuplicateAsset* duplicateAssetPopupModal;
+    EditorPopupModalError* errorPopupModal;
 
     const char* fileNames[];
     
+    void setCurrentParentNode(FolderNode* currentParentNode);
+
     void drawFilter();
-    void drawPopupContextMenu();
+    void drawFolderContextMenu(FolderNode* selectedFolderNode);
+    void drawAssetContextMenu(AssetNode* selectedAssetNode);
     void drawFolderLayout(FolderNode* parentNode);
     void drawCommandMenu();
-    void drawChildrenFolders(FolderNode* parentNode);
+    void drawFolderTreeNode(FolderNode* folderNode, int level = 0);
+    void drawFolderTreeNodePadding(int level);
     void drawChildrenAssets(FolderNode* parentNode);
 
-    void drawNewPopup();
-    void drawDeletePopup();
+    void drawNewAssetPopup();
+    void drawNewFolderPopup();
+    void drawDeleteFolderPopup();
+    void drawDeleteAssetPopup();
+    void drawRenameFolderPopup();
+    void drawRenameAssetPopup();
+    void drawDuplicateAssetPopup();
+    void drawErrorPopup();
     void drawPopups();
 
 };

@@ -42,10 +42,31 @@
     <ClInclude Include="EditorPopupModalText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EditorPopupModalDelete.h">
+    <ClInclude Include="EditorPopupModalNewAsset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EditorPopupModalNewAsset.h">
+    <ClInclude Include="EditorPopupModalNewFolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalFolderBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalRenameFolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalDeleteFolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalDeleteAsset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalDuplicateAsset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalRenameAsset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,10 +95,31 @@
     <ClCompile Include="EditorPopupModalText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EditorPopupModalDelete.cpp">
+    <ClCompile Include="EditorPopupModalNewAsset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EditorPopupModalNewAsset.cpp">
+    <ClCompile Include="EditorPopupModalNewFolder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalFolderBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalRenameFolder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalDeleteFolder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalDeleteAsset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalDuplicateAsset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalRenameAsset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalError.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

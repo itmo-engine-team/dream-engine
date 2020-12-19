@@ -2,10 +2,10 @@
 
 #include "imgui.h"
 
-EditorPopupModalRenameFolder::EditorPopupModalRenameFolder(FolderNode* parentFolderNode)
+EditorPopupModalRenameFolder::EditorPopupModalRenameFolder(FolderNode* parentFolderNode, std::string oldName)
     : EditorPopupModalFolderBase("Rename Folder", parentFolderNode)
 {
-
+    oldFolderName = oldName;
 }
 
 std::string EditorPopupModalRenameFolder::GetNewFolderName()
@@ -15,6 +15,10 @@ std::string EditorPopupModalRenameFolder::GetNewFolderName()
 
 void EditorPopupModalRenameFolder::onDrawPopup()
 {
+    ImGui::Text("Current name: ");
+    ImGui::SameLine();
+    ImGui::Text(oldFolderName.c_str());
+
     static char folderName[128] = "";
     ImGui::InputText("New folder name", folderName, IM_ARRAYSIZE(folderName));
     newFolderName = folderName;

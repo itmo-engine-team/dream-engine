@@ -91,13 +91,10 @@ void EditorWindowAssetBrowser::drawFolderContextMenu(FolderNode* selectedFolderN
         }
 
         if (ImGui::Selectable("Move")) {}
-        if (ImGui::Selectable("Duplicate")) 
-        {
-            
-        }
+
         if (ImGui::Selectable("Rename")) 
         {
-            renameFolderPopupModal = new EditorPopupModalRenameFolder(selectedFolderNode);
+            renameFolderPopupModal = new EditorPopupModalRenameFolder(selectedFolderNode, selectedFolderNode->GetName());
         }
         
         ImGui::EndPopup();
@@ -108,6 +105,11 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
 {
     if (ImGui::BeginPopupContextItem())
     {
+        if (ImGui::Selectable("Open"))
+        {
+
+        }
+
         if (ImGui::Selectable("Delete"))
         {
             deleteAssetPopupModal = new EditorPopupModalDeleteAsset(selectedAssetNode);
@@ -120,7 +122,11 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
             duplicateAssetPopupModal = new EditorPopupModalDuplicateAsset(selectedAssetNode);
             currentAssetNode = selectedAssetNode;
         }
-        if (ImGui::Selectable("Rename")) {}
+        if (ImGui::Selectable("Rename")) 
+        {
+            renameAssetPopupModal = new EditorPopupModalRenameAsset(selectedAssetNode, selectedAssetNode->GetName());
+            currentAssetNode = selectedAssetNode;
+        }
 
         ImGui::EndPopup();
     }
@@ -214,6 +220,21 @@ void EditorWindowAssetBrowser::drawRenameFolderPopup()
     renameFolderPopupModal = nullptr;
 }
 
+void EditorWindowAssetBrowser::drawRenameAssetPopup()
+{
+    if(!EditorPopupModal::DrawPipeline(renameAssetPopupModal))
+        return;
+
+    if (renameAssetPopupModal->GetResult())
+    {
+        auto result = assetManager->DuplicateAsset(currentAssetNode, renameAssetPopupModal->GetNewAssetName());
+        if (result.isSuccess) {}
+    }
+
+    delete renameAssetPopupModal;
+    renameAssetPopupModal = nullptr;
+}
+
 void EditorWindowAssetBrowser::drawDuplicateAssetPopup()
 {
     if (!EditorPopupModal::DrawPipeline(duplicateAssetPopupModal))
@@ -236,6 +257,7 @@ void EditorWindowAssetBrowser::drawPopups()
     drawDeleteFolderPopup();
     drawDeleteAssetPopup();
     drawRenameFolderPopup();
+    drawRenameAssetPopup();
     drawDuplicateAssetPopup();
 }
 

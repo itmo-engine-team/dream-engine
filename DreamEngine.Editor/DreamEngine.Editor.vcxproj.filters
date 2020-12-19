@@ -63,6 +63,9 @@
     <ClInclude Include="EditorPopupModalDuplicateAsset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorPopupModalRenameAsset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorPopupModalDuplicateAsset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalRenameAsset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

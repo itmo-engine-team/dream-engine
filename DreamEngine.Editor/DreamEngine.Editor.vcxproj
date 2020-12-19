@@ -27,6 +27,7 @@
     <ClInclude Include="EditorPopupModalFolderBase.h" />
     <ClInclude Include="EditorPopupModalNewAsset.h" />
     <ClInclude Include="EditorPopupModalNewFolder.h" />
+    <ClInclude Include="EditorPopupModalRenameAsset.h" />
     <ClInclude Include="EditorPopupModalRenameFolder.h" />
     <ClInclude Include="EditorPopupModalText.h" />
     <ClInclude Include="EditorWindow.h" />
@@ -44,6 +45,7 @@
     <ClCompile Include="EditorPopupModalFolderBase.cpp" />
     <ClCompile Include="EditorPopupModalNewAsset.cpp" />
     <ClCompile Include="EditorPopupModalNewFolder.cpp" />
+    <ClCompile Include="EditorPopupModalRenameAsset.cpp" />
     <ClCompile Include="EditorPopupModalRenameFolder.cpp" />
     <ClCompile Include="EditorPopupModalText.cpp" />
     <ClCompile Include="EditorWindow.cpp" />

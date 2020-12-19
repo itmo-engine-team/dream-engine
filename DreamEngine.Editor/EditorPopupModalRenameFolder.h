@@ -8,12 +8,13 @@ class EditorPopupModalRenameFolder : public EditorPopupModalFolderBase
 {
 public:
 
-    EditorPopupModalRenameFolder(FolderNode* parentFolderNode);
+    EditorPopupModalRenameFolder(FolderNode* parentFolderNode, std::string oldName);
 
     std::string GetNewFolderName();
 
 protected:
 
+    std::string oldFolderName;
     std::string newFolderName;
 
     void onDrawPopup() override;

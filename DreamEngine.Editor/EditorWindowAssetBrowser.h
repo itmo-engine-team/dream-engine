@@ -10,6 +10,7 @@
 #include "EditorPopupModalDeleteFolder.h"
 #include "EditorPopupModalDeleteAsset.h"
 #include "EditorPopupModalRenameFolder.h"
+#include "EditorPopupModalRenameAsset.h"
 #include "EditorPopupModalDuplicateAsset.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
@@ -42,6 +43,7 @@ private:
     EditorPopupModalDeleteFolder* deleteFolderPopupModal;
     EditorPopupModalDeleteAsset* deleteAssetPopupModal;
     EditorPopupModalRenameFolder* renameFolderPopupModal;
+    EditorPopupModalRenameAsset* renameAssetPopupModal;
     EditorPopupModalDuplicateAsset* duplicateAssetPopupModal;
 
     const char* fileNames[];
@@ -60,6 +62,7 @@ private:
     void drawDeleteFolderPopup();
     void drawDeleteAssetPopup();
     void drawRenameFolderPopup();
+    void drawRenameAssetPopup();
     void drawDuplicateAssetPopup();
     void drawPopups();
 

@@ -14,7 +14,7 @@ Actor::Actor(Game* game, Transform* transform)
 
 void Actor::Init()
 {
-    onInit();
+    GameObject::Init();
 
     // Update components
     for (auto component : components)

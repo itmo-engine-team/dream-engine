@@ -15,7 +15,7 @@ public:
 
     Actor(Game* Game, Transform* transform);
 
-    void Init();
+    void Init() override;
     void Update();
     void Draw();
     void DrawShadowMap();
@@ -72,8 +72,7 @@ protected:
 
     float actorDeltaTime;
     float actorDeltaTimeMultiplier = 1;
-
-    virtual void onInit();
+    
     virtual void onUpdate();
 
 };

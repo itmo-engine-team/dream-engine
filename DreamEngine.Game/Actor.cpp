@@ -95,10 +95,6 @@ std::vector<ActorComponent*> Actor::GetComponents() const
     return components;
 }
 
-void Actor::onInit()
-{
-}
-
 void Actor::onUpdate()
 {
 

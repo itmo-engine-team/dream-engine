@@ -24,13 +24,14 @@ EditorPopupModalNewAsset::EditorPopupModalNewAsset(FolderNode* parentFolderNode)
     {
         tempStrMass[i] = AssetInfoFactory::GetAssetTypeStringName(iterator->first);
     }
+
+    selectedAssetType = AssetInfoFactory::GetAssetTypeByString(tempStrMass[0]);
 }
 
 void EditorPopupModalNewAsset::onDrawPopup()
 {
     static int currentType = 0;
     const char* firstLabel = tempStrMass[currentType].c_str();
-    selectedAssetType = AssetInfoFactory::GetAssetTypeByString(tempStrMass[0]);
     
     if (ImGui::BeginCombo("Asset Type", firstLabel))
     {

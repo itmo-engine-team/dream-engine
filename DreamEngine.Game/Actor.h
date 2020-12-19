@@ -7,6 +7,7 @@
 #include "ActorComponentScene.h"
 #include "ActorComponentFixed.h"
 
+class ActorInfo;
 class Game;
 
 class Actor : public GameObject
@@ -74,5 +75,19 @@ protected:
     float actorDeltaTimeMultiplier = 1;
     
     virtual void onUpdate();
+
+};
+
+class ActorCreator
+{
+
+public:
+
+    virtual ~ActorCreator() = default;
+
+    virtual Actor* Create(const ActorInfo* actorInfo)
+    {
+        return new Actor();
+    }
 
 };

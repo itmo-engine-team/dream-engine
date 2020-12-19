@@ -146,6 +146,7 @@
     <ClCompile Include="ACF_AI.cpp" />
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ActorComponentFixed.cpp" />
+    <ClCompile Include="ActorInfo.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -162,6 +163,9 @@
     <ClInclude Include="ACF_AI.h" />
     <ClInclude Include="ACS_Camera.h" />
     <ClInclude Include="ActorComponentFixed.h" />
+    <ClInclude Include="ActorFactory.h" />
+    <ClInclude Include="ActorInfo.h" />
+    <ClInclude Include="ActorType.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="GameObject.h" />

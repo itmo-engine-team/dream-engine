@@ -323,7 +323,7 @@ void EditorWindowAssetBrowser::drawCommandMenu()
     ImGui::Image(iconFile->GetShaderResourceView(), ImVec2(20, 20));
     ImGui::SameLine();
 
-    if (ImGui::Button("Edit > "))
+    /* if (ImGui::Button("Edit > "))
         ImGui::OpenPopup("my_select_popup");
 
     if (ImGui::BeginPopup("my_select_popup"))
@@ -344,9 +344,13 @@ void EditorWindowAssetBrowser::drawCommandMenu()
         
         ImGui::EndPopup();
     }
-
-    ImGui::SameLine();
-    if (ImGui::Button("Back")){}
+    
+    ImGui::SameLine();*/
+    if (ImGui::Button("Back"))
+    {
+        if(currentParentNode->GetName() != "Content")
+            currentParentNode = currentParentNode->GetParent();
+    }
 }
 
 void EditorWindowAssetBrowser::drawFolderTreeNode(FolderNode* folderNode, int level)

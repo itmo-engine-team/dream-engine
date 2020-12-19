@@ -69,32 +69,32 @@ void KatamariGame::Init(InputSystem* inputSystem, Graphics* graphics)
     // Init objects
 
     plane = new Actor(this, new Transform({ 0, 0, 0 }));
-    plane->AddComponent(new ACS_StaticModel(this, plane, new Transform({ 0, 0, 0 }), planeModel));
+    plane->AddSceneComponent(new ACS_StaticModel(this, plane, new Transform({ 0, 0, 0 }), planeModel));
     gameAssetManager->AddActor(plane);
 
     box1 = new Actor(this, new Transform({ -1, 1, 0 }));
-    box1->AddComponent(new ACS_StaticModel(this, box1, new Transform({ 0, 0, 0 }), boxModel));
+    box1->AddSceneComponent(new ACS_StaticModel(this, box1, new Transform({ 0, 0, 0 }), boxModel));
     gameAssetManager->AddActor(box1);
 
     box2 = new Actor(this, new Transform({ -0.5, 1, -1 }));
-    box2->AddComponent(new ACS_StaticModel(this, box2, new Transform({ 0, 0, 0 }), boxModel));
+    box2->AddSceneComponent(new ACS_StaticModel(this, box2, new Transform({ 0, 0, 0 }), boxModel));
     gameAssetManager->AddActor(box2);
 
     box3 = new Actor(this, new Transform({ 1, 1, 0 }));
-    box3->AddComponent(new ACS_StaticModel(this, box3, new Transform({ 0, 0, 0 }), boxModel));
+    box3->AddSceneComponent(new ACS_StaticModel(this, box3, new Transform({ 0, 0, 0 }), boxModel));
     gameAssetManager->AddActor(box3);
 
     katamariPlayer = new KatamariSphere(this, new Transform({ 0, 0.8, 0 }));
     playerSphere = new ACS_StaticModel(this, katamariPlayer, new Transform({ 0, 0, 0 }), playerModel);
-    katamariPlayer->AddComponent(playerSphere);
+    katamariPlayer->AddSceneComponent(playerSphere);
     gameAssetManager->AddActor(katamariPlayer);
 
     spectatorActor = new A_Spectator(this, new Transform({ 0, 1, -6 }));
     gameAssetManager->AddActor(spectatorActor);
 
     lightActor = new A_Light(this, new Transform({ -10, 10, -10 }));
-    lightActor->AddComponent(new ACS_StaticModel(this, lightActor, new Transform({ 0, 0, 0 }), boxModel));
-    lightActor->AddComponent(new ACS_StaticModel(this, lightActor, new Transform({ 0, 0, 0.5 }),
+    lightActor->AddSceneComponent(new ACS_StaticModel(this, lightActor, new Transform({ 0, 0, 0 }), boxModel));
+    lightActor->AddSceneComponent(new ACS_StaticModel(this, lightActor, new Transform({ 0, 0, 0.5 }),
         MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.03, 0.03, 0.5 })));
 
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.65f);

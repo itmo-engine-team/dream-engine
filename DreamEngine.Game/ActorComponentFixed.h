@@ -2,7 +2,7 @@
 
 #include "ActorComponent.h"
 
-class ActorComponentFixed : ActorComponent
+class ActorComponentFixed : public ActorComponent
 {
 
 public:

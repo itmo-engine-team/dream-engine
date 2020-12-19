@@ -37,7 +37,7 @@ void Actor::Update()
 void Actor::Draw()
 {
     // Draw components
-    for (auto component : components)
+    for (auto component : sceneComponents)
     {
         component->Draw();
     }
@@ -46,7 +46,7 @@ void Actor::Draw()
 void Actor::DrawShadowMap()
 {
     // Draw shadow map for components
-    for (auto component : components)
+    for (auto component : sceneComponents)
     {
         component->DrawShadowMap();
     }
@@ -62,8 +62,15 @@ Transform* Actor::GetTransform() const
     return transform;
 }
 
-void Actor::AddComponent(ActorComponent* component)
+void Actor::AddFixedComponent(ActorComponentFixed* component)
 {
+    fixedComponents.push_back(component);
+    components.push_back(component);
+}
+
+void Actor::AddSceneComponent(ActorComponentScene* component)
+{
+    sceneComponents.push_back(component);
     components.push_back(component);
 }
 

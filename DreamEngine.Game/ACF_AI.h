@@ -1,9 +1,9 @@
 #pragma once
 
 #include "BehaviorTreeGame.h"
-#include "ActorComponent.h"
+#include "ActorComponentFixed.h"
 
-class ACF_AI : public ActorComponent
+class ACF_AI : public ActorComponentFixed
 {
 
 public:

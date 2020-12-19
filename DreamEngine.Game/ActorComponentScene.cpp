@@ -11,3 +11,23 @@ Transform* ActorComponentScene::GetTransform() const
 {
     return transform;
 }
+
+void ActorComponentScene::Draw()
+{
+    onDraw();
+}
+
+void ActorComponentScene::DrawShadowMap()
+{
+    onDrawShadowMap();
+}
+
+void ActorComponentScene::onDraw()
+{
+
+}
+
+void ActorComponentScene::onDrawShadowMap()
+{
+
+}

@@ -12,9 +12,15 @@ public:
 
     Transform* GetTransform() const;
 
+    void Draw();
+    void DrawShadowMap();
+
 protected:
 
     Transform* transform;
+
+    virtual void onDraw();
+    virtual void onDrawShadowMap();
 
 };
 

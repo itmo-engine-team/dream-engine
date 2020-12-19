@@ -4,8 +4,8 @@
 
 #include "GameObject.h"
 #include "Transform.h"
-#include "ActorComponent.h"
 #include "ActorComponentScene.h"
+#include "ActorComponentFixed.h"
 
 class Game;
 
@@ -24,7 +24,8 @@ public:
 
     Transform* GetTransform() const;
 
-    void AddComponent(ActorComponent* component);
+    void AddFixedComponent(ActorComponentFixed* component);
+    void AddSceneComponent(ActorComponentScene* component);
 
     void SetActorDeltaTimeMultiplier(float deltaTimeMultiplier);
     float GetActorDeltaTimeMultiplier();
@@ -67,6 +68,7 @@ protected:
 
     std::vector<ActorComponent*> components;
     std::vector<ActorComponentScene*> sceneComponents;
+    std::vector<ActorComponentFixed*> fixedComponents;
 
     float actorDeltaTime;
     float actorDeltaTimeMultiplier = 1;

@@ -3,7 +3,7 @@
 A_Light::A_Light(Game* game, Transform* transform) : Actor(game, transform)
 {
     lightComponent = new ACS_Light(game, this);
-    AddComponent(lightComponent);
+    AddSceneComponent(lightComponent);
 }
 
 ACS_Light* A_Light::GetLightComponent() const

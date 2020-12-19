@@ -5,7 +5,7 @@
 A_Spectator::A_Spectator(Game* game, Transform* transform) : Actor(game, transform)
 {
     cameraComponent = new ACS_Camera(game, this);
-    AddComponent(cameraComponent);
+    AddSceneComponent(cameraComponent);
 }
 
 ACS_Camera* A_Spectator::GetCameraComponent() const

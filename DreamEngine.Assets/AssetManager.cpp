@@ -209,7 +209,16 @@ void AssetManager::initAssetTree(AssetTree* assetTree)
         {
             if (assetNode->GetAssetInfo() != nullptr)
             {
-                addAssetInfoToMap(assetNode->GetAssetInfo());
+                const bool result = addAssetInfoToMap(assetNode->GetAssetInfo());
+                if (result)
+                {
+                    idSet.insert(assetNode->GetAssetInfo()->GetId());
+                }
+                else
+                {
+                    ErrorLogger::Log(Error,
+                        "AssetInfo " + assetNode->GetName() + " id is not uniq");
+                }
             }
             else
             {
@@ -229,19 +238,19 @@ AssetModificationResult AssetManager::addNewAsset(AssetInfo* assetInfo, FolderNo
 {
     // Generate id
     const auto newId = generateNewId();
-    idSet.insert(newId);
     assetInfo->setId(newId);
 
     // Add asset to map
     const bool isAddedToMap = addAssetInfoToMap(assetInfo);
     if (!isAddedToMap)
     {
-        idSet.erase(newId);
         delete assetInfo;
         assetInfo = nullptr;
 
         return { false, nullptr, "Error while generating id for new asset" };
     }
+
+    idSet.insert(newId);
 
     AssetModificationResult result = contentAssetTree->CreateAssetNode(
         assetInfo, assetInfo->GetName(), parentFolderNode);
@@ -284,5 +293,5 @@ unsigned int AssetManager::generateNewId() const
 {
     const unsigned int newId = $ID();
 
-    return newId > 0 && idSet.find(newId) == idSet.end() ? newId : generateNewId();
+    return idSet.find(newId) == idSet.end() ? newId : generateNewId();
 }

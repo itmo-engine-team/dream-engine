@@ -139,11 +139,16 @@ void EditorWindowAssetBrowser::drawNewAssetPopup()
 
     if (newAssetPopupModal->GetResult())
     {
-        assetManager->CreateAsset(
+        auto result = assetManager->CreateAsset(
             newAssetPopupModal->selectedAssetType,
             newAssetPopupModal->GetAssetName(),
             newAssetPopupModal->GetFolderNode()
         );
+
+        if (!result.isSuccess)
+        {
+            errorPopupModal = new EditorPopupModalError(result.error);
+        }
     }
 
     delete newAssetPopupModal;
@@ -157,10 +162,15 @@ void EditorWindowAssetBrowser::drawNewFolderPopup()
 
     if (newFolderPopupModal->GetResult())
     {
-        assetManager->CreateFolder(
+        auto result = assetManager->CreateFolder(
             newFolderPopupModal->GetFolderName(),
             newFolderPopupModal->GetFolderNode()
         );
+
+        if (!result.isSuccess)
+        {
+            errorPopupModal = new EditorPopupModalError(result.error);
+        }
     }
 
     delete newFolderPopupModal;
@@ -180,6 +190,10 @@ void EditorWindowAssetBrowser::drawDeleteFolderPopup()
        {
            currentParentNode = assetTree->GetRootNode();
        }
+       else
+       {
+           errorPopupModal = new EditorPopupModalError(result.error);
+       }
     }
 
     delete deleteFolderPopupModal;
@@ -195,9 +209,9 @@ void EditorWindowAssetBrowser::drawDeleteAssetPopup()
     {
         auto result = assetManager->RemoveAsset(currentAssetNode);
 
-        if (result.isSuccess)
+        if (!result.isSuccess)
         {
-            //TODO: fix delete asset
+            errorPopupModal = new EditorPopupModalError(result.error);
         }
     }
 
@@ -213,7 +227,11 @@ void EditorWindowAssetBrowser::drawRenameFolderPopup()
     if (renameFolderPopupModal->GetResult())
     {
         auto result = assetManager->RenameFolder(renameFolderPopupModal->GetFolderNode(), renameFolderPopupModal->GetNewFolderName());
-        if (result.isSuccess){}
+        
+        if (!result.isSuccess)
+        {
+            errorPopupModal = new EditorPopupModalError(result.error);
+        }
     }
 
     delete renameFolderPopupModal;
@@ -227,8 +245,12 @@ void EditorWindowAssetBrowser::drawRenameAssetPopup()
 
     if (renameAssetPopupModal->GetResult())
     {
-        auto result = assetManager->DuplicateAsset(currentAssetNode, renameAssetPopupModal->GetNewAssetName());
-        if (result.isSuccess) {}
+        auto result = assetManager->RenameAsset(currentAssetNode, renameAssetPopupModal->GetNewAssetName());
+        
+        if (!result.isSuccess)
+        {
+            errorPopupModal = new EditorPopupModalError(result.error);
+        }
     }
 
     delete renameAssetPopupModal;
@@ -243,11 +265,25 @@ void EditorWindowAssetBrowser::drawDuplicateAssetPopup()
     if (duplicateAssetPopupModal->GetResult())
     {
         auto result = assetManager->DuplicateAsset(currentAssetNode, duplicateAssetPopupModal->GetNewAssetName());
-        if (result.isSuccess) {}
+        
+        if (!result.isSuccess)
+        {
+            errorPopupModal = new EditorPopupModalError(result.error);
+        }
     }
 
     delete duplicateAssetPopupModal;
     duplicateAssetPopupModal = nullptr;
+}
+
+void EditorWindowAssetBrowser::drawErrorPopup()
+{
+    if (!EditorPopupModal::DrawPipeline(errorPopupModal))
+        return;
+
+    delete errorPopupModal;
+    errorPopupModal = nullptr;
+
 }
 
 void EditorWindowAssetBrowser::drawPopups()
@@ -259,6 +295,7 @@ void EditorWindowAssetBrowser::drawPopups()
     drawRenameFolderPopup();
     drawRenameAssetPopup();
     drawDuplicateAssetPopup();
+    drawErrorPopup();
 }
 
 void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)

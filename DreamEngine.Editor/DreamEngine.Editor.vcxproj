@@ -24,6 +24,7 @@
     <ClInclude Include="EditorPopupModalDeleteAsset.h" />
     <ClInclude Include="EditorPopupModalDeleteFolder.h" />
     <ClInclude Include="EditorPopupModalDuplicateAsset.h" />
+    <ClInclude Include="EditorPopupModalError.h" />
     <ClInclude Include="EditorPopupModalFolderBase.h" />
     <ClInclude Include="EditorPopupModalNewAsset.h" />
     <ClInclude Include="EditorPopupModalNewFolder.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="EditorPopupModalDeleteAsset.cpp" />
     <ClCompile Include="EditorPopupModalDeleteFolder.cpp" />
     <ClCompile Include="EditorPopupModalDuplicateAsset.cpp" />
+    <ClCompile Include="EditorPopupModalError.cpp" />
     <ClCompile Include="EditorPopupModalFolderBase.cpp" />
     <ClCompile Include="EditorPopupModalNewAsset.cpp" />
     <ClCompile Include="EditorPopupModalNewFolder.cpp" />

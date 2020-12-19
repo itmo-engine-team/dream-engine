@@ -12,6 +12,7 @@
 #include "EditorPopupModalRenameFolder.h"
 #include "EditorPopupModalRenameAsset.h"
 #include "EditorPopupModalDuplicateAsset.h"
+#include "EditorPopupModalError.h"
 
 class EditorWindowAssetBrowser : public EditorWindow
 {
@@ -45,6 +46,7 @@ private:
     EditorPopupModalRenameFolder* renameFolderPopupModal;
     EditorPopupModalRenameAsset* renameAssetPopupModal;
     EditorPopupModalDuplicateAsset* duplicateAssetPopupModal;
+    EditorPopupModalError* errorPopupModal;
 
     const char* fileNames[];
     
@@ -64,6 +66,7 @@ private:
     void drawRenameFolderPopup();
     void drawRenameAssetPopup();
     void drawDuplicateAssetPopup();
+    void drawErrorPopup();
     void drawPopups();
 
 };

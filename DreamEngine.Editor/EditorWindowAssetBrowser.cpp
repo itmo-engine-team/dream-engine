@@ -13,8 +13,7 @@ EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     assetTree = editor->GetAssetManager()->GetContentAssetTree();
     assetManager = editor->GetAssetManager();
 
-    currentParentNode = assetTree->GetRootNode();
-    assetPath = AssetService::CreateFolderPath(currentParentNode);
+    setCurrentParentNode(assetTree->GetRootNode());
 
     iconFolder = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/folder.png").c_str());
     iconFile = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/file.png").c_str());
@@ -215,13 +214,13 @@ void EditorWindowAssetBrowser::drawDeleteAssetPopup()
     {
         auto result = assetManager->RemoveAsset(currentAssetNode);
 
-        if (!result.isSuccess)
+        if (result.isSuccess)
         {
-            errorPopupModal = new EditorPopupModalError(result.error);
+            currentAssetNode = nullptr;
         }
         else
         {
-            currentAssetNode = nullptr;
+            errorPopupModal = new EditorPopupModalError(result.error);
         }
     }
 

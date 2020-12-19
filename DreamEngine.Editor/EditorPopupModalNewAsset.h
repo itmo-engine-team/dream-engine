@@ -24,8 +24,9 @@ protected:
 
     std::string assetNamePublic;
     std::string* tempStrMass;
-    
+
     AssetType selectedAssetType;
+
     void onDrawPopup() override;
     bool onFinish() override;
 

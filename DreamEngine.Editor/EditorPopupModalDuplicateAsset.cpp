@@ -2,7 +2,7 @@
 
 #include "imgui.h"
 
-EditorPopupModalDuplicateAsset::EditorPopupModalDuplicateAsset(AssetNode* currentAsset)
+EditorPopupModalDuplicateAsset::EditorPopupModalDuplicateAsset(AssetNode* assetNode)
     : EditorPopupModal("Duplicate Asset")
 {
 

@@ -8,6 +8,11 @@ std::string EditorPopupModalNewAsset::GetAssetName()
     return assetNamePublic;
 }
 
+AssetType EditorPopupModalNewAsset::GetAssetType()
+{
+    return selectedAssetType;
+}
+
 EditorPopupModalNewAsset::EditorPopupModalNewAsset(FolderNode* parentFolderNode)
     : EditorPopupModalFolderBase("New Asset", parentFolderNode)
 {

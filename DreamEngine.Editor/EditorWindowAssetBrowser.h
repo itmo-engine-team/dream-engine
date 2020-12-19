@@ -50,6 +50,8 @@ private:
 
     const char* fileNames[];
     
+    void setCurrentParentNode(FolderNode* currentParentNode);
+
     void drawFilter();
     void drawFolderContextMenu(FolderNode* selectedFolderNode);
     void drawAssetContextMenu(AssetNode* selectedAssetNode);

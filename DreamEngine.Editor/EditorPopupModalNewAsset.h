@@ -15,8 +15,8 @@ public:
 
     std::string GetAssetName();
 
-    // TODO move to protected
-    AssetType selectedAssetType;
+    AssetType GetAssetType();
+    
 
 protected:
 
@@ -24,7 +24,8 @@ protected:
 
     std::string assetNamePublic;
     std::string* tempStrMass;
-
+    
+    AssetType selectedAssetType;
     void onDrawPopup() override;
     bool onFinish() override;
 

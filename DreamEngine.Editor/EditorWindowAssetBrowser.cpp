@@ -24,7 +24,7 @@ EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
 
 void EditorWindowAssetBrowser::Update()
 {
-    assetPath = AssetService::CreateFolderPath(currentParentNode);
+
 }
 
 void EditorWindowAssetBrowser::Render()
@@ -55,6 +55,12 @@ void EditorWindowAssetBrowser::Render()
     ImGui::End();
 
     drawPopups();
+}
+
+void EditorWindowAssetBrowser::setCurrentParentNode(FolderNode* newParentNode)
+{
+    currentParentNode = newParentNode;
+    assetPath = AssetService::CreateFolderPath(currentParentNode);
 }
 
 void EditorWindowAssetBrowser::drawFilter()
@@ -107,7 +113,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
     {
         if (ImGui::Selectable("Open"))
         {
-
+            //TODO: open asset
         }
 
         if (ImGui::Selectable("Delete"))
@@ -140,7 +146,7 @@ void EditorWindowAssetBrowser::drawNewAssetPopup()
     if (newAssetPopupModal->GetResult())
     {
         auto result = assetManager->CreateAsset(
-            newAssetPopupModal->selectedAssetType,
+            newAssetPopupModal->GetAssetType(),
             newAssetPopupModal->GetAssetName(),
             newAssetPopupModal->GetFolderNode()
         );
@@ -188,7 +194,7 @@ void EditorWindowAssetBrowser::drawDeleteFolderPopup()
 
        if (result.isSuccess)
        {
-           currentParentNode = assetTree->GetRootNode();
+           setCurrentParentNode(assetTree->GetRootNode());
        }
        else
        {
@@ -212,6 +218,10 @@ void EditorWindowAssetBrowser::drawDeleteAssetPopup()
         if (!result.isSuccess)
         {
             errorPopupModal = new EditorPopupModalError(result.error);
+        }
+        else
+        {
+            currentAssetNode = nullptr;
         }
     }
 
@@ -283,7 +293,6 @@ void EditorWindowAssetBrowser::drawErrorPopup()
 
     delete errorPopupModal;
     errorPopupModal = nullptr;
-
 }
 
 void EditorWindowAssetBrowser::drawPopups()
@@ -314,7 +323,7 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
         ImGui::BeginGroup();
         if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize))
         {
-            currentParentNode = parentNode->GetChildFolderList()[i];
+            setCurrentParentNode(parentNode->GetChildFolderList()[i]);
         }
         
         drawFolderContextMenu(parentNode->GetChildFolderList()[i]);
@@ -385,8 +394,8 @@ void EditorWindowAssetBrowser::drawCommandMenu()
     ImGui::SameLine();*/
     if (ImGui::Button("Back"))
     {
-        if(currentParentNode->GetName() != "Content")
-            currentParentNode = currentParentNode->GetParent();
+        if (currentParentNode->GetParent() != nullptr)
+            setCurrentParentNode(currentParentNode->GetParent());
     }
 }
 
@@ -411,12 +420,12 @@ void EditorWindowAssetBrowser::drawFolderTreeNode(FolderNode* folderNode, int le
 
         if (ImGui::IsItemClicked())
         {
-            currentParentNode = folderNode;
+            setCurrentParentNode(folderNode);
         }
 
         treeExpanded = true;
-        
-        assetPath = AssetService::CreateFolderPath(currentParentNode);
+
+        setCurrentParentNode(currentParentNode);
 
         drawFolderContextMenu(folderNode);
 
@@ -424,15 +433,13 @@ void EditorWindowAssetBrowser::drawFolderTreeNode(FolderNode* folderNode, int le
         {
             drawFolderTreeNode(childFolderNode, level + 1);
         }
-
-        //ImGui::TreePop();
     }
 
     if (!treeExpanded)
     {
         if (ImGui::IsItemClicked())
         {
-            currentParentNode = folderNode;
+            setCurrentParentNode(folderNode);
         }
 
         drawFolderContextMenu(folderNode);

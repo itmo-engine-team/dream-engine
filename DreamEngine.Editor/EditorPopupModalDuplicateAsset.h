@@ -9,7 +9,7 @@ class EditorPopupModalDuplicateAsset : public EditorPopupModal
 
 public:
 
-    EditorPopupModalDuplicateAsset(AssetNode* currentAsset);
+    EditorPopupModalDuplicateAsset(AssetNode* assetNode);
     std::string GetNewAssetName();
 
 protected:

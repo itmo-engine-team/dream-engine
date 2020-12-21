@@ -146,6 +146,7 @@
     <ClCompile Include="ACF_AI.cpp" />
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ActorComponentFixed.cpp" />
+    <ClCompile Include="SceneActorInfo.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="A_Spectator.cpp" />
     <ClCompile Include="ACS_StaticModel.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="TransformInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -162,6 +164,9 @@
     <ClInclude Include="ACF_AI.h" />
     <ClInclude Include="ACS_Camera.h" />
     <ClInclude Include="ActorComponentFixed.h" />
+    <ClInclude Include="ActorFactory.h" />
+    <ClInclude Include="SceneActorInfo.h" />
+    <ClInclude Include="ActorType.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="GameObject.h" />
@@ -172,6 +177,7 @@
     <ClInclude Include="A_Spectator.h" />
     <ClInclude Include="ACS_StaticModel.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="TransformInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4f8f70b5-5d50-4d12-b92c-130fe22131db}</ProjectGuid>
-    <RootNamespace>DreamEngineGame</RootNamespace>
+    <ProjectGuid>{eb08833f-628a-4dda-a527-db0010026c87}</ProjectGuid>
+    <RootNamespace>DreamEngineGameAssets</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -116,7 +116,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Game.BehaviorTree;$(SolutionDir)DreamEngine.Game.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -141,55 +140,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="ActorComponent.cpp" />
-    <ClCompile Include="ACF_AI.cpp" />
-    <ClCompile Include="ACS_Camera.cpp" />
-    <ClCompile Include="ActorComponentFixed.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameAssetManager.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="A_Light.cpp" />
-    <ClCompile Include="ACS_Light.cpp" />
-    <ClCompile Include="ActorComponentScene.cpp" />
-    <ClCompile Include="A_Spectator.cpp" />
-    <ClCompile Include="ACS_StaticModel.cpp" />
-    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="SceneActorInfo.cpp" />
+    <ClCompile Include="TransformInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="ActorComponent.h" />
-    <ClInclude Include="ACF_AI.h" />
-    <ClInclude Include="ACS_Camera.h" />
-    <ClInclude Include="ActorComponentFixed.h" />
-    <ClInclude Include="ActorFactory.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameAssetManager.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="A_Light.h" />
-    <ClInclude Include="ACS_Light.h" />
-    <ClInclude Include="MathUtils.h" />
-    <ClInclude Include="ActorComponentScene.h" />
-    <ClInclude Include="A_Spectator.h" />
-    <ClInclude Include="ACS_StaticModel.h" />
-    <ClInclude Include="Transform.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
-      <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Game.Assets\DreamEngine.Game.Assets.vcxproj">
-      <Project>{eb08833f-628a-4dda-a527-db0010026c87}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Game.BehaviorTree\DreamEngine.Game.BehaviorTree.vcxproj">
-      <Project>{e6f2d4c3-b745-463e-ba3c-d2f781e41047}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
-      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
-      <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
-    </ProjectReference>
+    <ClInclude Include="ActorType.h" />
+    <ClInclude Include="SceneActorInfo.h" />
+    <ClInclude Include="TransformInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

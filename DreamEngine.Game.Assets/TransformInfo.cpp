@@ -14,8 +14,3 @@ void TransformInfo::SetPosition(Vector3 pos)
 {
     position = pos;
 }
-
-Transform* TransformInfo::CreateTransform() const
-{
-    return new Transform(position);
-}

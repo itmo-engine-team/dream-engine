@@ -1,10 +1,7 @@
 #pragma once
 
-#include "SimpleMath.h"
 #include "ActorType.h"
 #include "TransformInfo.h"
-
-using namespace DirectX::SimpleMath;
 
 class SceneActorInfo
 {

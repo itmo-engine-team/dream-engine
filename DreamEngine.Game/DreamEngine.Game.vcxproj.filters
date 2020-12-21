@@ -87,12 +87,6 @@
     <ClCompile Include="A_Spectator.cpp">
       <Filter>Source Files\Actor\Inherited</Filter>
     </ClCompile>
-    <ClCompile Include="TransformInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneActorInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -140,16 +134,7 @@
     <ClInclude Include="A_Spectator.h">
       <Filter>Header Files\Actor\Inherited</Filter>
     </ClInclude>
-    <ClInclude Include="ActorType.h">
-      <Filter>Header Files\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="ActorFactory.h">
-      <Filter>Header Files\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneActorInfo.h">
       <Filter>Header Files\Actor</Filter>
     </ClInclude>
   </ItemGroup>

@@ -87,7 +87,7 @@ public:
 
     virtual Actor* Create(Game* game, SceneActorInfo* actorInfo)
     {
-        return new Actor(game, actorInfo);
+        return new Actor(game, new Transform());
     }
 
 };

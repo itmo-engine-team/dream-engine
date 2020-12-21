@@ -9,7 +9,7 @@ public:
     GameObject(Game* game);
     virtual ~GameObject() = default;
 
-    void Init();
+    virtual void Init();
 
 protected:
 

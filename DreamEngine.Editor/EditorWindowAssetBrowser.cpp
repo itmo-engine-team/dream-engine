@@ -363,8 +363,10 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
         ImGui::PushID(i);
 
         ImGui::BeginGroup();
-        iconActor = setAssetIconType(parentNode->GetChildAssetList()[i]);
-        if (ImGui::ImageButton(iconActor->GetShaderResourceView(), buttonSize))
+
+        iconAsset = setAssetIconType(parentNode->GetChildAssetList()[i]);
+
+        if (ImGui::ImageButton(iconAsset->GetShaderResourceView(), buttonSize))
         {
             currentAssetNode = parentNode->GetChildAssetList()[i];
         }

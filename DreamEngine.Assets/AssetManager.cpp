@@ -55,6 +55,12 @@ AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const st
             return { false, assetNode, "This name is already exist in folder" };
     }
 
+    if (isDebugTree)
+    {
+        contentAssetTree->RenameAssetNode(assetNode, newName);
+        return { true, assetNode };
+    }
+
     AssetModificationResult result = AssetService::RenameAsset(assetNode, newName);
     if (!result.isSuccess)
         return result;
@@ -148,12 +154,18 @@ FolderModificationResult AssetManager::RenameFolder(FolderNode* folderNode, cons
             return { false, folderNode, "Folder with this name is already exist" };
     }
 
+    if (isDebugTree)
+    {
+        contentAssetTree->RenameFolderNode(folderNode, newName);
+        return { true, folderNode };
+    }
+
     FolderModificationResult result = AssetService::RenameFolder(folderNode, newName);
     if (!result.isSuccess)
         return result;
 
     contentAssetTree->RenameFolderNode(folderNode, newName);
-    return { false, folderNode, "Not Implemented Yet" };
+    return { true, folderNode };
 }
 
 FolderModificationResult AssetManager::MoveFolder(FolderNode* folderNode, FolderNode* newParentFolderNode)
@@ -197,7 +209,16 @@ void AssetManager::initAssetTree(AssetTree* assetTree)
         {
             if (assetNode->GetAssetInfo() != nullptr)
             {
-                addAssetInfoToMap(assetNode->GetAssetInfo());
+                const bool result = addAssetInfoToMap(assetNode->GetAssetInfo());
+                if (result)
+                {
+                    idSet.insert(assetNode->GetAssetInfo()->GetId());
+                }
+                else
+                {
+                    ErrorLogger::Log(Error,
+                        "AssetInfo " + assetNode->GetName() + " id is not uniq");
+                }
             }
             else
             {
@@ -217,19 +238,19 @@ AssetModificationResult AssetManager::addNewAsset(AssetInfo* assetInfo, FolderNo
 {
     // Generate id
     const auto newId = generateNewId();
-    idSet.insert(newId);
     assetInfo->setId(newId);
 
     // Add asset to map
     const bool isAddedToMap = addAssetInfoToMap(assetInfo);
     if (!isAddedToMap)
     {
-        idSet.erase(newId);
         delete assetInfo;
         assetInfo = nullptr;
 
         return { false, nullptr, "Error while generating id for new asset" };
     }
+
+    idSet.insert(newId);
 
     AssetModificationResult result = contentAssetTree->CreateAssetNode(
         assetInfo, assetInfo->GetName(), parentFolderNode);
@@ -272,5 +293,5 @@ unsigned int AssetManager::generateNewId() const
 {
     const unsigned int newId = $ID();
 
-    return newId > 0 && idSet.find(newId) == idSet.end() ? newId : generateNewId();
+    return idSet.find(newId) == idSet.end() ? newId : generateNewId();
 }

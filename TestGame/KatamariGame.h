@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Game.h"
-#include "SpectatorActor.h"
+#include "A_Spectator.h"
 #include "KatamariSphere.h"
-#include "CameraComponent.h"
-#include "LightComponent.h"
-#include "StaticModelComponent.h"
-#include "LightActor.h"
+#include "ACS_Camera.h"
+#include "ACS_Light.h"
+#include "ACS_StaticModel.h"
+#include "A_Light.h"
 
 class KatamariGame : public Game
 {
@@ -19,16 +19,16 @@ public:
     void Update(float engineDeltaTime) override;
     void Render() override;
 
-    CameraComponent* GetCamera() const override;
-    LightComponent* GetLight() const override;
+    ACS_Camera* GetCamera() const override;
+    ACS_Light* GetLight() const override;
 
 private:
 
-    SpectatorActor* spectatorActor;
-    LightActor* lightActor;
+    A_Spectator* spectatorActor;
+    A_Light* lightActor;
 
     KatamariSphere* katamariPlayer;
-    StaticModelComponent* playerSphere;
+    ACS_StaticModel* playerSphere;
 
     Actor* plane;
     Actor* box1;

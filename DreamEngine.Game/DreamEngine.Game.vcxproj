@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{5A212C89-7019-4D54-8A3F-8243B5E8583C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TestGame</RootNamespace>
+    <ProjectGuid>{4f8f70b5-5d50-4d12-b92c-130fe22131db}</ProjectGuid>
+    <RootNamespace>DreamEngineGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -70,39 +70,20 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Game;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -115,8 +96,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -131,10 +110,22 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Game.BehaviorTree;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -150,23 +141,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="KatamariGame.cpp" />
-    <ClCompile Include="KatamariSphere.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="ActorComponent.cpp" />
+    <ClCompile Include="ACF_AI.cpp" />
+    <ClCompile Include="ACS_Camera.cpp" />
+    <ClCompile Include="ActorComponentFixed.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameAssetManager.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="A_Light.cpp" />
+    <ClCompile Include="ACS_Light.cpp" />
+    <ClCompile Include="ActorComponentScene.cpp" />
+    <ClCompile Include="A_Spectator.cpp" />
+    <ClCompile Include="ACS_StaticModel.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KatamariGame.h" />
-    <ClInclude Include="KatamariSphere.h" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorComponent.h" />
+    <ClInclude Include="ACF_AI.h" />
+    <ClInclude Include="ACS_Camera.h" />
+    <ClInclude Include="ActorComponentFixed.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameAssetManager.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="A_Light.h" />
+    <ClInclude Include="ACS_Light.h" />
+    <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="ActorComponentScene.h" />
+    <ClInclude Include="A_Spectator.h" />
+    <ClInclude Include="ACS_StaticModel.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
-      <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
       <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Game\DreamEngine.Game.vcxproj">
-      <Project>{4f8f70b5-5d50-4d12-b92c-130fe22131db}</Project>
+    <ProjectReference Include="..\DreamEngine.Game.BehaviorTree\DreamEngine.Game.BehaviorTree.vcxproj">
+      <Project>{e6f2d4c3-b745-463e-ba3c-d2f781e41047}</Project>
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
       <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
@@ -174,28 +186,18 @@
     <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
       <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DreamEngine\DreamEngine.vcxproj">
-      <Project>{c53678ba-fba5-4bea-889f-46b846cc0a0e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
-      <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets" Condition="Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" />
-    <Import Project="..\packages\Assimp.3.0.0\build\native\Assimp.targets" Condition="Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" />
     <Import Project="..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.redist.3.0.0\build\native\Assimp.redist.targets'))" />
-    <Error Condition="!Exists('..\packages\Assimp.3.0.0\build\native\Assimp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Assimp.3.0.0\build\native\Assimp.targets'))" />
     <Error Condition="!Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets'))" />
   </Target>
 </Project>

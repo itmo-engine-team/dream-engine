@@ -18,31 +18,12 @@ void ActorComponent::Update()
     // Trigger event AfterUpdate
 }
 
-void ActorComponent::Draw()
-{
-    onDraw();
-}
-
-void ActorComponent::DrawShadowMap()
-{
-    onDrawShadowMap();
-}
-
 void ActorComponent::onInit()
 {
 
 }
 
 void ActorComponent::onUpdate()
-{
-
-}
-
-void ActorComponent::onDraw()
-{
-}
-
-void ActorComponent::onDrawShadowMap()
 {
 
 }

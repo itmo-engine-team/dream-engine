@@ -1,7 +1,8 @@
 #include "Actor.h"
 
-#include "Engine.h"
 #include "SimpleMath.h"
+
+#include "Game.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -9,6 +10,17 @@ Actor::Actor(Game* game, Transform* transform)
     : GameObject(game), transform(transform)
 {
 
+}
+
+void Actor::Init()
+{
+    GameObject::Init();
+
+    // Update components
+    for (auto component : components)
+    {
+        component->Init();
+    }
 }
 
 void Actor::Update()
@@ -20,14 +32,12 @@ void Actor::Update()
     {
         component->Update();
     }
-
-    // Trigger event AfterUpdate
 }
 
 void Actor::Draw()
 {
     // Draw components
-    for (auto component : components)
+    for (auto component : sceneComponents)
     {
         component->Draw();
     }
@@ -36,7 +46,7 @@ void Actor::Draw()
 void Actor::DrawShadowMap()
 {
     // Draw shadow map for components
-    for (auto component : components)
+    for (auto component : sceneComponents)
     {
         component->DrawShadowMap();
     }
@@ -52,8 +62,15 @@ Transform* Actor::GetTransform() const
     return transform;
 }
 
-void Actor::AddComponent(ActorComponent* component)
+void Actor::AddFixedComponent(ActorComponentFixed* component)
 {
+    fixedComponents.push_back(component);
+    components.push_back(component);
+}
+
+void Actor::AddSceneComponent(ActorComponentScene* component)
+{
+    sceneComponents.push_back(component);
     components.push_back(component);
 }
 

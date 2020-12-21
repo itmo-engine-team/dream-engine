@@ -1,11 +1,15 @@
 #pragma once
 
-#include "BTGameNode.h"
+#include "BTGameNodeComposite.h"
 
-class BTGameNodeSequence : public BTGameNode
+class BTGameNodeSequence : public BTGameNodeComposite
 {
 
 public:
+
+    BTGameNodeSequence() = delete;
+    BTGameNodeSequence(BTGameNodeRoot* parentNode);
+    BTGameNodeSequence(BTGameNodeComposite* parentNode);
 
     bool Run() override;
 };

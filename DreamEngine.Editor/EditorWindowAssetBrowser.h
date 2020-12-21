@@ -60,6 +60,7 @@ private:
     const char* fileNames[];
     
     void setCurrentParentNode(FolderNode* currentParentNode);
+
     Texture* setAssetIconType(AssetNode* currentAssetNode);
 
     void drawFilter();

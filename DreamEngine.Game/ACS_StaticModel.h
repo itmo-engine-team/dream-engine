@@ -1,15 +1,15 @@
 #pragma once
 
-#include "SceneComponent.h"
+#include "ActorComponentScene.h"
 #include "ModelData.h"
 #include "MeshObject.h"
 
-class StaticModelComponent : public SceneComponent
+class ACS_StaticModel : public ActorComponentScene
 {
 
 public:
 
-    StaticModelComponent(Game* game, Actor* actor, Transform* transform, ModelData* modelData);
+    ACS_StaticModel(Game* game, Actor* actor, Transform* transform, ModelData* modelData);
 
 protected:
 

@@ -23,6 +23,9 @@
     <ClInclude Include="Serializable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JsonUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

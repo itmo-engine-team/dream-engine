@@ -1,8 +1,6 @@
 #pragma once
 
-#include "nlohmann/json.hpp"
-
-using Json = nlohmann::json;
+#include "JsonUtils.h"
 
 class AssetService;
 
@@ -26,7 +24,7 @@ protected:
         if (json.contains(varName))
             *var = json[varName].get<type>();
         else
-            log(varName + " not found in json file");
+            log(varName + " not found in json file\n" + json.dump());
     }
 
     void log(std::string message);

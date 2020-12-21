@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "GameAssetManager.h"
+#include "Scene.h"
 
 Game::Game()
 {
@@ -32,27 +33,50 @@ void Game::Update(const float engineDeltaTime)
 {
     this->engineDeltaTime = engineDeltaTime;
 
-    for (auto actor : gameAssetManager->GetActors())
+    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
-        actor->Update();
+        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        {
+            actor->Update();
+        }
     }
 }
 
 void Game::Render()
 {
-    for (auto actor : gameAssetManager->GetActors())
+    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
-        actor->Draw();
+        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        {
+            actor->Draw();
+        }
     }
 }
 
 void Game::RenderShadowMap() 
 {
-    
-    for (auto actor : gameAssetManager->GetActors())
+    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
-        actor->DrawShadowMap();
+        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        {
+            actor->DrawShadowMap();
+        }
     }
+}
+
+void Game::LoadScene(SceneAssetInfo* sceneInfo)
+{
+    if (currentScene != nullptr)
+    {
+        delete currentScene;
+    }
+
+    currentScene = new Scene(this, sceneInfo);
+}
+
+Scene* Game::GetCurrentScene() const
+{
+    return currentScene;
 }
 
 void Game::SetGameDeltaTimeMultiplier(float deltaTimeMultiplier)

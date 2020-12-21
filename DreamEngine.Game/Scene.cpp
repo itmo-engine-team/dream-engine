@@ -19,3 +19,8 @@ Scene::~Scene()
         delete room;
     }
 }
+
+SceneRoom* Scene::GetCurrentRoom() const
+{
+    return currentRoom;
+}

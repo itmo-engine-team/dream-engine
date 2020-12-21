@@ -14,6 +14,8 @@ public:
     Scene(Game* game, SceneAssetInfo* sceneInfo);
     ~Scene();
 
+    SceneRoom* GetCurrentRoom() const;
+
 protected:
 
     SceneRoom* currentRoom;

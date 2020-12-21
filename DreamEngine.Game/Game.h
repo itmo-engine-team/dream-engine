@@ -4,8 +4,10 @@
 #include "ACS_Light.h"
 #include "InputSystem.h"
 
+class SceneAssetInfo;
 class Graphics;
 class GameAssetManager;
+class Scene;
 
 class Game
 {
@@ -25,6 +27,9 @@ public:
     virtual void Render();
     void RenderShadowMap();
 
+    void LoadScene(SceneAssetInfo* sceneInfo);
+    Scene* GetCurrentScene() const;
+
     void SetGameDeltaTimeMultiplier(float deltaTimeMultiplier);
     float GetGameDeltaTimeMultiplier();
     float GetGameDeltaTime();
@@ -35,6 +40,8 @@ protected:
     Graphics* graphics;
 
     GameAssetManager* gameAssetManager;
+
+    Scene* currentScene;
 
     float engineDeltaTime;
     float gameDeltaTimeMultiplier = 1;

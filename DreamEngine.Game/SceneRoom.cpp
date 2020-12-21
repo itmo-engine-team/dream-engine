@@ -24,3 +24,8 @@ void SceneRoom::AddActor(Actor* actor)
 {
     actors.push_back(actor);
 }
+
+const std::vector<Actor*>& SceneRoom::GetActors() const
+{
+    return actors;
+}

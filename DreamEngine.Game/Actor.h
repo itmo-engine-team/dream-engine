@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "ActorComponentScene.h"
 #include "ActorComponentFixed.h"
+#include "SceneActorInfo.h"
 
 class SceneActorInfo;
 class Game;
@@ -87,7 +88,7 @@ public:
 
     virtual Actor* Create(Game* game, SceneActorInfo* actorInfo)
     {
-        return new Actor(game, new Transform());
+        return new Actor(game, new Transform(actorInfo->GetTransformInfo()->GetPosition()));
     }
 
 };

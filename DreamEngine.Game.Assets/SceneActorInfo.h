@@ -2,8 +2,9 @@
 
 #include "ActorType.h"
 #include "TransformInfo.h"
+#include "Serializable.h"
 
-class SceneActorInfo
+class SceneActorInfo : Serializable
 {
 
 public:
@@ -19,6 +20,9 @@ protected:
     ActorType type = ActorType::Actor;
 
     TransformInfo* transformInfo;
+
+    Json toJson() override;
+    void fromJson(Json json) override;
 
 };
 

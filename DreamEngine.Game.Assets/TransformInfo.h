@@ -5,6 +5,8 @@
 
 using namespace DirectX::SimpleMath;
 
+class SceneActorInfo;
+
 class TransformInfo : Serializable
 {
 
@@ -16,6 +18,8 @@ public:
     void SetPosition(Vector3 pos);
 
 protected:
+
+    friend class SceneActorInfo;
 
     Json toJson() override;
     void fromJson(Json json) override;

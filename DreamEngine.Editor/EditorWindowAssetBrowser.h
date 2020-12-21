@@ -61,7 +61,7 @@ private:
     
     void setCurrentParentNode(FolderNode* currentParentNode);
 
-    Texture* setAssetIconType(AssetNode* currentAssetNode);
+    Texture* getAssetIconType(AssetNode* currentAssetNode);
 
     void drawFilter();
     void drawFolderContextMenu(FolderNode* selectedFolderNode);

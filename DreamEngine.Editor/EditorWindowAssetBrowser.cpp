@@ -75,7 +75,7 @@ void EditorWindowAssetBrowser::setCurrentParentNode(FolderNode* newParentNode)
     assetPath = AssetService::CreateFolderPath(currentParentNode);
 }
 
-Texture* EditorWindowAssetBrowser::setAssetIconType(AssetNode* currentAssetNode)
+Texture* EditorWindowAssetBrowser::getAssetIconType(AssetNode* currentAssetNode)
 {
     return MAP_ASSET_TYPE_TO_TEXTURE.find(currentAssetNode->GetAssetInfo()->GetAssetType())->second;
 }
@@ -364,7 +364,7 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
 
         ImGui::BeginGroup();
 
-        iconAsset = setAssetIconType(parentNode->GetChildAssetList()[i]);
+        iconAsset = getAssetIconType(parentNode->GetChildAssetList()[i]);
 
         if (ImGui::ImageButton(iconAsset->GetShaderResourceView(), buttonSize))
         {

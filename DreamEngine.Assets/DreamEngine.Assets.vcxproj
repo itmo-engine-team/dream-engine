@@ -153,6 +153,7 @@
     <ClInclude Include="AssetTree.h" />
     <ClInclude Include="Libraries\id.hpp" />
     <ClInclude Include="ModelAssetInfo.h" />
+    <ClInclude Include="SceneAssetInfo.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="TextureAssetInfo.h" />
     <ClInclude Include="TreeModificationResult.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="FolderNode.cpp" />
     <ClCompile Include="AssetService.cpp" />
     <ClCompile Include="ModelAssetInfo.cpp" />
+    <ClCompile Include="SceneAssetInfo.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="TextureAssetInfo.cpp" />
   </ItemGroup>

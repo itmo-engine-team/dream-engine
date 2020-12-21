@@ -6,6 +6,7 @@
 #include "ActorAssetInfo.h"
 #include "TextureAssetInfo.h"
 #include "ModelAssetInfo.h"
+#include "SceneAssetInfo.h"
 
 class AssetInfoFactory
 {
@@ -50,6 +51,7 @@ private:
 
     inline static std::unordered_map<AssetType, AssetInfoCreator*> creators = {
         { AssetType::Actor, new ActorAssetInfoCreator() }, 
+        { AssetType::Scene, new SceneAssetInfoCreator() }, 
         { AssetType::Model, new ModelAssetInfoCreator() }, 
         { AssetType::Texture, new TextureAssetInfoCreator() }, 
     };

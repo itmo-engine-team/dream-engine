@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 
 #include "EditorWindow.h"
 #include "Texture.h"
@@ -36,8 +37,16 @@ private:
     Texture* iconFile;
     Texture* iconFilter;
     Texture* iconAsset;
+    Texture* iconActor;
+    Texture* iconScene;
+    Texture* iconModel;
+    Texture* iconTexture;
+    Texture* iconBT;
+    Texture* iconBP;
 
     std::string assetPath;
+
+    std::map<AssetType, Texture*> MAP_ASSET_TYPE_TO_TEXTURE;
 
     EditorPopupModalNewAsset* newAssetPopupModal;
     EditorPopupModalNewFolder* newFolderPopupModal;
@@ -51,6 +60,8 @@ private:
     const char* fileNames[];
     
     void setCurrentParentNode(FolderNode* currentParentNode);
+
+    Texture* getAssetIconType(AssetNode* currentAssetNode);
 
     void drawFilter();
     void drawFolderContextMenu(FolderNode* selectedFolderNode);

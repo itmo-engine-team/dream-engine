@@ -19,6 +19,19 @@ EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     iconFile = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/file.png").c_str());
     iconFilter = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/filter.png").c_str());
     iconAsset = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/asset.png").c_str());
+    iconActor = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/actorIcon.png").c_str());
+    iconScene = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/sceneIcon.png").c_str());
+    iconModel = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/modelIcon.png").c_str());
+    iconTexture = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/textureIcon.png").c_str());
+    iconBP = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/blueprintIcon.png").c_str());
+    iconBT = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/btIcon.png").c_str());
+
+    MAP_ASSET_TYPE_TO_TEXTURE = {
+       { AssetType::Actor, iconActor },
+       { AssetType::Scene, iconScene },
+       { AssetType::Model, iconModel },
+       { AssetType::Texture, iconTexture },
+    };
 }
 
 void EditorWindowAssetBrowser::Update()
@@ -60,6 +73,11 @@ void EditorWindowAssetBrowser::setCurrentParentNode(FolderNode* newParentNode)
 {
     currentParentNode = newParentNode;
     assetPath = AssetService::CreateFolderPath(currentParentNode);
+}
+
+Texture* EditorWindowAssetBrowser::getAssetIconType(AssetNode* currentAssetNode)
+{
+    return MAP_ASSET_TYPE_TO_TEXTURE.find(currentAssetNode->GetAssetInfo()->GetAssetType())->second;
 }
 
 void EditorWindowAssetBrowser::drawFilter()
@@ -345,6 +363,9 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
         ImGui::PushID(i);
 
         ImGui::BeginGroup();
+
+        iconAsset = getAssetIconType(parentNode->GetChildAssetList()[i]);
+
         if (ImGui::ImageButton(iconAsset->GetShaderResourceView(), buttonSize))
         {
             currentAssetNode = parentNode->GetChildAssetList()[i];

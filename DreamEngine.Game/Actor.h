@@ -7,7 +7,7 @@
 #include "ActorComponentScene.h"
 #include "ActorComponentFixed.h"
 
-class ActorInfo;
+class SceneActorInfo;
 class Game;
 
 class Actor : public GameObject
@@ -85,9 +85,9 @@ public:
 
     virtual ~ActorCreator() = default;
 
-    virtual Actor* Create(const ActorInfo* actorInfo)
+    virtual Actor* Create(Game* game, SceneActorInfo* actorInfo)
     {
-        return new Actor();
+        return new Actor(game, actorInfo);
     }
 
 };

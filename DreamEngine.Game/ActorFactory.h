@@ -1,24 +1,23 @@
 #pragma once
 
 #include "Actor.h"
-#include "ActorInfo.h"
+#include "SceneActorInfo.h"
 
 class ActorFactory
 {
 
 public:
 
-    static Actor* Create(const ActorInfo* actorInfo)
+    static Actor* Create(Game* game, SceneActorInfo* actorInfo)
     {
-        return creators[actorInfo->GetType()]->Create(actorInfo);
+        return creators[actorInfo->GetType()]->Create(game, actorInfo);
     }
 
 protected:
 
     inline static std::unordered_map<ActorType, ActorCreator*> creators = {
-        //{  ,  },
-        
+        { ActorType::Actor , new ActorCreator() },
     };
-
+    
 };
 

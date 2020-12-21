@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AssetInfo.h"
+#include "SceneActorInfo.h"
 
 class SceneAssetInfo : public AssetInfo
 {
@@ -14,6 +15,10 @@ protected:
 
     Json toJson() override;
     void fromJson(Json json) override;
+
+private:
+
+    std::vector<SceneActorInfo*> actorInfoList;
 
 };
 

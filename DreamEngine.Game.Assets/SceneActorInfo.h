@@ -9,20 +9,25 @@ class SceneActorInfo : Serializable
 
 public:
 
-    SceneActorInfo(ActorType type);
+    SceneActorInfo(ActorType type = ActorType::Actor);
 
     ActorType GetType() const;
+    void SetType(ActorType type);
 
     TransformInfo* GetTransformInfo() const;
 
 protected:
 
-    ActorType type = ActorType::Actor;
-
-    TransformInfo* transformInfo;
+    friend class SceneAssetInfo;
 
     Json toJson() override;
     void fromJson(Json json) override;
+
+private:
+
+    ActorType type;
+
+    TransformInfo* transformInfo;
 
 };
 

@@ -122,7 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Game;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Editor;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Game;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Editor;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,6 +157,9 @@
     <ClCompile Include="Engine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Assets.Serializable\DreamEngine.Assets.Serializable.vcxproj">
+      <Project>{d131997f-85c7-4c03-a321-8641e3ef7e83}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
       <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
     </ProjectReference>

@@ -57,6 +57,9 @@
     <ClCompile Include="EditorWindowShadowViewport.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Assets.Serializable\DreamEngine.Assets.Serializable.vcxproj">
+      <Project>{d131997f-85c7-4c03-a321-8641e3ef7e83}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
       <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
     </ProjectReference>
@@ -196,7 +199,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</ProjectGuid>
-    <RootNamespace>DreamEngineAssets</RootNamespace>
+    <ProjectGuid>{d131997f-85c7-4c03-a321-8641e3ef7e83}</ProjectGuid>
+    <RootNamespace>DreamEngineAssetsSerializable</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -117,7 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Common</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Logger;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,45 +141,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ActorAssetInfo.h" />
-    <ClInclude Include="AssetInfoFactory.h" />
-    <ClInclude Include="AssetNode.h" />
-    <ClInclude Include="EngineConfigInfo.h" />
-    <ClInclude Include="FolderNode.h" />
-    <ClInclude Include="AssetInfo.h" />
-    <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="AssetService.h" />
-    <ClInclude Include="AssetType.h" />
-    <ClInclude Include="AssetTree.h" />
-    <ClInclude Include="Libraries\id.hpp" />
-    <ClInclude Include="ModelAssetInfo.h" />
-    <ClInclude Include="SceneAssetInfo.h" />
-    <ClInclude Include="TextureAssetInfo.h" />
-    <ClInclude Include="TreeModificationResult.h" />
+    <ClCompile Include="Serializable.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ActorAssetInfo.cpp" />
-    <ClCompile Include="AssetInfo.cpp" />
-    <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="AssetNode.cpp" />
-    <ClCompile Include="AssetTree.cpp" />
-    <ClCompile Include="EngineConfigInfo.cpp" />
-    <ClCompile Include="FolderNode.cpp" />
-    <ClCompile Include="AssetService.cpp" />
-    <ClCompile Include="ModelAssetInfo.cpp" />
-    <ClCompile Include="SceneAssetInfo.cpp" />
-    <ClCompile Include="TextureAssetInfo.cpp" />
+    <ClInclude Include="Serializable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DreamEngine.Assets.Serializable\DreamEngine.Assets.Serializable.vcxproj">
-      <Project>{d131997f-85c7-4c03-a321-8641e3ef7e83}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
-      <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
       <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
     </ProjectReference>

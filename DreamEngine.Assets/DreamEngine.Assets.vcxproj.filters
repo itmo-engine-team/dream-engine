@@ -45,9 +45,6 @@
     <ClInclude Include="AssetService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Serializable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AssetInfoFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,7 +73,7 @@
       <Filter>Header Files\AssetTree</Filter>
     </ClInclude>
     <ClInclude Include="SceneAssetInfo.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\AssetInfo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,11 +107,8 @@
     <ClCompile Include="AssetTree.cpp">
       <Filter>Source Files\AssetTree</Filter>
     </ClCompile>
-    <ClCompile Include="Serializable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SceneAssetInfo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\AssetInfo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

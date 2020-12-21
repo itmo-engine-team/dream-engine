@@ -1,7 +1,8 @@
 #pragma once
 
 #include "AssetInfo.h"
-#include "SceneActorInfo.h"
+
+class SceneRoomInfo;
 
 class SceneAssetInfo : public AssetInfo
 {
@@ -11,6 +12,8 @@ public:
     SceneAssetInfo();
     SceneAssetInfo(SceneAssetInfo& assetInfo);
 
+    const std::vector<SceneRoomInfo*>& GetRoomInfoList() const;
+
 protected:
 
     Json toJson() override;
@@ -18,7 +21,7 @@ protected:
 
 private:
 
-    std::vector<SceneActorInfo*> actorInfoList;
+    std::vector<SceneRoomInfo*> roomInfoList;
 
 };
 

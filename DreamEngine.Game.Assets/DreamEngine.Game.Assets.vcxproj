@@ -142,11 +142,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SceneActorInfo.cpp" />
+    <ClCompile Include="SceneRoomInfo.cpp" />
     <ClCompile Include="TransformInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActorType.h" />
     <ClInclude Include="SceneActorInfo.h" />
+    <ClInclude Include="SceneRoomInfo.h" />
     <ClInclude Include="TransformInfo.h" />
   </ItemGroup>
   <ItemGroup>

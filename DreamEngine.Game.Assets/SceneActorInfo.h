@@ -19,6 +19,7 @@ public:
 protected:
 
     friend class SceneAssetInfo;
+    friend class SceneRoomInfo;
 
     Json toJson() override;
     void fromJson(Json json) override;

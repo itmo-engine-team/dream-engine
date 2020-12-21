@@ -31,7 +31,7 @@ public:
 private:
 
     // Debug flag to use debug tree
-    bool isDebugTree = true;
+    bool isDebugTree = false;
 
     std::map<unsigned int, AssetInfo*> assetMap;
     std::set<unsigned int> idSet;

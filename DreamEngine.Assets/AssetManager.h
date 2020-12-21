@@ -26,14 +26,16 @@ public:
     FolderModificationResult RenameFolder(FolderNode* folderNode, const std::string& newName);
     FolderModificationResult MoveFolder(FolderNode* folderNode, FolderNode* newParentFolderNode);
 
-    AssetTree* GetContentAssetTree() const; 
+    AssetTree* GetContentAssetTree() const;
+
+    const std::map<unsigned int, AssetInfo*>& GetAssetMapByType(AssetType type) const;
 
 private:
 
     // Debug flag to use debug tree
     bool isDebugTree = false;
 
-    std::map<unsigned int, AssetInfo*> assetMap;
+    std::map<AssetType, std::map<unsigned int, AssetInfo*>> assetMap;
     std::set<unsigned int> idSet;
 
     AssetTree* contentAssetTree;

@@ -194,6 +194,11 @@ AssetTree* AssetManager::GetContentAssetTree() const
     return contentAssetTree;
 }
 
+const std::map<unsigned, AssetInfo*>& AssetManager::GetAssetMapByType(AssetType type) const
+{
+    return assetMap.find(type)->second;
+}
+
 void AssetManager::initAssetTree(AssetTree* assetTree)
 {
     std::queue<FolderNode*> folderQueue;
@@ -283,9 +288,10 @@ AssetModificationResult AssetManager::addNewAsset(AssetInfo* assetInfo, FolderNo
 
 bool AssetManager::addAssetInfoToMap(AssetInfo* assetInfo)
 {
-    if (assetMap.find(assetInfo->GetId()) != assetMap.end()) return false;
-
-    assetMap[assetInfo->GetId()] = assetInfo;
+    auto specificAssetMap = assetMap.find(assetInfo->GetAssetType())->second;
+    if (specificAssetMap.find(assetInfo->GetId()) != specificAssetMap.end()) return false;
+    
+    assetMap[assetInfo->GetAssetType()][assetInfo->GetId()] = assetInfo;
     return true;
 }
 

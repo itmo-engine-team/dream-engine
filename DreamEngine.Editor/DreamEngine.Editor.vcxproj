@@ -35,6 +35,7 @@
     <ClInclude Include="EditorWindowAssetBrowser.h" />
     <ClInclude Include="EditorWindowBehaviorTreeViewport.h" />
     <ClInclude Include="EditorWindowGameViewport.h" />
+    <ClInclude Include="EditorWindowSceneHierarchy.h" />
     <ClInclude Include="EditorWindowShadowViewport.h" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +55,7 @@
     <ClCompile Include="EditorWindowAssetBrowser.cpp" />
     <ClCompile Include="EditorWindowBehaviorTreeViewport.cpp" />
     <ClCompile Include="EditorWindowGameViewport.cpp" />
+    <ClCompile Include="EditorWindowSceneHierarchy.cpp" />
     <ClCompile Include="EditorWindowShadowViewport.cpp" />
   </ItemGroup>
   <ItemGroup>

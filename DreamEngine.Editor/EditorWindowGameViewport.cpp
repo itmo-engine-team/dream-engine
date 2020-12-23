@@ -27,8 +27,8 @@ void EditorWindowGameViewport::Render()
 void EditorWindowGameViewport::updateViewportSize()
 {
     ImVec2 windowSize = ImGui::GetWindowSize();
-    gameViewportSizeMultiplier = min(windowSize.x / GAME_VIEWPORT_RATION.x, windowSize.y / GAME_VIEWPORT_RATION.y);
-    gameViewportSize = ImVec2(GAME_VIEWPORT_RATION.x * gameViewportSizeMultiplier, GAME_VIEWPORT_RATION.y * gameViewportSizeMultiplier);
+    gameViewportSizeMultiplier = min(windowSize.x / GAME_VIEWPORT_RATIO.x, windowSize.y / GAME_VIEWPORT_RATIO.y);
+    gameViewportSize = ImVec2(GAME_VIEWPORT_RATIO.x * gameViewportSizeMultiplier, GAME_VIEWPORT_RATIO.y * gameViewportSizeMultiplier);
 }
 
 void EditorWindowGameViewport::renderGameEditorMenu()

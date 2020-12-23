@@ -18,7 +18,7 @@ public:
 
 private:
 
-    const ImVec2 GAME_VIEWPORT_RATION = ImVec2(16, 9);
+    const ImVec2 GAME_VIEWPORT_RATIO = ImVec2(16, 9);
     ImVec2 gameViewportSize;
 
     float gameViewportSizeMultiplier = 20;

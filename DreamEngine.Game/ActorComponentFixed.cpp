@@ -1,6 +1,6 @@
 #include "ActorComponentFixed.h"
 
-ActorComponentFixed::ActorComponentFixed(Game* game, Actor* actor) : ActorComponent(game, actor)
+ActorComponentFixed::ActorComponentFixed(ActorContext context, Actor* actor) : ActorComponent(context, actor)
 {
 
 }

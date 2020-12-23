@@ -9,7 +9,7 @@ class ACS_StaticModel : public ActorComponentScene
 
 public:
 
-    ACS_StaticModel(Game* game, Actor* actor, Transform* transform, ModelData* modelData);
+    ACS_StaticModel(ActorContext context, Actor* actor, Transform* transform, ModelData* modelData);
 
 protected:
 

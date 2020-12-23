@@ -1,6 +1,6 @@
 #include "ACF_AI.h"
 
-ACF_AI::ACF_AI(Game* game, Actor* actor) : ActorComponentFixed(game, actor)
+ACF_AI::ACF_AI(ActorContext context, Actor* actor) : ActorComponentFixed(context, actor)
 {   
     behaviorTree = new BehaviorTreeGame();
 }

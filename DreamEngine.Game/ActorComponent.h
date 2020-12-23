@@ -1,6 +1,7 @@
 #pragma once
 
-class Game;
+#include "ActorContext.h"
+
 class Actor;
 
 class ActorComponent
@@ -8,7 +9,7 @@ class ActorComponent
 
 public:
 
-    ActorComponent(Game* game, Actor* actor);
+    ActorComponent(ActorContext context, Actor* actor);
     virtual ~ActorComponent() = default;
 
     void Init();
@@ -16,7 +17,7 @@ public:
 
 protected:
 
-    Game* game;
+    ActorContext context;
     Actor* actor;
 
     virtual void onInit();

@@ -1,8 +1,13 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Game* game) : game(game)
+GameObject::GameObject(ActorContext context) : context(context)
 {
 
+}
+
+const ActorContext& GameObject::GetContext() const
+{
+    return context;
 }
 
 void GameObject::Init()

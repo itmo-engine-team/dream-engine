@@ -6,8 +6,8 @@
 
 using namespace DirectX::SimpleMath;
 
-Actor::Actor(Game* game, Transform* transform)
-    : GameObject(game), transform(transform)
+Actor::Actor(ActorContext context, Transform* transform)
+    : GameObject(), context(context), transform(transform)
 {
 
 }
@@ -55,6 +55,11 @@ void Actor::DrawShadowMap()
 bool Actor::IsActive() const
 {
     return isActive;
+}
+
+const ActorContext& Actor::GetContext() const
+{
+    return context;
 }
 
 Transform* Actor::GetTransform() const

@@ -6,13 +6,13 @@
 #include "CameraBuffer.h"
 #include "MeshObject.h"
 
-ACS_StaticModel::ACS_StaticModel(Game* game, Actor* actor,
+ACS_StaticModel::ACS_StaticModel(ActorContext context, Actor* actor,
     Transform* transform, ModelData* modelData)
-    : ActorComponentScene(game, actor, transform), modelData(modelData)
+    : ActorComponentScene(context, actor, transform), modelData(modelData)
 {
     for (auto meshData : modelData->GetMeshDataList())
     {
-        meshObjects.push_back(new MeshObject(game->GetGraphics(), meshData));
+        meshObjects.push_back(new MeshObject(context.graphics, meshData));
     }
 }
 

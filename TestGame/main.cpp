@@ -6,7 +6,6 @@
 #include <wrl.h>
 
 #include "Engine.h"
-#include "KatamariGame.h"
 
 using namespace Microsoft::WRL;
 
@@ -59,7 +58,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 
     inputSystem = new InputSystem();
 
-    engine = new Engine(new KatamariGame(), inputSystem, hInstance, wc);
+    engine = new Engine(inputSystem, hInstance, wc);
     engine->Init();
 
     MSG msg = {};

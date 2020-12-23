@@ -7,9 +7,7 @@
 EditorWindowGameViewport::EditorWindowGameViewport(Editor* editor)
     : EditorWindow("Game Viewport", editor)
 {
-    ImGuiIO& io = ImGui::GetIO();
-    io.ConfigFlags |= ImGuiWindowFlags_MenuBar;
-
+    
 }
 
 void EditorWindowGameViewport::Update()
@@ -19,7 +17,7 @@ void EditorWindowGameViewport::Update()
 
 void EditorWindowGameViewport::Render()
 {
-    ImGui::Begin("GameViewport");
+    ImGui::Begin("GameViewport", nullptr, ImGuiWindowFlags_MenuBar);
 
     renderGameEditorMenu();
 

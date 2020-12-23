@@ -4,10 +4,13 @@
 #include "Editor.h"
 #include "Graphics.h"
 
+#include "AssetManager.h"
+
 EditorWindowGameViewport::EditorWindowGameViewport(Editor* editor)
     : EditorWindow("Game Viewport", editor)
 {
-    
+    assetTree = editor->GetAssetManager()->GetContentAssetTree();
+    currentScene = assetTree->GetRootNode();
 }
 
 void EditorWindowGameViewport::Update()
@@ -26,12 +29,30 @@ void EditorWindowGameViewport::Render()
         // TODO: Play game 
     }
 
-    ImVec2 windowSize = ImGui::GetWindowSize();
-    int sizeMul = windowSize.x / gameViewportSize.x;
-    gameViewportSize = ImVec2(gameViewportSize.x * sizeMul, gameViewportSize.y * sizeMul);
+    updateViewportSize();
     ImGui::Image(editor->GetGraphics()->GetSceneResourceView(), gameViewportSize);
 
     ImGui::End();
+
+    ImGui::Begin("Scene Hierarchy");
+
+    if (ImGui::Button("Save"))
+    {
+        // TODO: add SaveScene
+    }
+
+    drawScenesTree(currentScene);
+
+    ImGui::End();
+}
+
+void EditorWindowGameViewport::updateViewportSize()
+{
+    ImVec2 windowSize = ImGui::GetWindowSize();
+
+    gameViewportSizeMultiplier = min(windowSize.x / GAME_VIEWPORT_RATION.x, windowSize.y / GAME_VIEWPORT_RATION.y);
+
+    gameViewportSize = ImVec2(GAME_VIEWPORT_RATION.x * gameViewportSizeMultiplier, GAME_VIEWPORT_RATION.y * gameViewportSizeMultiplier);
 }
 
 void EditorWindowGameViewport::renderGameEditorMenu()
@@ -52,5 +73,109 @@ void EditorWindowGameViewport::renderGameEditorMenu()
             ImGui::EndMenu();
         }
         ImGui::EndMenuBar();
+    }
+}
+
+void EditorWindowGameViewport::drawScenesTree(FolderNode* sceneNode, int level)
+{
+
+    bool treeExpanded = false;
+
+    auto flags = ImGuiTreeNodeFlags_OpenOnDoubleClick
+        | ImGuiTreeNodeFlags_FramePadding
+        | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+
+    if (currentScene == sceneNode)
+        flags |= ImGuiTreeNodeFlags_Selected;
+
+    if (ImGui::TreeNodeEx(sceneNode->GetName().c_str(), flags))
+    {
+
+        if (ImGui::IsItemClicked())
+        {
+            currentScene = sceneNode;
+        }
+
+        treeExpanded = true;
+
+        currentScene = sceneNode;
+
+        drawSceneContextMenu();
+
+        for (auto childFolderNode : sceneNode->GetChildFolderList())
+        {
+            //drawFolderTreeNode(childFolderNode, level + 1);
+        }
+    }
+
+    if (!treeExpanded)
+    {
+        if (ImGui::IsItemClicked())
+        {
+            currentScene = sceneNode;
+        }
+
+        drawSceneContextMenu();
+    }
+}
+
+void EditorWindowGameViewport::drawSceneContextMenu()
+{
+    if (ImGui::BeginPopupContextItem())
+    {
+        if (ImGui::Selectable("Edit"))
+        {
+            // TODO: add EditScene
+        }
+
+        if (ImGui::Selectable("Add prefab"))
+        {
+            // TODO: add AddPrefab
+        }
+
+        if (ImGui::Selectable("Add Actor"))
+        {
+            // TODO: add AddActor
+        }
+
+        if (ImGui::Selectable("Delete"))
+        {
+            // TODO: add DeleteScene
+        }
+
+        if (ImGui::Selectable("Rename"))
+        {
+            // TODO: add RenameScene
+        }
+
+        ImGui::EndPopup();
+    }
+}
+
+void EditorWindowGameViewport::drawActorContextMenu()
+{
+    if (ImGui::BeginPopupContextItem())
+    {
+        if (ImGui::Selectable("Edit"))
+        {
+            // TODO: add EditActor
+        }
+
+        if (ImGui::Selectable("Save"))
+        {
+            // TODO: add SaveActor
+        }
+
+        if (ImGui::Selectable("Delete"))
+        {
+            // TODO: add DeleteActor
+        }
+
+        if (ImGui::Selectable("Rename"))
+        {
+            // TODO: add RenameActor
+        }
+
+        ImGui::EndPopup();
     }
 }

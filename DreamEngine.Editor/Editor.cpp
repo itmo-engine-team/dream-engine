@@ -11,7 +11,6 @@
 #include "EditorWindowShadowViewport.h"
 #include "EditorWindowGameViewport.h"
 #include "EditorWindowBehaviorTreeViewport.h"
-#include "EditorWindowSceneHierarchy.h"
 
 Editor::Editor(Graphics* graphics, AssetManager* assetManager)
     : graphics(graphics), assetManager(assetManager)
@@ -25,7 +24,6 @@ Editor::Editor(Graphics* graphics, AssetManager* assetManager)
     windows.push_back(new EditorWindowShadowViewport(this));
     windows.push_back(new EditorWindowGameViewport(this));
     windows.push_back(new EditorWindowBehaviorTreeViewport(this));
-    windows.push_back(new EditorWindowSceneHierarchy(this));
 }
 
 Editor::~Editor()

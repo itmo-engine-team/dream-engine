@@ -142,6 +142,9 @@
   <ItemGroup>
     <ClInclude Include="MapUtils.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MapUtils.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

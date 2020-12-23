@@ -20,38 +20,14 @@ void EditorWindowGameViewport::Update()
 
 void EditorWindowGameViewport::Render()
 {
-    ImGui::Begin("GameViewport", nullptr, ImGuiWindowFlags_MenuBar);
-
-    renderGameEditorMenu();
-
-    if (ImGui::Button("Play")) 
-    { 
-        // TODO: Play game 
-    }
-
-    updateViewportSize();
-    ImGui::Image(editor->GetGraphics()->GetSceneResourceView(), gameViewportSize);
-
-    ImGui::End();
-
-    ImGui::Begin("Scene Hierarchy");
-
-    if (ImGui::Button("Save"))
-    {
-        // TODO: add SaveScene
-    }
-
-    drawScenesTree(currentScene);
-
-    ImGui::End();
+    renderGameViewport();
+    renderSceneHierarchy();
 }
 
 void EditorWindowGameViewport::updateViewportSize()
 {
     ImVec2 windowSize = ImGui::GetWindowSize();
-
     gameViewportSizeMultiplier = min(windowSize.x / GAME_VIEWPORT_RATION.x, windowSize.y / GAME_VIEWPORT_RATION.y);
-
     gameViewportSize = ImVec2(GAME_VIEWPORT_RATION.x * gameViewportSizeMultiplier, GAME_VIEWPORT_RATION.y * gameViewportSizeMultiplier);
 }
 
@@ -76,9 +52,39 @@ void EditorWindowGameViewport::renderGameEditorMenu()
     }
 }
 
-void EditorWindowGameViewport::drawScenesTree(FolderNode* sceneNode, int level)
+void EditorWindowGameViewport::renderGameViewport()
 {
+    ImGui::Begin("GameViewport", nullptr, ImGuiWindowFlags_MenuBar);
 
+    renderGameEditorMenu();
+
+    if (ImGui::Button("Play")) 
+    { 
+        // TODO: Play game 
+    }
+
+    updateViewportSize();
+    ImGui::Image(editor->GetGraphics()->GetSceneResourceView(), gameViewportSize);
+
+    ImGui::End();
+}
+
+void EditorWindowGameViewport::renderSceneHierarchy()
+{
+    ImGui::Begin("Scene Hierarchy");
+
+    if (ImGui::Button("Save"))
+    {
+        // TODO: add SaveScene
+    }
+
+    drawScenesTree(currentScene);
+
+    ImGui::End();
+}
+
+void EditorWindowGameViewport::drawScenesTree(FolderNode* sceneNode)
+{
     bool treeExpanded = false;
 
     auto flags = ImGuiTreeNodeFlags_OpenOnDoubleClick
@@ -90,7 +96,6 @@ void EditorWindowGameViewport::drawScenesTree(FolderNode* sceneNode, int level)
 
     if (ImGui::TreeNodeEx(sceneNode->GetName().c_str(), flags))
     {
-
         if (ImGui::IsItemClicked())
         {
             currentScene = sceneNode;

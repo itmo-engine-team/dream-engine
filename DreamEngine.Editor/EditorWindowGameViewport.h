@@ -29,8 +29,10 @@ private:
 
     void updateViewportSize();
     void renderGameEditorMenu();
+    void renderGameViewport();
+    void renderSceneHierarchy();
 
-    void drawScenesTree(FolderNode* sceneNode, int level = 0);
+    void drawScenesTree(FolderNode* sceneNode);
     void drawSceneContextMenu();
     void drawActorContextMenu();
 };

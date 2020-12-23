@@ -9,6 +9,9 @@
 #include "AssetService.h"
 #include "EngineConfigInfo.h"
 
+#include "Game.h"
+#include "ACS_Light.h"
+
 Engine::Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
     : inputSystem(inputSystem)
 {
@@ -45,6 +48,7 @@ Engine::~Engine()
 
 void Engine::Init()
 {
+    game->Init();
     orthoWindow->Initialize(graphics->GetDevice(),
         graphics->GetWindow()->GetScreenWidth(), graphics->GetWindow()->GetScreenHeight());
 }

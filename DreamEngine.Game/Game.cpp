@@ -15,6 +15,7 @@ GameAssetManager* Game::GetGameAssetManager() const
 
 void Game::Init()
 {
+    BaseSceneViewer::Init();
 }
 
 void Game::Update(const float engineDeltaTime)
@@ -32,6 +33,8 @@ void Game::Update(const float engineDeltaTime)
 
 void Game::Render()
 {
+    BaseSceneViewer::Render();
+
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
         for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
@@ -43,6 +46,8 @@ void Game::Render()
 
 void Game::RenderShadowMap() 
 {
+    BaseSceneViewer::RenderShadowMap();
+
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
         for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())

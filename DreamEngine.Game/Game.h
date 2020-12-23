@@ -2,9 +2,6 @@
 
 #include "BaseSceneViewer.h"
 
-#include "ACS_Camera.h"
-#include "ACS_Light.h"
-
 class Scene;
 class SceneAssetInfo;
 class GameAssetManager;

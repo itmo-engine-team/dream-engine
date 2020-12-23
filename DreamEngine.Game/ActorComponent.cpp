@@ -1,6 +1,6 @@
 #include "ActorComponent.h"
 
-ActorComponent::ActorComponent(ActorContext context, Actor* actor)
+ActorComponent::ActorComponent(ActorContext* context, Actor* actor)
     : context(context), actor(actor)
 {
 

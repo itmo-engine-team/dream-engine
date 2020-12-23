@@ -3,7 +3,6 @@
 #include <vector>
 #include "SceneRoom.h"
 
-class Game;
 class SceneAssetInfo;
 
 class Scene
@@ -11,7 +10,7 @@ class Scene
 
 public:
 
-    Scene(Game* game, SceneAssetInfo* sceneInfo);
+    Scene(ActorContext* context, SceneAssetInfo* sceneInfo);
     ~Scene();
 
     SceneRoom* GetCurrentRoom() const;

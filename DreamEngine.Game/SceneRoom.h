@@ -2,16 +2,16 @@
 
 #include <vector>
 
-class Game;
 class SceneRoomInfo;
 class Actor;
+class ActorContext;
 
 class SceneRoom
 {
 
 public:
 
-    SceneRoom(Game* game, SceneRoomInfo* roomInfo);
+    SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo);
     ~SceneRoom();
 
     void AddActor(Actor* actor);

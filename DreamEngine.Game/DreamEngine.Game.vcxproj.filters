@@ -99,6 +99,9 @@
     <ClCompile Include="DeltaTimeHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ActorContext.cpp">
+      <Filter>Header Files\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

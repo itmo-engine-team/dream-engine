@@ -146,6 +146,7 @@
     <ClCompile Include="ACF_AI.cpp" />
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ActorComponentFixed.cpp" />
+    <ClCompile Include="ActorContext.cpp" />
     <ClCompile Include="DeltaTimeHandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />

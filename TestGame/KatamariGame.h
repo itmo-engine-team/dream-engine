@@ -27,7 +27,7 @@ private:
     A_Spectator* spectatorActor;
     A_Light* lightActor;
 
-    KatamariSphere* katamariPlayer;
+    //KatamariSphere* katamariPlayer;
     ACS_StaticModel* playerSphere;
 
     Actor* plane;

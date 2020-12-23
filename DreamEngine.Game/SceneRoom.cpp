@@ -4,11 +4,11 @@
 #include "SceneRoomInfo.h"
 #include "ActorFactory.h"
 
-SceneRoom::SceneRoom(Game* game, SceneRoomInfo* roomInfo)
+SceneRoom::SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo)
 {
     for (SceneActorInfo* const actorInfo : roomInfo->GetActorInfoList())
     {
-        actors.push_back(ActorFactory::Create(game, actorInfo));
+        actors.push_back(ActorFactory::Create(context, actorInfo));
     }
 }
 

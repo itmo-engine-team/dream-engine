@@ -4,7 +4,7 @@ class GameObject
 {
 public:
 
-    GameObject();
+    GameObject() = default;
     virtual ~GameObject() = default;
 
     virtual void Init();

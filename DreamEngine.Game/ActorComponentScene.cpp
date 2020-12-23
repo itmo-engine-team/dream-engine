@@ -1,7 +1,7 @@
 #include "ActorComponentScene.h"
 #include "Actor.h"
 
-ActorComponentScene::ActorComponentScene(ActorContext context, Actor* actor, Transform* transform)
+ActorComponentScene::ActorComponentScene(ActorContext* context, Actor* actor, Transform* transform)
     : ActorComponent(context, actor), transform(transform)
 {
     transform->SetParent(actor->GetTransform(), true);

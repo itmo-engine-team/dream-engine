@@ -1,6 +1,6 @@
 #include "ACS_Light.h"
 
-ACS_Light::ACS_Light(ActorContext context, Actor* actor, Vector3 position, Vector3 direction)
+ACS_Light::ACS_Light(ActorContext* context, Actor* actor, Vector3 position, Vector3 direction)
     : ActorComponentScene(context, actor, new Transform(position)), direction(direction)
 {
     projectionMatrix = Matrix::CreateOrthographic(10, 10, 0.1f, 100);

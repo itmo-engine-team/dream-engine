@@ -1,18 +1,15 @@
 #pragma once
 
-#include "DeltaTimeHandler.h"
 #include <vector>
 
-class SceneAssetInfo;
-class Actor;
-class A_Light;
-class A_Spectator;
-class ACS_Camera;
-class ACS_Light;
-class InputSystem;
+#include "DeltaTimeHandler.h"
+#include "ActorContext.h"
+#include "ModelData.h"
+#include "A_Light.h"
+#include "A_Spectator.h"
+
 class Graphics;
-class ModelData;
-struct ActorContext;
+class InputSystem;
 
 class BaseSceneViewer
 {
@@ -22,10 +19,10 @@ public:
 
     InputSystem* GetInputSystem() const;
     Graphics* GetGraphics() const;
-    ActorContext GetActorContext() const;
+    ActorContext* GetActorContext() const;
 
     virtual ACS_Camera* GetCamera() const;
-    virtual ACS_Light* GetLight() const;
+    ACS_Light* GetLight() const;
 
     virtual void Init();
     virtual void Update(float engineDeltaTime);
@@ -45,6 +42,7 @@ protected:
     Actor* planeActor;
 
     std::vector<Actor*> baseSceneActors;
+    ActorContext* actorContext;
 
     virtual void createBaseSceneActors();
 

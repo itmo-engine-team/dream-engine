@@ -17,7 +17,7 @@ KatamariGame::KatamariGame()
 
 KatamariGame::~KatamariGame()
 {
-    delete spectatorActor;
+    /*delete spectatorActor;
     spectatorActor = nullptr;
 
     delete katamariPlayer;
@@ -42,7 +42,7 @@ KatamariGame::~KatamariGame()
     boxModel = nullptr;
 
     delete plane;
-    plane = nullptr;
+    plane = nullptr;*/
 }
 
 /*void KatamariGame::Init(InputSystem* inputSystem, Graphics* graphics)

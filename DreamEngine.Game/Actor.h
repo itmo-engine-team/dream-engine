@@ -3,19 +3,21 @@
 #include <vector>
 
 #include "GameObject.h"
+
 #include "Transform.h"
-#include "ActorComponentScene.h"
-#include "ActorComponentFixed.h"
 #include "SceneActorInfo.h"
 #include "ActorContext.h"
 
 class SceneActorInfo;
+class ActorComponent;
+class ActorComponentScene;
+class ActorComponentFixed;
 
 class Actor : public GameObject
 {
 public:
 
-    Actor(ActorContext context, Transform* transform);
+    Actor(ActorContext* context, Transform* transform);
 
     void Init() override;
     void Update();
@@ -24,7 +26,7 @@ public:
 
     bool IsActive() const;
 
-    const ActorContext& GetContext() const;
+    ActorContext* GetContext() const;
     Transform* GetTransform() const;
 
     void AddFixedComponent(ActorComponentFixed* component);
@@ -67,7 +69,7 @@ protected:
 
     bool isActive = true;
 
-    ActorContext context;
+    ActorContext* context;
     Transform* transform;
 
     std::vector<ActorComponent*> components;
@@ -88,7 +90,7 @@ public:
 
     virtual ~ActorCreator() = default;
 
-    virtual Actor* Create(ActorContext context, SceneActorInfo* actorInfo)
+    virtual Actor* Create(ActorContext* context, SceneActorInfo* actorInfo)
     {
         return new Actor(context, new Transform(actorInfo->GetTransformInfo()->GetPosition()));
     }

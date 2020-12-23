@@ -64,7 +64,7 @@ void Game::LoadScene(SceneAssetInfo* sceneInfo)
         delete currentScene;
     }
 
-    currentScene = new Scene(this, sceneInfo);
+    currentScene = new Scene(GetActorContext(), sceneInfo);
 }
 
 Scene* Game::GetCurrentScene() const

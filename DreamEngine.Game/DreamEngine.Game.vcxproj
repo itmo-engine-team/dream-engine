@@ -146,6 +146,8 @@
     <ClCompile Include="ACF_AI.cpp" />
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ActorComponentFixed.cpp" />
+    <ClCompile Include="ActorContext.cpp" />
+    <ClCompile Include="DeltaTimeHandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -154,6 +156,9 @@
     <ClCompile Include="ActorComponentScene.cpp" />
     <ClCompile Include="A_Spectator.cpp" />
     <ClCompile Include="ACS_StaticModel.cpp" />
+    <ClCompile Include="BaseSceneViewer.cpp" />
+    <ClCompile Include="SceneRoom.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +167,9 @@
     <ClInclude Include="ACF_AI.h" />
     <ClInclude Include="ACS_Camera.h" />
     <ClInclude Include="ActorComponentFixed.h" />
+    <ClInclude Include="ActorContext.h" />
     <ClInclude Include="ActorFactory.h" />
+    <ClInclude Include="DeltaTimeHandler.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="GameObject.h" />
@@ -172,6 +179,9 @@
     <ClInclude Include="ActorComponentScene.h" />
     <ClInclude Include="A_Spectator.h" />
     <ClInclude Include="ACS_StaticModel.h" />
+    <ClInclude Include="BaseSceneViewer.h" />
+    <ClInclude Include="SceneRoom.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>

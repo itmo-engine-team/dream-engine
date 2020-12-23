@@ -1,18 +1,20 @@
 #include "ACS_StaticModel.h"
 
-#include "Game.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
 #include "CameraBuffer.h"
 #include "MeshObject.h"
 
-ACS_StaticModel::ACS_StaticModel(Game* game, Actor* actor,
+#include "ACS_Light.h"
+#include "ACS_Camera.h"
+
+ACS_StaticModel::ACS_StaticModel(ActorContext* context, Actor* actor,
     Transform* transform, ModelData* modelData)
-    : ActorComponentScene(game, actor, transform), modelData(modelData)
+    : ActorComponentScene(context, actor, transform), modelData(modelData)
 {
     for (auto meshData : modelData->GetMeshDataList())
     {
-        meshObjects.push_back(new MeshObject(game->GetGraphics(), meshData));
+        meshObjects.push_back(new MeshObject(context->GetGraphics(), meshData));
     }
 }
 
@@ -21,24 +23,24 @@ void ACS_StaticModel::onDraw()
     const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
-        game->GetCamera()->GetViewMatrix(),
-        game->GetCamera()->GetProjectionMatrix(),
-        game->GetLight()->GetViewMatrix(),
-        game->GetLight()->GetProjectionMatrix(),
+        context->GetCamera()->GetViewMatrix(),
+        context->GetCamera()->GetProjectionMatrix(),
+        context->GetLight()->GetViewMatrix(),
+        context->GetLight()->GetProjectionMatrix(),
     };
 
     const LightBuffer lb =
     {
         Vector4{0.15f, 0.15f, 0.15f, 1.0f},
         Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        game->GetLight()->GetDirection(),
+        context->GetLight()->GetDirection(),
         100.0f,
         {1.0f, 1.0f, 1.0f, 1.0f }
     };
 
     const CameraBuffer cameraBufferData =
     {
-        game->GetCamera()->GetTransform()->GetWorldPosition()
+        context->GetCamera()->GetTransform()->GetWorldPosition()
     };
 
     for (auto meshObject : meshObjects)
@@ -52,8 +54,8 @@ void ACS_StaticModel::onDrawShadowMap()
     const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
-        game->GetLight()->GetViewMatrix(),
-        game->GetLight()->GetProjectionMatrix(),
+        context->GetLight()->GetViewMatrix(),
+        context->GetLight()->GetProjectionMatrix(),
     };
     for (auto meshObject : meshObjects)
     {

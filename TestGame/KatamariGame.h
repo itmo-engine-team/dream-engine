@@ -8,26 +8,26 @@
 #include "ACS_StaticModel.h"
 #include "A_Light.h"
 
-class KatamariGame : public Game
+class KatamariGame
 {
 public:
 
     KatamariGame();
     ~KatamariGame();
 
-    void Init(InputSystem* inputSystem, Graphics* graphics) override;
+    /*void Init(InputSystem* inputSystem, Graphics* graphics) override;
     void Update(float engineDeltaTime) override;
-    void Render() override;
+    void Render() override;*/
 
-    ACS_Camera* GetCamera() const override;
-    ACS_Light* GetLight() const override;
+    /*ACS_Camera* GetCamera() const override;
+    ACS_Light* GetLight() const override;*/
 
 private:
 
     A_Spectator* spectatorActor;
     A_Light* lightActor;
 
-    KatamariSphere* katamariPlayer;
+    //KatamariSphere* katamariPlayer;
     ACS_StaticModel* playerSphere;
 
     Actor* plane;

@@ -10,9 +10,9 @@
 #include "InputSystem.h"
 #include "OrthoWindow.h"
 
-class AssetManager;
 using namespace DirectX::SimpleMath;
 
+class AssetManager;
 class Graphics;
 class Editor;
 class EngineConfigInfo;
@@ -21,7 +21,7 @@ class Engine
 {
 public:
 
-    Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc);
+    Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc);
     ~Engine();
 
     void Init();
@@ -45,15 +45,14 @@ protected:
 
     bool isGameMode = true;
 
+    EngineConfigInfo* engineConfigInfo;
+
     Game* game;
     Editor* editor;
     AssetManager* assetManager;
 
-    EngineConfigInfo* engineConfigInfo;
-
     Window* window;
     Graphics* graphics;
-    
     OrthoWindow* orthoWindow;
 
     InputSystem* inputSystem = nullptr;

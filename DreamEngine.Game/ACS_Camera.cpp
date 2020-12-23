@@ -3,13 +3,13 @@
 #include "Game.h"
 #include "Graphics.h"
 
-ACS_Camera::ACS_Camera(Game* game, Actor* actor, Vector3 position, Vector3 direction)
-    : ActorComponentScene(game, actor, new Transform(position)), direction(direction)
+ACS_Camera::ACS_Camera(ActorContext* context, Actor* actor, Vector3 position, Vector3 direction)
+    : ActorComponentScene(context, actor, new Transform(position)), direction(direction)
 {
     projectionMatrix = Matrix::CreatePerspectiveFieldOfView(
         120,
-        static_cast<float>(game->GetGraphics()->GetWindow()->GetScreenWidth()) 
-            / static_cast<float>(game->GetGraphics()->GetWindow()->GetScreenHeight()),
+        static_cast<float>(context->GetGraphics()->GetWindow()->GetScreenWidth()) 
+            / static_cast<float>(context->GetGraphics()->GetWindow()->GetScreenHeight()),
         0.01f, 100.0f);
 }
 

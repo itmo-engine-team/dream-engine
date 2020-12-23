@@ -8,7 +8,7 @@ class A_Light : public Actor
 
 public:
 
-    A_Light(Game* game, Transform* transform);
+    A_Light(ActorContext* context, Transform* transform);
 
     ACS_Light* GetLightComponent() const;
 

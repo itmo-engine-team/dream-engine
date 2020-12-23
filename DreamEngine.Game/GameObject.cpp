@@ -1,10 +1,5 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Game* game) : game(game)
-{
-
-}
-
 void GameObject::Init()
 {
     onInit();

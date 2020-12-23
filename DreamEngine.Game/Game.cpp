@@ -1,20 +1,11 @@
 #include "Game.h"
 
 #include "GameAssetManager.h"
+#include "Scene.h"
 
-Game::Game()
+Game::Game(InputSystem* inputSystem, Graphics* graphics) : BaseSceneViewer(inputSystem, graphics)
 {
     gameAssetManager = new GameAssetManager();
-}
-
-InputSystem* Game::GetInputSystem() const
-{
-    return inputSystem;
-}
-
-Graphics* Game::GetGraphics() const
-{
-    return graphics;
 }
 
 GameAssetManager* Game::GetGameAssetManager() const
@@ -22,50 +13,61 @@ GameAssetManager* Game::GetGameAssetManager() const
     return gameAssetManager;
 }
 
-void Game::Init(InputSystem* inputSystem, Graphics* graphics)
+void Game::Init()
 {
-    this->inputSystem = inputSystem;
-    this->graphics = graphics;
+    BaseSceneViewer::Init();
 }
 
 void Game::Update(const float engineDeltaTime)
 {
-    this->engineDeltaTime = engineDeltaTime;
+    BaseSceneViewer::Update(engineDeltaTime);
 
-    for (auto actor : gameAssetManager->GetActors())
+    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
-        actor->Update();
+        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        {
+            actor->Update();
+        }
     }
 }
 
 void Game::Render()
 {
-    for (auto actor : gameAssetManager->GetActors())
+    BaseSceneViewer::Render();
+
+    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
-        actor->Draw();
+        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        {
+            actor->Draw();
+        }
     }
 }
 
 void Game::RenderShadowMap() 
 {
-    
-    for (auto actor : gameAssetManager->GetActors())
+    BaseSceneViewer::RenderShadowMap();
+
+    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
-        actor->DrawShadowMap();
+        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        {
+            actor->DrawShadowMap();
+        }
     }
 }
 
-void Game::SetGameDeltaTimeMultiplier(float deltaTimeMultiplier)
+void Game::LoadScene(SceneAssetInfo* sceneInfo)
 {
-    gameDeltaTimeMultiplier = std::clamp(deltaTimeMultiplier, 0.0f, 1.0f);
+    if (currentScene != nullptr)
+    {
+        delete currentScene;
+    }
+
+    currentScene = new Scene(GetActorContext(), sceneInfo);
 }
 
-float Game::GetGameDeltaTimeMultiplier()
+Scene* Game::GetCurrentScene() const
 {
-    return gameDeltaTimeMultiplier;
-}
-
-float Game::GetGameDeltaTime()
-{
-    return engineDeltaTime * gameDeltaTimeMultiplier;
+    return currentScene;
 }

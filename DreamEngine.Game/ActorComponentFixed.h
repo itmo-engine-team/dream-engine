@@ -7,7 +7,7 @@ class ActorComponentFixed : public ActorComponent
 
 public:
 
-    ActorComponentFixed(Game* game, Actor* actor);
+    ActorComponentFixed(ActorContext* context, Actor* actor);
 
 };
 

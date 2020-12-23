@@ -1,10 +1,8 @@
 #include "A_Spectator.h"
 
-#include "Game.h"
-
-A_Spectator::A_Spectator(Game* game, Transform* transform) : Actor(game, transform)
+A_Spectator::A_Spectator(ActorContext* context, Transform* transform) : Actor(context, transform)
 {
-    cameraComponent = new ACS_Camera(game, this);
+    cameraComponent = new ACS_Camera(context, this);
     AddSceneComponent(cameraComponent);
 }
 
@@ -16,31 +14,31 @@ ACS_Camera* A_Spectator::GetCameraComponent() const
 void A_Spectator::onUpdate()
 {
     // Activates only with right button
-    if (!game->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return;
+    if (!context->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return;
 
     // Rotation
-    while (const auto delta = game->GetInputSystem()->ReadRawDelta())
+    while (const auto delta = context->GetInputSystem()->ReadRawDelta())
     {
-        Rotate(static_cast<float>(delta->x) * -game->GetGameDeltaTime(),
-            static_cast<float>(delta->y) * game->GetGameDeltaTime());
+        Rotate(static_cast<float>(delta->x) * -context->GetDeltaTimeHandler()->GetDeltaTime(),
+            static_cast<float>(delta->y) * context->GetDeltaTimeHandler()->GetDeltaTime());
     }
 
     // Movement
-    if (game->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_W))
+    if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_W))
     {
-        Translate({ 0.0f, 0.0f, game->GetGameDeltaTime() });
+        Translate({ 0.0f, 0.0f, context->GetDeltaTimeHandler()->GetDeltaTime() });
     }
-    if (game->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_A))
+    if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_A))
     {
-        Translate({ game->GetGameDeltaTime(), 0.0f, 0.0f });
+        Translate({ context->GetDeltaTimeHandler()->GetDeltaTime(), 0.0f, 0.0f });
     }
-    if (game->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_S))
+    if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_S))
     {
-        Translate({ 0.0f, 0.0f, -game->GetGameDeltaTime() });
+        Translate({ 0.0f, 0.0f, -context->GetDeltaTimeHandler()->GetDeltaTime() });
     }
-    if (game->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_D))
+    if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_D))
     {
-        Translate({ -game->GetGameDeltaTime(), 0.0f, 0.0f });
+        Translate({ -context->GetDeltaTimeHandler()->GetDeltaTime(), 0.0f, 0.0f });
     }
 }
 

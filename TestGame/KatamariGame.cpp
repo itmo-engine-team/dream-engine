@@ -10,14 +10,14 @@
 
 using namespace DirectX::SimpleMath;
 
-KatamariGame::KatamariGame() : Game()
+KatamariGame::KatamariGame()
 {
     
 }
 
 KatamariGame::~KatamariGame()
 {
-    delete spectatorActor;
+    /*delete spectatorActor;
     spectatorActor = nullptr;
 
     delete katamariPlayer;
@@ -42,10 +42,10 @@ KatamariGame::~KatamariGame()
     boxModel = nullptr;
 
     delete plane;
-    plane = nullptr;
+    plane = nullptr;*/
 }
 
-void KatamariGame::Init(InputSystem* inputSystem, Graphics* graphics)
+/*void KatamariGame::Init(InputSystem* inputSystem, Graphics* graphics)
 {
     Game::Init(inputSystem, graphics);
 
@@ -140,9 +140,9 @@ void KatamariGame::Update(float engineDeltaTime)
         playerSphere->GetTransform()->AddRelativeRotation({ 0, 0, 1 }, GetGameDeltaTime());
     }
 
-    /*collisionCheck(box1);
+    collisionCheck(box1);
     collisionCheck(box2);
-    collisionCheck(box3);*/
+    collisionCheck(box3);
 }
 
 void KatamariGame::Render()
@@ -150,6 +150,7 @@ void KatamariGame::Render()
     Game::Render();
     lightActor->Draw();
 }
+*/
 
 void KatamariGame::collisionCheck(GameObject* gameObject)
 {

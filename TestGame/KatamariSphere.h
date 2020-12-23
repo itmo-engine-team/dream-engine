@@ -1,12 +1,8 @@
 #pragma once
 
-#include <DirectXCollision.h>
-
-#include "Actor.h"
-
 class Game;
 
-class KatamariSphere : public Actor
+/*class KatamariSphere : public Actor
 {
 public:
 
@@ -18,4 +14,4 @@ protected:
 
     void onUpdate() override;
 
-};
+};*/

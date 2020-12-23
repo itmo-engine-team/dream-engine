@@ -8,7 +8,7 @@ class ActorComponentScene : public ActorComponent
 
 public:
 
-    ActorComponentScene(Game* game, Actor* actor, Transform* transform);
+    ActorComponentScene(ActorContext* context, Actor* actor, Transform* transform);
 
     Transform* GetTransform() const;
 

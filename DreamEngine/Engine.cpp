@@ -9,8 +9,11 @@
 #include "AssetService.h"
 #include "EngineConfigInfo.h"
 
-Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
-    : game(game), inputSystem(inputSystem)
+#include "Game.h"
+#include "ACS_Light.h"
+
+Engine::Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc) 
+    : inputSystem(inputSystem)
 {
     engineConfigInfo = AssetService::DeserializeFromFile<EngineConfigInfo>("Engine/config.json");
     isGameMode = engineConfigInfo->IsGameMode();
@@ -25,6 +28,8 @@ Engine::Engine(Game* game, InputSystem* inputSystem, HINSTANCE hInstance, WNDCLA
     orthoWindow = new OrthoWindow(graphics);
 
     assetManager = new AssetManager();
+
+    game = new Game(inputSystem, graphics);
 
     editor = new Editor(graphics, assetManager);
 }
@@ -43,8 +48,7 @@ Engine::~Engine()
 
 void Engine::Init()
 {
-    // Init Game
-    game->Init(inputSystem, graphics);
+    game->Init();
     orthoWindow->Initialize(graphics->GetDevice(),
         graphics->GetWindow()->GetScreenWidth(), graphics->GetWindow()->GetScreenHeight());
 }

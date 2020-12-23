@@ -2,12 +2,13 @@
 
 #include "SimpleMath.h"
 
-#include "Game.h"
+#include "ActorComponentFixed.h"
+#include "ActorComponentScene.h"
 
 using namespace DirectX::SimpleMath;
 
-Actor::Actor(Game* game, Transform* transform)
-    : GameObject(game), transform(transform)
+Actor::Actor(ActorContext* context, Transform* transform)
+    : GameObject(), context(context), transform(transform)
 {
 
 }
@@ -57,6 +58,11 @@ bool Actor::IsActive() const
     return isActive;
 }
 
+ActorContext* Actor::GetContext() const
+{
+    return context;
+}
+
 Transform* Actor::GetTransform() const
 {
     return transform;
@@ -86,7 +92,7 @@ float Actor::GetActorDeltaTimeMultiplier()
 
 float Actor::GetActorDeltaTime()
 {
-    actorDeltaTime = game->GetGameDeltaTime() * actorDeltaTimeMultiplier;
+    actorDeltaTime = context->GetDeltaTimeHandler()->GetDeltaTime() * actorDeltaTimeMultiplier;
     return actorDeltaTime;
 }
 

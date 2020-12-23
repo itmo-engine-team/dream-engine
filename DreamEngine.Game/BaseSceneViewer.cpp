@@ -1,9 +1,13 @@
 #include "BaseSceneViewer.h"
 
-#include <algorithm>
+#include "A_Light.h"
+#include "ActorContext.h"
 
-BaseSceneViewer::BaseSceneViewer()
+BaseSceneViewer::BaseSceneViewer(InputSystem* inputSystem, Graphics* graphics)
+    : inputSystem(inputSystem), graphics(graphics)
 {
+    deltaTimeHandler = new DeltaTimeHandler();
+    //lightActor = new A_Light();
 }
 
 InputSystem* BaseSceneViewer::GetInputSystem() const
@@ -16,29 +20,17 @@ Graphics* BaseSceneViewer::GetGraphics() const
     return graphics;
 }
 
-void BaseSceneViewer::Init(InputSystem* inputSystem, Graphics* graphics)
+ActorContext BaseSceneViewer::GetActorContext() const
 {
-    this->inputSystem = inputSystem;
-    this->graphics = graphics;
+    return { graphics, inputSystem, deltaTimeHandler };
+}
+
+ACS_Light* BaseSceneViewer::GetLight()
+{
+
 }
 
 void BaseSceneViewer::Update(const float engineDeltaTime)
 {
-    this->engineDeltaTime = engineDeltaTime;
+    deltaTimeHandler->SetParentDeltaTime(engineDeltaTime);
 }
-
-void BaseSceneViewer::SetDeltaTimeMultiplier(float deltaTimeMultiplier)
-{
-    deltaTimeMultiplier = std::clamp(deltaTimeMultiplier, 0.0f, 1.0f);
-}
-
-float BaseSceneViewer::GetDeltaTimeMultiplier()
-{
-    return deltaTimeMultiplier;
-}
-
-float BaseSceneViewer::GetDeltaTime()
-{
-    return engineDeltaTime * deltaTimeMultiplier;
-}
-

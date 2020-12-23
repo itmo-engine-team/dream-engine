@@ -146,6 +146,7 @@
     <ClCompile Include="ACF_AI.cpp" />
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ActorComponentFixed.cpp" />
+    <ClCompile Include="DeltaTimeHandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="ActorComponentFixed.h" />
     <ClInclude Include="ActorContext.h" />
     <ClInclude Include="ActorFactory.h" />
+    <ClInclude Include="DeltaTimeHandler.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="GameObject.h" />

@@ -31,32 +31,9 @@ void EditorWindowGameViewport::updateViewportSize()
     gameViewportSize = ImVec2(GAME_VIEWPORT_RATIO.x * gameViewportSizeMultiplier, GAME_VIEWPORT_RATIO.y * gameViewportSizeMultiplier);
 }
 
-void EditorWindowGameViewport::renderGameEditorMenu()
-{
-    if (ImGui::BeginMenuBar())
-    {
-        if (ImGui::BeginMenu("File"))
-        {
-            if (ImGui::MenuItem("New")) {}
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("Editor"))
-        {
-            if (ImGui::MenuItem("Save Layout", "")) {}
-            if (ImGui::MenuItem("Load Layout", "")) {}
-            ImGui::Separator();
-            if (ImGui::MenuItem("Close All ", "")) {}
-            ImGui::EndMenu();
-        }
-        ImGui::EndMenuBar();
-    }
-}
-
 void EditorWindowGameViewport::renderGameViewport()
 {
-    ImGui::Begin("GameViewport", nullptr, ImGuiWindowFlags_MenuBar);
-
-    renderGameEditorMenu();
+    ImGui::Begin("GameViewport");
 
     if (ImGui::Button("Play")) 
     { 

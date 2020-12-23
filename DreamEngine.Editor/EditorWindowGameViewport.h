@@ -28,7 +28,6 @@ private:
     FolderNode* currentScene = nullptr;
 
     void updateViewportSize();
-    void renderGameEditorMenu();
     void renderGameViewport();
     void renderSceneHierarchy();
 

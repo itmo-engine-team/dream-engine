@@ -26,6 +26,7 @@ public:
 
     bool IsActive() const;
 
+    SceneActorInfo* GetActorInfo() const;
     ActorContext* GetContext() const;
     Transform* GetTransform() const;
 
@@ -66,6 +67,8 @@ public:
     }
 
 protected:
+
+    SceneActorInfo* actorInfo;
 
     bool isActive = true;
 

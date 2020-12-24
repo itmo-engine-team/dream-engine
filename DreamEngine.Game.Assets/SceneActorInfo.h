@@ -14,6 +14,9 @@ public:
     ActorType GetType() const;
     void SetType(ActorType type);
 
+    const std::string& GetName() const;
+    void SetName(const std::string& name);
+
     TransformInfo* GetTransformInfo() const;
 
 protected:
@@ -27,6 +30,7 @@ protected:
 private:
 
     ActorType type;
+    std::string name;
 
     TransformInfo* transformInfo;
 

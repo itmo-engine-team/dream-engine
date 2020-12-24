@@ -3,14 +3,15 @@
 #include "imgui.h"
 #include "Editor.h"
 #include "Graphics.h"
+#include "Game.h"
+#include "Scene.h"
 
 #include "AssetManager.h"
 
 EditorWindowGameViewport::EditorWindowGameViewport(Editor* editor)
     : EditorWindow("Game Viewport", editor)
 {
-    assetTree = editor->GetContext()->GetAssetManager()->GetContentAssetTree();
-    currentScene = assetTree->GetRootNode();
+    game = editor->GetContext()->GetGame();
 }
 
 void EditorWindowGameViewport::Update()
@@ -48,6 +49,14 @@ void EditorWindowGameViewport::renderGameViewport()
 
 void EditorWindowGameViewport::renderSceneHierarchy()
 {
+    // Don't show additional windows if no scene is selected currently
+    if (game->GetCurrentScene() == nullptr) return;
+
+    if (currentScene != game->GetCurrentScene())
+    {
+        currentScene = game->GetCurrentScene();
+    }
+
     ImGui::Begin("Scene Hierarchy");
 
     if (ImGui::Button("Save"))
@@ -55,12 +64,22 @@ void EditorWindowGameViewport::renderSceneHierarchy()
         // TODO: add SaveScene
     }
 
-    drawScenesTree(currentScene);
+    ImGui::Separator();
+
+    drawSceneHierarchy();
 
     ImGui::End();
 }
 
-void EditorWindowGameViewport::drawScenesTree(FolderNode* sceneNode)
+void EditorWindowGameViewport::drawSceneHierarchy()
+{
+    for (SceneRoom* room : currentScene->GetRoomList())
+    {
+        drawSceneHierarchyRoom(room);
+    }
+}
+
+void EditorWindowGameViewport::drawSceneHierarchyRoom(SceneRoom* room)
 {
     bool treeExpanded = false;
 
@@ -68,25 +87,23 @@ void EditorWindowGameViewport::drawScenesTree(FolderNode* sceneNode)
         | ImGuiTreeNodeFlags_FramePadding
         | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
-    if (currentScene == sceneNode)
+    if (currentSceneRoom == room)
         flags |= ImGuiTreeNodeFlags_Selected;
 
-    if (ImGui::TreeNodeEx(sceneNode->GetName().c_str(), flags))
+    if (ImGui::TreeNodeEx(room->GetName().c_str(), flags))
     {
-        if (ImGui::IsItemClicked())
-        {
-            currentScene = sceneNode;
-        }
-
         treeExpanded = true;
 
-        currentScene = sceneNode;
+        if (ImGui::IsItemClicked())
+        {
+            currentSceneRoom = room;
+        }
 
         drawSceneContextMenu();
 
-        for (auto childFolderNode : sceneNode->GetChildFolderList())
+        for (auto actor : room->GetActors())
         {
-            //drawFolderTreeNode(childFolderNode, level + 1);
+            drawSceneHierarchyActor(actor);
         }
     }
 
@@ -94,11 +111,30 @@ void EditorWindowGameViewport::drawScenesTree(FolderNode* sceneNode)
     {
         if (ImGui::IsItemClicked())
         {
-            currentScene = sceneNode;
+            currentSceneRoom = room;
         }
 
         drawSceneContextMenu();
     }
+}
+
+void EditorWindowGameViewport::drawSceneHierarchyActor(Actor* actor)
+{
+    auto flags = ImGuiTreeNodeFlags_Leaf
+        | ImGuiTreeNodeFlags_FramePadding
+        | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+
+    if (currentSceneActor == actor)
+        flags |= ImGuiTreeNodeFlags_Selected;
+
+    ImGui::TreeNodeEx(actor->GetActorInfo()->GetName().c_str(), flags);
+
+    if (ImGui::IsItemClicked())
+    {
+        currentSceneActor = actor;
+    }
+
+    drawSceneContextMenu();
 }
 
 void EditorWindowGameViewport::drawSceneContextMenu()

@@ -25,3 +25,8 @@ SceneRoom* Scene::GetCurrentRoom() const
 {
     return currentRoom;
 }
+
+std::vector<SceneRoom*> Scene::GetRoomList() const
+{
+    return rooms;
+}

@@ -6,6 +6,11 @@ TransformInfo::TransformInfo() : position(Vector3::Zero)
 
 }
 
+TransformInfo::TransformInfo(Vector3 pos) : position(pos)
+{
+
+}
+
 Vector3 TransformInfo::GetPosition() const
 {
     return position;

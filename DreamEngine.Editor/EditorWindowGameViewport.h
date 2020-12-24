@@ -3,7 +3,10 @@
 #include "EditorWindow.h"
 #include "imgui.h"
 
-#include "AssetTree.h"
+class Game;
+class Scene;
+class SceneRoom;
+class Actor;
 
 class EditorWindowGameViewport : public EditorWindow
 {
@@ -23,15 +26,18 @@ private:
 
     float gameViewportSizeMultiplier = 20;
 
-    // for test 
-    AssetTree* assetTree;
-    FolderNode* currentScene = nullptr;
+    Game* game;
+    Scene* currentScene;
+    SceneRoom* currentSceneRoom;
+    Actor* currentSceneActor;
 
     void updateViewportSize();
     void renderGameViewport();
     void renderSceneHierarchy();
 
-    void drawScenesTree(FolderNode* sceneNode);
+    void drawSceneHierarchy();
+    void drawSceneHierarchyRoom(SceneRoom* room);
+    void drawSceneHierarchyActor(Actor* actor);
     void drawSceneContextMenu();
     void drawActorContextMenu();
 };

@@ -18,6 +18,7 @@ void EditorWindowShadowViewport::Update()
 void EditorWindowShadowViewport::Render()
 {
     ImGui::Begin("ShadowRender");
-    ImGui::Image(editor->GetGraphics()->GetShadowMapResourceView(), ImVec2(300, 300));
+    ImGui::Image(editor->GetContext()->GetGraphics()->GetShadowMapResourceView(),
+        ImVec2(300, 300));
     ImGui::End();
 }

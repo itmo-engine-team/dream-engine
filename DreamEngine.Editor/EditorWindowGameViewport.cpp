@@ -9,7 +9,7 @@
 EditorWindowGameViewport::EditorWindowGameViewport(Editor* editor)
     : EditorWindow("Game Viewport", editor)
 {
-    assetTree = editor->GetAssetManager()->GetContentAssetTree();
+    assetTree = editor->GetContext()->GetAssetManager()->GetContentAssetTree();
     currentScene = assetTree->GetRootNode();
 }
 
@@ -41,7 +41,7 @@ void EditorWindowGameViewport::renderGameViewport()
     }
 
     updateViewportSize();
-    ImGui::Image(editor->GetGraphics()->GetSceneResourceView(), gameViewportSize);
+    ImGui::Image(editor->GetContext()->GetGraphics()->GetSceneResourceView(), gameViewportSize);
 
     ImGui::End();
 }

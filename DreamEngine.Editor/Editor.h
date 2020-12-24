@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "EditorWindow.h"
+#include "EditorContext.h"
 
 class Graphics;
 class AssetManager;
@@ -12,7 +13,7 @@ class Editor
 
 public:
 
-    Editor(Graphics* graphics, AssetManager* assetManager);
+    Editor(EditorContext* context);
     ~Editor();
 
     void Update();
@@ -21,15 +22,13 @@ public:
     std::wstring GetEditorProjectPath() const;
     std::wstring GetPathFromEditor(std::wstring path) const;
 
-    Graphics* GetGraphics() const;
-    AssetManager* GetAssetManager() const;
+    EditorContext* GetContext() const;
 
 private:
 
     std::wstring editorProjectPath;
 
-    Graphics* graphics;
-    AssetManager* assetManager;
+    EditorContext* context;
 
     std::vector<EditorWindow*> windows;
 

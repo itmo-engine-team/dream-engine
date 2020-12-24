@@ -3,28 +3,28 @@
 #include "imgui.h"
 #include "Editor.h"
 #include "AssetManager.h"
-#include "EditorPopupModalText.h"
 
 #include "ErrorLogger.h"
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     : EditorWindow("Asset Browser", editor)
 {
-    assetTree = editor->GetAssetManager()->GetContentAssetTree();
-    assetManager = editor->GetAssetManager();
+    assetManager = editor->GetContext()->GetAssetManager();
+    assetTree = assetManager->GetContentAssetTree();
 
     setCurrentParentNode(assetTree->GetRootNode());
 
-    iconFolder = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/folder.png").c_str());
-    iconFile = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/file.png").c_str());
-    iconFilter = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/filter.png").c_str());
-    iconAsset = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/asset.png").c_str());
-    iconActor = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/actorIcon.png").c_str());
-    iconScene = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/sceneIcon.png").c_str());
-    iconModel = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/modelIcon.png").c_str());
-    iconTexture = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/textureIcon.png").c_str());
-    iconBP = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/blueprintIcon.png").c_str());
-    iconBT = new Texture(editor->GetGraphics(), editor->GetPathFromEditor(L"Icons/btIcon.png").c_str());
+    Graphics* graphics = editor->GetContext()->GetGraphics();
+    iconFolder = new Texture(graphics, editor->GetPathFromEditor(L"Icons/folder.png").c_str());
+    iconFile = new Texture(graphics, editor->GetPathFromEditor(L"Icons/file.png").c_str());
+    iconFilter = new Texture(graphics, editor->GetPathFromEditor(L"Icons/filter.png").c_str());
+    iconAsset = new Texture(graphics, editor->GetPathFromEditor(L"Icons/asset.png").c_str());
+    iconActor = new Texture(graphics, editor->GetPathFromEditor(L"Icons/actorIcon.png").c_str());
+    iconScene = new Texture(graphics, editor->GetPathFromEditor(L"Icons/sceneIcon.png").c_str());
+    iconModel = new Texture(graphics, editor->GetPathFromEditor(L"Icons/modelIcon.png").c_str());
+    iconTexture = new Texture(graphics, editor->GetPathFromEditor(L"Icons/textureIcon.png").c_str());
+    iconBP = new Texture(graphics, editor->GetPathFromEditor(L"Icons/blueprintIcon.png").c_str());
+    iconBT = new Texture(graphics, editor->GetPathFromEditor(L"Icons/btIcon.png").c_str());
 
     MAP_ASSET_TYPE_TO_TEXTURE = {
        { AssetType::Actor, iconActor },

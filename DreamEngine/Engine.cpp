@@ -31,7 +31,7 @@ Engine::Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc)
 
     game = new Game(inputSystem, graphics);
 
-    editor = new Editor(graphics, assetManager);
+    editor = new Editor(new EditorContext(graphics, assetManager, game));
 }
 
 Engine::~Engine()

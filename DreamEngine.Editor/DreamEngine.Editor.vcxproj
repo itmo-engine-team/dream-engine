@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
+    <ClInclude Include="EditorContext.h" />
     <ClInclude Include="EditorPopupModal.h" />
     <ClInclude Include="EditorPopupModalDeleteAsset.h" />
     <ClInclude Include="EditorPopupModalDeleteFolder.h" />
@@ -39,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="EditorContext.cpp" />
     <ClCompile Include="EditorPopupModal.cpp" />
     <ClCompile Include="EditorPopupModalDeleteAsset.cpp" />
     <ClCompile Include="EditorPopupModalDeleteFolder.cpp" />

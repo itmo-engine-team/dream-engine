@@ -100,7 +100,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ActorContext.cpp">
-      <Filter>Header Files\Actor</Filter>
+      <Filter>Source Files\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

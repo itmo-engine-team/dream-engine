@@ -13,6 +13,7 @@ class TransformInfo : Serializable
 public:
 
     TransformInfo();
+    TransformInfo(Vector3 pos);
 
     Vector3 GetPosition() const;
     void SetPosition(Vector3 pos);

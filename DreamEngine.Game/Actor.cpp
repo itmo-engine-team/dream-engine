@@ -58,6 +58,11 @@ bool Actor::IsActive() const
     return isActive;
 }
 
+SceneActorInfo* Actor::GetActorInfo() const
+{
+    return actorInfo;
+}
+
 ActorContext* Actor::GetContext() const
 {
     return context;

@@ -14,6 +14,7 @@ public:
     ~Scene();
 
     SceneRoom* GetCurrentRoom() const;
+    std::vector<SceneRoom*> GetRoomList() const;
 
 protected:
 

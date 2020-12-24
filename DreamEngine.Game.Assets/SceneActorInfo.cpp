@@ -17,6 +17,16 @@ void SceneActorInfo::SetType(ActorType type)
     this->type = type;
 }
 
+const std::string& SceneActorInfo::GetName() const
+{
+    return name;
+}
+
+void SceneActorInfo::SetName(const std::string& name)
+{
+    this->name = name;
+}
+
 TransformInfo* SceneActorInfo::GetTransformInfo() const
 {
     return transformInfo;

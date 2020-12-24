@@ -4,7 +4,7 @@
 #include "SceneRoomInfo.h"
 #include "ActorFactory.h"
 
-SceneRoom::SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo)
+SceneRoom::SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo) : roomInfo(roomInfo)
 {
     for (SceneActorInfo* const actorInfo : roomInfo->GetActorInfoList())
     {
@@ -18,6 +18,16 @@ SceneRoom::~SceneRoom()
     {
         delete actor;
     }
+}
+
+const std::string& SceneRoom::GetName() const
+{
+    return name;
+}
+
+void SceneRoom::SetName(const std::string& name)
+{
+    this->name = name;
 }
 
 void SceneRoom::AddActor(Actor* actor)

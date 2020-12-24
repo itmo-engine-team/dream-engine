@@ -6,6 +6,7 @@
     <ClCompile Include="JobSystemTest.cpp" />
     <ClCompile Include="AssetTest.cpp" />
     <ClCompile Include="BehaviorTreeTest.cpp" />
+    <ClCompile Include="NavGridTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

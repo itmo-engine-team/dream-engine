@@ -148,6 +148,11 @@
   <ItemGroup>
     <ClCompile Include="NavMesh.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
+      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" />

@@ -52,6 +52,7 @@
     <ClCompile Include="EventDispatcherTest.cpp" />
     <ClCompile Include="JobSystemTest.cpp" />
     <ClCompile Include="AssetTest.cpp" />
+    <ClCompile Include="NavGridTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -71,6 +72,9 @@
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Game.BehaviorTree\DreamEngine.Game.BehaviorTree.vcxproj">
       <Project>{e6f2d4c3-b745-463e-ba3c-d2f781e41047}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Game.Nav\DreamEngine.Game.Nav.vcxproj">
+      <Project>{cd997cdb-c8fa-4dfe-841e-13700967f5e1}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -109,7 +113,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Game.BehaviorTree;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Game.Nav;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Game.BehaviorTree;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>

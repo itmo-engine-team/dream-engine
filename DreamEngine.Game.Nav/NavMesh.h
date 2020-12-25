@@ -1,13 +1,13 @@
 #pragma once
 
 #include "SimpleMath.h"
-#include "../DreamEngine.Graphics/Vertex.h"
+#include "Vertex.h"
 
 using namespace DirectX::SimpleMath;
 
 struct NavMeshPolygon
 {
-    Vector3 centerCoordinate;
+    Vector3 center;
     Vertex* VertexLT;
     Vertex* VertexLD;
     Vertex* VertexRT;
@@ -19,7 +19,7 @@ class NavMesh
 
 public:
     NavMesh() = delete;
-    NavMesh(Vector3 navMeshPosition, Vector3 navMeshSize, float polySize);
+    NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize);
 
     Vector2 GetSize() const;
 

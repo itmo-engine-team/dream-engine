@@ -72,25 +72,25 @@ void NavMesh::initVertex(NavMeshPolygon& polygon) const
 {
     float halfPolygonSize = polygonSize / 2;
 
-    polygon.VerteLT = new Vertex
+    polygon.VertexLT = new Vertex
     {
         Vector3{ polygon.centerCoordinate.x + halfPolygonSize, polygon.centerCoordinate.y, polygon.centerCoordinate.z - halfPolygonSize },
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
-    polygon.VerteLD = new Vertex
+    polygon.VertexLD = new Vertex
     {
         Vector3{ polygon.centerCoordinate.x - halfPolygonSize, polygon.centerCoordinate.y, polygon.centerCoordinate.z - halfPolygonSize },
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
-    polygon.VerteRT = new Vertex
+    polygon.VertexRT = new Vertex
     {
         Vector3{ polygon.centerCoordinate.x + halfPolygonSize, polygon.centerCoordinate.y, polygon.centerCoordinate.z + halfPolygonSize },
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
-    polygon.VerteRD = new Vertex
+    polygon.VertexRD = new Vertex
     {
         Vector3{ polygon.centerCoordinate.x - halfPolygonSize, polygon.centerCoordinate.y, polygon.centerCoordinate.z + halfPolygonSize },
         Vector4{ 0, 1, 0, 1 },

@@ -8,10 +8,10 @@ using namespace DirectX::SimpleMath;
 struct NavMeshPolygon
 {
     Vector3 centerCoordinate;
-    Vertex* VerteLT;
-    Vertex* VerteLD;
-    Vertex* VerteRT;
-    Vertex* VerteRD;
+    Vertex* VertexLT;
+    Vertex* VertexLD;
+    Vertex* VertexRT;
+    Vertex* VertexRD;
 };
 
 class NavMesh

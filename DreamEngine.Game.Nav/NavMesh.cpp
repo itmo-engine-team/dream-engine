@@ -1,6 +1,7 @@
 #include "NavMesh.h"
 
 #include <iostream>
+#include "MeshData.h"
 
 NavMesh::NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize)
 {
@@ -36,6 +37,11 @@ Vector3 NavMesh::GetPosition() const
     return position;
 }
 
+MeshData* NavMesh::GetMeshData() const
+{
+    return meshData;
+}
+
 std::vector<std::vector<NavMeshPolygon>> NavMesh::GetGrid() const
 {
     return navMeshGrid;
@@ -49,6 +55,9 @@ void NavMesh::initNavMeshGrid()
     centerFirstPolygon.y = position.y;
     centerFirstPolygon.z = position.z - size.x / 2 + polygonSize / 2; //TODO: debugCheck
 
+    std::vector<Vertex> vertices;
+    std::vector<DWORD> indices;
+    DWORD currentVertexIndex = 0;
     for (int x = 0; x < size.x; x++)
     {
         std::vector <NavMeshPolygon> navMeshRow;
@@ -58,12 +67,27 @@ void NavMesh::initNavMeshGrid()
             polygon.center.x = polygonSize * y + centerFirstPolygon.x; //TODO: debugCheck
             polygon.center.y = centerFirstPolygon.y;
             polygon.center.z = polygonSize * x + centerFirstPolygon.z; //TODO: debugCheck
-
             initVertex(polygon);
+
+            vertices.push_back(*polygon.VertexLD);
+            vertices.push_back(*polygon.VertexLT);
+            vertices.push_back(*polygon.VertexRT);
+            vertices.push_back(*polygon.VertexRD);
+
+            std::vector<DWORD> polygonIndices = {
+                0 + currentVertexIndex, 1 + currentVertexIndex, 2 + currentVertexIndex,
+                0 + currentVertexIndex, 2 + currentVertexIndex, 3 + currentVertexIndex,
+            };
+            indices.insert(indices.end(), polygonIndices.begin(), polygonIndices.end());
+
             navMeshRow.push_back(polygon);
+
+            currentVertexIndex += 4;
         }
         navMeshGrid.push_back(navMeshRow);
     }
+
+    meshData = new MeshData(vertices, indices);
 }
 
 void NavMesh::initVertex(NavMeshPolygon& polygon) const

@@ -3,6 +3,8 @@
 #include "SimpleMath.h"
 #include "Vertex.h"
 
+class MeshData;
+
 using namespace DirectX::SimpleMath;
 
 struct NavMeshPolygon
@@ -18,6 +20,7 @@ class NavMesh
 {
 
 public:
+
     NavMesh() = delete;
     NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize);
 
@@ -28,6 +31,8 @@ public:
 
     Vector3 GetPosition() const;
 
+    MeshData* GetMeshData() const;
+
     std::vector<std::vector<NavMeshPolygon>> GetGrid() const;
 
 protected:
@@ -35,6 +40,7 @@ protected:
     Vector2 size;
     Vector3 position;
     float polygonSize;
+    MeshData* meshData;
 
     std::vector<std::vector<NavMeshPolygon>> navMeshGrid;
 

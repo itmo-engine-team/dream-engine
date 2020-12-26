@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseSceneViewer.h"
+#include "A_NavMesh.h"
 
 class Scene;
 class SceneAssetInfo;
@@ -28,6 +29,8 @@ protected:
     GameAssetManager* gameAssetManager;
 
     Scene* currentScene = nullptr;
+
+    A_NavMesh* navMesh;
 
 };
 

@@ -102,6 +102,9 @@
     <ClCompile Include="ActorContext.cpp">
       <Filter>Source Files\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="A_NavMesh.cpp">
+      <Filter>Source Files\Actor\Inherited</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="DeltaTimeHandler.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="A_NavMesh.h">
+      <Filter>Header Files\Actor\Inherited</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

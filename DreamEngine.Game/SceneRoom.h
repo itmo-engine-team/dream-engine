@@ -15,6 +15,8 @@ public:
     SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo);
     ~SceneRoom();
 
+    SceneRoomInfo* GetRoomInfo() const;
+
     const std::string& GetName() const;
     void SetName(const std::string& name);
 

@@ -3,7 +3,7 @@
 #include "SceneAssetInfo.h"
 #include "ActorContext.h"
 
-Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo)
+Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo) : sceneInfo(sceneInfo)
 {
     for (SceneRoomInfo* roomInfo: sceneInfo->GetRoomInfoList())
     {
@@ -19,6 +19,11 @@ Scene::~Scene()
     {
         delete room;
     }
+}
+
+SceneAssetInfo* Scene::GetSceneAssetInfo() const
+{
+    return sceneInfo;
 }
 
 SceneRoom* Scene::GetCurrentRoom() const

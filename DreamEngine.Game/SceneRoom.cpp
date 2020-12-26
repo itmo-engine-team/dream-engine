@@ -20,6 +20,11 @@ SceneRoom::~SceneRoom()
     }
 }
 
+SceneRoomInfo* SceneRoom::GetRoomInfo() const
+{
+    return roomInfo;
+}
+
 const std::string& SceneRoom::GetName() const
 {
     return name;

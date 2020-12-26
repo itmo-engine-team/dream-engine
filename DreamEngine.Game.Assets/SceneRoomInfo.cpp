@@ -7,6 +7,16 @@ SceneRoomInfo::SceneRoomInfo()
 
 }
 
+const std::string& SceneRoomInfo::GetName() const
+{
+    return name;
+}
+
+void SceneRoomInfo::SetName(const std::string& name)
+{
+    this->name = name;
+}
+
 const std::vector<SceneActorInfo*>& SceneRoomInfo::GetActorInfoList() const
 {
     return actorInfoList;

@@ -61,12 +61,12 @@ void NavMesh::initNavMeshGrid()
     for (int x = 0; x < size.x; x++)
     {
         std::vector <NavMeshPolygon> navMeshRow;
-        for (int y = 0; y < size.y; y++)
+        for (int z = 0; z < size.y; z++)
         {
             NavMeshPolygon polygon;      
-            polygon.center.x = polygonSize * y + centerFirstPolygon.x; //TODO: debugCheck
+            polygon.center.x = centerFirstPolygon.x - polygonSize * x; //TODO: debugCheck
             polygon.center.y = centerFirstPolygon.y;
-            polygon.center.z = polygonSize * x + centerFirstPolygon.z; //TODO: debugCheck
+            polygon.center.z = polygonSize * z + centerFirstPolygon.z; //TODO: debugCheck
             initVertex(polygon);
 
             vertices.push_back(*polygon.VertexLD);

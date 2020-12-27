@@ -288,7 +288,17 @@ AssetModificationResult AssetManager::addNewAsset(AssetInfo* assetInfo, FolderNo
 
 bool AssetManager::addAssetInfoToMap(AssetInfo* assetInfo)
 {
-    auto specificAssetMap = assetMap.find(assetInfo->GetAssetType())->second;
+    auto assetMapIter = assetMap.find(assetInfo->GetAssetType());
+    if (assetMapIter == assetMap.end())
+    {
+        std::map<unsigned int, AssetInfo*> specificAssetMap = {
+            { assetInfo->GetId(), assetInfo }
+        };
+        assetMap[assetInfo->GetAssetType()] = specificAssetMap;
+        return true;
+    }
+
+    auto specificAssetMap = assetMapIter->second;
     if (specificAssetMap.find(assetInfo->GetId()) != specificAssetMap.end()) return false;
     
     assetMap[assetInfo->GetAssetType()][assetInfo->GetId()] = assetInfo;

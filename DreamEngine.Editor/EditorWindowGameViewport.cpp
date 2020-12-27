@@ -64,6 +64,11 @@ void EditorWindowGameViewport::renderSceneHierarchy()
         // TODO: add SaveScene
     }
 
+    if (ImGui::Button("Add Room"))
+    {
+        currentSceneRoom = currentScene->CreateNewRoom();
+    }
+
     ImGui::Separator();
 
     drawSceneHierarchy();

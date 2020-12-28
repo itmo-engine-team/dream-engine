@@ -11,9 +11,12 @@ class SceneRoom
 {
 
 public:
-
+    
+    SceneRoom(ActorContext* context, std::string name);
     SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo);
     ~SceneRoom();
+
+    SceneRoomInfo* GetRoomInfo() const;
 
     const std::string& GetName() const;
     void SetName(const std::string& name);
@@ -23,6 +26,7 @@ public:
 
 protected:
 
+    ActorContext* context;
     SceneRoomInfo* roomInfo;
 
     std::string name;

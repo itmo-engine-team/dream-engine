@@ -84,6 +84,9 @@
     <ClInclude Include="EditorPopupModalText.h">
       <Filter>Header Files\PopupModal</Filter>
     </ClInclude>
+    <ClInclude Include="EditorWindowModelViewer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="EditorWindowShadowViewport.cpp">
       <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowModelViewer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

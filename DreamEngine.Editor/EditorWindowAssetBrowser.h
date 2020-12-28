@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "AssetTree.h"
 #include "AssetService.h"
+#include "EditorWindowModelViewer.h"
 #include "EditorPopupModalText.h"
 #include "EditorPopupModalNewAsset.h"
 #include "EditorPopupModalNewFolder.h"
@@ -57,6 +58,8 @@ private:
     EditorPopupModalDuplicateAsset* duplicateAssetPopupModal;
     EditorPopupModalError* errorPopupModal;
 
+    EditorWindowModelViewer* modelViewer;
+
     const char* fileNames[];
     
     void setCurrentParentNode(FolderNode* currentParentNode);
@@ -81,5 +84,7 @@ private:
     void drawDuplicateAssetPopup();
     void drawErrorPopup();
     void drawPopups();
+
+    void drawModelViewer();
 
 };

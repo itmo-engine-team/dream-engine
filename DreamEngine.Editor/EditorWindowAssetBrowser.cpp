@@ -133,14 +133,14 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
         {
             switch (currentAssetNode->GetAssetInfo()->GetAssetType())
             {
-            case AssetType::Actor: break;
-            case AssetType::Scene:
-                editor->GetContext()->GetGame()->LoadScene(dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
-                break;
-            case AssetType::Model: break;
-            case AssetType::Texture: break;
-            case AssetType::Unknown: break;
-            default: ;
+                case AssetType::Actor:
+                    break;
+                case AssetType::Scene:
+                    editor->GetContext()->GetGame()->LoadScene(dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
+                    break;
+                case AssetType::Model:
+                    break;
+                default: ;
             }
         }
 

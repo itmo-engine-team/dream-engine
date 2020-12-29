@@ -8,7 +8,6 @@
 #include "SceneActorInfo.h"
 #include "ActorContext.h"
 
-class SceneActorInfo;
 class ActorComponent;
 class ActorComponentScene;
 class ActorComponentFixed;

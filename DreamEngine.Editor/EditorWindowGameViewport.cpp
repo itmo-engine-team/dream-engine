@@ -5,6 +5,8 @@
 #include "Graphics.h"
 #include "Game.h"
 #include "Scene.h"
+#include "SceneRoomInfo.h"
+#include "SceneAssetInfo.h"
 
 #include "AssetManager.h"
 
@@ -61,7 +63,8 @@ void EditorWindowGameViewport::renderSceneHierarchy()
 
     if (ImGui::Button("Save"))
     {
-        // TODO: add SaveScene
+        auto sceneAssetNode = currentScene->GetSceneAssetInfo()->GetAssetNode();
+        editor->GetContext()->GetAssetManager()->SaveAsset(sceneAssetNode);
     }
 
     ImGui::SameLine();
@@ -96,7 +99,7 @@ void EditorWindowGameViewport::drawSceneHierarchyRoom(SceneRoom* room)
     if (currentSceneRoom == room)
         flags |= ImGuiTreeNodeFlags_Selected;
 
-    if (ImGui::TreeNodeEx(room->GetName().c_str(), flags))
+    if (ImGui::TreeNodeEx(room->GetRoomInfo()->GetName().c_str(), flags))
     {
         treeExpanded = true;
 

@@ -14,6 +14,8 @@ public:
 
     const std::vector<SceneRoomInfo*>& GetRoomInfoList() const;
 
+    void AddRoomInfo(SceneRoomInfo* roomInfo);
+
 protected:
 
     Json toJson() override;

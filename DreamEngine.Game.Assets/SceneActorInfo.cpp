@@ -7,6 +7,11 @@ SceneActorInfo::SceneActorInfo(ActorType type)
     
 }
 
+void SceneActorInfo::SetActor(Actor* actor)
+{
+    this->actor = actor;
+}
+
 ActorType SceneActorInfo::GetType() const
 {
     return type;

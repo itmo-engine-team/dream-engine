@@ -2,11 +2,6 @@
 
 #include "SceneActorInfo.h"
 
-SceneRoomInfo::SceneRoomInfo()
-{
-
-}
-
 const std::string& SceneRoomInfo::GetName() const
 {
     return name;
@@ -25,24 +20,24 @@ const std::vector<SceneActorInfo*>& SceneRoomInfo::GetActorInfoList() const
 Json SceneRoomInfo::toJson()
 {
     Json json = Serializable::toJson();
-    Json jsonInfo = {};
+
+    json["name"] = name;
 
     Json jsonActorArray = Json::array();
     for (auto actorInfo : actorInfoList)
     {
         jsonActorArray.push_back(actorInfo->toJson());
     }
-
-    jsonInfo["actors"] = jsonActorArray;
-    json["info"] = jsonInfo;
+    json["actors"] = jsonActorArray;
 
     return json;
 }
 
 void SceneRoomInfo::fromJson(Json json)
 {
-    Json jsonInfo = json["info"];
-    Json jsonActorArray = jsonInfo["actors"];
+    initVariable(json, "name", &name);
+
+    Json jsonActorArray = json["actors"];
     for (auto jsonActorInfo : jsonActorArray)
     {
         auto actorInfo = new SceneActorInfo();

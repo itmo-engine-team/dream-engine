@@ -4,12 +4,16 @@
 #include "TransformInfo.h"
 #include "Serializable.h"
 
+class Actor;
+
 class SceneActorInfo : Serializable
 {
 
 public:
 
     SceneActorInfo(ActorType type = ActorType::Actor);
+
+    void SetActor(Actor* actor);
 
     ActorType GetType() const;
     void SetType(ActorType type);
@@ -28,6 +32,8 @@ protected:
     void fromJson(Json json) override;
 
 private:
+
+    Actor* actor;
 
     ActorType type;
     std::string name;

@@ -9,11 +9,13 @@ using namespace DirectX::SimpleMath;
 
 struct NavMeshPolygon
 {
-    Vector3 center;
+    int FirstVertexIndex;
+    Vector3 Center;
     Vertex* VertexLT;
     Vertex* VertexLD;
     Vertex* VertexRT;
     Vertex* VertexRD;
+    bool IsFree = true;
 };
 
 class NavMesh
@@ -33,7 +35,9 @@ public:
 
     MeshData* GetMeshData() const;
 
-    std::vector<std::vector<NavMeshPolygon>> GetGrid() const;
+    std::vector<std::vector<NavMeshPolygon*>> GetGrid() const;
+
+    void UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize);
 
 protected:
 
@@ -41,10 +45,10 @@ protected:
     Vector3 position;
     float polygonSize;
     MeshData* meshData;
+    std::vector<DWORD> indices;
 
-    std::vector<std::vector<NavMeshPolygon>> navMeshGrid;
+    std::vector<std::vector<NavMeshPolygon*>> navMeshGrid;
 
     void initNavMeshGrid();
-    void initVertex(NavMeshPolygon& polygon) const;
+    void initVertex(NavMeshPolygon& polygon) const;  
 };
-

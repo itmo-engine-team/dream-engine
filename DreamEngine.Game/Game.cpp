@@ -2,6 +2,10 @@
 
 #include "GameAssetManager.h"
 #include "Scene.h"
+#include "ACS_Collision.h"
+#include "ACS_StaticModel.h"
+#include "MeshRenderer.h"
+#include "NavMesh.h"
 
 Game::Game(InputSystem* inputSystem, Graphics* graphics) : BaseSceneViewer(inputSystem, graphics)
 {
@@ -18,11 +22,24 @@ void Game::Init()
     BaseSceneViewer::Init();
 
     navMesh = new A_NavMesh(actorContext, new Transform({ 0, 0.11, 0 }));
+
+    testModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.5f, 0.5f, 0.5f });
+    testBox = new Actor(actorContext, new Transform({ 0, 0, 0 }));
+    testBox->AddSceneComponent(new ACS_StaticModel(actorContext, testBox, new Transform({ 0, 0, 0 }), testModel));
+    testBox->AddSceneComponent(new ACS_Collision(actorContext, testBox, new Transform({ 0, 0, 0 }), Vector2{0.5f, 0.5f }));
 }
 
 void Game::Update(const float engineDeltaTime)
 {
     BaseSceneViewer::Update(engineDeltaTime);
+
+    testBox->Update();
+
+    for (ActorComponent* comp : testBox->GetComponents())
+    {
+        if (ACS_Collision* collision = dynamic_cast<ACS_Collision*>(comp))
+            navMesh->GetNavMesh()->UpdatePolygons(collision->GetTransform()->GetWorldPosition(), collision->GetSize());
+    }
 
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
@@ -36,6 +53,8 @@ void Game::Update(const float engineDeltaTime)
 void Game::Render()
 {
     BaseSceneViewer::Render();
+
+    testBox->Draw();
 
     navMesh->Draw();
 

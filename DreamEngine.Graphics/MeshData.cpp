@@ -6,7 +6,7 @@ MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, Tex
     indicesCount = std::size(indices);
 }
 
-const std::vector<Vertex>& MeshData::GetVertices() const
+std::vector<Vertex>& MeshData::GetVertices()
 {
     return vertices;
 }

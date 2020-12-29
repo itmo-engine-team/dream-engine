@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "Editor.h"
 #include "AssetManager.h"
+#include "Game.h"
 
 #include "ErrorLogger.h"
 
@@ -130,7 +131,17 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
     {
         if (ImGui::Selectable("Open"))
         {
-            //TODO: open asset
+            switch (currentAssetNode->GetAssetInfo()->GetAssetType())
+            {
+                case AssetType::Actor:
+                    break;
+                case AssetType::Scene:
+                    editor->GetContext()->GetGame()->LoadScene(dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
+                    break;
+                case AssetType::Model:
+                    break;
+                default: ;
+            }
         }
 
         if (ImGui::Selectable("Delete"))

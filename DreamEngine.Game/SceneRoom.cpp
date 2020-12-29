@@ -4,8 +4,17 @@
 #include "SceneRoomInfo.h"
 #include "ActorFactory.h"
 
-SceneRoom::SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo) : roomInfo(roomInfo)
+SceneRoom::SceneRoom(ActorContext* context, std::string name)
+    : context(context), roomInfo(nullptr), name(std::move(name))
 {
+    
+}
+
+SceneRoom::SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo) : context(context), roomInfo(roomInfo)
+{
+    // Check if scene room is new
+    if (roomInfo == nullptr) return;
+
     for (SceneActorInfo* const actorInfo : roomInfo->GetActorInfoList())
     {
         actors.push_back(ActorFactory::Create(context, actorInfo));
@@ -18,6 +27,11 @@ SceneRoom::~SceneRoom()
     {
         delete actor;
     }
+}
+
+SceneRoomInfo* SceneRoom::GetRoomInfo() const
+{
+    return roomInfo;
 }
 
 const std::string& SceneRoom::GetName() const

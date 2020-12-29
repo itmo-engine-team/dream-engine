@@ -3,9 +3,9 @@
 #include "SceneAssetInfo.h"
 #include "ActorContext.h"
 
-Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo)
+Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo) : context(context), sceneInfo(sceneInfo)
 {
-    for (SceneRoomInfo* roomInfo: sceneInfo->GetRoomInfoList())
+    for (SceneRoomInfo* roomInfo : sceneInfo->GetRoomInfoList())
     {
         rooms.push_back(new SceneRoom(context, roomInfo));
     }
@@ -19,6 +19,18 @@ Scene::~Scene()
     {
         delete room;
     }
+}
+
+SceneAssetInfo* Scene::GetSceneAssetInfo() const
+{
+    return sceneInfo;
+}
+
+SceneRoom* Scene::CreateNewRoom()
+{
+    SceneRoom* room = new SceneRoom(context, "Room " + std::to_string(rooms.size()));
+    rooms.push_back(room);
+    return room;
 }
 
 SceneRoom* Scene::GetCurrentRoom() const

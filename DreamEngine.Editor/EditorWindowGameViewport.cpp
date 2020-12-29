@@ -5,6 +5,7 @@
 #include "Graphics.h"
 #include "Game.h"
 #include "Scene.h"
+#include "SceneActorInfo.h"
 #include "SceneRoomInfo.h"
 #include "SceneAssetInfo.h"
 
@@ -108,11 +109,11 @@ void EditorWindowGameViewport::drawSceneHierarchyRoom(SceneRoom* room)
             currentSceneRoom = room;
         }
 
-        drawSceneContextMenu();
+        drawRoomContextMenu(room);
 
-        for (auto actor : room->GetActors())
+        for (auto actorInfo : room->GetRoomInfo()->GetActorInfoList())
         {
-            drawSceneHierarchyActor(actor);
+            drawSceneHierarchyActor(actorInfo);
         }
     }
 
@@ -123,30 +124,30 @@ void EditorWindowGameViewport::drawSceneHierarchyRoom(SceneRoom* room)
             currentSceneRoom = room;
         }
 
-        drawSceneContextMenu();
+        drawRoomContextMenu(room);
     }
 }
 
-void EditorWindowGameViewport::drawSceneHierarchyActor(Actor* actor)
+void EditorWindowGameViewport::drawSceneHierarchyActor(SceneActorInfo* actorInfo)
 {
     auto flags = ImGuiTreeNodeFlags_Leaf
         | ImGuiTreeNodeFlags_FramePadding
         | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
-    if (currentSceneActor == actor)
+    if (currentSceneActor == actorInfo)
         flags |= ImGuiTreeNodeFlags_Selected;
 
-    ImGui::TreeNodeEx(actor->GetActorInfo()->GetName().c_str(), flags);
+    ImGui::TreeNodeEx(actorInfo->GetName().c_str(), flags);
 
     if (ImGui::IsItemClicked())
     {
-        currentSceneActor = actor;
+        currentSceneActor = actorInfo;
     }
 
-    drawSceneContextMenu();
+    drawActorContextMenu(actorInfo);
 }
 
-void EditorWindowGameViewport::drawSceneContextMenu()
+void EditorWindowGameViewport::drawRoomContextMenu(SceneRoom* room)
 {
     if (ImGui::BeginPopupContextItem())
     {
@@ -162,7 +163,7 @@ void EditorWindowGameViewport::drawSceneContextMenu()
 
         if (ImGui::Selectable("Add Actor"))
         {
-            // TODO: add AddActor
+            room->CreateActor();
         }
 
         if (ImGui::Selectable("Delete"))
@@ -179,7 +180,7 @@ void EditorWindowGameViewport::drawSceneContextMenu()
     }
 }
 
-void EditorWindowGameViewport::drawActorContextMenu()
+void EditorWindowGameViewport::drawActorContextMenu(SceneActorInfo* actorInfo)
 {
     if (ImGui::BeginPopupContextItem())
     {

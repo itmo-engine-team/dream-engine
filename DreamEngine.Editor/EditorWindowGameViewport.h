@@ -3,6 +3,7 @@
 #include "EditorWindow.h"
 #include "imgui.h"
 
+class SceneActorInfo;
 class Game;
 class Scene;
 class SceneRoom;
@@ -29,7 +30,7 @@ private:
     Game* game;
     Scene* currentScene;
     SceneRoom* currentSceneRoom;
-    Actor* currentSceneActor;
+    SceneActorInfo* currentSceneActor;
 
     void updateViewportSize();
     void renderGameViewport();
@@ -37,8 +38,8 @@ private:
 
     void drawSceneHierarchy();
     void drawSceneHierarchyRoom(SceneRoom* room);
-    void drawSceneHierarchyActor(Actor* actor);
-    void drawSceneContextMenu();
-    void drawActorContextMenu();
+    void drawSceneHierarchyActor(SceneActorInfo* actorInfo);
+    void drawRoomContextMenu(SceneRoom* room);
+    void drawActorContextMenu(SceneActorInfo* actorInfo);
 };
 

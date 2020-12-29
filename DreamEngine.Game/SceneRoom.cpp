@@ -28,8 +28,13 @@ SceneRoomInfo* SceneRoom::GetRoomInfo() const
     return roomInfo;
 }
 
-void SceneRoom::AddActor(Actor* actor)
+void SceneRoom::CreateActor()
 {
+    SceneActorInfo* actorInfo = new SceneActorInfo(ActorType::Actor);
+    actorInfo->SetName("Actor " + std::to_string(actors.size()));
+    roomInfo->AddActorInfo(actorInfo);
+
+    Actor* actor = ActorFactory::Create(context, actorInfo);
     actors.push_back(actor);
 }
 

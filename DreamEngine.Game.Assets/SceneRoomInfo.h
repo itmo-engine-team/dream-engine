@@ -15,6 +15,7 @@ public:
     void SetName(const std::string& name);
 
     const std::vector<SceneActorInfo*>& GetActorInfoList() const;
+    void AddActorInfo(SceneActorInfo* actorInfo);
 
 protected:
 

@@ -17,6 +17,11 @@ const std::vector<SceneActorInfo*>& SceneRoomInfo::GetActorInfoList() const
     return actorInfoList;
 }
 
+void SceneRoomInfo::AddActorInfo(SceneActorInfo* actorInfo)
+{
+    actorInfoList.push_back(actorInfo);
+}
+
 Json SceneRoomInfo::toJson()
 {
     Json json = Serializable::toJson();

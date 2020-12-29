@@ -17,7 +17,7 @@ public:
 
     SceneRoomInfo* GetRoomInfo() const;
 
-    void AddActor(Actor* actor);
+    void CreateActor();
     const std::vector<Actor*>& GetActors() const;
 
 protected:

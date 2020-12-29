@@ -64,9 +64,9 @@ void NavMesh::UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize)
             polygon->IsFree = false;
 
             meshData->GetVertices().at(polygon->FirstVertexIndex).Color = Vector4{ 1, 0, 0, 0 };
-            meshData->GetVertices().at(1 + polygon->FirstVertexIndex).Color = Vector4{ 1, 0, 0, 0 };
-            meshData->GetVertices().at(2 + polygon->FirstVertexIndex).Color = Vector4{ 1, 0, 0, 0 };
-            meshData->GetVertices().at(3 + polygon->FirstVertexIndex).Color = Vector4{ 1, 0, 0, 0 };
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = Vector4{ 1, 0, 0, 0 };
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = Vector4{ 1, 0, 0, 0 };
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = Vector4{ 1, 0, 0, 0 };
         }
     }
 }
@@ -91,14 +91,12 @@ void NavMesh::initNavMeshGrid()
             polygon->Center.x = centerFirstPolygon.x - polygonSize * x; //TODO: debugCheck
             polygon->Center.y = centerFirstPolygon.y;
             polygon->Center.z = polygonSize * z + centerFirstPolygon.z; //TODO: debugCheck
-            initVertex(*polygon);
+
+            std::vector<Vertex> polygonVertices;
+            polygonVertices = initVertex(*polygon);
+            vertices.insert(vertices.end(), polygonVertices.begin(), polygonVertices.end());
 
             polygon->FirstVertexIndex = currentVertexIndex;
-
-            vertices.push_back(*polygon->VertexLD);
-            vertices.push_back(*polygon->VertexLT);
-            vertices.push_back(*polygon->VertexRT);
-            vertices.push_back(*polygon->VertexRD);
 
             std::vector<DWORD> polygonIndices = {
                 0 + currentVertexIndex, 1 + currentVertexIndex, 2 + currentVertexIndex,
@@ -115,32 +113,57 @@ void NavMesh::initNavMeshGrid()
     meshData = new MeshData(vertices, indices);
 }
 
-void NavMesh::initVertex(NavMeshPolygon& polygon) const
+std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon) 
 {
+    std::vector<Vertex> vertices;
     float halfPolygonSize = polygonSize / 2;
 
-    polygon.VertexLT = new Vertex
-    {
-        Vector3{ polygon.Center.x + halfPolygonSize, polygon.Center.y, polygon.Center.z - halfPolygonSize },
-        Vector4{ 0, 1, 0, 1 },
-        Vector3::Up
-    };
-    polygon.VertexLD = new Vertex
+    Vertex vertexLD = Vertex
     {
         Vector3{ polygon.Center.x - halfPolygonSize, polygon.Center.y, polygon.Center.z - halfPolygonSize },
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
-    polygon.VertexRT = new Vertex
+    vertices.push_back(vertexLD);
+
+    Vertex vertexLT = Vertex
+    {
+        Vector3{ polygon.Center.x + halfPolygonSize, polygon.Center.y, polygon.Center.z - halfPolygonSize },
+        Vector4{ 0, 1, 0, 1 },
+        Vector3::Up
+    };
+    vertices.push_back(vertexLT);
+
+    Vertex vertexRT = Vertex
     {
         Vector3{ polygon.Center.x + halfPolygonSize, polygon.Center.y, polygon.Center.z + halfPolygonSize },
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
-    polygon.VertexRD = new Vertex
+    vertices.push_back(vertexRT);
+
+    Vertex vertexRD = Vertex
     {
         Vector3{ polygon.Center.x - halfPolygonSize, polygon.Center.y, polygon.Center.z + halfPolygonSize },
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
+    vertices.push_back(vertexRD);
+    return vertices;
+}
+
+void NavMesh::ResetPolygons()
+{
+    for (auto column : navMeshGrid)
+    {
+        for (NavMeshPolygon* polygon : column)
+        {
+            polygon->IsFree = true;
+
+            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = Vector4{ 0, 1, 0, 0 };
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = Vector4{ 0, 1, 0, 0 };
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = Vector4{ 0, 1, 0, 0 };
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = Vector4{ 0, 1, 0, 0 };
+        }
+    }
 }

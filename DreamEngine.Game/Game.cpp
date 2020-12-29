@@ -33,11 +33,9 @@ void Game::Update(const float engineDeltaTime)
 {
     BaseSceneViewer::Update(engineDeltaTime);
 
-    testBox->Update();
-
+    navMesh->GetNavMesh()->ResetPolygons();
     ACS_Collision* collision = testBox->FindComponent<ACS_Collision>();
     navMesh->GetNavMesh()->UpdatePolygons(collision->GetTransform()->GetWorldPosition(), collision->GetSize());
-
     navMesh->Update();
 
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)

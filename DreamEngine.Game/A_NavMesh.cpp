@@ -17,3 +17,11 @@ NavMesh* A_NavMesh::GetNavMesh() const
 {
     return navMesh;
 }
+
+void A_NavMesh::onUpdate()
+{
+    RemoveComponent(FindComponent<ACS_StaticModel>());
+    ModelData* modelData = new ModelData();
+    modelData->AddMeshData(navMesh->GetMeshData());
+    AddSceneComponent(new ACS_StaticModel(context, this, new Transform(Vector3::Zero), modelData));
+}

@@ -17,5 +17,7 @@ private:
 
     NavMesh* navMesh;
 
+    void onUpdate() override;
+
 };
 

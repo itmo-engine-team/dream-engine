@@ -23,10 +23,10 @@ void Game::Init()
 
     navMesh = new A_NavMesh(actorContext, new Transform({ 0, 0.11, 0 }));
 
-    testModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.5f, 0.5f, 0.5f });
+    testModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 1, 0.5f, 1 });
     testBox = new Actor(actorContext, new Transform({ 0, 0, 0 }));
     testBox->AddSceneComponent(new ACS_StaticModel(actorContext, testBox, new Transform({ 0, 0, 0 }), testModel));
-    testBox->AddSceneComponent(new ACS_Collision(actorContext, testBox, new Transform({ 0, 0, 0 }), Vector2{0.5f, 0.5f }));
+    testBox->AddSceneComponent(new ACS_Collision(actorContext, testBox, new Transform({ 0, 0, 0 }), Vector2{1.5f, 1.5f }));
 }
 
 void Game::Update(const float engineDeltaTime)
@@ -35,11 +35,10 @@ void Game::Update(const float engineDeltaTime)
 
     testBox->Update();
 
-    for (ActorComponent* comp : testBox->GetComponents())
-    {
-        if (ACS_Collision* collision = dynamic_cast<ACS_Collision*>(comp))
-            navMesh->GetNavMesh()->UpdatePolygons(collision->GetTransform()->GetWorldPosition(), collision->GetSize());
-    }
+    ACS_Collision* collision = testBox->FindComponent<ACS_Collision>();
+    navMesh->GetNavMesh()->UpdatePolygons(collision->GetTransform()->GetWorldPosition(), collision->GetSize());
+
+    navMesh->Update();
 
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {

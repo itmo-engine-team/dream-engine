@@ -7,10 +7,6 @@
 A_NavMesh::A_NavMesh(ActorContext* context, Transform* transform) : Actor(context, transform)
 {
     navMesh = new NavMesh(transform->GetWorldPosition(), { 6, 1, 6 }, 1);
-
-    ModelData* modelData = new ModelData();
-    modelData->AddMeshData(navMesh->GetMeshData());
-    AddSceneComponent(new ACS_StaticModel(context, this, new Transform(Vector3::Zero), modelData));
 }
 
 NavMesh* A_NavMesh::GetNavMesh() const
@@ -20,7 +16,10 @@ NavMesh* A_NavMesh::GetNavMesh() const
 
 void A_NavMesh::onUpdate()
 {
-    RemoveComponent(FindComponent<ACS_StaticModel>());
+    ACS_StaticModel* staticModelComponent = FindComponent<ACS_StaticModel>();
+    if (staticModelComponent != nullptr)
+        RemoveComponent(staticModelComponent);
+
     ModelData* modelData = new ModelData();
     modelData->AddMeshData(navMesh->GetMeshData());
     AddSceneComponent(new ACS_StaticModel(context, this, new Transform(Vector3::Zero), modelData));

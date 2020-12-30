@@ -32,7 +32,6 @@ protected:
 
     A_NavMesh* navMesh;
 
-    Actor* testBox;
     ModelData* testModel;
 };
 

@@ -63,10 +63,10 @@ void NavMesh::UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize)
 
             polygon->IsFree = false;
 
-            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = Vector4{ 1, 0, 0, 0 };
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = Vector4{ 1, 0, 0, 0 };
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = Vector4{ 1, 0, 0, 0 };
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = Vector4{ 1, 0, 0, 0 };
+            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = RED;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = RED;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = RED;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = RED;
         }
     }
 }
@@ -75,9 +75,9 @@ void NavMesh::initNavMeshGrid()
 {
     // Calculate Center of coordinates of zero polygon
     Vector3 centerFirstPolygon;
-    centerFirstPolygon.x = position.x + size.y / 2 - polygonSize / 2; //TODO: debugCheck
+    centerFirstPolygon.x = position.x + size.y / 2 - polygonSize / 2;
     centerFirstPolygon.y = position.y;
-    centerFirstPolygon.z = position.z - size.x / 2 + polygonSize / 2; //TODO: debugCheck
+    centerFirstPolygon.z = position.z - size.x / 2 + polygonSize / 2;
 
     std::vector<Vertex> vertices;
     
@@ -88,9 +88,9 @@ void NavMesh::initNavMeshGrid()
         for (int z = 0; z < size.y; z++)
         {
             NavMeshPolygon* polygon = new NavMeshPolygon;      
-            polygon->Center.x = centerFirstPolygon.x - polygonSize * x; //TODO: debugCheck
+            polygon->Center.x = centerFirstPolygon.x - polygonSize * x;
             polygon->Center.y = centerFirstPolygon.y;
-            polygon->Center.z = polygonSize * z + centerFirstPolygon.z; //TODO: debugCheck
+            polygon->Center.z = polygonSize * z + centerFirstPolygon.z;
 
             std::vector<Vertex> polygonVertices;
             polygonVertices = initVertex(*polygon);
@@ -160,10 +160,10 @@ void NavMesh::ResetPolygons()
         {
             polygon->IsFree = true;
 
-            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = Vector4{ 0, 1, 0, 0 };
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = Vector4{ 0, 1, 0, 0 };
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = Vector4{ 0, 1, 0, 0 };
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = Vector4{ 0, 1, 0, 0 };
+            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = GREEN;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = GREEN;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = GREEN;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = GREEN;
         }
     }
 }

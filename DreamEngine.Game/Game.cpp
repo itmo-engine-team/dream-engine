@@ -43,8 +43,6 @@ void Game::Render()
 {
     BaseSceneViewer::Render();
 
-    testBox->Draw();
-
     navMesh->Draw();
 
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)

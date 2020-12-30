@@ -21,21 +21,13 @@ void Game::Init()
 {
     BaseSceneViewer::Init();
 
-    navMesh = new A_NavMesh(actorContext, new Transform({ 0, 0.11, 0 }));
-
-    testModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 1, 0.5f, 1 });
-    testBox = new Actor(actorContext, new Transform({ 0, 0, 0 }));
-    testBox->AddSceneComponent(new ACS_StaticModel(actorContext, testBox, new Transform({ 0, 0, 0 }), testModel));
-    testBox->AddSceneComponent(new ACS_Collision(actorContext, testBox, new Transform({ 0, 0, 0 }), Vector2{1.5f, 1.5f }));
+    navMesh = new A_NavMesh(actorContext, new Transform({ 0, 0.11, 0 }));  
 }
 
 void Game::Update(const float engineDeltaTime)
 {
     BaseSceneViewer::Update(engineDeltaTime);
 
-    navMesh->GetNavMesh()->ResetPolygons();
-    ACS_Collision* collision = testBox->FindComponent<ACS_Collision>();
-    navMesh->GetNavMesh()->UpdatePolygons(collision->GetTransform()->GetWorldPosition(), collision->GetSize());
     navMesh->Update();
 
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)

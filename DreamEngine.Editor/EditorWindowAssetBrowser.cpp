@@ -148,19 +148,16 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
         if (ImGui::Selectable("Delete"))
         {
             deleteAssetPopupModal = new EditorPopupModalDeleteAsset(selectedAssetNode);
-            currentAssetNode = selectedAssetNode;
         }
 
         if (ImGui::Selectable("Move")) {}
         if (ImGui::Selectable("Duplicate")) 
         {
             duplicateAssetPopupModal = new EditorPopupModalDuplicateAsset(selectedAssetNode);
-            currentAssetNode = selectedAssetNode;
         }
         if (ImGui::Selectable("Rename")) 
         {
             renameAssetPopupModal = new EditorPopupModalRenameAsset(selectedAssetNode, selectedAssetNode->GetName());
-            currentAssetNode = selectedAssetNode;
         }
 
         ImGui::EndPopup();

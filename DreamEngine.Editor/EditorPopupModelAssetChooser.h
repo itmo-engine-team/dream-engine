@@ -20,6 +20,7 @@ protected:
     AssetType assetType;
     Texture* assetIcon;
     AssetInfo* currentAsset;
+    std::map<unsigned int, AssetInfo*> assetMap;
 
     void onDrawPopup() override;
     bool onFinish() override;

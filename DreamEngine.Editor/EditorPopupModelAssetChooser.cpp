@@ -7,6 +7,8 @@ EditorPopupModelAssetChooser::EditorPopupModelAssetChooser(Editor* editor, Asset
     assetManager = editor->GetContext()->GetAssetManager();
     assetType = currentAssetType;
     assetIcon = texture;
+
+    assetMap = assetManager->GetAssetMapByType(assetType);
 }
 
 AssetInfo* EditorPopupModelAssetChooser::GetCurrentAsset()
@@ -20,10 +22,10 @@ void EditorPopupModelAssetChooser::onDrawPopup()
     ImGuiStyle& style = ImGui::GetStyle();
     float windowVisible = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
 
-    int assetSize = assetManager->GetAssetMapByType(assetType).size();
+    int assetSize = assetMap.size();
     int i = 0;
 
-    for (auto iterator = assetManager->GetAssetMapByType(assetType).begin(); iterator != assetManager->GetAssetMapByType(assetType).end(); ++iterator, i++)
+    for (auto iterator = assetMap.begin(); iterator != assetMap.end(); ++iterator, i++)
     {
 
         ImGui::PushID(i);

@@ -8,16 +8,16 @@ class EditorWindowModelViewer : public EditorWindow
 
 public: 
 
-    EditorWindowModelViewer(Editor* editor, AssetType currentAssetType, Texture* assetIcon);
+    EditorWindowModelViewer(Editor* editor, Texture* assetIcon);
 
     void Update() override;
     void Render() override;
 
-    bool GetResult();
+    bool IsOpened();
 
 private:
 
-    bool result = false;
+    bool result = true;
     std::string currentAssetInfoName;
 
     EditorPopupModelAssetChooser* assetChooser;

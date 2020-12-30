@@ -2,10 +2,9 @@
 
 #include "imgui.h"
 
-EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, AssetType currentAssetType, Texture* assetIcon)
+EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, Texture* assetIcon)
     : EditorWindow("Model Viewer", editor)
 {
-    assetType = currentAssetType;
     currentTexture = assetIcon;
 }
 
@@ -20,7 +19,7 @@ void EditorWindowModelViewer::Render()
     drawAssetChooser();
 }
 
-bool EditorWindowModelViewer::GetResult()
+bool EditorWindowModelViewer::IsOpened()
 {
     return result;
 }
@@ -31,7 +30,7 @@ void EditorWindowModelViewer::renderModelViewer()
     
     if (ImGui::Button("Close"))
     {
-        result = true;
+        result = false;
     }
 
     ImGui::End();
@@ -59,8 +58,7 @@ void EditorWindowModelViewer::renderModelInspector()
     ImGui::SameLine();
     if (ImGui::Button("Choose"))
     {
-        //TODO : open asset chooser 
-        assetChooser = new EditorPopupModelAssetChooser(editor, assetType, currentTexture);
+        assetChooser = new EditorPopupModelAssetChooser(editor, AssetType::Model, currentTexture);
     }
 
     ImGui::End();

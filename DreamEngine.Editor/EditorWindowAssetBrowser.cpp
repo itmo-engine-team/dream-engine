@@ -141,7 +141,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
                     editor->GetContext()->GetGame()->LoadScene(dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
                     break;
                 case AssetType::Model:
-                    modelViewer = new EditorWindowModelViewer(editor, AssetType::Model, getAssetIconType(selectedAssetNode));
+                    modelViewer = new EditorWindowModelViewer(editor, getAssetIconType(selectedAssetNode));
                     break;
                 default: ;
             }
@@ -341,7 +341,7 @@ void EditorWindowAssetBrowser::drawModelViewer()
     {
         modelViewer->Render();
         
-        if (modelViewer->GetResult())
+        if (!modelViewer->IsOpened())
         {
             delete modelViewer;
             modelViewer = nullptr;

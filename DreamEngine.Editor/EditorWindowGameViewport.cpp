@@ -107,6 +107,7 @@ void EditorWindowGameViewport::drawSceneHierarchyRoom(SceneRoom* room)
         if (ImGui::IsItemClicked())
         {
             currentSceneRoom = room;
+            currentSceneActor = nullptr;
         }
 
         drawRoomContextMenu(room);
@@ -122,6 +123,7 @@ void EditorWindowGameViewport::drawSceneHierarchyRoom(SceneRoom* room)
         if (ImGui::IsItemClicked())
         {
             currentSceneRoom = room;
+            currentSceneActor = nullptr;
         }
 
         drawRoomContextMenu(room);
@@ -151,15 +153,11 @@ void EditorWindowGameViewport::drawRoomContextMenu(SceneRoom* room)
 {
     if (ImGui::BeginPopupContextItem())
     {
-        if (ImGui::Selectable("Edit"))
-        {
-            // TODO: add EditScene
-        }
-
+        /*
         if (ImGui::Selectable("Add prefab"))
         {
             // TODO: add AddPrefab
-        }
+        }*/
 
         if (ImGui::Selectable("Add Actor"))
         {
@@ -184,11 +182,6 @@ void EditorWindowGameViewport::drawActorContextMenu(SceneActorInfo* actorInfo)
 {
     if (ImGui::BeginPopupContextItem())
     {
-        if (ImGui::Selectable("Edit"))
-        {
-            // TODO: add EditActor
-        }
-
         if (ImGui::Selectable("Save"))
         {
             // TODO: add SaveActor

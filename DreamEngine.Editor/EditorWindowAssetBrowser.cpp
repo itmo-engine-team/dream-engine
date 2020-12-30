@@ -130,6 +130,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
 {
     if (ImGui::BeginPopupContextItem())
     {
+        currentAssetNode = selectedAssetNode;
         if (ImGui::Selectable("Open"))
         {
             switch (currentAssetNode->GetAssetInfo()->GetAssetType())
@@ -149,19 +150,16 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
         if (ImGui::Selectable("Delete"))
         {
             deleteAssetPopupModal = new EditorPopupModalDeleteAsset(selectedAssetNode);
-            currentAssetNode = selectedAssetNode;
         }
 
         if (ImGui::Selectable("Move")) {}
         if (ImGui::Selectable("Duplicate")) 
         {
             duplicateAssetPopupModal = new EditorPopupModalDuplicateAsset(selectedAssetNode);
-            currentAssetNode = selectedAssetNode;
         }
         if (ImGui::Selectable("Rename")) 
         {
             renameAssetPopupModal = new EditorPopupModalRenameAsset(selectedAssetNode, selectedAssetNode->GetName());
-            currentAssetNode = selectedAssetNode;
         }
 
         ImGui::EndPopup();
@@ -387,20 +385,32 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
 
     for (int i = 0; i < assetsCount; i++)
     {
+        const auto assetNodeToDraw = parentNode->GetChildAssetList()[i];
         ImGui::PushID(i);
 
         ImGui::BeginGroup();
 
-        iconAsset = getAssetIconType(parentNode->GetChildAssetList()[i]);
+        iconAsset = getAssetIconType(assetNodeToDraw);
+
+        bool assetSelected = currentAssetNode == assetNodeToDraw;
+        if (assetSelected)
+        {
+            ImGui::PushStyleColor(ImGuiCol_Button, { 0.3, 0, 0.8, 1 });
+        }
 
         if (ImGui::ImageButton(iconAsset->GetShaderResourceView(), buttonSize))
         {
-            currentAssetNode = parentNode->GetChildAssetList()[i];
+            currentAssetNode = assetNodeToDraw;
         }
 
-        drawAssetContextMenu(parentNode->GetChildAssetList()[i]);
+        if (assetSelected)
+        {
+            ImGui::PopStyleColor();
+        }
 
-        ImGui::Text(parentNode->GetChildAssetList()[i]->GetName().c_str());
+        drawAssetContextMenu(assetNodeToDraw);
+
+        ImGui::Text(assetNodeToDraw->GetName().c_str());
         ImGui::EndGroup();
 
         float lastButton = ImGui::GetItemRectMax().x;

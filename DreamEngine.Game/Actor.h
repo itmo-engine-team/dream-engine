@@ -8,7 +8,6 @@
 #include "SceneActorInfo.h"
 #include "ActorContext.h"
 
-class SceneActorInfo;
 class ActorComponent;
 class ActorComponentScene;
 class ActorComponentFixed;
@@ -40,11 +39,11 @@ public:
     std::vector<ActorComponent*> GetComponents() const;
 
     template<class ComponentClass>
-    ComponentClass FindComponent()
+    ComponentClass* FindComponent()
     {
-        for each (auto component in components)
+        for (auto component : components)
         {
-            if (ComponentClass castedComponent = dynamic_cast<ComponentClass>(component))
+            if (ComponentClass* castedComponent = dynamic_cast<ComponentClass*>(component))
             {
                 return castedComponent;
             }
@@ -53,18 +52,20 @@ public:
     }
 
     template<class ComponentClass>
-    std::vector<ComponentClass> FindComponents()
+    std::vector<ComponentClass*> FindComponents()
     {
-        auto foundComponents = std::vector<ComponentClass>();
-        for each (auto component in components)
+        auto foundComponents = std::vector<ComponentClass*>();
+        for (auto component : components)
         {
-            if (ComponentClass castedComponent = dynamic_cast<ComponentClass>(component))
+            if (ComponentClass* castedComponent = dynamic_cast<ComponentClass*>(component))
             {
                 foundComponents.push_back(castedComponent);
             }
         }
         return foundComponents;
     }
+
+    bool RemoveComponent(ActorComponent* component);
 
 protected:
 

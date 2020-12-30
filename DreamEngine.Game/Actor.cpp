@@ -106,6 +106,48 @@ std::vector<ActorComponent*> Actor::GetComponents() const
     return components;
 }
 
+bool Actor::RemoveComponent(ActorComponent* component)
+{
+    bool isFound = false;
+    for (auto it = components.begin(); it < components.end(); ++it)
+    {
+        if (*it == component)
+        {
+            isFound = true;
+            components.erase(it);
+            break;
+        }
+    }
+
+    if (!isFound) return false;
+
+    if (auto sceneComponent = dynamic_cast<ActorComponentScene*>(component))
+    {
+        for (auto it = sceneComponents.begin(); it < sceneComponents.end(); ++it)
+        {
+            if (*it == sceneComponent)
+            {
+                sceneComponents.erase(it);
+                return true;
+            }
+        }
+    }
+
+    if (auto fixedComponent = dynamic_cast<ActorComponentFixed*>(component))
+    {
+        for (auto it = fixedComponents.begin(); it < fixedComponents.end(); ++it)
+        {
+            if (*it == fixedComponent)
+            {
+                fixedComponents.erase(it);
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 void Actor::onUpdate()
 {
 

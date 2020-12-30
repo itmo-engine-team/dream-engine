@@ -128,6 +128,7 @@ bool Actor::RemoveComponent(ActorComponent* component)
             if (*it == sceneComponent)
             {
                 sceneComponents.erase(it);
+                delete component;
                 return true;
             }
         }
@@ -140,6 +141,7 @@ bool Actor::RemoveComponent(ActorComponent* component)
             if (*it == fixedComponent)
             {
                 fixedComponents.erase(it);
+                delete component;
                 return true;
             }
         }

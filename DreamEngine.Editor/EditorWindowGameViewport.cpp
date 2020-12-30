@@ -26,6 +26,8 @@ void EditorWindowGameViewport::Render()
 {
     renderGameViewport();
     renderSceneHierarchy();
+    renderRoomInspector();
+    renderActorInspector();
 }
 
 void EditorWindowGameViewport::updateViewportSize()
@@ -77,6 +79,26 @@ void EditorWindowGameViewport::renderSceneHierarchy()
     ImGui::Separator();
 
     drawSceneHierarchy();
+
+    ImGui::End();
+}
+
+void EditorWindowGameViewport::renderRoomInspector()
+{
+    // Show room inspector only if room is selected and no actor is selected
+    if (currentSceneRoom == nullptr || currentSceneActor != nullptr) return;
+
+    ImGui::Begin("Room Inspector");
+
+    ImGui::End();
+}
+
+void EditorWindowGameViewport::renderActorInspector()
+{
+    // Show only if actor is selected
+    if (currentSceneActor == nullptr) return;
+
+    ImGui::Begin("Actor Inspector");
 
     ImGui::End();
 }

@@ -35,6 +35,8 @@ private:
     void updateViewportSize();
     void renderGameViewport();
     void renderSceneHierarchy();
+    void renderRoomInspector();
+    void renderActorInspector();
 
     void drawSceneHierarchy();
     void drawSceneHierarchyRoom(SceneRoom* room);

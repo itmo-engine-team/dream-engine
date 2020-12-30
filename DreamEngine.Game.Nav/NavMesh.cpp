@@ -63,10 +63,10 @@ void NavMesh::UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize)
 
             polygon->IsFree = false;
 
-            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = RED;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = RED;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = RED;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = RED;
+            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = OCCUPIED_POLYGON_COLOR;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = OCCUPIED_POLYGON_COLOR;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = OCCUPIED_POLYGON_COLOR;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = OCCUPIED_POLYGON_COLOR;
         }
     }
 }
@@ -160,10 +160,10 @@ void NavMesh::ResetPolygons()
         {
             polygon->IsFree = true;
 
-            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = GREEN;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = GREEN;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = GREEN;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = GREEN;
+            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = FREE_POLYGON_COLOR;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = FREE_POLYGON_COLOR;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = FREE_POLYGON_COLOR;
+            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = FREE_POLYGON_COLOR;
         }
     }
 }

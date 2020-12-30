@@ -22,8 +22,8 @@ public:
     NavMesh() = delete;
     NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize);
 
-    const Vector4 RED = { 1, 0, 0, 0 };
-    const Vector4 GREEN = { 0, 1, 0, 0 };
+    const Vector4 OCCUPIED_POLYGON_COLOR = { 1, 0, 0, 0 };
+    const Vector4 FREE_POLYGON_COLOR = { 0, 1, 0, 0 };
 
     Vector2 GetSize() const;
 

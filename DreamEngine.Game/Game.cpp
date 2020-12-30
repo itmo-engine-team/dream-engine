@@ -2,6 +2,10 @@
 
 #include "GameAssetManager.h"
 #include "Scene.h"
+#include "ACS_Collision.h"
+#include "ACS_StaticModel.h"
+#include "MeshRenderer.h"
+#include "NavMesh.h"
 
 Game::Game(InputSystem* inputSystem, Graphics* graphics) : BaseSceneViewer(inputSystem, graphics)
 {
@@ -17,12 +21,14 @@ void Game::Init()
 {
     BaseSceneViewer::Init();
 
-    navMesh = new A_NavMesh(actorContext, new Transform({ 0, 0.11, 0 }));
+    navMesh = new A_NavMesh(actorContext, new Transform({ 0, 0.11, 0 }));  
 }
 
 void Game::Update(const float engineDeltaTime)
 {
     BaseSceneViewer::Update(engineDeltaTime);
+
+    navMesh->Update();
 
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {

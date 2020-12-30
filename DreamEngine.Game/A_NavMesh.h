@@ -11,9 +11,13 @@ public:
 
     A_NavMesh(ActorContext* context, Transform* transform);
 
+    NavMesh* GetNavMesh() const;
+
 private:
 
     NavMesh* navMesh;
+
+    void onUpdate() override;
 
 };
 

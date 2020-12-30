@@ -105,6 +105,9 @@
     <ClCompile Include="A_NavMesh.cpp">
       <Filter>Source Files\Actor\Inherited</Filter>
     </ClCompile>
+    <ClCompile Include="ACS_Collision.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="A_NavMesh.h">
       <Filter>Header Files\Actor\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ACS_Collision.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -31,6 +31,5 @@ protected:
     Scene* currentScene = nullptr;
 
     A_NavMesh* navMesh;
-
 };
 

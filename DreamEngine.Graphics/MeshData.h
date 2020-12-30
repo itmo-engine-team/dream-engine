@@ -12,7 +12,7 @@ public:
 
     MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, Texture* texture = nullptr);
 
-    const std::vector<Vertex>& GetVertices() const;
+    std::vector<Vertex>& GetVertices();
     const std::vector<DWORD>& GetIndices() const;
     UINT GetIndicesCount() const;
 

@@ -6,7 +6,19 @@
 
 A_NavMesh::A_NavMesh(ActorContext* context, Transform* transform) : Actor(context, transform)
 {
-    navMesh = new NavMesh(transform->GetWorldPosition(), { 3, 1, 3 }, 1);
+    navMesh = new NavMesh(transform->GetWorldPosition(), { 6, 1, 6 }, 1);
+}
+
+NavMesh* A_NavMesh::GetNavMesh() const
+{
+    return navMesh;
+}
+
+void A_NavMesh::onUpdate()
+{
+    ACS_StaticModel* staticModelComponent = FindComponent<ACS_StaticModel>();
+    if (staticModelComponent != nullptr)
+        RemoveComponent(staticModelComponent);
 
     ModelData* modelData = new ModelData();
     modelData->AddMeshData(navMesh->GetMeshData());

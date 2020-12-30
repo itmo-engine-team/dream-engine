@@ -60,6 +60,8 @@ void EditorWindowGameViewport::renderSceneHierarchy()
     if (currentScene != game->GetCurrentScene())
     {
         currentScene = game->GetCurrentScene();
+        currentSceneRoom = nullptr;
+        currentSceneActor = nullptr;
     }
 
     ImGui::Begin("Scene Hierarchy");

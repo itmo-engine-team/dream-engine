@@ -2,10 +2,11 @@
 
 #include "imgui.h"
 
-EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor)
+EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, AssetType currentAssetType, Texture* assetIcon)
     : EditorWindow("Model Viewer", editor)
 {
-
+    assetType = currentAssetType;
+    currentTexture = assetIcon;
 }
 
 void EditorWindowModelViewer::Update()
@@ -16,6 +17,7 @@ void EditorWindowModelViewer::Render()
 {
     renderModelViewer();
     renderModelInspector();
+    drawAssetChooser();
 }
 
 bool EditorWindowModelViewer::GetResult()
@@ -26,6 +28,11 @@ bool EditorWindowModelViewer::GetResult()
 void EditorWindowModelViewer::renderModelViewer()
 {
     ImGui::Begin(GetName().data());
+    
+    if (ImGui::Button("Close"))
+    {
+        result = true;
+    }
 
     ImGui::End();
 }
@@ -36,8 +43,7 @@ void EditorWindowModelViewer::renderModelInspector()
 
     if (ImGui::Button("Save"))
     {
-        //TODO : save and close
-        result = true;
+        //TODO : save 
     }
     ImGui::SameLine();
     if (ImGui::Button("Reimport"))
@@ -49,12 +55,24 @@ void EditorWindowModelViewer::renderModelInspector()
     ImGui::InputText("Model Path: ", modelPath, IM_ARRAYSIZE(modelPath));
 
     ImGui::Text("Preview Texture: ");
-    ImGui::Text("Texture name");
+    ImGui::Text(currentAssetInfoName.c_str());
     ImGui::SameLine();
     if (ImGui::Button("Choose"))
     {
         //TODO : open asset chooser 
+        assetChooser = new EditorPopupModelAssetChooser(editor, assetType, currentTexture);
     }
 
     ImGui::End();
+}
+
+void EditorWindowModelViewer::drawAssetChooser()
+{
+    if (!EditorPopupModal::DrawPipeline(assetChooser))
+        return;
+
+    if (assetChooser->GetResult())
+    {
+        currentAssetInfoName = assetChooser->GetCurrentAsset()->GetName();
+    }
 }

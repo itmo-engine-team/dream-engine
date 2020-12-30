@@ -140,7 +140,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
                     editor->GetContext()->GetGame()->LoadScene(dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
                     break;
                 case AssetType::Model:
-                    modelViewer = new EditorWindowModelViewer(editor);
+                    modelViewer = new EditorWindowModelViewer(editor, AssetType::Model, getAssetIconType(selectedAssetNode));
                     break;
                 default: ;
             }

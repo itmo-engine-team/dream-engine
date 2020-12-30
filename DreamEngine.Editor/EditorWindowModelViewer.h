@@ -17,7 +17,7 @@ public:
 
 private:
 
-    bool result = true;
+    bool isOpened = true;
     std::string currentAssetInfoName;
 
     EditorPopupModelAssetChooser* assetChooser;

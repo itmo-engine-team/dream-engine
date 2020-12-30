@@ -21,7 +21,7 @@ void EditorWindowModelViewer::Render()
 
 bool EditorWindowModelViewer::IsOpened()
 {
-    return result;
+    return isOpened;
 }
 
 void EditorWindowModelViewer::renderModelViewer()
@@ -30,7 +30,7 @@ void EditorWindowModelViewer::renderModelViewer()
     
     if (ImGui::Button("Close"))
     {
-        result = false;
+        isOpened = false;
     }
 
     ImGui::End();

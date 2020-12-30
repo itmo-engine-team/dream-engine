@@ -9,12 +9,13 @@ class SceneRoomInfo : Serializable
 
 public:
 
-    SceneRoomInfo();
+    SceneRoomInfo() = default;
 
     const std::string& GetName() const;
     void SetName(const std::string& name);
 
     const std::vector<SceneActorInfo*>& GetActorInfoList() const;
+    void AddActorInfo(SceneActorInfo* actorInfo);
 
 protected:
 

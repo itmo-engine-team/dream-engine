@@ -7,6 +7,11 @@ SceneActorInfo::SceneActorInfo(ActorType type)
     
 }
 
+void SceneActorInfo::SetActor(Actor* actor)
+{
+    this->actor = actor;
+}
+
 ActorType SceneActorInfo::GetType() const
 {
     return type;
@@ -37,6 +42,7 @@ Json SceneActorInfo::toJson()
     Json json = Serializable::toJson();
 
     json["type"] = MapUtils::TryGetByKey<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, type, "Unknown");
+    json["name"] = name;
     json["transform"] = transformInfo->toJson();
 
     return json;
@@ -48,8 +54,8 @@ void SceneActorInfo::fromJson(Json json)
     initVariable(json, "type", &stringType);
     type = MapUtils::TryGetByValue<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, stringType, ActorType::Unknown);
 
-    delete transformInfo;
-    transformInfo = new TransformInfo();
+    initVariable(json, "name", &name);
+
     transformInfo->fromJson(json["transform"]);
 }
 

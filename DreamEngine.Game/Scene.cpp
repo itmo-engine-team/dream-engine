@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 #include "SceneAssetInfo.h"
+#include "SceneRoomInfo.h"
 #include "ActorContext.h"
 
 Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo) : context(context), sceneInfo(sceneInfo)
@@ -28,7 +29,11 @@ SceneAssetInfo* Scene::GetSceneAssetInfo() const
 
 SceneRoom* Scene::CreateNewRoom()
 {
-    SceneRoom* room = new SceneRoom(context, "Room " + std::to_string(rooms.size()));
+    SceneRoomInfo* roomInfo = new SceneRoomInfo();
+    roomInfo->SetName("Room " + std::to_string(rooms.size()));
+    sceneInfo->AddRoomInfo(roomInfo);
+
+    SceneRoom* room = new SceneRoom(context, roomInfo);
     rooms.push_back(room);
     return room;
 }

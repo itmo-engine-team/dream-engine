@@ -17,6 +17,11 @@ const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
     return roomInfoList;
 }
 
+void SceneAssetInfo::AddRoomInfo(SceneRoomInfo* roomInfo)
+{
+    roomInfoList.push_back(roomInfo);
+}
+
 Json SceneAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();

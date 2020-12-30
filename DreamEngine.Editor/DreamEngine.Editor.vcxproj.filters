@@ -84,6 +84,12 @@
     <ClInclude Include="EditorPopupModalText.h">
       <Filter>Header Files\PopupModal</Filter>
     </ClInclude>
+    <ClInclude Include="EditorPopupModelAssetChooser.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowModelViewer.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -138,6 +144,12 @@
       <Filter>Source Files\Window</Filter>
     </ClCompile>
     <ClCompile Include="EditorWindowShadowViewport.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModelAssetChooser.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowModelViewer.cpp">
       <Filter>Source Files\Window</Filter>
     </ClCompile>
   </ItemGroup>

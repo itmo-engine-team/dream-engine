@@ -68,6 +68,7 @@ void EditorWindowAssetBrowser::Render()
     ImGui::End();
 
     drawPopups();
+    drawModelViewer();
 }
 
 void EditorWindowAssetBrowser::setCurrentParentNode(FolderNode* newParentNode)
@@ -140,6 +141,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
                     editor->GetContext()->GetGame()->LoadScene(dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
                     break;
                 case AssetType::Model:
+                    modelViewer = new EditorWindowModelViewer(editor, getAssetIconType(selectedAssetNode));
                     break;
                 default: ;
             }
@@ -331,6 +333,20 @@ void EditorWindowAssetBrowser::drawPopups()
     drawRenameAssetPopup();
     drawDuplicateAssetPopup();
     drawErrorPopup();
+}
+
+void EditorWindowAssetBrowser::drawModelViewer()
+{
+    if (modelViewer != nullptr)
+    {
+        modelViewer->Render();
+        
+        if (!modelViewer->IsOpened())
+        {
+            delete modelViewer;
+            modelViewer = nullptr;
+        }
+    }
 }
 
 void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)

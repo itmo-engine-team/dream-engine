@@ -32,10 +32,12 @@
     <ClInclude Include="EditorPopupModalRenameAsset.h" />
     <ClInclude Include="EditorPopupModalRenameFolder.h" />
     <ClInclude Include="EditorPopupModalText.h" />
+    <ClInclude Include="EditorPopupModelAssetChooser.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="EditorWindowAssetBrowser.h" />
     <ClInclude Include="EditorWindowBehaviorTreeViewport.h" />
     <ClInclude Include="EditorWindowGameViewport.h" />
+    <ClInclude Include="EditorWindowModelViewer.h" />
     <ClInclude Include="EditorWindowShadowViewport.h" />
   </ItemGroup>
   <ItemGroup>
@@ -52,10 +54,12 @@
     <ClCompile Include="EditorPopupModalRenameAsset.cpp" />
     <ClCompile Include="EditorPopupModalRenameFolder.cpp" />
     <ClCompile Include="EditorPopupModalText.cpp" />
+    <ClCompile Include="EditorPopupModelAssetChooser.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="EditorWindowAssetBrowser.cpp" />
     <ClCompile Include="EditorWindowBehaviorTreeViewport.cpp" />
     <ClCompile Include="EditorWindowGameViewport.cpp" />
+    <ClCompile Include="EditorWindowModelViewer.cpp" />
     <ClCompile Include="EditorWindowShadowViewport.cpp" />
   </ItemGroup>
   <ItemGroup>

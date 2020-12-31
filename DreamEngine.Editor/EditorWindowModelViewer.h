@@ -1,7 +1,7 @@
 #pragma once
 #include "Texture.h"
 #include "EditorWindow.h"
-#include "EditorPopupModelAssetChooser.h"
+#include "EditorPopupAssetChooser.h"
 
 class EditorWindowModelViewer : public EditorWindow 
 {
@@ -20,7 +20,7 @@ private:
     bool isOpened = true;
     std::string currentAssetInfoName;
 
-    EditorPopupModelAssetChooser* assetChooser;
+    EditorPopupAssetChooser* assetChooser;
     AssetType assetType;
     Texture* currentTexture;
 

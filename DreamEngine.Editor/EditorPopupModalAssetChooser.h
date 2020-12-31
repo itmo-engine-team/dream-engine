@@ -4,13 +4,11 @@
 #include "Texture.h"
 #include "Editor.h"
 
-#include "imgui.h"
-
-class EditorPopupModelAssetChooser : public EditorPopupModal
+class EditorPopupModalAssetChooser : public EditorPopupModal
 {
 public:
 
-    EditorPopupModelAssetChooser(Editor* editor, AssetType currentAssetType, Texture* texture);
+    EditorPopupModalAssetChooser(Editor* editor, AssetType currentAssetType, Texture* texture);
 
     AssetInfo* GetCurrentAsset();
 

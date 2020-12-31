@@ -84,11 +84,11 @@
     <ClInclude Include="EditorPopupModalText.h">
       <Filter>Header Files\PopupModal</Filter>
     </ClInclude>
-    <ClInclude Include="EditorPopupModelAssetChooser.h">
-      <Filter>Header Files\PopupModal</Filter>
-    </ClInclude>
     <ClInclude Include="EditorWindowModelViewer.h">
       <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalAssetChooser.h">
+      <Filter>Header Files\PopupModal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,11 +146,11 @@
     <ClCompile Include="EditorWindowShadowViewport.cpp">
       <Filter>Source Files\Window</Filter>
     </ClCompile>
-    <ClCompile Include="EditorPopupModelAssetChooser.cpp">
-      <Filter>Source Files\Window</Filter>
-    </ClCompile>
     <ClCompile Include="EditorWindowModelViewer.cpp">
       <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalAssetChooser.cpp">
+      <Filter>Source Files\PopupModal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

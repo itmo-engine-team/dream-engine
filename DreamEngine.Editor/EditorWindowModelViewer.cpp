@@ -58,7 +58,7 @@ void EditorWindowModelViewer::renderModelInspector()
     ImGui::SameLine();
     if (ImGui::Button("Choose"))
     {
-        assetChooser = new EditorPopupAssetChooser(editor, AssetType::Model, currentTexture);
+        assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Model, currentTexture);
     }
 
     ImGui::End();

@@ -1,7 +1,9 @@
-#include "EditorPopupModelAssetChooser.h"
+#include "EditorPopupModalAssetChooser.h"
 #include "AssetInfoFactory.h"
 
-EditorPopupModelAssetChooser::EditorPopupModelAssetChooser(Editor* editor, AssetType currentAssetType, Texture* texture)
+#include "imgui.h"
+
+EditorPopupModalAssetChooser::EditorPopupModalAssetChooser(Editor* editor, AssetType currentAssetType, Texture* texture)
     : EditorPopupModal("Asset Chooser")
 {
     assetManager = editor->GetContext()->GetAssetManager();
@@ -11,12 +13,12 @@ EditorPopupModelAssetChooser::EditorPopupModelAssetChooser(Editor* editor, Asset
     assetMap = assetManager->GetAssetMapByType(assetType);
 }
 
-AssetInfo* EditorPopupModelAssetChooser::GetCurrentAsset()
+AssetInfo* EditorPopupModalAssetChooser::GetCurrentAsset()
 {
     return currentAsset;
 }
 
-void EditorPopupModelAssetChooser::onDrawPopup()
+void EditorPopupModalAssetChooser::onDrawPopup()
 {
     ImVec2 buttonSize(40, 40);
     ImGuiStyle& style = ImGui::GetStyle();
@@ -46,7 +48,7 @@ void EditorPopupModelAssetChooser::onDrawPopup()
     }
 }
 
-bool EditorPopupModelAssetChooser::onFinish()
+bool EditorPopupModalAssetChooser::onFinish()
 {
     if (!result) return true;
 

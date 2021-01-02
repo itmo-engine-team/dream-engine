@@ -31,6 +31,11 @@ Editor::~Editor()
     {
         delete window;
     }
+
+    for (EditorWindow* window : dynamicWindows)
+    {
+        delete window;
+    }
 }
 
 void Editor::Update()
@@ -43,6 +48,11 @@ void Editor::Render()
     startImGuiFrame();
     renderWindows();
     finishImGuiFrame();
+}
+
+void Editor::AddDynamicWindow(EditorWindow* window)
+{
+    dynamicWindows.push_back(window);
 }
 
 std::wstring Editor::GetEditorProjectPath() const
@@ -119,6 +129,23 @@ void Editor::updateWindows()
     {
         window->Update();
     }
+
+    for (auto iter = dynamicWindows.begin(); iter < dynamicWindows.end(); ++iter)
+    {
+        EditorWindow* window = *iter;
+        if (!window->IsOpened())
+        {
+            dynamicWindows.erase(iter);
+            delete window;
+
+            if (iter > dynamicWindows.begin()) 
+                --iter;
+
+            continue;
+        }
+
+        window->Update();
+    }
 }
 
 void Editor::renderWindows()
@@ -126,6 +153,14 @@ void Editor::renderWindows()
     renderMainEditorMenu();
 
     for (EditorWindow* window : windows)
+    {
+        if (!window->IsOpened())
+            continue;
+
+        window->Render();
+    }
+
+    for (EditorWindow* window : dynamicWindows)
     {
         if (!window->IsOpened())
             continue;

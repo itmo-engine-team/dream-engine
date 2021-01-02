@@ -19,18 +19,13 @@ void EditorWindowModelViewer::Render()
     drawAssetChooser();
 }
 
-bool EditorWindowModelViewer::IsOpened()
-{
-    return isOpened;
-}
-
 void EditorWindowModelViewer::renderModelViewer()
 {
     ImGui::Begin(GetName().data());
     
     if (ImGui::Button("Close"))
     {
-        isOpened = false;
+        SetOpened(false);
     }
 
     ImGui::End();

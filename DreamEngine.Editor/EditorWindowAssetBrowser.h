@@ -58,8 +58,6 @@ private:
     EditorPopupModalDuplicateAsset* duplicateAssetPopupModal;
     EditorPopupModalError* errorPopupModal;
 
-    EditorWindowModelViewer* modelViewer;
-
     const char* fileNames[];
     
     void setCurrentParentNode(FolderNode* currentParentNode);
@@ -84,7 +82,5 @@ private:
     void drawDuplicateAssetPopup();
     void drawErrorPopup();
     void drawPopups();
-
-    void drawModelViewer();
 
 };

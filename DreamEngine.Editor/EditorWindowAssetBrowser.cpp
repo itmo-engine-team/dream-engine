@@ -20,19 +20,8 @@ EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     iconFile = new Texture(graphics, editor->GetPathFromEditor(L"Icons/file.png").c_str());
     iconFilter = new Texture(graphics, editor->GetPathFromEditor(L"Icons/filter.png").c_str());
     iconAsset = new Texture(graphics, editor->GetPathFromEditor(L"Icons/asset.png").c_str());
-    iconActor = new Texture(graphics, editor->GetPathFromEditor(L"Icons/actorIcon.png").c_str());
-    iconScene = new Texture(graphics, editor->GetPathFromEditor(L"Icons/sceneIcon.png").c_str());
-    iconModel = new Texture(graphics, editor->GetPathFromEditor(L"Icons/modelIcon.png").c_str());
-    iconTexture = new Texture(graphics, editor->GetPathFromEditor(L"Icons/textureIcon.png").c_str());
     iconBP = new Texture(graphics, editor->GetPathFromEditor(L"Icons/blueprintIcon.png").c_str());
     iconBT = new Texture(graphics, editor->GetPathFromEditor(L"Icons/btIcon.png").c_str());
-
-    MAP_ASSET_TYPE_TO_TEXTURE = {
-       { AssetType::Actor, iconActor },
-       { AssetType::Scene, iconScene },
-       { AssetType::Model, iconModel },
-       { AssetType::Texture, iconTexture },
-    };
 }
 
 void EditorWindowAssetBrowser::Update()
@@ -76,9 +65,9 @@ void EditorWindowAssetBrowser::setCurrentParentNode(FolderNode* newParentNode)
     assetPath = AssetService::CreateFolderPath(currentParentNode);
 }
 
-Texture* EditorWindowAssetBrowser::getAssetIconType(AssetNode* currentAssetNode)
+Texture* EditorWindowAssetBrowser::getAssetIconByNodeType(AssetNode* assetNode) const
 {
-    return MAP_ASSET_TYPE_TO_TEXTURE.find(currentAssetNode->GetAssetInfo()->GetAssetType())->second;
+    return editor->GetIconByAssetType(assetNode->GetAssetInfo()->GetAssetType());
 }
 
 void EditorWindowAssetBrowser::drawFilter()
@@ -140,7 +129,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
                     editor->GetContext()->GetGame()->LoadScene(dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
                     break;
                 case AssetType::Model:
-                    editor->AddDynamicWindow(new EditorWindowModelViewer(editor, getAssetIconType(selectedAssetNode)));
+                    editor->AddDynamicWindow(new EditorWindowModelViewer(editor));
                     break;
                 default: ;
             }
@@ -375,7 +364,7 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
 
         ImGui::BeginGroup();
 
-        iconAsset = getAssetIconType(assetNodeToDraw);
+        iconAsset = getAssetIconByNodeType(assetNodeToDraw);
 
         bool assetSelected = currentAssetNode == assetNodeToDraw;
         if (assetSelected)

@@ -11,11 +11,12 @@
 #include "EditorWindowShadowViewport.h"
 #include "EditorWindowGameViewport.h"
 #include "EditorWindowBehaviorTreeViewport.h"
+#include "MapUtils.h"
 
 Editor::Editor(EditorContext* context) : context(context)
 {
     std::string solutionPath = SOLUTION_DIR;
-    editorProjectPath = std::wstring(solutionPath.begin(), solutionPath.end()) + L"DreamEngine.Editor/";
+    EDITOR_PROJECT_PATH = std::wstring(solutionPath.begin(), solutionPath.end()) + L"DreamEngine.Editor/";
 
     initImGui();
 
@@ -23,6 +24,13 @@ Editor::Editor(EditorContext* context) : context(context)
     windows.push_back(new EditorWindowShadowViewport(this));
     windows.push_back(new EditorWindowGameViewport(this));
     windows.push_back(new EditorWindowBehaviorTreeViewport(this));
+
+    MAP_ASSET_TYPE_TO_TEXTURE = {
+       { AssetType::Actor, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/actorIcon.png").c_str()) },
+       { AssetType::Scene, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/sceneIcon.png").c_str()) },
+       { AssetType::Model, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/modelIcon.png").c_str()) },
+       { AssetType::Texture, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/textureIcon.png").c_str()) },
+    };
 }
 
 Editor::~Editor()
@@ -57,12 +65,17 @@ void Editor::AddDynamicWindow(EditorWindow* window)
 
 std::wstring Editor::GetEditorProjectPath() const
 {
-    return editorProjectPath;
+    return EDITOR_PROJECT_PATH;
 }
 
 std::wstring Editor::GetPathFromEditor(const std::wstring path) const
 {
-    return editorProjectPath + path;
+    return EDITOR_PROJECT_PATH + path;
+}
+
+Texture* Editor::GetIconByAssetType(AssetType type) const
+{
+    return MapUtils::TryGetByKey<AssetType, Texture*>(MAP_ASSET_TYPE_TO_TEXTURE, type, nullptr);
 }
 
 EditorContext* Editor::GetContext() const

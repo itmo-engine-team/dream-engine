@@ -8,7 +8,7 @@ class EditorWindowModelViewer : public EditorWindow
 
 public: 
 
-    EditorWindowModelViewer(Editor* editor, Texture* assetIcon);
+    EditorWindowModelViewer(Editor* editor);
 
     void Update() override;
     void Render() override;
@@ -19,7 +19,6 @@ private:
 
     EditorPopupModalAssetChooser* assetChooser;
     AssetType assetType;
-    Texture* currentTexture;
 
     void renderModelViewer();
     void renderModelInspector();

@@ -2,10 +2,9 @@
 
 #include "imgui.h"
 
-EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, Texture* assetIcon)
+EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor)
     : EditorWindow("Model Viewer", editor)
 {
-    currentTexture = assetIcon;
 }
 
 void EditorWindowModelViewer::Update()
@@ -53,7 +52,7 @@ void EditorWindowModelViewer::renderModelInspector()
     ImGui::SameLine();
     if (ImGui::Button("Choose"))
     {
-        assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Model, currentTexture);
+        assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Texture);
     }
 
     ImGui::End();
@@ -66,6 +65,6 @@ void EditorWindowModelViewer::drawAssetChooser()
 
     if (assetChooser->GetResult())
     {
-        currentAssetInfoName = assetChooser->GetCurrentAsset()->GetName();
+        currentAssetInfoName = assetChooser->GetChosenAsset()->GetName();
     }
 }

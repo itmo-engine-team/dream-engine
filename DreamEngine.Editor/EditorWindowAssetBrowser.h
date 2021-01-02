@@ -47,8 +47,6 @@ private:
 
     std::string assetPath;
 
-    std::map<AssetType, Texture*> MAP_ASSET_TYPE_TO_TEXTURE;
-
     EditorPopupModalNewAsset* newAssetPopupModal;
     EditorPopupModalNewFolder* newFolderPopupModal;
     EditorPopupModalDeleteFolder* deleteFolderPopupModal;
@@ -62,7 +60,7 @@ private:
     
     void setCurrentParentNode(FolderNode* currentParentNode);
 
-    Texture* getAssetIconType(AssetNode* currentAssetNode);
+    Texture* getAssetIconByNodeType(AssetNode* assetNode) const;
 
     void drawFilter();
     void drawFolderContextMenu(FolderNode* selectedFolderNode);

@@ -8,9 +8,9 @@ class EditorPopupModalAssetChooser : public EditorPopupModal
 {
 public:
 
-    EditorPopupModalAssetChooser(Editor* editor, AssetType currentAssetType, Texture* texture);
+    EditorPopupModalAssetChooser(Editor* editor, AssetType assetType);
 
-    AssetInfo* GetCurrentAsset();
+    AssetInfo* GetChosenAsset() const;
 
 protected:
 

@@ -148,11 +148,15 @@ void Editor::updateWindows()
         EditorWindow* window = *iter;
         if (!window->IsOpened())
         {
+            bool isFirst = iter == dynamicWindows.begin();
+            auto prevIter = iter == dynamicWindows.begin() ? dynamicWindows.begin() : iter--;
             dynamicWindows.erase(iter);
             delete window;
 
-            if (iter > dynamicWindows.begin()) 
-                --iter;
+            iter = isFirst ? dynamicWindows.begin() : prevIter;
+
+            if (dynamicWindows.empty())
+                break;
 
             continue;
         }

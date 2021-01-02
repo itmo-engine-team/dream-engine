@@ -33,6 +33,7 @@
     <ClInclude Include="EditorPopupModalRenameFolder.h" />
     <ClInclude Include="EditorPopupModalText.h" />
     <ClInclude Include="EditorPopupModalAssetChooser.h" />
+    <ClInclude Include="EditorViewport.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="EditorWindowAssetBrowser.h" />
     <ClInclude Include="EditorWindowBehaviorTreeViewport.h" />
@@ -56,6 +57,7 @@
     <ClCompile Include="EditorPopupModalRenameFolder.cpp" />
     <ClCompile Include="EditorPopupModalText.cpp" />
     <ClCompile Include="EditorPopupModalAssetChooser.cpp" />
+    <ClCompile Include="EditorViewport.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="EditorWindowAssetBrowser.cpp" />
     <ClCompile Include="EditorWindowBehaviorTreeViewport.cpp" />

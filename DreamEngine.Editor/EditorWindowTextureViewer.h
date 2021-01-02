@@ -2,6 +2,7 @@
 
 #include "EditorWindow.h"
 #include "Texture.h"
+#include "EditorViewport.h"
 
 class TextureAssetInfo;
 
@@ -16,6 +17,8 @@ public:
     void Render() override;
 
 private:
+
+    EditorViewport* viewport = new EditorViewport(ImVec2(10, 10));
 
     TextureAssetInfo* textureAssetInfo;
     Texture* textureInstance;

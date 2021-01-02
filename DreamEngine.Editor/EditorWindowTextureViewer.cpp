@@ -52,7 +52,8 @@ void EditorWindowTextureViewer::renderTextureViewer()
 
     if (textureInstance != nullptr)
     {
-        ImGui::Image(textureInstance->GetShaderResourceView(), ImVec2(300, 300));
+        viewport->UpdateSize();
+        ImGui::Image(textureInstance->GetShaderResourceView(), viewport->GetSize());
     }
     else
     {

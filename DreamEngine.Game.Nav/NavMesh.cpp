@@ -46,6 +46,25 @@ std::vector<std::vector<NavMeshPolygon*>> NavMesh::GetGrid() const
     return navMeshGrid;
 }
 
+std::vector<NavMeshPolygon*> NavMesh::GetNeighbours(NavMeshPolygon* polygon)
+{
+    std::vector<NavMeshPolygon*> neighbours;
+
+    for (int x = -1; x <= 1; x++)
+    {
+        for (int z = -1; z <= 1; z++)
+        {
+            if (x == 0 && z == 0) continue;
+
+            int checkX = polygon->x + x;
+            int checkZ = polygon->z + z;
+
+            if (checkX >= 0 && checkX < size.x && checkZ >= 0 && checkZ < size.y)
+                neighbours.push_back(GetGrid().at(checkX).at(checkZ));
+        }
+    }
+    return neighbours;
+}
 
 void NavMesh::UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize)
 {
@@ -91,6 +110,9 @@ void NavMesh::initNavMeshGrid()
             polygon->Center.x = centerFirstPolygon.x - polygonSize * x;
             polygon->Center.y = centerFirstPolygon.y;
             polygon->Center.z = polygonSize * z + centerFirstPolygon.z;
+
+            polygon->x = x;
+            polygon->z = z;
 
             std::vector<Vertex> polygonVertices;
             polygonVertices = initVertex(*polygon);
@@ -165,5 +187,28 @@ void NavMesh::ResetPolygons()
             meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = FREE_POLYGON_COLOR;
             meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = FREE_POLYGON_COLOR;
         }
+    }
+}
+
+NavMeshPolygon* NavMesh::FindPolygon(Vector3 centerLocation)
+{
+    for (auto x : navMeshGrid)
+    {
+        for (NavMeshPolygon* polygon : x)
+        {
+            if (polygon->Center == centerLocation)
+                return polygon;
+        }
+    }
+}
+
+void NavMesh::DebugPath(std::vector<NavMeshPolygon> path)
+{
+    for (NavMeshPolygon polygon : path)
+    {
+        meshData->GetVertices().at(polygon.FirstVertexIndex).Color = PATH_COLOR;
+        meshData->GetVertices().at(polygon.FirstVertexIndex + 1).Color = PATH_COLOR;
+        meshData->GetVertices().at(polygon.FirstVertexIndex + 2).Color = PATH_COLOR;
+        meshData->GetVertices().at(polygon.FirstVertexIndex + 3).Color = PATH_COLOR;
     }
 }

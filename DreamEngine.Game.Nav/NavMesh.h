@@ -12,6 +12,17 @@ struct NavMeshPolygon
     int FirstVertexIndex;
     Vector3 Center;
     bool IsFree = true;
+
+    NavMeshPolygon* ParentPolygon;
+    float GCost = 0;
+    float HCost = 0;
+    float GetFCost() { return GCost + HCost; }
+
+private:
+
+    friend class NavMesh;
+    int x;
+    int z;
 };
 
 class NavMesh
@@ -24,6 +35,7 @@ public:
 
     const Vector4 OCCUPIED_POLYGON_COLOR = { 1, 0, 0, 1 };
     const Vector4 FREE_POLYGON_COLOR = { 0, 1, 0, 1 };
+    const Vector4 PATH_COLOR = { 0, 0, 1, 1 };
 
     Vector2 GetSize() const;
 
@@ -31,13 +43,15 @@ public:
     void SetPolygonSize(float polySize);
 
     Vector3 GetPosition() const;
-
     MeshData* GetMeshData() const;
-
     std::vector<std::vector<NavMeshPolygon*>> GetGrid() const;
+    std::vector<NavMeshPolygon*> GetNeighbours(NavMeshPolygon* polygon);
 
     void UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize);
     void ResetPolygons();
+    NavMeshPolygon* FindPolygon(Vector3 centerLocation);
+
+    void DebugPath(std::vector<NavMeshPolygon> path);
 
 protected:
 

@@ -30,13 +30,6 @@ void EditorWindowGameViewport::Render()
     renderActorInspector();
 }
 
-void EditorWindowGameViewport::updateViewportSize()
-{
-    ImVec2 windowSize = ImGui::GetWindowSize();
-    gameViewportSizeMultiplier = min(windowSize.x / GAME_VIEWPORT_RATIO.x, windowSize.y / GAME_VIEWPORT_RATIO.y);
-    gameViewportSize = ImVec2(GAME_VIEWPORT_RATIO.x * gameViewportSizeMultiplier, GAME_VIEWPORT_RATIO.y * gameViewportSizeMultiplier);
-}
-
 void EditorWindowGameViewport::renderGameViewport()
 {
     ImGui::Begin("GameViewport");
@@ -46,8 +39,8 @@ void EditorWindowGameViewport::renderGameViewport()
         // TODO: Play game 
     }
 
-    updateViewportSize();
-    ImGui::Image(editor->GetContext()->GetGraphics()->GetSceneResourceView(), gameViewportSize);
+    viewport->UpdateSize();
+    ImGui::Image(editor->GetContext()->GetGraphics()->GetSceneResourceView(), viewport->GetSize());
 
     ImGui::End();
 }

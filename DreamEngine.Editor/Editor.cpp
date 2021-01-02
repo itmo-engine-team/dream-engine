@@ -11,11 +11,12 @@
 #include "EditorWindowShadowViewport.h"
 #include "EditorWindowGameViewport.h"
 #include "EditorWindowBehaviorTreeViewport.h"
+#include "MapUtils.h"
 
 Editor::Editor(EditorContext* context) : context(context)
 {
     std::string solutionPath = SOLUTION_DIR;
-    editorProjectPath = std::wstring(solutionPath.begin(), solutionPath.end()) + L"DreamEngine.Editor/";
+    EDITOR_PROJECT_PATH = std::wstring(solutionPath.begin(), solutionPath.end()) + L"DreamEngine.Editor/";
 
     initImGui();
 
@@ -23,11 +24,23 @@ Editor::Editor(EditorContext* context) : context(context)
     windows.push_back(new EditorWindowShadowViewport(this));
     windows.push_back(new EditorWindowGameViewport(this));
     windows.push_back(new EditorWindowBehaviorTreeViewport(this));
+
+    MAP_ASSET_TYPE_TO_TEXTURE = {
+       { AssetType::Actor, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/actorIcon.png").c_str()) },
+       { AssetType::Scene, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/sceneIcon.png").c_str()) },
+       { AssetType::Model, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/modelIcon.png").c_str()) },
+       { AssetType::Texture, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/textureIcon.png").c_str()) },
+    };
 }
 
 Editor::~Editor()
 {
     for (EditorWindow* window : windows)
+    {
+        delete window;
+    }
+
+    for (EditorWindow* window : dynamicWindows)
     {
         delete window;
     }
@@ -45,14 +58,24 @@ void Editor::Render()
     finishImGuiFrame();
 }
 
+void Editor::AddDynamicWindow(EditorWindow* window)
+{
+    dynamicWindows.push_back(window);
+}
+
 std::wstring Editor::GetEditorProjectPath() const
 {
-    return editorProjectPath;
+    return EDITOR_PROJECT_PATH;
 }
 
 std::wstring Editor::GetPathFromEditor(const std::wstring path) const
 {
-    return editorProjectPath + path;
+    return EDITOR_PROJECT_PATH + path;
+}
+
+Texture* Editor::GetIconByAssetType(AssetType type) const
+{
+    return MapUtils::TryGetByKey<AssetType, Texture*>(MAP_ASSET_TYPE_TO_TEXTURE, type, nullptr);
 }
 
 EditorContext* Editor::GetContext() const
@@ -119,6 +142,27 @@ void Editor::updateWindows()
     {
         window->Update();
     }
+
+    for (auto iter = dynamicWindows.begin(); iter < dynamicWindows.end(); ++iter)
+    {
+        EditorWindow* window = *iter;
+        if (!window->IsOpened())
+        {
+            bool isFirst = iter == dynamicWindows.begin();
+            auto prevIter = iter == dynamicWindows.begin() ? dynamicWindows.begin() : iter--;
+            dynamicWindows.erase(iter);
+            delete window;
+
+            iter = isFirst ? dynamicWindows.begin() : prevIter;
+
+            if (dynamicWindows.empty())
+                break;
+
+            continue;
+        }
+
+        window->Update();
+    }
 }
 
 void Editor::renderWindows()
@@ -127,7 +171,15 @@ void Editor::renderWindows()
 
     for (EditorWindow* window : windows)
     {
-        if (!window->IsVisible())
+        if (!window->IsOpened())
+            continue;
+
+        window->Render();
+    }
+
+    for (EditorWindow* window : dynamicWindows)
+    {
+        if (!window->IsOpened())
             continue;
 
         window->Render();
@@ -153,9 +205,9 @@ void Editor::renderMainEditorMenu()
             {
                 for (EditorWindow* window : windows)
                 {
-                    bool selected = window->IsVisible();
+                    bool selected = window->IsOpened();
                     ImGui::MenuItem(window->GetName().data(), " ", &selected);
-                    window->SetVisible(selected);
+                    window->SetOpened(selected);
                 }
                 
                 ImGui::EndMenu();

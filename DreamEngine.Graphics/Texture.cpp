@@ -10,23 +10,7 @@ Texture::Texture(Graphics* graphics, const wchar_t* texturePath) : graphics(grap
     // Loading a texture from file
     auto hr = DirectX::CreateWICTextureFromFile(graphics->GetDevice(),
         texturePath, nullptr, &textureResource, 0);
-
-    // Creating a texture sample (description) 
-    /*D3D11_SAMPLER_DESC sampDesc;
-    ZeroMemory(&sampDesc, sizeof(sampDesc));
-    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;      // Type of filtering
-    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;         // Setting coordinates
-    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-    sampDesc.MinLOD = 0;
-    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    // Creating a texturing sample interface
-    hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &samplerState);
-    ErrorLogger::DirectXLog(hr, Error, "Failed create SamplerState",
-        __FILE__, __FUNCTION__, __LINE__);
-    */
+    isValid = !FAILED(hr);
 }
 
 Texture::Texture(Graphics* graphics, ID3D11Texture2D* texture) : graphics(graphics)
@@ -39,22 +23,12 @@ Texture::Texture(Graphics* graphics, ID3D11Texture2D* texture) : graphics(graphi
     shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
     auto hr = graphics->GetDevice()->CreateShaderResourceView(texture, &shaderResourceViewDesc, &textureResource);
+    isValid = !FAILED(hr);
+}
 
-    // Creating a texture sample (description) 
-    /*D3D11_SAMPLER_DESC sampDesc;
-    ZeroMemory(&sampDesc, sizeof(sampDesc));
-    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;      // Type of filtering
-    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;         // Setting coordinates
-    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-    sampDesc.MinLOD = 0;
-    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    // Creating a texturing sample interface
-    hr = graphics->GetDevice()->CreateSamplerState(&sampDesc, &samplerState);
-    ErrorLogger::DirectXLog(hr, Error, "Failed create SamplerState", __FILE__, __FUNCTION__, __LINE__);
-    */
+const bool Texture::IsValid() const
+{
+    return isValid;
 }
 
 void Texture::SetTexture(int slot)

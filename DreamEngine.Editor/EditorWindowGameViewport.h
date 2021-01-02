@@ -1,7 +1,7 @@
 #pragma once
 
 #include "EditorWindow.h"
-#include "imgui.h"
+#include "EditorViewport.h"
 
 class SceneActorInfo;
 class Game;
@@ -22,17 +22,13 @@ public:
 
 private:
 
-    const ImVec2 GAME_VIEWPORT_RATIO = ImVec2(16, 9);
-    ImVec2 gameViewportSize;
-
-    float gameViewportSizeMultiplier = 20;
-
     Game* game;
     Scene* currentScene;
     SceneRoom* currentSceneRoom;
     SceneActorInfo* currentSceneActor;
 
-    void updateViewportSize();
+    EditorViewport* viewport = new EditorViewport();
+
     void renderGameViewport();
     void renderSceneHierarchy();
     void renderRoomInspector();

@@ -1,11 +1,9 @@
 #pragma once
-#include <map>
 
 #include "EditorWindow.h"
 #include "Texture.h"
 #include "AssetTree.h"
 #include "AssetService.h"
-#include "EditorWindowModelViewer.h"
 #include "EditorPopupModalText.h"
 #include "EditorPopupModalNewAsset.h"
 #include "EditorPopupModalNewFolder.h"
@@ -47,8 +45,6 @@ private:
 
     std::string assetPath;
 
-    std::map<AssetType, Texture*> MAP_ASSET_TYPE_TO_TEXTURE;
-
     EditorPopupModalNewAsset* newAssetPopupModal;
     EditorPopupModalNewFolder* newFolderPopupModal;
     EditorPopupModalDeleteFolder* deleteFolderPopupModal;
@@ -58,13 +54,11 @@ private:
     EditorPopupModalDuplicateAsset* duplicateAssetPopupModal;
     EditorPopupModalError* errorPopupModal;
 
-    EditorWindowModelViewer* modelViewer;
-
     const char* fileNames[];
     
     void setCurrentParentNode(FolderNode* currentParentNode);
 
-    Texture* getAssetIconType(AssetNode* currentAssetNode);
+    Texture* getAssetIconByNodeType(AssetNode* assetNode) const;
 
     void drawFilter();
     void drawFolderContextMenu(FolderNode* selectedFolderNode);
@@ -84,7 +78,5 @@ private:
     void drawDuplicateAssetPopup();
     void drawErrorPopup();
     void drawPopups();
-
-    void drawModelViewer();
 
 };

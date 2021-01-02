@@ -1,4 +1,5 @@
 #pragma once
+
 #include "EditorPopupModal.h"
 #include "AssetManager.h"
 #include "Texture.h"
@@ -8,9 +9,9 @@ class EditorPopupModalAssetChooser : public EditorPopupModal
 {
 public:
 
-    EditorPopupModalAssetChooser(Editor* editor, AssetType currentAssetType, Texture* texture);
+    EditorPopupModalAssetChooser(Editor* editor, AssetType assetType);
 
-    AssetInfo* GetCurrentAsset();
+    AssetInfo* GetChosenAsset() const;
 
 protected:
 

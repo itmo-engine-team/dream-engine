@@ -17,8 +17,8 @@ public:
 
     std::string GetName() const;
 
-    bool IsVisible() const;
-    void SetVisible(bool isVisible);
+    bool IsOpened() const;
+    void SetOpened(bool isOpened);
 
 protected:
 
@@ -28,7 +28,7 @@ private:
 
     std::string name;
 
-    bool isVisible = true;
+    bool isOpened = true;
 
 };
 

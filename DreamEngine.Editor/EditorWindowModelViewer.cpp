@@ -1,11 +1,13 @@
 #include "EditorWindowModelViewer.h"
 
 #include "imgui.h"
+#include "ModelAssetInfo.h"
 
-EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, Texture* assetIcon)
-    : EditorWindow("Model Viewer", editor)
+EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo* modelAssetInfo)
+    : EditorWindow("Model Viewer", editor), modelAssetInfo(modelAssetInfo)
 {
-    currentTexture = assetIcon;
+    if (modelAssetInfo == nullptr)
+        SetOpened(false);
 }
 
 void EditorWindowModelViewer::Update()
@@ -19,18 +21,13 @@ void EditorWindowModelViewer::Render()
     drawAssetChooser();
 }
 
-bool EditorWindowModelViewer::IsOpened()
-{
-    return isOpened;
-}
-
 void EditorWindowModelViewer::renderModelViewer()
 {
     ImGui::Begin(GetName().data());
     
     if (ImGui::Button("Close"))
     {
-        isOpened = false;
+        SetOpened(false);
     }
 
     ImGui::End();
@@ -42,23 +39,22 @@ void EditorWindowModelViewer::renderModelInspector()
 
     if (ImGui::Button("Save"))
     {
-        //TODO : save 
+        saveModelAsset();
     }
     ImGui::SameLine();
     if (ImGui::Button("Reimport"))
     {
-        //TODO : reimport asset
+        reimportModelAsset();
     }
 
-    static char modelPath[128] = "";
     ImGui::InputText("Model Path: ", modelPath, IM_ARRAYSIZE(modelPath));
 
     ImGui::Text("Preview Texture: ");
-    ImGui::Text(currentAssetInfoName.c_str());
+    ImGui::Text(previewTextureAssetName.c_str());
     ImGui::SameLine();
     if (ImGui::Button("Choose"))
     {
-        assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Model, currentTexture);
+        assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Texture);
     }
 
     ImGui::End();
@@ -71,6 +67,21 @@ void EditorWindowModelViewer::drawAssetChooser()
 
     if (assetChooser->GetResult())
     {
-        currentAssetInfoName = assetChooser->GetCurrentAsset()->GetName();
+        previewTextureAssetName = assetChooser->GetChosenAsset()->GetName();
     }
+}
+
+void EditorWindowModelViewer::saveModelAsset()
+{
+    std::string stringModelPath = modelPath;
+    modelAssetInfo->SetModelPath(stringModelPath);
+
+    editor->GetContext()->GetAssetManager()->SaveAsset(modelAssetInfo->GetAssetNode());
+
+    reimportModelAsset();
+}
+
+void EditorWindowModelViewer::reimportModelAsset()
+{
+    // TODO Implement logic
 }

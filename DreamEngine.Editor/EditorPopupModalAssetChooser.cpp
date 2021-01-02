@@ -3,17 +3,16 @@
 
 #include "imgui.h"
 
-EditorPopupModalAssetChooser::EditorPopupModalAssetChooser(Editor* editor, AssetType currentAssetType, Texture* texture)
-    : EditorPopupModal("Asset Chooser")
+EditorPopupModalAssetChooser::EditorPopupModalAssetChooser(Editor* editor, AssetType assetType)
+    : EditorPopupModal("Asset Chooser"), assetType(assetType)
 {
     assetManager = editor->GetContext()->GetAssetManager();
-    assetType = currentAssetType;
-    assetIcon = texture;
-
     assetMap = assetManager->GetAssetMapByType(assetType);
+
+    assetIcon = editor->GetIconByAssetType(assetType);
 }
 
-AssetInfo* EditorPopupModalAssetChooser::GetCurrentAsset()
+AssetInfo* EditorPopupModalAssetChooser::GetChosenAsset() const
 {
     return currentAsset;
 }

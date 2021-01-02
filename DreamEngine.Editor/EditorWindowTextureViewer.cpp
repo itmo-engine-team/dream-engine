@@ -79,8 +79,8 @@ void EditorWindowTextureViewer::renderTextureInspector()
 
     ImGui::Separator();
 
-    ImGui::Text("Texture Path:");
-    ImGui::InputText("", texturePath.data(), 256);
+    ImGui::Text("Texture:");
+    ImGui::InputText("Path", texturePath.data(), 256);
 
     ImGui::End();
 }

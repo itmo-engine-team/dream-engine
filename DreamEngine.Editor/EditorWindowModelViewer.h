@@ -13,11 +13,8 @@ public:
     void Update() override;
     void Render() override;
 
-    bool IsOpened();
-
 private:
 
-    bool isOpened = true;
     std::string currentAssetInfoName;
 
     EditorPopupModalAssetChooser* assetChooser;

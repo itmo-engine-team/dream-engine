@@ -127,7 +127,7 @@ void Editor::renderWindows()
 
     for (EditorWindow* window : windows)
     {
-        if (!window->IsVisible())
+        if (!window->IsOpened())
             continue;
 
         window->Render();
@@ -153,9 +153,9 @@ void Editor::renderMainEditorMenu()
             {
                 for (EditorWindow* window : windows)
                 {
-                    bool selected = window->IsVisible();
+                    bool selected = window->IsOpened();
                     ImGui::MenuItem(window->GetName().data(), " ", &selected);
-                    window->SetVisible(selected);
+                    window->SetOpened(selected);
                 }
                 
                 ImGui::EndMenu();

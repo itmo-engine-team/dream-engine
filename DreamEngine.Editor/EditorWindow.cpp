@@ -11,12 +11,12 @@ std::string EditorWindow::GetName() const
     return name;
 }
 
-bool EditorWindow::IsVisible() const
+bool EditorWindow::IsOpened() const
 {
-    return isVisible;
+    return isOpened;
 }
 
-void EditorWindow::SetVisible(const bool isVisible)
+void EditorWindow::SetOpened(const bool isOpened)
 {
-    this->isVisible = isVisible;
+    this->isOpened = isOpened;
 }

@@ -1,28 +1,35 @@
 #pragma once
-#include "Texture.h"
+
 #include "EditorWindow.h"
 #include "EditorPopupModalAssetChooser.h"
+
+class ModelAssetInfo;
 
 class EditorWindowModelViewer : public EditorWindow 
 {
 
 public: 
 
-    EditorWindowModelViewer(Editor* editor);
+    EditorWindowModelViewer(Editor* editor, ModelAssetInfo* modelAssetInfo);
 
     void Update() override;
     void Render() override;
 
 private:
 
-    std::string currentAssetInfoName;
+    ModelAssetInfo* modelAssetInfo;
+
+    char modelPath[256] = "";
+    std::string previewTextureAssetName;
 
     EditorPopupModalAssetChooser* assetChooser;
-    AssetType assetType;
 
     void renderModelViewer();
     void renderModelInspector();
     void drawAssetChooser();
+
+    void saveModelAsset();
+    void reimportModelAsset();
 
 };
 

@@ -39,6 +39,7 @@
     <ClInclude Include="EditorWindowGameViewport.h" />
     <ClInclude Include="EditorWindowModelViewer.h" />
     <ClInclude Include="EditorWindowShadowViewport.h" />
+    <ClInclude Include="EditorWindowTextureViewer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
@@ -61,6 +62,7 @@
     <ClCompile Include="EditorWindowGameViewport.cpp" />
     <ClCompile Include="EditorWindowModelViewer.cpp" />
     <ClCompile Include="EditorWindowShadowViewport.cpp" />
+    <ClCompile Include="EditorWindowTextureViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DreamEngine.Assets.Serializable\DreamEngine.Assets.Serializable.vcxproj">

@@ -90,6 +90,9 @@
     <ClInclude Include="EditorPopupModalAssetChooser.h">
       <Filter>Header Files\PopupModal</Filter>
     </ClInclude>
+    <ClInclude Include="EditorWindowTextureViewer.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -151,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="EditorPopupModalAssetChooser.cpp">
       <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowTextureViewer.cpp">
+      <Filter>Source Files\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

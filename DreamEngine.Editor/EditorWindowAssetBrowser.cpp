@@ -1,11 +1,15 @@
 #include "EditorWindowAssetBrowser.h"
 
 #include "imgui.h"
-#include "Editor.h"
-#include "AssetManager.h"
-#include "Game.h"
-
 #include "ErrorLogger.h"
+
+#include "Editor.h"
+#include "Game.h"
+#include "AssetManager.h"
+
+#include "EditorWindowModelViewer.h"
+#include "EditorWindowTextureViewer.h"
+
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     : EditorWindow("Asset Browser", editor)
@@ -126,10 +130,16 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
                 case AssetType::Actor:
                     break;
                 case AssetType::Scene:
-                    editor->GetContext()->GetGame()->LoadScene(dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
+                    editor->GetContext()->GetGame()->LoadScene(
+                        dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
                     break;
                 case AssetType::Model:
-                    editor->AddDynamicWindow(new EditorWindowModelViewer(editor));
+                    editor->AddDynamicWindow(new EditorWindowModelViewer(editor,
+                        dynamic_cast<ModelAssetInfo*>(currentAssetNode->GetAssetInfo())));
+                    break;
+                case AssetType::Texture:
+                    editor->AddDynamicWindow(new EditorWindowTextureViewer(editor,
+                        dynamic_cast<TextureAssetInfo*>(currentAssetNode->GetAssetInfo())));
                     break;
                 default: ;
             }

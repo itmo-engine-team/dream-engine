@@ -1,11 +1,9 @@
 #pragma once
-#include <map>
 
 #include "EditorWindow.h"
 #include "Texture.h"
 #include "AssetTree.h"
 #include "AssetService.h"
-#include "EditorWindowModelViewer.h"
 #include "EditorPopupModalText.h"
 #include "EditorPopupModalNewAsset.h"
 #include "EditorPopupModalNewFolder.h"

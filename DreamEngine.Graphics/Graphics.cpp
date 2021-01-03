@@ -368,8 +368,6 @@ bool Graphics::initSceneMap()
 
 void Graphics::setSceneRenderResources()
 {
-    //modelShader->SetShader();
-
     // Set shadow map
     context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
@@ -481,19 +479,16 @@ void Graphics::PrepareRenderShadowMap() const
 
 void Graphics::PrepareRenderSceneMap()
 {
-    context->ClearState();
-
     context->OMSetRenderTargets(1, &sceneRenderTargetView, depthStencilView);
     
     context->RSSetViewports(1, &viewport);
-    context->RSSetState(rasterState);
 
     float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-
     context->ClearRenderTargetView(sceneRenderTargetView, clearColor);
-    context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
     setSceneRenderResources();
+    context->RSSetState(rasterState);
+    context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
 void Graphics::PrepareDeferredBuffer()

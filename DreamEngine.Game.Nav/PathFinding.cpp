@@ -1,6 +1,6 @@
 #include "PathFinding.h"
 
-std::vector<NavMeshPolygon*> PathFinding::FindPath(NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon)
+std::vector<NavMeshPolygon*> PathFinding::FindPath(NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal)
 {
     std::vector <PolygonCost*> openPolygonsCost;
     std::vector <PolygonCost*> closedPolygonsCost;
@@ -28,7 +28,7 @@ std::vector<NavMeshPolygon*> PathFinding::FindPath(NavMesh* navMesh, Vector3 loc
         if (currentPolygonCost->OwnerPolygon->FirstVertexIndex == targetPolygonCost->OwnerPolygon->FirstVertexIndex)
             return retracePath(startPolygonCost, currentPolygonCost);
 
-        for (NavMeshPolygon* neighbour : navMesh->GetNeighbours(currentPolygonCost->OwnerPolygon))
+        for (NavMeshPolygon* neighbour : navMesh->GetNeighbours(currentPolygonCost->OwnerPolygon, canMoveByDiagonal))
         {
             PolygonCost* neighbourCost = findPolygonInArray(closedPolygonsCost, neighbour);
 

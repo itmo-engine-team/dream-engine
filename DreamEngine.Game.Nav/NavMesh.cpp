@@ -1,8 +1,5 @@
 #include "NavMesh.h"
 
-#include <iostream>
-
-
 #include "MeshData.h"
 
 NavMesh::NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize)
@@ -49,7 +46,7 @@ std::vector<std::vector<NavMeshPolygon*>> NavMesh::GetGrid() const
     return navMeshGrid;
 }
 
-std::vector<NavMeshPolygon*> NavMesh::GetNeighbours(NavMeshPolygon* polygon)
+std::vector<NavMeshPolygon*> NavMesh::GetNeighbours(NavMeshPolygon* polygon, bool canMoveByDiagonal)
 {
     std::vector<NavMeshPolygon*> neighbours;
 
@@ -58,6 +55,8 @@ std::vector<NavMeshPolygon*> NavMesh::GetNeighbours(NavMeshPolygon* polygon)
         for (int z = -1; z <= 1; z++)
         {
             if (x == 0 && z == 0) continue;
+            if (!canMoveByDiagonal && (x == -1 && z == -1 || x == -1 && z == 0 || 
+                x == 1 && z == -1 || x == 1 && z == 1)) continue;
 
             int checkX = polygon->x + x;
             int checkZ = polygon->z + z;
@@ -75,13 +74,12 @@ void NavMesh::UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize)
     {
         for (NavMeshPolygon* polygon : column)
         {
-            Vector2 leftCollisionEdge = Vector2{ worldPosition.z - collisionSize.x, worldPosition.x };
+            /*Vector2 leftCollisionEdge = Vector2{ worldPosition.z - collisionSize.x, worldPosition.x };
             Vector2 rightCollisionEdge = Vector2{ worldPosition.z + collisionSize.x, worldPosition.x };
             Vector2 topCollisionEdge = Vector2{ worldPosition.z, worldPosition.x + collisionSize.y };
-            Vector2 downCollisionEdge = Vector2{ worldPosition.z, worldPosition.x - collisionSize.y };
+            Vector2 downCollisionEdge = Vector2{ worldPosition.z, worldPosition.x - collisionSize.y };*/
 
-            if (checkPolygonCollision(polygon, leftCollisionEdge) || checkPolygonCollision(polygon, rightCollisionEdge) ||
-                checkPolygonCollision(polygon, topCollisionEdge) || checkPolygonCollision(polygon, downCollisionEdge))
+            if (checkPolygonCollision(worldPosition, collisionSize, polygon->Center))
             {
                 polygon->IsFree = false;
 
@@ -186,15 +184,19 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
     return vertices;
 }
 
-bool NavMesh::checkPolygonCollision(NavMeshPolygon* polygon, Vector2 actorCollisionEdge)
+bool NavMesh::checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, Vector3 polygonLocation)
 {
-    float leftPolygonEdge = polygon->Center.z - polygonSize / 2;
-    float rightPolygonEdge = polygon->Center.z + polygonSize / 2;
-    float topPolygonEdge = polygon->Center.x + polygonSize / 2;
-    float downPolygonEdge = polygon->Center.x - polygonSize / 2;
+    Vector2 leftCollisionEdge = Vector2{ collisionPosition.z - collisionSize.x, collisionPosition.x };
+    Vector2 rightCollisionEdge = Vector2{ collisionPosition.z + collisionSize.x, collisionPosition.x };
+    Vector2 topCollisionEdge = Vector2{ collisionPosition.z, collisionPosition.x + collisionSize.y };
+    Vector2 downCollisionEdge = Vector2{ collisionPosition.z, collisionPosition.x - collisionSize.y };
 
-    if (actorCollisionEdge.x >= leftPolygonEdge && actorCollisionEdge.x <= rightPolygonEdge &&
-        actorCollisionEdge.y >= downPolygonEdge && actorCollisionEdge.y <= topPolygonEdge) return true;
+    if (downCollisionEdge.y <= polygonLocation.x && topCollisionEdge.y >= polygonLocation.x)
+    {
+        if (leftCollisionEdge.x <= polygonLocation.z && rightCollisionEdge.x >= polygonLocation.z)
+            return true;
+    }
+        
     return false;
 }
 

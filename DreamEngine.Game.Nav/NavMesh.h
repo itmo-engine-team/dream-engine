@@ -40,7 +40,7 @@ public:
     Vector3 GetPosition() const;
     MeshData* GetMeshData() const;
     std::vector<std::vector<NavMeshPolygon*>> GetGrid() const;
-    std::vector<NavMeshPolygon*> GetNeighbours(NavMeshPolygon* polygon);
+    std::vector<NavMeshPolygon*> GetNeighbours(NavMeshPolygon* polygon, bool canMoveByDiagonal);
 
     void UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize);
     void ResetPolygons();
@@ -60,5 +60,5 @@ protected:
 
     void initNavMeshGrid();
     std::vector<Vertex> initVertex(NavMeshPolygon& polygon);
-    bool checkPolygonCollision(NavMeshPolygon* polygon, Vector2 actorCollisionEdge);
+    bool checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, Vector3 polygonLocation);
 };

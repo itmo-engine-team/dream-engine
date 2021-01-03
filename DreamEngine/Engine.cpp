@@ -24,14 +24,12 @@ Engine::Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc)
     window->WindowInitialize(hInstance, wc);
 
     graphics = new Graphics(window);
-
     orthoWindow = new OrthoWindow(graphics);
 
     assetManager = new AssetManager();
-
     game = new Game(inputSystem, graphics);
-
-    editor = new Editor(new EditorContext(graphics, assetManager, game));
+    modelViewer = new ModelViewer(inputSystem, graphics);
+    editor = new Editor(new EditorContext(graphics, assetManager, game, modelViewer));
 }
 
 Engine::~Engine()
@@ -49,6 +47,8 @@ Engine::~Engine()
 void Engine::Init()
 {
     game->Init();
+    modelViewer->Init();
+
     orthoWindow->Initialize(graphics->GetDevice(),
         graphics->GetWindow()->GetScreenWidth(), graphics->GetWindow()->GetScreenHeight());
 }
@@ -111,6 +111,7 @@ float Engine::GetDeltaTime() const
 void Engine::update()
 {
     game->Update(deltaTime);
+    modelViewer->Update(deltaTime);
     editor->Update();
 }
 
@@ -141,7 +142,9 @@ void Engine::render()
 
         // Render editor
         graphics->PrepareRenderScene();
+        graphics->GetAnnotation()->BeginEvent(L"Editor");
         editor->Render();
+        graphics->GetAnnotation()->EndEvent();
     }
 
     /*// Add text on Scene

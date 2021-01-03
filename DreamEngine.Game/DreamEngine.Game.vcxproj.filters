@@ -108,6 +108,9 @@
     <ClCompile Include="ACS_Collision.cpp">
       <Filter>Source Files\Actor\Component\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="ModelViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="ACS_Collision.h">
       <Filter>Header Files\Actor\Component\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelViewer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

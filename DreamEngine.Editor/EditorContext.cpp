@@ -14,3 +14,8 @@ Game* EditorContext::GetGame() const
 {
     return game;
 }
+
+ModelViewer* EditorContext::GetModelViewer() const
+{
+    return modelViewer;
+}

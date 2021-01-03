@@ -9,6 +9,7 @@
 
 #include "InputSystem.h"
 #include "OrthoWindow.h"
+#include "ModelViewer.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -48,6 +49,7 @@ protected:
     EngineConfigInfo* engineConfigInfo;
 
     Game* game;
+    ModelViewer* modelViewer;
     Editor* editor;
     AssetManager* assetManager;
 

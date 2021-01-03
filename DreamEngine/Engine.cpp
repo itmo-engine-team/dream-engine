@@ -115,25 +115,27 @@ void Engine::render()
 {
     // Deferred renders to textures
     graphics->GetAnnotation()->BeginEvent(L"Deferred");
-    graphics->PrepareDeferredBuffer();
+    game->GetSceneRenderer()->PrepareDeferredBuffer();
     game->Render();
     graphics->GetAnnotation()->EndEvent();
 
     // Render shadow map
     graphics->GetAnnotation()->BeginEvent(L"ShadowMap");
-    graphics->PrepareRenderShadowMap();
+    game->GetSceneRenderer()->PrepareRenderShadowMap();
     game->RenderShadowMap();
     graphics->GetAnnotation()->EndEvent();
 
     if (isGameMode)
     {
         graphics->PrepareRenderBackBuffer();
+        game->GetSceneRenderer()->PrepareRenderScene();
         renderScene();
     }
     else
     {
         // Render game to scene map
-        graphics->PrepareRenderSceneMap();
+        game->GetSceneRenderer()->PrepareRenderSceneMap();
+        game->GetSceneRenderer()->PrepareRenderScene();
         renderScene();
 
         // Render editor
@@ -173,6 +175,6 @@ void Engine::renderScene()
         {1.0f, 1.0f, 1.0f, 1.0f }
     };
 
-    graphics->GetOrthoWindow()->Render(graphics->GetDeferredBuffers(), cb, lb);
+    game->GetSceneRenderer()->RenderScene(cb, lb);
     graphics->GetAnnotation()->EndEvent();
 }

@@ -155,6 +155,7 @@
     <ClInclude Include="ModelDataBuffer.h" />
     <ClInclude Include="ModelShader.h" />
     <ClInclude Include="OrthoWindow.h" />
+    <ClInclude Include="SceneRenderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureSampler.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="ModelShader.cpp" />
     <ClCompile Include="OrthoWindow.cpp" />
+    <ClCompile Include="SceneRenderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureSampler.cpp" />

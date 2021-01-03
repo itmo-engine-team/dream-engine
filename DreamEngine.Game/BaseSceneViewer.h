@@ -7,6 +7,7 @@
 #include "ModelData.h"
 #include "A_Light.h"
 #include "A_Spectator.h"
+#include "SceneRenderer.h"
 
 class EngineConfigInfo;
 class Graphics;
@@ -18,6 +19,7 @@ public:
 
     BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
 
+    SceneRenderer* GetSceneRenderer() const;
     InputSystem* GetInputSystem() const;
     Graphics* GetGraphics() const;
     ActorContext* GetActorContext() const;
@@ -31,6 +33,8 @@ public:
     virtual void RenderShadowMap();
 
 protected:
+
+    SceneRenderer* sceneRenderer;
 
     EngineConfigInfo* engineConfigInfo;
     InputSystem* inputSystem;

@@ -37,6 +37,7 @@ public:
     void PrepareRenderShadowMap() const;
     void PrepareRenderSceneMap();
     void PrepareDeferredBuffer();
+    void PrepareRenderScene();
 
     Window* GetWindow() const;
     OrthoWindow* GetOrthoWindow() const;
@@ -126,6 +127,5 @@ private:
     bool initDepthShadowMap(); 
     bool initSceneMap();
 
-    void setSceneRenderResources();
 
 };

@@ -10,6 +10,18 @@ BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem
     : engineConfigInfo(engineConfigInfo), inputSystem(inputSystem), graphics(graphics)
 {
     deltaTimeHandler = new DeltaTimeHandler();
+
+    sceneRenderer = new SceneRenderer(graphics);
+}
+
+void BaseSceneViewer::SetActive(const bool isActive)
+{
+    this->isActive = isActive;
+}
+
+SceneRenderer* BaseSceneViewer::GetSceneRenderer() const
+{
+    return sceneRenderer;
 }
 
 InputSystem* BaseSceneViewer::GetInputSystem() const

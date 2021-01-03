@@ -366,10 +366,8 @@ bool Graphics::initSceneMap()
     return true;
 }
 
-void Graphics::setSceneRenderResources()
+void Graphics::PrepareRenderScene()
 {
-    // Set shadow map
-    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
@@ -462,31 +460,17 @@ void Graphics::PrepareRenderBackBuffer()
     float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     context->ClearRenderTargetView(backBufferRenderTargetView, color);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-    setSceneRenderResources();
 }
 
 void Graphics::PrepareRenderShadowMap() const
 {
-    context->RSSetViewports(1, &shadowMapViewport);
-
     context->RSSetState(shadowRasterState);
-    context->OMSetRenderTargets(0, nullptr, shadowDepthView);
-    context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
     depthShader->SetShader();
 }
 
 void Graphics::PrepareRenderSceneMap()
 {
-    context->OMSetRenderTargets(1, &sceneRenderTargetView, depthStencilView);
-    
-    context->RSSetViewports(1, &viewport);
-
-    float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-    context->ClearRenderTargetView(sceneRenderTargetView, clearColor);
-
-    setSceneRenderResources();
     context->RSSetState(rasterState);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }

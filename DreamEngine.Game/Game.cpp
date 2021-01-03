@@ -23,26 +23,11 @@ void Game::Init()
     BaseSceneViewer::Init();
 
     navMesh = new A_NavMesh(actorContext, new Transform({ 0, 0.11, 0 }));  
-
-    testModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.5f, 0.5f, 0.5f });
-    testBox = new Actor(actorContext, new Transform({ 0, 0, 0 }));
-    testBox->AddSceneComponent(new ACS_StaticModel(actorContext, testBox, new Transform({ 0, 0, 0 }), testModel));
-    testBox->AddSceneComponent(new ACS_Collision(actorContext, testBox, new Transform({ 0, 0, 0 }), Vector2{ 0.5f, 0.5f }));
 }
 
 void Game::Update(const float engineDeltaTime)
 {
     BaseSceneViewer::Update(engineDeltaTime);
-
-    navMesh->GetNavMesh()->ResetPolygons();
-    ACS_Collision* collision = testBox->FindComponent<ACS_Collision>();
-    navMesh->GetNavMesh()->UpdatePolygons(collision->GetTransform()->GetWorldPosition(), collision->GetSize());
-
-    PathFinding pathFollowing;
-    std::vector<NavMeshPolygon*> path = pathFollowing.FindPath(navMesh->GetNavMesh(), navMesh->GetNavMesh()->GetGrid().at(0).at(0)->Center, 
-        navMesh->GetNavMesh()->GetGrid().at(11).at(11)->Center);
-
-    navMesh->GetNavMesh()->DebugPath(path);
 
     navMesh->Update();
 
@@ -58,8 +43,6 @@ void Game::Update(const float engineDeltaTime)
 void Game::Render()
 {
     BaseSceneViewer::Render();
-
-    testBox->Draw();
 
     navMesh->Draw();
 

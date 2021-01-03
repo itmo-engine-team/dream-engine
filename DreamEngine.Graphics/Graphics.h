@@ -88,12 +88,7 @@ private:
     D3D11_VIEWPORT viewport;
 
     // Variables for Shadows
-    ID3D11Texture2D* shadowMap = nullptr;
-    ID3D11DepthStencilView* shadowDepthView = nullptr;
-    ID3D11ShaderResourceView* shadowResourceView = nullptr;
-    ID3D11RasterizerState* shadowRasterState;
     ID3D11SamplerState* shadowSamplerState = nullptr;
-    D3D11_VIEWPORT shadowMapViewport;
 
     // Variables for Direct2D initialization
     ID2D1Factory* factory = nullptr;
@@ -102,13 +97,7 @@ private:
 
     IDWriteFactory* writeFactory = nullptr;
     IDWriteTextFormat* textFormat;
-  
-    // Variables for GameRenderMap
-    ID3D11Texture2D* sceneMap = nullptr;
-    ID3D11RenderTargetView* sceneRenderTargetView;
-    ID3D11ShaderResourceView* sceneResourceView = nullptr;
-
-    DeferredBuffers* deferredBuffers;
+    
     LightShader* lightShader;
     ModelShader* modelShader;
 
@@ -118,14 +107,11 @@ private:
     bool hasShadow = true;
 
     bool initDirectX();
-    void initDeferredBuffer();
+    void initShaders();
     bool initDirect2D();
     void initImGui();
 
     void configureBrush(FLOAT posX, FLOAT posY, const wchar_t* wszText);
   
     bool initDepthShadowMap(); 
-    bool initSceneMap();
-
-
 };

@@ -127,8 +127,8 @@ void SceneRenderer::initShadowMap()
     shadowMapDesc.ArraySize = 1;
     shadowMapDesc.SampleDesc.Count = 1;
     shadowMapDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
-    shadowMapDesc.Height = 1024;
-    shadowMapDesc.Width = 1024;
+    shadowMapDesc.Height = SHADOW_MAP_SIZE;
+    shadowMapDesc.Width = SHADOW_MAP_SIZE;
     HRESULT hr = graphics->GetDevice()->CreateTexture2D(&shadowMapDesc, nullptr, &shadowMap);
 
     D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;

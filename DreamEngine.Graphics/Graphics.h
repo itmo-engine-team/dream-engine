@@ -36,7 +36,6 @@ public:
     void PrepareRenderBackBuffer();
     void PrepareRenderShadowMap() const;
     void PrepareRenderSceneMap();
-    void PrepareDeferredBuffer();
     void PrepareRenderScene();
 
     Window* GetWindow() const;
@@ -51,12 +50,6 @@ public:
     ID3D11Texture2D* GetDepthStencil();
     ID3D11DepthStencilView* GetDepthStencilView();
 
-    ID3D11ShaderResourceView* GetSceneResourceView();
-
-    ID3D11Texture2D* GetShadowMap();
-    ID3D11ShaderResourceView* GetShadowMapResourceView();
-
-    DeferredBuffers* GetDeferredBuffers();
     LightShader* GetLightShader();
     ModelShader* GetModelShader();
 

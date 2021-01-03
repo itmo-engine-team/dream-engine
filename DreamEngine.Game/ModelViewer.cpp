@@ -11,7 +11,7 @@ ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputS
 
 }
 
-bool ModelViewer::LoadModel(ModelAssetInfo* modelAssetInfo, TextureAssetInfo* previewTextureInfo)
+bool ModelViewer::LoadModel(const std::string& modelPath, TextureAssetInfo* previewTextureInfo)
 {
     if (currentModel != nullptr)
     {
@@ -46,8 +46,7 @@ bool ModelViewer::LoadModel(ModelAssetInfo* modelAssetInfo, TextureAssetInfo* pr
         currentPreviewTexture = nullptr;
     }
 
-    currentModel = new ModelData(graphics->GetMeshRenderer(),
-        modelAssetInfo->GetModelPath(), currentPreviewTexture);
+    currentModel = new ModelData(graphics->GetMeshRenderer(), modelPath, currentPreviewTexture);
     modelActor->AddSceneComponent(
         new ACS_StaticModel(actorContext, modelActor, new Transform, currentModel));
     return true;

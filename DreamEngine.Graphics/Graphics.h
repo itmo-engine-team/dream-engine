@@ -16,7 +16,6 @@
 #include <dwrite.h>
 
 #include "Shader.h"
-#include "DeferredBuffers.h"
 #include "Window.h"
 #include "LightShader.h"
 #include "ModelShader.h"

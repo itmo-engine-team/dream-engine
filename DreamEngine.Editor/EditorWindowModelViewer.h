@@ -2,13 +2,14 @@
 
 #include "EditorWindow.h"
 #include "EditorPopupModalAssetChooser.h"
+#include "EditorViewport.h"
 
 class ModelAssetInfo;
 
 class EditorWindowModelViewer : public EditorWindow 
 {
 
-public: 
+public:
 
     EditorWindowModelViewer(Editor* editor, ModelAssetInfo* modelAssetInfo);
 
@@ -16,6 +17,8 @@ public:
     void Render() override;
 
 private:
+
+    EditorViewport* viewport = new EditorViewport(ImVec2(10, 10));
 
     ModelAssetInfo* modelAssetInfo;
 

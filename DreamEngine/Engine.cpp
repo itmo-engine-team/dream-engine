@@ -117,6 +117,8 @@ void Engine::render()
 
     if (!isGameMode)
     {
+        modelViewer->RenderPipeline();
+
         // Render editor
         graphics->GetAnnotation()->BeginEvent(L"Editor");
         graphics->PrepareRenderBackBuffer();

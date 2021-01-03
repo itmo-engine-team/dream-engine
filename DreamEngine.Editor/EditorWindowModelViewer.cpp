@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "ModelAssetInfo.h"
 #include "AssetService.h"
+#include "ModelViewer.h"
 
 EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo* modelAssetInfo)
     : EditorWindow("Model Viewer", editor), modelAssetInfo(modelAssetInfo)
@@ -46,6 +47,10 @@ void EditorWindowModelViewer::renderModelViewer()
     }
 
     ImGui::Separator();
+
+    viewport->UpdateSize();
+    ImGui::Image(editor->GetContext()->GetModelViewer()->GetSceneRenderer()->GetSceneResourceView(),
+        viewport->GetSize());
 
     ImGui::End();
 }
@@ -93,7 +98,7 @@ void EditorWindowModelViewer::drawAssetChooser()
 
 void EditorWindowModelViewer::saveModelAsset()
 {
-    std::string stringModelPath = modelPath;
+    std::string stringModelPath = modelPath.c_str();
     modelAssetInfo->SetModelPath(stringModelPath);
 
     editor->GetContext()->GetAssetManager()->SaveAsset(modelAssetInfo->GetAssetNode());
@@ -103,5 +108,6 @@ void EditorWindowModelViewer::saveModelAsset()
 
 void EditorWindowModelViewer::reimportModelAsset()
 {
-    // TODO Implement logic
+    std::string stringModelPath = modelPath.c_str();
+    editor->GetContext()->GetModelViewer()->LoadModel(stringModelPath, nullptr);
 }

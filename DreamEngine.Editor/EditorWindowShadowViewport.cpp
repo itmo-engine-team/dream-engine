@@ -7,7 +7,7 @@
 EditorWindowShadowViewport::EditorWindowShadowViewport(Editor* editor)
     : EditorWindow("Shadow Viewport", editor)
 {
-
+    SetOpened(false);
 }
 
 void EditorWindowShadowViewport::Update()

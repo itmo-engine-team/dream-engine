@@ -6,7 +6,6 @@
 #include "ACS_StaticModel.h"
 #include "MeshRenderer.h"
 #include "NavMesh.h"
-#include "PathFinding.h"
 
 Game::Game(InputSystem* inputSystem, Graphics* graphics) : BaseSceneViewer(inputSystem, graphics)
 {

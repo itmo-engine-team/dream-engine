@@ -55,7 +55,6 @@ protected:
 
     Window* window;
     Graphics* graphics;
-    OrthoWindow* orthoWindow;
 
     InputSystem* inputSystem = nullptr;
 

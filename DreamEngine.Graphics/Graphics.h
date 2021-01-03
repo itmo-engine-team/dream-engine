@@ -20,6 +20,7 @@
 #include "Window.h"
 #include "LightShader.h"
 #include "ModelShader.h"
+#include "OrthoWindow.h"
 
 class MeshRenderer;
 
@@ -38,6 +39,7 @@ public:
     void PrepareDeferredBuffer();
 
     Window* GetWindow() const;
+    OrthoWindow* GetOrthoWindow() const;
   
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
@@ -69,6 +71,7 @@ private:
     std::wstring graphicsPath;
 
     Window* window;
+    OrthoWindow* orthoWindow;
 
     ID3D11Device* device;
     ID3D11DeviceContext* context;

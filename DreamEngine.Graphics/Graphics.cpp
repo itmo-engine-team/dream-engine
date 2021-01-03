@@ -7,6 +7,7 @@
 #include "ErrorLogger.h"
 #include "DepthShader.h"
 #include "MeshRenderer.h"
+#include "OrthoWindow.h"
 
 Graphics::Graphics(Window* window) : window(window)
 {
@@ -122,6 +123,9 @@ bool Graphics::initDirectX()
     std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDeferredModel.fx";
     modelShader = new ModelShader(this, shaderPath.data());
     modelShader->Init();
+
+    orthoWindow = new OrthoWindow(this);
+    orthoWindow->Initialize(device, window->GetScreenWidth(), window->GetScreenHeight());
 
     return true;
 }
@@ -502,6 +506,11 @@ void Graphics::PrepareDeferredBuffer()
 Window* Graphics::GetWindow() const
 {
     return window;
+}
+
+OrthoWindow* Graphics::GetOrthoWindow() const
+{
+    return orthoWindow;
 }
 
 void Graphics::initDeferredBuffer()

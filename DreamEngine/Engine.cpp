@@ -24,11 +24,10 @@ Engine::Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc)
     window->WindowInitialize(hInstance, wc);
 
     graphics = new Graphics(window);
-    orthoWindow = new OrthoWindow(graphics);
 
     assetManager = new AssetManager();
-    game = new Game(inputSystem, graphics);
-    modelViewer = new ModelViewer(inputSystem, graphics);
+    game = new Game(engineConfigInfo, inputSystem, graphics);
+    modelViewer = new ModelViewer(engineConfigInfo, inputSystem, graphics);
     editor = new Editor(new EditorContext(graphics, assetManager, game, modelViewer));
 }
 
@@ -48,9 +47,6 @@ void Engine::Init()
 {
     game->Init();
     modelViewer->Init();
-
-    orthoWindow->Initialize(graphics->GetDevice(),
-        graphics->GetWindow()->GetScreenWidth(), graphics->GetWindow()->GetScreenHeight());
 }
 
 bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
@@ -177,6 +173,6 @@ void Engine::renderScene()
         {1.0f, 1.0f, 1.0f, 1.0f }
     };
 
-    orthoWindow->Render(graphics->GetContext(), cb, lb);
+    graphics->GetOrthoWindow()->Render(graphics->GetDeferredBuffers(), cb, lb);
     graphics->GetAnnotation()->EndEvent();
 }

@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "TextureAssetInfo.h"
 
-ModelViewer::ModelViewer(InputSystem* inputSystem, Graphics* graphics)
-    : BaseSceneViewer(inputSystem, graphics)
+ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
+    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics)
 {
 
 }
@@ -33,7 +33,6 @@ bool ModelViewer::LoadModel(ModelAssetInfo* modelAssetInfo, TextureAssetInfo* pr
             delete currentPreviewTexture;
             currentPreviewTexture = nullptr;
         }
-        
     }
 
     if (previewTextureInfo != nullptr)

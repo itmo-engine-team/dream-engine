@@ -4,9 +4,10 @@
 #include "MeshRenderer.h"
 
 #include "ACS_StaticModel.h"
+#include "EngineConfigInfo.h"
 
-BaseSceneViewer::BaseSceneViewer(InputSystem* inputSystem, Graphics* graphics)
-    : inputSystem(inputSystem), graphics(graphics)
+BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
+    : engineConfigInfo(engineConfigInfo), inputSystem(inputSystem), graphics(graphics)
 {
     deltaTimeHandler = new DeltaTimeHandler();
 }

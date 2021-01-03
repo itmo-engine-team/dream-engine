@@ -10,7 +10,7 @@ class ModelViewer : public BaseSceneViewer
 
 public:
 
-    ModelViewer(InputSystem* inputSystem, Graphics* graphics);
+    ModelViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
 
     bool LoadModel(ModelAssetInfo* modelAssetInfo, TextureAssetInfo* previewTextureInfo);
 

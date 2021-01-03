@@ -8,6 +8,7 @@
 #include "A_Light.h"
 #include "A_Spectator.h"
 
+class EngineConfigInfo;
 class Graphics;
 class InputSystem;
 
@@ -15,7 +16,7 @@ class BaseSceneViewer
 {
 public:
 
-    BaseSceneViewer(InputSystem* inputSystem, Graphics* graphics);
+    BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
 
     InputSystem* GetInputSystem() const;
     Graphics* GetGraphics() const;
@@ -31,6 +32,7 @@ public:
 
 protected:
 
+    EngineConfigInfo* engineConfigInfo;
     InputSystem* inputSystem;
     Graphics* graphics;
     DeltaTimeHandler* deltaTimeHandler;

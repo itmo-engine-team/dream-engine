@@ -19,7 +19,7 @@ private:
 
     ModelAssetInfo* modelAssetInfo;
 
-    char modelPath[256] = "";
+    std::string modelPath;
     std::string previewTextureAssetName;
 
     EditorPopupModalAssetChooser* assetChooser;

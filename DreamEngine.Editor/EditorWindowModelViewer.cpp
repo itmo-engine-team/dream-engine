@@ -2,12 +2,27 @@
 
 #include "imgui.h"
 #include "ModelAssetInfo.h"
+#include "AssetService.h"
 
 EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo* modelAssetInfo)
     : EditorWindow("Model Viewer", editor), modelAssetInfo(modelAssetInfo)
 {
     if (modelAssetInfo == nullptr)
         SetOpened(false);
+
+    if (modelAssetInfo->GetModelPath().length() > 0)
+    {
+        modelPath = modelAssetInfo->GetModelPath();
+    }
+    else
+    {
+        modelPath = AssetService::CreateFolderPath(modelAssetInfo->GetAssetNode()->GetParent()) +
+            modelAssetInfo->GetAssetNode()->GetName();
+    }
+
+    modelPath.resize(256);
+
+    reimportModelAsset();
 }
 
 void EditorWindowModelViewer::Update()
@@ -30,6 +45,8 @@ void EditorWindowModelViewer::renderModelViewer()
         SetOpened(false);
     }
 
+    ImGui::Separator();
+
     ImGui::End();
 }
 
@@ -47,7 +64,10 @@ void EditorWindowModelViewer::renderModelInspector()
         reimportModelAsset();
     }
 
-    ImGui::InputText("Model Path: ", modelPath, IM_ARRAYSIZE(modelPath));
+    ImGui::Separator();
+
+    ImGui::Text("Model:");
+    ImGui::InputText("Path", modelPath.data(), 256);
 
     ImGui::Text("Preview Texture: ");
     ImGui::Text(previewTextureAssetName.c_str());

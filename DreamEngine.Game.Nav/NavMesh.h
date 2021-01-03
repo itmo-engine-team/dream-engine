@@ -65,4 +65,5 @@ protected:
 
     void initNavMeshGrid();
     std::vector<Vertex> initVertex(NavMeshPolygon& polygon);
+    bool checkPolygonCollision(NavMeshPolygon* polygon, Vector2 actorCollisionEdge);
 };

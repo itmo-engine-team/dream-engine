@@ -1,5 +1,8 @@
 #include "NavMesh.h"
 
+#include <iostream>
+
+
 #include "MeshData.h"
 
 NavMesh::NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize)
@@ -72,20 +75,21 @@ void NavMesh::UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize)
     {
         for (NavMeshPolygon* polygon : column)
         {
-            float leftEdge = worldPosition.z - collisionSize.x;
-            float rightEdge = worldPosition.z + collisionSize.x;
-            float topEdge = worldPosition.x + collisionSize.y;
-            float downEdge = worldPosition.x - collisionSize.y;
+            Vector2 leftCollisionEdge = Vector2{ worldPosition.z - collisionSize.x, worldPosition.x };
+            Vector2 rightCollisionEdge = Vector2{ worldPosition.z + collisionSize.x, worldPosition.x };
+            Vector2 topCollisionEdge = Vector2{ worldPosition.z, worldPosition.x + collisionSize.y };
+            Vector2 downCollisionEdge = Vector2{ worldPosition.z, worldPosition.x - collisionSize.y };
 
-            if(leftEdge > polygon->Center.z || polygon->Center.z > rightEdge) continue;
-            if(downEdge > polygon->Center.x || polygon->Center.x  > topEdge) continue;
+            if (checkPolygonCollision(polygon, leftCollisionEdge) || checkPolygonCollision(polygon, rightCollisionEdge) ||
+                checkPolygonCollision(polygon, topCollisionEdge) || checkPolygonCollision(polygon, downCollisionEdge))
+            {
+                polygon->IsFree = false;
 
-            polygon->IsFree = false;
-
-            meshData->GetVertices().at(polygon->FirstVertexIndex).Color = OCCUPIED_POLYGON_COLOR;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = OCCUPIED_POLYGON_COLOR;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = OCCUPIED_POLYGON_COLOR;
-            meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = OCCUPIED_POLYGON_COLOR;
+                meshData->GetVertices().at(polygon->FirstVertexIndex).Color = OCCUPIED_POLYGON_COLOR;
+                meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = OCCUPIED_POLYGON_COLOR;
+                meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = OCCUPIED_POLYGON_COLOR;
+                meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = OCCUPIED_POLYGON_COLOR;
+            }
         }
     }
 }
@@ -101,18 +105,22 @@ void NavMesh::initNavMeshGrid()
     std::vector<Vertex> vertices;
     
     DWORD currentVertexIndex = 0;
-    for (int x = 0; x < size.x; x++)
+    float x = 0;
+    int countX = 0;
+    while ( x < size.x)
     {
         std::vector <NavMeshPolygon*> navMeshRow;
-        for (int z = 0; z < size.y; z++)
+        float z = 0;
+        int countZ = 0;
+        while (z < size.y)
         {
-            NavMeshPolygon* polygon = new NavMeshPolygon;      
-            polygon->Center.x = centerFirstPolygon.x - polygonSize * x;
+            NavMeshPolygon* polygon = new NavMeshPolygon;
+            polygon->Center.x = centerFirstPolygon.x - polygonSize * countX;
             polygon->Center.y = centerFirstPolygon.y;
-            polygon->Center.z = polygonSize * z + centerFirstPolygon.z;
+            polygon->Center.z = polygonSize * countZ + centerFirstPolygon.z;
 
-            polygon->x = x;
-            polygon->z = z;
+            polygon->x = countX;
+            polygon->z = countZ;
 
             std::vector<Vertex> polygonVertices;
             polygonVertices = initVertex(*polygon);
@@ -129,8 +137,12 @@ void NavMesh::initNavMeshGrid()
             navMeshRow.push_back(polygon);
 
             currentVertexIndex += 4;
+            z += polygonSize;
+            countZ++;
         }
         navMeshGrid.push_back(navMeshRow);
+        countX++;
+        x += polygonSize;
     }
     meshData = new MeshData(vertices, indices);
 }
@@ -172,6 +184,18 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
     };
     vertices.push_back(vertexRD);
     return vertices;
+}
+
+bool NavMesh::checkPolygonCollision(NavMeshPolygon* polygon, Vector2 actorCollisionEdge)
+{
+    float leftPolygonEdge = polygon->Center.z - polygonSize / 2;
+    float rightPolygonEdge = polygon->Center.z + polygonSize / 2;
+    float topPolygonEdge = polygon->Center.x + polygonSize / 2;
+    float downPolygonEdge = polygon->Center.x - polygonSize / 2;
+
+    if (actorCollisionEdge.x >= leftPolygonEdge && actorCollisionEdge.x <= rightPolygonEdge &&
+        actorCollisionEdge.y >= downPolygonEdge && actorCollisionEdge.y <= topPolygonEdge) return true;
+    return false;
 }
 
 void NavMesh::ResetPolygons()

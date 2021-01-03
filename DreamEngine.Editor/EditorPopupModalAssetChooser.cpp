@@ -28,15 +28,27 @@ void EditorPopupModalAssetChooser::onDrawPopup()
 
     for (auto iterator = assetMap.begin(); iterator != assetMap.end(); ++iterator, i++)
     {
-
+        const auto assetToDraw = iterator->second;
         ImGui::PushID(i);
         ImGui::BeginGroup();
-        if (ImGui::ImageButton(assetIcon->GetShaderResourceView(), buttonSize))
+
+        bool assetSelected = currentAsset == assetToDraw;
+        if (assetSelected)
         {
-            currentAsset = iterator->second;
+            ImGui::PushStyleColor(ImGuiCol_Button, { 0.3, 0, 0.8, 1 });
         }
 
-        ImGui::Text(iterator->second->GetName().c_str());
+        if (ImGui::ImageButton(assetIcon->GetShaderResourceView(), buttonSize))
+        {
+            currentAsset = assetToDraw;
+        }
+
+        if (assetSelected)
+        {
+            ImGui::PopStyleColor();
+        }
+
+        ImGui::Text(assetToDraw->GetName().c_str());
         ImGui::EndGroup();
 
         float lastButton = ImGui::GetItemRectMax().x;

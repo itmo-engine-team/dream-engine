@@ -19,6 +19,8 @@ public:
 
     BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
 
+    void SetActive(bool isActive);
+
     SceneRenderer* GetSceneRenderer() const;
     InputSystem* GetInputSystem() const;
     Graphics* GetGraphics() const;
@@ -32,7 +34,11 @@ public:
     virtual void Render();
     virtual void RenderShadowMap();
 
+    void RenderPipeline();
+
 protected:
+
+    bool isActive = true;
 
     SceneRenderer* sceneRenderer;
 

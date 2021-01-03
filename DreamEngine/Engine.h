@@ -1,14 +1,11 @@
 #pragma once
 
 #include "SimpleMath.h"
-#include "MeshRenderer.h"
 #include "Window.h"
 
-#include "GameAssetManager.h"
 #include "Game.h"
 
 #include "InputSystem.h"
-#include "OrthoWindow.h"
 #include "ModelViewer.h"
 
 using namespace DirectX::SimpleMath;
@@ -33,11 +30,7 @@ public:
 
     Game* GetGame() const;
     AssetManager* GetAssetManager() const;
-
     Graphics* GetGraphics() const;
-    GameAssetManager* GetGameAssetManager() const;
-    MeshRenderer* GetMeshRenderer() const;
-
     InputSystem* GetInputSystem() const;
 
     float GetDeltaTime() const;
@@ -65,6 +58,5 @@ protected:
 
     virtual void update();
     void render();
-    void renderScene();
 
 };

@@ -113,31 +113,10 @@ void Engine::update()
 
 void Engine::render()
 {
-    // Deferred renders to textures
-    graphics->GetAnnotation()->BeginEvent(L"Deferred");
-    game->GetSceneRenderer()->PrepareDeferredBuffer();
-    game->Render();
-    graphics->GetAnnotation()->EndEvent();
+    game->RenderPipeline();
 
-    // Render shadow map
-    graphics->GetAnnotation()->BeginEvent(L"ShadowMap");
-    game->GetSceneRenderer()->PrepareRenderShadowMap();
-    game->RenderShadowMap();
-    graphics->GetAnnotation()->EndEvent();
-
-    if (isGameMode)
+    if (!isGameMode)
     {
-        graphics->PrepareRenderBackBuffer();
-        game->GetSceneRenderer()->PrepareRenderScene();
-        renderScene();
-    }
-    else
-    {
-        // Render game to scene map
-        game->GetSceneRenderer()->PrepareRenderSceneMap();
-        game->GetSceneRenderer()->PrepareRenderScene();
-        renderScene();
-
         // Render editor
         graphics->GetAnnotation()->BeginEvent(L"Editor");
         graphics->PrepareRenderBackBuffer();
@@ -151,30 +130,4 @@ void Engine::render()
     graphics->DrawTextOnScene(400, 100, pretext);*/
 
     graphics->GetSwapChain()->Present(1, 0);
-}
-
-void Engine::renderScene()
-{
-    graphics->GetAnnotation()->BeginEvent(L"Scene");
-
-    const ConstantBuffer cb =
-    {
-        Matrix::Identity,
-        Matrix::Identity,
-        Matrix::Identity,
-        game->GetLight()->GetViewMatrix(),
-        game->GetLight()->GetProjectionMatrix(),
-    };
-
-    const LightBuffer lb =
-    {
-        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
-        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        game->GetLight()->GetDirection(),
-        100.0f,
-        {1.0f, 1.0f, 1.0f, 1.0f }
-    };
-
-    game->GetSceneRenderer()->RenderScene(cb, lb);
-    graphics->GetAnnotation()->EndEvent();
 }

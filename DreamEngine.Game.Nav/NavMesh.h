@@ -13,11 +13,6 @@ struct NavMeshPolygon
     Vector3 Center;
     bool IsFree = true;
 
-    NavMeshPolygon* ParentPolygon;
-    float GCost = 0;
-    float HCost = 0;
-    float GetFCost() { return GCost + HCost; }
-
 private:
 
     friend class NavMesh;
@@ -49,9 +44,9 @@ public:
 
     void UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize);
     void ResetPolygons();
-    NavMeshPolygon* FindPolygon(Vector3 centerLocation);
+    NavMeshPolygon* FindPolygon(Vector3 location);
 
-    void DebugPath(std::vector<NavMeshPolygon> path);
+    void DebugPath(std::vector<NavMeshPolygon*> path);
 
 protected:
 

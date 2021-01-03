@@ -3,27 +3,28 @@
 #include <vector>
 
 #include "NavMesh.h"
-//
-//struct PolygonCost
-//{
-//    NavMeshPolygon OwnerPolygon;
-//    NavMeshPolygon ParentPolygonCost;
-//    float GCost = 0;
-//    float HCost = 0;
-//    float GetFCost() { return GCost + HCost; }
-//};
+
+struct PolygonCost
+{
+    NavMeshPolygon* OwnerPolygon;
+    PolygonCost* ParentPolygonCost;
+    float GCost = -1;
+    float HCost = -1;
+    float GetFCost() { return GCost + HCost; }
+};
 
 class PathFinding
 {
 
 public:
 
-    std::vector<NavMeshPolygon> FindPath(NavMesh* navMesh, Vector3 centerStartNode, Vector3 centerTargetNode);
+    std::vector<NavMeshPolygon*> FindPath(NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon);
 
 private:
 
     float euclidean(Vector3 start, Vector3 end);
-    std::vector<NavMeshPolygon> retracePath(NavMeshPolygon startNode, NavMeshPolygon targetNode);
+    std::vector<NavMeshPolygon*> retracePath(PolygonCost* startPolygon, PolygonCost* targetPolygon);
+    PolygonCost* findPolygonInArray(std::vector <PolygonCost*> polygonCost, NavMeshPolygon* polygon);
 
 };
 

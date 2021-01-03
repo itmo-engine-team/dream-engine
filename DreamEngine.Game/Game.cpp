@@ -39,8 +39,8 @@ void Game::Update(const float engineDeltaTime)
     navMesh->GetNavMesh()->UpdatePolygons(collision->GetTransform()->GetWorldPosition(), collision->GetSize());
 
     PathFinding pathFollowing;
-    std::vector<NavMeshPolygon> path = pathFollowing.FindPath(navMesh->GetNavMesh(), navMesh->GetNavMesh()->GetGrid().at(0).at(0)->Center, 
-        navMesh->GetNavMesh()->GetGrid().at(4).at(5)->Center);
+    std::vector<NavMeshPolygon*> path = pathFollowing.FindPath(navMesh->GetNavMesh(), navMesh->GetNavMesh()->GetGrid().at(0).at(0)->Center, 
+        navMesh->GetNavMesh()->GetGrid().at(11).at(11)->Center);
 
     navMesh->GetNavMesh()->DebugPath(path);
 

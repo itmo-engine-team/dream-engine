@@ -455,7 +455,7 @@ bool Graphics::HasShadow() const
     return hasShadow;
 }
 
-void Graphics::PrepareRenderScene()
+void Graphics::PrepareRenderBackBuffer()
 {
     context->RSSetState(rasterState);
     context->RSSetViewports(1, &viewport);

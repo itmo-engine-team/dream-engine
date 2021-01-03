@@ -33,7 +33,7 @@ public:
     
     bool DrawTextOnScene(FLOAT posX, FLOAT posY, const wchar_t* wszText);
     
-    void PrepareRenderScene();
+    void PrepareRenderBackBuffer();
     void PrepareRenderShadowMap() const;
     void PrepareRenderSceneMap();
     void PrepareDeferredBuffer();

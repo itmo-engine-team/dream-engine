@@ -23,9 +23,9 @@ public:
 private:
 
     Game* game;
-    Scene* currentScene;
-    SceneRoom* currentSceneRoom;
-    SceneActorInfo* currentSceneActor;
+    Scene* currentScene = nullptr;
+    SceneRoom* currentSceneRoom = nullptr;
+    SceneActorInfo* currentSceneActor = nullptr;
 
     EditorViewport* viewport = new EditorViewport();
 

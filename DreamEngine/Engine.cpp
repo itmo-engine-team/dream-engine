@@ -114,8 +114,8 @@ void Engine::update()
 void Engine::render()
 {
     // Deferred renders to textures
-    graphics->PrepareDeferredBuffer();
     graphics->GetAnnotation()->BeginEvent(L"Deferred");
+    graphics->PrepareDeferredBuffer();
     game->Render();
     graphics->GetAnnotation()->EndEvent();
 
@@ -127,7 +127,7 @@ void Engine::render()
 
     if (isGameMode)
     {
-        graphics->PrepareRenderScene();
+        graphics->PrepareRenderBackBuffer();
         renderScene();
     }
     else
@@ -137,8 +137,8 @@ void Engine::render()
         renderScene();
 
         // Render editor
-        graphics->PrepareRenderScene();
         graphics->GetAnnotation()->BeginEvent(L"Editor");
+        graphics->PrepareRenderBackBuffer();
         editor->Render();
         graphics->GetAnnotation()->EndEvent();
     }

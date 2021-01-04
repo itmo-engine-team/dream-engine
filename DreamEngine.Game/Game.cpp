@@ -3,11 +3,10 @@
 #include "GameAssetManager.h"
 #include "Scene.h"
 #include "ACS_Collision.h"
-#include "ACS_StaticModel.h"
-#include "MeshRenderer.h"
 #include "NavMesh.h"
 
-Game::Game(InputSystem* inputSystem, Graphics* graphics) : BaseSceneViewer(inputSystem, graphics)
+Game::Game(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
+    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics)
 {
     gameAssetManager = new GameAssetManager();
 }

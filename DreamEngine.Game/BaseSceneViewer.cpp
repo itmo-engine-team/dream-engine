@@ -4,11 +4,26 @@
 #include "MeshRenderer.h"
 
 #include "ACS_StaticModel.h"
+#include "EngineConfigInfo.h"
+#include "ConstantBuffer.h"
+#include "LightBuffer.h"
 
-BaseSceneViewer::BaseSceneViewer(InputSystem* inputSystem, Graphics* graphics)
-    : inputSystem(inputSystem), graphics(graphics)
+BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
+    : engineConfigInfo(engineConfigInfo), inputSystem(inputSystem), graphics(graphics)
 {
     deltaTimeHandler = new DeltaTimeHandler();
+
+    sceneRenderer = new SceneRenderer(graphics);
+}
+
+void BaseSceneViewer::SetActive(const bool isActive)
+{
+    this->isActive = isActive;
+}
+
+SceneRenderer* BaseSceneViewer::GetSceneRenderer() const
+{
+    return sceneRenderer;
 }
 
 InputSystem* BaseSceneViewer::GetInputSystem() const
@@ -50,6 +65,8 @@ void BaseSceneViewer::Init()
 
 void BaseSceneViewer::Update(const float engineDeltaTime)
 {
+    if (!isActive) return;
+
     deltaTimeHandler->SetParentDeltaTime(engineDeltaTime);
 
     for (Actor* baseActor : baseSceneActors)
@@ -72,6 +89,54 @@ void BaseSceneViewer::RenderShadowMap()
     {
         baseActor->DrawShadowMap();
     }
+}
+
+void BaseSceneViewer::RenderPipeline()
+{
+    // Deferred renders to textures
+    graphics->GetAnnotation()->BeginEvent(L"Deferred");
+    sceneRenderer->PrepareDeferredBuffer();
+    Render();
+    graphics->GetAnnotation()->EndEvent();
+
+    // Render shadow map
+    graphics->GetAnnotation()->BeginEvent(L"ShadowMap");
+    sceneRenderer->PrepareRenderShadowMap();
+    RenderShadowMap();
+    graphics->GetAnnotation()->EndEvent();
+
+    // Prepare to render
+    graphics->GetAnnotation()->BeginEvent(L"Scene");
+    if (engineConfigInfo->IsGameMode())
+    {
+        graphics->PrepareRenderBackBuffer();
+    }
+    else
+    {
+        sceneRenderer->PrepareRenderSceneMap();
+    }
+    sceneRenderer->PrepareRenderScene();
+
+    const ConstantBuffer cb =
+    {
+        Matrix::Identity,
+        Matrix::Identity,
+        Matrix::Identity,
+        GetLight()->GetViewMatrix(),
+        GetLight()->GetProjectionMatrix(),
+    };
+
+    const LightBuffer lb =
+    {
+        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
+        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
+        GetLight()->GetDirection(),
+        100.0f,
+        {1.0f, 1.0f, 1.0f, 1.0f }
+    };
+
+    sceneRenderer->RenderScene(cb, lb);
+    graphics->GetAnnotation()->EndEvent();
 }
 
 void BaseSceneViewer::createBaseSceneActors()

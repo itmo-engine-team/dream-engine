@@ -6,6 +6,7 @@
 using namespace DirectX::SimpleMath;
 
 class Graphics;
+class DeferredBuffers;
 struct ConstantBuffer;
 struct LightBuffer;
 
@@ -27,7 +28,7 @@ public:
 
     bool Initialize(ID3D11Device* device, int windowWidth, int windowHeight);
     void Shutdown();
-    void Render(ID3D11DeviceContext* deviceContext,
+    void Render(DeferredBuffers* deferredBuffers,
         ConstantBuffer constantBufferData, LightBuffer lightBufferData);
 
     int GetIndexCount();

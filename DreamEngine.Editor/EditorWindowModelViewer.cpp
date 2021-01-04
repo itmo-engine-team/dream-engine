@@ -2,12 +2,28 @@
 
 #include "imgui.h"
 #include "ModelAssetInfo.h"
+#include "AssetService.h"
+#include "ModelViewer.h"
 
 EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo* modelAssetInfo)
     : EditorWindow("Model Viewer", editor), modelAssetInfo(modelAssetInfo)
 {
     if (modelAssetInfo == nullptr)
         SetOpened(false);
+
+    if (modelAssetInfo->GetModelPath().length() > 0)
+    {
+        modelPath = modelAssetInfo->GetModelPath();
+    }
+    else
+    {
+        modelPath = AssetService::CreateFolderPath(modelAssetInfo->GetAssetNode()->GetParent()) +
+            modelAssetInfo->GetAssetNode()->GetName();
+    }
+
+    modelPath.resize(256);
+
+    reimportModelAsset();
 }
 
 void EditorWindowModelViewer::Update()
@@ -30,6 +46,17 @@ void EditorWindowModelViewer::renderModelViewer()
         SetOpened(false);
     }
 
+    ImGui::Separator();
+
+    if (!isModelValid)
+    {
+        ImGui::Text("Model is not valid. Please check path.");
+    }
+
+    viewport->UpdateSize();
+    ImGui::Image(editor->GetContext()->GetModelViewer()->GetSceneRenderer()->GetSceneResourceView(),
+        viewport->GetSize());
+
     ImGui::End();
 }
 
@@ -47,10 +74,13 @@ void EditorWindowModelViewer::renderModelInspector()
         reimportModelAsset();
     }
 
-    ImGui::InputText("Model Path: ", modelPath, IM_ARRAYSIZE(modelPath));
+    ImGui::Separator();
+
+    ImGui::Text("Model:");
+    ImGui::InputText("Path", modelPath.data(), 256);
 
     ImGui::Text("Preview Texture: ");
-    ImGui::Text(previewTextureAssetName.c_str());
+    ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
     ImGui::SameLine();
     if (ImGui::Button("Choose"))
     {
@@ -67,13 +97,14 @@ void EditorWindowModelViewer::drawAssetChooser()
 
     if (assetChooser->GetResult())
     {
-        previewTextureAssetName = assetChooser->GetChosenAsset()->GetName();
+        previewTextureAsset = dynamic_cast<TextureAssetInfo*>(assetChooser->GetChosenAsset());
+        reimportModelAsset();
     }
 }
 
 void EditorWindowModelViewer::saveModelAsset()
 {
-    std::string stringModelPath = modelPath;
+    std::string stringModelPath = modelPath.c_str();
     modelAssetInfo->SetModelPath(stringModelPath);
 
     editor->GetContext()->GetAssetManager()->SaveAsset(modelAssetInfo->GetAssetNode());
@@ -83,5 +114,7 @@ void EditorWindowModelViewer::saveModelAsset()
 
 void EditorWindowModelViewer::reimportModelAsset()
 {
-    // TODO Implement logic
+    std::string stringModelPath = modelPath.c_str();
+    isModelValid = editor->GetContext()->GetModelViewer()->
+        LoadModel(stringModelPath, previewTextureAsset);
 }

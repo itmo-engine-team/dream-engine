@@ -25,13 +25,10 @@ Engine::Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc)
 
     graphics = new Graphics(window);
 
-    orthoWindow = new OrthoWindow(graphics);
-
     assetManager = new AssetManager();
-
-    game = new Game(inputSystem, graphics);
-
-    editor = new Editor(new EditorContext(graphics, assetManager, game));
+    game = new Game(engineConfigInfo, inputSystem, graphics);
+    modelViewer = new ModelViewer(engineConfigInfo, inputSystem, graphics);
+    editor = new Editor(new EditorContext(graphics, assetManager, game, modelViewer));
 }
 
 Engine::~Engine()
@@ -49,8 +46,7 @@ Engine::~Engine()
 void Engine::Init()
 {
     game->Init();
-    orthoWindow->Initialize(graphics->GetDevice(),
-        graphics->GetWindow()->GetScreenWidth(), graphics->GetWindow()->GetScreenHeight());
+    modelViewer->Init();
 }
 
 bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
@@ -111,37 +107,23 @@ float Engine::GetDeltaTime() const
 void Engine::update()
 {
     game->Update(deltaTime);
+    modelViewer->Update(deltaTime);
     editor->Update();
 }
 
 void Engine::render()
 {
-    // Deferred renders to textures
-    graphics->PrepareDeferredBuffer();
-    graphics->GetAnnotation()->BeginEvent(L"Deferred");
-    game->Render();
-    graphics->GetAnnotation()->EndEvent();
+    game->RenderPipeline();
 
-    // Render shadow map
-    graphics->GetAnnotation()->BeginEvent(L"ShadowMap");
-    graphics->PrepareRenderShadowMap();
-    game->RenderShadowMap();
-    graphics->GetAnnotation()->EndEvent();
-
-    if (isGameMode)
+    if (!isGameMode)
     {
-        graphics->PrepareRenderScene();
-        renderScene();
-    }
-    else
-    {
-        // Render game to scene map
-        graphics->PrepareRenderSceneMap();
-        renderScene();
+        modelViewer->RenderPipeline();
 
         // Render editor
-        graphics->PrepareRenderScene();
+        graphics->GetAnnotation()->BeginEvent(L"Editor");
+        graphics->PrepareRenderBackBuffer();
         editor->Render();
+        graphics->GetAnnotation()->EndEvent();
     }
 
     /*// Add text on Scene
@@ -150,30 +132,4 @@ void Engine::render()
     graphics->DrawTextOnScene(400, 100, pretext);*/
 
     graphics->GetSwapChain()->Present(1, 0);
-}
-
-void Engine::renderScene()
-{
-    graphics->GetAnnotation()->BeginEvent(L"Scene");
-
-    const ConstantBuffer cb =
-    {
-        Matrix::Identity,
-        Matrix::Identity,
-        Matrix::Identity,
-        game->GetLight()->GetViewMatrix(),
-        game->GetLight()->GetProjectionMatrix(),
-    };
-
-    const LightBuffer lb =
-    {
-        Vector4{0.15f, 0.15f, 0.15f, 1.0f},
-        Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        game->GetLight()->GetDirection(),
-        100.0f,
-        {1.0f, 1.0f, 1.0f, 1.0f }
-    };
-
-    orthoWindow->Render(graphics->GetContext(), cb, lb);
-    graphics->GetAnnotation()->EndEvent();
 }

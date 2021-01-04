@@ -40,7 +40,8 @@ void EditorWindowGameViewport::renderGameViewport()
     }
 
     viewport->UpdateSize();
-    ImGui::Image(editor->GetContext()->GetGraphics()->GetSceneResourceView(), viewport->GetSize());
+    ImGui::Image(editor->GetContext()->GetGame()->GetSceneRenderer()->GetSceneResourceView(),
+        viewport->GetSize());
 
     ImGui::End();
 }

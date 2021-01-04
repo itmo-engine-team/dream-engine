@@ -2,13 +2,15 @@
 
 #include "EditorWindow.h"
 #include "EditorPopupModalAssetChooser.h"
+#include "EditorViewport.h"
+#include "TextureAssetInfo.h"
 
 class ModelAssetInfo;
 
 class EditorWindowModelViewer : public EditorWindow 
 {
 
-public: 
+public:
 
     EditorWindowModelViewer(Editor* editor, ModelAssetInfo* modelAssetInfo);
 
@@ -17,12 +19,16 @@ public:
 
 private:
 
+    EditorViewport* viewport = new EditorViewport(ImVec2(16, 9));
+
     ModelAssetInfo* modelAssetInfo;
 
-    char modelPath[256] = "";
-    std::string previewTextureAssetName;
+    bool isModelValid;
 
-    EditorPopupModalAssetChooser* assetChooser;
+    std::string modelPath;
+    TextureAssetInfo* previewTextureAsset = nullptr;
+
+    EditorPopupModalAssetChooser* assetChooser = nullptr;
 
     void renderModelViewer();
     void renderModelInspector();

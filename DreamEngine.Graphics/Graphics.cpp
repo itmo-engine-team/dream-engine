@@ -7,6 +7,7 @@
 #include "ErrorLogger.h"
 #include "DepthShader.h"
 #include "MeshRenderer.h"
+#include "OrthoWindow.h"
 
 Graphics::Graphics(Window* window) : window(window)
 {
@@ -71,10 +72,6 @@ bool Graphics::initDirectX()
     ErrorLogger::DirectXLog(res, Error, 
         "Failed to create RasterizerState", __FILE__, __FUNCTION__, __LINE__);
 
-    res = device->CreateRasterizerState(&rastDesc, &shadowRasterState);
-    ErrorLogger::DirectXLog(res, Error,
-        "Failed to create ShadowRasterizerState", __FILE__, __FUNCTION__, __LINE__);
-
     // Structure with parameters: 
     D3D11_TEXTURE2D_DESC descDepth;
     ZeroMemory(&descDepth, sizeof(descDepth));
@@ -111,17 +108,14 @@ bool Graphics::initDirectX()
     viewport.MinDepth = 0;
     viewport.MaxDepth = 1.0f;
 
-    initDeferredBuffer();
-
+    initShaders();
     initDepthShadowMap();
-    initSceneMap();
 
     initDirect2D();
     initImGui();
-    
-    std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDeferredModel.fx";
-    modelShader = new ModelShader(this, shaderPath.data());
-    modelShader->Init();
+
+    orthoWindow = new OrthoWindow(this);
+    orthoWindow->Initialize(device, window->GetScreenWidth(), window->GetScreenHeight());
 
     return true;
 }
@@ -242,75 +236,6 @@ bool Graphics::initDepthShadowMap()
     depthShader = new DepthShader(this, shaderPath.data());
     depthShader->Init();
 
-    // Creating a depth buffer
-    D3D11_TEXTURE2D_DESC shadowMapDesc;
-    ZeroMemory(&shadowMapDesc, sizeof(D3D11_TEXTURE2D_DESC));
-    shadowMapDesc.Format = DXGI_FORMAT_R24G8_TYPELESS;
-    shadowMapDesc.MipLevels = 1;
-    shadowMapDesc.ArraySize = 1;
-    shadowMapDesc.SampleDesc.Count = 1;
-    shadowMapDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_DEPTH_STENCIL;
-    shadowMapDesc.Height = 1024;
-    shadowMapDesc.Width = 1024;
-
-    HRESULT hr = device->CreateTexture2D(&shadowMapDesc, nullptr, &shadowMap);
-
-    // Creating a resource view
-    D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
-    ZeroMemory(&depthStencilViewDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
-    depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-    depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-    depthStencilViewDesc.Texture2D.MipSlice = 0;
-
-    D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
-    ZeroMemory(&shaderResourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
-    shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-    shaderResourceViewDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
-    shaderResourceViewDesc.Texture2D.MipLevels = 1;
-
-    hr = device->CreateDepthStencilView(shadowMap, &depthStencilViewDesc, &shadowDepthView);
-
-    hr = device->CreateShaderResourceView(shadowMap, &shaderResourceViewDesc, &shadowResourceView);
-
-    // Create comparisonSamplerDesc
-    D3D11_SAMPLER_DESC comparisonSamplerDesc;
-    ZeroMemory(&comparisonSamplerDesc, sizeof(D3D11_SAMPLER_DESC));
-    comparisonSamplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
-    comparisonSamplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
-    comparisonSamplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
-    comparisonSamplerDesc.BorderColor[0] = 1.0f;
-    comparisonSamplerDesc.BorderColor[1] = 1.0f;
-    comparisonSamplerDesc.BorderColor[2] = 1.0f;
-    comparisonSamplerDesc.BorderColor[3] = 1.0f;
-    comparisonSamplerDesc.MinLOD = 0.f;
-    comparisonSamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-    comparisonSamplerDesc.MipLODBias = 0.f;
-    comparisonSamplerDesc.MaxAnisotropy = 0;
-    comparisonSamplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
-    comparisonSamplerDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT;
-
-    // Create state of comparison
-    D3D11_RASTERIZER_DESC drawingRenderStateDesc;
-    ZeroMemory(&drawingRenderStateDesc, sizeof(D3D11_RASTERIZER_DESC));
-    drawingRenderStateDesc.CullMode = D3D11_CULL_BACK;
-    drawingRenderStateDesc.FillMode = D3D11_FILL_SOLID;
-    drawingRenderStateDesc.DepthClipEnable = true;
-
-    // Create rasterize state
-    D3D11_RASTERIZER_DESC shadowRenderStateDesc;
-    ZeroMemory(&shadowRenderStateDesc, sizeof(D3D11_RASTERIZER_DESC));
-    shadowRenderStateDesc.CullMode = D3D11_CULL_FRONT;
-    shadowRenderStateDesc.FillMode = D3D11_FILL_SOLID;
-    shadowRenderStateDesc.DepthClipEnable = true;
-    
-    // Init viewport for shadow rendering
-    shadowMapViewport = {};
-    ZeroMemory(&shadowMapViewport, sizeof(D3D11_VIEWPORT));
-    shadowMapViewport.Height = SHADOW_MAP_SIZE;
-    shadowMapViewport.Width = SHADOW_MAP_SIZE;
-    shadowMapViewport.MinDepth = 0.f;
-    shadowMapViewport.MaxDepth = 1.f;
-
     // Creating a texture sample (description) 
     D3D11_SAMPLER_DESC sampDesc;
     ZeroMemory(&sampDesc, sizeof(sampDesc));
@@ -323,51 +248,14 @@ bool Graphics::initDepthShadowMap()
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
     // Creating a texturing sample interface
-    hr = device->CreateSamplerState(&sampDesc, &shadowSamplerState);
+    auto hr = device->CreateSamplerState(&sampDesc, &shadowSamplerState);
     ErrorLogger::DirectXLog(hr, Error, "Failed create SamplerState", __FILE__, __FUNCTION__, __LINE__);
 
     return true;
 }
 
-bool Graphics::initSceneMap()
+void Graphics::PrepareRenderScene()
 {
-    // Creating a depth buffer
-    D3D11_TEXTURE2D_DESC sceneMapDesc;
-    ZeroMemory(&sceneMapDesc, sizeof(D3D11_TEXTURE2D_DESC));
-    sceneMapDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    sceneMapDesc.MipLevels = 1;
-    sceneMapDesc.ArraySize = 1;
-    sceneMapDesc.SampleDesc.Count = 1;
-    sceneMapDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-    sceneMapDesc.Width = window->GetScreenWidth();
-    sceneMapDesc.Height = window->GetScreenHeight();
-
-    HRESULT hr = device->CreateTexture2D(&sceneMapDesc, nullptr, &sceneMap);
-
-    D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
-    renderTargetViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-    renderTargetViewDesc.Texture2D.MipSlice = 0;
-
-    hr = device->CreateRenderTargetView(sceneMap, &renderTargetViewDesc, &sceneRenderTargetView);
-
-    D3D11_SHADER_RESOURCE_VIEW_DESC sceneResourceViewDesc;
-    sceneResourceViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    sceneResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-    sceneResourceViewDesc.Texture2D.MostDetailedMip = 0;
-    sceneResourceViewDesc.Texture2D.MipLevels = 1;
-
-    hr = device->CreateShaderResourceView(sceneMap, &sceneResourceViewDesc, &sceneResourceView);
-
-    return true;
-}
-
-void Graphics::setSceneRenderResources()
-{
-    //modelShader->SetShader();
-
-    // Set shadow map
-    context->PSSetShaderResources(DeferredBuffers::BUFFER_COUNT, 1, &shadowResourceView);
     context->PSSetSamplers(1, 1, &shadowSamplerState);
 }
 
@@ -406,26 +294,6 @@ ID3D11DepthStencilView* Graphics::GetDepthStencilView()
     return depthStencilView;
 }
 
-ID3D11ShaderResourceView* Graphics::GetSceneResourceView()
-{
-    return sceneResourceView;
-}
-
-ID3D11Texture2D* Graphics::GetShadowMap()
-{
-    return shadowMap;
-}
-
-ID3D11ShaderResourceView* Graphics::GetShadowMapResourceView()
-{
-    return shadowResourceView;
-}
-
-DeferredBuffers* Graphics::GetDeferredBuffers()
-{
-    return deferredBuffers;
-}
-
 LightShader* Graphics::GetLightShader()
 {
     return lightShader;
@@ -451,7 +319,7 @@ bool Graphics::HasShadow() const
     return hasShadow;
 }
 
-void Graphics::PrepareRenderScene()
+void Graphics::PrepareRenderBackBuffer()
 {
     context->RSSetState(rasterState);
     context->RSSetViewports(1, &viewport);
@@ -460,43 +328,19 @@ void Graphics::PrepareRenderScene()
     float color[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     context->ClearRenderTargetView(backBufferRenderTargetView, color);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-    setSceneRenderResources();
 }
 
 void Graphics::PrepareRenderShadowMap() const
 {
-    context->RSSetViewports(1, &shadowMapViewport);
-
-    context->RSSetState(shadowRasterState);
-    context->OMSetRenderTargets(0, nullptr, shadowDepthView);
-    context->ClearDepthStencilView(shadowDepthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+    context->RSSetState(rasterState);
 
     depthShader->SetShader();
 }
 
 void Graphics::PrepareRenderSceneMap()
 {
-    context->ClearState();
-
-    context->OMSetRenderTargets(1, &sceneRenderTargetView, depthStencilView);
-    
-    context->RSSetViewports(1, &viewport);
     context->RSSetState(rasterState);
-
-    float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-
-    context->ClearRenderTargetView(sceneRenderTargetView, clearColor);
     context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-
-    setSceneRenderResources();
-}
-
-void Graphics::PrepareDeferredBuffer()
-{
-    deferredBuffers->SetRenderTargets(context);
-
-    deferredBuffers->ClearRenderTargets(context, 0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Window* Graphics::GetWindow() const
@@ -504,26 +348,18 @@ Window* Graphics::GetWindow() const
     return window;
 }
 
-void Graphics::initDeferredBuffer()
+OrthoWindow* Graphics::GetOrthoWindow() const
+{
+    return orthoWindow;
+}
+
+void Graphics::initShaders()
 {
     std::wstring shaderPath = graphicsPath + L"Shaders/ShaderDeferredLight.fx";
     lightShader = new LightShader(this, shaderPath.data());
     lightShader->Init();
 
-    deferredBuffers = new DeferredBuffers;
-    if (!deferredBuffers)
-    {
-        ErrorLogger::Log(Error, "Error create new deferred buffer");
-        return;
-    }
-
-    // Initialize the deferred buffers object.
-    bool result;
-    result = deferredBuffers->Initialize(
-        device, window->GetScreenWidth(), window->GetScreenHeight(), 100, 0.1f);
-    if (!result)
-    {
-        ErrorLogger::Log(Error, "Error initializing DeferredBuffers");
-    }
-
+    shaderPath = graphicsPath + L"Shaders/ShaderDeferredModel.fx";
+    modelShader = new ModelShader(this, shaderPath.data());
+    modelShader->Init();
 }

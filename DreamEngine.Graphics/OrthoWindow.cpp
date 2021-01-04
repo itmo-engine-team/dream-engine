@@ -44,13 +44,13 @@ void OrthoWindow::Shutdown()
     ShutdownBuffers();
 }
 
-void OrthoWindow::Render(ID3D11DeviceContext* deviceContext,
+void OrthoWindow::Render(DeferredBuffers* deferredBuffers,
     ConstantBuffer constantBufferData, LightBuffer lightBufferData)
 {
-    graphics->GetLightShader()->SetShader(graphics->GetDeferredBuffers());
+    graphics->GetLightShader()->SetShader(deferredBuffers);
 
     // Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
-    RenderBuffers(deviceContext, constantBufferData, lightBufferData);
+    RenderBuffers(graphics->GetContext(), constantBufferData, lightBufferData);
 
     graphics->GetContext()->DrawIndexed(GetIndexCount(), 0, 0);
 }

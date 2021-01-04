@@ -7,7 +7,9 @@
 #include "ModelData.h"
 #include "A_Light.h"
 #include "A_Spectator.h"
+#include "SceneRenderer.h"
 
+class EngineConfigInfo;
 class Graphics;
 class InputSystem;
 
@@ -15,8 +17,11 @@ class BaseSceneViewer
 {
 public:
 
-    BaseSceneViewer(InputSystem* inputSystem, Graphics* graphics);
+    BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
 
+    void SetActive(bool isActive);
+
+    SceneRenderer* GetSceneRenderer() const;
     InputSystem* GetInputSystem() const;
     Graphics* GetGraphics() const;
     ActorContext* GetActorContext() const;
@@ -29,8 +34,15 @@ public:
     virtual void Render();
     virtual void RenderShadowMap();
 
+    void RenderPipeline();
+
 protected:
 
+    bool isActive = true;
+
+    SceneRenderer* sceneRenderer;
+
+    EngineConfigInfo* engineConfigInfo;
     InputSystem* inputSystem;
     Graphics* graphics;
     DeltaTimeHandler* deltaTimeHandler;

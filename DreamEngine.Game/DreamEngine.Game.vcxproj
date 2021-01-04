@@ -159,6 +159,7 @@
     <ClCompile Include="A_Spectator.cpp" />
     <ClCompile Include="ACS_StaticModel.cpp" />
     <ClCompile Include="BaseSceneViewer.cpp" />
+    <ClCompile Include="ModelViewer.cpp" />
     <ClCompile Include="SceneRoom.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="A_Spectator.h" />
     <ClInclude Include="ACS_StaticModel.h" />
     <ClInclude Include="BaseSceneViewer.h" />
+    <ClInclude Include="ModelViewer.h" />
     <ClInclude Include="SceneRoom.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Transform.h" />

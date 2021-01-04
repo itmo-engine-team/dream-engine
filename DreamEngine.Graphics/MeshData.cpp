@@ -4,6 +4,12 @@ MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, Tex
     : vertices(vertices), indices(indices), texture(texture)
 {
     indicesCount = std::size(indices);
+
+    for (const Vertex& vertex : vertices)
+    {
+        if (vertex.Pos.y < lowestVertexY)
+            lowestVertexY = vertex.Pos.y;
+    }
 }
 
 std::vector<Vertex>& MeshData::GetVertices()
@@ -24,4 +30,9 @@ UINT MeshData::GetIndicesCount() const
 Texture* MeshData::GetTexture() const
 {
     return texture;
+}
+
+float MeshData::GetLowestVertexY() const
+{
+    return lowestVertexY;
 }

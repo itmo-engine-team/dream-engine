@@ -17,44 +17,24 @@ AssetInfo* EditorPopupModalAssetChooser::GetChosenAsset() const
     return currentAsset;
 }
 
-AssetInfo* EditorPopupModalAssetChooser::getAssetInfoByName(std::string assetName)
-{
-    int i = 0;
-
-    for (auto iterator = assetMap.begin(); iterator != assetMap.end(); ++iterator, i++)
-    {
-        if (iterator->second->GetName() == assetName)
-        {
-            return iterator->second;
-        }
-    }
-}
-
 void EditorPopupModalAssetChooser::onDrawPopup()
 {
     static ImGuiTextFilter filter;
     filter.Draw();
     ImGui::Separator();
 
-    int size = assetMap.size();
+    ImVec2 buttonSize(40, 40);
+    ImGuiStyle& style = ImGui::GetStyle();
+    float windowVisible = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
+
+    int assetSize = assetMap.size();
     int i = 0;
-    filteringMass = new std::string[size];
 
     for (auto iterator = assetMap.begin(); iterator != assetMap.end(); ++iterator, i++)
     {
-        filteringMass[i] = iterator->second->GetName();
-    }
-
-    for (i = 0; i < size; i++)
-    {
-        if (filter.PassFilter(filteringMass[i].c_str()))
+        if (filter.PassFilter(iterator->second->GetName().c_str()))
         {
-            const auto assetToDraw = getAssetInfoByName(filteringMass[i]);
-
-            ImVec2 buttonSize(40, 40);
-            ImGuiStyle& style = ImGui::GetStyle();
-            float windowVisible = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
-
+            const auto assetToDraw = iterator->second;
             ImGui::PushID(i);
             ImGui::BeginGroup();
 
@@ -79,7 +59,7 @@ void EditorPopupModalAssetChooser::onDrawPopup()
 
             float lastButton = ImGui::GetItemRectMax().x;
             float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
-            if (i + 1 < size && nextButton < windowVisible)
+            if (i + 1 < assetSize && nextButton < windowVisible)
                 ImGui::SameLine();
             ImGui::PopID();
         }

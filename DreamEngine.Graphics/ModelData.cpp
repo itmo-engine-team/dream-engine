@@ -8,9 +8,12 @@ ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, T
     pMeshRenderer->ProcessModel(this, filePath);
 }
 
-void ModelData::AddMeshData(MeshData* pMeshData)
+void ModelData::AddMeshData(MeshData* meshData)
 {
-    meshesData.push_back(pMeshData);
+    meshesData.push_back(meshData);
+
+    if (meshData->GetLowestVertexY() < lowestVertexY)
+        lowestVertexY = meshData->GetLowestVertexY();
 }
 
 std::vector<MeshData*> ModelData::GetMeshDataList() const
@@ -21,4 +24,9 @@ std::vector<MeshData*> ModelData::GetMeshDataList() const
 Texture* ModelData::GetTexture() const
 {
     return texture;
+}
+
+float ModelData::GetLowestVertexY() const
+{
+    return lowestVertexY;
 }

@@ -1,7 +1,6 @@
 #include "ModelViewer.h"
 #include "ACS_StaticModel.h"
 #include "ErrorLogger.h"
-#include "ModelAssetInfo.h"
 #include "Texture.h"
 #include "TextureAssetInfo.h"
 
@@ -47,8 +46,8 @@ bool ModelViewer::LoadModel(const std::string& modelPath, TextureAssetInfo* prev
     }
 
     currentModel = new ModelData(graphics->GetMeshRenderer(), modelPath, currentPreviewTexture);
-    modelActor->AddSceneComponent(
-        new ACS_StaticModel(actorContext, modelActor, new Transform, currentModel));
+    modelActor->AddSceneComponent(new ACS_StaticModel(actorContext, modelActor,
+            new Transform(Vector3::UnitY * -1 * currentModel->GetLowestVertexY()), currentModel));
     return true;
 }
 

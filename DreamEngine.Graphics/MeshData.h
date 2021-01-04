@@ -18,11 +18,15 @@ public:
 
     Texture* GetTexture() const;
 
+    float GetLowestVertexY() const;
+
 protected:
 
     std::vector<Vertex> vertices;
     std::vector<DWORD> indices;
     UINT indicesCount;
+
+    float lowestVertexY = 1000;
 
     Texture* texture;
 

@@ -5,7 +5,12 @@
 ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, Texture* texture)
     : texture(texture)
 {
-    pMeshRenderer->ProcessModel(this, filePath);
+    isValid = pMeshRenderer->ProcessModel(this, filePath);
+}
+
+bool ModelData::IsValid() const
+{
+    return isValid;
 }
 
 void ModelData::AddMeshData(MeshData* meshData)

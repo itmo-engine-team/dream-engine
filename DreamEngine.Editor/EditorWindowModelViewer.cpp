@@ -48,6 +48,11 @@ void EditorWindowModelViewer::renderModelViewer()
 
     ImGui::Separator();
 
+    if (!isModelValid)
+    {
+        ImGui::Text("Model is not valid. Please check path.");
+    }
+
     viewport->UpdateSize();
     ImGui::Image(editor->GetContext()->GetModelViewer()->GetSceneRenderer()->GetSceneResourceView(),
         viewport->GetSize());
@@ -109,5 +114,6 @@ void EditorWindowModelViewer::saveModelAsset()
 void EditorWindowModelViewer::reimportModelAsset()
 {
     std::string stringModelPath = modelPath.c_str();
-    editor->GetContext()->GetModelViewer()->LoadModel(stringModelPath, nullptr);
+    isModelValid = editor->GetContext()->GetModelViewer()->
+        LoadModel(stringModelPath, nullptr);
 }

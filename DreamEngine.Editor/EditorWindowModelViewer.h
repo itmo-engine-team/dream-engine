@@ -18,9 +18,11 @@ public:
 
 private:
 
-    EditorViewport* viewport = new EditorViewport(ImVec2(10, 10));
+    EditorViewport* viewport = new EditorViewport(ImVec2(16, 9));
 
     ModelAssetInfo* modelAssetInfo;
+
+    bool isModelValid;
 
     std::string modelPath;
     std::string previewTextureAssetName;

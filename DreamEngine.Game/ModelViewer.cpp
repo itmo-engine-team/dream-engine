@@ -48,7 +48,8 @@ bool ModelViewer::LoadModel(const std::string& modelPath, TextureAssetInfo* prev
     currentModel = new ModelData(graphics->GetMeshRenderer(), modelPath, currentPreviewTexture);
     modelActor->AddSceneComponent(new ACS_StaticModel(actorContext, modelActor,
             new Transform(Vector3::UnitY * -1 * currentModel->GetLowestVertexY()), currentModel));
-    return true;
+
+    return currentModel->IsValid();
 }
 
 void ModelViewer::Init()

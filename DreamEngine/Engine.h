@@ -20,7 +20,9 @@ class Engine
 {
 public:
 
-    Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc);
+    static Engine* INSTANCE;
+
+    Engine();
     ~Engine();
 
     void Init();
@@ -62,3 +64,6 @@ protected:
     void render();
 
 };
+
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam);
+static LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam);

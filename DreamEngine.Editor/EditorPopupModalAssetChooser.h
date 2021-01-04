@@ -21,6 +21,10 @@ protected:
     AssetInfo* currentAsset;
     std::map<unsigned int, AssetInfo*> assetMap;
 
+    std::string* filteringMass;
+
+    AssetInfo* getAssetInfoByName(std::string assetName);
+
     void onDrawPopup() override;
     bool onFinish() override;
 };

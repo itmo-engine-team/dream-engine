@@ -82,10 +82,10 @@ void EditorWindowAssetBrowser::drawFilter()
     static ImGuiTextFilter filter;
     filter.Draw();
     ImGui::Separator();
-    const char* fileNames[] = { "aaa1.c", "bbb1.c", "ccc1.c", "aaa2.cpp", "bbb2.cpp", "ccc2.cpp", "abc.h", "hello, world" };
+    /*const char* fileNames[] = { "aaa1.c", "bbb1.c", "ccc1.c", "aaa2.cpp", "bbb2.cpp", "ccc2.cpp", "abc.h", "hello, world" };
     for (int i = 0; i < IM_ARRAYSIZE(fileNames); i++)
         if (filter.PassFilter(fileNames[i]))
-            ImGui::BulletText("%s", fileNames[i]);
+            ImGui::BulletText("%s", fileNames[i]);*/
 }
 
 void EditorWindowAssetBrowser::drawFolderContextMenu(FolderNode* selectedFolderNode)

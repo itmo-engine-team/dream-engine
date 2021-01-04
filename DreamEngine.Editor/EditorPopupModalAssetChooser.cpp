@@ -32,9 +32,10 @@ void EditorPopupModalAssetChooser::onDrawPopup()
 
     for (auto iterator = assetMap.begin(); iterator != assetMap.end(); ++iterator, i++)
     {
-        if (filter.PassFilter(iterator->second->GetName().c_str()))
-        {
-            const auto assetToDraw = iterator->second;
+        const auto assetToDraw = iterator->second;
+
+        if (filter.PassFilter(assetToDraw->GetName().c_str()))
+        { 
             ImGui::PushID(i);
             ImGui::BeginGroup();
 

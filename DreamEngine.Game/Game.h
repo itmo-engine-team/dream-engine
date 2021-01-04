@@ -32,4 +32,3 @@ protected:
 
     A_NavMesh* navMesh;
 };
-

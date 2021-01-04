@@ -145,9 +145,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NavMesh.h" />
+    <ClInclude Include="PathFinding.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NavMesh.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">

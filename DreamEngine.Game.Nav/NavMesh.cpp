@@ -55,8 +55,7 @@ std::vector<NavMeshPolygon*> NavMesh::GetNeighbours(NavMeshPolygon* polygon, boo
         for (int z = -1; z <= 1; z++)
         {
             if (x == 0 && z == 0) continue;
-            if (!canMoveByDiagonal && (x == -1 && z == -1 || x == -1 && z == 0 || 
-                x == 1 && z == -1 || x == 1 && z == 1)) continue;
+            if (!canMoveByDiagonal && x != 0 && z != 0) continue;
 
             int checkX = polygon->x + x;
             int checkZ = polygon->z + z;
@@ -74,11 +73,7 @@ void NavMesh::UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize)
     {
         for (NavMeshPolygon* polygon : column)
         {
-            /*Vector2 leftCollisionEdge = Vector2{ worldPosition.z - collisionSize.x, worldPosition.x };
-            Vector2 rightCollisionEdge = Vector2{ worldPosition.z + collisionSize.x, worldPosition.x };
-            Vector2 topCollisionEdge = Vector2{ worldPosition.z, worldPosition.x + collisionSize.y };
-            Vector2 downCollisionEdge = Vector2{ worldPosition.z, worldPosition.x - collisionSize.y };*/
-
+            if (!polygon->IsFree) continue;
             if (checkPolygonCollision(worldPosition, collisionSize, polygon->Center))
             {
                 polygon->IsFree = false;
@@ -105,7 +100,7 @@ void NavMesh::initNavMeshGrid()
     DWORD currentVertexIndex = 0;
     float x = 0;
     int countX = 0;
-    while ( x < size.x)
+    while (x < size.x)
     {
         std::vector <NavMeshPolygon*> navMeshRow;
         float z = 0;
@@ -186,14 +181,14 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
 
 bool NavMesh::checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, Vector3 polygonLocation)
 {
-    Vector2 leftCollisionEdge = Vector2{ collisionPosition.z - collisionSize.x, collisionPosition.x };
-    Vector2 rightCollisionEdge = Vector2{ collisionPosition.z + collisionSize.x, collisionPosition.x };
-    Vector2 topCollisionEdge = Vector2{ collisionPosition.z, collisionPosition.x + collisionSize.y };
-    Vector2 downCollisionEdge = Vector2{ collisionPosition.z, collisionPosition.x - collisionSize.y };
+    float leftCollisionEdge = collisionPosition.z - collisionSize.x;
+    float rightCollisionEdge = collisionPosition.z + collisionSize.x;
+    float topCollisionEdge = collisionPosition.x + collisionSize.y;
+    float downCollisionEdge = collisionPosition.x - collisionSize.y;
 
-    if (downCollisionEdge.y <= polygonLocation.x && topCollisionEdge.y >= polygonLocation.x)
+    if (downCollisionEdge <= polygonLocation.x && topCollisionEdge >= polygonLocation.x)
     {
-        if (leftCollisionEdge.x <= polygonLocation.z && rightCollisionEdge.x >= polygonLocation.z)
+        if (leftCollisionEdge <= polygonLocation.z && rightCollisionEdge >= polygonLocation.z)
             return true;
     }
         

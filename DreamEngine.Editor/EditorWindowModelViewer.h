@@ -3,6 +3,7 @@
 #include "EditorWindow.h"
 #include "EditorPopupModalAssetChooser.h"
 #include "EditorViewport.h"
+#include "TextureAssetInfo.h"
 
 class ModelAssetInfo;
 
@@ -25,9 +26,9 @@ private:
     bool isModelValid;
 
     std::string modelPath;
-    std::string previewTextureAssetName;
+    TextureAssetInfo* previewTextureAsset = nullptr;
 
-    EditorPopupModalAssetChooser* assetChooser;
+    EditorPopupModalAssetChooser* assetChooser = nullptr;
 
     void renderModelViewer();
     void renderModelInspector();

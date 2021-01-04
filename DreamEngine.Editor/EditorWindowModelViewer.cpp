@@ -80,7 +80,7 @@ void EditorWindowModelViewer::renderModelInspector()
     ImGui::InputText("Path", modelPath.data(), 256);
 
     ImGui::Text("Preview Texture: ");
-    ImGui::Text(previewTextureAssetName.c_str());
+    ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
     ImGui::SameLine();
     if (ImGui::Button("Choose"))
     {
@@ -97,7 +97,8 @@ void EditorWindowModelViewer::drawAssetChooser()
 
     if (assetChooser->GetResult())
     {
-        previewTextureAssetName = assetChooser->GetChosenAsset()->GetName();
+        previewTextureAsset = dynamic_cast<TextureAssetInfo*>(assetChooser->GetChosenAsset());
+        reimportModelAsset();
     }
 }
 
@@ -115,5 +116,5 @@ void EditorWindowModelViewer::reimportModelAsset()
 {
     std::string stringModelPath = modelPath.c_str();
     isModelValid = editor->GetContext()->GetModelViewer()->
-        LoadModel(stringModelPath, nullptr);
+        LoadModel(stringModelPath, previewTextureAsset);
 }

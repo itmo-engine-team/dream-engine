@@ -6,7 +6,7 @@
 #include "ActorAssetInfo.h"
 
 EditorWindowActorViewer::EditorWindowActorViewer(Editor* editor, ActorAssetInfo* actorAssetInfo)
-    : EditorWindow("Model Viewer", editor), actorAssetInfo(actorAssetInfo)
+    : EditorWindow("Actor Viewer", editor), actorAssetInfo(actorAssetInfo)
 {
     if (actorAssetInfo == nullptr)
         SetOpened(false);
@@ -28,7 +28,7 @@ void EditorWindowActorViewer::Render()
 
 void EditorWindowActorViewer::renderViewer()
 {
-    ImGui::Begin("Actor Viewer");
+    ImGui::Begin(GetName().c_str());
     
     if (ImGui::Button("Close"))
     {
@@ -52,12 +52,16 @@ void EditorWindowActorViewer::renderInspector()
     {
         saveAsset();
     }
+
     ImGui::SameLine();
-    if (ImGui::Button("Reimport"))
+    if (ImGui::Button("Add Component"))
     {
-        reimportAsset();
+        
     }
 
+    ImGui::Separator();
+
+    ImGui::Text(actorAssetInfo->GetName().c_str());
     ImGui::Separator();
 
     ImGui::End();
@@ -65,7 +69,6 @@ void EditorWindowActorViewer::renderInspector()
 
 void EditorWindowActorViewer::saveAsset()
 {
-
     editor->GetContext()->GetAssetManager()->SaveAsset(actorAssetInfo->GetAssetNode());
 
     reimportAsset();

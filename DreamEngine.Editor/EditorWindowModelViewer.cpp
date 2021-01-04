@@ -99,6 +99,9 @@ void EditorWindowModelViewer::drawAssetChooser()
     {
         previewTextureAsset = dynamic_cast<TextureAssetInfo*>(assetChooser->GetChosenAsset());
         reimportModelAsset();
+
+        delete assetChooser;
+        assetChooser = nullptr;
     }
 }
 

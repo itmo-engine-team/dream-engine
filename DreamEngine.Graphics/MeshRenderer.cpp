@@ -5,8 +5,6 @@
 #include "assimp/Importer.hpp"
 #include "assimp/postprocess.h"
 
-#include "ErrorLogger.h"
-
 using namespace Assimp;
 
 bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePath)
@@ -19,7 +17,6 @@ bool MeshRenderer::ProcessModel(ModelData* modelData, const std::string& filePat
 
     if (pScene == nullptr)
     {
-        ErrorLogger::Log(Error, importer.GetErrorString());
         return false;
     }
 

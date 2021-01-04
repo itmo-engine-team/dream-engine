@@ -3,7 +3,6 @@
 #include "EditorWindow.h"
 #include "EditorPopupModalAssetChooser.h"
 #include "EditorViewport.h"
-#include "TextureAssetInfo.h"
 #include "ActorViewer.h"
 
 class ActorAssetInfo;

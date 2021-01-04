@@ -331,27 +331,26 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
     ImGuiStyle& style = ImGui::GetStyle();
     float windowVisible = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
 
-    auto folderList = parentNode->GetChildFolderList();
-    auto assetList = parentNode->GetChildAssetList();
-
-    int foldersCount = folderList.size();
-    int assetsCount = assetList.size();
+    int foldersCount = parentNode->GetChildFolderList().size();
+    int assetsCount = parentNode->GetChildAssetList().size();
 
     for (int i = 0; i < foldersCount; i++)
     {
-        if (filter.PassFilter(folderList[i]->GetName().c_str()))
+        const auto folderNodeToDraw = parentNode->GetChildFolderList()[i];
+
+        if (filter.PassFilter(folderNodeToDraw->GetName().c_str()))
         {
             ImGui::PushID(i);
 
             ImGui::BeginGroup();
             if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize))
             {
-                setCurrentParentNode(folderList[i]);
+                setCurrentParentNode(folderNodeToDraw);
             }
 
-            drawFolderContextMenu(folderList[i]);
+            drawFolderContextMenu(folderNodeToDraw);
 
-            ImGui::Text(folderList[i]->GetName().c_str());
+            ImGui::Text(folderNodeToDraw->GetName().c_str());
             ImGui::EndGroup();
 
             float lastButton = ImGui::GetItemRectMax().x;
@@ -367,9 +366,10 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
 
     for (int i = 0; i < assetsCount; i++)
     {
-        if (filter.PassFilter(assetList[i]->GetName().c_str()))
+        const auto assetNodeToDraw = parentNode->GetChildAssetList()[i];
+
+        if (filter.PassFilter(assetNodeToDraw->GetName().c_str()))
         {
-            const auto assetNodeToDraw = assetList[i];
             ImGui::PushID(i);
 
             ImGui::BeginGroup();

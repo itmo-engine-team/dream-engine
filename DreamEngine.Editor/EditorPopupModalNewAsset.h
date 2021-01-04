@@ -21,9 +21,11 @@ public:
 protected:
 
     int sizeStr;
+    int currentType = 0;
 
-    std::string assetNamePublic;
+    std::string assetName;
     std::string* tempStrMass;
+    std::string label;
 
     AssetType selectedAssetType;
 

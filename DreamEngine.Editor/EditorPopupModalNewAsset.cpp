@@ -5,7 +5,7 @@
 
 std::string EditorPopupModalNewAsset::GetAssetName()
 {
-    return assetNamePublic;
+    return assetName;
 }
 
 AssetType EditorPopupModalNewAsset::GetAssetType()
@@ -26,14 +26,15 @@ EditorPopupModalNewAsset::EditorPopupModalNewAsset(FolderNode* parentFolderNode)
     }
 
     selectedAssetType = AssetInfoFactory::GetAssetTypeByString(tempStrMass[0]);
+
+    assetName.resize(24);
 }
 
 void EditorPopupModalNewAsset::onDrawPopup()
 {
-    static int currentType = 0;
-    const char* firstLabel = tempStrMass[currentType].c_str();
-    
-    if (ImGui::BeginCombo("Asset Type", firstLabel))
+    label = tempStrMass[currentType];
+
+    if (ImGui::BeginCombo("Asset Type", label.data()))
     {
         for (int n = 0; n < sizeStr; n++)
         {
@@ -50,16 +51,14 @@ void EditorPopupModalNewAsset::onDrawPopup()
         ImGui::EndCombo();
     }
 
-    static char assetName[128] = "";
-    ImGui::InputText("Asset Name", assetName, IM_ARRAYSIZE(assetName));
-    assetNamePublic = assetName;
+    ImGui::InputText("Asset Name", assetName.data(), 256);
 }
 
 bool EditorPopupModalNewAsset::onFinish()
 {
     if (!result) return true;
 
-    if (assetNamePublic.empty())
+    if (assetName.empty())
         return false;
     else
         return true;

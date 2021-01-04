@@ -37,7 +37,6 @@ void EditorWindowAssetBrowser::Render()
 {
     ImGui::Begin(" ");
 
-    drawFilter();
     if (currentParentNode)
     {
         drawFolderLayout(currentParentNode);
@@ -72,20 +71,6 @@ void EditorWindowAssetBrowser::setCurrentParentNode(FolderNode* newParentNode)
 Texture* EditorWindowAssetBrowser::getAssetIconByNodeType(AssetNode* assetNode) const
 {
     return editor->GetIconByAssetType(assetNode->GetAssetInfo()->GetAssetType());
-}
-
-void EditorWindowAssetBrowser::drawFilter()
-{
-    ImGui::Image(iconFilter->GetShaderResourceView(), ImVec2(20, 20));
-    ImGui::SameLine();
-
-    static ImGuiTextFilter filter;
-    filter.Draw();
-    ImGui::Separator();
-    const char* fileNames[] = { "aaa1.c", "bbb1.c", "ccc1.c", "aaa2.cpp", "bbb2.cpp", "ccc2.cpp", "abc.h", "hello, world" };
-    for (int i = 0; i < IM_ARRAYSIZE(fileNames); i++)
-        if (filter.PassFilter(fileNames[i]))
-            ImGui::BulletText("%s", fileNames[i]);
 }
 
 void EditorWindowAssetBrowser::drawFolderContextMenu(FolderNode* selectedFolderNode)
@@ -335,6 +320,13 @@ void EditorWindowAssetBrowser::drawPopups()
 
 void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
 {
+    ImGui::Image(iconFilter->GetShaderResourceView(), ImVec2(20, 20));
+    ImGui::SameLine();
+
+    static ImGuiTextFilter filter;
+    filter.Draw();
+    ImGui::Separator();
+
     ImVec2 buttonSize(40, 40);
     ImGuiStyle& style = ImGui::GetStyle();
     float windowVisible = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
@@ -344,24 +336,29 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
 
     for (int i = 0; i < foldersCount; i++)
     {
-        ImGui::PushID(i);
+        const auto folderNodeToDraw = parentNode->GetChildFolderList()[i];
 
-        ImGui::BeginGroup();
-        if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize))
+        if (filter.PassFilter(folderNodeToDraw->GetName().c_str()))
         {
-            setCurrentParentNode(parentNode->GetChildFolderList()[i]);
+            ImGui::PushID(i);
+
+            ImGui::BeginGroup();
+            if (ImGui::ImageButton(iconFolder->GetShaderResourceView(), buttonSize))
+            {
+                setCurrentParentNode(folderNodeToDraw);
+            }
+
+            drawFolderContextMenu(folderNodeToDraw);
+
+            ImGui::Text(folderNodeToDraw->GetName().c_str());
+            ImGui::EndGroup();
+
+            float lastButton = ImGui::GetItemRectMax().x;
+            float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
+            if (i + 1 < foldersCount && nextButton < windowVisible)
+                ImGui::SameLine();
+            ImGui::PopID();
         }
-        
-        drawFolderContextMenu(parentNode->GetChildFolderList()[i]);
-
-        ImGui::Text(parentNode->GetChildFolderList()[i]->GetName().c_str());
-        ImGui::EndGroup();
-
-        float lastButton = ImGui::GetItemRectMax().x;
-        float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
-        if (i + 1 < foldersCount && nextButton < windowVisible)
-            ImGui::SameLine();
-        ImGui::PopID();
     }
 
     if (foldersCount)
@@ -370,38 +367,42 @@ void EditorWindowAssetBrowser::drawFolderLayout(FolderNode* parentNode)
     for (int i = 0; i < assetsCount; i++)
     {
         const auto assetNodeToDraw = parentNode->GetChildAssetList()[i];
-        ImGui::PushID(i);
 
-        ImGui::BeginGroup();
-
-        iconAsset = getAssetIconByNodeType(assetNodeToDraw);
-
-        bool assetSelected = currentAssetNode == assetNodeToDraw;
-        if (assetSelected)
+        if (filter.PassFilter(assetNodeToDraw->GetName().c_str()))
         {
-            ImGui::PushStyleColor(ImGuiCol_Button, { 0.3, 0, 0.8, 1 });
+            ImGui::PushID(i);
+
+            ImGui::BeginGroup();
+
+            iconAsset = getAssetIconByNodeType(assetNodeToDraw);
+
+            bool assetSelected = currentAssetNode == assetNodeToDraw;
+            if (assetSelected)
+            {
+                ImGui::PushStyleColor(ImGuiCol_Button, { 0.3, 0, 0.8, 1 });
+            }
+
+            if (ImGui::ImageButton(iconAsset->GetShaderResourceView(), buttonSize))
+            {
+                currentAssetNode = assetNodeToDraw;
+            }
+
+            if (assetSelected)
+            {
+                ImGui::PopStyleColor();
+            }
+
+            drawAssetContextMenu(assetNodeToDraw);
+
+            ImGui::Text(assetNodeToDraw->GetName().c_str());
+            ImGui::EndGroup();
+
+            float lastButton = ImGui::GetItemRectMax().x;
+            float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
+            if (i + 1 < assetsCount && nextButton < windowVisible)
+                ImGui::SameLine();
+            ImGui::PopID();
         }
-
-        if (ImGui::ImageButton(iconAsset->GetShaderResourceView(), buttonSize))
-        {
-            currentAssetNode = assetNodeToDraw;
-        }
-
-        if (assetSelected)
-        {
-            ImGui::PopStyleColor();
-        }
-
-        drawAssetContextMenu(assetNodeToDraw);
-
-        ImGui::Text(assetNodeToDraw->GetName().c_str());
-        ImGui::EndGroup();
-
-        float lastButton = ImGui::GetItemRectMax().x;
-        float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
-        if (i + 1 < assetsCount && nextButton < windowVisible)
-            ImGui::SameLine();
-        ImGui::PopID();
     }
 }
 

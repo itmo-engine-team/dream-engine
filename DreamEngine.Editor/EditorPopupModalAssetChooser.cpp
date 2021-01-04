@@ -19,6 +19,10 @@ AssetInfo* EditorPopupModalAssetChooser::GetChosenAsset() const
 
 void EditorPopupModalAssetChooser::onDrawPopup()
 {
+    static ImGuiTextFilter filter;
+    filter.Draw();
+    ImGui::Separator();
+
     ImVec2 buttonSize(40, 40);
     ImGuiStyle& style = ImGui::GetStyle();
     float windowVisible = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
@@ -29,33 +33,37 @@ void EditorPopupModalAssetChooser::onDrawPopup()
     for (auto iterator = assetMap.begin(); iterator != assetMap.end(); ++iterator, i++)
     {
         const auto assetToDraw = iterator->second;
-        ImGui::PushID(i);
-        ImGui::BeginGroup();
 
-        bool assetSelected = currentAsset == assetToDraw;
-        if (assetSelected)
-        {
-            ImGui::PushStyleColor(ImGuiCol_Button, { 0.3, 0, 0.8, 1 });
+        if (filter.PassFilter(assetToDraw->GetName().c_str()))
+        { 
+            ImGui::PushID(i);
+            ImGui::BeginGroup();
+
+            bool assetSelected = currentAsset == assetToDraw;
+            if (assetSelected)
+            {
+                ImGui::PushStyleColor(ImGuiCol_Button, { 0.3, 0, 0.8, 1 });
+            }
+
+            if (ImGui::ImageButton(assetIcon->GetShaderResourceView(), buttonSize))
+            {
+                currentAsset = assetToDraw;
+            }
+
+            if (assetSelected)
+            {
+                ImGui::PopStyleColor();
+            }
+
+            ImGui::Text(assetToDraw->GetName().c_str());
+            ImGui::EndGroup();
+
+            float lastButton = ImGui::GetItemRectMax().x;
+            float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
+            if (i + 1 < assetSize && nextButton < windowVisible)
+                ImGui::SameLine();
+            ImGui::PopID();
         }
-
-        if (ImGui::ImageButton(assetIcon->GetShaderResourceView(), buttonSize))
-        {
-            currentAsset = assetToDraw;
-        }
-
-        if (assetSelected)
-        {
-            ImGui::PopStyleColor();
-        }
-
-        ImGui::Text(assetToDraw->GetName().c_str());
-        ImGui::EndGroup();
-
-        float lastButton = ImGui::GetItemRectMax().x;
-        float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
-        if (i + 1 < assetSize && nextButton < windowVisible)
-            ImGui::SameLine();
-        ImGui::PopID();
     }
 }
 

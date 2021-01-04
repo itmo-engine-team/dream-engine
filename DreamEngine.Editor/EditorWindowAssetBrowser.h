@@ -53,14 +53,11 @@ private:
     EditorPopupModalRenameAsset* renameAssetPopupModal;
     EditorPopupModalDuplicateAsset* duplicateAssetPopupModal;
     EditorPopupModalError* errorPopupModal;
-
-    const char* fileNames[];
     
     void setCurrentParentNode(FolderNode* currentParentNode);
 
     Texture* getAssetIconByNodeType(AssetNode* assetNode) const;
 
-    void drawFilter();
     void drawFolderContextMenu(FolderNode* selectedFolderNode);
     void drawAssetContextMenu(AssetNode* selectedAssetNode);
     void drawFolderLayout(FolderNode* parentNode);

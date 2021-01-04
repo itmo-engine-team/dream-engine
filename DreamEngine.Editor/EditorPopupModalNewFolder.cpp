@@ -16,7 +16,7 @@ std::string EditorPopupModalNewFolder::GetFolderName()
 void EditorPopupModalNewFolder::onDrawPopup()
 {
     static char folderName[128] = "";
-    ImGui::InputText("Asset Name", folderName, IM_ARRAYSIZE(folderName));
+    ImGui::InputText("Folder Name", folderName, IM_ARRAYSIZE(folderName));
     folderNamePublic = folderName;
 }
 

@@ -43,11 +43,14 @@
     <Filter Include="Header Files\Actor\Component\Fixed">
       <UniqueIdentifier>{1095f278-1de4-4ea1-af6e-060568849ded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{70cbf2b4-f8b9-4d26-8563-09b7a8645281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{6f18a980-da4d-4e31-adfe-1eca6b9217ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameAssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,15 +90,6 @@
     <ClCompile Include="A_Spectator.cpp">
       <Filter>Source Files\Actor\Inherited</Filter>
     </ClCompile>
-    <ClCompile Include="BaseSceneViewer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneRoom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DeltaTimeHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -108,14 +102,26 @@
     <ClCompile Include="ACS_Collision.cpp">
       <Filter>Source Files\Actor\Component\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="BaseSceneViewer.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorViewer.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="ModelViewer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneRoom.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameAssetManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -161,15 +167,6 @@
     <ClInclude Include="ActorFactory.h">
       <Filter>Header Files\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="BaseSceneViewer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneRoom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ActorContext.h">
       <Filter>Header Files\Actor</Filter>
     </ClInclude>
@@ -182,8 +179,23 @@
     <ClInclude Include="ACS_Collision.h">
       <Filter>Header Files\Actor\Component\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="ActorViewer.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseSceneViewer.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneRoom.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="ModelViewer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

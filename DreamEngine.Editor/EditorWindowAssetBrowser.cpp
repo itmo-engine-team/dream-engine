@@ -9,6 +9,7 @@
 
 #include "EditorWindowModelViewer.h"
 #include "EditorWindowTextureViewer.h"
+#include "EditorWindowActorViewer.h"
 
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
@@ -113,6 +114,8 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
             switch (currentAssetNode->GetAssetInfo()->GetAssetType())
             {
                 case AssetType::Actor:
+                    editor->AddDynamicWindow(new EditorWindowActorViewer(editor,
+                        dynamic_cast<ActorAssetInfo*>(currentAssetNode->GetAssetInfo())));
                     break;
                 case AssetType::Scene:
                     editor->GetContext()->GetGame()->LoadScene(

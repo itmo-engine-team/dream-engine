@@ -7,6 +7,7 @@
 
 #include "InputSystem.h"
 #include "ModelViewer.h"
+#include "ActorViewer.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -43,6 +44,7 @@ protected:
 
     Game* game;
     ModelViewer* modelViewer;
+    ActorViewer* actorViewer;
     Editor* editor;
     AssetManager* assetManager;
 

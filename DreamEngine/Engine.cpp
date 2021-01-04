@@ -27,8 +27,11 @@ Engine::Engine(InputSystem* inputSystem, HINSTANCE hInstance, WNDCLASSEX wc)
 
     assetManager = new AssetManager();
     game = new Game(engineConfigInfo, inputSystem, graphics);
+
     modelViewer = new ModelViewer(engineConfigInfo, inputSystem, graphics);
-    editor = new Editor(new EditorContext(graphics, assetManager, game, modelViewer));
+    actorViewer = new ActorViewer(engineConfigInfo, inputSystem, graphics);
+    editor = new Editor(
+        new EditorContext(graphics, assetManager, game, modelViewer, actorViewer));
 }
 
 Engine::~Engine()
@@ -47,6 +50,7 @@ void Engine::Init()
 {
     game->Init();
     modelViewer->Init();
+    actorViewer->Init();
 }
 
 bool Engine::ProcessWndMessage(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
@@ -108,6 +112,7 @@ void Engine::update()
 {
     game->Update(deltaTime);
     modelViewer->Update(deltaTime);
+    actorViewer->Update(deltaTime);
     editor->Update();
 }
 
@@ -118,6 +123,7 @@ void Engine::render()
     if (!isGameMode)
     {
         modelViewer->RenderPipeline();
+        actorViewer->RenderPipeline();
 
         // Render editor
         graphics->GetAnnotation()->BeginEvent(L"Editor");

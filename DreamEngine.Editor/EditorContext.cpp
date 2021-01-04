@@ -19,3 +19,8 @@ ModelViewer* EditorContext::GetModelViewer() const
 {
     return modelViewer;
 }
+
+ActorViewer* EditorContext::GetActorViewer() const
+{
+    return actorViewer;
+}

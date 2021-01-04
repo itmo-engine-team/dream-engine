@@ -1,4 +1,5 @@
 #pragma once
+#include "ActorViewer.h"
 
 class Graphics;
 class AssetManager;
@@ -13,17 +14,20 @@ public:
     EditorContext(Graphics* graphics,
         AssetManager* assetManager,
         Game* game,
-        ModelViewer* modelViewer
+        ModelViewer* modelViewer,
+        ActorViewer* actorViewer
     ) : graphics(graphics),
         assetManager(assetManager),
         game(game),
-        modelViewer(modelViewer)
+        modelViewer(modelViewer),
+        actorViewer(actorViewer)
     {}
 
     Graphics* GetGraphics() const;
     AssetManager* GetAssetManager() const;
     Game* GetGame() const;
     ModelViewer* GetModelViewer() const;
+    ActorViewer* GetActorViewer() const;
 
 private:
 
@@ -31,6 +35,7 @@ private:
     AssetManager* assetManager;
     Game* game;
     ModelViewer* modelViewer;
+    ActorViewer* actorViewer;
 
 };
 

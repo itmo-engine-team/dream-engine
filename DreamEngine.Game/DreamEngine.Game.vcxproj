@@ -148,6 +148,7 @@
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ActorComponentFixed.cpp" />
     <ClCompile Include="ActorContext.cpp" />
+    <ClCompile Include="ActorViewer.cpp" />
     <ClCompile Include="A_NavMesh.cpp" />
     <ClCompile Include="DeltaTimeHandler.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="ActorComponentFixed.h" />
     <ClInclude Include="ActorContext.h" />
     <ClInclude Include="ActorFactory.h" />
+    <ClInclude Include="ActorViewer.h" />
     <ClInclude Include="A_NavMesh.h" />
     <ClInclude Include="DeltaTimeHandler.h" />
     <ClInclude Include="Game.h" />

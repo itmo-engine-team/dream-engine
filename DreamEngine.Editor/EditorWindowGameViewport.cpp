@@ -34,6 +34,14 @@ void EditorWindowGameViewport::renderGameViewport()
 {
     ImGui::Begin("GameViewport");
 
+    // Don't show additional windows if no scene is selected currently
+    if (game->GetCurrentScene() == nullptr)
+    {
+        ImGui::Text("Scene is not opened");
+        ImGui::End();
+        return;
+    }
+
     if (ImGui::Button("Play")) 
     { 
         // TODO: Play game 

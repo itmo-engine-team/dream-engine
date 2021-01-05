@@ -54,7 +54,6 @@ void Editor::Render()
     startImGuiFrame();
     renderWindows();
     finishImGuiFrame();
-  
 }
 
 bool Editor::AddDynamicWindow(EditorWindow* window)

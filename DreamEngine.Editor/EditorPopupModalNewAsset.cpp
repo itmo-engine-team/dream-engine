@@ -5,7 +5,7 @@
 
 std::string EditorPopupModalNewAsset::GetAssetName()
 {
-    return assetName;
+    return assetName.c_str();
 }
 
 AssetType EditorPopupModalNewAsset::GetAssetType()

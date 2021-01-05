@@ -52,7 +52,7 @@ void EditorWindowActorViewer::renderViewer()
 
 void EditorWindowActorViewer::renderInspector()
 {
-    ImGui::Begin("Actor Inspector");
+    ImGui::Begin("Actor Info");
 
     ImGui::Text(actorAssetInfo->GetName().c_str());
 

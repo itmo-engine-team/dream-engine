@@ -26,14 +26,13 @@ EditorPopupModalNewAsset::EditorPopupModalNewAsset(FolderNode* parentFolderNode)
     }
 
     selectedAssetType = AssetInfoFactory::GetAssetTypeByString(tempStrMass[0]);
+    label = tempStrMass[0];
 
     assetName.resize(24);
 }
 
 void EditorPopupModalNewAsset::onDrawPopup()
 {
-    label = tempStrMass[currentType];
-
     if (ImGui::BeginCombo("Asset Type", label.data()))
     {
         for (int n = 0; n < sizeStr; n++)
@@ -41,8 +40,9 @@ void EditorPopupModalNewAsset::onDrawPopup()
             const bool isSelected = (currentType == n);
 
             if (ImGui::Selectable(tempStrMass[n].c_str(), isSelected))
-            {
+            { 
                 currentType = n;
+                label = tempStrMass[currentType];
                 selectedAssetType = AssetInfoFactory::GetAssetTypeByString(tempStrMass[n]);
             }
             if (isSelected)
@@ -51,7 +51,7 @@ void EditorPopupModalNewAsset::onDrawPopup()
         ImGui::EndCombo();
     }
 
-    ImGui::InputText("Asset Name", assetName.data(), 256);
+    ImGui::InputText("Asset Name", assetName.data(), 24);
 }
 
 bool EditorPopupModalNewAsset::onFinish()

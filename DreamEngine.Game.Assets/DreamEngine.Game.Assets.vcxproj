@@ -141,11 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActorComponentFixedInfo.cpp" />
+    <ClCompile Include="ActorComponentInfo.cpp" />
+    <ClCompile Include="ActorComponentSceneInfo.cpp" />
     <ClCompile Include="SceneActorInfo.cpp" />
     <ClCompile Include="SceneRoomInfo.cpp" />
     <ClCompile Include="TransformInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActorComponentFixedInfo.h" />
+    <ClInclude Include="ActorComponentInfo.h" />
+    <ClInclude Include="ActorComponentSceneInfo.h" />
+    <ClInclude Include="ActorComponentType.h" />
     <ClInclude Include="ActorType.h" />
     <ClInclude Include="SceneActorInfo.h" />
     <ClInclude Include="SceneRoomInfo.h" />

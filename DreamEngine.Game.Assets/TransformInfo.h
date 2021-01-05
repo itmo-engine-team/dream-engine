@@ -5,22 +5,15 @@
 
 using namespace DirectX::SimpleMath;
 
-class SceneActorInfo;
-
 class TransformInfo : Serializable
 {
 
 public:
 
-    TransformInfo();
-    TransformInfo(Vector3 pos);
+    TransformInfo(Vector3 pos = Vector3::Zero);
 
     Vector3 GetPosition() const;
     void SetPosition(Vector3 pos);
-
-protected:
-
-    friend class SceneActorInfo;
 
     Json toJson() override;
     void fromJson(Json json) override;

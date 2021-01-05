@@ -1,11 +1,6 @@
 #include "TransformInfo.h"
 #include "ErrorLogger.h"
 
-TransformInfo::TransformInfo() : position(Vector3::Zero)
-{
-
-}
-
 TransformInfo::TransformInfo(Vector3 pos) : position(pos)
 {
 

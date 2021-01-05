@@ -13,30 +13,63 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Actor">
+      <UniqueIdentifier>{059045cd-014a-4462-be82-047b05be13b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component">
+      <UniqueIdentifier>{9650ed46-5b75-4f81-a8c1-07e1329aeef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor">
+      <UniqueIdentifier>{329a5cf9-dfd4-41bf-8960-338c0afc993f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Component">
+      <UniqueIdentifier>{07914cab-4c42-4d1c-901a-a5cc9c8fd2df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SceneActorInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TransformInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SceneRoomInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ActorComponentFixedInfo.cpp">
+      <Filter>Source Files\Actor\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponentInfo.cpp">
+      <Filter>Source Files\Actor\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponentSceneInfo.cpp">
+      <Filter>Source Files\Actor\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneActorInfo.cpp">
+      <Filter>Source Files\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SceneActorInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TransformInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneRoomInfo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponentFixedInfo.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponentInfo.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponentSceneInfo.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponentType.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorType.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneActorInfo.h">
+      <Filter>Header Files\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

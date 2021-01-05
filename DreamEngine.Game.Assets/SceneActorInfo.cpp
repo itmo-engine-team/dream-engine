@@ -1,5 +1,6 @@
 #include "SceneActorInfo.h"
 #include "MapUtils.h"
+#include "ErrorLogger.h"
 
 SceneActorInfo::SceneActorInfo(ActorType type)
     : type(type), transformInfo(new TransformInfo())
@@ -53,6 +54,8 @@ void SceneActorInfo::fromJson(Json json)
     std::string stringType;
     initVariable(json, "type", &stringType);
     type = MapUtils::TryGetByValue<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, stringType, ActorType::Unknown);
+    if (type == ActorType::Unknown)
+        ErrorLogger::Log(Error, "SceneActorInfo has invalid type: " + stringType + "/n" + json.dump());
 
     initVariable(json, "name", &name);
 

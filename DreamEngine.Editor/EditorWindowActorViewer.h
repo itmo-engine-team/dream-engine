@@ -5,6 +5,7 @@
 #include "EditorViewport.h"
 #include "ActorViewer.h"
 
+class ActorComponentInfo;
 class ActorAssetInfo;
 
 class EditorWindowActorViewer : public EditorWindow 
@@ -26,6 +27,11 @@ private:
 
     void renderViewer();
     void renderInspector();
+    void renderComponents();
+    void renderComponent(ActorComponentInfo* component);
+
+    void renderSceneComponentsSectionPopup();
+    void renderFixedComponentsSectionPopup();
 
     void saveAsset();
     void reimportAsset();

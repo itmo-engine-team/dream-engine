@@ -11,6 +11,11 @@ EditorWindowBehaviorTreeViewport::EditorWindowBehaviorTreeViewport(Editor* edito
 
 }
 
+void EditorWindowBehaviorTreeViewport::Init()
+{
+
+}
+
 void EditorWindowBehaviorTreeViewport::Update()
 {
     

@@ -12,6 +12,7 @@ public:
     EditorWindow(std::string name, Editor* editor);
     virtual ~EditorWindow() = default;
 
+    virtual void Init();
     virtual void Update() = 0;
     virtual void Render() = 0;
 

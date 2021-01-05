@@ -13,6 +13,7 @@ public:
 
     EditorWindowTextureViewer(Editor* editor, TextureAssetInfo* textureAssetInfo);
 
+    void Init() override;
     void Update() override;
     void Render() override;
 

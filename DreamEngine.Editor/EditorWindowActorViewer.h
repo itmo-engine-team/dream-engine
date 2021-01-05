@@ -15,6 +15,7 @@ public:
 
     EditorWindowActorViewer(Editor* editor, ActorAssetInfo* actorAssetInfo);
 
+    void Init() override;
     void Update() override;
     void Render() override;
 

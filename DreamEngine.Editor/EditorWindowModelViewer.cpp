@@ -10,6 +10,12 @@ EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo*
 {
     if (modelAssetInfo == nullptr)
         SetOpened(false);
+}
+
+void EditorWindowModelViewer::Init()
+{
+    if (modelAssetInfo == nullptr)
+        return;
 
     if (modelAssetInfo->GetModelPath().length() > 0)
     {

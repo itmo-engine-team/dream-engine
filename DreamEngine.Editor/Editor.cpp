@@ -56,9 +56,25 @@ void Editor::Render()
     finishImGuiFrame();
 }
 
-void Editor::AddDynamicWindow(EditorWindow* window)
+bool Editor::AddDynamicWindow(EditorWindow* window)
 {
-    dynamicWindows.push_back(window);
+    bool isUnique = true;
+
+    for (EditorWindow* currentWindow : dynamicWindows)
+    {
+        if (currentWindow->GetName() == window->GetName())
+        {
+            isUnique = false;
+            break;
+        }
+    }
+
+    if (isUnique)
+    {
+        dynamicWindows.push_back(window);
+        window->Init();
+    }
+    return isUnique;
 }
 
 std::wstring Editor::GetEditorProjectPath() const

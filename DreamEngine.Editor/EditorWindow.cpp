@@ -6,6 +6,11 @@ EditorWindow::EditorWindow(std::string name, Editor* editor)
 
 }
 
+void EditorWindow::Init()
+{
+
+}
+
 std::string EditorWindow::GetName() const
 {
     return name;

@@ -22,7 +22,7 @@ public:
     void Update();
     void Render();
 
-    void AddDynamicWindow(EditorWindow* window);
+    bool AddDynamicWindow(EditorWindow* window);
 
     std::wstring GetEditorProjectPath() const;
     std::wstring GetPathFromEditor(std::wstring path) const;

@@ -7,6 +7,8 @@ class EngineConfigInfo : public Serializable
 
 public:
 
+    inline static const std::string ENGINE_VERSION = "1.0";
+
     Json toJson() override;
     void fromJson(Json json) override;
     bool IsGameMode();

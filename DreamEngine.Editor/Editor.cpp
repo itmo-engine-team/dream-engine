@@ -11,6 +11,7 @@
 #include "EditorWindowShadowViewport.h"
 #include "EditorWindowGameViewport.h"
 #include "MapUtils.h"
+#include "EngineConfigInfo.h"
 
 Editor::Editor(EditorContext* context) : context(context)
 {
@@ -20,8 +21,8 @@ Editor::Editor(EditorContext* context) : context(context)
     initImGui();
 
     windows.push_back(new EditorWindowAssetBrowser(this));
-    windows.push_back(new EditorWindowShadowViewport(this));
     windows.push_back(new EditorWindowGameViewport(this));
+    windows.push_back(new EditorWindowShadowViewport(this));
 
     MAP_ASSET_TYPE_TO_TEXTURE = {
        { AssetType::Actor, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/actorIcon.png").c_str()) },
@@ -204,17 +205,19 @@ void Editor::renderMainEditorMenu()
 {
     if (ImGui::BeginMainMenuBar())
     {
-        if (ImGui::BeginMenu("File"))
+        ImGui::Text(("Dream Engine v." + EngineConfigInfo::ENGINE_VERSION).c_str());
+        ImGui::Text(" | ");
+        /*if (ImGui::BeginMenu("File"))
         {
             if (ImGui::MenuItem("New")) {}
             ImGui::EndMenu();
-        }
+        }*/
         if (ImGui::BeginMenu("Editor"))
         {
-            if (ImGui::MenuItem("Save Layout", "")) {}
+            /*if (ImGui::MenuItem("Save Layout", "")) {}
             if (ImGui::MenuItem("Load Layout", "")) {}
             ImGui::Separator();
-            if (ImGui::MenuItem("Close All ", "")) {}
+            if (ImGui::MenuItem("Close All ", "")) {}*/
             if (ImGui::BeginMenu("Windows", ""))
             {
                 for (EditorWindow* window : windows)

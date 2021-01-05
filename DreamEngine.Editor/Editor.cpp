@@ -10,7 +10,6 @@
 #include "EditorWindowAssetBrowser.h"
 #include "EditorWindowShadowViewport.h"
 #include "EditorWindowGameViewport.h"
-#include "EditorWindowBehaviorTreeViewport.h"
 #include "MapUtils.h"
 
 Editor::Editor(EditorContext* context) : context(context)
@@ -23,7 +22,6 @@ Editor::Editor(EditorContext* context) : context(context)
     windows.push_back(new EditorWindowAssetBrowser(this));
     windows.push_back(new EditorWindowShadowViewport(this));
     windows.push_back(new EditorWindowGameViewport(this));
-    windows.push_back(new EditorWindowBehaviorTreeViewport(this));
 
     MAP_ASSET_TYPE_TO_TEXTURE = {
        { AssetType::Actor, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/actorIcon.png").c_str()) },

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="EditorContext.h" />
+    <ClInclude Include="EditorPopupModal.h" />
+    <ClInclude Include="EditorPopupModalDeleteAsset.h" />
+    <ClInclude Include="EditorPopupModalDeleteFolder.h" />
+    <ClInclude Include="EditorPopupModalDuplicateAsset.h" />
+    <ClInclude Include="EditorPopupModalError.h" />
+    <ClInclude Include="EditorPopupModalFolderBase.h" />
+    <ClInclude Include="EditorPopupModalNewAsset.h" />
+    <ClInclude Include="EditorPopupModalNewFolder.h" />
+    <ClInclude Include="EditorPopupModalRenameAsset.h" />
+    <ClInclude Include="EditorPopupModalRenameFolder.h" />
+    <ClInclude Include="EditorPopupModalText.h" />
+    <ClInclude Include="EditorPopupModalAssetChooser.h" />
+    <ClInclude Include="EditorViewport.h" />
+    <ClInclude Include="EditorWindow.h" />
+    <ClInclude Include="EditorWindowActorViewer.h" />
+    <ClInclude Include="EditorWindowAssetBrowser.h" />
+    <ClInclude Include="EditorWindowBehaviorTreeViewport.h" />
+    <ClInclude Include="EditorWindowGameViewport.h" />
+    <ClInclude Include="EditorWindowModelViewer.h" />
+    <ClInclude Include="EditorWindowShadowViewport.h" />
+    <ClInclude Include="EditorWindowTextureViewer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="EditorContext.cpp" />
+    <ClCompile Include="EditorPopupModal.cpp" />
+    <ClCompile Include="EditorPopupModalDeleteAsset.cpp" />
+    <ClCompile Include="EditorPopupModalDeleteFolder.cpp" />
+    <ClCompile Include="EditorPopupModalDuplicateAsset.cpp" />
+    <ClCompile Include="EditorPopupModalError.cpp" />
+    <ClCompile Include="EditorPopupModalFolderBase.cpp" />
+    <ClCompile Include="EditorPopupModalNewAsset.cpp" />
+    <ClCompile Include="EditorPopupModalNewFolder.cpp" />
+    <ClCompile Include="EditorPopupModalRenameAsset.cpp" />
+    <ClCompile Include="EditorPopupModalRenameFolder.cpp" />
+    <ClCompile Include="EditorPopupModalText.cpp" />
+    <ClCompile Include="EditorPopupModalAssetChooser.cpp" />
+    <ClCompile Include="EditorViewport.cpp" />
+    <ClCompile Include="EditorWindow.cpp" />
+    <ClCompile Include="EditorWindowActorViewer.cpp" />
+    <ClCompile Include="EditorWindowAssetBrowser.cpp" />
+    <ClCompile Include="EditorWindowBehaviorTreeViewport.cpp" />
+    <ClCompile Include="EditorWindowGameViewport.cpp" />
+    <ClCompile Include="EditorWindowModelViewer.cpp" />
+    <ClCompile Include="EditorWindowShadowViewport.cpp" />
+    <ClCompile Include="EditorWindowTextureViewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Assets.Serializable\DreamEngine.Assets.Serializable.vcxproj">
+      <Project>{d131997f-85c7-4c03-a321-8641e3ef7e83}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
+      <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
+      <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Game.Assets\DreamEngine.Game.Assets.vcxproj">
+      <Project>{eb08833f-628a-4dda-a527-db0010026c87}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Game\DreamEngine.Game.vcxproj">
+      <Project>{4f8f70b5-5d50-4d12-b92c-130fe22131db}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
+      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
+      <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Utils\DreamEngine.Utils.vcxproj">
+      <Project>{03b4e2d8-bf54-4f6d-9725-7f102cf80055}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ImGui.AnotherNodeEditor\ImGui.AnotherNodeEditor.vcxproj">
+      <Project>{71bcec1f-48b5-4a01-887b-5be37c1df5ca}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ImGui.NodeEditor\ImGui.NodeEditor.vcxproj">
+      <Project>{e068ee80-0ee6-4eed-bfb5-ae7a6ff3743b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ImGui.Sources\ImGui.Sources.vcxproj">
+      <Project>{788a7f63-a1da-4c0f-855e-a471192c13bc}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icons\asset.png" />
+    <Image Include="Icons\file.png" />
+    <Image Include="Icons\filter.png" />
+    <Image Include="Icons\folder.png" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{496cef75-6810-4145-ae01-ab4d64c2cb25}</ProjectGuid>
+    <RootNamespace>DreamEngineEditor</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>C:\Users\Admin\Documents\GitHub\dream-engine\ImGui.NodeEditorNewLib;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.NideEditorNewLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;SOLUTION_DIR=R"($(SolutionDir))";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Utils;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Game;$(SolutionDir)DreamEngine.Game.Assets;$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)ImGui.NideEditorNewLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" />
+    <Import Project="..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets'))" />
+  </Target>
+</Project>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{4f8f70b5-5d50-4d12-b92c-130fe22131db}</ProjectGuid>
+    <RootNamespace>DreamEngineGame</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Game.BehaviorTree;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Game.Nav;$(SolutionDir)DreamEngine.Game.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ACF_Movement.cpp" />
+    <ClCompile Include="ACS_Collision.cpp" />
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="ActorComponent.cpp" />
+    <ClCompile Include="ACF_AI.cpp" />
+    <ClCompile Include="ACS_Camera.cpp" />
+    <ClCompile Include="ActorComponentFixed.cpp" />
+    <ClCompile Include="ActorContext.cpp" />
+    <ClCompile Include="ActorViewer.cpp" />
+    <ClCompile Include="A_NavMesh.cpp" />
+    <ClCompile Include="DeltaTimeHandler.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameAssetManager.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="A_Light.cpp" />
+    <ClCompile Include="ACS_Light.cpp" />
+    <ClCompile Include="ActorComponentScene.cpp" />
+    <ClCompile Include="A_Spectator.cpp" />
+    <ClCompile Include="ACS_StaticModel.cpp" />
+    <ClCompile Include="BaseSceneViewer.cpp" />
+    <ClCompile Include="ModelViewer.cpp" />
+    <ClCompile Include="SceneRoom.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Transform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ACF_Movement.h" />
+    <ClInclude Include="ACS_Collision.h" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorComponent.h" />
+    <ClInclude Include="ACF_AI.h" />
+    <ClInclude Include="ACS_Camera.h" />
+    <ClInclude Include="ActorComponentFixed.h" />
+    <ClInclude Include="ActorContext.h" />
+    <ClInclude Include="ActorFactory.h" />
+    <ClInclude Include="ActorViewer.h" />
+    <ClInclude Include="A_NavMesh.h" />
+    <ClInclude Include="DeltaTimeHandler.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameAssetManager.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="A_Light.h" />
+    <ClInclude Include="ACS_Light.h" />
+    <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="ActorComponentScene.h" />
+    <ClInclude Include="A_Spectator.h" />
+    <ClInclude Include="ACS_StaticModel.h" />
+    <ClInclude Include="BaseSceneViewer.h" />
+    <ClInclude Include="ModelViewer.h" />
+    <ClInclude Include="SceneRoom.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Transform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DreamEngine.Assets.Serializable\DreamEngine.Assets.Serializable.vcxproj">
+      <Project>{d131997f-85c7-4c03-a321-8641e3ef7e83}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Assets\DreamEngine.Assets.vcxproj">
+      <Project>{512cba2a-52b3-4049-9a7a-1b9df6f820c0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
+      <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Game.Assets\DreamEngine.Game.Assets.vcxproj">
+      <Project>{eb08833f-628a-4dda-a527-db0010026c87}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Game.BehaviorTree\DreamEngine.Game.BehaviorTree.vcxproj">
+      <Project>{e6f2d4c3-b745-463e-ba3c-d2f781e41047}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Game.Nav\DreamEngine.Game.Nav.vcxproj">
+      <Project>{cd997cdb-c8fa-4dfe-841e-13700967f5e1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Graphics\DreamEngine.Graphics.vcxproj">
+      <Project>{3209a8ce-d188-46af-9826-3a7c5b05b1ff}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
+      <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" />
+    <Import Project="..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets'))" />
+    <Error Condition="!Exists('..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets'))" />
+  </Target>
+</Project>

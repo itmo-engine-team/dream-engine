@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Icons">
+      <UniqueIdentifier>{fc1531ef-fc3c-4d44-92f8-f91c37d91eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Window">
+      <UniqueIdentifier>{bc51ebb1-6671-475b-8570-7543371f1eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PopupModal">
+      <UniqueIdentifier>{50b85a78-d147-4d30-a7b6-b1299e14e7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PopupModal">
+      <UniqueIdentifier>{4ad23c39-3b0d-4b47-b1d0-32133fd5632d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Window">
+      <UniqueIdentifier>{c487acdf-d9c7-464a-93b9-925e675cbb92}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Editor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindow.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowAssetBrowser.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowBehaviorTreeViewport.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowGameViewport.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowShadowViewport.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModal.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalDeleteAsset.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalDeleteFolder.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalDuplicateAsset.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalError.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalFolderBase.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalNewAsset.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalNewFolder.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalRenameAsset.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalRenameFolder.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalText.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowModelViewer.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorPopupModalAssetChooser.h">
+      <Filter>Header Files\PopupModal</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowTextureViewer.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorViewport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowActorViewer.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Editor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModal.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalDeleteAsset.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalDeleteFolder.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalDuplicateAsset.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalError.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalFolderBase.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalNewAsset.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalNewFolder.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalRenameAsset.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalRenameFolder.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalText.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindow.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowAssetBrowser.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowBehaviorTreeViewport.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowGameViewport.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowShadowViewport.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowModelViewer.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorPopupModalAssetChooser.cpp">
+      <Filter>Source Files\PopupModal</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowTextureViewer.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorViewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowActorViewer.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icons\asset.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+    <Image Include="Icons\file.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+    <Image Include="Icons\filter.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+    <Image Include="Icons\folder.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

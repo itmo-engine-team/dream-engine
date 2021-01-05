@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{62c59b4d-40e9-4b86-b28d-0b3b3563a0a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AssetInfo">
+      <UniqueIdentifier>{e8375030-eb19-4eb9-bb84-eca4a69c86d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AssetInfo">
+      <UniqueIdentifier>{f50dac2f-eb94-463e-acff-f5fa2a782f59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AssetTree">
+      <UniqueIdentifier>{2c7d4ccc-ad0b-454d-89e8-42de50a69806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AssetTree">
+      <UniqueIdentifier>{74dfdbe9-f9eb-4f5c-9096-287c2c561afd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AssetType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\id.hpp">
+      <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineConfigInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetInfoFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorAssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetNode.h">
+      <Filter>Header Files\AssetTree</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetTree.h">
+      <Filter>Header Files\AssetTree</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderNode.h">
+      <Filter>Header Files\AssetTree</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureAssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeModificationResult.h">
+      <Filter>Header Files\AssetTree</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneAssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssetManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineConfigInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorAssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelAssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetNode.cpp">
+      <Filter>Source Files\AssetTree</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureAssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderNode.cpp">
+      <Filter>Source Files\AssetTree</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetTree.cpp">
+      <Filter>Source Files\AssetTree</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneAssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

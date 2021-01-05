@@ -163,7 +163,7 @@ void Editor::updateWindows()
         if (!window->IsOpened())
         {
             bool isFirst = iter == dynamicWindows.begin();
-            auto prevIter = iter == dynamicWindows.begin() ? dynamicWindows.begin() : iter--;
+            auto prevIter = isFirst ? dynamicWindows.begin() : iter - 1;
             dynamicWindows.erase(iter);
             delete window;
 

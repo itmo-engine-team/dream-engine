@@ -53,12 +53,23 @@ void Editor::Render()
 {
     startImGuiFrame();
     renderWindows();
+    drawErrorPopup();
     finishImGuiFrame();
+  
 }
 
 void Editor::AddDynamicWindow(EditorWindow* window)
 {
-    dynamicWindows.push_back(window);
+    errorWindow = nullptr;
+
+    for (EditorWindow* allWindow : dynamicWindows)
+    {
+        if (allWindow->GetName() == window->GetName())
+            errorWindow = new EditorPopupModalError("This window is already open");
+    }
+
+    if(errorWindow == nullptr)
+        dynamicWindows.push_back(window);
 }
 
 std::wstring Editor::GetEditorProjectPath() const
@@ -214,4 +225,13 @@ void Editor::renderMainEditorMenu()
         }
         ImGui::EndMainMenuBar();
     }
+}
+
+void Editor::drawErrorPopup()
+{
+    if (!EditorPopupModal::DrawPipeline(errorWindow))
+        return;
+
+    delete errorWindow;
+    errorWindow = nullptr;
 }

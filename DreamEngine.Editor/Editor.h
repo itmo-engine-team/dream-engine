@@ -7,6 +7,7 @@
 #include "EditorContext.h"
 #include "Texture.h"
 #include "AssetType.h"
+#include "EditorPopupModalError.h"
 
 class Graphics;
 class AssetManager;
@@ -37,6 +38,7 @@ private:
     std::map<AssetType, Texture*> MAP_ASSET_TYPE_TO_TEXTURE;
 
     EditorContext* context;
+    EditorPopupModalError* errorWindow;
 
     std::vector<EditorWindow*> windows;
     std::vector<EditorWindow*> dynamicWindows;
@@ -48,6 +50,7 @@ private:
     void updateWindows();
     void renderWindows();
     void renderMainEditorMenu();
+    void drawErrorPopup();
 
 };
 

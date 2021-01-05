@@ -10,6 +10,7 @@
 #include "EditorWindowModelViewer.h"
 #include "EditorWindowTextureViewer.h"
 #include "EditorWindowActorViewer.h"
+#include "EditorWindowBehaviorTreeViewport.h"
 
 
 EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
@@ -111,6 +112,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
         currentAssetNode = selectedAssetNode;
         if (ImGui::Selectable("Open"))
         {
+            ImGui::EndPopup();
             switch (currentAssetNode->GetAssetInfo()->GetAssetType())
             {
                 case AssetType::Actor:
@@ -131,6 +133,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
                     break;
                 default: ;
             }
+            return;
         }
 
         if (ImGui::Selectable("Delete"))

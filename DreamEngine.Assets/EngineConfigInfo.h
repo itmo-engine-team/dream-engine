@@ -18,7 +18,7 @@ private:
 
     bool isGameMode = false;
 
-    int screenWidth = 1200;
-    int screenHeight = 800;
+    int screenWidth = 1600;
+    int screenHeight = 900;
 
 };

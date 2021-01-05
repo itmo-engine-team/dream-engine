@@ -42,7 +42,7 @@ bool ACF_Movement::pathIsValid()
 void ACF_Movement::changeLocation()
 {
     Vector3 toTarget = path.at(0)->Center - actor->GetTransform()->GetWorldPosition();
-    if (toTarget.Length() < actorSpeed)
+    if (toTarget.Length() < actorSpeed * context->GetDeltaTimeHandler()->GetDeltaTime())
     {
         actor->GetTransform()->SetWorldPosition(path.at(0)->Center);
         path.erase(path.begin());

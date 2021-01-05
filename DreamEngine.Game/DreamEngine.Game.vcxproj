@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ACF_Movement.cpp" />
     <ClCompile Include="ACS_Collision.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorComponent.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ACF_Movement.h" />
     <ClInclude Include="ACS_Collision.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorComponent.h" />

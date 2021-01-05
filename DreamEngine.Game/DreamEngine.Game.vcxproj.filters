@@ -120,6 +120,9 @@
     <ClCompile Include="SceneRoom.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="ACF_Movement.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameAssetManager.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="ModelViewer.h">
       <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_Movement.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

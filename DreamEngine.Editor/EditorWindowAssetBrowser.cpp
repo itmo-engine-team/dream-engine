@@ -112,28 +112,37 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
         currentAssetNode = selectedAssetNode;
         if (ImGui::Selectable("Open"))
         {
-            ImGui::EndPopup();
+            bool isCreated = true;
             switch (currentAssetNode->GetAssetInfo()->GetAssetType())
             {
                 case AssetType::Actor:
-                    editor->AddDynamicWindow(new EditorWindowActorViewer(editor,
+                    isCreated = editor->AddDynamicWindow(new EditorWindowActorViewer(editor,
                         dynamic_cast<ActorAssetInfo*>(currentAssetNode->GetAssetInfo())));
+
+                    if (!isCreated)
+                        errorPopupModal = new EditorPopupModalError("Window for this asset type is already opened. Please close the previous one.");
                     break;
                 case AssetType::Scene:
                     editor->GetContext()->GetGame()->LoadScene(
                         dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
                     break;
                 case AssetType::Model:
-                    editor->AddDynamicWindow(new EditorWindowModelViewer(editor,
+                    isCreated = editor->AddDynamicWindow(new EditorWindowModelViewer(editor,
                         dynamic_cast<ModelAssetInfo*>(currentAssetNode->GetAssetInfo())));
+
+                    if (!isCreated)
+                        errorPopupModal = new EditorPopupModalError("Window for this asset type is already opened. Please close the previous one.");
                     break;
                 case AssetType::Texture:
-                    editor->AddDynamicWindow(new EditorWindowTextureViewer(editor,
+                    isCreated = editor->AddDynamicWindow(new EditorWindowTextureViewer(editor,
                         dynamic_cast<TextureAssetInfo*>(currentAssetNode->GetAssetInfo())));
+
+                    if (!isCreated)
+                        errorPopupModal = new EditorPopupModalError("Window for this asset type is already opened. Please close the previous one.");
                     break;
-                default: ;
+                default:
+                    break;
             }
-            return;
         }
 
         if (ImGui::Selectable("Delete"))

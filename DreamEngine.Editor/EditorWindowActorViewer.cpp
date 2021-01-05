@@ -10,6 +10,12 @@ EditorWindowActorViewer::EditorWindowActorViewer(Editor* editor, ActorAssetInfo*
 {
     if (actorAssetInfo == nullptr)
         SetOpened(false);
+}
+
+void EditorWindowActorViewer::Init()
+{
+    if (actorAssetInfo == nullptr)
+        return;
 
     actorViewer = editor->GetContext()->GetActorViewer();
 

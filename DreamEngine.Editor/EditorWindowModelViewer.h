@@ -14,6 +14,7 @@ public:
 
     EditorWindowModelViewer(Editor* editor, ModelAssetInfo* modelAssetInfo);
 
+    void Init() override;
     void Update() override;
     void Render() override;
 

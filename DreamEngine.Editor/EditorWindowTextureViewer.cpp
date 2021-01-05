@@ -12,6 +12,12 @@ EditorWindowTextureViewer::EditorWindowTextureViewer(Editor* editor, TextureAsse
 {
     if (textureAssetInfo == nullptr)
         SetOpened(false);
+}
+
+void EditorWindowTextureViewer::Init()
+{
+    if (textureAssetInfo == nullptr)
+        return;
 
     if (textureAssetInfo->GetTexturePath().length() > 0)
     {

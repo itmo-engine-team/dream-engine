@@ -50,7 +50,7 @@ void ACF_Movement::changeLocation()
     else
     {
         toTarget.Normalize();
-        actor->GetTransform()->AddWorldPosition(toTarget * actorSpeed);
+        actor->GetTransform()->AddWorldPosition(toTarget * actorSpeed * context->GetDeltaTimeHandler()->GetDeltaTime());
     }
 }
 

@@ -86,11 +86,8 @@ void NavMesh::UpdatePolygons(void* actor, Vector3 worldPosition, Vector2 collisi
     {
         for (NavMeshPolygon* polygon : column)
         {
-            //if (!polygon->IsFree) continue;
             if (checkPolygonCollision(worldPosition, collisionSize, polygon))
             {
-                polygon->IsFree = false;
-
                 polygon->Actors.push_back(actor);
 
                 meshData->GetVertices().at(polygon->FirstVertexIndex).Color = OCCUPIED_POLYGON_COLOR;
@@ -205,7 +202,7 @@ bool NavMesh::checkPolygonCollision(Vector3 collisionPosition, Vector2 collision
     float topCollisionEdge = collisionPosition.z + collisionSize.y;
     float downCollisionEdge = collisionPosition.z - collisionSize.y;
 
-    if (max(leftCollisionEdge, polygon->LT.x ) <= min(rightCollisionEdge, polygon->RT.x) &&
+    if (max(leftCollisionEdge, polygon->LT.x) <= min(rightCollisionEdge, polygon->RT.x) &&
         max(downCollisionEdge, polygon->LD.z) <= min(topCollisionEdge, polygon->LT.z))
     {
         return true;
@@ -220,8 +217,6 @@ void NavMesh::ResetPolygons()
     {
         for (NavMeshPolygon* polygon : column)
         {
-            polygon->IsFree = true;
-
             polygon->Actors.clear();
 
             meshData->GetVertices().at(polygon->FirstVertexIndex).Color = FREE_POLYGON_COLOR;

@@ -11,7 +11,6 @@ struct NavMeshPolygon
 {
     int FirstVertexIndex;
     Vector3 Center;
-    bool IsFree = true;
     std::vector<void*> Actors;
 
     Vector3 LD;

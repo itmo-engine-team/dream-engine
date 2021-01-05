@@ -32,10 +32,7 @@ bool ACF_Movement::pathIsValid()
 
     for (NavMeshPolygon* polygon : path)
     {
-        if (!polygon->IsFree && std::find(polygon->Actors.begin(), polygon->Actors.end(), actor) == polygon->Actors.end())
-            return false;
-
-        if (polygon->Actors.size() > 1)
+        if (!polygon->IsFreeForActor(actor))
             return false;
     }
 

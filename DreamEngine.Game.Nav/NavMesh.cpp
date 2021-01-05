@@ -4,6 +4,17 @@
 
 #include "MeshData.h"
 
+bool NavMeshPolygon::IsFreeForActor(void* actor)
+{
+    if (this->Actors.size() > 1)
+        return false;
+
+    if (std::find(this->Actors.begin(), this->Actors.end(), actor) == this->Actors.end())
+        return false;
+
+    return true;
+}
+
 NavMesh::NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize)
 {
     size = Vector2(planeSize.x, planeSize.z);

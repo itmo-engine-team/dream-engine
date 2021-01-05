@@ -19,6 +19,8 @@ struct NavMeshPolygon
     Vector3 RT;
     Vector3 RD;
 
+    bool IsFreeForActor(void* actor);
+
 private:
 
     friend class NavMesh;

@@ -32,10 +32,7 @@ std::vector<NavMeshPolygon*> PathFinding::FindPath(void* actor, NavMesh* navMesh
         {
             PolygonCost* neighbourCost = findPolygonInArray(closedPolygonsCost, neighbour);
 
-            if (!neighbour->IsFree && std::find(neighbour->Actors.begin(), neighbour->Actors.end(), actor) == neighbour->Actors.end() || neighbourCost != nullptr)
-                continue;
-
-            if (neighbour->Actors.size() > 1)
+            if (!neighbour->IsFreeForActor(actor) || neighbourCost != nullptr)
                 continue;
           
             float newCostToNeighbour = currentPolygonCost->GCost + euclidean(currentPolygonCost->OwnerPolygon->Center, neighbour->Center);

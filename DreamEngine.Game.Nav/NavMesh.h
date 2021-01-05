@@ -12,6 +12,12 @@ struct NavMeshPolygon
     int FirstVertexIndex;
     Vector3 Center;
     bool IsFree = true;
+    std::vector<void*> Actors;
+
+    Vector3 LD;
+    Vector3 LT;
+    Vector3 RT;
+    Vector3 RD;
 
 private:
 
@@ -42,7 +48,7 @@ public:
     std::vector<std::vector<NavMeshPolygon*>> GetGrid() const;
     std::vector<NavMeshPolygon*> GetNeighbours(NavMeshPolygon* polygon, bool canMoveByDiagonal);
 
-    void UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize);
+    void UpdatePolygons(void* actor, Vector3 worldPosition, Vector2 collisionSize);
     void ResetPolygons();
     NavMeshPolygon* FindPolygon(Vector3 location);
 
@@ -60,5 +66,5 @@ protected:
 
     void initNavMeshGrid();
     std::vector<Vertex> initVertex(NavMeshPolygon& polygon);
-    bool checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, Vector3 polygonLocation);
+    bool checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, NavMeshPolygon* polygon);
 };

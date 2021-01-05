@@ -1,5 +1,7 @@
 #include "NavMesh.h"
 
+#include <algorithm>
+
 #include "MeshData.h"
 
 NavMesh::NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize)
@@ -67,16 +69,18 @@ std::vector<NavMeshPolygon*> NavMesh::GetNeighbours(NavMeshPolygon* polygon, boo
     return neighbours;
 }
 
-void NavMesh::UpdatePolygons(Vector3 worldPosition, Vector2 collisionSize)
+void NavMesh::UpdatePolygons(void* actor, Vector3 worldPosition, Vector2 collisionSize)
 {
     for (auto column : navMeshGrid)
     {
         for (NavMeshPolygon* polygon : column)
         {
-            if (!polygon->IsFree) continue;
-            if (checkPolygonCollision(worldPosition, collisionSize, polygon->Center))
+            //if (!polygon->IsFree) continue;
+            if (checkPolygonCollision(worldPosition, collisionSize, polygon))
             {
                 polygon->IsFree = false;
+
+                polygon->Actors.push_back(actor);
 
                 meshData->GetVertices().at(polygon->FirstVertexIndex).Color = OCCUPIED_POLYGON_COLOR;
                 meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = OCCUPIED_POLYGON_COLOR;
@@ -91,26 +95,26 @@ void NavMesh::initNavMeshGrid()
 {
     // Calculate Center of coordinates of zero polygon
     Vector3 centerFirstPolygon;
-    centerFirstPolygon.x = position.x + size.y / 2 - polygonSize / 2;
+    centerFirstPolygon.x = position.x - size.x / 2 + polygonSize / 2;
     centerFirstPolygon.y = position.y;
-    centerFirstPolygon.z = position.z - size.x / 2 + polygonSize / 2;
+    centerFirstPolygon.z = position.z + size.y / 2 - polygonSize / 2;
 
     std::vector<Vertex> vertices;
     
     DWORD currentVertexIndex = 0;
-    float x = 0;
-    int countX = 0;
-    while (x < size.x)
+    float z = 0;
+    int countZ = 0;
+    while (z < size.y)
     {
         std::vector <NavMeshPolygon*> navMeshRow;
-        float z = 0;
-        int countZ = 0;
-        while (z < size.y)
+        float x = 0;
+        int countX = 0;
+        while (x < size.x)
         {
             NavMeshPolygon* polygon = new NavMeshPolygon;
-            polygon->Center.x = centerFirstPolygon.x - polygonSize * countX;
+            polygon->Center.x = centerFirstPolygon.x + polygonSize * countX;
             polygon->Center.y = centerFirstPolygon.y;
-            polygon->Center.z = polygonSize * countZ + centerFirstPolygon.z;
+            polygon->Center.z = polygonSize * countZ - centerFirstPolygon.z;
 
             polygon->x = countX;
             polygon->z = countZ;
@@ -130,12 +134,12 @@ void NavMesh::initNavMeshGrid()
             navMeshRow.push_back(polygon);
 
             currentVertexIndex += 4;
-            z += polygonSize;
-            countZ++;
+            x += polygonSize;
+            countX++;
         }
         navMeshGrid.push_back(navMeshRow);
-        countX++;
-        x += polygonSize;
+        countZ++;
+        z += polygonSize;
     }
     meshData = new MeshData(vertices, indices);
 }
@@ -145,33 +149,37 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
     std::vector<Vertex> vertices;
     float halfPolygonSize = polygonSize / 2;
 
+    polygon.LD = Vector3{ polygon.Center.x - halfPolygonSize, polygon.Center.y, polygon.Center.z - halfPolygonSize };
     Vertex vertexLD = Vertex
     {
-        Vector3{ polygon.Center.x - halfPolygonSize, polygon.Center.y, polygon.Center.z - halfPolygonSize },
+        polygon.LD,
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
     vertices.push_back(vertexLD);
 
+    polygon.LT = Vector3{ polygon.Center.x - halfPolygonSize, polygon.Center.y, polygon.Center.z + halfPolygonSize };
     Vertex vertexLT = Vertex
     {
-        Vector3{ polygon.Center.x + halfPolygonSize, polygon.Center.y, polygon.Center.z - halfPolygonSize },
+        polygon.LT,
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
     vertices.push_back(vertexLT);
 
+    polygon.RT = Vector3{ polygon.Center.x + halfPolygonSize, polygon.Center.y, polygon.Center.z + halfPolygonSize };
     Vertex vertexRT = Vertex
     {
-        Vector3{ polygon.Center.x + halfPolygonSize, polygon.Center.y, polygon.Center.z + halfPolygonSize },
+        polygon.RT,
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
     vertices.push_back(vertexRT);
 
+    polygon.RD = Vector3{ polygon.Center.x + halfPolygonSize, polygon.Center.y, polygon.Center.z - halfPolygonSize };
     Vertex vertexRD = Vertex
     {
-        Vector3{ polygon.Center.x - halfPolygonSize, polygon.Center.y, polygon.Center.z + halfPolygonSize },
+        polygon.RD,
         Vector4{ 0, 1, 0, 1 },
         Vector3::Up
     };
@@ -179,19 +187,19 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
     return vertices;
 }
 
-bool NavMesh::checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, Vector3 polygonLocation)
+bool NavMesh::checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, NavMeshPolygon* polygon)
 {
-    float leftCollisionEdge = collisionPosition.z - collisionSize.x;
-    float rightCollisionEdge = collisionPosition.z + collisionSize.x;
-    float topCollisionEdge = collisionPosition.x + collisionSize.y;
-    float downCollisionEdge = collisionPosition.x - collisionSize.y;
+    float leftCollisionEdge = collisionPosition.x - collisionSize.x;
+    float rightCollisionEdge = collisionPosition.x + collisionSize.x;
+    float topCollisionEdge = collisionPosition.z + collisionSize.y;
+    float downCollisionEdge = collisionPosition.z - collisionSize.y;
 
-    if (downCollisionEdge <= polygonLocation.x && topCollisionEdge >= polygonLocation.x)
+    if (max(leftCollisionEdge, polygon->LT.x ) <= min(rightCollisionEdge, polygon->RT.x) &&
+        max(downCollisionEdge, polygon->LD.z) <= min(topCollisionEdge, polygon->LT.z))
     {
-        if (leftCollisionEdge <= polygonLocation.z && rightCollisionEdge >= polygonLocation.z)
-            return true;
+        return true;
     }
-        
+    
     return false;
 }
 
@@ -202,6 +210,8 @@ void NavMesh::ResetPolygons()
         for (NavMeshPolygon* polygon : column)
         {
             polygon->IsFree = true;
+
+            polygon->Actors.clear();
 
             meshData->GetVertices().at(polygon->FirstVertexIndex).Color = FREE_POLYGON_COLOR;
             meshData->GetVertices().at(polygon->FirstVertexIndex + 1).Color = FREE_POLYGON_COLOR;

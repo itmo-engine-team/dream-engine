@@ -10,7 +10,8 @@ class BTGameNodeRoot : public BTGameNode
 protected:
 
     friend class BehaviorTreeGame;
-    BTGameNodeRoot();
+    BTGameNodeRoot() = delete;
+    BTGameNodeRoot(BehaviorTreeGame* behaviorTree);
 
 public:
 

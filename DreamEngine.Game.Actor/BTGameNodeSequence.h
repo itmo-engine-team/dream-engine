@@ -8,8 +8,8 @@ class BTGameNodeSequence : public BTGameNodeComposite
 public:
 
     BTGameNodeSequence() = delete;
-    BTGameNodeSequence(BTGameNodeRoot* parentNode);
-    BTGameNodeSequence(BTGameNodeComposite* parentNode);
+    BTGameNodeSequence(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree);
+    BTGameNodeSequence(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree);
 
     bool Run() override;
 };

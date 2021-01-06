@@ -165,6 +165,7 @@
     <ClInclude Include="BTGameNodeRoot.h" />
     <ClInclude Include="BTGameNodeSelector.h" />
     <ClInclude Include="BTGameNodeSequence.h" />
+    <ClInclude Include="BTGMoveTo.h" />
     <ClInclude Include="GameObject.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +190,7 @@
     <ClCompile Include="BTGameNodeRoot.cpp" />
     <ClCompile Include="BTGameNodeSelector.cpp" />
     <ClCompile Include="BTGameNodeSequence.cpp" />
+    <ClCompile Include="BTGMoveTo.cpp" />
     <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>

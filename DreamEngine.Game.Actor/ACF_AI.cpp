@@ -2,7 +2,7 @@
 
 ACF_AI::ACF_AI(ActorContext* context, Actor* actor) : ActorComponentFixed(context, actor)
 {   
-    behaviorTree = new BehaviorTreeGame();
+    behaviorTree = new BehaviorTreeGame(actor);
 }
 
 BehaviorTreeGame* ACF_AI::GetBehaviorTree()

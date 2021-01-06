@@ -2,15 +2,17 @@
 
 class BTGameNodeRoot;
 class BTGameNodeComposite;
+class BehaviorTreeGame;
 
 class BTGameNode
 {
 
 public:
 
-    BTGameNode() = default;
-    BTGameNode(BTGameNodeRoot* parentNode);
-    BTGameNode(BTGameNodeComposite* parentNode);
+    BTGameNode() = delete;
+    BTGameNode(BehaviorTreeGame* behaviorTree) ;
+    BTGameNode(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree);
+    BTGameNode(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree);
     
     virtual ~BTGameNode() = default;
 
@@ -19,9 +21,11 @@ public:
     void SetParent(BTGameNode* parentNode);
 
     BTGameNode* GetParent() const;
+    BehaviorTreeGame* GetBehaviorTree() const;
 
 protected:
 
     BTGameNode* parent;
+    BehaviorTreeGame* behaviorTree;
 };
 

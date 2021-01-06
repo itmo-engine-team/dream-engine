@@ -2,11 +2,11 @@
 
 #include "BTGameNodeRoot.h"
 
-BTGameNodeComposite::BTGameNodeComposite(BTGameNodeComposite* parentNode) : BTGameNode(parentNode)
+BTGameNodeComposite::BTGameNodeComposite(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNode(parentNode, behaviorTree)
 {
 }
 
-BTGameNodeComposite::BTGameNodeComposite(BTGameNodeRoot* parentNode) : BTGameNode(parentNode)
+BTGameNodeComposite::BTGameNodeComposite(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNode(parentNode, behaviorTree)
 {
 }
 

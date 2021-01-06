@@ -1,10 +1,10 @@
 #include "BTGameNodeSelector.h"
 
-BTGameNodeSelector::BTGameNodeSelector(BTGameNodeComposite* parentNode) : BTGameNodeComposite(parentNode)
+BTGameNodeSelector::BTGameNodeSelector(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeComposite(parentNode , behaviorTree)
 {
 }
 
-BTGameNodeSelector::BTGameNodeSelector(BTGameNodeRoot* parentNode) : BTGameNodeComposite(parentNode)
+BTGameNodeSelector::BTGameNodeSelector(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeComposite(parentNode, behaviorTree)
 {
 }
 

@@ -1,6 +1,6 @@
 #include "BTGameNodeRoot.h"
 
-BTGameNodeRoot::BTGameNodeRoot()
+BTGameNodeRoot::BTGameNodeRoot(BehaviorTreeGame* behaviorTree) : BTGameNode(behaviorTree)
 {
     parent = nullptr;
     child = nullptr;

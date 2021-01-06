@@ -11,8 +11,8 @@ class BTGameNodeComposite : public BTGameNode
 public:
 
     BTGameNodeComposite() = delete;
-    BTGameNodeComposite(BTGameNodeComposite* parentNode);
-    BTGameNodeComposite(BTGameNodeRoot* parentNode);
+    BTGameNodeComposite(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree);
+    BTGameNodeComposite(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree);
 
     void AddChild(BTGameNode* childNod);
     bool RemoveChild(BTGameNode* childNode);

@@ -4,12 +4,15 @@
 #include "ModelData.h"
 #include "MeshObject.h"
 
+class Transform;
+
 class ACS_StaticModel : public ActorComponentScene
 {
 
 public:
 
     ACS_StaticModel(ActorContext* context, Actor* actor, Transform* transform, ModelData* modelData);
+    ~ACS_StaticModel();
 
 protected:
 
@@ -22,3 +25,11 @@ protected:
 
 };
 
+class ACS_Creator_StaticModel : public ACS_Creator
+{
+
+public:
+
+    ActorComponentScene* Create(Actor* actor, ActorComponentSceneInfo* actorInfo) override;
+
+};

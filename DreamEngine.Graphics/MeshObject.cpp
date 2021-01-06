@@ -31,7 +31,7 @@ MeshObject::MeshObject(Graphics* graphics, MeshData* meshData)
     hr = graphics->GetDevice()->CreateBuffer(
         &bd,
         &sd,
-        vertexBuffer.GetAddressOf()
+        &vertexBuffer
     );
     ErrorLogger::DirectXLog(hr, Error, "Failed to create VertexBuffer", __FILE__, __FUNCTION__, __LINE__);
 
@@ -52,7 +52,7 @@ MeshObject::MeshObject(Graphics* graphics, MeshData* meshData)
     hr = graphics->GetDevice()->CreateBuffer(
         &ibd,
         &isd,
-        indexBuffer.GetAddressOf()
+        &indexBuffer
     );
     ErrorLogger::DirectXLog(hr, Error, "Failed to create IndexBuffer", __FILE__, __FUNCTION__, __LINE__);
 
@@ -97,31 +97,41 @@ MeshObject::MeshObject(Graphics* graphics, MeshData* meshData)
     ErrorLogger::DirectXLog(hr, Error, "Failed to create ModelDataBuffer", __FILE__, __FUNCTION__, __LINE__);
 }
 
+MeshObject::~MeshObject()
+{
+    modelDataBuffer->Release();
+    indexBuffer->Release();
+    vertexBuffer->Release();
+    constantBuffer->Release();
+    lightBuffer->Release();
+    cameraBuffer->Release();
+}
+
 void MeshObject::Render(const ConstantBuffer constantBufferData,
-    const LightBuffer lightBufferData, const CameraBuffer cameraBufferData)
+                        const LightBuffer lightBufferData, const CameraBuffer cameraBufferData)
 {
     graphics->GetContext()->IASetVertexBuffers(
         0u,
         1u,
-        vertexBuffer.GetAddressOf(),
+        &vertexBuffer,
         &stride,
         &offset
     );
-    graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+    graphics->GetContext()->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     graphics->GetModelShader()->SetShader();
     if (meshData->GetTexture() != nullptr)
         meshData->GetTexture()->SetTexture();
 
-    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &constantBufferData, 0, 0);
-    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
+    graphics->GetContext()->UpdateSubresource(constantBuffer, 0, NULL, &constantBufferData, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, &constantBuffer);
 
-    graphics->GetContext()->UpdateSubresource(lightBuffer.Get(), 0, NULL, &lightBufferData, 0, 0);
-    graphics->GetContext()->PSSetConstantBuffers(1u, 1u, lightBuffer.GetAddressOf());
+    graphics->GetContext()->UpdateSubresource(lightBuffer, 0, NULL, &lightBufferData, 0, 0);
+    graphics->GetContext()->PSSetConstantBuffers(1u, 1u, &lightBuffer);
 
-    graphics->GetContext()->UpdateSubresource(cameraBuffer.Get(), 0, NULL, &cameraBufferData, 0, 0);
-    graphics->GetContext()->VSSetConstantBuffers(2u, 1u, cameraBuffer.GetAddressOf());
+    graphics->GetContext()->UpdateSubresource(cameraBuffer, 0, NULL, &cameraBufferData, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(2u, 1u, &cameraBuffer);
 
     // Update Constant Buffer
     const ModelDataBuffer modelDataBufferData =
@@ -141,15 +151,15 @@ bool MeshObject::RenderShadowMap(const ConstantBuffer constantBufferData)
     graphics->GetContext()->IASetVertexBuffers(
         0u,
         1u,
-        vertexBuffer.GetAddressOf(),
+        &vertexBuffer,
         &stride,
         &offset
     );
-    graphics->GetContext()->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+    graphics->GetContext()->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0u);
     graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    graphics->GetContext()->UpdateSubresource(constantBuffer.Get(), 0, NULL, &constantBufferData, 0, 0);
-    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, constantBuffer.GetAddressOf());
+    graphics->GetContext()->UpdateSubresource(constantBuffer, 0, NULL, &constantBufferData, 0, 0);
+    graphics->GetContext()->VSSetConstantBuffers(0u, 1u, &constantBuffer);
 
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 

@@ -18,3 +18,15 @@ private:
    
 };
 
+class ACF_Creator_AI : public ACF_Creator
+{
+
+public:
+
+    ActorComponentFixed* Create(Actor* actor, ActorComponentFixedInfo* actorInfo) override
+    {
+        return new ACF_AI(actor->GetContext(), actor);
+    }
+
+};
+

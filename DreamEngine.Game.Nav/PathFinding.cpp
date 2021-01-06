@@ -1,6 +1,6 @@
 #include "PathFinding.h"
 
-std::vector<NavMeshPolygon*> PathFinding::FindPath(NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal)
+std::vector<NavMeshPolygon*> PathFinding::FindPath(void* actor, NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal)
 {
     std::vector <PolygonCost*> openPolygonsCost;
     std::vector <PolygonCost*> closedPolygonsCost;
@@ -32,7 +32,7 @@ std::vector<NavMeshPolygon*> PathFinding::FindPath(NavMesh* navMesh, Vector3 loc
         {
             PolygonCost* neighbourCost = findPolygonInArray(closedPolygonsCost, neighbour);
 
-            if (!neighbour->IsFree || neighbourCost != nullptr)
+            if (!neighbour->IsFreeForActor(actor) || neighbourCost != nullptr)
                 continue;
           
             float newCostToNeighbour = currentPolygonCost->GCost + euclidean(currentPolygonCost->OwnerPolygon->Center, neighbour->Center);

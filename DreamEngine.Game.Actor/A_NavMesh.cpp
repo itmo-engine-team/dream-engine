@@ -3,10 +3,12 @@
 #include "ACS_Light.h"
 #include "NavMesh.h"
 #include "ACS_StaticModel.h"
+#include "Transform.h"
 
 A_NavMesh::A_NavMesh(ActorContext* context, Transform* transform) : Actor(context, transform)
 {
-    navMesh = new NavMesh(transform->GetWorldPosition(), { 6, 1, 6 }, 0.2f);
+    navMesh = new NavMesh(transform->GetWorldPosition(), { 6, 1, 6 }, 0.5f);
+    this->context->SetNavMesh(navMesh);
 }
 
 NavMesh* A_NavMesh::GetNavMesh() const
@@ -20,7 +22,6 @@ void A_NavMesh::onUpdate()
     if (staticModelComponent != nullptr)
         RemoveComponent(staticModelComponent);
 
-    ModelData* modelData = new ModelData();
-    modelData->AddMeshData(navMesh->GetMeshData());
-    AddSceneComponent(new ACS_StaticModel(context, this, new Transform(Vector3::Zero), modelData));
+    AddSceneComponent(new ACS_StaticModel(context, this,
+        new Transform(Vector3::Zero), navMesh->GetModelData()));
 }

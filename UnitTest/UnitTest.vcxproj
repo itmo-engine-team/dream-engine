@@ -70,7 +70,7 @@
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
       <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Game.BehaviorTree\DreamEngine.Game.BehaviorTree.vcxproj">
+    <ProjectReference Include="..\DreamEngine.Game.Actor\DreamEngine.Game.Actor.vcxproj">
       <Project>{e6f2d4c3-b745-463e-ba3c-d2f781e41047}</Project>
     </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Game.Nav\DreamEngine.Game.Nav.vcxproj">
@@ -113,7 +113,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Game.Nav;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Game.BehaviorTree;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Game.Nav;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Game.Actor;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>

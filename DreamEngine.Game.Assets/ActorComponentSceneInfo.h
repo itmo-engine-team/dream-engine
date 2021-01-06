@@ -12,6 +12,10 @@ public:
     ActorComponentSceneInfo(ACS_Type type = ACS_Type::UNKNOWN);
     ~ActorComponentSceneInfo() override;
 
+    ACS_Type GetType() const;
+
+    TransformInfo* GetTransformInfo() const;
+
     Json toJson() override;
     void fromJson(Json json) override;
 

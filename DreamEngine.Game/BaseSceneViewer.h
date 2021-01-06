@@ -2,16 +2,19 @@
 
 #include <vector>
 
-#include "DeltaTimeHandler.h"
-#include "ActorContext.h"
 #include "ModelData.h"
-#include "A_Light.h"
-#include "A_Spectator.h"
 #include "SceneRenderer.h"
 
 class EngineConfigInfo;
+class ActorContext;
 class Graphics;
 class InputSystem;
+class ACS_Light;
+class ACS_Camera;
+class A_Spectator;
+class A_Light;
+class Actor;
+class DeltaTimeHandler;
 
 class BaseSceneViewer
 {

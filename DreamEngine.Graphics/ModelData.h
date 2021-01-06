@@ -12,6 +12,7 @@ public:
 
     ModelData() = default;
     ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, Texture* texture);
+    ~ModelData();
 
     bool IsValid() const;
     float GetLowestVertexY() const;

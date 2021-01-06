@@ -1,11 +1,11 @@
 #pragma once
 
 #include "BaseSceneViewer.h"
-#include "A_NavMesh.h"
 
 class Scene;
 class SceneAssetInfo;
 class GameAssetManager;
+class A_NavMesh;
 
 class Game : public BaseSceneViewer
 {

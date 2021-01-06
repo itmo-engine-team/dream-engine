@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\BehaviorTree">
+      <UniqueIdentifier>{1bf7034d-dbec-4554-a981-b2a41f2cdf71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BehaviorTree">
+      <UniqueIdentifier>{c35eb19c-b5a7-4ae1-8696-9d32da4b2f93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor">
+      <UniqueIdentifier>{2f13b25a-8120-44c8-93bf-2af7254580b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor">
+      <UniqueIdentifier>{1e816eca-1328-49c0-ac64-564226347833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component">
+      <UniqueIdentifier>{8e74820d-a729-409c-963e-43fe59c6d499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Inherited">
+      <UniqueIdentifier>{e35e8f1a-494e-4d20-9832-ab3a49aa8cd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component\Fixed">
+      <UniqueIdentifier>{ebc08cfc-dd44-4a44-82a8-36ab57accfd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor\Component\Scene">
+      <UniqueIdentifier>{97b4e84f-0372-49ac-b708-fbfcb6bede46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Component">
+      <UniqueIdentifier>{33355919-4f65-448a-9d90-cab492f1a605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Inherited">
+      <UniqueIdentifier>{c65fc236-414d-4eb8-81dd-cb040d106291}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Component\Fixed">
+      <UniqueIdentifier>{f7cfa8ca-78d0-4033-ac3f-df223128e51b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor\Component\Scene">
+      <UniqueIdentifier>{49e3b15c-3ac7-4515-8156-b03dee8368f3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BehaviorTreeGame.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNode.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNodeComposite.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNodeLogic.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNodeRoot.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNodeSelector.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNodeSequence.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorContext.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorFactory.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="A_Light.h">
+      <Filter>Header Files\Actor\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="A_NavMesh.h">
+      <Filter>Header Files\Actor\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="A_Spectator.h">
+      <Filter>Header Files\Actor\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_Movement.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_AI.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACS_Camera.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ACS_Collision.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ACS_Light.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ACS_StaticModel.h">
+      <Filter>Header Files\Actor\Component\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponent.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponentFactory.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponentFixed.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponentScene.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BehaviorTreeGame.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNode.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNodeComposite.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNodeLogic.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNodeRoot.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNodeSelector.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNodeSequence.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="A_Light.cpp">
+      <Filter>Source Files\Actor\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="A_NavMesh.cpp">
+      <Filter>Source Files\Actor\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="A_Spectator.cpp">
+      <Filter>Source Files\Actor\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Source Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorContext.cpp">
+      <Filter>Source Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponent.cpp">
+      <Filter>Source Files\Actor\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponentFixed.cpp">
+      <Filter>Source Files\Actor\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponentScene.cpp">
+      <Filter>Source Files\Actor\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_AI.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_Movement.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACS_Camera.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ACS_Collision.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ACS_Light.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ACS_StaticModel.cpp">
+      <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

@@ -4,10 +4,10 @@
 
 #include "GameObject.h"
 
-#include "Transform.h"
 #include "SceneActorInfo.h"
 #include "ActorContext.h"
 
+class Transform;
 class ActorComponent;
 class ActorComponentScene;
 class ActorComponentFixed;
@@ -94,9 +94,6 @@ public:
 
     virtual ~ActorCreator() = default;
 
-    virtual Actor* Create(ActorContext* context, SceneActorInfo* actorInfo)
-    {
-        return new Actor(context, new Transform(actorInfo->GetTransformInfo()->GetPosition()));
-    }
+    virtual Actor* Create(ActorContext* context, TransformInfo* transformInfo);
 
 };

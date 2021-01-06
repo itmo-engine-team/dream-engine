@@ -1,5 +1,7 @@
 #include "ActorContext.h"
 
+#include "NavMesh.h"
+
 Graphics* ActorContext::GetGraphics() const
 {
     return graphics;
@@ -33,4 +35,14 @@ ACS_Camera* ActorContext::GetCamera() const
 void ActorContext::SetCamera(ACS_Camera* cameraComponent)
 {
     camera = cameraComponent;
+}
+
+NavMesh* ActorContext::GetNavMesh() const
+{
+    return navMesh;
+}
+
+void ActorContext::SetNavMesh(NavMesh* newNavMesh)
+{
+    navMesh = newNavMesh;
 }

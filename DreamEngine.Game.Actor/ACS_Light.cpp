@@ -1,4 +1,5 @@
 #include "ACS_Light.h"
+#include "Transform.h"
 
 ACS_Light::ACS_Light(ActorContext* context, Actor* actor, Vector3 position, Vector3 direction)
     : ActorComponentScene(context, actor, new Transform(position)), direction(direction)

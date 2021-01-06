@@ -13,6 +13,11 @@ ActorComponentFixedInfo::~ActorComponentFixedInfo()
     
 }
 
+ACF_Type ActorComponentFixedInfo::GetType() const
+{
+    return type;
+}
+
 Json ActorComponentFixedInfo::toJson()
 {
     Json json = ActorComponentInfo::toJson();

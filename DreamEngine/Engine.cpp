@@ -9,14 +9,14 @@
 #include "EngineConfigInfo.h"
 
 #include "Game.h"
+#include "ModelViewer.h"
+#include "ActorViewer.h"
 #include <iostream>
 
 Engine* Engine::INSTANCE = nullptr;
 
 Engine::Engine()
 {
-    INSTANCE = this;
-
     WNDCLASSEX wc;
     wc.lpfnWndProc = WndProc;
 
@@ -41,6 +41,8 @@ Engine::Engine()
         new EditorContext(graphics, assetManager, game, modelViewer, actorViewer));
 
     Init();
+
+    INSTANCE = this;
 }
 
 Engine::~Engine()
@@ -158,7 +160,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
         return true;
     }
 
-    if (Engine::INSTANCE->ProcessWndMessage(hwnd, umessage, wparam, lparam))
+    if (Engine::INSTANCE != nullptr && Engine::INSTANCE->ProcessWndMessage(hwnd, umessage, wparam, lparam))
     {
         return true;
     }

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{eb08833f-628a-4dda-a527-db0010026c87}</ProjectGuid>
-    <RootNamespace>DreamEngineGameAssets</RootNamespace>
+    <ProjectGuid>{dceb44f6-0b84-46e5-9a51-d5f76f355622}</ProjectGuid>
+    <RootNamespace>DreamEngineGameCommon</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -117,7 +117,6 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Utils;$(SolutionDir)DreamEngine.Assets.Serializable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,53 +140,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ActorComponentFixedInfo.cpp" />
-    <ClCompile Include="ActorComponentInfo.cpp" />
-    <ClCompile Include="ActorComponentSceneInfo.cpp" />
-    <ClCompile Include="ParamExtender.cpp" />
-    <ClCompile Include="Param.cpp" />
-    <ClCompile Include="ParamInt.cpp" />
-    <ClCompile Include="SceneActorInfo.cpp" />
-    <ClCompile Include="SceneRoomInfo.cpp" />
-    <ClCompile Include="TransformInfo.cpp" />
+    <ClCompile Include="DeltaTimeHandler.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ActorComponentFixedInfo.h" />
-    <ClInclude Include="ActorComponentInfo.h" />
-    <ClInclude Include="ActorComponentSceneInfo.h" />
-    <ClInclude Include="ActorComponentType.h" />
-    <ClInclude Include="ActorType.h" />
-    <ClInclude Include="ParamExtender.h" />
-    <ClInclude Include="Param.h" />
-    <ClInclude Include="ParamInt.h" />
-    <ClInclude Include="SceneActorInfo.h" />
-    <ClInclude Include="SceneRoomInfo.h" />
-    <ClInclude Include="TransformInfo.h" />
+    <ClInclude Include="DeltaTimeHandler.h" />
+    <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DreamEngine.Assets.Serializable\DreamEngine.Assets.Serializable.vcxproj">
-      <Project>{d131997f-85c7-4c03-a321-8641e3ef7e83}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Logger\DreamEngine.Logger.vcxproj">
-      <Project>{50f02372-482f-4f35-b8e5-37c7e41abc50}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\DreamEngine.Utils\DreamEngine.Utils.vcxproj">
-      <Project>{03b4e2d8-bf54-4f6d-9725-7f102cf80055}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets" Condition="Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" />
-    <Import Project="..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_uwp.2020.11.12.1\build\native\directxtk_uwp.targets'))" />
-    <Error Condition="!Exists('..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.9.1\build\native\nlohmann.json.targets'))" />
   </Target>
 </Project>

@@ -3,6 +3,7 @@
 #include "ErrorLogger.h"
 #include "Texture.h"
 #include "TextureAssetInfo.h"
+#include "Transform.h"
 
 ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
     : BaseSceneViewer(engineConfigInfo, inputSystem, graphics)

@@ -10,7 +10,7 @@ enum class ACS_Type
 
 const std::map<ACS_Type, std::string> MAP_ACS_TYPE_TO_STRING = {
     { ACS_Type::Collision, "Collision" },
-    { ACS_Type::StaticModel, "StaticModel" },
+    { ACS_Type::StaticModel, "Static Model" },
 };
 
 enum class ACF_Type

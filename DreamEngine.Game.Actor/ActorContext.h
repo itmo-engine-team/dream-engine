@@ -2,10 +2,11 @@
 
 #include "Graphics.h"
 #include "InputSystem.h"
-#include "DeltaTimeHandler.h"
 
+class DeltaTimeHandler;
 class ACS_Light;
 class ACS_Camera;
+class NavMesh;
 
 class ActorContext
 {
@@ -30,11 +31,15 @@ public:
     ACS_Camera* GetCamera() const;
     void SetCamera(ACS_Camera* cameraComponent);
 
+    NavMesh* GetNavMesh() const;
+    void SetNavMesh(NavMesh* newNavMesh);
+
 private:
 
     Graphics* graphics;
     InputSystem* inputSystem;
     DeltaTimeHandler* deltaTimeHandler;
+    NavMesh* navMesh = nullptr;
 
     ACS_Light* light;
     ACS_Camera* camera;

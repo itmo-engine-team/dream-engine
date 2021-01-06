@@ -1,12 +1,6 @@
 #include "KatamariGame.h"
 
-#include "ErrorLogger.h"
 #include "SimpleMath.h"
-
-#include "GameAssetManager.h"
-#include "Graphics.h"
-#include "Texture.h"
-#include "MeshRenderer.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -151,11 +145,3 @@ void KatamariGame::Render()
     lightActor->Draw();
 }
 */
-
-void KatamariGame::collisionCheck(GameObject* gameObject)
-{
-    /*if (!gameObject->Transform->HasParent() && katamariSphere->collider->Contains(gameObject->Transform->GetWorldPosition()))
-    {
-        gameObject->Transform->SetParent(katamariSphere->Transform);
-    }*/
-}

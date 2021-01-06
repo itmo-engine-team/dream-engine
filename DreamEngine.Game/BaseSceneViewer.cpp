@@ -3,10 +3,14 @@
 #include "Graphics.h"
 #include "MeshRenderer.h"
 
+#include "A_Light.h"
+#include "A_Spectator.h"
 #include "ACS_StaticModel.h"
 #include "EngineConfigInfo.h"
 #include "ConstantBuffer.h"
 #include "LightBuffer.h"
+#include "DeltaTimeHandler.h"
+#include "Transform.h"
 
 BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
     : engineConfigInfo(engineConfigInfo), inputSystem(inputSystem), graphics(graphics)

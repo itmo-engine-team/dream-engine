@@ -1,5 +1,7 @@
 #include "ActorComponentScene.h"
+
 #include "Actor.h"
+#include "Transform.h"
 
 ActorComponentScene::ActorComponentScene(ActorContext* context, Actor* actor, Transform* transform)
     : ActorComponent(context, actor), transform(transform)

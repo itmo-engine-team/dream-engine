@@ -1,7 +1,7 @@
 #include "ACS_Camera.h"
 
-#include "Game.h"
 #include "Graphics.h"
+#include "Transform.h"
 
 ACS_Camera::ACS_Camera(ActorContext* context, Actor* actor, Vector3 position, Vector3 direction)
     : ActorComponentScene(context, actor, new Transform(position)), direction(direction)

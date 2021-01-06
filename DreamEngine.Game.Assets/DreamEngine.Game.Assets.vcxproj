@@ -144,6 +144,9 @@
     <ClCompile Include="ActorComponentFixedInfo.cpp" />
     <ClCompile Include="ActorComponentInfo.cpp" />
     <ClCompile Include="ActorComponentSceneInfo.cpp" />
+    <ClCompile Include="ParamExtender.cpp" />
+    <ClCompile Include="Param.cpp" />
+    <ClCompile Include="ParamInt.cpp" />
     <ClCompile Include="SceneActorInfo.cpp" />
     <ClCompile Include="SceneRoomInfo.cpp" />
     <ClCompile Include="TransformInfo.cpp" />
@@ -154,6 +157,9 @@
     <ClInclude Include="ActorComponentSceneInfo.h" />
     <ClInclude Include="ActorComponentType.h" />
     <ClInclude Include="ActorType.h" />
+    <ClInclude Include="ParamExtender.h" />
+    <ClInclude Include="Param.h" />
+    <ClInclude Include="ParamInt.h" />
     <ClInclude Include="SceneActorInfo.h" />
     <ClInclude Include="SceneRoomInfo.h" />
     <ClInclude Include="TransformInfo.h" />

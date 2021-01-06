@@ -94,9 +94,9 @@ public:
 
     virtual ~ActorCreator() = default;
 
-    virtual Actor* Create(ActorContext* context, SceneActorInfo* actorInfo)
+    virtual Actor* Create(ActorContext* context, TransformInfo* transformInfo)
     {
-        return new Actor(context, new Transform(actorInfo->GetTransformInfo()->GetPosition()));
+        return new Actor(context, new Transform(transformInfo->GetPosition()));
     }
 
 };

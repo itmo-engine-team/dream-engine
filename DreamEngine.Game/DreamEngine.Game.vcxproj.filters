@@ -203,6 +203,9 @@
     <ClInclude Include="ACF_Movement.h">
       <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
+    <ClInclude Include="ActorComponentFactory.h">
+      <Filter>Header Files\Actor\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

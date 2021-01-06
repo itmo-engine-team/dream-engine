@@ -173,6 +173,7 @@
     <ClInclude Include="ActorComponent.h" />
     <ClInclude Include="ACF_AI.h" />
     <ClInclude Include="ACS_Camera.h" />
+    <ClInclude Include="ActorComponentFactory.h" />
     <ClInclude Include="ActorComponentFixed.h" />
     <ClInclude Include="ActorContext.h" />
     <ClInclude Include="ActorFactory.h" />

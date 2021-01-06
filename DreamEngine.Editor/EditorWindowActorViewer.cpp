@@ -124,7 +124,7 @@ void EditorWindowActorViewer::renderSceneComponentsSectionPopup()
             {
                 std::string name = iter.second
                     + "_" + std::to_string(actorAssetInfo->GetSceneComponents().size());
-                actorAssetInfo->AddSceneComponent(iter.first, name);
+                actorViewer->AddSceneComponent(iter.first, name);
             }
         }
 
@@ -142,7 +142,7 @@ void EditorWindowActorViewer::renderFixedComponentsSectionPopup()
             {
                 std::string name = iter.second
                     + "_" + std::to_string(actorAssetInfo->GetFixedComponents().size());
-                actorAssetInfo->AddFixedComponent(iter.first, name);
+                actorViewer->AddFixedComponent(iter.first, name);
             }
         }
 
@@ -159,5 +159,5 @@ void EditorWindowActorViewer::saveAsset()
 
 void EditorWindowActorViewer::reimportAsset()
 {
-    
+    actorViewer->LoadActor(actorAssetInfo);
 }

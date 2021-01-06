@@ -3,6 +3,7 @@
 #include "AssetInfo.h"
 #include "ActorComponentSceneInfo.h"
 #include "ActorComponentFixedInfo.h"
+#include "ActorType.h"
 
 class ActorAssetInfo : public AssetInfo
 {
@@ -13,8 +14,11 @@ public:
     ActorAssetInfo(ActorAssetInfo& assetInfo);
     ~ActorAssetInfo();
 
-    void AddSceneComponent(ACS_Type type, const std::string& name);
-    void AddFixedComponent(ACF_Type type, const std::string& name);
+    ActorType GetActorType() const;
+    void SetActorType(ActorType type);
+
+    ActorComponentSceneInfo* AddSceneComponent(ACS_Type type, const std::string& name);
+    ActorComponentFixedInfo* AddFixedComponent(ACF_Type type, const std::string& name);
 
     const std::vector<ActorComponentSceneInfo*>& GetSceneComponents() const;
     const std::vector<ActorComponentFixedInfo*>& GetFixedComponents() const;
@@ -25,6 +29,8 @@ protected:
     void fromJson(Json json) override;
 
 private:
+
+    ActorType actorType = ActorType::Actor;
 
     std::vector<ActorComponentSceneInfo*> sceneComponents;
     std::vector<ActorComponentFixedInfo*> fixedComponents;

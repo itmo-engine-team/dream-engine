@@ -23,20 +23,32 @@ ActorAssetInfo::~ActorAssetInfo()
     }
 }
 
-void ActorAssetInfo::AddSceneComponent(ACS_Type type, const std::string& name)
+ActorType ActorAssetInfo::GetActorType() const
+{
+    return actorType;
+}
+
+void ActorAssetInfo::SetActorType(ActorType type)
+{
+    actorType = type;
+}
+
+ActorComponentSceneInfo* ActorAssetInfo::AddSceneComponent(ACS_Type type, const std::string& name)
 {
     auto sceneComponent = new ActorComponentSceneInfo(type);
     sceneComponent->SetName(name);
 
     sceneComponents.push_back(sceneComponent);
+    return sceneComponent;
 }
 
-void ActorAssetInfo::AddFixedComponent(ACF_Type type, const std::string& name)
+ActorComponentFixedInfo* ActorAssetInfo::AddFixedComponent(ACF_Type type, const std::string& name)
 {
     auto fixedComponent = new ActorComponentFixedInfo(type);
     fixedComponent->SetName(name);
 
     fixedComponents.push_back(fixedComponent);
+    return fixedComponent;
 }
 
 const std::vector<ActorComponentSceneInfo*>& ActorAssetInfo::GetSceneComponents() const

@@ -22,3 +22,15 @@ protected:
 
 };
 
+class ACS_Creator_StaticModel : public ACS_Creator
+{
+
+public:
+
+    ActorComponentScene* Create(Actor* actor, ActorComponentSceneInfo* actorInfo) override
+    {
+        return new ACS_StaticModel(actor->GetContext(), actor,
+            new Transform(actorInfo->GetTransformInfo()->GetPosition()), new ModelData());
+    }
+
+};

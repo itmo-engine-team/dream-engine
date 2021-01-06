@@ -17,3 +17,15 @@ protected:
     Vector2 size;
 };
 
+class ACS_Creator_Collision : public ACS_Creator
+{
+
+public:
+
+    ActorComponentScene* Create(Actor* actor, ActorComponentSceneInfo* actorInfo) override
+    {
+        return new ACS_Collision(actor->GetContext(), actor,
+            new Transform(actorInfo->GetTransformInfo()->GetPosition()), Vector2::One);
+    }
+
+};

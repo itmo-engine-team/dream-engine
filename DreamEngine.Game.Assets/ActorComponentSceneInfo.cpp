@@ -13,6 +13,16 @@ ActorComponentSceneInfo::~ActorComponentSceneInfo()
     delete transformInfo;
 }
 
+ACS_Type ActorComponentSceneInfo::GetType() const
+{
+    return type;
+}
+
+TransformInfo* ActorComponentSceneInfo::GetTransformInfo() const
+{
+    return transformInfo;
+}
+
 Json ActorComponentSceneInfo::toJson()
 {
     Json json = ActorComponentInfo::toJson();

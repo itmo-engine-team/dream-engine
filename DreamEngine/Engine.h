@@ -3,11 +3,7 @@
 #include "SimpleMath.h"
 #include "Window.h"
 
-#include "Game.h"
-
 #include "InputSystem.h"
-#include "ModelViewer.h"
-#include "ActorViewer.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -15,6 +11,9 @@ class AssetManager;
 class Graphics;
 class Editor;
 class EngineConfigInfo;
+class Game;
+class ModelViewer;
+class ActorViewer;
 
 class Engine
 {

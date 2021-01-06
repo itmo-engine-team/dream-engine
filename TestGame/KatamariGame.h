@@ -1,12 +1,5 @@
 #pragma once
 
-#include "Game.h"
-#include "A_Spectator.h"
-#include "KatamariSphere.h"
-#include "ACS_Camera.h"
-#include "ACS_Light.h"
-#include "ACS_StaticModel.h"
-#include "A_Light.h"
 
 class KatamariGame
 {
@@ -24,23 +17,5 @@ public:
 
 private:
 
-    A_Spectator* spectatorActor;
-    A_Light* lightActor;
-
-    //KatamariSphere* katamariPlayer;
-    ACS_StaticModel* playerSphere;
-
-    Actor* plane;
-    Actor* box1;
-    Actor* box2;
-    Actor* box3;
-
-    ModelData* planeModel;
-    ModelData* boxModel;
-    ModelData* playerModel;
-    
-    Texture* texture;
-
-    void collisionCheck(GameObject* gameObject);
 
 };

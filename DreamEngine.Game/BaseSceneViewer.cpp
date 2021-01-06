@@ -3,6 +3,8 @@
 #include "Graphics.h"
 #include "MeshRenderer.h"
 
+#include "A_Light.h"
+#include "A_Spectator.h"
 #include "ACS_StaticModel.h"
 #include "EngineConfigInfo.h"
 #include "ConstantBuffer.h"

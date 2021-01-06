@@ -141,49 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ACF_Movement.cpp" />
-    <ClCompile Include="ACS_Collision.cpp" />
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="ActorComponent.cpp" />
-    <ClCompile Include="ACF_AI.cpp" />
-    <ClCompile Include="ACS_Camera.cpp" />
-    <ClCompile Include="ActorComponentFixed.cpp" />
-    <ClCompile Include="ActorContext.cpp" />
     <ClCompile Include="ActorViewer.cpp" />
-    <ClCompile Include="A_NavMesh.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="A_Light.cpp" />
-    <ClCompile Include="ACS_Light.cpp" />
-    <ClCompile Include="ActorComponentScene.cpp" />
-    <ClCompile Include="A_Spectator.cpp" />
-    <ClCompile Include="ACS_StaticModel.cpp" />
     <ClCompile Include="BaseSceneViewer.cpp" />
     <ClCompile Include="ModelViewer.cpp" />
     <ClCompile Include="SceneRoom.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ACF_Movement.h" />
-    <ClInclude Include="ACS_Collision.h" />
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="ActorComponent.h" />
-    <ClInclude Include="ACF_AI.h" />
-    <ClInclude Include="ACS_Camera.h" />
-    <ClInclude Include="ActorComponentFactory.h" />
-    <ClInclude Include="ActorComponentFixed.h" />
-    <ClInclude Include="ActorContext.h" />
-    <ClInclude Include="ActorFactory.h" />
     <ClInclude Include="ActorViewer.h" />
-    <ClInclude Include="A_NavMesh.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameAssetManager.h" />
-    <ClInclude Include="A_Light.h" />
-    <ClInclude Include="ACS_Light.h" />
-    <ClInclude Include="ActorComponentScene.h" />
-    <ClInclude Include="A_Spectator.h" />
-    <ClInclude Include="ACS_StaticModel.h" />
     <ClInclude Include="BaseSceneViewer.h" />
     <ClInclude Include="ModelViewer.h" />
     <ClInclude Include="SceneRoom.h" />

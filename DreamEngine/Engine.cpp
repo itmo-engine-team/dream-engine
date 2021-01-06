@@ -9,6 +9,8 @@
 #include "EngineConfigInfo.h"
 
 #include "Game.h"
+#include "ModelViewer.h"
+#include "ActorViewer.h"
 #include <iostream>
 
 Engine* Engine::INSTANCE = nullptr;

@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "ACS_Collision.h"
 #include "NavMesh.h"
+#include "A_NavMesh.h"
 
 Game::Game(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
     : BaseSceneViewer(engineConfigInfo, inputSystem, graphics)

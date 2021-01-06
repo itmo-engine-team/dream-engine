@@ -13,36 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Actor">
-      <UniqueIdentifier>{9e4737ff-56c5-4312-b711-a350a4885860}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Actor\Component">
-      <UniqueIdentifier>{f635b88b-cb39-451a-a6e4-9a63de7bd164}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Actor\Component\Scene">
-      <UniqueIdentifier>{d6a780e4-bfdf-4520-826f-9855401ccfe5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Actor\Inherited">
-      <UniqueIdentifier>{a6b3d8b7-14e5-4e56-8c6f-0cc0a57e5142}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Actor">
-      <UniqueIdentifier>{651c6f10-7b8c-4cb5-9a84-42d65a7304bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Actor\Component">
-      <UniqueIdentifier>{a11c404a-3272-46bd-86a1-e7aee00fdd1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Actor\Component\Scene">
-      <UniqueIdentifier>{15b5c6da-eb7d-4699-9931-bcdbcb4279e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Actor\Inherited">
-      <UniqueIdentifier>{7764993e-6dca-44d8-a61c-69b183d36075}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Actor\Component\Fixed">
-      <UniqueIdentifier>{a4d3e6a1-7f62-4a73-aeb4-6f241bc44392}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Actor\Component\Fixed">
-      <UniqueIdentifier>{1095f278-1de4-4ea1-af6e-060568849ded}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Scene">
       <UniqueIdentifier>{70cbf2b4-f8b9-4d26-8563-09b7a8645281}</UniqueIdentifier>
     </Filter>
@@ -53,48 +23,6 @@
   <ItemGroup>
     <ClCompile Include="GameAssetManager.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorComponent.cpp">
-      <Filter>Source Files\Actor\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorComponentFixed.cpp">
-      <Filter>Source Files\Actor\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorComponentScene.cpp">
-      <Filter>Source Files\Actor\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="ACS_Camera.cpp">
-      <Filter>Source Files\Actor\Component\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ACS_Light.cpp">
-      <Filter>Source Files\Actor\Component\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ACS_StaticModel.cpp">
-      <Filter>Source Files\Actor\Component\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ACF_AI.cpp">
-      <Filter>Source Files\Actor\Component\Fixed</Filter>
-    </ClCompile>
-    <ClCompile Include="A_Light.cpp">
-      <Filter>Source Files\Actor\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="A_Spectator.cpp">
-      <Filter>Source Files\Actor\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="ActorContext.cpp">
-      <Filter>Source Files\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="A_NavMesh.cpp">
-      <Filter>Source Files\Actor\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="ACS_Collision.cpp">
-      <Filter>Source Files\Actor\Component\Scene</Filter>
     </ClCompile>
     <ClCompile Include="BaseSceneViewer.cpp">
       <Filter>Source Files\Scene</Filter>
@@ -114,55 +42,10 @@
     <ClCompile Include="SceneRoom.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="ACF_Movement.cpp">
-      <Filter>Source Files\Actor\Component\Fixed</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameAssetManager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorComponent.h">
-      <Filter>Header Files\Actor\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorComponentFixed.h">
-      <Filter>Header Files\Actor\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorComponentScene.h">
-      <Filter>Header Files\Actor\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ACS_Camera.h">
-      <Filter>Header Files\Actor\Component\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ACS_Light.h">
-      <Filter>Header Files\Actor\Component\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ACS_StaticModel.h">
-      <Filter>Header Files\Actor\Component\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ACF_AI.h">
-      <Filter>Header Files\Actor\Component\Fixed</Filter>
-    </ClInclude>
-    <ClInclude Include="A_Light.h">
-      <Filter>Header Files\Actor\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="A_Spectator.h">
-      <Filter>Header Files\Actor\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorFactory.h">
-      <Filter>Header Files\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorContext.h">
-      <Filter>Header Files\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="A_NavMesh.h">
-      <Filter>Header Files\Actor\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="ACS_Collision.h">
-      <Filter>Header Files\Actor\Component\Scene</Filter>
     </ClInclude>
     <ClInclude Include="ActorViewer.h">
       <Filter>Header Files\Scene</Filter>
@@ -181,12 +64,6 @@
     </ClInclude>
     <ClInclude Include="ModelViewer.h">
       <Filter>Header Files\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ACF_Movement.h">
-      <Filter>Header Files\Actor\Component\Fixed</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorComponentFactory.h">
-      <Filter>Header Files\Actor\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

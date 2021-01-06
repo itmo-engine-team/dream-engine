@@ -57,9 +57,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Source Files\Actor</Filter>
     </ClCompile>
@@ -89,9 +86,6 @@
     </ClCompile>
     <ClCompile Include="A_Spectator.cpp">
       <Filter>Source Files\Actor\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="DeltaTimeHandler.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ActorContext.cpp">
       <Filter>Source Files\Actor</Filter>
@@ -126,15 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameAssetManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MathUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
@@ -172,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="ActorContext.h">
       <Filter>Header Files\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="DeltaTimeHandler.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="A_NavMesh.h">
       <Filter>Header Files\Actor\Inherited</Filter>

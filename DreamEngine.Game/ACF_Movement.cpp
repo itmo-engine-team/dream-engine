@@ -1,5 +1,7 @@
 #include "ACF_Movement.h"
 #include "SimpleMath.h"
+#include "DeltaTimeHandler.h"
+#include "Transform.h"
 
 ACF_Movement::ACF_Movement(ActorContext* context, Actor* actor) : ActorComponentFixed(context, actor)
 {

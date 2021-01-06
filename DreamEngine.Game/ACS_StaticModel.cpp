@@ -7,9 +7,10 @@
 
 #include "ACS_Light.h"
 #include "ACS_Camera.h"
+#include "Transform.h"
 
 ACS_StaticModel::ACS_StaticModel(ActorContext* context, Actor* actor,
-    Transform* transform, ModelData* modelData)
+                                 Transform* transform, ModelData* modelData)
     : ActorComponentScene(context, actor, transform), modelData(modelData)
 {
     for (auto meshData : modelData->GetMeshDataList())
@@ -61,4 +62,10 @@ void ACS_StaticModel::onDrawShadowMap()
     {
         meshObject->RenderShadowMap(cb);
     }
+}
+
+ActorComponentScene* ACS_Creator_StaticModel::Create(Actor* actor, ActorComponentSceneInfo* actorInfo)
+{
+    return new ACS_StaticModel(actor->GetContext(), actor,
+        new Transform(actorInfo->GetTransformInfo()->GetPosition()), new ModelData());
 }

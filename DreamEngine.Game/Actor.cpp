@@ -4,6 +4,8 @@
 
 #include "ActorComponentFixed.h"
 #include "ActorComponentScene.h"
+#include "DeltaTimeHandler.h"
+#include "Transform.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -153,4 +155,9 @@ bool Actor::RemoveComponent(ActorComponent* component)
 void Actor::onUpdate()
 {
 
+}
+
+Actor* ActorCreator::Create(ActorContext* context, TransformInfo* transformInfo)
+{
+    return new Actor(context, new Transform(transformInfo->GetPosition()));
 }

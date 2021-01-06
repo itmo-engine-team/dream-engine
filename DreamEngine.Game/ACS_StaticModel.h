@@ -4,6 +4,8 @@
 #include "ModelData.h"
 #include "MeshObject.h"
 
+class Transform;
+
 class ACS_StaticModel : public ActorComponentScene
 {
 
@@ -27,10 +29,6 @@ class ACS_Creator_StaticModel : public ACS_Creator
 
 public:
 
-    ActorComponentScene* Create(Actor* actor, ActorComponentSceneInfo* actorInfo) override
-    {
-        return new ACS_StaticModel(actor->GetContext(), actor,
-            new Transform(actorInfo->GetTransformInfo()->GetPosition()), new ModelData());
-    }
+    ActorComponentScene* Create(Actor* actor, ActorComponentSceneInfo* actorInfo) override;
 
 };

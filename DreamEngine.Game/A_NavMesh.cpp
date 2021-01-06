@@ -3,6 +3,7 @@
 #include "ACS_Light.h"
 #include "NavMesh.h"
 #include "ACS_StaticModel.h"
+#include "Transform.h"
 
 A_NavMesh::A_NavMesh(ActorContext* context, Transform* transform) : Actor(context, transform)
 {

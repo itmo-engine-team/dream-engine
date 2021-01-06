@@ -2,8 +2,8 @@
 
 #include "Graphics.h"
 #include "InputSystem.h"
-#include "DeltaTimeHandler.h"
 
+class DeltaTimeHandler;
 class ACS_Light;
 class ACS_Camera;
 

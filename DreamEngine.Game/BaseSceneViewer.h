@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "DeltaTimeHandler.h"
 #include "ActorContext.h"
 #include "ModelData.h"
 #include "A_Light.h"

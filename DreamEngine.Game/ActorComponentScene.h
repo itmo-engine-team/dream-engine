@@ -1,8 +1,9 @@
 #pragma once
 
 #include "ActorComponent.h"
-#include "Transform.h"
 #include "ActorComponentSceneInfo.h"
+
+class Transform;
 
 class ActorComponentScene : public ActorComponent
 {

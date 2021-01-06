@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ActorComponentScene.h"
+#include "Transform.h"
 
 class ACS_Collision : public ActorComponentScene
 {

@@ -1,5 +1,8 @@
 #include "A_Spectator.h"
 
+#include "DeltaTimeHandler.h"
+#include "Transform.h"
+
 A_Spectator::A_Spectator(ActorContext* context, Transform* transform) : Actor(context, transform)
 {
     cameraComponent = new ACS_Camera(context, this);

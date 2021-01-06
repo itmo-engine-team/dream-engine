@@ -18,7 +18,7 @@ class PathFinding
 
 public:
 
-    std::vector<NavMeshPolygon*> FindPath(NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal);
+    std::vector<NavMeshPolygon*> FindPath(void* actor, NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal);
 
 private:
 

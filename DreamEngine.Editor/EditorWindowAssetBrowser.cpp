@@ -426,29 +426,12 @@ void EditorWindowAssetBrowser::drawCommandMenu()
     ImGui::Image(iconFile->GetShaderResourceView(), ImVec2(20, 20));
     ImGui::SameLine();
 
-    /* if (ImGui::Button("Edit > "))
-        ImGui::OpenPopup("my_select_popup");
-
-    if (ImGui::BeginPopup("my_select_popup"))
+    if (ImGui::Button("New"))
     {
-        if (ImGui::Selectable("New"))
-        {
-            newAssetPopupModal = new EditorPopupModalNewAsset(currentParentNode);
-        }
-
-        if (ImGui::Selectable("Delete")) 
-        {
-            // TODO: init draw delete popup
-        }
-
-        if (ImGui::Selectable("Move")) {}
-        if (ImGui::Selectable("Duplicate")) {}
-        if (ImGui::Selectable("Rename")) {}
-        
-        ImGui::EndPopup();
+        newAssetPopupModal = new EditorPopupModalNewAsset(currentParentNode);
     }
-    
-    ImGui::SameLine();*/
+
+    ImGui::SameLine();
     if (ImGui::Button("Back"))
     {
         if (currentParentNode->GetParent() != nullptr)

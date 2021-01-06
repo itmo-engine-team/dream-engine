@@ -22,9 +22,9 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{e6f2d4c3-b745-463e-ba3c-d2f781e41047}</ProjectGuid>
-    <RootNamespace>BehaviorTree</RootNamespace>
+    <RootNamespace>Actor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>DreamEngine.Game.BehaviorTree</ProjectName>
+    <ProjectName>DreamEngine.Game.Actor</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

@@ -8,6 +8,7 @@
 A_NavMesh::A_NavMesh(ActorContext* context, Transform* transform) : Actor(context, transform)
 {
     navMesh = new NavMesh(transform->GetWorldPosition(), { 6, 1, 6 }, 0.5f);
+    this->context->SetNavMesh(navMesh);
 }
 
 NavMesh* A_NavMesh::GetNavMesh() const

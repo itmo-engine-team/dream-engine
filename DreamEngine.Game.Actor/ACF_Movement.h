@@ -12,7 +12,7 @@ public:
     ACF_Movement() = delete;
     ACF_Movement(ActorContext* context, Actor* actor);
 
-    void MoveTo(NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal);
+    bool MoveTo(Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal);
 
     float GetSpeed();
     void SetSpeed(float newSpeed);

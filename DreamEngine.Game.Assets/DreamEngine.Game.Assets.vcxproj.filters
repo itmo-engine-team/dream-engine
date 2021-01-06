@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Actor\Component">
       <UniqueIdentifier>{07914cab-4c42-4d1c-901a-a5cc9c8fd2df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Param">
+      <UniqueIdentifier>{dcdce1a6-6599-4157-8b7e-5a7589f685c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Param">
+      <UniqueIdentifier>{260827b3-83bc-4fe9-a8f8-b69972d9c2d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TransformInfo.cpp">
@@ -44,6 +50,15 @@
     </ClCompile>
     <ClCompile Include="SceneActorInfo.cpp">
       <Filter>Source Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamExtender.cpp">
+      <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="Param.cpp">
+      <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamInt.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +85,15 @@
     </ClInclude>
     <ClInclude Include="SceneActorInfo.h">
       <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamExtender.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Param.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamInt.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -75,6 +75,9 @@
     <ClInclude Include="SceneAssetInfo.h">
       <Filter>Header Files\AssetInfo</Filter>
     </ClInclude>
+    <ClInclude Include="BTAssetInfo.h">
+      <Filter>Header Files\AssetInfo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files\AssetTree</Filter>
     </ClCompile>
     <ClCompile Include="SceneAssetInfo.cpp">
+      <Filter>Source Files\AssetInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="BTAssetInfo.cpp">
       <Filter>Source Files\AssetInfo</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,6 +7,7 @@
 #include "TextureAssetInfo.h"
 #include "ModelAssetInfo.h"
 #include "SceneAssetInfo.h"
+#include "BTAssetInfo.h"
 
 class AssetInfoFactory
 {
@@ -18,6 +19,7 @@ public:
         { "Scene", AssetType::Scene },
         { "Model", AssetType::Model },
         { "Texture", AssetType::Texture },
+        { "Behavior Tree", AssetType::BT },
     };
 
     inline const static std::map<AssetType, std::string> MAP_ASSET_TYPE_TO_STRING = {
@@ -25,6 +27,7 @@ public:
         { AssetType::Scene, "Scene" },
         { AssetType::Model, "Model" },
         { AssetType::Texture, "Texture" },
+        { AssetType::BT, "Behavior Tree" },
     };
 
     static std::string GetAssetTypeStringName(AssetType assetType)
@@ -54,6 +57,7 @@ private:
         { AssetType::Scene, new SceneAssetInfoCreator() }, 
         { AssetType::Model, new ModelAssetInfoCreator() }, 
         { AssetType::Texture, new TextureAssetInfoCreator() }, 
+        { AssetType::BT, new BTAssetInfoCreator() }, 
     };
 
 };

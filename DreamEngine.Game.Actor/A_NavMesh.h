@@ -3,6 +3,7 @@
 #include "Actor.h"
 
 class NavMesh;
+class ModelData;
 
 class A_NavMesh : public Actor
 {

@@ -19,6 +19,16 @@ ACS_StaticModel::ACS_StaticModel(ActorContext* context, Actor* actor,
     }
 }
 
+ACS_StaticModel::~ACS_StaticModel()
+{
+    delete transform;
+
+    for (auto meshObject : meshObjects)
+    {
+        delete meshObject;
+    }
+}
+
 void ACS_StaticModel::onDraw()
 {
     const ConstantBuffer cb =

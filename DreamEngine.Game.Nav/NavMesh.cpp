@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "MeshData.h"
+#include "ModelData.h"
 
 bool NavMeshPolygon::IsFreeForActor(void* actor)
 {
@@ -25,6 +26,8 @@ NavMesh::NavMesh(Vector3 navMeshPosition, Vector3 planeSize, float polySize)
 
     polygonSize = polySize;
     position = navMeshPosition;
+
+    meshData = nullptr;
 
     initNavMeshGrid();
 }
@@ -49,9 +52,9 @@ Vector3 NavMesh::GetPosition() const
     return position;
 }
 
-MeshData* NavMesh::GetMeshData() const
+ModelData* NavMesh::GetModelData() const
 {
-    return meshData;
+    return modelData;
 }
 
 std::vector<std::vector<NavMeshPolygon*>> NavMesh::GetGrid() const
@@ -149,7 +152,10 @@ void NavMesh::initNavMeshGrid()
         countZ++;
         z += polygonSize;
     }
+
     meshData = new MeshData(vertices, indices);
+    modelData = new ModelData();
+    modelData->AddMeshData(meshData);
 }
 
 std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon) 

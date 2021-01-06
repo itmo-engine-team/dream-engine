@@ -4,6 +4,7 @@
 #include "Vertex.h"
 
 class MeshData;
+class ModelData;
 
 using namespace DirectX::SimpleMath;
 
@@ -45,7 +46,7 @@ public:
     void SetPolygonSize(float polySize);
 
     Vector3 GetPosition() const;
-    MeshData* GetMeshData() const;
+    ModelData* GetModelData() const;
     std::vector<std::vector<NavMeshPolygon*>> GetGrid() const;
     std::vector<NavMeshPolygon*> GetNeighbours(NavMeshPolygon* polygon, bool canMoveByDiagonal);
 
@@ -61,6 +62,7 @@ protected:
     Vector3 position;
     float polygonSize;
     MeshData* meshData;
+    ModelData* modelData;
     std::vector<DWORD> indices;
 
     std::vector<std::vector<NavMeshPolygon*>> navMeshGrid;

@@ -8,6 +8,14 @@ ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, T
     isValid = pMeshRenderer->ProcessModel(this, filePath);
 }
 
+ModelData::~ModelData()
+{
+    for (auto meshData : meshesData)
+    {
+        delete meshData;
+    }
+}
+
 bool ModelData::IsValid() const
 {
     return isValid;

@@ -8,6 +8,8 @@ enum class AssetType
     Scene,
     Model,
     Texture,
+    BT,
+    BP,
 
     Unknown
 };
@@ -17,4 +19,5 @@ const std::vector<AssetType> ALL_ASSET_TYPES = {
     AssetType::Scene,
     AssetType::Model,
     AssetType::Texture,
+    AssetType::BT,
 };

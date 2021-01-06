@@ -144,6 +144,7 @@
     <ClInclude Include="ActorAssetInfo.h" />
     <ClInclude Include="AssetInfoFactory.h" />
     <ClInclude Include="AssetNode.h" />
+    <ClInclude Include="BTAssetInfo.h" />
     <ClInclude Include="EngineConfigInfo.h" />
     <ClInclude Include="FolderNode.h" />
     <ClInclude Include="AssetInfo.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AssetNode.cpp" />
     <ClCompile Include="AssetTree.cpp" />
+    <ClCompile Include="BTAssetInfo.cpp" />
     <ClCompile Include="EngineConfigInfo.cpp" />
     <ClCompile Include="FolderNode.cpp" />
     <ClCompile Include="AssetService.cpp" />

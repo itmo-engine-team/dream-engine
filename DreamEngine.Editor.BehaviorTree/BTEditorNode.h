@@ -8,7 +8,7 @@
 
 class BehaviorTreeEditor;
 
-class BTEditorNode : Serializable
+class BTEditorNode : public Serializable
 {
 
 public:

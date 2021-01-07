@@ -9,7 +9,8 @@
 
 BehaviorTreeGame::BehaviorTreeGame(Actor* actor, BehaviorTreeEditor* behaviorTreeEditor) : actor(actor)
 {
-    initBehaviorTreeGame(behaviorTreeEditor);
+    if (behaviorTreeEditor != nullptr)
+        initBehaviorTreeGame(behaviorTreeEditor);
 }
 
 bool BehaviorTreeGame::Update()

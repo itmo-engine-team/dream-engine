@@ -1,29 +1,68 @@
 #pragma once
 
-template<typename Type>
-class Param
+#include "Serializable.h"
+#include "ParamType.h"
+
+class BaseParam : public Serializable
 {
 
 public:
 
-    Param(Type def)
+    BaseParam(ParamType type) : type(type) {}
+
+    ParamType GetType() const
     {
-        param = def;
+        return type;
     }
 
-    void Set(Type param)
+private:
+
+    ParamType type;
+
+};
+
+template<typename Type>
+class Param : public BaseParam
+{
+
+public:
+
+    Param(ParamType type, Type def) : BaseParam(type)
     {
-        this->param;
+        this->def = def;
+        this->value = def;
+    }
+
+    void Set(Type value)
+    {
+        this->value = value;
     }
 
     Type Get() const
     {
-        return param;
+        return value;
+    }
+
+    Json toJson() override
+    {
+        Json json = Serializable::toJson();
+
+        json["value"] = value;
+        json["def"] = def;
+
+        return json;
+    }
+
+    void fromJson(Json json) override
+    {
+        initVariable(json, "value", &value);
+        initVariable(json, "def", &def);
     }
 
 protected:
 
-    Type param;
+    Type value;
+    Type def;
 
 };
 

@@ -2,6 +2,7 @@
 
 #include "BTEditorNode.h"
 
+class BTEditorNodeFactory;
 class BehaviorTreeEditor;
 
 class BTEditorNodeRoot : public BTEditorNode
@@ -16,6 +17,7 @@ public:
 protected:
 
     friend BehaviorTreeEditor;
+    friend BTEditorNodeFactory;
     BTEditorNodeRoot();
 
 };

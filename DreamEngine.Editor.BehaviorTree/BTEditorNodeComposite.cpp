@@ -14,7 +14,7 @@ BTNodeCompositeType BTEditorNodeComposite::GetCompositeType() const
 void BTEditorNodeComposite::SetCompositeType(BTNodeCompositeType compositeType)
 {
     this->compositeType = compositeType;
-    SetName(MapUtils::TryGetByKey<BTNodeCompositeType, std::string>(
+    setName(MapUtils::TryGetByKey<BTNodeCompositeType, std::string>(
         MAP_NODE_COMPOSITE_TYPE_TO_STRING, compositeType, "UNKNOWN"));
 }
 

@@ -3,6 +3,7 @@
 #include "BTEditorNode.h"
 #include "BTEditorNodeComposite.h"
 #include "BTEditorNodeLogic.h"
+#include "BTEditorNodeRoot.h"
 
 class BTEditorNodeFactory
 {
@@ -13,6 +14,8 @@ public:
     {
         switch (type)
         {
+            case BTNodeType::Root:
+                return new BTEditorNodeRoot();
             case BTNodeType::Composite:
                 return new BTEditorNodeComposite();
             case BTNodeType::Logic:

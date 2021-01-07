@@ -23,7 +23,7 @@ int BTEditorNode::GetId() const
     return id;
 }
 
-void BTEditorNode::SetId(int id)
+void BTEditorNode::setId(int id)
 {
     this->id = id;
 }
@@ -33,9 +33,29 @@ const std::string& BTEditorNode::GetName() const
     return name;
 }
 
-void BTEditorNode::SetName(const std::string& name)
+void BTEditorNode::setName(const std::string& name)
 {
     this->name = name;
+}
+
+const ImVec2& BTEditorNode::GetPosition() const
+{
+    return position;
+}
+
+void BTEditorNode::setPosition(ImVec2 position)
+{
+    this->position = position;
+}
+
+int BTEditorNode::GetParentAttributeId() const
+{
+    return parentAttributeId;
+}
+
+void BTEditorNode::setParentAttributeId(int attributeId)
+{
+    parentAttributeId = attributeId;
 }
 
 std::pair<int, BTEditorNode*> BTEditorNode::GetParentLink() const
@@ -43,9 +63,19 @@ std::pair<int, BTEditorNode*> BTEditorNode::GetParentLink() const
     return parentLink;
 }
 
-void BTEditorNode::SetParentLink(std::pair<int, BTEditorNode*> parentLink)
+void BTEditorNode::setParentLink(std::pair<int, BTEditorNode*> parentLink)
 {
     this->parentLink = parentLink;
+}
+
+int BTEditorNode::GetChildrenAttributeId() const
+{
+    return childrenAttributeId;
+}
+
+void BTEditorNode::setChildrenAttributeId(int attributeId)
+{
+    childrenAttributeId = attributeId;
 }
 
 const std::vector<std::pair<int, BTEditorNode*>>& BTEditorNode::GetChildrenLinks() const
@@ -53,7 +83,7 @@ const std::vector<std::pair<int, BTEditorNode*>>& BTEditorNode::GetChildrenLinks
     return childrenLinks;
 }
 
-void BTEditorNode::AddChildLink(std::pair<int, BTEditorNode*> child)
+void BTEditorNode::addChildLink(std::pair<int, BTEditorNode*> child)
 {
     childrenLinks.push_back(child);
 }
@@ -67,6 +97,8 @@ Json BTEditorNode::toJson()
     json["name"] = name;
     json["position"] = { position.x, position.y };
     json["parentLinkId"] = parentLink.first;
+    json["parentAttributeId"] = parentAttributeId;
+    json["childrenAttributeId"] = childrenAttributeId;
 
     // Create children
     if (childrenLinks.empty())
@@ -97,6 +129,9 @@ void BTEditorNode::fromJson(Json json)
     Json posJsonArray = json["position"];
     position = ImVec2(posJsonArray[0], posJsonArray[1]);
 
+    initVariable(json, "parentAttributeId", &parentAttributeId);
+    initVariable(json, "childrenAttributeId", &childrenAttributeId);
+
     // Create children
     if (!json.contains("children"))
         return;
@@ -117,6 +152,6 @@ void BTEditorNode::fromJson(Json json)
 
         child->fromJson(childJson);
         childrenLinks.push_back(std::pair(childLinkJson[0].get<int>(), child));
-        child->SetParentLink(std::pair(childJson["parentLinkId"].get<int>(), this));
+        child->setParentLink(std::pair(childJson["parentLinkId"].get<int>(), this));
     }
 }

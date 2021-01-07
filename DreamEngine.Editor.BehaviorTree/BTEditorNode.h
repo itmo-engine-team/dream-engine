@@ -6,6 +6,8 @@
 #include "Serializable.h"
 #include "BTNodeType.h"
 
+class BehaviorTreeEditor;
+
 class BTEditorNode : Serializable
 {
 
@@ -15,22 +17,32 @@ public:
     virtual ~BTEditorNode();
 
     int GetId() const;
-    void SetId(int id);
-
     const std::string& GetName() const;
-    void SetName(const std::string& name);
+    const ImVec2& GetPosition() const;
 
+    int GetParentAttributeId() const;
     std::pair<int, BTEditorNode*> GetParentLink() const;
-    void SetParentLink(std::pair<int, BTEditorNode*> parentLink);
 
+    int GetChildrenAttributeId() const;
     const std::vector<std::pair<int, BTEditorNode*>>& GetChildrenLinks() const;
-    void AddChildLink(std::pair<int, BTEditorNode*> childLink);
 
     virtual bool CanHaveParent() = 0;
     virtual bool CanHaveChild() = 0;
     virtual bool CanHaveChildren() = 0; // Can have one or more children
 
 protected:
+
+    friend BehaviorTreeEditor;
+
+    void setId(int id);
+    void setName(const std::string& name);
+    void setPosition(ImVec2 position);
+
+    void setParentAttributeId(int attributeId);
+    void setParentLink(std::pair<int, BTEditorNode*> parentLink);
+
+    void addChildLink(std::pair<int, BTEditorNode*> childLink);
+    void setChildrenAttributeId(int attributeId);
 
     Json toJson() override;
     void fromJson(Json json) override;
@@ -42,7 +54,10 @@ private:
     std::string name;
     ImVec2 position;
 
+    int parentAttributeId = -1;
     std::pair<int, BTEditorNode*> parentLink;
+
+    int childrenAttributeId = -1;
     std::vector<std::pair<int, BTEditorNode*>> childrenLinks;
 
 };

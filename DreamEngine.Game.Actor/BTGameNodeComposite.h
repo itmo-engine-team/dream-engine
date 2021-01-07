@@ -12,7 +12,6 @@ class BTGameNodeComposite : public BTGameNodeWithChild
 public:
 
     BTGameNodeComposite() = delete;
-    BTGameNodeComposite(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
 
     void AddChildNode(BTGameNode* childNod) override;
     bool RemoveChild(BTGameNode* childNode);
@@ -22,6 +21,7 @@ public:
 
 protected:
 
+    BTGameNodeComposite(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
     std::vector<BTGameNode*> children;
 };
 

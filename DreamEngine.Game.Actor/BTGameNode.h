@@ -9,8 +9,6 @@ class BTGameNode
 public:
 
     BTGameNode() = delete;
-    BTGameNode(BehaviorTreeGame* behaviorTree) ;
-    BTGameNode(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
     
     virtual ~BTGameNode() = default;
 
@@ -22,6 +20,9 @@ public:
     BehaviorTreeGame* GetBehaviorTree() const;
 
 protected:
+
+    BTGameNode(BehaviorTreeGame* behaviorTree);
+    BTGameNode(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
 
     BTGameNodeWithChild* parent;
     BehaviorTreeGame* behaviorTree;

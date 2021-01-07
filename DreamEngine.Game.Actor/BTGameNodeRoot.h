@@ -5,13 +5,9 @@
 class BTGameNodeRoot : public BTGameNodeWithChild
 {
 
-protected:
-
-    friend class BehaviorTreeGame;
-    BTGameNodeRoot() = delete;
-    BTGameNodeRoot(BehaviorTreeGame* behaviorTree);
-
 public:
+
+    BTGameNodeRoot() = delete;
 
     void AddChildNode(BTGameNode* childNode) override;
     BTGameNode* GetChild();
@@ -20,11 +16,15 @@ public:
 
     bool Run() override;
 
+protected:
+
+    friend class BehaviorTreeGame;
+    BTGameNodeRoot(BehaviorTreeGame* behaviorTree);
+
 private:
 
     using BTGameNode::SetParent;
 
     BTGameNode* child;
-
 };
 

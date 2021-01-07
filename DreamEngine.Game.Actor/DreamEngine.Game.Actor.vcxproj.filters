@@ -144,6 +144,9 @@
     <ClInclude Include="ParamAsset.h">
       <Filter>Header Files\Param</Filter>
     </ClInclude>
+    <ClInclude Include="BTGameNodeFactory.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -217,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="ParamAsset.cpp">
       <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNodeFactory.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

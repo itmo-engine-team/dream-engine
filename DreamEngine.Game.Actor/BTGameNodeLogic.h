@@ -5,10 +5,9 @@
 class BTGameNodeLogic : public BTGameNode
 {
 
-public:
+protected:
 
     BTGameNodeLogic() = delete;
     BTGameNodeLogic(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
-
 };
 

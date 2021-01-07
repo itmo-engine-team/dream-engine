@@ -6,13 +6,14 @@
 
 #include "SceneActorInfo.h"
 #include "ActorContext.h"
+#include "ParamExtender.h"
 
 class Transform;
 class ActorComponent;
 class ActorComponentScene;
 class ActorComponentFixed;
 
-class Actor : public GameObject
+class Actor : public GameObject, ParamExtender
 {
 public:
 

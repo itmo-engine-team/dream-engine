@@ -15,6 +15,16 @@ void ActorComponentInfo::SetName(const std::string& name)
     this->name = name;
 }
 
+ActorComponent* ActorComponentInfo::GetComponentRef() const
+{
+    return componentRef;
+}
+
+void ActorComponentInfo::SetComponentRef(ActorComponent* componentRef)
+{
+    this->componentRef = componentRef;
+}
+
 Json ActorComponentInfo::toJson()
 {
     Json json = Serializable::toJson();

@@ -2,7 +2,7 @@
 
 #include "Actor.h"
 
-class ActorComponent
+class ActorComponent : public ParamExtender
 {
 
 public:

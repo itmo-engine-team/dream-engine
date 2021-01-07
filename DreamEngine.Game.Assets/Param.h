@@ -33,9 +33,14 @@ public:
         this->value = def;
     }
 
-    void Set(Type value)
+    virtual void Set(Type value)
     {
         this->value = value;
+    }
+
+    virtual void SetDef()
+    {
+        value = def;
     }
 
     Type Get() const

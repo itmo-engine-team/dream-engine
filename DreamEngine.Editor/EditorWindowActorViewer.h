@@ -1,11 +1,12 @@
 #pragma once
 
 #include "EditorWindow.h"
-#include "EditorPopupModalAssetChooser.h"
 #include "EditorViewport.h"
 #include "ActorViewer.h"
 
 class ActorComponentInfo;
+class ActorComponentFixedInfo;
+class ActorComponentSceneInfo;
 class ActorAssetInfo;
 
 class EditorWindowActorViewer : public EditorWindow 
@@ -26,10 +27,16 @@ private:
 
     ActorAssetInfo* actorAssetInfo;
 
+    ActorComponentSceneInfo* selectedSceneComponent;
+    ActorComponentFixedInfo* selectedFixedComponent;
+
     void renderViewer();
     void renderInspector();
     void renderComponents();
-    void renderComponent(ActorComponentInfo* component);
+    void renderComponent(ActorComponentInfo* component, bool isSelected);
+
+    void renderSceneComponentInspector();
+    void renderFixedComponentInspector();
 
     void renderSceneComponentsSectionPopup();
     void renderFixedComponentsSectionPopup();

@@ -3,6 +3,7 @@
 #include "ActorComponentScene.h"
 #include "ModelData.h"
 #include "MeshObject.h"
+#include "ParamAsset.h"
 
 class Transform;
 
@@ -16,10 +17,13 @@ public:
 
 protected:
 
+    ParamAsset* modelAssetParam;
+
     ModelData* modelData;
 
     std::vector<MeshObject*> meshObjects;
 
+    void onInit() override;
     void onDraw() override;
     void onDrawShadowMap() override;
 

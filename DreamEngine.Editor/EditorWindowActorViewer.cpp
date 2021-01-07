@@ -1,9 +1,10 @@
 #include "EditorWindowActorViewer.h"
 
 #include "imgui.h"
-#include "ModelAssetInfo.h"
-#include "ModelViewer.h"
+
 #include "ActorAssetInfo.h"
+#include "Editor.h"
+#include "AssetManager.h"
 
 EditorWindowActorViewer::EditorWindowActorViewer(Editor* editor, ActorAssetInfo* actorAssetInfo)
     : EditorWindow("Actor Viewer", editor), actorAssetInfo(actorAssetInfo)
@@ -30,6 +31,8 @@ void EditorWindowActorViewer::Render()
 {
     renderViewer();
     renderInspector();
+    renderSceneComponentInspector();
+    renderFixedComponentInspector();
 }
 
 void EditorWindowActorViewer::renderViewer()
@@ -88,7 +91,13 @@ void EditorWindowActorViewer::renderComponents()
     {
         for (auto component : actorAssetInfo->GetSceneComponents())
         {
-            renderComponent(component);
+            renderComponent(component, selectedSceneComponent == component);
+
+            if (ImGui::IsItemClicked())
+            {
+                selectedSceneComponent = component;
+                selectedFixedComponent = nullptr;
+            }
         }
     }
 
@@ -99,19 +108,54 @@ void EditorWindowActorViewer::renderComponents()
     {
         for (auto component : actorAssetInfo->GetFixedComponents())
         {
-            renderComponent(component);
+            renderComponent(component, selectedFixedComponent == component);
+
+            if (ImGui::IsItemClicked())
+            {
+                selectedFixedComponent = component;
+                selectedSceneComponent = nullptr;
+            }
         }
     }
 }
 
-void EditorWindowActorViewer::renderComponent(ActorComponentInfo* component)
+void EditorWindowActorViewer::renderComponent(ActorComponentInfo* component, bool isSelected)
 {
     auto flags = ImGuiTreeNodeFlags_FramePadding
         | ImGuiTreeNodeFlags_Leaf
         | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 
+    if (isSelected)
+        flags |= ImGuiTreeNodeFlags_Selected;
+
     const std::string name = "  " + component->GetName();
     ImGui::TreeNodeEx(name.c_str(), flags);
+}
+
+void EditorWindowActorViewer::renderSceneComponentInspector()
+{
+    if (selectedSceneComponent == nullptr)
+        return;
+
+    ImGui::Begin("Component Info");
+
+    ImGui::Text(selectedSceneComponent->GetName().c_str());
+    ImGui::Separator();
+
+    ImGui::End();
+}
+
+void EditorWindowActorViewer::renderFixedComponentInspector()
+{
+    if (selectedFixedComponent == nullptr)
+        return;
+
+    ImGui::Begin("Component Info");
+
+    ImGui::Text(selectedFixedComponent->GetName().c_str());
+    ImGui::Separator();
+
+    ImGui::End();
 }
 
 void EditorWindowActorViewer::renderSceneComponentsSectionPopup()

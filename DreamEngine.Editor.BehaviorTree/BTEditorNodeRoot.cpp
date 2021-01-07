@@ -2,7 +2,7 @@
 
 BTEditorNodeRoot::BTEditorNodeRoot() : BTEditorNode(BTNodeType::Root)
 {
-    setName("Root");
+    setTypeName("Root");
 }
 
 bool BTEditorNodeRoot::CanHaveParent()

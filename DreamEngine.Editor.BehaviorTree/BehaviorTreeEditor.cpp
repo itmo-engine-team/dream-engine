@@ -16,7 +16,7 @@ BTEditorNode* BehaviorTreeEditor::CreateNode(BTNodeType type, ImVec2 position)
 {
     BTEditorNode* node = BTEditorNodeFactory::Create(type);
     fillNodeIds(node);
-    node->setPosition(position);
+    node->SetPosition(position);
 
     unparentedNodes.push_back(node);
     return node;

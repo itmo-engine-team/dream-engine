@@ -19,8 +19,9 @@ public:
     BTNodeType GetType() const;
     int GetId() const;
     const std::string& GetName() const;
+    const std::string& GetTypeName() const;
     const ImVec2& GetPosition() const;
-    void setPosition(ImVec2 position);
+    void SetPosition(ImVec2 position);
 
     int GetParentAttributeId() const;
     std::pair<int, BTEditorNode*> GetParentLink() const;
@@ -38,6 +39,7 @@ protected:
 
     void setId(int id);
     void setName(const std::string& name);
+    void setTypeName(const std::string& name);
 
     void setParentAttributeId(int attributeId);
     void setParentLink(std::pair<int, BTEditorNode*> parentLink);
@@ -53,6 +55,7 @@ private:
     BTNodeType type;
     int id;
     std::string name;
+    std::string typeName;
     ImVec2 position;
 
     int parentAttributeId = -1;

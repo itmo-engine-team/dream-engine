@@ -2,6 +2,7 @@
 
 BTEditorNodeLogic::BTEditorNodeLogic() : BTEditorNode(BTNodeType::Logic)
 {
+    setTypeName("Logic");
 }
 
 bool BTEditorNodeLogic::CanHaveParent()

@@ -5,7 +5,7 @@
 #include "BTEditorNodeFactory.h"
 
 BTEditorNode::BTEditorNode(BTNodeType type)
-    : type(type), id(-1), name(""), position(ImVec2(0, 0))
+    : type(type), id(-1), name(""), typeName("Abstract"), position(ImVec2(0, 0))
 {
     parentLink = std::pair(-1, nullptr);
 }
@@ -33,9 +33,19 @@ const std::string& BTEditorNode::GetName() const
     return name;
 }
 
+const std::string& BTEditorNode::GetTypeName() const
+{
+    return typeName;
+}
+
 void BTEditorNode::setName(const std::string& name)
 {
     this->name = name;
+}
+
+void BTEditorNode::setTypeName(const std::string& name)
+{
+    typeName = name;
 }
 
 const ImVec2& BTEditorNode::GetPosition() const
@@ -48,7 +58,7 @@ BTNodeType BTEditorNode::GetType() const
     return type;
 }
 
-void BTEditorNode::setPosition(ImVec2 position)
+void BTEditorNode::SetPosition(ImVec2 position)
 {
     this->position = position;
 }

@@ -3,7 +3,7 @@
 
 BTEditorNodeComposite::BTEditorNodeComposite() : BTEditorNode(BTNodeType::Composite)
 {
-    compositeType = BTNodeCompositeType::Selector;
+    SetCompositeType(BTNodeCompositeType::Selector);
 }
 
 BTNodeCompositeType BTEditorNodeComposite::GetCompositeType() const
@@ -14,7 +14,7 @@ BTNodeCompositeType BTEditorNodeComposite::GetCompositeType() const
 void BTEditorNodeComposite::SetCompositeType(BTNodeCompositeType compositeType)
 {
     this->compositeType = compositeType;
-    setName(MapUtils::TryGetByKey<BTNodeCompositeType, std::string>(
+    setTypeName(MapUtils::TryGetByKey<BTNodeCompositeType, std::string>(
         MAP_NODE_COMPOSITE_TYPE_TO_STRING, compositeType, "UNKNOWN"));
 }
 

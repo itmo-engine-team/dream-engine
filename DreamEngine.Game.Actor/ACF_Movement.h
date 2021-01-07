@@ -24,9 +24,9 @@ private:
     PathFinding* pathFindingInst;
     std::vector<NavMeshPolygon*> path;
     float actorSpeed = 0.01f;
+    bool moveByDiagonal = false;
 
     bool pathIsValid();
     void changeLocation();
-    bool moveByDiagonal = false;
 };
 

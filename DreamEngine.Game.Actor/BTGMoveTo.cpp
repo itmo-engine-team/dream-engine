@@ -10,7 +10,7 @@ BTGMoveTo::BTGMoveTo(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree)
 
 BTGMoveTo::BTGMoveTo(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
 {
-    ACF_Movement* movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
+    movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
 }
 
 bool BTGMoveTo::Run()

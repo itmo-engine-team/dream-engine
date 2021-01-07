@@ -26,8 +26,6 @@ EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     iconFile = new Texture(graphics, editor->GetPathFromEditor(L"Icons/file.png").c_str());
     iconFilter = new Texture(graphics, editor->GetPathFromEditor(L"Icons/filter.png").c_str());
     iconAsset = new Texture(graphics, editor->GetPathFromEditor(L"Icons/asset.png").c_str());
-    iconBP = new Texture(graphics, editor->GetPathFromEditor(L"Icons/blueprintIcon.png").c_str());
-    iconBT = new Texture(graphics, editor->GetPathFromEditor(L"Icons/btIcon.png").c_str());
 }
 
 void EditorWindowAssetBrowser::Update()

@@ -1,15 +1,5 @@
 #include "BTGameNodeLogic.h"
 
-BTGameNodeLogic::BTGameNodeLogic(BTGameNodeRoot* parentNode) : BTGameNode(parentNode)
+BTGameNodeLogic::BTGameNodeLogic(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNode(parentNode, behaviorTree)
 {
 }
-
-BTGameNodeLogic::BTGameNodeLogic(BTGameNodeComposite* parentNode) : BTGameNode(parentNode)
-{
-}
-
-bool BTGameNodeLogic::Run()
-{
-    return TestCheckResult;
-}
-

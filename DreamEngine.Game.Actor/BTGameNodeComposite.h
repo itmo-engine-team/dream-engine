@@ -1,20 +1,19 @@
 #pragma once
 
-#include "BTGameNode.h"
 #include <vector>
 
-class BTGameNodeRoot;
+#include "BTGameNodeWithChild.h"
 
-class BTGameNodeComposite : public BTGameNode
+class BehaviorTreeGame;
+
+class BTGameNodeComposite : public BTGameNodeWithChild
 {
 
 public:
 
     BTGameNodeComposite() = delete;
-    BTGameNodeComposite(BTGameNodeComposite* parentNode);
-    BTGameNodeComposite(BTGameNodeRoot* parentNode);
 
-    void AddChild(BTGameNode* childNod);
+    void AddChildNode(BTGameNode* childNod) override;
     bool RemoveChild(BTGameNode* childNode);
     bool SwapChildren(BTGameNode* childNode1, BTGameNode* childNode2);
 
@@ -22,6 +21,7 @@ public:
 
 protected:
 
+    BTGameNodeComposite(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
     std::vector<BTGameNode*> children;
 };
 

@@ -1,24 +1,29 @@
 #include "BTGameNode.h"
 
-#include "BTGameNodeRoot.h"
-#include "BTGameNodeComposite.h"
+#include "BTGameNodeWithChild.h"
+#include "BehaviorTreeGame.h"
 
-BTGameNode::BTGameNode(BTGameNodeRoot* parentNode) : parent(parentNode)
+BTGameNode::BTGameNode(BehaviorTreeGame* behaviorTree) : behaviorTree(behaviorTree)
 {
-    parentNode->SetChild(this);
 }
 
-BTGameNode::BTGameNode(BTGameNodeComposite* parentNode) : parent(parentNode)
+BTGameNode::BTGameNode(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : parent(parentNode), behaviorTree(behaviorTree)
 {
-    parentNode->AddChild(this);
+    parentNode->AddChildNode(this);
 }
 
-void BTGameNode::SetParent(BTGameNode* parentNode) 
+
+void BTGameNode::SetParent(BTGameNodeWithChild* parentNode)
 {
     parent = parentNode;
 }
 
-BTGameNode* BTGameNode::GetParent() const
+BTGameNodeWithChild* BTGameNode::GetParent() const
 {
     return parent;
+}
+
+BehaviorTreeGame* BTGameNode::GetBehaviorTree() const
+{
+    return behaviorTree;
 }

@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Actor\Component\Scene">
       <UniqueIdentifier>{49e3b15c-3ac7-4515-8156-b03dee8368f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\BehaviorTree\Logic">
+      <UniqueIdentifier>{6237c6d2-7366-4016-b970-c9be47f064c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BehaviorTree\Logic">
+      <UniqueIdentifier>{cc273297-e682-4d1e-8cff-3db8cadcfec9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BehaviorTreeGame.h">
@@ -123,6 +129,12 @@
     <ClInclude Include="ActorComponentScene.h">
       <Filter>Header Files\Actor\Component</Filter>
     </ClInclude>
+    <ClInclude Include="BTGMoveTo.h">
+      <Filter>Header Files\BehaviorTree\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNodeWithChild.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -190,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="ACS_StaticModel.cpp">
       <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGMoveTo.cpp">
+      <Filter>Source Files\BehaviorTree\Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

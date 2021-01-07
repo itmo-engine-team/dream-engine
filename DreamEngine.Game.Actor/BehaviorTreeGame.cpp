@@ -1,8 +1,8 @@
 #include "BehaviorTreeGame.h"
 
-BehaviorTreeGame::BehaviorTreeGame()
+BehaviorTreeGame::BehaviorTreeGame(Actor* actor) : actor(actor)
 {
-    rootNode = new BTGameNodeRoot();
+    rootNode = new BTGameNodeRoot(this);
 }
 
 bool BehaviorTreeGame::Update()
@@ -13,4 +13,9 @@ bool BehaviorTreeGame::Update()
 BTGameNodeRoot* BehaviorTreeGame::GetRootNode()
 {
     return rootNode;
+}
+
+Actor* BehaviorTreeGame::GetActor()
+{
+    return actor;
 }

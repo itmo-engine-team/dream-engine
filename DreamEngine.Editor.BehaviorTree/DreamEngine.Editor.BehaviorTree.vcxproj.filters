@@ -36,6 +36,9 @@
     <ClInclude Include="BTEditorNodeLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BTNodeLogicType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeEditor.cpp">

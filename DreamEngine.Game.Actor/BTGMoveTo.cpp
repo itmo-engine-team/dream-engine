@@ -5,7 +5,8 @@
 
 BTGMoveTo::BTGMoveTo(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
 {
-    movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
+    if (behaviorTree->GetActor() != nullptr)
+        movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
 }
 
 bool BTGMoveTo::Run()

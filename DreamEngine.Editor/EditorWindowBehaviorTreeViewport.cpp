@@ -31,17 +31,17 @@ void EditorWindowBehaviorTreeViewport::Render()
     imnodes::BeginNode(1);
 
     imnodes::BeginNodeTitleBar();
-    ImGui::TextUnformatted("simple node :)");
+    ImGui::TextUnformatted("Node name");
     imnodes::EndNodeTitleBar();
 
     imnodes::BeginInputAttribute(2);
-    ImGui::Text("input");
     imnodes::EndInputAttribute();
 
     imnodes::BeginOutputAttribute(3);
-    ImGui::Indent(40);
-    ImGui::Text("output");
     imnodes::EndOutputAttribute();
+
+    ImGui::Indent(20);
+    ImGui::TextUnformatted("ROOT");
 
     imnodes::EndNode();
     imnodes::EndNodeEditor();

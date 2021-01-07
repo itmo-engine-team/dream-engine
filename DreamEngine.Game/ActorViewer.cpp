@@ -30,6 +30,7 @@ bool ActorViewer::AddSceneComponent(ACS_Type type, const std::string& name)
     auto sceneComponentInfo = actorAssetInfo->AddSceneComponent(type, name);
     auto sceneComponent = ActorComponentFactory::CreateSceneComponent(actor, sceneComponentInfo);
     sceneComponentInfo->SetComponentRef(sceneComponent);
+    sceneComponentInfo->GetParamExtender()->CopyParams(sceneComponent->GetParamMap());
     actor->AddSceneComponent(sceneComponent);
 
     return true;
@@ -40,6 +41,7 @@ bool ActorViewer::AddFixedComponent(ACF_Type type, const std::string& name)
     auto fixedComponentInfo = actorAssetInfo->AddFixedComponent(type, name);
     auto fixedComponent = ActorComponentFactory::CreateFixedComponent(actor, fixedComponentInfo);
     fixedComponentInfo->SetComponentRef(fixedComponent);
+    fixedComponentInfo->GetParamExtender()->CopyParams(fixedComponent->GetParamMap());
     actor->AddFixedComponent(fixedComponent);
 
     return true;

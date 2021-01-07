@@ -3,6 +3,7 @@
 #include "EditorWindow.h"
 #include "EditorViewport.h"
 #include "ActorViewer.h"
+#include "EditorParamViewer.h"
 
 class ActorComponentInfo;
 class ActorComponentFixedInfo;
@@ -29,6 +30,7 @@ private:
 
     ActorComponentSceneInfo* selectedSceneComponent;
     ActorComponentFixedInfo* selectedFixedComponent;
+    EditorParamViewer* paramViewer = nullptr;
 
     void renderViewer();
     void renderInspector();
@@ -37,6 +39,7 @@ private:
 
     void renderSceneComponentInspector();
     void renderFixedComponentInspector();
+    void renderComponentParams(ActorComponentInfo* componentInfo);
 
     void renderSceneComponentsSectionPopup();
     void renderFixedComponentsSectionPopup();

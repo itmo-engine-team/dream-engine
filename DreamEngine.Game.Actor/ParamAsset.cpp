@@ -6,19 +6,17 @@ ParamAsset::ParamAsset(AssetType assetType)
 
 }
 
-void ParamAsset::Set(unsigned int value)
+ParamAsset::ParamAsset(ParamAsset& paramAsset) : Param<unsigned int>(paramAsset)
 {
-    Param::Set(value);
-    isValid = true;
+    this->assetType = paramAsset.assetType;
 }
 
-void ParamAsset::SetDef()
+AssetType ParamAsset::GetAssetType() const
 {
-    Param::SetDef();
-    isValid = false;
+    return assetType;
 }
 
-bool ParamAsset::IsValid() const
+BaseParam* ParamAsset::Copy()
 {
-    return isValid;
+    return new ParamAsset(*this);
 }

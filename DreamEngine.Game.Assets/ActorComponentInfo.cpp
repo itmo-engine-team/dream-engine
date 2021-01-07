@@ -25,6 +25,11 @@ void ActorComponentInfo::SetComponentRef(ActorComponent* componentRef)
     this->componentRef = componentRef;
 }
 
+ParamExtender* ActorComponentInfo::GetParamExtender() const
+{
+    return paramExtender;
+}
+
 Json ActorComponentInfo::toJson()
 {
     Json json = Serializable::toJson();

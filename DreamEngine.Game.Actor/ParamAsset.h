@@ -10,15 +10,14 @@ class ParamAsset : public Param<unsigned int>
 public:
 
     ParamAsset(AssetType assetType);
+    ParamAsset(ParamAsset& paramAsset);
 
-    void Set(unsigned int value) override;
-    void SetDef() override;
+    AssetType GetAssetType() const;
 
-    bool IsValid() const;
+    BaseParam* Copy() override;
 
 private:
 
-    bool isValid = false;
     AssetType assetType;
 
 };

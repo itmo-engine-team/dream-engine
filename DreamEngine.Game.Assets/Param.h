@@ -9,11 +9,27 @@ class BaseParam : public Serializable
 public:
 
     BaseParam(ParamType type) : type(type) {}
+    BaseParam(BaseParam& param)
+    {
+        this->type = param.type;
+        this->isDefault = param.isDefault;
+    }
 
     ParamType GetType() const
     {
         return type;
     }
+
+    bool IsDefault() const
+    {
+        return isDefault;
+    }
+    
+    virtual BaseParam* Copy() = 0;
+
+protected:
+
+    bool isDefault = true;
 
 private:
 
@@ -33,14 +49,22 @@ public:
         this->value = def;
     }
 
+    Param(Param& param) : BaseParam(param)
+    {
+        this->value = param.value;
+        this->def = param.def;
+    }
+
     virtual void Set(Type value)
     {
         this->value = value;
+        isDefault = false;
     }
 
     virtual void SetDef()
     {
         value = def;
+        isDefault = true;
     }
 
     Type Get() const

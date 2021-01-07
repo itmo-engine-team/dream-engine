@@ -15,7 +15,7 @@ ACS_StaticModel::ACS_StaticModel(ActorContext* context, Actor* actor,
     : ActorComponentScene(context, actor, transform), modelData(modelData)
 {
     modelAssetParam = new ParamAsset(AssetType::Model);
-    AddParam("modelAsset", modelAssetParam);
+    AddParam("Model Asset", modelAssetParam);
 }
 
 ACS_StaticModel::~ACS_StaticModel()

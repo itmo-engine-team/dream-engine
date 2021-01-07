@@ -5,6 +5,7 @@
 #include "ActorAssetInfo.h"
 #include "Editor.h"
 #include "AssetManager.h"
+#include "ActorComponent.h"
 
 EditorWindowActorViewer::EditorWindowActorViewer(Editor* editor, ActorAssetInfo* actorAssetInfo)
     : EditorWindow("Actor Viewer", editor), actorAssetInfo(actorAssetInfo)
@@ -97,6 +98,9 @@ void EditorWindowActorViewer::renderComponents()
             {
                 selectedSceneComponent = component;
                 selectedFixedComponent = nullptr;
+
+                delete paramViewer;
+                paramViewer = new EditorParamViewer(selectedSceneComponent->GetParamExtender());
             }
         }
     }
@@ -114,6 +118,9 @@ void EditorWindowActorViewer::renderComponents()
             {
                 selectedFixedComponent = component;
                 selectedSceneComponent = nullptr;
+
+                delete paramViewer;
+                paramViewer = new EditorParamViewer(selectedFixedComponent->GetParamExtender());
             }
         }
     }
@@ -142,6 +149,8 @@ void EditorWindowActorViewer::renderSceneComponentInspector()
     ImGui::Text(selectedSceneComponent->GetName().c_str());
     ImGui::Separator();
 
+    renderComponentParams(selectedSceneComponent);
+
     ImGui::End();
 }
 
@@ -155,7 +164,18 @@ void EditorWindowActorViewer::renderFixedComponentInspector()
     ImGui::Text(selectedFixedComponent->GetName().c_str());
     ImGui::Separator();
 
+    renderComponentParams(selectedFixedComponent);
+
     ImGui::End();
+}
+
+void EditorWindowActorViewer::renderComponentParams(ActorComponentInfo* componentInfo)
+{
+    BaseParam* baseParam = paramViewer->Draw();
+    bool isChanged = baseParam != nullptr;
+
+    if (isChanged)
+    { }
 }
 
 void EditorWindowActorViewer::renderSceneComponentsSectionPopup()

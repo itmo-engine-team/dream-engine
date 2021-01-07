@@ -21,6 +21,10 @@
   <ItemGroup>
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorContext.h" />
+    <ClInclude Include="EditorParamDrawer.h" />
+    <ClInclude Include="EditorParamDrawerAsset.h" />
+    <ClInclude Include="EditorParamDrawerInt.h" />
+    <ClInclude Include="EditorParamViewer.h" />
     <ClInclude Include="EditorPopupModal.h" />
     <ClInclude Include="EditorPopupModalDeleteAsset.h" />
     <ClInclude Include="EditorPopupModalDeleteFolder.h" />
@@ -46,6 +50,10 @@
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorContext.cpp" />
+    <ClCompile Include="EditorParamDrawer.cpp" />
+    <ClCompile Include="EditorParamDrawerAsset.cpp" />
+    <ClCompile Include="EditorParamDrawerInt.cpp" />
+    <ClCompile Include="EditorParamViewer.cpp" />
     <ClCompile Include="EditorPopupModal.cpp" />
     <ClCompile Include="EditorPopupModalDeleteAsset.cpp" />
     <ClCompile Include="EditorPopupModalDeleteFolder.cpp" />

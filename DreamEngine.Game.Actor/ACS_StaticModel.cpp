@@ -8,15 +8,14 @@
 #include "ACS_Light.h"
 #include "ACS_Camera.h"
 #include "Transform.h"
+#include "AssetType.h"
 
 ACS_StaticModel::ACS_StaticModel(ActorContext* context, Actor* actor,
                                  Transform* transform, ModelData* modelData)
     : ActorComponentScene(context, actor, transform), modelData(modelData)
 {
-    for (auto meshData : modelData->GetMeshDataList())
-    {
-        meshObjects.push_back(new MeshObject(context->GetGraphics(), meshData));
-    }
+    modelAssetParam = new ParamAsset(AssetType::Model);
+    AddParam("modelAsset", modelAssetParam);
 }
 
 ACS_StaticModel::~ACS_StaticModel()
@@ -26,6 +25,14 @@ ACS_StaticModel::~ACS_StaticModel()
     for (auto meshObject : meshObjects)
     {
         delete meshObject;
+    }
+}
+
+void ACS_StaticModel::onInit()
+{
+    for (auto meshData : modelData->GetMeshDataList())
+    {
+        meshObjects.push_back(new MeshObject(context->GetGraphics(), meshData));
     }
 }
 

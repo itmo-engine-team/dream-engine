@@ -2,6 +2,8 @@
 
 #include <Serializable.h>
 
+class ActorComponent;
+
 class ActorComponentInfo : public Serializable
 {
 
@@ -13,6 +15,9 @@ public:
     const std::string& GetName() const;
     void SetName(const std::string& name);
 
+    ActorComponent* GetComponentRef() const;
+    void SetComponentRef(ActorComponent* componentRef);
+
 protected:
 
     Json toJson() override;
@@ -21,6 +26,7 @@ protected:
 private:
 
     std::string name;
+    ActorComponent* componentRef = nullptr;
 
 };
 

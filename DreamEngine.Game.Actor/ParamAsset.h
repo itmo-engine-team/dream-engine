@@ -2,15 +2,23 @@
 
 #include "Param.h"
 
-#include "AssetType.h"
+enum class AssetType;
 
 class ParamAsset : public Param<unsigned int>
 {
 
+public:
 
+    ParamAsset(AssetType assetType);
+
+    void Set(unsigned int value) override;
+    void SetDef() override;
+
+    bool IsValid() const;
 
 private:
 
-    AssetType type;
+    bool isValid = false;
+    AssetType assetType;
 
 };

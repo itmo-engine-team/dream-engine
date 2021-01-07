@@ -4,5 +4,5 @@ enum class ParamType
 {
     Int,
     Float,
-    ModelAsset,
+    Asset,
 };

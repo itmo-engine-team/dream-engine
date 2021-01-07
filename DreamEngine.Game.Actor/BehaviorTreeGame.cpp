@@ -10,7 +10,6 @@
 BehaviorTreeGame::BehaviorTreeGame(Actor* actor, BehaviorTreeEditor* behaviorTreeEditor) : actor(actor)
 {
     initBehaviorTreeGame(behaviorTreeEditor);
-    rootNode = new BTGameNodeRoot(this);
 }
 
 bool BehaviorTreeGame::Update()
@@ -46,7 +45,7 @@ void BehaviorTreeGame::initBehaviorTreeGame(BehaviorTreeEditor* behaviorTreeEdit
         BTGameNodeWithChild* currentGameNode = gameNodeQueue.at(0);
         gameNodeQueue.erase(gameNodeQueue.begin());
 
-        if (currentEditorNode->CanHaveChildren())
+        if (currentEditorNode->CanHaveChild())
         {
             for (auto child : currentEditorNode->GetChildrenLinks())
             {
@@ -57,17 +56,17 @@ void BehaviorTreeGame::initBehaviorTreeGame(BehaviorTreeEditor* behaviorTreeEdit
                         BTGameNodeComposite* composeNode = BTGameNodeFactory::CreateGameCompositeNodeByType(
                             static_cast<BTEditorNodeComposite*> (child.second)->GetCompositeType(), currentGameNode, this);
 
-                        currentGameNode->AddChildNode(composeNode);
                         gameNodeQueue.push_back(composeNode);
                         editorNodeQueue.push_back(child.second);
                         break;
                     }
+
                     case BTNodeType::Logic:
                     {
                         BTGameNodeLogic* logicNode = BTGameNodeFactory::CreateGameLogicNodeByType(static_cast<BTEditorNodeLogic*> (child.second)->GetLogicType(), currentGameNode, this);
-                        currentGameNode->AddChildNode(logicNode);
                         break;
                     }
+
                     default:
                         break;
                 }
@@ -76,6 +75,5 @@ void BehaviorTreeGame::initBehaviorTreeGame(BehaviorTreeEditor* behaviorTreeEdit
         }
 
         BTGameNodeLogic* logicNode = BTGameNodeFactory::CreateGameLogicNodeByType(static_cast<BTEditorNodeLogic*> (currentEditorNode)->GetLogicType(), currentGameNode, this);
-        currentGameNode->AddChildNode(logicNode);
     }
 }

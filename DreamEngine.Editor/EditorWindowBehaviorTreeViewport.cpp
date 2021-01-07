@@ -3,10 +3,11 @@
 #include "imgui.h"
 #include "imnodes.h"
 #include "Editor.h"
+#include "BTAssetInfo.h"
 
 
-EditorWindowBehaviorTreeViewport::EditorWindowBehaviorTreeViewport(Editor* editor)
-    : EditorWindow("Behavior Tree", editor)
+EditorWindowBehaviorTreeViewport::EditorWindowBehaviorTreeViewport(Editor* editor, BTAssetInfo* assetInfo)
+    : EditorWindow("Behavior Tree", editor), assetInfo(assetInfo)
 {
 
 }

@@ -2,6 +2,7 @@
 
 #include "BTGameNodeRoot.h"
 #include "BTGameNodeComposite.h"
+#include "BehaviorTreeGame.h"
 
 BTGameNode::BTGameNode(BehaviorTreeGame* behaviorTree) : behaviorTree(behaviorTree)
 {

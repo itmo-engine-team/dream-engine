@@ -8,10 +8,10 @@ ACF_Movement::ACF_Movement(ActorContext* context, Actor* actor) : ActorComponent
     pathFindingInst = new PathFinding();
 }
 
-bool ACF_Movement::MoveTo(Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal)
+bool ACF_Movement::MoveTo(Vector3 locationTargetPolygon)
 {
     if (!pathIsValid())
-        path = pathFindingInst->FindPath(actor, context->GetNavMesh(), locationStartPolygon, locationTargetPolygon, canMoveByDiagonal);
+        path = pathFindingInst->FindPath(actor, context->GetNavMesh(), actor->GetTransform()->GetWorldPosition(), locationTargetPolygon, moveByDiagonal);
 
     if (path.empty()) return false;
 
@@ -27,6 +27,16 @@ float ACF_Movement::GetSpeed()
 void ACF_Movement::SetSpeed(float newSpeed)
 {
     actorSpeed = newSpeed;
+}
+
+bool ACF_Movement::GetCanMoveByDiagonal()
+{
+    return moveByDiagonal;
+}
+
+void ACF_Movement::SetCanMoveByDiagonal(bool canMoveByDiagonal)
+{
+    moveByDiagonal = canMoveByDiagonal;
 }
 
 bool ACF_Movement::pathIsValid()

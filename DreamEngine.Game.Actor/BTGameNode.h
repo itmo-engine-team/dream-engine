@@ -1,8 +1,8 @@
 #pragma once
 
+class BehaviorTreeGame;
 class BTGameNodeRoot;
 class BTGameNodeComposite;
-class BehaviorTreeGame;
 
 class BTGameNode
 {

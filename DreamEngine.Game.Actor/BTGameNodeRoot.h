@@ -2,8 +2,6 @@
 
 #include "BTGameNode.h"
 
-class BehaviorTreeGame;
-
 class BTGameNodeRoot : public BTGameNode
 {
 

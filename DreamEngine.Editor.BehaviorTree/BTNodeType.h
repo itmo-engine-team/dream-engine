@@ -19,6 +19,7 @@ enum class BTNodeCompositeType
 };
 
 const std::map<BTNodeType, std::string> MAP_NODE_TYPE_TO_STRING = {
+    { BTNodeType::Root, "Root" },
     { BTNodeType::Composite, "Composite" },
     { BTNodeType::Logic, "Logic" },
 };

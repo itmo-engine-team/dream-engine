@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AssetInfo.h"
+#include "BehaviorTreeEditor.h"
 
 class BTAssetInfo : public AssetInfo
 {
@@ -15,6 +16,10 @@ protected:
 
     Json toJson() override;
     void fromJson(Json json) override;
+
+private:
+
+    BehaviorTreeEditor* behaviorTree;
 
 };
 

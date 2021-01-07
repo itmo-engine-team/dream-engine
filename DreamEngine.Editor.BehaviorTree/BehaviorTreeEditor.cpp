@@ -1,8 +1,10 @@
 #include "BehaviorTreeEditor.h"
+
+#include <queue>
+
 #include "MapUtils.h"
 #include "BTEditorNodeFactory.h"
 #include "ErrorLogger.h"
-#include <queue>
 
 BehaviorTreeEditor::BehaviorTreeEditor() : lastId(-1)
 {
@@ -10,14 +12,14 @@ BehaviorTreeEditor::BehaviorTreeEditor() : lastId(-1)
     fillNodeIds(rootNode);
 }
 
-void BehaviorTreeEditor::CreateNode(BTNodeType type, const std::string& name, ImVec2 position)
+BTEditorNode* BehaviorTreeEditor::CreateNode(BTNodeType type, ImVec2 position)
 {
     BTEditorNode* node = BTEditorNodeFactory::Create(type);
     fillNodeIds(node);
-    node->setName(name);
     node->setPosition(position);
 
     unparentedNodes.push_back(node);
+    return node;
 }
 
 void BehaviorTreeEditor::CreateLink(int parentAttributeId, int childAttributeId)
@@ -36,6 +38,16 @@ void BehaviorTreeEditor::CreateLink(int parentAttributeId, int childAttributeId)
     int linkId = generateNewId();
     parentNode->addChildLink(std::pair(linkId, childNode));
     childNode->setParentLink(std::pair(linkId, parentNode));
+}
+
+BTEditorNode* BehaviorTreeEditor::GetRootNode() const
+{
+    return rootNode;
+}
+
+const std::vector<BTEditorNode*>& BehaviorTreeEditor::GetUnparentedNodes() const
+{
+    return unparentedNodes;
 }
 
 int BehaviorTreeEditor::generateNewId()
@@ -139,11 +151,12 @@ void BehaviorTreeEditor::fromJson(Json json)
 {
     initVariable(json, "lastId", &lastId);
 
-    rootNode = dynamic_cast<BTEditorNodeRoot*>(getNodeFromJson(json["rootNode"]));
+    BTEditorNode* node = getNodeFromJson(json["rootNode"]);
+    rootNode = dynamic_cast<BTEditorNodeRoot*>(node);
 
     for (Json unparentedNodeJson : json["unparentedNodes"])
     {
-        BTEditorNode* node = getNodeFromJson(unparentedNodeJson);
+        node = getNodeFromJson(unparentedNodeJson);
         if (node != nullptr)
             unparentedNodes.push_back(node);
     }
@@ -158,8 +171,8 @@ BTEditorNode* BehaviorTreeEditor::getNodeFromJson(Json json)
 
     BTEditorNode* node = BTEditorNodeFactory::Create(type);
     if (node == nullptr)
-    {
-        ErrorLogger::Log(Error, "BTEditorNode can't be created: " + stringType + "/n" + json.dump());
-        return nullptr;
-    }
+        ErrorLogger::Log(Error,
+            "BTEditorNode can't be created: " + stringType + "/n" + json.dump());
+
+    return node;
 }

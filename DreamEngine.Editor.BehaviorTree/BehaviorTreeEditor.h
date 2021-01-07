@@ -3,6 +3,8 @@
 #include "Serializable.h"
 #include "BTEditorNodeRoot.h"
 
+class BTAssetInfo;
+
 class BehaviorTreeEditor : Serializable
 {
 
@@ -10,11 +12,17 @@ public:
 
     BehaviorTreeEditor();
 
-    void CreateNode(BTNodeType type, const std::string& name, ImVec2 position = ImVec2(0, 0));
+    BTEditorNode* CreateNode(BTNodeType type, ImVec2 position = ImVec2(0, 0));
     void CreateLink(int parentAttributeId, int childAttributeId);
+
+    BTEditorNode* GetRootNode() const;
+    const std::vector<BTEditorNode*>& GetUnparentedNodes() const;
+
+    // TODO: Methods to remove nodes and links
 
 protected:
 
+    friend BTAssetInfo;
     Json toJson() override;
     void fromJson(Json json) override;
     BTEditorNode* getNodeFromJson(Json json);

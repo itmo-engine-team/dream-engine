@@ -78,6 +78,9 @@
     <ProjectReference Include="..\DreamEngine.Common\DreamEngine.Common.vcxproj">
       <Project>{dd7f889f-3ffa-481e-a2a8-237afb839168}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\DreamEngine.Editor.BehaviorTree\DreamEngine.Editor.BehaviorTree.vcxproj">
+      <Project>{c9f96c69-06c3-47b2-a2c6-f17db168b761}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\DreamEngine.Game.Actor\DreamEngine.Game.Actor.vcxproj">
       <Project>{e6f2d4c3-b745-463e-ba3c-d2f781e41047}</Project>
     </ProjectReference>
@@ -226,7 +229,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Game.Actor;$(SolutionDir)DreamEngine.Utils;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Game;$(SolutionDir)DreamEngine.Game.Assets;$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Editor.BehaviorTree;$(SolutionDir)DreamEngine.Game.Actor;$(SolutionDir)DreamEngine.Utils;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Game;$(SolutionDir)DreamEngine.Game.Assets;$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

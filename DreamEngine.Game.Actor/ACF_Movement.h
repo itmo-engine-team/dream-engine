@@ -12,7 +12,7 @@ public:
     ACF_Movement() = delete;
     ACF_Movement(ActorContext* context, Actor* actor);
 
-    bool MoveTo(Vector3 locationTargetPolygon);
+    bool MoveTo(Vector3 targetLocation);
 
     float GetSpeed();
     void SetSpeed(float newSpeed);

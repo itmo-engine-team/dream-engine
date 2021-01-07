@@ -165,6 +165,7 @@
     <ClInclude Include="BTGameNodeRoot.h" />
     <ClInclude Include="BTGameNodeSelector.h" />
     <ClInclude Include="BTGameNodeSequence.h" />
+    <ClInclude Include="BTGameNodeWithChild.h" />
     <ClInclude Include="BTGMoveTo.h" />
     <ClInclude Include="GameObject.h" />
   </ItemGroup>

@@ -1,8 +1,7 @@
 #pragma once
 
 class BehaviorTreeGame;
-class BTGameNodeRoot;
-class BTGameNodeComposite;
+class BTGameNodeWithChild;
 
 class BTGameNode
 {
@@ -11,21 +10,20 @@ public:
 
     BTGameNode() = delete;
     BTGameNode(BehaviorTreeGame* behaviorTree) ;
-    BTGameNode(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree);
-    BTGameNode(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree);
+    BTGameNode(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
     
     virtual ~BTGameNode() = default;
 
     virtual bool Run() = 0;
 
-    void SetParent(BTGameNode* parentNode);
+    void SetParent(BTGameNodeWithChild* parentNode);
 
-    BTGameNode* GetParent() const;
+    BTGameNodeWithChild* GetParent() const;
     BehaviorTreeGame* GetBehaviorTree() const;
 
 protected:
 
-    BTGameNode* parent;
+    BTGameNodeWithChild* parent;
     BehaviorTreeGame* behaviorTree;
 };
 

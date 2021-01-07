@@ -1,20 +1,20 @@
 #pragma once
 
-#include "BTGameNode.h"
 #include <vector>
 
-class BTGameNodeRoot;
+#include "BTGameNodeWithChild.h"
 
-class BTGameNodeComposite : public BTGameNode
+class BehaviorTreeGame;
+
+class BTGameNodeComposite : public BTGameNodeWithChild
 {
 
 public:
 
     BTGameNodeComposite() = delete;
-    BTGameNodeComposite(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree);
-    BTGameNodeComposite(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree);
+    BTGameNodeComposite(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
 
-    void AddChild(BTGameNode* childNod);
+    void AddChildNode(BTGameNode* childNod) override;
     bool RemoveChild(BTGameNode* childNode);
     bool SwapChildren(BTGameNode* childNode1, BTGameNode* childNode2);
 

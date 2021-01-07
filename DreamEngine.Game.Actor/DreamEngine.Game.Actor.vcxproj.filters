@@ -132,6 +132,9 @@
     <ClInclude Include="BTGMoveTo.h">
       <Filter>Header Files\BehaviorTree\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="BTGameNodeWithChild.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">

@@ -3,12 +3,7 @@
 #include "BehaviorTreeGame.h"
 #include "ACF_Movement.h"
 
-BTGMoveTo::BTGMoveTo(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
-{
-    movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
-}
-
-BTGMoveTo::BTGMoveTo(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
+BTGMoveTo::BTGMoveTo(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
 {
     movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
 }

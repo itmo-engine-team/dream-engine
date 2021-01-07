@@ -8,10 +8,10 @@ ACF_Movement::ACF_Movement(ActorContext* context, Actor* actor) : ActorComponent
     pathFindingInst = new PathFinding();
 }
 
-bool ACF_Movement::MoveTo(Vector3 locationTargetPolygon)
+bool ACF_Movement::MoveTo(Vector3 targetLocation)
 {
     if (!pathIsValid())
-        path = pathFindingInst->FindPath(actor, context->GetNavMesh(), actor->GetTransform()->GetWorldPosition(), locationTargetPolygon, moveByDiagonal);
+        path = pathFindingInst->FindPath(actor, context->GetNavMesh(), actor->GetTransform()->GetWorldPosition(), targetLocation, moveByDiagonal);
 
     if (path.empty()) return false;
 

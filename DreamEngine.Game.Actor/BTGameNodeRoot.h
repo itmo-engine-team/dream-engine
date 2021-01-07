@@ -1,8 +1,8 @@
 #pragma once
 
-#include "BTGameNode.h"
+#include "BTGameNodeWithChild.h"
 
-class BTGameNodeRoot : public BTGameNode
+class BTGameNodeRoot : public BTGameNodeWithChild
 {
 
 protected:
@@ -13,7 +13,7 @@ protected:
 
 public:
 
-    void SetChild(BTGameNode* childNode);
+    void AddChildNode(BTGameNode* childNode) override;
     BTGameNode* GetChild();
 
     void RemoveChild();

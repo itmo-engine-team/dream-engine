@@ -13,8 +13,7 @@ class BTGMoveTo : public BTGameNodeLogic
 public:
 
     BTGMoveTo() = delete;
-    BTGMoveTo(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree);
-    BTGMoveTo(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree);
+    BTGMoveTo(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
 
     bool Run() override;
 

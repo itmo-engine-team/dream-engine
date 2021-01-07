@@ -1,16 +1,12 @@
 #include "BTGameNodeComposite.h"
 
-#include "BTGameNodeRoot.h"
+#include "BTGameNodeWithChild.h"
 
-BTGameNodeComposite::BTGameNodeComposite(BTGameNodeComposite* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNode(parentNode, behaviorTree)
+BTGameNodeComposite::BTGameNodeComposite(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeWithChild(parentNode, behaviorTree)
 {
 }
 
-BTGameNodeComposite::BTGameNodeComposite(BTGameNodeRoot* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNode(parentNode, behaviorTree)
-{
-}
-
-void BTGameNodeComposite::AddChild(BTGameNode* childNod)
+void BTGameNodeComposite::AddChildNode(BTGameNode* childNod)
 {
     children.push_back(childNod);
 }

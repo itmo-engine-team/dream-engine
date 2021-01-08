@@ -1,7 +1,6 @@
 #include "ACS_Collision.h"
 
-ACS_Collision::ACS_Collision(Actor* actor, Transform* transform, Vector2 size)
-    : ActorComponentScene(actor, transform), size(size)
+ACS_Collision::ACS_Collision(Actor* actor, Vector2 size) : ActorComponentScene(actor), size(size)
 {
 }
 

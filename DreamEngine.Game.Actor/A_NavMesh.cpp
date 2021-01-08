@@ -22,6 +22,5 @@ void A_NavMesh::onUpdate()
     if (staticModelComponent != nullptr)
         RemoveComponent(staticModelComponent);
 
-    AddSceneComponent(new ACS_StaticModel(this,
-        new Transform(Vector3::Zero), navMesh->GetModelData()));
+    AddSceneComponent(new ACS_StaticModel(this, navMesh->GetModelData()));
 }

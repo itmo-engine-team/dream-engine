@@ -3,9 +3,9 @@
 #include "Actor.h"
 #include "Transform.h"
 
-ActorComponentScene::ActorComponentScene(Actor* actor, Transform* transform)
-    : ActorComponent(actor), transform(transform)
+ActorComponentScene::ActorComponentScene(Actor* actor) : ActorComponent(actor)
 {
+    transform = new Transform();
     transform->SetParent(actor->GetTransform(), true);
 }
 

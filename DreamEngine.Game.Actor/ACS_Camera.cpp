@@ -3,8 +3,7 @@
 #include "Graphics.h"
 #include "Transform.h"
 
-ACS_Camera::ACS_Camera(Actor* actor, Vector3 position, Vector3 direction)
-    : ActorComponentScene(actor, new Transform(position)), direction(direction)
+ACS_Camera::ACS_Camera(Actor* actor, Vector3 direction) : ActorComponentScene(actor), direction(direction)
 {
     projectionMatrix = Matrix::CreatePerspectiveFieldOfView(
         120,

@@ -11,9 +11,8 @@
 #include "AssetType.h"
 #include "ParamInt.h"
 
-ACS_StaticModel::ACS_StaticModel(Actor* actor,
-                                 Transform* transform, ModelData* modelData)
-    : ActorComponentScene(actor, transform), modelData(modelData)
+ACS_StaticModel::ACS_StaticModel(Actor* actor, ModelData* modelData)
+    : ActorComponentScene(actor), modelData(modelData)
 {
     modelAssetParam = new ParamAsset(AssetType::Model);
     AddParam("Model Asset", modelAssetParam);
@@ -93,6 +92,5 @@ void ACS_StaticModel::onParamUpdate(std::string name, BaseParam* param)
 
 ActorComponentScene* ACS_Creator_StaticModel::Create(Actor* actor, ActorComponentSceneInfo* actorInfo)
 {
-    return new ACS_StaticModel(actor,
-        new Transform(actorInfo->GetTransformInfo()->GetPosition()), new ModelData());
+    return new ACS_StaticModel(actor, new ModelData());
 }

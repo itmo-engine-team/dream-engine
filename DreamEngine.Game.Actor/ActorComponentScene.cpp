@@ -3,8 +3,8 @@
 #include "Actor.h"
 #include "Transform.h"
 
-ActorComponentScene::ActorComponentScene(ActorContext* context, Actor* actor, Transform* transform)
-    : ActorComponent(context, actor), transform(transform)
+ActorComponentScene::ActorComponentScene(Actor* actor, Transform* transform)
+    : ActorComponent(actor), transform(transform)
 {
     transform->SetParent(actor->GetTransform(), true);
 }

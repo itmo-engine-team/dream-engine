@@ -7,7 +7,7 @@ class ActorComponent : public ParamExtender
 
 public:
 
-    ActorComponent(ActorContext* context, Actor* actor);
+    ActorComponent(Actor* actor);
     virtual ~ActorComponent() = default;
 
     void Init();
@@ -15,7 +15,6 @@ public:
 
 protected:
 
-    ActorContext* context;
     Actor* actor;
 
     virtual void onInit();

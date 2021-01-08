@@ -26,6 +26,7 @@ public:
     }
     
     virtual BaseParam* Copy() = 0;
+    virtual void Update(const BaseParam* paramCopy) = 0;
 
 protected:
 
@@ -72,6 +73,18 @@ public:
         return value;
     }
 
+    void Update(const BaseParam* paramCopy) override
+    {
+        if (paramCopy->IsDefault())
+        {
+            this->SetDef();
+        }
+        else
+        {
+            UpdateValue(paramCopy);
+        }
+    }
+
     Json toJson() override
     {
         Json json = Serializable::toJson();
@@ -92,6 +105,8 @@ protected:
 
     Type value;
     Type def;
+
+    virtual void UpdateValue(const BaseParam* paramCopy) = 0;
 
 };
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include "EditorParamDrawer.h"
 
+class Editor;
 class ParamExtender;
 class ParamAsset;
 class ParamInt;
@@ -13,12 +14,14 @@ class EditorParamViewer
 
 public:
 
-    EditorParamViewer(ParamExtender* paramExtender);
+    EditorParamViewer(Editor* editor, ParamExtender* paramExtender);
     ~EditorParamViewer();
 
     BaseParam* Draw();
 
 private:
+
+    Editor* editor;
 
     ParamExtender* paramExtender;
     std::vector<EditorParamDrawerBase*> paramDrawers;

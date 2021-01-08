@@ -18,3 +18,18 @@ void ParamExtender::CopyParams(const std::map<std::string, BaseParam*>& paramMap
             paramMap[iter.first] = iter.second->Copy();
     }
 }
+
+void ParamExtender::UpdateParam(std::string name, const BaseParam* paramCopy)
+{
+    auto iter = paramMap.find(name);
+    if (iter == paramMap.end())
+        return;
+
+    iter->second->Update(paramCopy);
+    onParamUpdate(name, iter->second);
+}
+
+void ParamExtender::onParamUpdate(std::string name, BaseParam* param)
+{
+
+}

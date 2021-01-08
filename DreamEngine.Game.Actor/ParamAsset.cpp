@@ -20,3 +20,8 @@ BaseParam* ParamAsset::Copy()
 {
     return new ParamAsset(*this);
 }
+
+void ParamAsset::UpdateValue(const BaseParam* paramCopy)
+{
+    this->Set(dynamic_cast<const ParamAsset*>(paramCopy)->Get());
+}

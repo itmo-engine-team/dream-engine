@@ -14,3 +14,8 @@ BaseParam* ParamInt::Copy()
 {
     return new ParamInt(*this);
 }
+
+void ParamInt::UpdateValue(const BaseParam* paramCopy)
+{
+    this->Set(dynamic_cast<const ParamInt*>(paramCopy)->Get());
+}

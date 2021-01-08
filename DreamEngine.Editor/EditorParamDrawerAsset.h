@@ -9,12 +9,14 @@ class EditorParamDrawerAsset : public EditorParamDrawer<ParamAsset>
 
 public:
 
-    EditorParamDrawerAsset(const std::string& name, BaseParam* baseParam);
+    EditorParamDrawerAsset(Editor* editor, const std::string& name, BaseParam* baseParam);
     bool Draw() override;
 
 private:
 
+    Editor* editor;
     EditorPopupModalAssetChooser* assetChooser;
+    AssetInfo* chosenAssetInfo;
 
 };
 

@@ -9,6 +9,7 @@
 #include "ACS_Camera.h"
 #include "Transform.h"
 #include "AssetType.h"
+#include "ParamInt.h"
 
 ACS_StaticModel::ACS_StaticModel(ActorContext* context, Actor* actor,
                                  Transform* transform, ModelData* modelData)
@@ -16,6 +17,7 @@ ACS_StaticModel::ACS_StaticModel(ActorContext* context, Actor* actor,
 {
     modelAssetParam = new ParamAsset(AssetType::Model);
     AddParam("Model Asset", modelAssetParam);
+    AddParam("Int", new ParamInt(0));
 }
 
 ACS_StaticModel::~ACS_StaticModel()
@@ -78,6 +80,14 @@ void ACS_StaticModel::onDrawShadowMap()
     for (auto meshObject : meshObjects)
     {
         meshObject->RenderShadowMap(cb);
+    }
+}
+
+void ACS_StaticModel::onParamUpdate(std::string name, BaseParam* param)
+{
+    if (param == modelAssetParam)
+    {
+        // TODO: Update model
     }
 }
 

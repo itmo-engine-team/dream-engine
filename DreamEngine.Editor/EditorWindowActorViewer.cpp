@@ -100,7 +100,7 @@ void EditorWindowActorViewer::renderComponents()
                 selectedFixedComponent = nullptr;
 
                 delete paramViewer;
-                paramViewer = new EditorParamViewer(selectedSceneComponent->GetParamExtender());
+                paramViewer = new EditorParamViewer(editor, selectedSceneComponent->GetParamExtender());
             }
         }
     }
@@ -120,7 +120,7 @@ void EditorWindowActorViewer::renderComponents()
                 selectedSceneComponent = nullptr;
 
                 delete paramViewer;
-                paramViewer = new EditorParamViewer(selectedFixedComponent->GetParamExtender());
+                paramViewer = new EditorParamViewer(editor, selectedFixedComponent->GetParamExtender());
             }
         }
     }
@@ -175,7 +175,15 @@ void EditorWindowActorViewer::renderComponentParams(ActorComponentInfo* componen
     bool isChanged = baseParam != nullptr;
 
     if (isChanged)
-    { }
+    {
+        for (auto iter : componentInfo->GetParamExtender()->GetParamMap())
+        {
+            if (baseParam == iter.second)
+            {
+                componentInfo->GetComponentRef()->UpdateParam(iter.first, baseParam);
+            }
+        }
+    }
 }
 
 void EditorWindowActorViewer::renderSceneComponentsSectionPopup()

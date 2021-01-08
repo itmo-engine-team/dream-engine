@@ -27,6 +27,8 @@ protected:
     void onDraw() override;
     void onDrawShadowMap() override;
 
+    void onParamUpdate(std::string name, BaseParam* param) override;
+
 };
 
 class ACS_Creator_StaticModel : public ACS_Creator

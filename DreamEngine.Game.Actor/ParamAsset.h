@@ -16,6 +16,10 @@ public:
 
     BaseParam* Copy() override;
 
+protected:
+
+    void UpdateValue(const BaseParam* paramCopy) override;
+
 private:
 
     AssetType assetType;

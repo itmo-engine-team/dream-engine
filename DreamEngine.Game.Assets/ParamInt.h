@@ -12,5 +12,9 @@ public:
 
     BaseParam* Copy() override;
 
+protected:
+
+    void UpdateValue(const BaseParam* paramCopy) override;
+
 };
 

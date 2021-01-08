@@ -7,13 +7,13 @@
 #include "Editor.h"
 #include "AssetManager.h"
 #include "BTAssetInfo.h"
-#include "MapUtils.h"
 
 
 EditorWindowBehaviorTreeViewport::EditorWindowBehaviorTreeViewport(Editor* editor, BTAssetInfo* assetInfo)
     : EditorWindow("Behavior Tree", editor), assetInfo(assetInfo)
 {
     BTEditor = assetInfo->GetBTEditor();
+    
 }
 
 void EditorWindowBehaviorTreeViewport::Init()
@@ -160,7 +160,8 @@ void EditorWindowBehaviorTreeViewport::drawLink(BTEditorNode* root)
 
         for (auto childNodeLink : nodeToDraw->GetChildrenLinks())
         {
-            imnodes::Link(childNodeLink.first, nodeToDraw->GetChildrenAttributeId(), childNodeLink.second->GetChildrenAttributeId());
+            imnodes::Link(childNodeLink.first,
+                nodeToDraw->GetChildrenAttributeId(), childNodeLink.second->GetParentAttributeId());
             nodeQueue.push(childNodeLink.second);
         }
     }

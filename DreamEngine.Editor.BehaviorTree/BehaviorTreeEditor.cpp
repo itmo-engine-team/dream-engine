@@ -35,6 +35,13 @@ void BehaviorTreeEditor::CreateLink(int parentAttributeId, int childAttributeId)
     if (!(parentNode->CanHaveChild() && childNode->CanHaveParent()))
         return;
 
+    auto iter = std::find(
+        unparentedNodes.begin(), unparentedNodes.end(), childNode);
+    if (iter != unparentedNodes.end())
+    {
+        unparentedNodes.erase(iter);
+    }
+
     int linkId = generateNewId();
     parentNode->addChildLink(std::pair(linkId, childNode));
     childNode->setParentLink(std::pair(linkId, parentNode));
@@ -173,6 +180,8 @@ BTEditorNode* BehaviorTreeEditor::getNodeFromJson(Json json)
     if (node == nullptr)
         ErrorLogger::Log(Error,
             "BTEditorNode can't be created: " + stringType + "/n" + json.dump());
+
+    node->fromJson(json);
 
     return node;
 }

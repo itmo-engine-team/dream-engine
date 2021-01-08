@@ -10,7 +10,7 @@ class ACF_Movement : public ActorComponentFixed
 public:
 
     ACF_Movement() = delete;
-    ACF_Movement(ActorContext* context, Actor* actor);
+    ACF_Movement(Actor* actor);
 
     bool MoveTo(Vector3 targetLocation);
 

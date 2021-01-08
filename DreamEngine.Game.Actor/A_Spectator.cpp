@@ -3,9 +3,9 @@
 #include "DeltaTimeHandler.h"
 #include "Transform.h"
 
-A_Spectator::A_Spectator(ActorContext* context, Transform* transform) : Actor(context, transform)
+A_Spectator::A_Spectator(ActorContext* context) : Actor(context)
 {
-    cameraComponent = new ACS_Camera(context, this);
+    cameraComponent = new ACS_Camera(this);
     AddSceneComponent(cameraComponent);
 }
 

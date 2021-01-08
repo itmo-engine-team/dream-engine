@@ -7,6 +7,7 @@
 #include "SceneActorInfo.h"
 #include "ActorContext.h"
 #include "ParamExtender.h"
+#include "TransformInfo.h"
 
 class Transform;
 class ActorComponent;
@@ -17,7 +18,7 @@ class Actor : public GameObject, ParamExtender
 {
 public:
 
-    Actor(ActorContext* context, Transform* transform);
+    Actor(ActorContext* context);
 
     void Init() override;
     void Update();
@@ -67,6 +68,8 @@ public:
     }
 
     bool RemoveComponent(ActorComponent* component);
+
+    void UpdateTransform(TransformInfo* transformInfo);
 
 protected:
 

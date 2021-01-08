@@ -48,8 +48,9 @@ bool ModelViewer::LoadModel(const std::string& modelPath, TextureAssetInfo* prev
     }
 
     currentModel = new ModelData(graphics->GetMeshRenderer(), modelPath, currentPreviewTexture);
-    modelActor->AddSceneComponent(new ACS_StaticModel(actorContext, modelActor,
-            new Transform(Vector3::UnitY * -1 * currentModel->GetLowestVertexY()), currentModel));
+    ACS_StaticModel* staticModelComponent = new ACS_StaticModel(modelActor, currentModel);
+    modelActor->AddSceneComponent(staticModelComponent);
+    staticModelComponent->UpdateTransform(new TransformInfo(Vector3::UnitY * -1 * currentModel->GetLowestVertexY()));
 
     return currentModel->IsValid();
 }
@@ -58,7 +59,7 @@ void ModelViewer::Init()
 {
     BaseSceneViewer::Init();
 
-    modelActor = new Actor(actorContext, new Transform());
+    modelActor = new Actor(actorContext);
     baseSceneActors.push_back(modelActor);
 }
 

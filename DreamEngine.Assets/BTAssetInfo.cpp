@@ -15,6 +15,11 @@ BTAssetInfo::~BTAssetInfo()
 
 }
 
+BehaviorTreeEditor* BTAssetInfo::GetBTEditor()
+{
+    return behaviorTree;
+}
+
 Json BTAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();

@@ -5,7 +5,7 @@
 #include "ACS_StaticModel.h"
 #include "Transform.h"
 
-A_NavMesh::A_NavMesh(ActorContext* context, Transform* transform) : Actor(context, transform)
+A_NavMesh::A_NavMesh(ActorContext* context) : Actor(context)
 {
     navMesh = new NavMesh(transform->GetWorldPosition(), { 6, 1, 6 }, 0.5f);
     this->context->SetNavMesh(navMesh);

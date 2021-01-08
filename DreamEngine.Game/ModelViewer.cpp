@@ -57,7 +57,7 @@ void ModelViewer::Init()
 {
     BaseSceneViewer::Init();
 
-    modelActor = new Actor(actorContext, new Transform());
+    modelActor = new Actor(actorContext);
     baseSceneActors.push_back(modelActor);
 }
 

@@ -9,10 +9,9 @@
 
 using namespace DirectX::SimpleMath;
 
-Actor::Actor(ActorContext* context, Transform* transform)
-    : GameObject(), context(context), transform(transform)
+Actor::Actor(ActorContext* context) : GameObject(), context(context)
 {
-
+    transform = new Transform();
 }
 
 void Actor::Init()
@@ -152,6 +151,11 @@ bool Actor::RemoveComponent(ActorComponent* component)
     return false;
 }
 
+void Actor::UpdateTransform(TransformInfo* transformInfo)
+{
+    transform->SetLocalPosition(transformInfo->GetPosition());
+}
+
 void Actor::onUpdate()
 {
 
@@ -159,5 +163,5 @@ void Actor::onUpdate()
 
 Actor* ActorCreator::Create(ActorContext* context, TransformInfo* transformInfo)
 {
-    return new Actor(context, new Transform(transformInfo->GetPosition()));
+    return new Actor(context);
 }

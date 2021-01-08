@@ -5,8 +5,9 @@
 #include "TextureAssetInfo.h"
 #include "Transform.h"
 
-ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
-    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics)
+ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo,
+    InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
+    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics, assetManager)
 {
 
 }

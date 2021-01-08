@@ -17,6 +17,11 @@ DeltaTimeHandler* ActorContext::GetDeltaTimeHandler() const
     return deltaTimeHandler;
 }
 
+AssetManager* ActorContext::GetAssetManager() const
+{
+    return assetManager;
+}
+
 ACS_Light* ActorContext::GetLight() const
 {
     return light;

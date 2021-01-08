@@ -10,7 +10,8 @@ class ModelViewer : public BaseSceneViewer
 
 public:
 
-    ModelViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
+    ModelViewer(EngineConfigInfo* engineConfigInfo,
+        InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager);
 
     bool LoadModel(const std::string& modelPath, TextureAssetInfo* previewTextureInfo);
 
@@ -26,4 +27,3 @@ private:
     Texture* currentPreviewTexture;
 
 };
-

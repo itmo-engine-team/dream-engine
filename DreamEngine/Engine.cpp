@@ -33,10 +33,10 @@ Engine::Engine()
     graphics = new Graphics(window);
 
     assetManager = new AssetManager();
-    game = new Game(engineConfigInfo, inputSystem, graphics);
+    game = new Game(engineConfigInfo, inputSystem, graphics, assetManager);
 
-    modelViewer = new ModelViewer(engineConfigInfo, inputSystem, graphics);
-    actorViewer = new ActorViewer(engineConfigInfo, inputSystem, graphics);
+    modelViewer = new ModelViewer(engineConfigInfo, inputSystem, graphics, assetManager);
+    actorViewer = new ActorViewer(engineConfigInfo, inputSystem, graphics, assetManager);
     editor = new Editor(
         new EditorContext(graphics, assetManager, game, modelViewer, actorViewer));
 

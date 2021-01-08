@@ -11,7 +11,8 @@ class ActorViewer : public BaseSceneViewer
 
 public:
 
-    ActorViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
+    ActorViewer(EngineConfigInfo* engineConfigInfo,
+        InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager);
 
     bool LoadActor(ActorAssetInfo* actorAssetInfo);
     bool AddSceneComponent(ACS_Type type, const std::string& name);

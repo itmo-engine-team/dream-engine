@@ -12,7 +12,8 @@ class Game : public BaseSceneViewer
 
 public:
 
-    Game(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
+    Game(EngineConfigInfo* engineConfigInfo,
+        InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager);
 
     GameAssetManager* GetGameAssetManager() const;
 

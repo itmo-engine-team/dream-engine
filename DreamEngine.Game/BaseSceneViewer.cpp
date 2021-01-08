@@ -12,8 +12,10 @@
 #include "DeltaTimeHandler.h"
 #include "Transform.h"
 
-BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
-    : engineConfigInfo(engineConfigInfo), inputSystem(inputSystem), graphics(graphics)
+BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo,
+    InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
+    : engineConfigInfo(engineConfigInfo),
+      inputSystem(inputSystem), graphics(graphics), assetManager(assetManager)
 {
     deltaTimeHandler = new DeltaTimeHandler();
 
@@ -57,7 +59,7 @@ ACS_Light* BaseSceneViewer::GetLight() const
 
 void BaseSceneViewer::Init()
 {
-    actorContext = new ActorContext(graphics, inputSystem, deltaTimeHandler);
+    actorContext = new ActorContext(graphics, inputSystem, deltaTimeHandler, assetManager);
 
     createBaseSceneActors();
 

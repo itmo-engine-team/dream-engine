@@ -5,8 +5,9 @@
 #include "ActorFactory.h"
 #include "ActorComponentFactory.h"
 
-ActorViewer::ActorViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
-    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics)
+ActorViewer::ActorViewer(EngineConfigInfo* engineConfigInfo,
+    InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
+    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics, assetManager)
 {
 
 }

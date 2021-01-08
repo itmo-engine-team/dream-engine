@@ -38,12 +38,16 @@ public:
     NavMesh* GetNavMesh() const;
     void SetNavMesh(NavMesh* newNavMesh);
 
+    bool GetIsGameMode() const;
+    void SetIsGameMode(bool isGameMode);
+
 private:
 
     Graphics* graphics;
     InputSystem* inputSystem;
     DeltaTimeHandler* deltaTimeHandler;
     AssetManager* assetManager;
+    bool isGameMode = false;
 
     NavMesh* navMesh = nullptr;
 

@@ -51,3 +51,13 @@ void ActorContext::SetNavMesh(NavMesh* newNavMesh)
 {
     navMesh = newNavMesh;
 }
+
+bool ActorContext::GetIsGameMode() const
+{
+    return isGameMode;
+}
+
+void ActorContext::SetIsGameMode(bool isGameMode)
+{
+    this->isGameMode = isGameMode;
+}

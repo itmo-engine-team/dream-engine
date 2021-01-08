@@ -38,8 +38,8 @@ public:
     NavMesh* GetNavMesh() const;
     void SetNavMesh(NavMesh* newNavMesh);
 
-    bool GetIsGameMode() const;
-    void SetIsGameMode(bool isGameMode);
+    bool IsGameMode() const;
+    void SetGameMode(bool isGameMode);
 
 private:
 

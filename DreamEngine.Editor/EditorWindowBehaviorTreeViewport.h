@@ -1,5 +1,6 @@
 #pragma once
 #include "EditorWindow.h"
+#include <BTEditorNode.h>
 
 class BTAssetInfo;
 
@@ -16,7 +17,19 @@ public:
 
 private:
 
+    int idNode = 0;
     BTAssetInfo* assetInfo;
+    BehaviorTreeEditor* BTEditor;
 
+    void renderBTNodeEditor();
+    void renderBTNodeInspector();
+    void drawAddButtons();
+    
+    void drawNode(BTEditorNode* node);
+    void drawNodes();
+    void drawNodeTree(BTEditorNode* root);
+    void drawLink(BTEditorNode* root);
+    void drawLinks();
+    void saveBTAsset();
 };
 

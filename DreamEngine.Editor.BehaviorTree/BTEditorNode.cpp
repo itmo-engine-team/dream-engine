@@ -114,7 +114,6 @@ Json BTEditorNode::toJson()
 
     if (CanHaveParent())
     {
-        json["parentLinkId"] = parentLink.first;
         json["parentAttributeId"] = parentAttributeId;
     }
 
@@ -152,7 +151,7 @@ void BTEditorNode::fromJson(Json json)
     Json posJsonArray = json["position"];
     position = ImVec2(posJsonArray[0], posJsonArray[1]);
 
-    if (!CanHaveParent())
+    if (CanHaveParent())
         initVariable(json, "parentAttributeId", &parentAttributeId);
 
     if (!CanHaveChild())
@@ -168,7 +167,7 @@ void BTEditorNode::fromJson(Json json)
     for (Json childLinkJson : childrenJsonArray)
     {
         const Json childJson = childLinkJson[1];
-        initVariable(json, "type", &stringType);
+        initVariable(childJson, "type", &stringType);
         type = MapUtils::TryGetByValue<BTNodeType, std::string>(MAP_NODE_TYPE_TO_STRING, stringType, BTNodeType::UNKNOWN);
         BTEditorNode* child = BTEditorNodeFactory::Create(type);
 
@@ -180,6 +179,6 @@ void BTEditorNode::fromJson(Json json)
 
         child->fromJson(childJson);
         childrenLinks.push_back(std::pair(childLinkJson[0].get<int>(), child));
-        child->setParentLink(std::pair(childJson["parentLinkId"].get<int>(), this));
+        child->setParentLink(std::pair(childLinkJson[0].get<int>(), this));
     }
 }

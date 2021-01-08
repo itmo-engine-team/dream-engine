@@ -12,6 +12,8 @@ public:
     BTAssetInfo(BTAssetInfo& assetInfo);
     ~BTAssetInfo();
 
+    BehaviorTreeEditor* GetBTEditor();
+
 protected:
 
     Json toJson() override;

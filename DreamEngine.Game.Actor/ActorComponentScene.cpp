@@ -24,6 +24,11 @@ void ActorComponentScene::DrawShadowMap()
     onDrawShadowMap();
 }
 
+void ActorComponentScene::UpdateTransform(TransformInfo* transformInfo)
+{
+    transform->SetLocalPosition(transformInfo->GetPosition());
+}
+
 void ActorComponentScene::onDraw()
 {
 

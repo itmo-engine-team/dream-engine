@@ -2,6 +2,7 @@
 
 #include "ActorComponent.h"
 #include "ActorComponentSceneInfo.h"
+#include "TransformInfo.h"
 
 class Transform;
 
@@ -16,6 +17,7 @@ public:
 
     void Draw();
     void DrawShadowMap();
+    void UpdateTransform(TransformInfo* transformInfo);
 
 protected:
 

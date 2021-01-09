@@ -168,8 +168,8 @@ void BTEditorNode::fromJson(Json json)
     {
         const Json childJson = childLinkJson[1];
         initVariable(childJson, "type", &stringType);
-        type = MapUtils::TryGetByValue<BTNodeType, std::string>(MAP_NODE_TYPE_TO_STRING, stringType, BTNodeType::UNKNOWN);
-        BTEditorNode* child = BTEditorNodeFactory::Create(type);
+        auto childType = MapUtils::TryGetByValue<BTNodeType, std::string>(MAP_NODE_TYPE_TO_STRING, stringType, BTNodeType::UNKNOWN);
+        BTEditorNode* child = BTEditorNodeFactory::Create(childType);
 
         if (child == nullptr)
         {

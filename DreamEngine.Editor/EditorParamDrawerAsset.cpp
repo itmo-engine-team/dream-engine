@@ -29,7 +29,10 @@ bool EditorParamDrawerAsset::Draw()
     if (assetChooser->GetResult())
     {
         chosenAssetInfo = assetChooser->GetChosenAsset();
-        param->Set(chosenAssetInfo->GetId());
+        if (chosenAssetInfo != nullptr)
+            param->Set(chosenAssetInfo->GetId());
+        else
+            param->SetDef();
 
         delete assetChooser;
         assetChooser = nullptr;

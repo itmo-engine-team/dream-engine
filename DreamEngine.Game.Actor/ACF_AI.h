@@ -2,6 +2,7 @@
 
 #include "BehaviorTreeGame.h"
 #include "ActorComponentFixed.h"
+#include "ParamAsset.h"
 
 class ACF_AI : public ActorComponentFixed
 {
@@ -11,6 +12,12 @@ public:
     ACF_AI(Actor* actor);
 
     BehaviorTreeGame* GetBehaviorTree();
+
+protected:
+
+    ParamAsset* btAssetParam;
+
+    void onInit() override;
 
 private:
 

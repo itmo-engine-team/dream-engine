@@ -29,6 +29,7 @@ public:
     AssetTree* GetContentAssetTree() const;
 
     const std::map<unsigned int, AssetInfo*>& GetAssetMapByType(AssetType type) const;
+    AssetInfo* GetAssetByType(AssetType type, unsigned int id) const;
 
 private:
 

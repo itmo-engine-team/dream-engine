@@ -6,6 +6,7 @@
 #include "AssetService.h"
 #include "ErrorLogger.h"
 #include "AssetInfoFactory.h"
+#include "MapUtils.h"
 
 AssetManager::AssetManager()
 {
@@ -197,6 +198,11 @@ AssetTree* AssetManager::GetContentAssetTree() const
 const std::map<unsigned, AssetInfo*>& AssetManager::GetAssetMapByType(AssetType type) const
 {
     return assetMap.find(type)->second;
+}
+
+AssetInfo* AssetManager::GetAssetByType(AssetType type, unsigned id) const
+{
+    return MapUtils::TryGetByKey<unsigned, AssetInfo*>(GetAssetMapByType(type), id, nullptr);
 }
 
 void AssetManager::initAssetTree(AssetTree* assetTree)

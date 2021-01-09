@@ -236,16 +236,17 @@ void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node, int nodeNumb
 
 void EditorWindowBehaviorTreeViewport::drawNodes()
 {
-    int nodeNumber = 0;
-    drawNodeTree(BTEditor->GetRootNode(), nodeNumber);
+    drawNodeTree(BTEditor->GetRootNode());
     for (auto currentNode : BTEditor->GetUnparentedNodes())
     {
-        drawNodeTree(currentNode, nodeNumber);
+        drawNodeTree(currentNode);
     }
 }
 
-void EditorWindowBehaviorTreeViewport::drawNodeTree(BTEditorNode* root, int nodeNumber)
+void EditorWindowBehaviorTreeViewport::drawNodeTree(BTEditorNode* root)
 {
+    int nodeNumber = 0;
+
     std::queue<BTEditorNode*> nodeQueue;
     nodeQueue.push(root);
 

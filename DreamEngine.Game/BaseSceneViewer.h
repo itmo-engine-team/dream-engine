@@ -5,6 +5,7 @@
 #include "ModelData.h"
 #include "SceneRenderer.h"
 
+class AssetManager;
 class EngineConfigInfo;
 class ActorContext;
 class Graphics;
@@ -20,7 +21,8 @@ class BaseSceneViewer
 {
 public:
 
-    BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
+    BaseSceneViewer(EngineConfigInfo* engineConfigInfo,
+        InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager);
 
     void SetActive(bool isActive);
 
@@ -49,6 +51,7 @@ protected:
     InputSystem* inputSystem;
     Graphics* graphics;
     DeltaTimeHandler* deltaTimeHandler;
+    AssetManager* assetManager;
     
     ModelData* planeModel;
 

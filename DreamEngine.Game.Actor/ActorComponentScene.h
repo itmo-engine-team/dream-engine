@@ -2,6 +2,7 @@
 
 #include "ActorComponent.h"
 #include "ActorComponentSceneInfo.h"
+#include "TransformInfo.h"
 
 class Transform;
 
@@ -10,12 +11,13 @@ class ActorComponentScene : public ActorComponent
 
 public:
 
-    ActorComponentScene(ActorContext* context, Actor* actor, Transform* transform);
+    ActorComponentScene(Actor* actor);
 
     Transform* GetTransform() const;
 
     void Draw();
     void DrawShadowMap();
+    void UpdateTransform(TransformInfo* transformInfo);
 
 protected:
 

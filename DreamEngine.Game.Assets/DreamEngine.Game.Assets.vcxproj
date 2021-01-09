@@ -160,6 +160,7 @@
     <ClInclude Include="ParamExtender.h" />
     <ClInclude Include="Param.h" />
     <ClInclude Include="ParamInt.h" />
+    <ClInclude Include="ParamType.h" />
     <ClInclude Include="SceneActorInfo.h" />
     <ClInclude Include="SceneRoomInfo.h" />
     <ClInclude Include="TransformInfo.h" />

@@ -8,7 +8,7 @@ class ACF_AI : public ActorComponentFixed
 
 public:
 
-    ACF_AI(ActorContext* context, Actor* actor);
+    ACF_AI(Actor* actor);
 
     BehaviorTreeGame* GetBehaviorTree();
 
@@ -25,7 +25,7 @@ public:
 
     ActorComponentFixed* Create(Actor* actor, ActorComponentFixedInfo* actorInfo) override
     {
-        return new ACF_AI(actor->GetContext(), actor);
+        return new ACF_AI(actor);
     }
 
 };

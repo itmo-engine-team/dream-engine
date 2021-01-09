@@ -33,7 +33,7 @@ private:
     void setNodePosition(BTEditorNode* root);
     void renderBTNodeEditor();
     void renderBTNodeInspector(BTEditorNode* node);
-    void drawAddButtons();
+    void drawAddButtons(); 
     
     void drawNode(BTEditorNode* node);
     void drawNodes();

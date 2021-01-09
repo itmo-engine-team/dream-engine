@@ -2,6 +2,7 @@
 
 #include "Graphics.h"
 #include "InputSystem.h"
+#include "AssetManager.h"
 
 class DeltaTimeHandler;
 class ACS_Light;
@@ -15,15 +16,18 @@ public:
 
     ActorContext(Graphics* graphics,
         InputSystem* inputSystem,
-        DeltaTimeHandler* deltaTimeHandler
+        DeltaTimeHandler* deltaTimeHandler,
+        AssetManager* assetManager
     ) : graphics(graphics),
         inputSystem(inputSystem),
-        deltaTimeHandler(deltaTimeHandler)
+        deltaTimeHandler(deltaTimeHandler),
+        assetManager(assetManager)
     {}
 
     Graphics* GetGraphics() const;
     InputSystem* GetInputSystem() const;
     DeltaTimeHandler* GetDeltaTimeHandler() const;
+    AssetManager* GetAssetManager() const;
 
     ACS_Light* GetLight() const;
     void SetLight(ACS_Light* lightComponent);
@@ -34,11 +38,17 @@ public:
     NavMesh* GetNavMesh() const;
     void SetNavMesh(NavMesh* newNavMesh);
 
+    bool IsGameMode() const;
+    void SetGameMode(bool isGameMode);
+
 private:
 
     Graphics* graphics;
     InputSystem* inputSystem;
     DeltaTimeHandler* deltaTimeHandler;
+    AssetManager* assetManager;
+    bool isGameMode = false;
+
     NavMesh* navMesh = nullptr;
 
     ACS_Light* light;

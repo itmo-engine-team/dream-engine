@@ -6,8 +6,9 @@
 #include "NavMesh.h"
 #include "A_NavMesh.h"
 
-Game::Game(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
-    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics)
+Game::Game(EngineConfigInfo* engineConfigInfo,
+    InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
+    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics, assetManager)
 {
     gameAssetManager = new GameAssetManager();
 }
@@ -21,7 +22,8 @@ void Game::Init()
 {
     BaseSceneViewer::Init();
 
-    navMesh = new A_NavMesh(actorContext, new Transform({ 0, 0.11, 0 }));  
+    navMesh = new A_NavMesh(actorContext);
+    navMesh->UpdateTransform(new TransformInfo({ 0, 0.11, 0 }));
 }
 
 void Game::Update(const float engineDeltaTime)

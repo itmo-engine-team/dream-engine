@@ -3,6 +3,7 @@
 #include "ActorComponentScene.h"
 #include "ModelData.h"
 #include "MeshObject.h"
+#include "ParamAsset.h"
 
 class Transform;
 
@@ -11,17 +12,22 @@ class ACS_StaticModel : public ActorComponentScene
 
 public:
 
-    ACS_StaticModel(ActorContext* context, Actor* actor, Transform* transform, ModelData* modelData);
+    ACS_StaticModel(Actor* actor, ModelData* modelData);
     ~ACS_StaticModel();
 
 protected:
+
+    ParamAsset* modelAssetParam;
 
     ModelData* modelData;
 
     std::vector<MeshObject*> meshObjects;
 
+    void onInit() override;
     void onDraw() override;
     void onDrawShadowMap() override;
+
+    void onParamUpdate(std::string name, BaseParam* param) override;
 
 };
 

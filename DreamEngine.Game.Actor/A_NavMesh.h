@@ -10,7 +10,7 @@ class A_NavMesh : public Actor
 
 public:
 
-    A_NavMesh(ActorContext* context, Transform* transform);
+    A_NavMesh(ActorContext* context);
 
     NavMesh* GetNavMesh() const;
 

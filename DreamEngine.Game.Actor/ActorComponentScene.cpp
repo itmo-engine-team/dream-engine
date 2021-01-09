@@ -3,9 +3,9 @@
 #include "Actor.h"
 #include "Transform.h"
 
-ActorComponentScene::ActorComponentScene(ActorContext* context, Actor* actor, Transform* transform)
-    : ActorComponent(context, actor), transform(transform)
+ActorComponentScene::ActorComponentScene(Actor* actor) : ActorComponent(actor)
 {
+    transform = new Transform();
     transform->SetParent(actor->GetTransform(), true);
 }
 
@@ -22,6 +22,11 @@ void ActorComponentScene::Draw()
 void ActorComponentScene::DrawShadowMap()
 {
     onDrawShadowMap();
+}
+
+void ActorComponentScene::UpdateTransform(TransformInfo* transformInfo)
+{
+    transform->SetLocalPosition(transformInfo->GetPosition());
 }
 
 void ActorComponentScene::onDraw()

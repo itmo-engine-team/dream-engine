@@ -8,15 +8,15 @@
 #include "ACS_Light.h"
 #include "ACS_Camera.h"
 #include "Transform.h"
+#include "AssetType.h"
+#include "ParamInt.h"
 
-ACS_StaticModel::ACS_StaticModel(ActorContext* context, Actor* actor,
-                                 Transform* transform, ModelData* modelData)
-    : ActorComponentScene(context, actor, transform), modelData(modelData)
+ACS_StaticModel::ACS_StaticModel(Actor* actor, ModelData* modelData)
+    : ActorComponentScene(actor), modelData(modelData)
 {
-    for (auto meshData : modelData->GetMeshDataList())
-    {
-        meshObjects.push_back(new MeshObject(context->GetGraphics(), meshData));
-    }
+    modelAssetParam = new ParamAsset(AssetType::Model);
+    AddParam("Model Asset", modelAssetParam);
+    AddParam("Int", new ParamInt(0));
 }
 
 ACS_StaticModel::~ACS_StaticModel()
@@ -29,29 +29,37 @@ ACS_StaticModel::~ACS_StaticModel()
     }
 }
 
+void ACS_StaticModel::onInit()
+{
+    for (auto meshData : modelData->GetMeshDataList())
+    {
+        meshObjects.push_back(new MeshObject(actor->GetContext()->GetGraphics(), meshData));
+    }
+}
+
 void ACS_StaticModel::onDraw()
 {
     const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
-        context->GetCamera()->GetViewMatrix(),
-        context->GetCamera()->GetProjectionMatrix(),
-        context->GetLight()->GetViewMatrix(),
-        context->GetLight()->GetProjectionMatrix(),
+        actor->GetContext()->GetCamera()->GetViewMatrix(),
+        actor->GetContext()->GetCamera()->GetProjectionMatrix(),
+        actor->GetContext()->GetLight()->GetViewMatrix(),
+        actor->GetContext()->GetLight()->GetProjectionMatrix(),
     };
 
     const LightBuffer lb =
     {
         Vector4{0.15f, 0.15f, 0.15f, 1.0f},
         Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-        context->GetLight()->GetDirection(),
+        actor->GetContext()->GetLight()->GetDirection(),
         100.0f,
         {1.0f, 1.0f, 1.0f, 1.0f }
     };
 
     const CameraBuffer cameraBufferData =
     {
-        context->GetCamera()->GetTransform()->GetWorldPosition()
+        actor->GetContext()->GetCamera()->GetTransform()->GetWorldPosition()
     };
 
     for (auto meshObject : meshObjects)
@@ -65,8 +73,8 @@ void ACS_StaticModel::onDrawShadowMap()
     const ConstantBuffer cb =
     {
         transform->GetWorldMatrix(),
-        context->GetLight()->GetViewMatrix(),
-        context->GetLight()->GetProjectionMatrix(),
+        actor->GetContext()->GetLight()->GetViewMatrix(),
+        actor->GetContext()->GetLight()->GetProjectionMatrix(),
     };
     for (auto meshObject : meshObjects)
     {
@@ -74,8 +82,15 @@ void ACS_StaticModel::onDrawShadowMap()
     }
 }
 
+void ACS_StaticModel::onParamUpdate(std::string name, BaseParam* param)
+{
+    if (param == modelAssetParam)
+    {
+        // TODO: Update model
+    }
+}
+
 ActorComponentScene* ACS_Creator_StaticModel::Create(Actor* actor, ActorComponentSceneInfo* actorInfo)
 {
-    return new ACS_StaticModel(actor->GetContext(), actor,
-        new Transform(actorInfo->GetTransformInfo()->GetPosition()), new ModelData());
+    return new ACS_StaticModel(actor, new ModelData());
 }

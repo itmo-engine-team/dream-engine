@@ -147,6 +147,7 @@
     <ClInclude Include="BTEditorNodeFactory.h" />
     <ClInclude Include="BTEditorNodeLogic.h" />
     <ClInclude Include="BTEditorNodeRoot.h" />
+    <ClInclude Include="BTNodeLogicType.h" />
     <ClInclude Include="BTNodeType.h" />
   </ItemGroup>
   <ItemGroup>

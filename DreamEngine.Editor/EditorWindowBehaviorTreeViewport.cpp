@@ -8,7 +8,6 @@
 #include "BTAssetInfo.h"
 #include <BTEditorNodeComposite.h>
 
-
 EditorWindowBehaviorTreeViewport::EditorWindowBehaviorTreeViewport(Editor* editor, BTAssetInfo* assetInfo)
     : EditorWindow("Behavior Tree", editor), assetInfo(assetInfo)
 {
@@ -94,8 +93,6 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeEditor()
     drawLinks();
 
     imnodes::EndNodeEditor();
-    
-    //drawNodeContextMenu(currentNode);
 
     int startId;
     int endId;
@@ -151,6 +148,8 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeInspector(BTEditorNode* node)
 
         ImGui::End();
     }
+  
+    ImGui::End();
 }
 
 void EditorWindowBehaviorTreeViewport::drawAddButtons()
@@ -188,7 +187,7 @@ void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node)
     ImGui::Indent(20);
     ImGui::TextUnformatted(node->GetTypeName().c_str());
     imnodes::EndNode();
-
+  
     if (ImGui::IsItemClicked())
     {
         currentNode = node;

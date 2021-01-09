@@ -1,6 +1,9 @@
 #pragma once
 
 #include <Serializable.h>
+#include "ParamExtender.h"
+
+class ActorComponent;
 
 class ActorComponentInfo : public Serializable
 {
@@ -13,6 +16,11 @@ public:
     const std::string& GetName() const;
     void SetName(const std::string& name);
 
+    ActorComponent* GetComponentRef() const;
+    void SetComponentRef(ActorComponent* componentRef);
+
+    ParamExtender* GetParamExtender() const;
+
 protected:
 
     Json toJson() override;
@@ -21,6 +29,9 @@ protected:
 private:
 
     std::string name;
+    ActorComponent* componentRef = nullptr;
+
+    ParamExtender* paramExtender = new ParamExtender();
 
 };
 

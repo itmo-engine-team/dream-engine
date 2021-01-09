@@ -28,6 +28,12 @@
     <Filter Include="Source Files\Window">
       <UniqueIdentifier>{c487acdf-d9c7-464a-93b9-925e675cbb92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Param">
+      <UniqueIdentifier>{470cc3d3-27ff-4275-a8ce-92c645794694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Param">
+      <UniqueIdentifier>{1c34fce2-efa8-4bf6-b38f-c16b7eb769a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h">
@@ -99,6 +105,18 @@
     <ClInclude Include="EditorWindowActorViewer.h">
       <Filter>Header Files\Window</Filter>
     </ClInclude>
+    <ClInclude Include="EditorParamViewer.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorParamDrawer.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorParamDrawerAsset.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorParamDrawerInt.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -169,6 +187,18 @@
     </ClCompile>
     <ClCompile Include="EditorWindowActorViewer.cpp">
       <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorParamViewer.cpp">
+      <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorParamDrawer.cpp">
+      <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorParamDrawerAsset.cpp">
+      <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorParamDrawerInt.cpp">
+      <Filter>Source Files\Param</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

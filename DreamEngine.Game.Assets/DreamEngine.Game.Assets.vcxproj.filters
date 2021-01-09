@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Param">
       <UniqueIdentifier>{260827b3-83bc-4fe9-a8f8-b69972d9c2d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Param\Inherited">
+      <UniqueIdentifier>{208cdbcb-0745-4108-956f-b7d74ae81c37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Param\Inherited">
+      <UniqueIdentifier>{4231ac89-3944-4542-9d90-ed1ecdde6681}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TransformInfo.cpp">
@@ -58,7 +64,7 @@
       <Filter>Source Files\Param</Filter>
     </ClCompile>
     <ClCompile Include="ParamInt.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Param\Inherited</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,8 +98,11 @@
     <ClInclude Include="Param.h">
       <Filter>Header Files\Param</Filter>
     </ClInclude>
+    <ClInclude Include="ParamType.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
     <ClInclude Include="ParamInt.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Param\Inherited</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

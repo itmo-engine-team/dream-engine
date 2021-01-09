@@ -111,6 +111,17 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeInspector(BTEditorNode* node)
     {
         ImGui::Begin("BT Node Inspector");
 
+        if (ImGui::Button("Unparent"))
+        {
+            // TODO: delete link
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Delete"))
+        {
+            //TODO: delete node
+        }
+        ImGui::Separator();
+
         ImGui::Text("Node name: ");
         ImGui::InputText("Name", nodeName.data(), 24);
         if (ImGui::IsItemDeactivatedAfterEdit())
@@ -133,17 +144,6 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeInspector(BTEditorNode* node)
                 }
                 ImGui::EndCombo();
             }
-        }
-
-        ImGui::Separator();
-        if (ImGui::Button("Unparent"))
-        {
-            // TODO: delete link
-        }
-        ImGui::SameLine();
-        if (ImGui::Button("Delete"))
-        {
-            //TODO: delete node
         }
 
         ImGui::End();
@@ -190,7 +190,7 @@ void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node)
     {
         currentNode = node;
         selectableName = node->GetTypeName();
-        nodeName.clear();
+        nodeName = node->GetName();
     }
 
     node->SetPosition(imnodes::GetNodeGridSpacePos(node->GetId()));

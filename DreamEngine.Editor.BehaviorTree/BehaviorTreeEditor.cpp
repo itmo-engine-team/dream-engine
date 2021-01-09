@@ -35,16 +35,68 @@ void BehaviorTreeEditor::CreateLink(int parentAttributeId, int childAttributeId)
     if (!(parentNode->CanHaveChild() && childNode->CanHaveParent()))
         return;
 
-    auto iter = std::find(
-        unparentedNodes.begin(), unparentedNodes.end(), childNode);
-    if (iter != unparentedNodes.end())
+    // Check already existed children for parent
+    if (parentNode->HasAnyChild() && !parentNode->CanHaveChildren())
     {
-        unparentedNodes.erase(iter);
+        for (auto childLink : parentNode->GetChildrenLinks())
+        {
+            unparentedNodes.push_back(childLink.second);
+        }
+        parentNode->removeChildren(true);
+    }
+
+    // Check already existed parent for child
+    if (childNode->HasParent())
+    {
+        childNode->GetParentLink().second->removeChild(childNode, true);
+    }
+    else
+    {
+        // Remove child from unparented nodes
+        // Now it will has parent
+        auto iter = std::find(
+            unparentedNodes.begin(), unparentedNodes.end(), childNode);
+        if (iter != unparentedNodes.end())
+        {
+            unparentedNodes.erase(iter);
+        }
     }
 
     int linkId = generateNewId();
     parentNode->addChildLink(std::pair(linkId, childNode));
     childNode->setParentLink(std::pair(linkId, parentNode));
+}
+
+void BehaviorTreeEditor::UnparentNode(BTEditorNode* node)
+{
+    if (node->HasParent())
+    {
+        node->GetParentLink().second->removeChild(node, true);
+        unparentedNodes.push_back(node);
+    }
+}
+
+void BehaviorTreeEditor::DeleteNode(BTEditorNode* node)
+{
+    for (auto childNodeLink : node->GetChildrenLinks())
+    {
+        unparentedNodes.push_back(childNodeLink.second);
+        childNodeLink.second->removeParent();
+    }
+    node->removeChildren(true);
+
+    if (node->HasParent())
+    {
+        node->GetParentLink().second->removeChild(node, true);
+    }
+    else
+    {
+        auto iter = std::find(unparentedNodes.begin(), unparentedNodes.end(), node);
+        if (iter != unparentedNodes.end())
+        {
+            unparentedNodes.erase(iter);
+        }
+    }
 }
 
 BTEditorNode* BehaviorTreeEditor::GetRootNode() const

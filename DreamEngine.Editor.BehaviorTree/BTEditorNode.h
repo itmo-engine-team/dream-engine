@@ -24,9 +24,11 @@ public:
     const ImVec2& GetPosition() const;
     void SetPosition(ImVec2 position);
 
+    bool HasParent() const;
     int GetParentAttributeId() const;
     std::pair<int, BTEditorNode*> GetParentLink() const;
 
+    bool HasAnyChild();
     int GetChildrenAttributeId() const;
     const std::vector<std::pair<int, BTEditorNode*>>& GetChildrenLinks() const;
 
@@ -44,9 +46,12 @@ protected:
 
     void setParentAttributeId(int attributeId);
     void setParentLink(std::pair<int, BTEditorNode*> parentLink);
+    void removeParent();
 
     void addChildLink(std::pair<int, BTEditorNode*> childLink);
     void setChildrenAttributeId(int attributeId);
+    void removeChild(BTEditorNode* child, bool removeChildParent);
+    void removeChildren(bool removeChildParent);
 
     Json toJson() override;
     void fromJson(Json json) override;

@@ -63,6 +63,11 @@ void BTEditorNode::SetPosition(ImVec2 position)
     this->position = position;
 }
 
+bool BTEditorNode::HasParent() const
+{
+    return parentLink.second != nullptr;
+}
+
 int BTEditorNode::GetParentAttributeId() const
 {
     return parentAttributeId;
@@ -78,9 +83,19 @@ std::pair<int, BTEditorNode*> BTEditorNode::GetParentLink() const
     return parentLink;
 }
 
+bool BTEditorNode::HasAnyChild()
+{
+    return !childrenLinks.empty();
+}
+
 void BTEditorNode::setParentLink(std::pair<int, BTEditorNode*> parentLink)
 {
     this->parentLink = parentLink;
+}
+
+void BTEditorNode::removeParent()
+{
+    parentLink = std::pair(-1, nullptr);
 }
 
 int BTEditorNode::GetChildrenAttributeId() const
@@ -91,6 +106,32 @@ int BTEditorNode::GetChildrenAttributeId() const
 void BTEditorNode::setChildrenAttributeId(int attributeId)
 {
     childrenAttributeId = attributeId;
+}
+
+void BTEditorNode::removeChild(BTEditorNode* child, bool removeChildParent)
+{
+    for (auto iter = childrenLinks.begin(); iter < childrenLinks.end(); ++iter)
+    {
+        if (iter->second == child)
+        {
+            if (removeChildParent) iter->second->removeParent();
+            childrenLinks.erase(iter);
+            return;
+        }
+    }
+}
+
+void BTEditorNode::removeChildren(bool removeChildParent)
+{
+    if (removeChildParent)
+    {
+        for (auto childLink : childrenLinks)
+        {
+            childLink.second->removeParent();
+        }
+    }
+
+    childrenLinks.clear();
 }
 
 const std::vector<std::pair<int, BTEditorNode*>>& BTEditorNode::GetChildrenLinks() const

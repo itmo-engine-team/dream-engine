@@ -148,8 +148,6 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeInspector(BTEditorNode* node)
 
         ImGui::End();
     }
-  
-    ImGui::End();
 }
 
 void EditorWindowBehaviorTreeViewport::drawAddButtons()

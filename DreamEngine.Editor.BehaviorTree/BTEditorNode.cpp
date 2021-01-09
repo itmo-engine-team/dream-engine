@@ -38,7 +38,7 @@ const std::string& BTEditorNode::GetTypeName() const
     return typeName;
 }
 
-void BTEditorNode::setName(const std::string& name)
+void BTEditorNode::SetName(const std::string& name)
 {
     this->name = name;
 }

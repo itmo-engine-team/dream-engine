@@ -18,7 +18,8 @@ public:
 
     BTNodeType GetType() const;
     int GetId() const;
-    const std::string& GetName() const;
+    const std::string& GetName() const; 
+    void SetName(const std::string& name);
     const std::string& GetTypeName() const;
     const ImVec2& GetPosition() const;
     void SetPosition(ImVec2 position);
@@ -38,7 +39,7 @@ protected:
     friend BehaviorTreeEditor;
 
     void setId(int id);
-    void setName(const std::string& name);
+   
     void setTypeName(const std::string& name);
 
     void setParentAttributeId(int attributeId);

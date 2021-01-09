@@ -3,17 +3,27 @@
 #include <queue>
 
 #include "imgui.h"
-#include "imnodes.h"
 #include "Editor.h"
 #include "AssetManager.h"
 #include "BTAssetInfo.h"
-
+#include <BTEditorNodeComposite.h>
 
 EditorWindowBehaviorTreeViewport::EditorWindowBehaviorTreeViewport(Editor* editor, BTAssetInfo* assetInfo)
     : EditorWindow("Behavior Tree", editor), assetInfo(assetInfo)
 {
     BTEditor = assetInfo->GetBTEditor();
-    
+    currentNode = BTEditor->GetRootNode();
+    nodeName.resize(24);
+
+    context = imnodes::EditorContextCreate();
+    imnodes::EditorContextSet(context);
+
+    setNodesPosition();
+}
+
+EditorWindowBehaviorTreeViewport::~EditorWindowBehaviorTreeViewport()
+{
+    imnodes::EditorContextFree(context);
 }
 
 void EditorWindowBehaviorTreeViewport::Init()
@@ -29,7 +39,35 @@ void EditorWindowBehaviorTreeViewport::Update()
 void EditorWindowBehaviorTreeViewport::Render()
 {
     renderBTNodeEditor();
-    renderBTNodeInspector();
+    renderBTNodeInspector(currentNode);
+}
+
+void EditorWindowBehaviorTreeViewport::setNodesPosition()
+{
+    setNodePosition(BTEditor->GetRootNode());
+    for (auto currentNode : BTEditor->GetUnparentedNodes())
+    {
+        setNodePosition(currentNode);
+    }
+}
+
+void EditorWindowBehaviorTreeViewport::setNodePosition(BTEditorNode* root)
+{
+    std::queue<BTEditorNode*> nodeQueue;
+    nodeQueue.push(root);
+
+    while (!nodeQueue.empty())
+    {
+        BTEditorNode* nodeToDraw = nodeQueue.front();
+        nodeQueue.pop();
+
+        imnodes::SetNodeGridSpacePos(nodeToDraw->GetId(), nodeToDraw->GetPosition());
+
+        for (auto childNodeLink : nodeToDraw->GetChildrenLinks())
+        {
+            nodeQueue.push(childNodeLink.second);
+        }
+    }
 }
 
 void EditorWindowBehaviorTreeViewport::renderBTNodeEditor()
@@ -55,7 +93,7 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeEditor()
     drawLinks();
 
     imnodes::EndNodeEditor();
-    
+
     int startId;
     int endId;
     bool result = imnodes::IsLinkCreated(&startId, &endId);
@@ -64,13 +102,53 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeEditor()
         BTEditor->CreateLink(startId, endId);
     }
 
-    ImGui::End();
+    ImGui::End();  
 }
 
-void EditorWindowBehaviorTreeViewport::renderBTNodeInspector()
+void EditorWindowBehaviorTreeViewport::renderBTNodeInspector(BTEditorNode* node)
 {
-    ImGui::Begin("BT Node Inspector");
+    if (node != BTEditor->GetRootNode())
+    {
+        ImGui::Begin("BT Node Inspector");
 
+        ImGui::Text("Node name: ");
+        ImGui::InputText("Name", nodeName.data(), 24);
+        if (ImGui::IsItemDeactivatedAfterEdit())
+            node->SetName(nodeName.c_str());
+
+        if (node->GetType() == BTNodeType::Composite)
+        {
+            if (ImGui::BeginCombo("Composite Type", selectableName.data()))
+            {
+                if (ImGui::Selectable("Sequencer"))
+                {
+                    selectableName = "Sequencer";
+                    dynamic_cast<BTEditorNodeComposite*>(node)->SetCompositeType(BTNodeCompositeType::Sequencer);
+                }
+
+                if (ImGui::Selectable("Selector"))
+                {
+                    selectableName = "Selector";
+                    dynamic_cast<BTEditorNodeComposite*>(node)->SetCompositeType(BTNodeCompositeType::Selector);
+                }
+                ImGui::EndCombo();
+            }
+        }
+
+        ImGui::Separator();
+        if (ImGui::Button("Unparent"))
+        {
+            // TODO: delete link
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Delete"))
+        {
+            //TODO: delete node
+        }
+
+        ImGui::End();
+    }
+  
     ImGui::End();
 }
 
@@ -109,6 +187,15 @@ void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node)
     ImGui::Indent(20);
     ImGui::TextUnformatted(node->GetTypeName().c_str());
     imnodes::EndNode();
+  
+    if (ImGui::IsItemClicked())
+    {
+        currentNode = node;
+        selectableName = node->GetTypeName();
+        nodeName.clear();
+    }
+
+    node->SetPosition(imnodes::GetNodeGridSpacePos(node->GetId()));
 }
 
 void EditorWindowBehaviorTreeViewport::drawNodes()

@@ -25,5 +25,7 @@ protected:
 
     void onDrawPopup() override;
     bool onFinish() override;
+
+    void drawElement(int index, AssetInfo* assetToDraw, const std::string& assetName);
 };
 

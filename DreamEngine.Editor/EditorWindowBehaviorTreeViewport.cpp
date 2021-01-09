@@ -1,12 +1,14 @@
 #include "EditorWindowBehaviorTreeViewport.h"
 
 #include <queue>
+#include "MapUtils.h"
 
 #include "imgui.h"
 #include "Editor.h"
 #include "AssetManager.h"
 #include "BTAssetInfo.h"
 #include <BTEditorNodeComposite.h>
+#include <BTEditorNodeLogic.h>
 
 EditorWindowBehaviorTreeViewport::EditorWindowBehaviorTreeViewport(Editor* editor, BTAssetInfo* assetInfo)
     : EditorWindow("Behavior Tree", editor), assetInfo(assetInfo)
@@ -19,6 +21,17 @@ EditorWindowBehaviorTreeViewport::EditorWindowBehaviorTreeViewport(Editor* edito
     imnodes::EditorContextSet(context);
 
     setNodesPosition();
+
+    sizeStr = MAP_NODE_LOGIC_TYPE_TO_STRING.size();
+
+    tempStrMass = new std::string[sizeStr];
+    int i = 0;
+
+    for (auto iterator = MAP_NODE_LOGIC_TYPE_TO_STRING.begin(); iterator != MAP_NODE_LOGIC_TYPE_TO_STRING.end(); ++iterator, i++)
+    {
+        tempStrMass[i] = iterator->second;
+    }
+    selectableLogicName = tempStrMass[0];
 }
 
 EditorWindowBehaviorTreeViewport::~EditorWindowBehaviorTreeViewport()
@@ -145,6 +158,27 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeInspector(BTEditorNode* node)
                 ImGui::EndCombo();
             }
         }
+        if (node->GetType() == BTNodeType::Logic)
+        {
+            if (ImGui::BeginCombo("Logic Type", selectableLogicName.data()))
+            {
+                for (int n = 0; n < sizeStr; n++)
+                {
+                    const bool isSelected = (currentType == n);
+
+                    if (ImGui::Selectable(tempStrMass[n].c_str(), isSelected))
+                    {
+                        currentType = n;
+                        selectableLogicName = tempStrMass[currentType];
+                        logicType = MapUtils::TryGetByValue<BTNodeLogicType, std::string>(MAP_NODE_LOGIC_TYPE_TO_STRING, selectableLogicName, BTNodeLogicType::UNKNOWN);
+                        dynamic_cast<BTEditorNodeLogic*>(node)->SetLogicType(logicType);
+                    }
+                    if (isSelected)
+                        ImGui::SetItemDefaultFocus();
+                }
+                ImGui::EndCombo();
+            }
+        }
 
         ImGui::End();
     }
@@ -194,6 +228,7 @@ void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node, int nodeNumb
         currentNode = node;
         selectableName = node->GetTypeName();
         nodeName = node->GetName();
+        selectableLogicName = node->GetTypeName();
     }
 
     node->SetPosition(imnodes::GetNodeGridSpacePos(node->GetId()));

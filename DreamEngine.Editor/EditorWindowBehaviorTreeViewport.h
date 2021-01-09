@@ -1,6 +1,7 @@
 #pragma once
 #include "EditorWindow.h"
 #include <BTEditorNode.h>
+#include <BTNodeLogicType.h>
 
 #include "imnodes.h"
 
@@ -28,6 +29,12 @@ private:
 
     std::string nodeName;
     std::string selectableName;
+
+    int sizeStr;
+    std::string* tempStrMass;
+    std::string selectableLogicName;
+    int currentType;
+    BTNodeLogicType logicType;
 
     void setNodesPosition();
     void setNodePosition(BTEditorNode* root);

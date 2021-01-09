@@ -163,7 +163,7 @@ void EditorWindowBehaviorTreeViewport::drawAddButtons()
     }
 }
 
-void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node)
+void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node, int nodeNumber)
 {
     imnodes::BeginNode(node->GetId());
     imnodes::BeginNodeTitleBar();
@@ -182,6 +182,9 @@ void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node)
         imnodes::EndOutputAttribute();
     }
 
+    std::string number = std::to_string(nodeNumber);
+    ImGui::TextUnformatted(number.c_str());
+    ImGui::SameLine();
     ImGui::Indent(20);
     ImGui::TextUnformatted(node->GetTypeName().c_str());
     imnodes::EndNode();
@@ -198,14 +201,15 @@ void EditorWindowBehaviorTreeViewport::drawNode(BTEditorNode* node)
 
 void EditorWindowBehaviorTreeViewport::drawNodes()
 {
-    drawNodeTree(BTEditor->GetRootNode());
+    int nodeNumber = 0;
+    drawNodeTree(BTEditor->GetRootNode(), nodeNumber);
     for (auto currentNode : BTEditor->GetUnparentedNodes())
     {
-        drawNodeTree(currentNode);
+        drawNodeTree(currentNode, nodeNumber);
     }
 }
 
-void EditorWindowBehaviorTreeViewport::drawNodeTree(BTEditorNode* root)
+void EditorWindowBehaviorTreeViewport::drawNodeTree(BTEditorNode* root, int nodeNumber)
 {
     std::queue<BTEditorNode*> nodeQueue;
     nodeQueue.push(root);
@@ -215,7 +219,7 @@ void EditorWindowBehaviorTreeViewport::drawNodeTree(BTEditorNode* root)
         BTEditorNode* nodeToDraw = nodeQueue.front();
         nodeQueue.pop();
 
-        drawNode(nodeToDraw);
+        drawNode(nodeToDraw, nodeNumber++);
 
         for (auto childNodeLink : nodeToDraw->GetChildrenLinks())
         {

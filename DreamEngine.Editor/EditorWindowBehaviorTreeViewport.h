@@ -35,9 +35,9 @@ private:
     void renderBTNodeInspector(BTEditorNode* node);
     void drawAddButtons(); 
     
-    void drawNode(BTEditorNode* node);
+    void drawNode(BTEditorNode* node, int nodeNumber);
     void drawNodes();
-    void drawNodeTree(BTEditorNode* root);
+    void drawNodeTree(BTEditorNode* root, int nodeNumber);
     void drawLink(BTEditorNode* root);
     void drawLinks();
 

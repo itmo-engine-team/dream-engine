@@ -10,6 +10,14 @@ EditorPopupModalAssetChooser::EditorPopupModalAssetChooser(Editor* editor, Asset
     assetMap = assetManager->GetAssetMapByType(assetType);
 
     assetIcon = editor->GetIconByAssetType(assetType);
+    noneIcon = new Texture(editor->GetContext()->GetGraphics(), editor->GetPathFromEditor(L"Icons/noneIcon.png").c_str());
+
+    currentAsset = nullptr;
+}
+
+EditorPopupModalAssetChooser::~EditorPopupModalAssetChooser()
+{
+    delete noneIcon;
 }
 
 AssetInfo* EditorPopupModalAssetChooser::GetChosenAsset() const
@@ -29,6 +37,35 @@ void EditorPopupModalAssetChooser::onDrawPopup()
 
     int assetSize = assetMap.size();
     int i = 0;
+    
+    ImGui::PushID(i++);
+    ImGui::BeginGroup();  
+
+    bool assetSelected = currentAsset == nullptr;
+    if (assetSelected)
+    {
+        ImGui::PushStyleColor(ImGuiCol_Button, { 0.3, 0, 0.8, 1 });
+    }
+
+    if (ImGui::ImageButton(noneIcon->GetShaderResourceView(), buttonSize))
+    {
+        currentAsset = nullptr;
+    }
+
+    if (assetSelected)
+    {
+        ImGui::PopStyleColor();
+    }
+
+    ImGui::Text("None");
+    ImGui::EndGroup();
+
+    float lastButton = ImGui::GetItemRectMax().x;
+    float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
+    if (i + 1 < assetSize+1 && nextButton < windowVisible)
+        ImGui::SameLine();
+
+    ImGui::PopID();
 
     for (auto iterator = assetMap.begin(); iterator != assetMap.end(); ++iterator, i++)
     {
@@ -60,7 +97,7 @@ void EditorPopupModalAssetChooser::onDrawPopup()
 
             float lastButton = ImGui::GetItemRectMax().x;
             float nextButton = lastButton + style.ItemSpacing.x + buttonSize.x; // Expected position if next button was on same line
-            if (i + 1 < assetSize && nextButton < windowVisible)
+            if (i + 1 < assetSize+1 && nextButton < windowVisible)
                 ImGui::SameLine();
             ImGui::PopID();
         }
@@ -70,9 +107,4 @@ void EditorPopupModalAssetChooser::onDrawPopup()
 bool EditorPopupModalAssetChooser::onFinish()
 {
     if (!result) return true;
-
-    if (!currentAsset)
-        return false;
-    else
-        return true;
 }

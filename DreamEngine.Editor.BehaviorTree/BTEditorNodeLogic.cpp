@@ -31,6 +31,8 @@ BTNodeLogicType BTEditorNodeLogic::GetLogicType() const
 void BTEditorNodeLogic::SetLogicType(BTNodeLogicType logicType)
 {
     this->logicType = logicType;
+    setTypeName(MapUtils::TryGetByKey<BTNodeLogicType, std::string>(
+        MAP_NODE_LOGIC_TYPE_TO_STRING, logicType, "UNKNOWN"));
 }
 
 Json BTEditorNodeLogic::toJson()

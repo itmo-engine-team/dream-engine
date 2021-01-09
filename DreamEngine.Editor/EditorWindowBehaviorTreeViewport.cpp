@@ -126,12 +126,12 @@ void EditorWindowBehaviorTreeViewport::renderBTNodeInspector(BTEditorNode* node)
 
         if (ImGui::Button("Unparent"))
         {
-            // TODO: delete link
+            BTEditor->UnparentNode(node);
         }
         ImGui::SameLine();
         if (ImGui::Button("Delete"))
         {
-            //TODO: delete node
+            BTEditor->DeleteNode(node);
         }
         ImGui::Separator();
 

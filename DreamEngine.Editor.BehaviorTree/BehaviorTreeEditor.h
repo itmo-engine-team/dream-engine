@@ -16,6 +16,7 @@ public:
     void CreateLink(int parentAttributeId, int childAttributeId);
     void UnparentNode(BTEditorNode* node);
     void DeleteNode(BTEditorNode* node);
+    void UpdateNodesOrder();
 
     BTEditorNode* GetRootNode() const;
     const std::vector<BTEditorNode*>& GetUnparentedNodes() const;
@@ -36,6 +37,9 @@ private:
 
     int generateNewId();
     void fillNodeIds(BTEditorNode* node);
+
+    void updateNodeTreeOrder(BTEditorNode* root);
+    void updateNodeChildrenOrder(BTEditorNode* node);
 
     BTEditorNode* findNodeByParentAttributeId(int parentAttributeId);
     BTEditorNode* findNodeByChildrenAttributeId(int childrenAttributeId);

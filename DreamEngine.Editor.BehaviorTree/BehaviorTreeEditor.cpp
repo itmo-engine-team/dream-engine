@@ -99,6 +99,16 @@ void BehaviorTreeEditor::DeleteNode(BTEditorNode* node)
     }
 }
 
+void BehaviorTreeEditor::UpdateNodesOrder()
+{
+    updateNodeTreeOrder(rootNode);
+
+    for (auto unparentedNode : unparentedNodes)
+    {
+        updateNodeTreeOrder(unparentedNode);
+    }
+}
+
 BTEditorNode* BehaviorTreeEditor::GetRootNode() const
 {
     return rootNode;
@@ -124,6 +134,50 @@ void BehaviorTreeEditor::fillNodeIds(BTEditorNode* node)
 
     if (node->CanHaveChild())
         node->setChildrenAttributeId(generateNewId());
+}
+
+void BehaviorTreeEditor::updateNodeTreeOrder(BTEditorNode* root)
+{
+    std::queue<BTEditorNode*> searchQueue;
+    searchQueue.push(root);
+
+    while (!searchQueue.empty())
+    {
+        BTEditorNode* node = searchQueue.front();
+        searchQueue.pop();
+
+        if (node->CanHaveChildren() && node->GetChildrenLinks().size() > 1)
+            updateNodeChildrenOrder(node);
+
+        if (!node->CanHaveChild())
+            continue;
+
+        for (auto childNodeLink : node->GetChildrenLinks())
+        {
+            searchQueue.push(childNodeLink.second);
+        }
+    }
+}
+
+void BehaviorTreeEditor::updateNodeChildrenOrder(BTEditorNode* node)
+{
+    std::vector<std::pair<int, BTEditorNode*>> oldChildrenLinksOrder = node->GetChildrenLinks();
+    node->removeChildren(false);
+
+    while (!oldChildrenLinksOrder.empty())
+    {
+        auto iter = oldChildrenLinksOrder.begin();
+        auto firstChildIter = iter;
+        ++iter;
+        for (; iter < oldChildrenLinksOrder.end(); ++iter)
+        {
+            if (iter->second->GetPosition().y < firstChildIter->second->GetPosition().y)
+                firstChildIter = iter;
+        }
+
+        node->addChildLink(*firstChildIter);
+        oldChildrenLinksOrder.erase(firstChildIter);
+    }
 }
 
 BTEditorNode* BehaviorTreeEditor::findNodeByParentAttributeId(int parentAttributeId)
@@ -178,6 +232,9 @@ BTEditorNode* BehaviorTreeEditor::findNodeInTree(
 
         if (checkFunction(nodeToCheck, idToCheck))
             return nodeToCheck;
+
+        if (!nodeToCheck->CanHaveChild())
+            continue;
 
         for (auto childNodeLink : nodeToCheck->GetChildrenLinks())
         {

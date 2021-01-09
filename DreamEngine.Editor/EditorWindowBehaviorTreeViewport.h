@@ -44,7 +44,7 @@ private:
     
     void drawNode(BTEditorNode* node, int nodeNumber);
     void drawNodes();
-    void drawNodeTree(BTEditorNode* root);
+    int drawNodeTree(BTEditorNode* root, int nodeNumber = 0);
     void drawLink(BTEditorNode* root);
     void drawLinks();
 

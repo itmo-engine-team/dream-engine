@@ -46,7 +46,7 @@ void EditorWindowBehaviorTreeViewport::Init()
 
 void EditorWindowBehaviorTreeViewport::Update()
 {
-
+    BTEditor->UpdateNodesOrder();
 }
 
 void EditorWindowBehaviorTreeViewport::Render()
@@ -243,25 +243,17 @@ void EditorWindowBehaviorTreeViewport::drawNodes()
     }
 }
 
-void EditorWindowBehaviorTreeViewport::drawNodeTree(BTEditorNode* root)
+int EditorWindowBehaviorTreeViewport::drawNodeTree(BTEditorNode* node, int nodeNumber)
 {
-    int nodeNumber = 0;
+    drawNode(node, nodeNumber);
+    nodeNumber++;
 
-    std::queue<BTEditorNode*> nodeQueue;
-    nodeQueue.push(root);
-
-    while (!nodeQueue.empty())
+    for (const auto childNodeLink : node->GetChildrenLinks())
     {
-        BTEditorNode* nodeToDraw = nodeQueue.front();
-        nodeQueue.pop();
-
-        drawNode(nodeToDraw, nodeNumber++);
-
-        for (auto childNodeLink : nodeToDraw->GetChildrenLinks())
-        {
-            nodeQueue.push(childNodeLink.second);
-        }
+        nodeNumber = drawNodeTree(childNodeLink.second, nodeNumber);
     }
+
+    return nodeNumber;
 }
 
 void EditorWindowBehaviorTreeViewport::drawLinks()

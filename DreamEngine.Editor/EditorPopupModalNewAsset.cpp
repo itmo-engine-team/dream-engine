@@ -22,7 +22,7 @@ EditorPopupModalNewAsset::EditorPopupModalNewAsset(FolderNode* parentFolderNode)
 
     for (auto iterator = AssetInfoFactory::MAP_ASSET_TYPE_TO_STRING.begin(); iterator != AssetInfoFactory::MAP_ASSET_TYPE_TO_STRING.end(); ++iterator, i++)
     {
-        tempStrMass[i] = AssetInfoFactory::GetAssetTypeStringName(iterator->first);
+        tempStrMass[i] = iterator->second;
     }
 
     selectedAssetType = AssetInfoFactory::GetAssetTypeByString(tempStrMass[0]);

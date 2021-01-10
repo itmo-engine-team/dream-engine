@@ -9,6 +9,11 @@ ActorComponentScene::ActorComponentScene(Actor* actor) : ActorComponent(actor)
     transform->SetParent(actor->GetTransform(), true);
 }
 
+ActorComponentScene::~ActorComponentScene()
+{
+    delete transform;
+}
+
 Transform* ActorComponentScene::GetTransform() const
 {
     return transform;

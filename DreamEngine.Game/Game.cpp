@@ -2,7 +2,6 @@
 
 #include "GameAssetManager.h"
 #include "Scene.h"
-#include "ACS_Collision.h"
 #include "NavMesh.h"
 #include "A_NavMesh.h"
 
@@ -10,7 +9,6 @@ Game::Game(EngineConfigInfo* engineConfigInfo,
     InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
     : BaseSceneViewer(engineConfigInfo, inputSystem, graphics, assetManager)
 {
-    gameAssetManager = new GameAssetManager();
 }
 
 GameAssetManager* Game::GetGameAssetManager() const

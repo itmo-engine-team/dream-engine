@@ -3,6 +3,7 @@
 #include "BaseSceneViewer.h"
 
 class TextureAssetInfo;
+class ACS_StaticModel;
 class ModelAssetInfo;
 
 class ModelViewer : public BaseSceneViewer
@@ -22,6 +23,7 @@ public:
 private:
 
     Actor* modelActor;
+    ACS_StaticModel* staticModelComponent;
 
     ModelData* currentModel;
     Texture* currentPreviewTexture;

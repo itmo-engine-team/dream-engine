@@ -22,6 +22,11 @@ AssetManager* ActorContext::GetAssetManager() const
     return assetManager;
 }
 
+GameAssetManager* ActorContext::GetGameAssetManager() const
+{
+    return gameAssetManager;
+}
+
 ACS_Light* ActorContext::GetLight() const
 {
     return light;

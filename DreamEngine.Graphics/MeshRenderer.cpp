@@ -181,7 +181,7 @@ void MeshRenderer::processNode(ModelData* modelData, aiNode* node, const aiScene
     for (UINT i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        modelData->AddMeshData(processMesh(mesh, scene, modelData->GetTexture()));
+        modelData->AddMeshData(processMesh(mesh, scene));
     }
 
     for (UINT i = 0; i < node->mNumChildren; i++)
@@ -190,7 +190,7 @@ void MeshRenderer::processNode(ModelData* modelData, aiNode* node, const aiScene
     }
 }
 
-MeshData* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene, Texture* texture)
+MeshData* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     std::vector<Vertex> vertices;
     std::vector<DWORD> indices;
@@ -222,5 +222,5 @@ MeshData* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene, Texture*
             indices.push_back(face.mIndices[j]);
     }
 
-    return new MeshData(vertices, indices, texture);
+    return new MeshData(vertices, indices);
 }

@@ -4,6 +4,7 @@
 
 class NavMesh;
 class ModelData;
+class ACS_StaticModel;
 
 class A_NavMesh : public Actor
 {
@@ -17,6 +18,7 @@ public:
 private:
 
     NavMesh* navMesh;
+    ACS_StaticModel* staticModelComponent;
 
     void onUpdate() override;
 

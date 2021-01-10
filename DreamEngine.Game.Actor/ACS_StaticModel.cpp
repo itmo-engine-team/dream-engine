@@ -9,32 +9,86 @@
 #include "ACS_Camera.h"
 #include "Transform.h"
 #include "AssetType.h"
-#include "ParamInt.h"
+#include "GameAssetManager.h"
 
-ACS_StaticModel::ACS_StaticModel(Actor* actor, ModelData* modelData)
-    : ActorComponentScene(actor), modelData(modelData)
+ACS_StaticModel::ACS_StaticModel(Actor* actor, ModelData* modelData, Texture* texture)
+    : ActorComponentScene(actor), modelData(modelData), texture(texture)
 {
+    // Add params
     modelAssetParam = new ParamAsset(AssetType::Model);
+    textureAssetParam = new ParamAsset(AssetType::Texture);
     AddParam("Model Asset", modelAssetParam);
-    AddParam("Int", new ParamInt(0));
+    AddParam("Texture Asset", textureAssetParam);
+
+    // Update model and texture
+    hasManualModelData = modelData != nullptr;
+    hasManualTexture = texture != nullptr;
 }
 
 ACS_StaticModel::~ACS_StaticModel()
 {
-    delete transform;
+    deleteMeshObjects();
+}
 
+void ACS_StaticModel::LoadModelData(ModelData* modelData)
+{
+    this->modelData = modelData;
+    hasManualModelData = true;
+    updateModel();
+}
+
+void ACS_StaticModel::LoadTexture(Texture* texture)
+{
+    this->texture = texture;
+    hasManualTexture = true;
+    updateTexture();
+}
+
+void ACS_StaticModel::deleteMeshObjects()
+{
     for (auto meshObject : meshObjects)
     {
         delete meshObject;
+    }
+    meshObjects.clear();
+}
+
+void ACS_StaticModel::updateTexture()
+{
+    if (!hasManualTexture)
+    {
+        texture = textureAssetParam->IsDefault() ? nullptr
+            : actor->GetContext()->GetGameAssetManager()->GetOrCreateTexture(textureAssetParam->Get());
+    }
+
+    for(auto meshObject : meshObjects)
+    {
+        meshObject->SetTexture(texture);
+    }
+}
+
+void ACS_StaticModel::updateModel()
+{
+    if (!hasManualModelData)
+    {
+        modelData = modelAssetParam->IsDefault() ? nullptr
+            : actor->GetContext()->GetGameAssetManager()->GetOrCreateModelData(modelAssetParam->Get());
+    }
+
+    deleteMeshObjects();
+    if (modelData != nullptr)
+    {
+        for (auto meshData : modelData->GetMeshDataList())
+        {
+            meshObjects.push_back(new MeshObject(actor->GetContext()->GetGraphics(), meshData, texture));
+        }
     }
 }
 
 void ACS_StaticModel::onInit()
 {
-    for (auto meshData : modelData->GetMeshDataList())
-    {
-        meshObjects.push_back(new MeshObject(actor->GetContext()->GetGraphics(), meshData));
-    }
+    updateTexture();
+    updateModel();
 }
 
 void ACS_StaticModel::onDraw()
@@ -86,7 +140,14 @@ void ACS_StaticModel::onParamUpdate(std::string name, BaseParam* param)
 {
     if (param == modelAssetParam)
     {
-        // TODO: Update model
+        hasManualModelData = false;
+        updateModel();
+    }
+
+    if (param == textureAssetParam)
+    {
+        hasManualTexture = false;
+        updateTexture();
     }
 }
 

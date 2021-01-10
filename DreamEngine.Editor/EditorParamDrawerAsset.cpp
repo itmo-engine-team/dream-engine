@@ -6,6 +6,13 @@ EditorParamDrawerAsset::EditorParamDrawerAsset(Editor* editor, const std::string
     : EditorParamDrawer<ParamAsset>(name, baseParam), editor(editor)
 {
     assetChooser = nullptr;
+
+    if (!param->IsDefault())
+    {
+        // Find asset if it was selected previously
+        chosenAssetInfo = editor->GetContext()->GetAssetManager()->GetAssetByType(
+            param->GetAssetType(), param->Get());
+    }
 }
 
 bool EditorParamDrawerAsset::Draw()
@@ -15,7 +22,7 @@ bool EditorParamDrawerAsset::Draw()
     ImGui::Text(param->IsDefault() ? "None" : chosenAssetInfo->GetName().c_str());
 
     ImGui::SameLine();
-    if (ImGui::Button("Choose"))
+    if (ImGui::Button(name.c_str()))
     {
         assetChooser = new EditorPopupModalAssetChooser(editor, param->GetAssetType());
     }
@@ -26,16 +33,18 @@ bool EditorParamDrawerAsset::Draw()
     if (!EditorPopupModal::DrawPipeline(assetChooser))
         return false;
 
-    if (assetChooser->GetResult())
+    bool isChanged = assetChooser->GetResult();
+    if (isChanged)
     {
         chosenAssetInfo = assetChooser->GetChosenAsset();
-        param->Set(chosenAssetInfo->GetId());
-
-        delete assetChooser;
-        assetChooser = nullptr;
-
-        return true;
+        if (chosenAssetInfo != nullptr)
+            param->Set(chosenAssetInfo->GetId());
+        else
+            param->SetDef();
     }
 
-    return false;
+    delete assetChooser;
+    assetChooser = nullptr;
+
+    return isChanged;
 }

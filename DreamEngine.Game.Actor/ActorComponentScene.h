@@ -12,6 +12,7 @@ class ActorComponentScene : public ActorComponent
 public:
 
     ActorComponentScene(Actor* actor);
+    virtual ~ActorComponentScene();
 
     Transform* GetTransform() const;
 

@@ -2,8 +2,7 @@
 
 #include "MeshRenderer.h"
 
-ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath, Texture* texture)
-    : texture(texture)
+ModelData::ModelData(MeshRenderer* pMeshRenderer, const std::string& filePath)
 {
     isValid = pMeshRenderer->ProcessModel(this, filePath);
 }
@@ -32,11 +31,6 @@ void ModelData::AddMeshData(MeshData* meshData)
 std::vector<MeshData*> ModelData::GetMeshDataList() const
 {
     return meshesData;
-}
-
-Texture* ModelData::GetTexture() const
-{
-    return texture;
 }
 
 float ModelData::GetLowestVertexY() const

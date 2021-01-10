@@ -58,10 +58,18 @@ void ActorViewer::Render()
 {
     BaseSceneViewer::Render();
 
+    if (actor != nullptr)
+    {
+        actor->Draw();
+    }
 }
 
 void ActorViewer::RenderShadowMap()
 {
     BaseSceneViewer::RenderShadowMap();
 
+    if (actor != nullptr)
+    {
+        actor->DrawShadowMap();
+    }
 }

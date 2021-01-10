@@ -1,7 +1,7 @@
 #include "MeshData.h"
 
-MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, Texture* texture)
-    : vertices(vertices), indices(indices), texture(texture)
+MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices)
+    : vertices(vertices), indices(indices)
 {
     indicesCount = std::size(indices);
 
@@ -25,11 +25,6 @@ const std::vector<DWORD>& MeshData::GetIndices() const
 UINT MeshData::GetIndicesCount() const
 {
     return indicesCount;
-}
-
-Texture* MeshData::GetTexture() const
-{
-    return texture;
 }
 
 float MeshData::GetLowestVertexY() const

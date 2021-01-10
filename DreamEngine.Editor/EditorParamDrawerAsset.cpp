@@ -6,6 +6,13 @@ EditorParamDrawerAsset::EditorParamDrawerAsset(Editor* editor, const std::string
     : EditorParamDrawer<ParamAsset>(name, baseParam), editor(editor)
 {
     assetChooser = nullptr;
+
+    if (!param->IsDefault())
+    {
+        // Find asset if it was selected previously
+        chosenAssetInfo = editor->GetContext()->GetAssetManager()->GetAssetByType(
+            param->GetAssetType(), param->Get());
+    }
 }
 
 bool EditorParamDrawerAsset::Draw()

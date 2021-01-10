@@ -15,6 +15,11 @@ AssetManager::AssetManager()
     else
         contentAssetTree = AssetService::FindAssetTree("Content");
 
+    for (auto typeMapIter : AssetInfoFactory::MAP_ASSET_TYPE_TO_STRING)
+    {
+        assetMap[typeMapIter.first] = std::map<unsigned, AssetInfo*>();
+    }
+
     initAssetTree(contentAssetTree);
 }
 

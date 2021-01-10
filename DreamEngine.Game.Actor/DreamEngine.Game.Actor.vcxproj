@@ -145,6 +145,7 @@
     <ClInclude Include="ACF_AI.h" />
     <ClInclude Include="ACF_PlayerMovement.h" />
     <ClInclude Include="ACF_Movement.h" />
+    <ClInclude Include="ACF_TargetReference.h" />
     <ClInclude Include="ACS_Camera.h" />
     <ClInclude Include="ACS_Collision.h" />
     <ClInclude Include="ACS_Light.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="BTGameNodeSequence.h" />
     <ClInclude Include="BTGameNodeWithChild.h" />
     <ClInclude Include="BTGMoveTo.h" />
+    <ClInclude Include="BTGTargetNear.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ParamAsset.h" />
@@ -177,6 +179,7 @@
     <ClCompile Include="ACF_AI.cpp" />
     <ClCompile Include="ACF_PlayerMovement.cpp" />
     <ClCompile Include="ACF_Movement.cpp" />
+    <ClCompile Include="ACF_TargetReference.cpp" />
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ACS_Collision.cpp" />
     <ClCompile Include="ACS_Light.cpp" />
@@ -198,6 +201,7 @@
     <ClCompile Include="BTGameNodeSelector.cpp" />
     <ClCompile Include="BTGameNodeSequence.cpp" />
     <ClCompile Include="BTGMoveTo.cpp" />
+    <ClCompile Include="BTGTargetNear.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ParamAsset.cpp" />

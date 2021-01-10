@@ -2,37 +2,36 @@
 
 #include "BehaviorTreeGame.h"
 #include "ACF_Movement.h"
+#include "ACF_TargetReference.h"
+#include "Transform.h"
 
 BTGMoveTo::BTGMoveTo(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
 {
     if (behaviorTree->GetActor() != nullptr)
         movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
+
+    targetLocation = behaviorTree->GetActor()->GetTransform()->GetWorldPosition();
+    targetActor = behaviorTree->GetActor()->FindComponent<ACF_TargetReference>()->GetTarget();
 }
 
 bool BTGMoveTo::Run()
 {
+
     if (movementComponent == nullptr)
         return false;
+ 
+    if (targetActor != nullptr)
+        return movementComponent->MoveTo(targetActor->GetTransform()->GetWorldPosition());
 
-    return movementComponent->MoveTo(target);
+    return movementComponent->MoveTo(targetLocation);
 }
 
 Vector3 BTGMoveTo::GetTargetLocation() const
 {
-    return target;
+    return targetLocation;
 }
 
-void BTGMoveTo::SetTargetPosition(Vector3 targetLocation)
+void BTGMoveTo::SetTargetLocation(Vector3 targetLocation)
 {
-    target = targetLocation;
-}
-
-float BTGMoveTo::GetReachRadius() const
-{
-    return reachRadius;
-}
-
-void BTGMoveTo::SetReachRadius(float reachRadius)
-{
-    this->reachRadius = reachRadius;
+    this->targetLocation = targetLocation;
 }

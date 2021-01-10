@@ -153,6 +153,12 @@
     <ClInclude Include="ACF_PlayerMovement.h">
       <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
+    <ClInclude Include="ACF_TargetReference.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGTargetNear.h">
+      <Filter>Header Files\BehaviorTree\Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -235,6 +241,12 @@
     </ClCompile>
     <ClCompile Include="ACF_PlayerMovement.cpp">
       <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_TargetReference.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGTargetNear.cpp">
+      <Filter>Source Files\BehaviorTree\Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

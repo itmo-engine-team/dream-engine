@@ -18,6 +18,7 @@ protected:
     ParamAsset* btAssetParam;
 
     void onInit() override;
+    void onUpdate() override;
 
 private:
 

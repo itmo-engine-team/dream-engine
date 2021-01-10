@@ -28,6 +28,11 @@ Actor* BehaviorTreeGame::GetActor()
     return actor;
 }
 
+bool BehaviorTreeGame::IsLogging()
+{
+    return isLoging;
+}
+
 void BehaviorTreeGame::initBehaviorTreeGame(BehaviorTreeEditor* behaviorTreeEditor)
 {
     rootNode = new BTGameNodeRoot(this);
@@ -55,7 +60,7 @@ void BehaviorTreeGame::initBehaviorTreeGame(BehaviorTreeEditor* behaviorTreeEdit
                     case BTNodeType::Composite:
                     {
                         BTGameNodeComposite* composeNode = BTGameNodeFactory::CreateGameCompositeNodeByType(
-                            static_cast<BTEditorNodeComposite*> (child.second)->GetCompositeType(), currentGameNode, this);
+                            dynamic_cast<BTEditorNodeComposite*> (child.second)->GetCompositeType(), currentGameNode, this);
 
                         gameNodeQueue.push_back(composeNode);
                         editorNodeQueue.push_back(child.second);
@@ -64,7 +69,7 @@ void BehaviorTreeGame::initBehaviorTreeGame(BehaviorTreeEditor* behaviorTreeEdit
 
                     case BTNodeType::Logic:
                     {
-                        BTGameNodeLogic* logicNode = BTGameNodeFactory::CreateGameLogicNodeByType(static_cast<BTEditorNodeLogic*> (child.second)->GetLogicType(), currentGameNode, this);
+                         BTGameNodeFactory::CreateGameLogicNodeByType(dynamic_cast<BTEditorNodeLogic*> (child.second)->GetLogicType(), currentGameNode, this);
                         break;
                     }
 
@@ -75,6 +80,6 @@ void BehaviorTreeGame::initBehaviorTreeGame(BehaviorTreeEditor* behaviorTreeEdit
             continue;
         }
 
-        BTGameNodeLogic* logicNode = BTGameNodeFactory::CreateGameLogicNodeByType(static_cast<BTEditorNodeLogic*> (currentEditorNode)->GetLogicType(), currentGameNode, this);
+        BTGameNodeFactory::CreateGameLogicNodeByType(dynamic_cast<BTEditorNodeLogic*> (currentEditorNode)->GetLogicType(), currentGameNode, this);
     }
 }

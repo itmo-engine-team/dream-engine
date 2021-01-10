@@ -20,3 +20,8 @@ void ACF_AI::onInit()
     BTAssetInfo* assetInfo = dynamic_cast<BTAssetInfo*>(actor->GetContext()->GetAssetManager()->GetAssetByType(btAssetParam->GetAssetType(), btAssetParam->Get()));
     behaviorTree = new BehaviorTreeGame(actor, assetInfo->GetBTEditor());
 }
+
+void ACF_AI::onUpdate()
+{
+    behaviorTree->Update();
+}

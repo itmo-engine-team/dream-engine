@@ -15,11 +15,13 @@ public:
     bool Update();
     BTGameNodeRoot* GetRootNode();
     Actor* GetActor();
+    bool IsLogging();
 
 protected:
 
     BTGameNodeRoot* rootNode;
     Actor* actor;
+    bool isLoging = false;
 
 private:
 

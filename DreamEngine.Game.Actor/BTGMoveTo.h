@@ -3,6 +3,7 @@
 #include "BTGameNodeLogic.h"
 #include "SimpleMath.h"
 
+class Actor;
 class ACF_Movement;
 
 using namespace DirectX::SimpleMath;
@@ -18,15 +19,12 @@ public:
     bool Run() override;
 
     Vector3 GetTargetLocation() const;
-    void SetTargetPosition(Vector3 targetLocation);
-
-    float GetReachRadius() const;
-    void SetReachRadius(float reachRadius);
+    void SetTargetLocation(Vector3 targetLocation);
 
 private:
 
-    Vector3 target = {0, 0, 0};
+    Vector3 targetLocation = {0, 0, 0};
+    Actor* targetActor = nullptr;
     ACF_Movement* movementComponent;
-    float reachRadius = 0;
 };
 

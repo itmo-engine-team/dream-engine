@@ -15,6 +15,8 @@ BehaviorTreeGame* ACF_AI::GetBehaviorTree()
 
 void ACF_AI::onInit()
 {
+    btAssetParam->Set(1);
+
     if (btAssetParam->IsDefault()) return;
 
     BTAssetInfo* assetInfo = dynamic_cast<BTAssetInfo*>(actor->GetContext()->GetAssetManager()->GetAssetByType(btAssetParam->GetAssetType(), btAssetParam->Get()));

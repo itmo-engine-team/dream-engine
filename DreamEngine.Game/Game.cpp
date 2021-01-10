@@ -65,18 +65,17 @@ void Game::Update(const float engineDeltaTime)
 
     navMesh->GetNavMesh()->ResetPolygons();
 
-    actor1->Update();
-    playerActor->Update();
-    followerActor->Update(); 
-
     navMesh->GetNavMesh()->UpdatePolygons(actor1, actor1->GetTransform()->GetWorldPosition(), actor1->FindComponent<ACS_Collision>()->GetSize());
     navMesh->GetNavMesh()->UpdatePolygons(playerActor, playerActor->GetTransform()->GetWorldPosition(), playerActor->FindComponent<ACS_Collision>()->GetSize());
     navMesh->GetNavMesh()->UpdatePolygons(followerActor, followerActor->GetTransform()->GetWorldPosition(), followerActor->FindComponent<ACS_Collision>()->GetSize());
 
     //followerActor->FindComponent<ACF_Movement>()->MoveTo(playerActor->GetTransform()->GetWorldPosition());
 
-    navMesh->Update();
+    actor1->Update();
+    playerActor->Update();
+    followerActor->Update();
 
+    navMesh->Update();
 
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {

@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ACF_AI.h" />
+    <ClInclude Include="ACF_Input.h" />
     <ClInclude Include="ACF_Movement.h" />
     <ClInclude Include="ACS_Camera.h" />
     <ClInclude Include="ACS_Collision.h" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ACF_AI.cpp" />
+    <ClCompile Include="ACF_Input.cpp" />
     <ClCompile Include="ACF_Movement.cpp" />
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ACS_Collision.cpp" />

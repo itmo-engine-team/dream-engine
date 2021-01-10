@@ -150,6 +150,9 @@
     <ClInclude Include="GameAssetManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ACF_Input.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="GameAssetManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_Input.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

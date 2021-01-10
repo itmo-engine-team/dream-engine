@@ -5,4 +5,5 @@ enum class ParamType
     Int,
     Float,
     Asset,
+    Transform
 };

@@ -66,6 +66,9 @@
     <ClCompile Include="ParamInt.cpp">
       <Filter>Source Files\Param\Inherited</Filter>
     </ClCompile>
+    <ClCompile Include="ParamTransform.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TransformInfo.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files\Param</Filter>
     </ClInclude>
     <ClInclude Include="ParamInt.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamTransform.h">
       <Filter>Header Files\Param\Inherited</Filter>
     </ClInclude>
   </ItemGroup>

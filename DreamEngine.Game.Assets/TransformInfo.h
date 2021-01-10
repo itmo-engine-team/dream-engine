@@ -5,10 +5,8 @@
 
 using namespace DirectX::SimpleMath;
 
-class TransformInfo : Serializable
+struct TransformInfo : Serializable
 {
-
-public:
 
     TransformInfo(Vector3 pos = Vector3::Zero);
 

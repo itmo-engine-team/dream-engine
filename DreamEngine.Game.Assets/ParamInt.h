@@ -12,6 +12,9 @@ public:
 
     BaseParam* Copy() override;
 
+    Json toJson() override;
+    void fromJson(Json json) override;
+
 protected:
 
     void UpdateValue(const BaseParam* paramCopy) override;

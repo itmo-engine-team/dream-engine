@@ -85,22 +85,6 @@ public:
         }
     }
 
-    Json toJson() override
-    {
-        Json json = Serializable::toJson();
-
-        json["value"] = value;
-        json["def"] = def;
-
-        return json;
-    }
-
-    void fromJson(Json json) override
-    {
-        initVariable(json, "value", &value);
-        initVariable(json, "def", &def);
-    }
-
 protected:
 
     Type value;

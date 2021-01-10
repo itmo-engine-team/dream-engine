@@ -111,6 +111,7 @@ void NavMesh::initNavMeshGrid()
     centerFirstPolygon.z = position.z + size.y / 2 - polygonSize / 2;
 
     std::vector<Vertex> vertices;
+    std::vector<Vertex> gridVertices;
     
     DWORD currentVertexIndex = 0;
     float z = 0;
@@ -131,8 +132,12 @@ void NavMesh::initNavMeshGrid()
             polygon->z = countZ;
 
             std::vector<Vertex> polygonVertices;
-            polygonVertices = initVertex(*polygon);
+            polygonVertices = initVertex(*polygon, Vector4{ 0, 1, 0, 1 });
             vertices.insert(vertices.end(), polygonVertices.begin(), polygonVertices.end());
+
+            std::vector<Vertex> polygonGridVertices;
+            polygonGridVertices = initVertex(*polygon, Vector4{ 0, 0.2f, 1, 1 });
+            gridVertices.insert(gridVertices.end(), polygonGridVertices.begin(), polygonGridVertices.end());
 
             polygon->FirstVertexIndex = currentVertexIndex;
 
@@ -141,6 +146,12 @@ void NavMesh::initNavMeshGrid()
                 0 + currentVertexIndex, 2 + currentVertexIndex, 3 + currentVertexIndex,
             };
             indices.insert(indices.end(), polygonIndices.begin(), polygonIndices.end());
+
+            std::vector<DWORD> polygonGridIndices = {
+                0 + currentVertexIndex, 1 + currentVertexIndex, 2 + currentVertexIndex,
+                3 + currentVertexIndex, 0 + currentVertexIndex
+            };
+            gridIndices.insert(gridIndices.end(), polygonGridIndices.begin(), polygonGridIndices.end());
 
             navMeshRow.push_back(polygon);
 
@@ -154,11 +165,13 @@ void NavMesh::initNavMeshGrid()
     }
 
     meshData = new MeshData(vertices, indices);
+    gridMeshData = new MeshData(gridVertices, gridIndices, false);
     modelData = new ModelData();
     modelData->AddMeshData(meshData);
+    modelData->AddMeshData(gridMeshData);
 }
 
-std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon) 
+std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon, Vector4 color)
 {
     std::vector<Vertex> vertices;
     float halfPolygonSize = polygonSize / 2;
@@ -167,7 +180,7 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
     Vertex vertexLD = Vertex
     {
         polygon.LD,
-        Vector4{ 0, 1, 0, 1 },
+        color,
         Vector3::Up
     };
     vertices.push_back(vertexLD);
@@ -176,7 +189,7 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
     Vertex vertexLT = Vertex
     {
         polygon.LT,
-        Vector4{ 0, 1, 0, 1 },
+        color,
         Vector3::Up
     };
     vertices.push_back(vertexLT);
@@ -185,7 +198,7 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
     Vertex vertexRT = Vertex
     {
         polygon.RT,
-        Vector4{ 0, 1, 0, 1 },
+        color,
         Vector3::Up
     };
     vertices.push_back(vertexRT);
@@ -194,7 +207,7 @@ std::vector<Vertex> NavMesh::initVertex(NavMeshPolygon& polygon)
     Vertex vertexRD = Vertex
     {
         polygon.RD,
-        Vector4{ 0, 1, 0, 1 },
+        color,
         Vector3::Up
     };
     vertices.push_back(vertexRD);

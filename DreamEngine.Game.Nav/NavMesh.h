@@ -63,12 +63,14 @@ protected:
     Vector3 position;
     float polygonSize;
     MeshData* meshData;
+    MeshData* gridMeshData;
     ModelData* modelData;
     std::vector<DWORD> indices;
+    std::vector<DWORD> gridIndices;
 
     std::vector<std::vector<NavMeshPolygon*>> navMeshGrid;
 
     void initNavMeshGrid();
-    std::vector<Vertex> initVertex(NavMeshPolygon& polygon);
+    std::vector<Vertex> initVertex(NavMeshPolygon& polygon, Vector4 color);
     bool checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, NavMeshPolygon* polygon);
 };

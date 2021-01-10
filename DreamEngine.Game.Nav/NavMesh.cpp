@@ -10,7 +10,7 @@ bool NavMeshPolygon::IsFreeForActor(void* actor)
     if (this->Actors.size() > 1)
         return false;
 
-    if (std::find(this->Actors.begin(), this->Actors.end(), actor) == this->Actors.end())
+    if (!this->Actors.empty() && std::find(this->Actors.begin(), this->Actors.end(), actor) == this->Actors.end())
         return false;
 
     return true;

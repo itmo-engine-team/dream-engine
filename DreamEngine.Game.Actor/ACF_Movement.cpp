@@ -10,8 +10,11 @@ ACF_Movement::ACF_Movement(Actor* actor) : ActorComponentFixed(actor)
 
 bool ACF_Movement::MoveTo(Vector3 targetLocation)
 {
-    if (!pathIsValid())
+    if (polygonCount == 2 || path.empty())
+    {
         path = pathFindingInst->FindPath(actor, actor->GetContext()->GetNavMesh(), actor->GetTransform()->GetWorldPosition(), targetLocation, moveByDiagonal);
+        polygonCount = 0;
+    }
 
     if (path.empty()) return false;
 
@@ -59,6 +62,7 @@ void ACF_Movement::changeLocation()
     {
         actor->GetTransform()->SetWorldPosition(path.at(0)->Center);
         path.erase(path.begin());
+        polygonCount++;
     }
     else
     {

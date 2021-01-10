@@ -21,7 +21,7 @@ protected:
 
     BTGameNodeRoot* rootNode;
     Actor* actor;
-    bool isLoging = false;
+    bool isLogging = true;
 
 private:
 

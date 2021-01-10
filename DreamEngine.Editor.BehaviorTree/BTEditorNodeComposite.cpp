@@ -48,6 +48,7 @@ void BTEditorNodeComposite::fromJson(Json json)
     BTEditorNode::fromJson(json);
 
     std::string stringType = json["compositeType"];
+    setTypeName(stringType);
     compositeType = MapUtils::TryGetByValue<BTNodeCompositeType, std::string>(
         MAP_NODE_COMPOSITE_TYPE_TO_STRING, stringType, BTNodeCompositeType::Selector);
 }

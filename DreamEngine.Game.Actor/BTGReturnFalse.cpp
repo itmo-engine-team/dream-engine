@@ -1,4 +1,5 @@
 #include "BTGReturnFalse.h"
+#include "BehaviorTreeGame.h"
 
 BTGReturnFalse::BTGReturnFalse(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
 {
@@ -6,5 +7,8 @@ BTGReturnFalse::BTGReturnFalse(BTGameNodeWithChild* parentNode, BehaviorTreeGame
 
 bool BTGReturnFalse::Run()
 {
+    if (behaviorTree->IsLogging())
+        printf("RetrunFalse \n");
+
     return false;
 }

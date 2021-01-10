@@ -163,7 +163,7 @@
       <Filter>Header Files\BehaviorTree\Logic</Filter>
     </ClInclude>
     <ClInclude Include="BTGReturnTrue.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\BehaviorTree\Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -258,7 +258,7 @@
       <Filter>Source Files\BehaviorTree\Logic</Filter>
     </ClCompile>
     <ClCompile Include="BTGReturnTrue.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\BehaviorTree\Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

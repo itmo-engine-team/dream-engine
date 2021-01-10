@@ -23,5 +23,7 @@ void ACF_AI::onInit()
 
 void ACF_AI::onUpdate()
 {
+    if (behaviorTree == nullptr) return;
+
     behaviorTree->Update();
 }

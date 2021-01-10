@@ -16,6 +16,8 @@ BTGMoveTo::BTGMoveTo(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behavior
 
 bool BTGMoveTo::Run()
 {
+    if (behaviorTree->IsLogging())
+        printf("MoveTo \n");
 
     if (movementComponent == nullptr)
         return false;

@@ -22,7 +22,7 @@ protected:
 
 private:
 
-    BehaviorTreeGame* behaviorTree;
+    BehaviorTreeGame* behaviorTree = nullptr;
    
 };
 

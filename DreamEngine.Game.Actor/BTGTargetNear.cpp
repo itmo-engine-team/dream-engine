@@ -11,6 +11,9 @@ BTGTargetNear::BTGTargetNear(BTGameNodeWithChild* parentNode, BehaviorTreeGame* 
 
 bool BTGTargetNear::Run()
 {
+    if (behaviorTree->IsLogging())
+        printf("Target near \n");
+
     return checkTargetNear();
 }
 

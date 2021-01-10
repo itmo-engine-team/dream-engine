@@ -2,8 +2,9 @@
 
 #include "imgui.h"
 
-EditorParamDrawerAsset::EditorParamDrawerAsset(Editor* editor, const std::string& name, BaseParam* baseParam)
-    : EditorParamDrawer<ParamAsset>(name, baseParam), editor(editor)
+EditorParamDrawerAsset::EditorParamDrawerAsset(Editor* editor,
+    int index, const std::string& name, BaseParam* baseParam)
+    : EditorParamDrawer<ParamAsset>(index, name, baseParam), editor(editor)
 {
     assetChooser = nullptr;
 
@@ -17,8 +18,6 @@ EditorParamDrawerAsset::EditorParamDrawerAsset(Editor* editor, const std::string
 
 bool EditorParamDrawerAsset::Draw()
 {
-    ImGui::Text(name.c_str());
-
     ImGui::Text(param->IsDefault() ? "None" : chosenAssetInfo->GetName().c_str());
 
     ImGui::SameLine();

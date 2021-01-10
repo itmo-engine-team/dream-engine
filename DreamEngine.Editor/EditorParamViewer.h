@@ -14,7 +14,7 @@ class EditorParamViewer
 
 public:
 
-    EditorParamViewer(Editor* editor, ParamExtender* paramExtender);
+    EditorParamViewer(Editor* editor, ParamExtender* paramExtender, int index = 0);
     ~EditorParamViewer();
 
     BaseParam* Draw();
@@ -26,7 +26,6 @@ private:
     ParamExtender* paramExtender;
     std::vector<EditorParamDrawerBase*> paramDrawers;
 
-    EditorParamDrawerBase* createParamDrawer(const std::string& name, BaseParam* baseParam);
+    EditorParamDrawerBase* createParamDrawer(int index, const std::string& name, BaseParam* baseParam);
 
 };
-

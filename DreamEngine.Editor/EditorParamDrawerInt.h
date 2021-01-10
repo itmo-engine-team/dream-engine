@@ -8,13 +8,14 @@ class EditorParamDrawerInt : public EditorParamDrawer<ParamInt>
 
 public:
 
-    EditorParamDrawerInt(const std::string& name, BaseParam* baseParam);
+    EditorParamDrawerInt(int index, const std::string& name, BaseParam* baseParam);
 
     bool Draw() override;
 
 private:
 
     std::string inputField;
+    std::string inputFieldLabel;
 
 };
 

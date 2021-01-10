@@ -5,12 +5,13 @@
 #include "EditorParamDrawerAsset.h"
 #include "ParamExtender.h"
 
-EditorParamViewer::EditorParamViewer(Editor* editor, ParamExtender* paramExtender)
+EditorParamViewer::EditorParamViewer(Editor* editor, ParamExtender* paramExtender, int index)
     : editor(editor), paramExtender(paramExtender)
 {
     for (auto iter : paramExtender->GetParamMap())
     {
-        paramDrawers.push_back(createParamDrawer(iter.first, iter.second));
+        paramDrawers.push_back(createParamDrawer(index, iter.first, iter.second));
+        index++;
     }
 }
 
@@ -35,14 +36,15 @@ BaseParam* EditorParamViewer::Draw()
     return changedParam;
 }
 
-EditorParamDrawerBase* EditorParamViewer::createParamDrawer(const std::string& name, BaseParam* baseParam)
+EditorParamDrawerBase* EditorParamViewer::createParamDrawer(int index, 
+    const std::string& name, BaseParam* baseParam)
 {
     switch (baseParam->GetType())
     {
         case ParamType::Int:
-            return new EditorParamDrawerInt(name, baseParam);
+            return new EditorParamDrawerInt(index, name, baseParam);
         case ParamType::Asset:
-            return new EditorParamDrawerAsset(editor, name, baseParam);
+            return new EditorParamDrawerAsset(editor, index, name, baseParam);
         default:
             break;
     }

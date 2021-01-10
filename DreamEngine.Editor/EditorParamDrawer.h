@@ -20,7 +20,7 @@ class EditorParamDrawer : public EditorParamDrawerBase
 
 public:
 
-    EditorParamDrawer(const std::string& name, BaseParam* baseParam) : name(name)
+    EditorParamDrawer(int index, const std::string& name, BaseParam* baseParam) : index(index), name(name)
     {
         param = dynamic_cast<ParamClass*>(baseParam);
     }
@@ -32,6 +32,7 @@ public:
 
 protected:
 
+    int index;
     std::string name;
     ParamClass* param;
 

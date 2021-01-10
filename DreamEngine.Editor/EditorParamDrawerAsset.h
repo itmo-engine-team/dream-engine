@@ -9,7 +9,7 @@ class EditorParamDrawerAsset : public EditorParamDrawer<ParamAsset>
 
 public:
 
-    EditorParamDrawerAsset(Editor* editor, const std::string& name, BaseParam* baseParam);
+    EditorParamDrawerAsset(Editor* editor, int index, const std::string& name, BaseParam* baseParam);
     bool Draw() override;
 
 private:

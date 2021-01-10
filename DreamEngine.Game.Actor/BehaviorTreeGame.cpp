@@ -30,7 +30,7 @@ Actor* BehaviorTreeGame::GetActor()
 
 bool BehaviorTreeGame::IsLogging()
 {
-    return isLoging;
+    return isLogging;
 }
 
 void BehaviorTreeGame::initBehaviorTreeGame(BehaviorTreeEditor* behaviorTreeEditor)

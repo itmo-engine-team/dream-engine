@@ -1,7 +1,7 @@
 #include "MeshData.h"
 
-MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices)
-    : vertices(vertices), indices(indices)
+MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, bool isTriangleTopology)
+    : isTriangleTopology(isTriangleTopology), vertices(vertices), indices(indices)
 {
     indicesCount = std::size(indices);
 
@@ -10,6 +10,11 @@ MeshData::MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices)
         if (vertex.Pos.y < lowestVertexY)
             lowestVertexY = vertex.Pos.y;
     }
+}
+
+bool MeshData::IsTriangleTopology() const
+{
+    return isTriangleTopology;
 }
 
 std::vector<Vertex>& MeshData::GetVertices()

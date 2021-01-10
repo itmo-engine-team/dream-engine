@@ -31,6 +31,7 @@ protected:
 
     ID3D11Buffer* indexBuffer;
     ID3D11Buffer* vertexBuffer;
+    D3D11_PRIMITIVE_TOPOLOGY topologyType;
 
     ID3D11Buffer* constantBuffer;
     ID3D11Buffer* lightBuffer;

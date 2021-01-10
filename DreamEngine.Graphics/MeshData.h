@@ -10,8 +10,9 @@ class MeshData
 {
 public:
 
-    MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices);
+    MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, bool isTriangleTopology = true);
 
+    bool IsTriangleTopology() const;
     std::vector<Vertex>& GetVertices();
     const std::vector<DWORD>& GetIndices() const;
     UINT GetIndicesCount() const;
@@ -20,6 +21,7 @@ public:
 
 protected:
 
+    bool isTriangleTopology;
     std::vector<Vertex> vertices;
     std::vector<DWORD> indices;
     UINT indicesCount;

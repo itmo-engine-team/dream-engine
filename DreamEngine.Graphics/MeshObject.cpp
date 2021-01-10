@@ -14,6 +14,9 @@
 MeshObject::MeshObject(Graphics* graphics, MeshData* meshData, Texture* texture)
     : graphics(graphics), meshData(meshData), texture(texture)
 {
+    topologyType = meshData->IsTriangleTopology() ? D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+                                                  : D3D10_PRIMITIVE_TOPOLOGY_LINELIST;
+
     HRESULT hr;
 
     // Create Vertex Buffer
@@ -118,7 +121,7 @@ void MeshObject::Render(const ConstantBuffer constantBufferData,
         &offset
     );
     graphics->GetContext()->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0u);
-    graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    graphics->GetContext()->IASetPrimitiveTopology(topologyType);
 
     graphics->GetModelShader()->SetShader();
     if (texture != nullptr && texture->IsValid())

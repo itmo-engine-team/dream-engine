@@ -22,7 +22,7 @@ bool EditorParamDrawerAsset::Draw()
     ImGui::Text(param->IsDefault() ? "None" : chosenAssetInfo->GetName().c_str());
 
     ImGui::SameLine();
-    if (ImGui::Button("Choose"))
+    if (ImGui::Button(name.c_str()))
     {
         assetChooser = new EditorPopupModalAssetChooser(editor, param->GetAssetType());
     }
@@ -33,19 +33,18 @@ bool EditorParamDrawerAsset::Draw()
     if (!EditorPopupModal::DrawPipeline(assetChooser))
         return false;
 
-    if (assetChooser->GetResult())
+    bool isChanged = assetChooser->GetResult();
+    if (isChanged)
     {
         chosenAssetInfo = assetChooser->GetChosenAsset();
         if (chosenAssetInfo != nullptr)
             param->Set(chosenAssetInfo->GetId());
         else
             param->SetDef();
-
-        delete assetChooser;
-        assetChooser = nullptr;
-
-        return true;
     }
 
-    return false;
+    delete assetChooser;
+    assetChooser = nullptr;
+
+    return isChanged;
 }

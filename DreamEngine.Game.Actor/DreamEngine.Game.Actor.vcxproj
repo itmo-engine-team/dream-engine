@@ -170,6 +170,8 @@
     <ClInclude Include="BTGameNodeSequence.h" />
     <ClInclude Include="BTGameNodeWithChild.h" />
     <ClInclude Include="BTGMoveTo.h" />
+    <ClInclude Include="BTGReturnFalse.h" />
+    <ClInclude Include="BTGReturnTrue.h" />
     <ClInclude Include="BTGTargetNear.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="GameObject.h" />
@@ -201,6 +203,8 @@
     <ClCompile Include="BTGameNodeSelector.cpp" />
     <ClCompile Include="BTGameNodeSequence.cpp" />
     <ClCompile Include="BTGMoveTo.cpp" />
+    <ClCompile Include="BTGReturnFalse.cpp" />
+    <ClCompile Include="BTGReturnTrue.cpp" />
     <ClCompile Include="BTGTargetNear.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="GameObject.cpp" />

@@ -159,6 +159,12 @@
     <ClInclude Include="BTGTargetNear.h">
       <Filter>Header Files\BehaviorTree\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="BTGReturnFalse.h">
+      <Filter>Header Files\BehaviorTree\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGReturnTrue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -247,6 +253,12 @@
     </ClCompile>
     <ClCompile Include="BTGTargetNear.cpp">
       <Filter>Source Files\BehaviorTree\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGReturnFalse.cpp">
+      <Filter>Source Files\BehaviorTree\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGReturnTrue.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

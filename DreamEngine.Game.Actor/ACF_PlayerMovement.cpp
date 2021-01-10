@@ -1,14 +1,14 @@
-#include "ACF_Input.h"
+#include "ACF_PlayerMovement.h"
 
 #include "Transform.h"
 #include "DeltaTimeHandler.h"
 
-ACF_Input::ACF_Input(Actor* actor) : ActorComponentFixed(actor)
+ACF_PlayerMovement::ACF_PlayerMovement(Actor* actor) : ActorComponentFixed(actor)
 {
     inputSystem = actor->GetContext()->GetInputSystem();
 }
 
-void ACF_Input::onUpdate()
+void ACF_PlayerMovement::onUpdate()
 {
     // Skip if camera moves
     if (inputSystem->IsMouseButtonPressed(MouseInput::Right)) return;

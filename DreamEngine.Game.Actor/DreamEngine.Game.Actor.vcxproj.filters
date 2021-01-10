@@ -150,7 +150,7 @@
     <ClInclude Include="GameAssetManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ACF_Input.h">
+    <ClInclude Include="ACF_PlayerMovement.h">
       <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,7 +233,7 @@
     <ClCompile Include="GameAssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ACF_Input.cpp">
+    <ClCompile Include="ACF_PlayerMovement.cpp">
       <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
   </ItemGroup>

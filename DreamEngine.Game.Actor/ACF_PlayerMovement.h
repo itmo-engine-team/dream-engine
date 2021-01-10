@@ -2,12 +2,12 @@
 
 #include "ActorComponentFixed.h"
 
-class ACF_Input : public ActorComponentFixed
+class ACF_PlayerMovement : public ActorComponentFixed
 {
 
 public:
 
-    ACF_Input(Actor* actor);
+    ACF_PlayerMovement(Actor* actor);
 
 protected:
 

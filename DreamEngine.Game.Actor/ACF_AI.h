@@ -18,10 +18,11 @@ protected:
     ParamAsset* btAssetParam;
 
     void onInit() override;
+    void onUpdate() override;
 
 private:
 
-    BehaviorTreeGame* behaviorTree;
+    BehaviorTreeGame* behaviorTree = nullptr;
    
 };
 

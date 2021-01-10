@@ -17,7 +17,7 @@ public:
 private:
 
     Actor* targetActor = nullptr;
-    float fieldOfView = 2.5f;
+    float fieldOfView = 3.5f;
 
     bool checkTargetNear();
 };

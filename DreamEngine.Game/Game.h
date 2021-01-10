@@ -41,4 +41,7 @@ protected:
 
     ModelData* model1;
     Actor* actor1;
+
+    ModelData* model2;
+    Actor* actor2;
 };

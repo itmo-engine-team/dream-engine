@@ -38,11 +38,18 @@ void Game::Init()
     playerActor->AddFixedComponent(new ACF_PlayerMovement(playerActor));
     playerActor->Init();
 
-    model1 = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.3f, 0.3f, 0.3f });
+    model1 = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.3f, 0.3f, 0.8f });
     actor1 = new Actor(actorContext);
     actor1->AddSceneComponent(new ACS_StaticModel(actor1, model1));
-    actor1->AddSceneComponent(new ACS_Collision(actor1, { 0.3f, 0.3f }));
+    actor1->AddSceneComponent(new ACS_Collision(actor1, { 0.3f, 0.8f }));
     actor1->Init();
+
+    model2 = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.5f, 0.3f, 0.5f });
+    actor2 = new Actor(actorContext);
+    actor2->UpdateTransform(new TransformInfo({ 2, 0, 0 }));
+    actor2->AddSceneComponent(new ACS_StaticModel(actor2, model2));
+    actor2->AddSceneComponent(new ACS_Collision(actor2, { 0.5f, 0.5f }));
+    actor2->Init();
 
     followerModel = MeshRenderer::CreateBoxModel({ 0, 1, 1, 1 }, { 0.3f, 0.3f, 0.3f });
     followerActor = new Actor(actorContext);
@@ -66,12 +73,14 @@ void Game::Update(const float engineDeltaTime)
     navMesh->GetNavMesh()->ResetPolygons();
 
     navMesh->GetNavMesh()->UpdatePolygons(actor1, actor1->GetTransform()->GetWorldPosition(), actor1->FindComponent<ACS_Collision>()->GetSize());
+    navMesh->GetNavMesh()->UpdatePolygons(actor2, actor2->GetTransform()->GetWorldPosition(), actor2->FindComponent<ACS_Collision>()->GetSize());
     navMesh->GetNavMesh()->UpdatePolygons(playerActor, playerActor->GetTransform()->GetWorldPosition(), playerActor->FindComponent<ACS_Collision>()->GetSize());
     navMesh->GetNavMesh()->UpdatePolygons(followerActor, followerActor->GetTransform()->GetWorldPosition(), followerActor->FindComponent<ACS_Collision>()->GetSize());
 
     //followerActor->FindComponent<ACF_Movement>()->MoveTo(playerActor->GetTransform()->GetWorldPosition());
 
     actor1->Update();
+    actor2->Update();
     playerActor->Update();
     followerActor->Update();
 
@@ -91,6 +100,7 @@ void Game::Render()
     BaseSceneViewer::Render();
 
     actor1->Draw();
+    actor2->Draw();
     playerActor->Draw();
     followerActor->Draw();
 

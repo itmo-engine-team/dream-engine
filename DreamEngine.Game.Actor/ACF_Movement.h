@@ -23,8 +23,9 @@ private:
 
     PathFinding* pathFindingInst;
     std::vector<NavMeshPolygon*> path;
-    float actorSpeed = 0.01f;
+    float actorSpeed = 1;
     bool moveByDiagonal = false;
+    int polygonCount = 0;
 
     bool pathIsValid();
     void changeLocation();

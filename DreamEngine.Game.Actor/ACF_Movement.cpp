@@ -10,11 +10,16 @@ ACF_Movement::ACF_Movement(Actor* actor) : ActorComponentFixed(actor)
 
 bool ACF_Movement::MoveTo(Vector3 targetLocation)
 {
-    if (!pathIsValid())
-        path = pathFindingInst->FindPath(actor, actor->GetContext()->GetNavMesh(), actor->GetTransform()->GetWorldPosition(), targetLocation, moveByDiagonal);
+    if (polygonCount == 2 || path.empty())
+    {
+        NavMeshPolygon* targetPolygon = actor->GetContext()->GetNavMesh()->FindFreeClosestPolygon(targetLocation, actor, actor->GetTransform()->GetWorldPosition(), moveByDiagonal);
+        path = pathFindingInst->FindPath(actor, actor->GetContext()->GetNavMesh(), actor->GetTransform()->GetWorldPosition(), targetPolygon, moveByDiagonal);
+        polygonCount = 0;
+    }
 
     if (path.empty()) return false;
 
+    actor->GetContext()->GetNavMesh()->DebugPath(path);
     changeLocation();
     return true;
 }
@@ -59,6 +64,7 @@ void ACF_Movement::changeLocation()
     {
         actor->GetTransform()->SetWorldPosition(path.at(0)->Center);
         path.erase(path.begin());
+        polygonCount++;
     }
     else
     {
@@ -66,4 +72,3 @@ void ACF_Movement::changeLocation()
         actor->GetTransform()->AddWorldPosition(toTarget * actorSpeed * actor->GetContext()->GetDeltaTimeHandler()->GetDeltaTime());
     }
 }
-

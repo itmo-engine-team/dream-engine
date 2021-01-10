@@ -10,7 +10,7 @@ bool NavMeshPolygon::IsFreeForActor(void* actor)
     if (this->Actors.size() > 1)
         return false;
 
-    if (std::find(this->Actors.begin(), this->Actors.end(), actor) == this->Actors.end())
+    if (!this->Actors.empty() && std::find(this->Actors.begin(), this->Actors.end(), actor) == this->Actors.end())
         return false;
 
     return true;
@@ -77,7 +77,7 @@ std::vector<NavMeshPolygon*> NavMesh::GetNeighbours(NavMeshPolygon* polygon, boo
             int checkZ = polygon->z + z;
 
             if (checkX >= 0 && checkX < navMeshGrid.size() && checkZ >= 0 && checkZ < navMeshGrid.size())
-                neighbours.push_back(GetGrid().at(checkX).at(checkZ));
+                neighbours.push_back(GetGrid().at(checkZ).at(checkX));
         }
     }
     return neighbours;
@@ -261,4 +261,41 @@ void NavMesh::DebugPath(std::vector<NavMeshPolygon*> path)
         meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = PATH_COLOR;
         meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = PATH_COLOR;
     }
+}
+
+NavMeshPolygon* NavMesh::FindFreeClosestPolygon(Vector3 targetLocation, void* ownerActor, Vector3 ownerWorldPosition, bool canMoveByDiagonal)
+{
+    NavMeshPolygon* targetPolygon = FindPolygon(targetLocation);
+
+    if (targetPolygon->IsFreeForActor(ownerActor))
+        return targetPolygon;
+
+    std::vector<NavMeshPolygon*> uncheckPolygons;
+    std::vector<NavMeshPolygon*> checkedPolygons;
+    uncheckPolygons.push_back(targetPolygon);
+    void* targetRef = targetPolygon->Actors.at(0);
+    targetPolygon = nullptr;
+
+    while (!uncheckPolygons.empty())
+    {
+        NavMeshPolygon* currentPolygon = uncheckPolygons.at(0);
+        checkedPolygons.push_back(uncheckPolygons.at(0));
+        uncheckPolygons.erase(uncheckPolygons.begin());
+
+     
+        for (NavMeshPolygon* neighbour : GetNeighbours(currentPolygon, canMoveByDiagonal))
+        {
+            if (neighbour->IsFreeForActor(ownerActor) && (targetPolygon == nullptr ||
+                Vector3::Distance(neighbour->Center, ownerWorldPosition) < Vector3::Distance(targetPolygon->Center, ownerWorldPosition)))
+            {
+                targetPolygon = neighbour;
+                continue;
+            }
+
+            if (std::find(neighbour->Actors.begin(), neighbour->Actors.end(), targetRef) != neighbour->Actors.end() &&
+                std::find(checkedPolygons.begin(), checkedPolygons.end(), neighbour) == checkedPolygons.end())
+                uncheckPolygons.push_back(neighbour);
+        }
+    }
+    return targetPolygon;
 }

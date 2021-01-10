@@ -32,4 +32,13 @@ protected:
     Scene* currentScene = nullptr;
 
     A_NavMesh* navMesh;
+
+    ModelData* playerModel;
+    Actor* playerActor;
+
+    ModelData* followerModel;
+    Actor* followerActor;
+
+    ModelData* model1;
+    Actor* actor1;
 };

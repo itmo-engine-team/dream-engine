@@ -2,6 +2,13 @@
 
 #include "GameAssetManager.h"
 #include "Scene.h"
+#include "ACS_Collision.h"
+#include "ACS_StaticModel.h"
+#include "ACF_Movement.h"
+#include "ACF_PlayerMovement.h"
+#include "ACF_TargetReference.h"
+#include "ACF_AI.h"
+#include "MeshRenderer.h"
 #include "NavMesh.h"
 #include "A_NavMesh.h"
 
@@ -21,14 +28,55 @@ void Game::Init()
     BaseSceneViewer::Init();
 
     navMesh = new A_NavMesh(actorContext);
-    navMesh->UpdateTransform(new TransformInfo({ 0, 0.11, 0 }));
+    navMesh->UpdateTransform(new TransformInfo({ 0, 0.11f, 0 }));
+
+    playerModel = MeshRenderer::CreateBoxModel({ 1, 1, 0, 1 }, { 0.3f, 0.3f, 0.3f });
+    playerActor = new Actor(actorContext);
+    playerActor->UpdateTransform(new TransformInfo({ 1, 0, 0 }));
+    playerActor->AddSceneComponent(new ACS_StaticModel(playerActor, playerModel));
+    playerActor->AddSceneComponent(new ACS_Collision(playerActor, {0.3f, 0.3f}));
+    playerActor->AddFixedComponent(new ACF_PlayerMovement(playerActor));
+    playerActor->Init();
+
+    model1 = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.3f, 0.3f, 0.3f });
+    actor1 = new Actor(actorContext);
+    actor1->AddSceneComponent(new ACS_StaticModel(actor1, model1));
+    actor1->AddSceneComponent(new ACS_Collision(actor1, { 0.3f, 0.3f }));
+    actor1->Init();
+
+    followerModel = MeshRenderer::CreateBoxModel({ 0, 1, 1, 1 }, { 0.3f, 0.3f, 0.3f });
+    followerActor = new Actor(actorContext);
+    followerActor->UpdateTransform(new TransformInfo({ -2, 0, 0 }));
+    followerActor->AddSceneComponent(new ACS_StaticModel(followerActor, followerModel));
+    followerActor->AddSceneComponent(new ACS_Collision(followerActor, { 0.3f, 0.3f }));
+    followerActor->AddFixedComponent(new ACF_TargetReference(followerActor, playerActor));
+    followerActor->AddFixedComponent(new ACF_AI(followerActor));
+
+    ACF_Movement* followerMovementComponent = new ACF_Movement(followerActor);
+    followerActor->AddFixedComponent(followerMovementComponent);
+    followerMovementComponent->SetSpeed(0.5f);
+
+    followerActor->Init();
 }
 
 void Game::Update(const float engineDeltaTime)
 {
     BaseSceneViewer::Update(engineDeltaTime);
 
+    navMesh->GetNavMesh()->ResetPolygons();
+
+    actor1->Update();
+    playerActor->Update();
+    followerActor->Update(); 
+
+    navMesh->GetNavMesh()->UpdatePolygons(actor1, actor1->GetTransform()->GetWorldPosition(), actor1->FindComponent<ACS_Collision>()->GetSize());
+    navMesh->GetNavMesh()->UpdatePolygons(playerActor, playerActor->GetTransform()->GetWorldPosition(), playerActor->FindComponent<ACS_Collision>()->GetSize());
+    navMesh->GetNavMesh()->UpdatePolygons(followerActor, followerActor->GetTransform()->GetWorldPosition(), followerActor->FindComponent<ACS_Collision>()->GetSize());
+
+    //followerActor->FindComponent<ACF_Movement>()->MoveTo(playerActor->GetTransform()->GetWorldPosition());
+
     navMesh->Update();
+
 
     if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
     {
@@ -42,6 +90,10 @@ void Game::Update(const float engineDeltaTime)
 void Game::Render()
 {
     BaseSceneViewer::Render();
+
+    actor1->Draw();
+    playerActor->Draw();
+    followerActor->Draw();
 
     navMesh->Draw();
 

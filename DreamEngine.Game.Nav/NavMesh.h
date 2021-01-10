@@ -53,6 +53,7 @@ public:
     void UpdatePolygons(void* actor, Vector3 worldPosition, Vector2 collisionSize);
     void ResetPolygons();
     NavMeshPolygon* FindPolygon(Vector3 location);
+    NavMeshPolygon* FindFreeClosestPolygon(Vector3 targetLocation, void* ownerActor, Vector3 ownerWorldPosition, bool canMoveByDiagonal);
 
     void DebugPath(std::vector<NavMeshPolygon*> path);
 

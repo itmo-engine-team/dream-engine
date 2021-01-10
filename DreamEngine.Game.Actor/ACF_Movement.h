@@ -29,6 +29,5 @@ private:
 
     bool pathIsValid();
     void changeLocation();
-    NavMeshPolygon* findFreeClosestPolygon(Vector3 targetLocation);
 };
 

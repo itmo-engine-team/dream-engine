@@ -9,6 +9,7 @@ public:
 
     ParamInt(int def);
     ParamInt(ParamInt& param);
+    ParamInt(Json json);
 
     BaseParam* Copy() override;
 

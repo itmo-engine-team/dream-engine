@@ -9,6 +9,8 @@ class ParamAsset : public Param<unsigned int>
 
 public:
 
+    static ParamAsset* CreateFromJson(Json json);
+
     ParamAsset(AssetType assetType);
     ParamAsset(ParamAsset& paramAsset);
 

@@ -55,12 +55,6 @@
     <Filter Include="Header Files\BehaviorTree\Logic">
       <UniqueIdentifier>{cc273297-e682-4d1e-8cff-3db8cadcfec9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Param">
-      <UniqueIdentifier>{efa85379-2310-49d3-aa48-e3b8fe622360}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Param">
-      <UniqueIdentifier>{da84f0b9-f6ae-4787-a900-26d30bb4da71}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BehaviorTreeGame.h">
@@ -140,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="BTGameNodeWithChild.h">
       <Filter>Header Files\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="ParamAsset.h">
-      <Filter>Header Files\Param</Filter>
     </ClInclude>
     <ClInclude Include="BTGameNodeFactory.h">
       <Filter>Header Files\BehaviorTree</Filter>
@@ -235,9 +226,6 @@
     </ClCompile>
     <ClCompile Include="BTGMoveTo.cpp">
       <Filter>Source Files\BehaviorTree\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="ParamAsset.cpp">
-      <Filter>Source Files\Param</Filter>
     </ClCompile>
     <ClCompile Include="BTGameNodeFactory.cpp">
       <Filter>Source Files\BehaviorTree</Filter>

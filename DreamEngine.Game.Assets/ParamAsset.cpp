@@ -1,4 +1,10 @@
 #include "ParamAsset.h"
+#include "MapUtils.h"
+
+ParamAsset* ParamAsset::CreateFromJson(Json json)
+{
+    
+}
 
 ParamAsset::ParamAsset(AssetType assetType)
     : Param<unsigned int>(ParamType::Asset, 0), assetType(assetType)
@@ -26,7 +32,7 @@ Json ParamAsset::toJson()
     Json json = {};
 
     json["value"] = value;
-    json["def"] = def;
+    json["assetType"] = MapUtils::TryGetByKey<AssetType, std::string>()
 
     return json;
 }
@@ -34,7 +40,6 @@ Json ParamAsset::toJson()
 void ParamAsset::fromJson(Json json)
 {
     initVariable(json, "value", &value);
-    initVariable(json, "def", &def);
 }
 
 void ParamAsset::UpdateValue(const BaseParam* paramCopy)

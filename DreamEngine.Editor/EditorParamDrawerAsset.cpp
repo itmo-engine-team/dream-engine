@@ -14,6 +14,8 @@ EditorParamDrawerAsset::EditorParamDrawerAsset(Editor* editor,
         chosenAssetInfo = editor->GetContext()->GetAssetManager()->GetAssetByType(
             param->GetAssetType(), param->Get());
     }
+
+    inputFieldLabel = "X##" + std::to_string(index);
 }
 
 bool EditorParamDrawerAsset::Draw()
@@ -24,6 +26,13 @@ bool EditorParamDrawerAsset::Draw()
     if (ImGui::Button(name.c_str()))
     {
         assetChooser = new EditorPopupModalAssetChooser(editor, param->GetAssetType());
+    }
+
+    ImGui::SameLine(); 
+    if (ImGui::Button(inputFieldLabel.c_str()))
+    {
+        param->SetDef();
+        return true;
     }
 
     if (assetChooser == nullptr)

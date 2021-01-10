@@ -16,6 +16,7 @@ private:
 
     std::string inputField;
     std::string inputFieldLabel;
+    std::string buttonLabel;
 
 };
 

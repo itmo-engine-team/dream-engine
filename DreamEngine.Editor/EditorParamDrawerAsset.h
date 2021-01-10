@@ -17,6 +17,6 @@ private:
     Editor* editor;
     EditorPopupModalAssetChooser* assetChooser;
     AssetInfo* chosenAssetInfo;
-
+    std::string inputFieldLabel;
 };
 

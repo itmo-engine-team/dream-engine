@@ -147,6 +147,9 @@
     <ClInclude Include="BTGameNodeFactory.h">
       <Filter>Header Files\BehaviorTree</Filter>
     </ClInclude>
+    <ClInclude Include="GameAssetManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="BTGameNodeFactory.cpp">
       <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="GameAssetManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

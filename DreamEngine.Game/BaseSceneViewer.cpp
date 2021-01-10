@@ -11,14 +11,15 @@
 #include "LightBuffer.h"
 #include "DeltaTimeHandler.h"
 #include "Transform.h"
+#include "GameAssetManager.h"
 
 BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo,
-    InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
+                                 InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
     : engineConfigInfo(engineConfigInfo),
       inputSystem(inputSystem), graphics(graphics), assetManager(assetManager)
 {
     deltaTimeHandler = new DeltaTimeHandler();
-
+    gameAssetManager = new GameAssetManager(assetManager, graphics);
     sceneRenderer = new SceneRenderer(graphics);
 }
 
@@ -59,7 +60,7 @@ ACS_Light* BaseSceneViewer::GetLight() const
 
 void BaseSceneViewer::Init()
 {
-    actorContext = new ActorContext(graphics, inputSystem, deltaTimeHandler, assetManager);
+    actorContext = new ActorContext(graphics, inputSystem, deltaTimeHandler, assetManager, gameAssetManager);
 
     createBaseSceneActors();
 

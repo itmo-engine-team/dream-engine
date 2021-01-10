@@ -6,6 +6,7 @@
 #include "SceneRenderer.h"
 
 class AssetManager;
+class GameAssetManager;
 class EngineConfigInfo;
 class ActorContext;
 class Graphics;
@@ -52,6 +53,7 @@ protected:
     Graphics* graphics;
     DeltaTimeHandler* deltaTimeHandler;
     AssetManager* assetManager;
+    GameAssetManager* gameAssetManager;
     
     ModelData* planeModel;
 

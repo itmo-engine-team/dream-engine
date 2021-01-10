@@ -17,7 +17,7 @@ bool BTGMoveTo::Run()
     return movementComponent->MoveTo(target);
 }
 
-Vector3 BTGMoveTo::GetTargetLocation()
+Vector3 BTGMoveTo::GetTargetLocation() const
 {
     return target;
 }
@@ -25,4 +25,14 @@ Vector3 BTGMoveTo::GetTargetLocation()
 void BTGMoveTo::SetTargetPosition(Vector3 targetLocation)
 {
     target = targetLocation;
+}
+
+float BTGMoveTo::GetReachRadius() const
+{
+    return reachRadius;
+}
+
+void BTGMoveTo::SetReachRadius(float reachRadius)
+{
+    this->reachRadius = reachRadius;
 }

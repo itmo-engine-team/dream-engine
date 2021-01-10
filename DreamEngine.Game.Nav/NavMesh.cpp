@@ -77,7 +77,7 @@ std::vector<NavMeshPolygon*> NavMesh::GetNeighbours(NavMeshPolygon* polygon, boo
             int checkZ = polygon->z + z;
 
             if (checkX >= 0 && checkX < navMeshGrid.size() && checkZ >= 0 && checkZ < navMeshGrid.size())
-                neighbours.push_back(GetGrid().at(checkX).at(checkZ));
+                neighbours.push_back(GetGrid().at(checkZ).at(checkX));
         }
     }
     return neighbours;

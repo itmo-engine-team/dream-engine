@@ -17,12 +17,16 @@ public:
 
     bool Run() override;
 
-    Vector3 GetTargetLocation();
+    Vector3 GetTargetLocation() const;
     void SetTargetPosition(Vector3 targetLocation);
+
+    float GetReachRadius() const;
+    void SetReachRadius(float reachRadius);
 
 private:
 
     Vector3 target = {0, 0, 0};
     ACF_Movement* movementComponent;
+    float reachRadius = 0;
 };
 

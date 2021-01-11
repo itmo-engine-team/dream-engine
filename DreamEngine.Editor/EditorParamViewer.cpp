@@ -14,8 +14,9 @@ EditorParamViewer::EditorParamViewer(Editor* editor, ParamExtender* paramExtende
 {
     for (auto iter : paramExtender->GetParamMap())
     {
-        paramDrawers.push_back(createParamDrawer(index, iter.first, iter.second));
-        index++;
+        auto paramDrawer = createParamDrawer(index, iter.first, iter.second);
+        paramDrawers.push_back(paramDrawer);
+        index += paramDrawer->GetRequiredIndexCount();
     }
 }
 

@@ -23,7 +23,44 @@ bool ActorViewer::LoadActor(ActorAssetInfo* actorAssetInfo)
     this->actorAssetInfo = actorAssetInfo;
     actor = ActorFactory::Create(actorContext, actorAssetInfo->GetActorType(), new TransformInfo());
 
+    LoadSceneComponents();
+    LoadFixedComponents();
+
     return true;
+}
+
+void ActorViewer::LoadSceneComponents()
+{
+    for (auto sceneComponentInfo : actorAssetInfo->GetSceneComponents())
+    {
+        auto sceneComponent = ActorComponentFactory::CreateSceneComponent(actor, sceneComponentInfo);
+        actor->AddSceneComponent(sceneComponent);
+        sceneComponentInfo->SetComponentRef(sceneComponent);
+
+        for (auto iter : sceneComponentInfo->GetParamExtender()->GetParamMap())
+        {
+            sceneComponent->UpdateParam(iter.first, iter.second);
+        }
+
+        sceneComponentInfo->GetParamExtender()->CopyParams(sceneComponent->GetParamMap());
+    }
+}
+
+void ActorViewer::LoadFixedComponents()
+{
+    for (auto fixedComponentInfo : actorAssetInfo->GetFixedComponents())
+    {
+        auto fixedComponent = ActorComponentFactory::CreateFixedComponent(actor, fixedComponentInfo);
+        actor->AddFixedComponent(fixedComponent);
+        fixedComponentInfo->SetComponentRef(fixedComponent);
+
+        for (auto iter : fixedComponentInfo->GetParamExtender()->GetParamMap())
+        {
+            fixedComponent->UpdateParam(iter.first, iter.second);
+        }
+
+        fixedComponentInfo->GetParamExtender()->CopyParams(fixedComponent->GetParamMap());
+    }
 }
 
 bool ActorViewer::AddSceneComponent(ACS_Type type, const std::string& name)

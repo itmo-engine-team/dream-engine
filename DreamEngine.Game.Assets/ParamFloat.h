@@ -7,9 +7,8 @@ class ParamFloat : public Param<float>
 
 public:
 
-    ParamFloat(float def);
+    ParamFloat(float def = 0);
     ParamFloat(ParamFloat& param);
-    ParamFloat(Json json);
 
     BaseParam* Copy() override;
 

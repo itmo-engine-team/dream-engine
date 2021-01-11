@@ -9,11 +9,7 @@ class BaseParam : public Serializable
 public:
 
     BaseParam(ParamType type) : type(type) {}
-    BaseParam(BaseParam& param)
-    {
-        this->type = param.type;
-        this->isDefault = param.isDefault;
-    }
+    BaseParam(BaseParam& param);
 
     ParamType GetType() const
     {
@@ -28,8 +24,8 @@ public:
     virtual BaseParam* Copy() = 0;
     virtual void Update(const BaseParam* paramCopy) = 0;
 
-    Json toJson() override = 0;
-    void fromJson(Json json) override = 0;
+    Json toJson() override;
+    void fromJson(Json json) override;
 
 protected:
 

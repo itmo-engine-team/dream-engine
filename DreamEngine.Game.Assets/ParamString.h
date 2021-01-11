@@ -7,9 +7,8 @@ class ParamString : public Param<std::string>
 
 public:
 
-    ParamString(std::string def);
+    ParamString(std::string def = "");
     ParamString(ParamString& param);
-    ParamString(Json json);
 
     BaseParam* Copy() override;
 

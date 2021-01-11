@@ -6,6 +6,7 @@
 #include "ACS_Light.h"
 #include "ACF_AI.h"
 #include "ACS_StaticModel.h"
+#include "ACS_Collision.h"
 
 class ActorComponentFactory
 {
@@ -26,7 +27,7 @@ protected:
 
     inline static std::unordered_map<ACS_Type, ACS_Creator*> sceneComponentCreators = {
         { ACS_Type::StaticModel, new ACS_Creator_StaticModel() },
-        { ACS_Type::Collision, new ACS_Creator_StaticModel() },
+        { ACS_Type::Collision, new ACS_Creator_Collision() },
     };
 
     inline static std::unordered_map<ACF_Type, ACF_Creator*> fixedComponentCreators = {

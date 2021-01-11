@@ -8,8 +8,8 @@ ActorComponentScene::ActorComponentScene(Actor* actor) : ActorComponent(actor)
     transform = new Transform();
     transform->SetParent(actor->GetTransform(), true);
 
-    transformAssetParam = new ParamTransform();
-    AddParam("Transform", transformAssetParam);
+    transformParam = new ParamTransform();
+    AddParam("Transform", transformParam);
 }
 
 ActorComponentScene::~ActorComponentScene()
@@ -37,6 +37,11 @@ void ActorComponentScene::UpdateTransform(TransformInfo* transformInfo)
     transform->SetLocalPosition(transformInfo->GetPosition());
 }
 
+void ActorComponentScene::UpdateTransform(const TransformInfo& transformInfo)
+{
+    transform->SetLocalPosition(transformInfo.GetPosition());
+}
+
 void ActorComponentScene::onDraw()
 {
 
@@ -45,4 +50,14 @@ void ActorComponentScene::onDraw()
 void ActorComponentScene::onDrawShadowMap()
 {
 
+}
+
+void ActorComponentScene::onParamUpdate(std::string name, BaseParam* param)
+{
+    ActorComponent::onParamUpdate(name, param);
+
+    if (param == transformParam)
+    {
+        UpdateTransform(transformParam->Get());
+    }
 }

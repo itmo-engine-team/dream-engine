@@ -1,4 +1,5 @@
 #include "ParamExtender.h"
+#include "ParamCreator.h"
 
 const std::unordered_map<std::string, BaseParam*>& ParamExtender::GetParamMap() const
 {
@@ -12,6 +13,12 @@ void ParamExtender::AddParam(std::string name, BaseParam* param)
 
 void ParamExtender::CopyParams(const std::unordered_map<std::string, BaseParam*>& paramMapToCopy)
 {
+    for (auto iter : paramMap)
+    {
+        delete iter.second;
+    }
+    paramMap.clear();
+
     for (auto iter : paramMapToCopy)
     {
         if (paramMap.find(iter.first) == paramMap.end())
@@ -35,7 +42,8 @@ Json ParamExtender::toJson()
 
     for (auto paramIter : paramMap)
     {
-        json[paramIter.first] = paramIter.second->toJson();
+        if (!paramIter.second->IsDefault())
+            json[paramIter.first] = paramIter.second->toJson();
     }
 
     return json;
@@ -45,7 +53,10 @@ void ParamExtender::fromJson(Json json)
 {
     for (auto paramJsonItem : json.items())
     {
-        //paramJsonItem.key()
+        std::string paramName = paramJsonItem.key();
+        Json paramJson = paramJsonItem.value();
+        BaseParam* param = ParamCreator::CreateFromJson(paramJson);
+        paramMap[paramName] = param;
     }
 }
 

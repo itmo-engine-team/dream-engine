@@ -35,6 +35,7 @@ Json ActorComponentInfo::toJson()
     Json json = Serializable::toJson();
 
     json["name"] = name;
+    json["params"] = paramExtender->toJson();
 
     return json;
 }
@@ -42,4 +43,10 @@ Json ActorComponentInfo::toJson()
 void ActorComponentInfo::fromJson(Json json)
 {
     initVariable(json, "name", &name);
+
+    if (json.contains("params"))
+    {
+        Json paramsJson = json["params"];
+        paramExtender->fromJson(paramsJson);
+    }
 }

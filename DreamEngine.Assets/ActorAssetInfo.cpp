@@ -65,7 +65,19 @@ Json ActorAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();
 
+    Json sceneComponentsJson = Json::array();
+    for (auto component : sceneComponents)
+    {
+        sceneComponentsJson.push_back(component->toJson());
+    }
+    json["sceneComponents"] = sceneComponentsJson;
 
+    Json fixedComponentsJson = Json::array();
+    for (auto component : fixedComponents)
+    {
+        fixedComponentsJson.push_back(component->toJson());
+    }
+    json["fixedComponents"] = fixedComponentsJson;
 
     return json;
 }
@@ -73,4 +85,20 @@ Json ActorAssetInfo::toJson()
 void ActorAssetInfo::fromJson(Json json)
 {
     AssetInfo::fromJson(json);
+
+    Json sceneComponentsJson = json["sceneComponents"];
+    for (auto componentJson : sceneComponentsJson)
+    {
+        ActorComponentSceneInfo* sceneComponent = new ActorComponentSceneInfo();
+        sceneComponent->fromJson(componentJson);
+        sceneComponents.push_back(sceneComponent);
+    }
+
+    Json fixedComponentsJson = json["fixedComponents"];
+    for (auto componentJson : fixedComponentsJson)
+    {
+        ActorComponentFixedInfo* fixedComponent = new ActorComponentFixedInfo();
+        fixedComponent->fromJson(componentJson);
+        fixedComponents.push_back(fixedComponent);
+    }
 }

@@ -7,9 +7,8 @@ class ParamInt : public Param<int>
 
 public:
 
-    ParamInt(int def);
+    ParamInt(int def = 0);
     ParamInt(ParamInt& param);
-    ParamInt(Json json);
 
     BaseParam* Copy() override;
 

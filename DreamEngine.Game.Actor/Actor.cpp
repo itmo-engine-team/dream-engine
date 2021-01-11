@@ -14,8 +14,8 @@ using namespace DirectX::SimpleMath;
 Actor::Actor(ActorContext* context) : GameObject(), context(context)
 {
     transform = new Transform();
-    transformAssetParam = new ParamTransform();
-    AddParam("Transform", transformAssetParam);
+    transformParam = new ParamTransform();
+    AddParam("Transform", transformParam);
 }
 
 void Actor::Init()
@@ -160,9 +160,22 @@ void Actor::UpdateTransform(TransformInfo* transformInfo)
     transform->SetLocalPosition(transformInfo->GetPosition());
 }
 
+void Actor::UpdateTransform(const TransformInfo& transformInfo)
+{
+    transform->SetLocalPosition(transformInfo.GetPosition());
+}
+
 void Actor::onUpdate()
 {
 
+}
+
+void Actor::onParamUpdate(std::string name, BaseParam* param)
+{
+    if (param == transformParam)
+    {
+        UpdateTransform(transformParam->Get());
+    }
 }
 
 Actor* ActorCreator::Create(ActorContext* context, TransformInfo* transformInfo)

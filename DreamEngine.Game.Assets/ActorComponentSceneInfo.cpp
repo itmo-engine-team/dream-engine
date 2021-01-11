@@ -28,7 +28,6 @@ Json ActorComponentSceneInfo::toJson()
     Json json = ActorComponentInfo::toJson();
 
     json["type"] = MapUtils::TryGetByKey<ACS_Type, std::string>(MAP_ACS_TYPE_TO_STRING, type, "UNKNOWN");
-    json["transform"] = transformInfo->toJson();
 
     return json;
 }
@@ -42,8 +41,6 @@ void ActorComponentSceneInfo::fromJson(Json json)
     type = MapUtils::TryGetByValue<ACS_Type, std::string>(MAP_ACS_TYPE_TO_STRING, stringType, ACS_Type::UNKNOWN);
     if (type == ACS_Type::UNKNOWN)
         ErrorLogger::Log(Error, "SceneActorInfo has invalid type: " + stringType + "/n" + json.dump());
-
-    transformInfo->fromJson(json["transform"]);
 }
 
 

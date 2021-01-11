@@ -138,6 +138,8 @@ void ACS_StaticModel::onDrawShadowMap()
 
 void ACS_StaticModel::onParamUpdate(std::string name, BaseParam* param)
 {
+    ActorComponentScene::onParamUpdate(name, param);
+
     if (param == modelAssetParam)
     {
         hasManualModelData = false;

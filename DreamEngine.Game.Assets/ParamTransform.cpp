@@ -7,12 +7,12 @@ ParamTransform::ParamTransform(TransformInfo def) : Param<TransformInfo>(ParamTy
 
 ParamTransform::ParamTransform(ParamTransform& paramTransform) : Param<TransformInfo>(paramTransform)
 {
-    
+
 }
 
 BaseParam* ParamTransform::Copy()
 {
-    return new ParamTransform();
+    return new ParamTransform(*this);
 }
 
 Vector3 ParamTransform::GetPosition() const
@@ -23,33 +23,41 @@ Vector3 ParamTransform::GetPosition() const
 void ParamTransform::SetPosition(Vector3 position)
 {
     value.SetPosition(position);
+    isDefault = false;
 }
 
 void ParamTransform::SetDefPosition()
 {
     value.SetPosition(def.GetPosition());
+    isDefault = true;
 }
 
 void ParamTransform::UpdateValue(const BaseParam* paramCopy)
 {
-    value.SetPosition(dynamic_cast<const ParamTransform*>(paramCopy)->GetPosition());
+    if (paramCopy->IsDefault())
+    {
+        SetDef();
+    }
+    else
+    {
+        value.SetPosition(dynamic_cast<const ParamTransform*>(paramCopy)->GetPosition());
+        isDefault = false;
+    }
 }
 
 Json ParamTransform::toJson()
 {
-    Json json = {};
+    Json json = Param::toJson();
 
     json["value"] = value.toJson();
-    json["def"] = def.toJson();
 
     return json;
 }
 
 void ParamTransform::fromJson(Json json)
 {
+    Param::fromJson(json);
+
     value = {};
     value.fromJson(json["value"]);
-
-    def = {};
-    def.fromJson(json["def"]);
 }

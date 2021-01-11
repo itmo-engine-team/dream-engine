@@ -126,6 +126,9 @@
     <ClInclude Include="EditorParamDrawerString.h">
       <Filter>Header Files\Param</Filter>
     </ClInclude>
+    <ClInclude Include="EditorParamDrawerBool.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -216,6 +219,9 @@
       <Filter>Source Files\Param</Filter>
     </ClCompile>
     <ClCompile Include="EditorParamDrawerString.cpp">
+      <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorParamDrawerBool.cpp">
       <Filter>Source Files\Param</Filter>
     </ClCompile>
   </ItemGroup>

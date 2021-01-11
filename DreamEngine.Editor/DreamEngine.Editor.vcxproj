@@ -23,6 +23,7 @@
     <ClInclude Include="EditorContext.h" />
     <ClInclude Include="EditorParamDrawer.h" />
     <ClInclude Include="EditorParamDrawerAsset.h" />
+    <ClInclude Include="EditorParamDrawerBool.h" />
     <ClInclude Include="EditorParamDrawerFloat.h" />
     <ClInclude Include="EditorParamDrawerInt.h" />
     <ClInclude Include="EditorParamDrawerString.h" />
@@ -55,6 +56,7 @@
     <ClCompile Include="EditorContext.cpp" />
     <ClCompile Include="EditorParamDrawer.cpp" />
     <ClCompile Include="EditorParamDrawerAsset.cpp" />
+    <ClCompile Include="EditorParamDrawerBool.cpp" />
     <ClCompile Include="EditorParamDrawerFloat.cpp" />
     <ClCompile Include="EditorParamDrawerInt.cpp" />
     <ClCompile Include="EditorParamDrawerString.cpp" />

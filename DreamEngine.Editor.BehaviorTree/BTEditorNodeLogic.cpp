@@ -51,6 +51,8 @@ void BTEditorNodeLogic::fromJson(Json json)
 
     std::string stringType;
     initVariable(json, "logicType", &stringType);
+    setTypeName(stringType);
+
     logicType = MapUtils::TryGetByValue<BTNodeLogicType, std::string>(
         MAP_NODE_LOGIC_TYPE_TO_STRING, stringType, BTNodeLogicType::UNKNOWN);
     if (logicType == BTNodeLogicType::UNKNOWN)

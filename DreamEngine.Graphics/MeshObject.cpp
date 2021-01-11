@@ -14,8 +14,8 @@
 MeshObject::MeshObject(Graphics* graphics, MeshData* meshData, Texture* texture)
     : graphics(graphics), meshData(meshData), texture(texture)
 {
-    topologyType = meshData->IsTriangleTopology() ? D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST
-                                                  : D3D10_PRIMITIVE_TOPOLOGY_LINELIST;
+    topologyType = meshData->IsTriangleTopology() ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+                                                  : D3D11_PRIMITIVE_TOPOLOGY_LINELIST;
 
     HRESULT hr;
 

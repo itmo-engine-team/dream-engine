@@ -14,17 +14,17 @@ EditorParamDrawerTransform::EditorParamDrawerTransform(int index, const std::str
     inputFieldZ = std::to_string(param->GetPosition().z);
     inputFieldZ.resize(6);
 
-    buttonLabel = "X##" + std::to_string(index);
-    xPosLabel = "x##" + std::to_string(index);
-    yPosLabel = "y##" + std::to_string(index);
-    zPosLabel = "z##" + std::to_string(index);
+    resetButtonLabel = "X##" + std::to_string(index);
+    xPosLabel = "##" + std::to_string(index);
+    yPosLabel = "##" + std::to_string(index+1);
+    zPosLabel = "##" + std::to_string(index+2);
 }
 
 bool EditorParamDrawerTransform::Draw()
 {
     ImGui::Text("Position");
     ImGui::SameLine();
-    if (ImGui::Button(buttonLabel.c_str()))
+    if (ImGui::Button(resetButtonLabel.c_str()))
     {
         param->SetDefPosition();
         inputFieldX = std::to_string(param->GetPosition().x);
@@ -39,19 +39,41 @@ bool EditorParamDrawerTransform::Draw()
         return true;
     }
 
+    isChanged = false;
+
+    ImGui::PushItemWidth(50);
+    ImGui::Text("x");
+    ImGui::SameLine();
     ImGui::InputText(xPosLabel.c_str(),
         inputFieldX.data(), 6, ImGuiInputTextFlags_CharsDecimal);
-    ImGui::InputText(yPosLabel.c_str(),
-        inputFieldY.data(), 6, ImGuiInputTextFlags_CharsDecimal);
-    ImGui::InputText(zPosLabel.c_str(),
-        inputFieldZ.data(), 6, ImGuiInputTextFlags_CharsDecimal);
-
-    const bool isChanged = ImGui::IsItemDeactivatedAfterEdit();
-    if (isChanged)
+    if (ImGui::IsItemDeactivatedAfterChange())
     {
         param->SetPosition(Vector3(std::stof(inputFieldX.c_str()), std::stof(inputFieldY.c_str()), std::stof(inputFieldZ.c_str())));
-        return true;
+        isChanged = true;
     }
 
-    return false;
+    ImGui::SameLine();
+    ImGui::Text(" y");
+    ImGui::SameLine();
+    ImGui::InputText(yPosLabel.c_str(),
+        inputFieldY.data(), 6, ImGuiInputTextFlags_CharsDecimal);
+    if (ImGui::IsItemDeactivatedAfterChange())
+    {
+        param->SetPosition(Vector3(std::stof(inputFieldX.c_str()), std::stof(inputFieldY.c_str()), std::stof(inputFieldZ.c_str())));
+        isChanged = true;
+    }
+
+    ImGui::SameLine();
+    ImGui::Text(" z");
+    ImGui::SameLine();
+    ImGui::InputText(zPosLabel.c_str(),
+        inputFieldZ.data(), 6, ImGuiInputTextFlags_CharsDecimal);   
+    if (ImGui::IsItemDeactivatedAfterChange())
+    {
+        param->SetPosition(Vector3(std::stof(inputFieldX.c_str()), std::stof(inputFieldY.c_str()), std::stof(inputFieldZ.c_str())));
+        isChanged = true;
+    }
+
+    ImGui::PopItemWidth();
+    return isChanged;
 }

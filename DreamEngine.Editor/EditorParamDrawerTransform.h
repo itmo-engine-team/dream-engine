@@ -16,10 +16,12 @@ private:
     std::string inputFieldX;
     std::string inputFieldY;
     std::string inputFieldZ;
-    std::string buttonLabel;
+    std::string resetButtonLabel;
 
     std::string xPosLabel;
     std::string yPosLabel;
     std::string zPosLabel;
+
+    bool isChanged;
 };
 

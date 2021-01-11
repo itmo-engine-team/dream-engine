@@ -148,8 +148,10 @@ void NavMesh::initNavMeshGrid()
             indices.insert(indices.end(), polygonIndices.begin(), polygonIndices.end());
 
             std::vector<DWORD> polygonGridIndices = {
-                0 + currentVertexIndex, 1 + currentVertexIndex, 2 + currentVertexIndex,
-                3 + currentVertexIndex, 0 + currentVertexIndex
+                0 + currentVertexIndex, 1 + currentVertexIndex,
+                1 + currentVertexIndex, 2 + currentVertexIndex,
+                2 + currentVertexIndex, 3 + currentVertexIndex,
+                3 + currentVertexIndex, 0 + currentVertexIndex,
             };
             gridIndices.insert(gridIndices.end(), polygonGridIndices.begin(), polygonGridIndices.end());
 

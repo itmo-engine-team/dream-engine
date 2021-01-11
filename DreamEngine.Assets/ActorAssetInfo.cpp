@@ -1,4 +1,5 @@
 #include "ActorAssetInfo.h"
+#include "MapUtils.h"
 
 ActorAssetInfo::ActorAssetInfo() : AssetInfo(AssetType::Actor)
 {
@@ -65,6 +66,8 @@ Json ActorAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();
 
+    json["actorType"] = MapUtils::TryGetByKey<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, actorType, "UNKNOWN");
+
     Json sceneComponentsJson = Json::array();
     for (auto component : sceneComponents)
     {
@@ -85,6 +88,11 @@ Json ActorAssetInfo::toJson()
 void ActorAssetInfo::fromJson(Json json)
 {
     AssetInfo::fromJson(json);
+
+    std::string stringActorType;
+    initVariable(json, "actorType", &stringActorType);
+    actorType = MapUtils::TryGetByValue<ActorType, std::string>(
+        MAP_ACTOR_TYPE_TO_STRING, stringActorType, ActorType::Actor);
 
     Json sceneComponentsJson = json["sceneComponents"];
     for (auto componentJson : sceneComponentsJson)

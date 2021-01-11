@@ -146,6 +146,7 @@
     <ClCompile Include="ActorComponentInfo.cpp" />
     <ClCompile Include="ActorComponentSceneInfo.cpp" />
     <ClCompile Include="ParamAsset.cpp" />
+    <ClCompile Include="ParamBool.cpp" />
     <ClCompile Include="ParamCreator.cpp" />
     <ClCompile Include="ParamExtender.cpp" />
     <ClCompile Include="Param.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="ActorType.h" />
     <ClInclude Include="AssetType.h" />
     <ClInclude Include="ParamAsset.h" />
+    <ClInclude Include="ParamBool.h" />
     <ClInclude Include="ParamCreator.h" />
     <ClInclude Include="ParamExtender.h" />
     <ClInclude Include="Param.h" />

@@ -23,6 +23,7 @@ public:
 protected:
 
     Transform* transform;
+    ParamTransform* transformAssetParam;
 
     virtual void onDraw();
     virtual void onDrawShadowMap();

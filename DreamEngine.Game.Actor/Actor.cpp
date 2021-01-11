@@ -7,11 +7,15 @@
 #include "DeltaTimeHandler.h"
 #include "Transform.h"
 
+#include "ParamTransform.h"
+
 using namespace DirectX::SimpleMath;
 
 Actor::Actor(ActorContext* context) : GameObject(), context(context)
 {
     transform = new Transform();
+    transformAssetParam = new ParamTransform();
+    AddParam("Transform", transformAssetParam);
 }
 
 void Actor::Init()

@@ -7,6 +7,9 @@ ActorComponentScene::ActorComponentScene(Actor* actor) : ActorComponent(actor)
 {
     transform = new Transform();
     transform->SetParent(actor->GetTransform(), true);
+
+    transformAssetParam = new ParamTransform();
+    AddParam("Transform", transformAssetParam);
 }
 
 ActorComponentScene::~ActorComponentScene()

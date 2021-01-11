@@ -19,7 +19,7 @@ bool EditorParamDrawerBool::Draw()
     const bool isChanged = ImGui::IsItemDeactivatedAfterEdit();
     if (isChanged)
     {
-        param->Set(&paramCheckBox);
+        param->Set(paramCheckBox);
         return true;
     }
 

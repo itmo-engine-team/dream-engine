@@ -17,21 +17,24 @@ BaseParam* ParamBool::Copy()
 
 Json ParamBool::toJson()
 {
-    Json json = {};
+    Json json = Param::toJson();
 
     json["value"] = value;
-    json["def"] = def;
 
     return json;
 }
 
 void ParamBool::fromJson(Json json)
 {
+    Param::fromJson(json);
+
     initVariable(json, "value", &value);
-    initVariable(json, "def", &def);
 }
 
 void ParamBool::UpdateValue(const BaseParam* paramCopy)
 {
-    this->Set(dynamic_cast<const ParamBool*>(paramCopy)->Get());
+    if (paramCopy->IsDefault())
+        SetDef();
+    else
+        Set(dynamic_cast<const ParamBool*>(paramCopy)->Get());
 }

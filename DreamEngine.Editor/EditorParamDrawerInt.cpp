@@ -13,16 +13,17 @@ EditorParamDrawerInt::EditorParamDrawerInt(int index, const std::string& name, B
 
 bool EditorParamDrawerInt::Draw()
 {
+    bool isChanged = false;
+
     ImGui::PushItemWidth(50);
     ImGui::Text(name.c_str());
     ImGui::SameLine();
     ImGui::InputText(inputFieldLabel.c_str(), 
         inputField.data(), 6, ImGuiInputTextFlags_CharsDecimal);
-    const bool isChanged = ImGui::IsItemDeactivatedAfterEdit();
-    if (isChanged)
+    if (ImGui::IsItemDeactivatedAfterEdit())
     {
         param->Set(std::stoi(inputField.c_str()));
-        return true;
+        isChanged = true;
     }
 
     ImGui::SameLine();
@@ -32,9 +33,9 @@ bool EditorParamDrawerInt::Draw()
         inputField = std::to_string(param->Get());
         inputField.resize(6);
 
-        return true;
+        isChanged = true;
     }
 
     ImGui::PopItemWidth();
-    return false;
+    return isChanged;
 }

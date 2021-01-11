@@ -7,22 +7,23 @@ EditorParamDrawerString::EditorParamDrawerString(int index, const std::string& n
 {
     inputField = param->Get();
     inputField.resize(6);
-    inputFieldLabel ="##" + std::to_string(index);
+    inputFieldLabel = "##" + std::to_string(index);
     resetButtonLabel = "X##" + std::to_string(index);
 }
 
 bool EditorParamDrawerString::Draw()
 {
+    bool isChanged = false;
+
     ImGui::PushItemWidth(50);
     ImGui::Text(name.c_str());
     ImGui::SameLine();
     ImGui::InputText(inputFieldLabel.c_str(),
         inputField.data(), 6, ImGuiInputTextFlags_CharsHexadecimal);
-    const bool isChanged = ImGui::IsItemDeactivatedAfterEdit();
-    if (isChanged)
+    if (ImGui::IsItemDeactivatedAfterEdit())
     {
         param->Set(inputField.c_str());
-        return true;
+        isChanged = true;
     }
 
     ImGui::SameLine();
@@ -32,10 +33,10 @@ bool EditorParamDrawerString::Draw()
         inputField = param->Get();
         inputField.resize(6);
 
-        return true;
+        isChanged = true;
     }
 
     ImGui::PopItemWidth();
-    return false;
+    return isChanged;
 }
 

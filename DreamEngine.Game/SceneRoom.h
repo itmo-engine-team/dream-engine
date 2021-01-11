@@ -17,15 +17,15 @@ public:
 
     SceneRoomInfo* GetRoomInfo() const;
 
-    /*void CreateActor();
-    const std::vector<Actor*>& GetActors() const;*/
+    void CreateActor();
+    const std::vector<Actor*>& GetActors() const;
 
 protected:
 
     ActorContext* context;
     SceneRoomInfo* roomInfo;
 
-    //std::vector<Actor*> actors;
+    std::vector<Actor*> actors;
 
 };
 

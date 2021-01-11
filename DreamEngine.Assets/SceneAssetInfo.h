@@ -13,9 +13,9 @@ public:
     SceneAssetInfo();
     SceneAssetInfo(SceneAssetInfo& assetInfo);
 
-    const std::vector<SceneRoomInfo*>& GetRoomInfoList() const;
+   /* const std::vector<SceneRoomInfo*>& GetRoomInfoList() const;
 
-    void AddRoomInfo(SceneRoomInfo* roomInfo);
+    void AddRoomInfo(SceneRoomInfo* roomInfo);*/
 
     const std::vector<SceneActorInfo*>& GetActorInfoList() const;
     void AddActorInfo(SceneActorInfo* actorInfo);
@@ -27,7 +27,7 @@ protected:
 
 private:
 
-    std::vector<SceneRoomInfo*> roomInfoList;
+    //std::vector<SceneRoomInfo*> roomInfoList;
     std::vector<SceneActorInfo*> actorInfoList;
 
 };

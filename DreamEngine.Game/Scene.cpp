@@ -41,21 +41,21 @@ SceneAssetInfo* Scene::GetSceneAssetInfo() const
     return sceneInfo;
 }
 
-SceneRoom* Scene::CreateNewRoom()
-{
-    SceneRoomInfo* roomInfo = new SceneRoomInfo();
-    roomInfo->SetName("Room " + std::to_string(rooms.size()));
-    sceneInfo->AddRoomInfo(roomInfo);
+//SceneRoom* Scene::CreateNewRoom()
+//{
+//    SceneRoomInfo* roomInfo = new SceneRoomInfo();
+//    roomInfo->SetName("Room " + std::to_string(rooms.size()));
+//    sceneInfo->AddRoomInfo(roomInfo);
+//
+//    SceneRoom* room = new SceneRoom(context, roomInfo);
+//    rooms.push_back(room);
+//    return room;
+//}
 
-    SceneRoom* room = new SceneRoom(context, roomInfo);
-    rooms.push_back(room);
-    return room;
-}
-
-SceneRoom* Scene::GetCurrentRoom() const
-{
-    return currentRoom;
-}
+//SceneRoom* Scene::GetCurrentRoom() const
+//{
+//    return currentRoom;
+//}
 
 std::vector<SceneRoom*> Scene::GetRoomList() const
 {

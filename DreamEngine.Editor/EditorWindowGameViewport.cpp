@@ -74,11 +74,11 @@ void EditorWindowGameViewport::renderSceneHierarchy()
         editor->GetContext()->GetAssetManager()->SaveAsset(sceneAssetNode);
     }
 
-    ImGui::SameLine();
+   /* ImGui::SameLine();
     if (ImGui::Button("Add Room"))
     {
         currentSceneRoom = currentScene->CreateNewRoom();
-    }
+    }*/
 
     ImGui::Separator();
 

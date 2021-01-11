@@ -1,6 +1,5 @@
 #include "SceneAssetInfo.h"
 
-#include "SceneRoomInfo.h"
 #include "SceneActorInfo.h"
 
 SceneAssetInfo::SceneAssetInfo() : AssetInfo(AssetType::Scene)
@@ -13,15 +12,15 @@ SceneAssetInfo::SceneAssetInfo(SceneAssetInfo& assetInfo) : AssetInfo(assetInfo)
 
 }
 
-const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
-{
-    return roomInfoList;
-}
-
-void SceneAssetInfo::AddRoomInfo(SceneRoomInfo* roomInfo)
-{
-    roomInfoList.push_back(roomInfo);
-}
+//const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
+//{
+//    return roomInfoList;
+//}
+//
+//void SceneAssetInfo::AddRoomInfo(SceneRoomInfo* roomInfo)
+//{
+//    roomInfoList.push_back(roomInfo);
+//}
 
 const std::vector<SceneActorInfo*>& SceneAssetInfo::GetActorInfoList() const
 {

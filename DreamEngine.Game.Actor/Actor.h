@@ -8,6 +8,8 @@
 #include "ActorContext.h"
 #include "ParamExtender.h"
 #include "TransformInfo.h"
+#include "ParamAsset.h"
+#include "ParamTransform.h"
 
 class Transform;
 class ActorComponent;
@@ -79,6 +81,7 @@ protected:
 
     ActorContext* context;
     Transform* transform;
+    ParamTransform* transformAssetParam;
 
     std::vector<ActorComponent*> components;
     std::vector<ActorComponentScene*> sceneComponents;

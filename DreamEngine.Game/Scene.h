@@ -19,6 +19,9 @@ public:
     SceneRoom* GetCurrentRoom() const;
     std::vector<SceneRoom*> GetRoomList() const;
 
+    void CreateActor();
+    const std::vector<Actor*>& GetActors() const;
+
 protected:
 
     ActorContext* context;
@@ -26,6 +29,8 @@ protected:
 
     SceneRoom* currentRoom;
     std::vector<SceneRoom*> rooms;
+
+    std::vector<Actor*> actors;
 
 };
 

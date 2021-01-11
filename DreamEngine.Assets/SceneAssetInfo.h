@@ -3,6 +3,7 @@
 #include "AssetInfo.h"
 
 class SceneRoomInfo;
+class SceneActorInfo;
 
 class SceneAssetInfo : public AssetInfo
 {
@@ -16,6 +17,9 @@ public:
 
     void AddRoomInfo(SceneRoomInfo* roomInfo);
 
+    const std::vector<SceneActorInfo*>& GetActorInfoList() const;
+    void AddActorInfo(SceneActorInfo* actorInfo);
+
 protected:
 
     Json toJson() override;
@@ -24,6 +28,7 @@ protected:
 private:
 
     std::vector<SceneRoomInfo*> roomInfoList;
+    std::vector<SceneActorInfo*> actorInfoList;
 
 };
 

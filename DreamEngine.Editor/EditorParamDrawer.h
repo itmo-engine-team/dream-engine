@@ -11,6 +11,10 @@ public:
     virtual ~EditorParamDrawerBase() = default;
     virtual bool Draw() = 0;
     virtual BaseParam* GetParam() = 0;
+    virtual int GetRequiredIndexCount()
+    {
+        return 1;
+    }
 
 };
 

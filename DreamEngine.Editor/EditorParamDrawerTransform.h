@@ -11,6 +11,11 @@ public:
     EditorParamDrawerTransform(int index, const std::string& name, BaseParam* baseParam);
     bool Draw() override;
 
+    int GetRequiredIndexCount() override
+    {
+        return 3;
+    }
+
 private:
 
     std::string inputFieldX;

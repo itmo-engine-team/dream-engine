@@ -2,14 +2,14 @@
 
 #include "Param.h"
 
-class ParamFloat : public Param<float>
+class ParamString : public Param<std::string>
 {
 
 public:
 
-    ParamFloat(float def);
-    ParamFloat(ParamFloat& param);
-    ParamFloat(Json json);
+    ParamString(std::string def);
+    ParamString(ParamString& param);
+    ParamString(Json json);
 
     BaseParam* Copy() override;
 

@@ -75,6 +75,12 @@
     <ClCompile Include="ParamCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ParamFloat.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamString.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TransformInfo.h">
@@ -124,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="ParamCreator.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamFloat.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamString.h">
+      <Filter>Header Files\Param\Inherited</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

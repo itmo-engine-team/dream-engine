@@ -149,7 +149,9 @@
     <ClCompile Include="ParamCreator.cpp" />
     <ClCompile Include="ParamExtender.cpp" />
     <ClCompile Include="Param.cpp" />
+    <ClCompile Include="ParamFloat.cpp" />
     <ClCompile Include="ParamInt.cpp" />
+    <ClCompile Include="ParamString.cpp" />
     <ClCompile Include="ParamTransform.cpp" />
     <ClCompile Include="SceneActorInfo.cpp" />
     <ClCompile Include="SceneRoomInfo.cpp" />
@@ -166,7 +168,9 @@
     <ClInclude Include="ParamCreator.h" />
     <ClInclude Include="ParamExtender.h" />
     <ClInclude Include="Param.h" />
+    <ClInclude Include="ParamFloat.h" />
     <ClInclude Include="ParamInt.h" />
+    <ClInclude Include="ParamString.h" />
     <ClInclude Include="ParamTransform.h" />
     <ClInclude Include="ParamType.h" />
     <ClInclude Include="SceneActorInfo.h" />

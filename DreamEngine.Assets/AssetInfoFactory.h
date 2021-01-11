@@ -8,27 +8,12 @@
 #include "ModelAssetInfo.h"
 #include "SceneAssetInfo.h"
 #include "BTAssetInfo.h"
+#include "MapUtils.h"
 
 class AssetInfoFactory
 {
 
 public:
-
-    inline const static std::map<std::string, AssetType> MAP_STRING_TO_ASSET_TYPE = {
-        { "Actor", AssetType::Actor },
-        { "Scene", AssetType::Scene },
-        { "Model", AssetType::Model },
-        { "Texture", AssetType::Texture },
-        { "Behavior Tree", AssetType::BT },
-    };
-
-    inline const static std::map<AssetType, std::string> MAP_ASSET_TYPE_TO_STRING = {
-        { AssetType::Actor, "Actor" },
-        { AssetType::Scene, "Scene" },
-        { AssetType::Model, "Model" },
-        { AssetType::Texture, "Texture" },
-        { AssetType::BT, "Behavior Tree" },
-    };
 
     static std::string GetAssetTypeStringName(AssetType assetType)
     {
@@ -37,7 +22,8 @@ public:
 
     static AssetType GetAssetTypeByString(std::string stringType)
     {
-        return MAP_STRING_TO_ASSET_TYPE.find(stringType)->second;
+        return MapUtils::TryGetByValue<AssetType, std::string>(
+            MAP_ASSET_TYPE_TO_STRING, stringType, AssetType::Unknown);
     }
 
     static AssetInfo* Create(const AssetType type)

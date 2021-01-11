@@ -7,7 +7,7 @@
 
 class ParamCreator
 {
-    static BaseParam* CreateParam(ParamType type)
+    static BaseParam* CreateParam(ParamType type, Json json)
     {
         switch (type)
         {
@@ -16,7 +16,7 @@ class ParamCreator
             case ParamType::Float:
                 break;
             case ParamType::Asset:
-                return new ParamAsset();
+                return new ParamAsset(json);
             case ParamType::Transform:
                 return new ParamTransform();
             default:

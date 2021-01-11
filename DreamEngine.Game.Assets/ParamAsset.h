@@ -11,6 +11,7 @@ public:
 
     ParamAsset(AssetType assetType);
     ParamAsset(ParamAsset& paramAsset);
+    ParamAsset(Json json);
 
     AssetType GetAssetType() const;
 

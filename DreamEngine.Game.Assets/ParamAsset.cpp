@@ -1,4 +1,7 @@
 #include "ParamAsset.h"
+#include "MapUtils.h"
+
+#include "AssetType.h"
 
 ParamAsset::ParamAsset(AssetType assetType)
     : Param<unsigned int>(ParamType::Asset, 0), assetType(assetType)
@@ -9,6 +12,11 @@ ParamAsset::ParamAsset(AssetType assetType)
 ParamAsset::ParamAsset(ParamAsset& paramAsset) : Param<unsigned int>(paramAsset)
 {
     this->assetType = paramAsset.assetType;
+}
+
+ParamAsset::ParamAsset(Json json) : Param<unsigned int>(ParamType::Asset, 0)
+{
+    fromJson(json);
 }
 
 AssetType ParamAsset::GetAssetType() const
@@ -26,7 +34,7 @@ Json ParamAsset::toJson()
     Json json = {};
 
     json["value"] = value;
-    json["def"] = def;
+    json["assetType"] = MapUtils::TryGetByKey<AssetType, std::string>(MAP_ASSET_TYPE_TO_STRING, assetType, "UNKNOWN");
 
     return json;
 }
@@ -34,7 +42,8 @@ Json ParamAsset::toJson()
 void ParamAsset::fromJson(Json json)
 {
     initVariable(json, "value", &value);
-    initVariable(json, "def", &def);
+
+    assetType = AssetType::Model;
 }
 
 void ParamAsset::UpdateValue(const BaseParam* paramCopy)

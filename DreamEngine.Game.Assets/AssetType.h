@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <map>
+#include <string>
 
 enum class AssetType
 {
@@ -20,4 +22,12 @@ const std::vector<AssetType> ALL_ASSET_TYPES = {
     AssetType::Model,
     AssetType::Texture,
     AssetType::BT,
+};
+
+const std::map<AssetType, std::string> MAP_ASSET_TYPE_TO_STRING = {
+    { AssetType::Actor, "Actor" },
+    { AssetType::Scene, "Scene" },
+    { AssetType::Model, "Model" },
+    { AssetType::Texture, "Texture" },
+    { AssetType::BT, "Behavior Tree" },
 };

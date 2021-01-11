@@ -2,7 +2,7 @@
 
 #include "Param.h"
 
-class ParamExtender
+class ParamExtender : Serializable
 {
 
 public:
@@ -12,6 +12,9 @@ public:
     void CopyParams(const std::unordered_map<std::string, BaseParam*>& paramMapToCopy);
     void UpdateParam(std::string name, const BaseParam* paramCopy);
 
+    Json toJson() override;
+    void fromJson(Json json) override;
+
 protected:
 
     std::unordered_map<std::string, BaseParam*> paramMap;
@@ -19,4 +22,3 @@ protected:
     virtual void onParamUpdate(std::string name, BaseParam* param);
 
 };
-

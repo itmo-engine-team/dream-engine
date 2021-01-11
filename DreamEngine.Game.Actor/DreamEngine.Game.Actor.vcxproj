@@ -175,7 +175,6 @@
     <ClInclude Include="BTGTargetNear.h" />
     <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="ParamAsset.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ACF_AI.cpp" />
@@ -208,7 +207,6 @@
     <ClCompile Include="BTGTargetNear.cpp" />
     <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="ParamAsset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DreamEngine.Assets.Serializable\DreamEngine.Assets.Serializable.vcxproj">

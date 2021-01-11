@@ -29,6 +29,26 @@ void ParamExtender::UpdateParam(std::string name, const BaseParam* paramCopy)
     onParamUpdate(name, iter->second);
 }
 
+Json ParamExtender::toJson()
+{
+    Json json = Serializable::toJson();
+
+    for (auto paramIter : paramMap)
+    {
+        json[paramIter.first] = paramIter.second->toJson();
+    }
+
+    return json;
+}
+
+void ParamExtender::fromJson(Json json)
+{
+    for (auto paramJsonItem : json.items())
+    {
+        //paramJsonItem.key()
+    }
+}
+
 void ParamExtender::onParamUpdate(std::string name, BaseParam* param)
 {
 

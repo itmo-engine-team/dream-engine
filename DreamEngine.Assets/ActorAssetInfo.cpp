@@ -65,6 +65,8 @@ Json ActorAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();
 
+
+
     return json;
 }
 

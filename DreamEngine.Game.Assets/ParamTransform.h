@@ -10,6 +10,7 @@ public:
 
     ParamTransform(TransformInfo def = {});
     ParamTransform(ParamTransform& paramTransform);
+    ParamTransform(Json json);
 
     BaseParam* Copy() override;
 

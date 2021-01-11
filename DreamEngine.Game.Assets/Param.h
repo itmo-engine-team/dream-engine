@@ -28,6 +28,9 @@ public:
     virtual BaseParam* Copy() = 0;
     virtual void Update(const BaseParam* paramCopy) = 0;
 
+    Json toJson() override = 0;
+    void fromJson(Json json) override = 0;
+
 protected:
 
     bool isDefault = true;

@@ -69,6 +69,12 @@
     <ClCompile Include="ParamTransform.cpp">
       <Filter>Source Files\Param\Inherited</Filter>
     </ClCompile>
+    <ClCompile Include="ParamAsset.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TransformInfo.h">
@@ -109,6 +115,15 @@
     </ClInclude>
     <ClInclude Include="ParamTransform.h">
       <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamAsset.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamCreator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

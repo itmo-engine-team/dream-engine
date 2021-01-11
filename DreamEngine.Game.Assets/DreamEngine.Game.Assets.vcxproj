@@ -144,6 +144,8 @@
     <ClCompile Include="ActorComponentFixedInfo.cpp" />
     <ClCompile Include="ActorComponentInfo.cpp" />
     <ClCompile Include="ActorComponentSceneInfo.cpp" />
+    <ClCompile Include="ParamAsset.cpp" />
+    <ClCompile Include="ParamCreator.cpp" />
     <ClCompile Include="ParamExtender.cpp" />
     <ClCompile Include="Param.cpp" />
     <ClCompile Include="ParamInt.cpp" />
@@ -158,6 +160,9 @@
     <ClInclude Include="ActorComponentSceneInfo.h" />
     <ClInclude Include="ActorComponentType.h" />
     <ClInclude Include="ActorType.h" />
+    <ClInclude Include="AssetType.h" />
+    <ClInclude Include="ParamAsset.h" />
+    <ClInclude Include="ParamCreator.h" />
     <ClInclude Include="ParamExtender.h" />
     <ClInclude Include="Param.h" />
     <ClInclude Include="ParamInt.h" />

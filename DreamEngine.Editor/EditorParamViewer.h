@@ -7,6 +7,7 @@ class Editor;
 class ParamExtender;
 class ParamAsset;
 class ParamInt;
+class ParamTransform;
 class BaseParam;
 
 class EditorParamViewer

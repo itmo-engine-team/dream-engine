@@ -240,6 +240,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Editor.BehaviorTree;$(SolutionDir)DreamEngine.Game.Actor;$(SolutionDir)DreamEngine.Utils;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Game;$(SolutionDir)DreamEngine.Game.Assets;$(SolutionDir)ImGui.AnotherNodeEditor;$(SolutionDir)ImGui.NodeEditor;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>

@@ -118,6 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Editor.BehaviorTree;$(SolutionDir)DreamEngine.Game.Assets;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Utils;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Common</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

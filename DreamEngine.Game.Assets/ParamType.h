@@ -6,7 +6,8 @@ enum class ParamType
     Float,
     Asset,
     Transform,
-    String
+    String,
+    Bool
 };
 
 const std::map<ParamType, std::string> MAP_PARAM_TYPE_TO_STRING = {
@@ -15,4 +16,5 @@ const std::map<ParamType, std::string> MAP_PARAM_TYPE_TO_STRING = {
     { ParamType::Asset, "Asset" },
     { ParamType::Transform, "Transform" },
     { ParamType::String, "String" },
+    { ParamType::Bool, "Bool" },
 };

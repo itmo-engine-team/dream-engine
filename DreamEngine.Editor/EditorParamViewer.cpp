@@ -2,6 +2,9 @@
 
 #include "Param.h"
 #include "EditorParamDrawerInt.h"
+#include "EditorParamDrawerFloat.h"
+#include "EditorParamDrawerBool.h"
+#include "EditorParamDrawerString.h"
 #include "EditorParamDrawerAsset.h"
 #include "EditorParamDrawerTransform.h"
 #include "ParamExtender.h"
@@ -49,6 +52,12 @@ EditorParamDrawerBase* EditorParamViewer::createParamDrawer(int index,
             return new EditorParamDrawerAsset(editor, index, name, baseParam);
         case ParamType::Transform:
             return new EditorParamDrawerTransform(index, name, baseParam);
+        case ParamType::Float:
+            return new EditorParamDrawerFloat(index, name, baseParam);
+        case ParamType::String:
+            return new EditorParamDrawerString(index, name, baseParam);
+        case ParamType::Bool:
+            return new EditorParamDrawerBool(index, name, baseParam);
         default:
             break;
     }

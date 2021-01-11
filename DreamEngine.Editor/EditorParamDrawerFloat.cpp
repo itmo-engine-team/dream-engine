@@ -1,9 +1,9 @@
-#include "EditorParamDrawerInt.h"
+#include "EditorParamDrawerFloat.h"
 
 #include "imgui.h"
 
-EditorParamDrawerInt::EditorParamDrawerInt(int index, const std::string& name, BaseParam* baseParam)
-    : EditorParamDrawer<ParamInt>(index, name, baseParam)
+EditorParamDrawerFloat::EditorParamDrawerFloat(int index, const std::string& name, BaseParam* baseParam)
+    : EditorParamDrawer<ParamFloat>(index, name, baseParam)
 {
     inputField = std::to_string(param->Get());
     inputField.resize(6);
@@ -11,18 +11,18 @@ EditorParamDrawerInt::EditorParamDrawerInt(int index, const std::string& name, B
     resetButtonLabel = "X##" + std::to_string(index);
 }
 
-bool EditorParamDrawerInt::Draw()
+bool EditorParamDrawerFloat::Draw()
 {
     bool isChanged = false;
 
     ImGui::PushItemWidth(50);
     ImGui::Text(name.c_str());
     ImGui::SameLine();
-    ImGui::InputText(inputFieldLabel.c_str(), 
+    ImGui::InputText(inputFieldLabel.c_str(),
         inputField.data(), 6, ImGuiInputTextFlags_CharsDecimal);
     if (ImGui::IsItemDeactivatedAfterEdit())
     {
-        param->Set(std::stoi(inputField.c_str()));
+        param->Set(std::stof(inputField.c_str()));
         isChanged = true;
     }
 

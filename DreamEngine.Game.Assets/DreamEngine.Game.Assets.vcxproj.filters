@@ -81,6 +81,9 @@
     <ClCompile Include="ParamString.cpp">
       <Filter>Source Files\Param\Inherited</Filter>
     </ClCompile>
+    <ClCompile Include="ParamBool.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TransformInfo.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files\Param\Inherited</Filter>
     </ClInclude>
     <ClInclude Include="ParamString.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamBool.h">
       <Filter>Header Files\Param\Inherited</Filter>
     </ClInclude>
   </ItemGroup>

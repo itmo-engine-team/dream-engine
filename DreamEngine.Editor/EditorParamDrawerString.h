@@ -1,14 +1,14 @@
 #pragma once
 
 #include "EditorParamDrawer.h"
-#include "ParamInt.h"
+#include "ParamString.h"
 
-class EditorParamDrawerInt : public EditorParamDrawer<ParamInt>
+class EditorParamDrawerString : public EditorParamDrawer<ParamString>
 {
 
 public:
 
-    EditorParamDrawerInt(int index, const std::string& name, BaseParam* baseParam);
+    EditorParamDrawerString(int index, const std::string& name, BaseParam* baseParam);
 
     bool Draw() override;
 
@@ -19,4 +19,3 @@ private:
     std::string resetButtonLabel;
 
 };
-

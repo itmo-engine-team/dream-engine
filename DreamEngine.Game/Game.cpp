@@ -32,7 +32,7 @@ void Game::Init()
 
     playerModel = MeshRenderer::CreateBoxModel({ 1, 1, 0, 1 }, { 0.3f, 0.3f, 0.3f });
     playerActor = new Actor(actorContext);
-    playerActor->UpdateTransform(new TransformInfo({ 1, 0, 0 }));
+    playerActor->UpdateTransform(new TransformInfo({ 0.5, 0, 0 }));
     playerActor->AddSceneComponent(new ACS_StaticModel(playerActor, playerModel));
     playerActor->AddSceneComponent(new ACS_Collision(playerActor, {0.3f, 0.3f}));
     playerActor->AddFixedComponent(new ACF_PlayerMovement(playerActor));
@@ -40,13 +40,14 @@ void Game::Init()
 
     model1 = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.3f, 0.3f, 0.8f });
     actor1 = new Actor(actorContext);
+    actor1->UpdateTransform(new TransformInfo({ -1.65f, 0, 0 }));
     actor1->AddSceneComponent(new ACS_StaticModel(actor1, model1));
     actor1->AddSceneComponent(new ACS_Collision(actor1, { 0.3f, 0.8f }));
     actor1->Init();
 
     model2 = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 0.5f, 0.3f, 0.5f });
     actor2 = new Actor(actorContext);
-    actor2->UpdateTransform(new TransformInfo({ 2, 0, 0 }));
+    actor2->UpdateTransform(new TransformInfo({ 1.5f, 0, 0 }));
     actor2->AddSceneComponent(new ACS_StaticModel(actor2, model2));
     actor2->AddSceneComponent(new ACS_Collision(actor2, { 0.5f, 0.5f }));
     actor2->Init();
@@ -61,7 +62,7 @@ void Game::Init()
 
     ACF_Movement* followerMovementComponent = new ACF_Movement(followerActor);
     followerActor->AddFixedComponent(followerMovementComponent);
-    followerMovementComponent->SetSpeed(0.5f);
+    followerMovementComponent->SetSpeed(0.6f);
 
     followerActor->Init();
 }

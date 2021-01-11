@@ -156,7 +156,9 @@ void BaseSceneViewer::createBaseSceneActors()
     actorContext->SetLight(lightActor->GetLightComponent());
 
     spectatorActor = new A_Spectator(actorContext);
-    spectatorActor->UpdateTransform(new TransformInfo({ 0, 1, -6 }));
+    spectatorActor->UpdateTransform(new TransformInfo({ 4.5, 5, -3 }));
+    spectatorActor->GetTransform()->AddWorldRotation(Vector3::UnitY, -0.6f);
+    spectatorActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 1.1f);
     baseSceneActors.push_back(spectatorActor);
     actorContext->SetCamera(spectatorActor->GetCameraComponent());
 

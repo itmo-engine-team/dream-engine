@@ -18,16 +18,19 @@ public:
 
     void Draw();
     void DrawShadowMap();
+
     void UpdateTransform(TransformInfo* transformInfo);
+    void UpdateTransform(const TransformInfo& transformInfo);
 
 protected:
 
     Transform* transform;
-    ParamTransform* transformAssetParam;
+    ParamTransform* transformParam;
 
     virtual void onDraw();
     virtual void onDrawShadowMap();
 
+    void onParamUpdate(std::string name, BaseParam* param) override;
 };
 
 class ACS_Creator

@@ -8,7 +8,6 @@
 #include "ActorContext.h"
 #include "ParamExtender.h"
 #include "TransformInfo.h"
-#include "ParamAsset.h"
 #include "ParamTransform.h"
 
 class Transform;
@@ -72,6 +71,7 @@ public:
     bool RemoveComponent(ActorComponent* component);
 
     void UpdateTransform(TransformInfo* transformInfo);
+    void UpdateTransform(const TransformInfo& transformInfo);
 
 protected:
 
@@ -81,7 +81,7 @@ protected:
 
     ActorContext* context;
     Transform* transform;
-    ParamTransform* transformAssetParam;
+    ParamTransform* transformParam;
 
     std::vector<ActorComponent*> components;
     std::vector<ActorComponentScene*> sceneComponents;
@@ -92,6 +92,7 @@ protected:
     
     virtual void onUpdate();
 
+    void onParamUpdate(std::string name, BaseParam* param) override;
 };
 
 class ActorCreator

@@ -21,6 +21,10 @@ public:
     void SetRotation(Vector3 rotation);
     void SetDefRotation();
 
+    Vector3 GetScale() const;
+    void SetScale(Vector3 scale);
+    void SetDefScale();
+
 protected:
 
     void UpdateValue(const BaseParam* paramCopy) override;

@@ -12,16 +12,18 @@ public:
     bool Draw() override;
     bool DrawPosition();
     bool DrawRotation();
+    bool DrawScale();
 
     int GetRequiredIndexCount() override
     {
-        return 6;
+        return 9;
     }
 
 private:
 
     const int BUFFER_SIZE = 6;
 
+    // Position
     std::string inputFieldX;
     std::string inputFieldY;
     std::string inputFieldZ;
@@ -31,6 +33,7 @@ private:
     std::string yPosLabel;
     std::string zPosLabel;
 
+    // Rotation
     std::string inputFieldRotationX;
     std::string inputFieldRotationY;
     std::string inputFieldRotationZ;
@@ -39,6 +42,16 @@ private:
     std::string xRotationLabel;
     std::string yRotationLabel;
     std::string zRotationLabel;
+
+    // Scale
+    std::string inputFieldScaleX;
+    std::string inputFieldScaleY;
+    std::string inputFieldScaleZ;
+    std::string resetScaleButtonLabel;
+
+    std::string xScaleLabel;
+    std::string yScaleLabel;
+    std::string zScaleLabel;
 
 };
 

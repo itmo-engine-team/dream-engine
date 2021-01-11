@@ -5,6 +5,7 @@
 EditorParamDrawerTransform::EditorParamDrawerTransform(int index, const std::string& name, BaseParam* baseParam)
     : EditorParamDrawer<ParamTransform>(index, name, baseParam)
 {
+    // Position
     inputFieldX = std::to_string(param->GetPosition().x);
     inputFieldX.resize(BUFFER_SIZE);
 
@@ -19,6 +20,7 @@ EditorParamDrawerTransform::EditorParamDrawerTransform(int index, const std::str
     yPosLabel = "##" + std::to_string(index + 1);
     zPosLabel = "##" + std::to_string(index + 2);
 
+    // Rotation
     inputFieldRotationX = std::to_string(param->GetRotation().x);
     inputFieldRotationX.resize(BUFFER_SIZE);
 
@@ -32,12 +34,28 @@ EditorParamDrawerTransform::EditorParamDrawerTransform(int index, const std::str
     xRotationLabel = "##" + std::to_string(index + 3);
     yRotationLabel = "##" + std::to_string(index + 4);
     zRotationLabel = "##" + std::to_string(index + 5);
+
+    // Rotation
+    inputFieldScaleX = std::to_string(param->GetScale().x);
+    inputFieldScaleX.resize(BUFFER_SIZE);
+
+    inputFieldScaleY = std::to_string(param->GetScale().y);
+    inputFieldScaleY.resize(BUFFER_SIZE);
+
+    inputFieldScaleZ = std::to_string(param->GetScale().z);
+    inputFieldScaleZ.resize(BUFFER_SIZE);
+
+    resetScaleButtonLabel = "X##" + std::to_string(index + 2);
+    xScaleLabel = "##" + std::to_string(index + 6);
+    yScaleLabel = "##" + std::to_string(index + 7);
+    zScaleLabel = "##" + std::to_string(index + 8);
 }
 
 bool EditorParamDrawerTransform::Draw()
 {
     bool isChanged = DrawPosition();
     isChanged = isChanged || DrawRotation();
+    isChanged = isChanged || DrawScale();
     return isChanged;
 }
 
@@ -66,7 +84,7 @@ bool EditorParamDrawerTransform::DrawPosition()
     ImGui::Text("x");
     ImGui::SameLine();
     ImGui::InputText(xPosLabel.c_str(),
-        inputFieldX.data(), 6, ImGuiInputTextFlags_CharsDecimal);
+        inputFieldX.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
     if (ImGui::IsItemDeactivatedAfterChange())
     {
         param->SetPosition(Vector3(std::stof(inputFieldX.c_str()), std::stof(inputFieldY.c_str()), std::stof(inputFieldZ.c_str())));
@@ -77,7 +95,7 @@ bool EditorParamDrawerTransform::DrawPosition()
     ImGui::Text(" y");
     ImGui::SameLine();
     ImGui::InputText(yPosLabel.c_str(),
-        inputFieldY.data(), 6, ImGuiInputTextFlags_CharsDecimal);
+        inputFieldY.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
     if (ImGui::IsItemDeactivatedAfterChange())
     {
         param->SetPosition(Vector3(std::stof(inputFieldX.c_str()), std::stof(inputFieldY.c_str()), std::stof(inputFieldZ.c_str())));
@@ -88,7 +106,7 @@ bool EditorParamDrawerTransform::DrawPosition()
     ImGui::Text(" z");
     ImGui::SameLine();
     ImGui::InputText(zPosLabel.c_str(),
-        inputFieldZ.data(), 6, ImGuiInputTextFlags_CharsDecimal);
+        inputFieldZ.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
     if (ImGui::IsItemDeactivatedAfterChange())
     {
         param->SetPosition(Vector3(std::stof(inputFieldX.c_str()), std::stof(inputFieldY.c_str()), std::stof(inputFieldZ.c_str())));
@@ -124,7 +142,7 @@ bool EditorParamDrawerTransform::DrawRotation()
     ImGui::Text("x");
     ImGui::SameLine();
     ImGui::InputText(xRotationLabel.c_str(),
-        inputFieldRotationX.data(), 6, ImGuiInputTextFlags_CharsDecimal);
+        inputFieldRotationX.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
     if (ImGui::IsItemDeactivatedAfterChange())
     {
         param->SetRotation(Vector3(
@@ -139,7 +157,7 @@ bool EditorParamDrawerTransform::DrawRotation()
     ImGui::Text(" y");
     ImGui::SameLine();
     ImGui::InputText(yRotationLabel.c_str(),
-        inputFieldRotationY.data(), 6, ImGuiInputTextFlags_CharsDecimal);
+        inputFieldRotationY.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
     if (ImGui::IsItemDeactivatedAfterChange())
     {
         param->SetRotation(Vector3(
@@ -154,13 +172,83 @@ bool EditorParamDrawerTransform::DrawRotation()
     ImGui::Text(" z");
     ImGui::SameLine();
     ImGui::InputText(zRotationLabel.c_str(),
-        inputFieldRotationZ.data(), 6, ImGuiInputTextFlags_CharsDecimal);
+        inputFieldRotationZ.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
     if (ImGui::IsItemDeactivatedAfterChange())
     {
         param->SetRotation(Vector3(
             std::stof(inputFieldRotationX.c_str()),
             std::stof(inputFieldRotationY.c_str()),
             std::stof(inputFieldRotationZ.c_str())
+        ));
+        isChanged = true;
+    }
+
+    ImGui::PopItemWidth();
+    return isChanged;
+}
+
+bool EditorParamDrawerTransform::DrawScale()
+{
+    ImGui::Text("Scale");
+    ImGui::SameLine();
+    if (ImGui::Button(resetScaleButtonLabel.c_str()))
+    {
+        param->SetDefScale();
+        inputFieldScaleX = std::to_string(param->GetScale().x);
+        inputFieldScaleX.resize(BUFFER_SIZE);
+
+        inputFieldScaleY = std::to_string(param->GetScale().y);
+        inputFieldScaleY.resize(BUFFER_SIZE);
+
+        inputFieldScaleZ = std::to_string(param->GetScale().z);
+        inputFieldScaleZ.resize(BUFFER_SIZE);
+
+        return true;
+    }
+
+    bool isChanged = false;
+
+    ImGui::PushItemWidth(50);
+    ImGui::Text("x");
+    ImGui::SameLine();
+    ImGui::InputText(xScaleLabel.c_str(),
+        inputFieldScaleX.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
+    if (ImGui::IsItemDeactivatedAfterChange())
+    {
+        param->SetScale(Vector3(
+            std::stof(inputFieldScaleX.c_str()),
+            std::stof(inputFieldScaleY.c_str()),
+            std::stof(inputFieldScaleZ.c_str())
+        ));
+        isChanged = true;
+    }
+
+    ImGui::SameLine();
+    ImGui::Text(" y");
+    ImGui::SameLine();
+    ImGui::InputText(yScaleLabel.c_str(),
+        inputFieldScaleY.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
+    if (ImGui::IsItemDeactivatedAfterChange())
+    {
+        param->SetScale(Vector3(
+            std::stof(inputFieldScaleX.c_str()),
+            std::stof(inputFieldScaleY.c_str()),
+            std::stof(inputFieldScaleZ.c_str())
+        ));
+        isChanged = true;
+    }
+
+    ImGui::SameLine();
+    ImGui::Text(" z");
+    ImGui::SameLine();
+    ImGui::InputText(zScaleLabel.c_str(),
+        inputFieldScaleZ.data(), BUFFER_SIZE, ImGuiInputTextFlags_CharsDecimal);
+    if (ImGui::IsItemDeactivatedAfterChange())
+    {
+        param->SetScale(Vector3(
+            std::stof(inputFieldScaleX.c_str()),
+            std::stof(inputFieldScaleY.c_str()),
+            std::stof(inputFieldScaleZ.c_str())
         ));
         isChanged = true;
     }

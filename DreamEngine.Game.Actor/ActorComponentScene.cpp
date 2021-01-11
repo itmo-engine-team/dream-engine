@@ -34,14 +34,14 @@ void ActorComponentScene::DrawShadowMap()
 
 void ActorComponentScene::UpdateTransform(TransformInfo* transformInfo)
 {
-    transform->SetLocalPosition(transformInfo->GetPosition());
-    transform->SetLocalRotation(transformInfo->GetRotation());
+    transform->SetLocalTransform(transformInfo->GetPosition(),
+        transformInfo->GetRotation(), transformInfo->GetScale());
 }
 
 void ActorComponentScene::UpdateTransform(const TransformInfo& transformInfo)
 {
-    transform->SetLocalPosition(transformInfo.GetPosition());
-    transform->SetLocalRotation(transformInfo.GetRotation());
+    transform->SetLocalTransform(transformInfo.GetPosition(),
+        transformInfo.GetRotation(), transformInfo.GetScale());
 }
 
 void ActorComponentScene::onDraw()

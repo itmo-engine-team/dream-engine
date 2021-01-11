@@ -16,6 +16,9 @@ struct TransformInfo : Serializable
     Vector3 GetRotation() const;
     void SetRotation(Vector3 rotation);
 
+    Vector3 GetScale() const;
+    void SetScale(Vector3 scale);
+
     Json toJson() override;
     void fromJson(Json json) override;
 
@@ -23,6 +26,7 @@ private:
 
     Vector3 position;
     Vector3 rotation;
+    Vector3 scale;
 
 };
 

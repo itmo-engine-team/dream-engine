@@ -120,6 +120,12 @@
     <ClInclude Include="EditorParamDrawerTransform.h">
       <Filter>Header Files\Param</Filter>
     </ClInclude>
+    <ClInclude Include="EditorParamDrawerFloat.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorParamDrawerString.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Editor.cpp">
@@ -204,6 +210,12 @@
       <Filter>Source Files\Param</Filter>
     </ClCompile>
     <ClCompile Include="EditorParamDrawerTransform.cpp">
+      <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorParamDrawerFloat.cpp">
+      <Filter>Source Files\Param</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorParamDrawerString.cpp">
       <Filter>Source Files\Param</Filter>
     </ClCompile>
   </ItemGroup>

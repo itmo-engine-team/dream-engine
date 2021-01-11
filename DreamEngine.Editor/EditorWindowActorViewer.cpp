@@ -225,8 +225,6 @@ void EditorWindowActorViewer::renderFixedComponentsSectionPopup()
 void EditorWindowActorViewer::saveAsset()
 {
     editor->GetContext()->GetAssetManager()->SaveAsset(actorAssetInfo->GetAssetNode());
-
-    reimportAsset();
 }
 
 void EditorWindowActorViewer::reimportAsset()

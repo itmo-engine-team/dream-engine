@@ -17,6 +17,10 @@ public:
     void SetPosition(Vector3 position);
     void SetDefPosition();
 
+    Vector3 GetRotation() const;
+    void SetRotation(Vector3 rotation);
+    void SetDefRotation();
+
 protected:
 
     void UpdateValue(const BaseParam* paramCopy) override;

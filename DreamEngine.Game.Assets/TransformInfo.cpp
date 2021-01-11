@@ -1,7 +1,7 @@
 #include "TransformInfo.h"
 #include "ErrorLogger.h"
 
-TransformInfo::TransformInfo(Vector3 pos) : position(pos)
+TransformInfo::TransformInfo(Vector3 pos) : position(pos), rotation(Vector3::Zero)
 {
 
 }
@@ -16,11 +16,22 @@ void TransformInfo::SetPosition(Vector3 pos)
     position = pos;
 }
 
+Vector3 TransformInfo::GetRotation() const
+{
+    return rotation;
+}
+
+void TransformInfo::SetRotation(Vector3 rotation)
+{
+    this->rotation = rotation;
+}
+
 Json TransformInfo::toJson()
 {
     Json json = Serializable::toJson();
 
     json["pos"] = JsonUtils::fromVector3(position);
+    json["rot"] = JsonUtils::fromVector3(rotation);
 
     return json;
 }
@@ -31,8 +42,9 @@ void TransformInfo::fromJson(Json json)
     {
         position = JsonUtils::toVector3(json["pos"]);
     }
-    else
+
+    if (json.contains("rot"))
     {
-        ErrorLogger::Log(Error, "TransformInfo json doesn't have pos: \n" + json.dump());
+        rotation = JsonUtils::toVector3(json["rot"]);
     }
 }

@@ -13,12 +13,16 @@ struct TransformInfo : Serializable
     Vector3 GetPosition() const;
     void SetPosition(Vector3 pos);
 
+    Vector3 GetRotation() const;
+    void SetRotation(Vector3 rotation);
+
     Json toJson() override;
     void fromJson(Json json) override;
 
 private:
 
     Vector3 position;
+    Vector3 rotation;
 
 };
 

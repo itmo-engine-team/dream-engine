@@ -139,6 +139,17 @@ void Transform::AddLocalPosition(const Vector3 pos)
     relativeMatrix = Matrix::CreateTranslation(pos) * relativeMatrix;
 }
 
+void Transform::SetLocalRotation(Vector3 rotation)
+{
+    Vector3 prevTranslation;
+    Quaternion prevRotation;
+    Vector3 prevScale;
+    relativeMatrix.Decompose(prevScale, prevRotation, prevTranslation);
+    
+    Matrix newRotation = Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
+    relativeMatrix = Matrix::CreateScale(prevScale) * newRotation * Matrix::CreateTranslation(prevTranslation);
+}
+
 void Transform::SetRelativePosition(Vector3 pos)
 {
     relativeMatrix *= Matrix::CreateTranslation(relativeMatrix.Translation()).Invert();

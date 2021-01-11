@@ -10,13 +10,17 @@ public:
 
     EditorParamDrawerTransform(int index, const std::string& name, BaseParam* baseParam);
     bool Draw() override;
+    bool DrawPosition();
+    bool DrawRotation();
 
     int GetRequiredIndexCount() override
     {
-        return 3;
+        return 6;
     }
 
 private:
+
+    const int BUFFER_SIZE = 6;
 
     std::string inputFieldX;
     std::string inputFieldY;
@@ -27,6 +31,14 @@ private:
     std::string yPosLabel;
     std::string zPosLabel;
 
-    bool isChanged;
+    std::string inputFieldRotationX;
+    std::string inputFieldRotationY;
+    std::string inputFieldRotationZ;
+    std::string resetRotationButtonLabel;
+
+    std::string xRotationLabel;
+    std::string yRotationLabel;
+    std::string zRotationLabel;
+
 };
 

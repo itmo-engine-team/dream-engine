@@ -35,11 +35,13 @@ void ActorComponentScene::DrawShadowMap()
 void ActorComponentScene::UpdateTransform(TransformInfo* transformInfo)
 {
     transform->SetLocalPosition(transformInfo->GetPosition());
+    transform->SetLocalRotation(transformInfo->GetRotation());
 }
 
 void ActorComponentScene::UpdateTransform(const TransformInfo& transformInfo)
 {
     transform->SetLocalPosition(transformInfo.GetPosition());
+    transform->SetLocalRotation(transformInfo.GetRotation());
 }
 
 void ActorComponentScene::onDraw()

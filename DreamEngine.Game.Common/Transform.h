@@ -24,6 +24,7 @@ public:
 
     void SetLocalPosition(Vector3 pos);
     void AddLocalPosition(Vector3 pos);
+    void SetLocalRotation(Vector3 rotation);
     void AddLocalRotation(Vector3 axis, float angle);
 
     // Relates on parent

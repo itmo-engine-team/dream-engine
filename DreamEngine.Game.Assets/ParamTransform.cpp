@@ -32,6 +32,23 @@ void ParamTransform::SetDefPosition()
     isDefault = true;
 }
 
+Vector3 ParamTransform::GetRotation() const
+{
+    return value.GetRotation();
+}
+
+void ParamTransform::SetRotation(Vector3 rotation)
+{
+    value.SetRotation(rotation);
+    isDefault = false;
+}
+
+void ParamTransform::SetDefRotation()
+{
+    value.SetRotation(def.GetRotation());
+    isDefault = true;
+}
+
 void ParamTransform::UpdateValue(const BaseParam* paramCopy)
 {
     if (paramCopy->IsDefault())
@@ -40,7 +57,9 @@ void ParamTransform::UpdateValue(const BaseParam* paramCopy)
     }
     else
     {
-        value.SetPosition(dynamic_cast<const ParamTransform*>(paramCopy)->GetPosition());
+        auto castedParamCopy = dynamic_cast<const ParamTransform*>(paramCopy);
+        value.SetPosition(castedParamCopy->GetPosition());
+        value.SetRotation(castedParamCopy->GetRotation());
         isDefault = false;
     }
 }

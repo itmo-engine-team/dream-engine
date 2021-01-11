@@ -158,11 +158,13 @@ bool Actor::RemoveComponent(ActorComponent* component)
 void Actor::UpdateTransform(TransformInfo* transformInfo)
 {
     transform->SetLocalPosition(transformInfo->GetPosition());
+    transform->SetLocalRotation(transformInfo->GetRotation());
 }
 
 void Actor::UpdateTransform(const TransformInfo& transformInfo)
 {
     transform->SetLocalPosition(transformInfo.GetPosition());
+    transform->SetLocalRotation(transformInfo.GetRotation());
 }
 
 void Actor::onUpdate()

@@ -9,7 +9,7 @@ enum class ParamType
     String
 };
 
-const std::map<ParamType, std::string> MAP_ASSET_TYPE_TO_STRING = {
+const std::map<ParamType, std::string> MAP_PARAM_TYPE_TO_STRING = {
     { ParamType::Int, "Int" },
     { ParamType::Float, "Float" },
     { ParamType::Asset, "Asset" },

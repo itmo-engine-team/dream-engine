@@ -15,17 +15,22 @@ public:
 
     SceneAssetInfo* GetSceneAssetInfo() const;
     
-    SceneRoom* CreateNewRoom();
-    SceneRoom* GetCurrentRoom() const;
+    //SceneRoom* CreateNewRoom();
+    //SceneRoom* GetCurrentRoom() const;
     std::vector<SceneRoom*> GetRoomList() const;
+
+    void CreateActor();
+    const std::vector<Actor*>& GetActors() const;
 
 protected:
 
     ActorContext* context;
     SceneAssetInfo* sceneInfo;
 
-    SceneRoom* currentRoom;
+    //SceneRoom* currentRoom;
     std::vector<SceneRoom*> rooms;
+
+    std::vector<Actor*> actors;
 
 };
 

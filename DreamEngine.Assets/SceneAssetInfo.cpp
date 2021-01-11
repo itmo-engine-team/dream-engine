@@ -1,6 +1,6 @@
 #include "SceneAssetInfo.h"
 
-#include "SceneRoomInfo.h"
+#include "SceneActorInfo.h"
 
 SceneAssetInfo::SceneAssetInfo() : AssetInfo(AssetType::Scene)
 {
@@ -12,43 +12,82 @@ SceneAssetInfo::SceneAssetInfo(SceneAssetInfo& assetInfo) : AssetInfo(assetInfo)
 
 }
 
-const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
+//const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
+//{
+//    return roomInfoList;
+//}
+//
+//void SceneAssetInfo::AddRoomInfo(SceneRoomInfo* roomInfo)
+//{
+//    roomInfoList.push_back(roomInfo);
+//}
+
+const std::vector<SceneActorInfo*>& SceneAssetInfo::GetActorInfoList() const
 {
-    return roomInfoList;
+    return actorInfoList;
 }
 
-void SceneAssetInfo::AddRoomInfo(SceneRoomInfo* roomInfo)
+void SceneAssetInfo::AddActorInfo(SceneActorInfo* actorInfo)
 {
-    roomInfoList.push_back(roomInfo);
+    actorInfoList.push_back(actorInfo);
 }
 
 Json SceneAssetInfo::toJson()
 {
-    Json json = AssetInfo::toJson();
-    Json jsonInfo = {};
+    Json json = Serializable::toJson();
 
-    Json jsonRoomArray = Json::array();
-    for (auto roomInfo : roomInfoList)
+    json["name"] = name;
+
+    Json jsonActorArray = Json::array();
+    for (auto actorInfo : actorInfoList)
     {
-        jsonRoomArray.push_back(roomInfo->toJson());
+        jsonActorArray.push_back(actorInfo->toJson());
     }
-
-    jsonInfo["rooms"] = jsonRoomArray;
-    json["info"] = jsonInfo;
+    json["actors"] = jsonActorArray;
 
     return json;
 }
 
 void SceneAssetInfo::fromJson(Json json)
 {
-    AssetInfo::fromJson(json);
+    initVariable(json, "name", &name);
 
-    Json jsonInfo = json["info"];
-    Json jsonRoomArray = jsonInfo["rooms"];
-    for (auto jsonRoomInfo : jsonRoomArray)
+    Json jsonActorArray = json["actors"];
+    for (auto jsonActorInfo : jsonActorArray)
     {
-        auto roomInfo = new SceneRoomInfo();
-        roomInfo->fromJson(jsonRoomInfo);
-        roomInfoList.push_back(roomInfo);
+        auto actorInfo = new SceneActorInfo();
+        actorInfo->fromJson(jsonActorInfo);
+        actorInfoList.push_back(actorInfo);
     }
 }
+
+//Json SceneAssetInfo::toJson()
+//{
+//    Json json = AssetInfo::toJson();
+//    Json jsonInfo = {};
+//
+//    Json jsonRoomArray = Json::array();
+//    for (auto roomInfo : roomInfoList)
+//    {
+//        jsonRoomArray.push_back(roomInfo->toJson());
+//    }
+//
+//    jsonInfo["rooms"] = jsonRoomArray;
+//    json["info"] = jsonInfo;
+//
+//    return json;
+//}
+//
+//void SceneAssetInfo::fromJson(Json json)
+//{
+//    AssetInfo::fromJson(json);
+//
+//    Json jsonInfo = json["info"];
+//    Json jsonRoomArray = jsonInfo["rooms"];
+//    for (auto jsonRoomInfo : jsonRoomArray)
+//    {
+//        auto roomInfo = new SceneRoomInfo();
+//        roomInfo->fromJson(jsonRoomInfo);
+//        roomInfoList.push_back(roomInfo);
+//    }
+//}

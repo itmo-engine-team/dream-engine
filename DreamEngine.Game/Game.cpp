@@ -30,9 +30,9 @@ void Game::Update(const float engineDeltaTime)
 
     navMesh->Update();
 
-    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
+    if (currentScene != nullptr /*&& currentScene->GetCurrentRoom() != nullptr*/)
     {
-        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        for (Actor* actor : currentScene->GetActors())
         {
             actor->Update();
         }
@@ -45,9 +45,9 @@ void Game::Render()
 
     navMesh->Draw();
 
-    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
+    if (currentScene != nullptr /*&& currentScene->GetCurrentRoom() != nullptr*/)
     {
-        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        for (Actor* actor : currentScene->GetActors())
         {
             actor->Draw();
         }
@@ -58,9 +58,9 @@ void Game::RenderShadowMap()
 {
     BaseSceneViewer::RenderShadowMap();
 
-    if (currentScene != nullptr && currentScene->GetCurrentRoom() != nullptr)
+    if (currentScene != nullptr /*&& currentScene->GetCurrentRoom() != nullptr*/)
     {
-        for (Actor* actor : currentScene->GetCurrentRoom()->GetActors())
+        for (Actor* actor : currentScene->GetActors())
         {
             actor->DrawShadowMap();
         }

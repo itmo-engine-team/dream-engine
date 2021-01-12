@@ -156,6 +156,12 @@
     <ClInclude Include="BTGReturnTrue.h">
       <Filter>Header Files\BehaviorTree\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="ACF_Tag.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_TargetTag.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -247,6 +253,12 @@
     </ClCompile>
     <ClCompile Include="BTGReturnTrue.cpp">
       <Filter>Source Files\BehaviorTree\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_Tag.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_TargetTag.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

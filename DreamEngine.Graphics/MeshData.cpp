@@ -17,6 +17,11 @@ bool MeshData::IsTriangleTopology() const
     return isTriangleTopology;
 }
 
+void MeshData::SetTriangleTopology(bool isTriangleTopology)
+{
+    this->isTriangleTopology = isTriangleTopology;
+}
+
 std::vector<Vertex>& MeshData::GetVertices()
 {
     return vertices;

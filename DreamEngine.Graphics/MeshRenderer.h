@@ -16,6 +16,7 @@ public:
 
     static ModelData* CreateBoxModel(Vector4 color, Vector3 boxSize);
     static ModelData* CreateSquareModel(Vector3 quardSize);
+    static MeshData* CreateLineBoxMesh(Vector4 color, Vector3 boxSize);
 
 protected:
 

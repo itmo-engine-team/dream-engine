@@ -13,6 +13,7 @@ public:
     MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, bool isTriangleTopology = true);
 
     bool IsTriangleTopology() const;
+    void SetTriangleTopology(bool isTriangleTopology);
     std::vector<Vertex>& GetVertices();
     const std::vector<DWORD>& GetIndices() const;
     UINT GetIndicesCount() const;

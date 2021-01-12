@@ -100,7 +100,7 @@ void EditorWindowAssetBrowser::drawFolderContextMenu(FolderNode* selectedFolderN
             deleteFolderPopupModal = new EditorPopupModalDeleteFolder(selectedFolderNode);
         }
 
-        if (ImGui::Selectable("Move")) {}
+        //if (ImGui::Selectable("Move")) {}
 
         if (ImGui::Selectable("Rename")) 
         {
@@ -149,7 +149,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
             deleteAssetPopupModal = new EditorPopupModalDeleteAsset(selectedAssetNode);
         }
 
-        if (ImGui::Selectable("Move")) {}
+        //if (ImGui::Selectable("Move")) {}
         if (ImGui::Selectable("Duplicate")) 
         {
             duplicateAssetPopupModal = new EditorPopupModalDuplicateAsset(selectedAssetNode);

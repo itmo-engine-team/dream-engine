@@ -64,6 +64,7 @@ AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const st
     if (isDebugTree)
     {
         contentAssetTree->RenameAssetNode(assetNode, newName);
+        assetNode->GetAssetInfo()->SetName(newName);
         return { true, assetNode };
     }
 
@@ -72,7 +73,8 @@ AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const st
         return result;
 
     contentAssetTree->RenameAssetNode(assetNode, newName);
-    return { true, assetNode };
+    assetNode->GetAssetInfo()->SetName(newName);
+    return SaveAsset(assetNode);
 }
 
 AssetModificationResult AssetManager::DuplicateAsset(AssetNode* assetNode, const std::string& newName)

@@ -146,6 +146,8 @@
     <ClInclude Include="ACF_AI.h" />
     <ClInclude Include="ACF_PlayerMovement.h" />
     <ClInclude Include="ACF_Movement.h" />
+    <ClInclude Include="ACF_TargetTag.h" />
+    <ClInclude Include="ACF_Tag.h" />
     <ClInclude Include="ACF_TargetReference.h" />
     <ClInclude Include="ACS_Camera.h" />
     <ClInclude Include="ACS_Collision.h" />
@@ -181,6 +183,8 @@
     <ClCompile Include="ACF_AI.cpp" />
     <ClCompile Include="ACF_PlayerMovement.cpp" />
     <ClCompile Include="ACF_Movement.cpp" />
+    <ClCompile Include="ACF_TargetTag.cpp" />
+    <ClCompile Include="ACF_Tag.cpp" />
     <ClCompile Include="ACF_TargetReference.cpp" />
     <ClCompile Include="ACS_Camera.cpp" />
     <ClCompile Include="ACS_Collision.cpp" />

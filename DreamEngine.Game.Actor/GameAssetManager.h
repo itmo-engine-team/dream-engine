@@ -23,6 +23,8 @@ public:
     ModelData* GetOrCreateModelData(unsigned int id);
     Texture* GetOrCreateTexture(unsigned int id);
 
+    Actor* FindActorByTag(std::string tag);
+
 protected:
 
     AssetManager* assetManager;

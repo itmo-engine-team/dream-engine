@@ -2,7 +2,7 @@
 
 #include "BehaviorTreeGame.h"
 #include "ACF_Movement.h"
-#include "ACF_TargetReference.h"
+#include "ACF_TargetTag.h"
 #include "Transform.h"
 
 BTGMoveTo::BTGMoveTo(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
@@ -11,7 +11,7 @@ BTGMoveTo::BTGMoveTo(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behavior
         movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
 
     targetLocation = behaviorTree->GetActor()->GetTransform()->GetWorldPosition();
-    targetActor = behaviorTree->GetActor()->FindComponent<ACF_TargetReference>()->GetTarget();
+    targetActor = behaviorTree->GetActor()->FindComponent<ACF_TargetTag>()->GetTargetActor();
 }
 
 bool BTGMoveTo::Run()

@@ -1,12 +1,12 @@
 #include "BTGTargetNear.h"
 
 #include "BehaviorTreeGame.h"
-#include "ACF_TargetReference.h"
+#include "ACF_TargetTag.h"
 #include "Transform.h"
 
 BTGTargetNear::BTGTargetNear(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
 {
-    targetActor = behaviorTree->GetActor()->FindComponent<ACF_TargetReference>()->GetTarget();
+    targetActor = behaviorTree->GetActor()->FindComponent<ACF_TargetTag>()->GetTargetActor();
 }
 
 bool BTGTargetNear::Run()

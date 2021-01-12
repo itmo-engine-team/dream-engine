@@ -1,6 +1,8 @@
 #include "GameAssetManager.h"
+
 #include "ModelAssetInfo.h"
 #include "TextureAssetInfo.h"
+#include "ACF_Tag.h"
 
 GameAssetManager::GameAssetManager(AssetManager* assetManager, Graphics* graphics)
     : assetManager(assetManager), graphics(graphics)
@@ -72,4 +74,15 @@ Texture* GameAssetManager::GetOrCreateTexture(unsigned int id)
     }
 
     return textureIter->second;
+}
+
+Actor* GameAssetManager::FindActorByTag(std::string tag)
+{
+    for (Actor* actor : actors)
+    {
+        ACF_Tag* tagComponent = actor->FindComponent<ACF_Tag>();
+        if (tagComponent == nullptr) continue;
+
+        if (tag == tagComponent->GetTag()) return actor;
+    }
 }

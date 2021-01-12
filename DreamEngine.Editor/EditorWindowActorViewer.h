@@ -30,8 +30,7 @@ private:
     ActorAssetInfo* actorAssetInfo;
     ActorType actorType;
 
-    ActorComponentSceneInfo* selectedSceneComponent;
-    ActorComponentFixedInfo* selectedFixedComponent;
+    ActorComponentInfo* selectedComponent;
     EditorParamViewer* paramViewer = nullptr;
 
     int sizeStr;
@@ -47,7 +46,7 @@ private:
     void renderComponents();
     void renderComponent(ActorComponentInfo* component, bool isSelected);
 
-    void renderSceneComponentInspector();
+    void renderComponentInspector();
     void renderFixedComponentInspector();
     void renderComponentParams(ActorComponentInfo* componentInfo);
 

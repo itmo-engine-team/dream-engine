@@ -22,7 +22,8 @@ EditorWindowActorViewer::EditorWindowActorViewer(Editor* editor, ActorAssetInfo*
     {
         tempStrMass[i] = iterator->second;
     }
-    selectableActorType = tempStrMass[0];
+
+    selectableActorType = MapUtils::TryGetByKey<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, actorAssetInfo->GetActorType(), "Unknown");
 }
 
 void EditorWindowActorViewer::Init()
@@ -43,8 +44,7 @@ void EditorWindowActorViewer::Render()
 {
     renderViewer();
     renderInspector();
-    renderSceneComponentInspector();
-    renderFixedComponentInspector();
+    renderComponentInspector();
 }
 
 void EditorWindowActorViewer::renderViewer()
@@ -126,15 +126,17 @@ void EditorWindowActorViewer::renderComponents()
     {
         for (auto component : actorAssetInfo->GetSceneComponents())
         {
-            renderComponent(component, selectedSceneComponent == component);
+            renderComponent(component, selectedComponent == component);
 
             if (ImGui::IsItemClicked())
             {
-                selectedSceneComponent = component;
-                selectedFixedComponent = nullptr;
+                selectedComponent = component;
+
+                componentName = selectedComponent->GetName();
+                componentName.resize(24);
 
                 delete paramViewer;
-                paramViewer = new EditorParamViewer(editor, selectedSceneComponent->GetParamExtender());
+                paramViewer = new EditorParamViewer(editor, selectedComponent->GetParamExtender());
             }
         }
     }
@@ -146,15 +148,17 @@ void EditorWindowActorViewer::renderComponents()
     {
         for (auto component : actorAssetInfo->GetFixedComponents())
         {
-            renderComponent(component, selectedFixedComponent == component);
+            renderComponent(component, selectedComponent == component);
 
             if (ImGui::IsItemClicked())
             {
-                selectedFixedComponent = component;
-                selectedSceneComponent = nullptr;
+                selectedComponent = component;
+
+                componentName = selectedComponent->GetName();
+                componentName.resize(24);
 
                 delete paramViewer;
-                paramViewer = new EditorParamViewer(editor, selectedFixedComponent->GetParamExtender());
+                paramViewer = new EditorParamViewer(editor, selectedComponent->GetParamExtender());
             }
         }
     }
@@ -173,43 +177,23 @@ void EditorWindowActorViewer::renderComponent(ActorComponentInfo* component, boo
     ImGui::TreeNodeEx(name.c_str(), flags);
 }
 
-void EditorWindowActorViewer::renderSceneComponentInspector()
+void EditorWindowActorViewer::renderComponentInspector()
 {
-    if (selectedSceneComponent == nullptr)
+    if (selectedComponent == nullptr)
         return;
 
     ImGui::Begin("Component Info");
-
-    ImGui::Text(selectedSceneComponent->GetName().c_str());
-    ImGui::Separator();
-
+    
     ImGui::PushItemWidth(100);
-    componentName = selectedSceneComponent->GetName();
-    componentName.resize(24);
 
     ImGui::Text("Component name: ");
     ImGui::InputText("##0", componentName.data(), 24);
     if (ImGui::IsItemDeactivatedAfterEdit())
-        selectedSceneComponent->SetName(componentName.c_str());
-    
+        selectedComponent->SetName(componentName.c_str());
+    ImGui::Separator();
     ImGui::PopItemWidth();
 
-    renderComponentParams(selectedSceneComponent);
-
-    ImGui::End();
-}
-
-void EditorWindowActorViewer::renderFixedComponentInspector()
-{
-    if (selectedFixedComponent == nullptr)
-        return;
-
-    ImGui::Begin("Component Info");
-
-    ImGui::Text(selectedFixedComponent->GetName().c_str());
-    ImGui::Separator();
-
-    renderComponentParams(selectedFixedComponent);
+    renderComponentParams(selectedComponent);
 
     ImGui::End();
 }

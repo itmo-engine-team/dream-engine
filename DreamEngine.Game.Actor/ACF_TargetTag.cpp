@@ -6,7 +6,7 @@
 ACF_TargetTag::ACF_TargetTag(Actor* actor) : ActorComponentFixed(actor)
 {
     targetTag = new ParamString();
-    AddParam("Target tag", targetTag);
+    AddParam("Target Tag", targetTag);
 }
 
 void ACF_TargetTag::findTargetActor()

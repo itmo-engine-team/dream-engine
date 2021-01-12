@@ -19,3 +19,14 @@ private:
     ParamString* tag;
 };
 
+class ACF_Creator_Tag : public ACF_Creator
+{
+
+public:
+
+    ActorComponentFixed* Create(Actor* actor, ActorComponentFixedInfo* actorInfo) override
+    {
+        return new ACF_Tag(actor);
+    }
+
+};

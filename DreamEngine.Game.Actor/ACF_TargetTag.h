@@ -25,3 +25,14 @@ private:
     Actor* targetActor;
 };
 
+class ACF_Creator_TargetTag : public ACF_Creator
+{
+
+public:
+
+    ActorComponentFixed* Create(Actor* actor, ActorComponentFixedInfo* actorInfo) override
+    {
+        return new ACF_TargetTag(actor);
+    }
+
+};

@@ -5,6 +5,8 @@
 #include "ActorComponent.h"
 #include "ACS_Light.h"
 #include "ACF_AI.h"
+#include "ACF_Tag.h"
+#include "ACF_TargetTag.h"
 #include "ACS_StaticModel.h"
 #include "ACS_Collision.h"
 
@@ -32,6 +34,8 @@ protected:
 
     inline static std::unordered_map<ACF_Type, ACF_Creator*> fixedComponentCreators = {
         { ACF_Type::AI , new ACF_Creator_AI() },
+        { ACF_Type::Tag , new ACF_Creator_Tag() },
+        { ACF_Type::TargetTag , new ACF_Creator_TargetTag() },
     };
     
 };

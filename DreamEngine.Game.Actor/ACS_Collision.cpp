@@ -11,9 +11,9 @@
 
 ACS_Collision::ACS_Collision(Actor* actor, Vector2 size) : ActorComponentScene(actor), size(size)
 {
-    drawCollisionParam = new ParamBool(true);
-    sizeParamX = new ParamFloat(0.5f);
-    sizeParamY = new ParamFloat(0.5f);
+    drawCollisionParam = new ParamBool(false);
+    sizeParamX = new ParamFloat(1.0f);
+    sizeParamY = new ParamFloat(1.0f);
     AddParam("Draw Collision", drawCollisionParam);
     AddParam("Size X", sizeParamX);
     AddParam("Size Y", sizeParamY);

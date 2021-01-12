@@ -4,6 +4,7 @@
 #include "EditorViewport.h"
 #include "ActorViewer.h"
 #include "EditorParamViewer.h"
+#include <ActorType.h>
 
 class ActorComponentInfo;
 class ActorComponentFixedInfo;
@@ -27,13 +28,20 @@ private:
     ActorViewer* actorViewer;
 
     ActorAssetInfo* actorAssetInfo;
+    ActorType actorType;
 
     ActorComponentSceneInfo* selectedSceneComponent;
     ActorComponentFixedInfo* selectedFixedComponent;
     EditorParamViewer* paramViewer = nullptr;
 
+    int sizeStr;
+    std::string* tempStrMass;
+    std::string selectableActorType;
+    int currentType;
+
     void renderViewer();
     void renderInspector();
+    void renderActorTypeSelectable();
     void renderComponents();
     void renderComponent(ActorComponentInfo* component, bool isSelected);
 

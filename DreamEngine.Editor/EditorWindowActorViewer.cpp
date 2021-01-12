@@ -6,12 +6,23 @@
 #include "Editor.h"
 #include "AssetManager.h"
 #include "ActorComponent.h"
+#include <MapUtils.h>
 
 EditorWindowActorViewer::EditorWindowActorViewer(Editor* editor, ActorAssetInfo* actorAssetInfo)
     : EditorWindow("Actor Viewer", editor), actorAssetInfo(actorAssetInfo)
 {
     if (actorAssetInfo == nullptr)
         SetOpened(false);
+
+    sizeStr = MAP_ACTOR_TYPE_TO_STRING.size();
+    tempStrMass = new std::string[sizeStr];
+    int i = 0;
+
+    for (auto iterator = MAP_ACTOR_TYPE_TO_STRING.begin(); iterator != MAP_ACTOR_TYPE_TO_STRING.end(); ++iterator, i++)
+    {
+        tempStrMass[i] = iterator->second;
+    }
+    selectableActorType = tempStrMass[0];
 }
 
 void EditorWindowActorViewer::Init()
@@ -68,6 +79,7 @@ void EditorWindowActorViewer::renderInspector()
 
     ImGui::Separator();
 
+    renderActorTypeSelectable();
     renderComponents();
     
     ImGui::Separator();
@@ -75,6 +87,28 @@ void EditorWindowActorViewer::renderInspector()
     // TODO render component info logic
 
     ImGui::End();
+}
+
+void EditorWindowActorViewer::renderActorTypeSelectable()
+{
+    if(ImGui::BeginCombo("Actor Type", selectableActorType.data()))
+    {
+        for (int n = 0; n < sizeStr; n++)
+        {
+            const bool isSelected = (currentType == n);
+
+            if (ImGui::Selectable(tempStrMass[n].c_str(), isSelected))
+            {
+                currentType = n;
+                selectableActorType = tempStrMass[currentType];
+                actorType = MapUtils::TryGetByValue<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, selectableActorType, ActorType::Unknown);
+                actorAssetInfo->SetActorType(actorType);
+            }
+            if (isSelected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
 }
 
 void EditorWindowActorViewer::renderComponents()

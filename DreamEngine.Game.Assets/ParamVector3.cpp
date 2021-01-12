@@ -28,8 +28,7 @@ void ParamVector3::fromJson(Json json)
 {
     Param::fromJson(json);
 
-    value = {};
-    JsonUtils::toVector3(json["value"]);
+    value = JsonUtils::toVector3(json["value"]);
 }
 
 void ParamVector3::UpdateValue(const BaseParam* paramCopy)

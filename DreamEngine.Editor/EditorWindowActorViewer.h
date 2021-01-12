@@ -47,7 +47,6 @@ private:
     void renderComponent(ActorComponentInfo* component, bool isSelected);
 
     void renderComponentInspector();
-    void renderFixedComponentInspector();
     void renderComponentParams(ActorComponentInfo* componentInfo);
 
     void renderSceneComponentsSectionPopup();

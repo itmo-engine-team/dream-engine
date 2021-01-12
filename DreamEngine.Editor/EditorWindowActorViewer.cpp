@@ -136,7 +136,7 @@ void EditorWindowActorViewer::renderComponents()
                 componentName.resize(24);
 
                 delete paramViewer;
-                paramViewer = new EditorParamViewer(editor, selectedComponent->GetParamExtender());
+                paramViewer = new EditorParamViewer(editor, selectedComponent->GetParamExtender(), 1);
             }
         }
     }
@@ -158,7 +158,7 @@ void EditorWindowActorViewer::renderComponents()
                 componentName.resize(24);
 
                 delete paramViewer;
-                paramViewer = new EditorParamViewer(editor, selectedComponent->GetParamExtender());
+                paramViewer = new EditorParamViewer(editor, selectedComponent->GetParamExtender(), 1);
             }
         }
     }

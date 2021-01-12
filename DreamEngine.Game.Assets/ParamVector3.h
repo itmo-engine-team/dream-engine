@@ -1,15 +1,12 @@
 #pragma once
-
 #include "Param.h"
-
-class ParamBool : public Param<bool>
+class ParamVector3 : public Param<Vector3>
 {
 
 public:
 
-    ParamBool(bool def = false);
-    ParamBool(ParamBool& param);
-    ParamBool(Json json);
+    ParamVector3(Vector3 def = Vector3::Zero);
+    ParamVector3(ParamVector3& param);
 
     BaseParam* Copy() override;
 
@@ -21,4 +18,3 @@ protected:
     void UpdateValue(const BaseParam* paramCopy) override;
 
 };
-

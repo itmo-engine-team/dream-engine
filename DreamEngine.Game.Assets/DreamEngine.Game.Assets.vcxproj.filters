@@ -84,6 +84,9 @@
     <ClCompile Include="ParamBool.cpp">
       <Filter>Source Files\Param\Inherited</Filter>
     </ClCompile>
+    <ClCompile Include="ParamVector3.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TransformInfo.h">
@@ -141,6 +144,9 @@
       <Filter>Header Files\Param\Inherited</Filter>
     </ClInclude>
     <ClInclude Include="ParamBool.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamVector3.h">
       <Filter>Header Files\Param\Inherited</Filter>
     </ClInclude>
   </ItemGroup>

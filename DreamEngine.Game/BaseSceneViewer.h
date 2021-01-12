@@ -5,6 +5,7 @@
 #include "ModelData.h"
 #include "SceneRenderer.h"
 
+class ActorAssetInfo;
 class AssetManager;
 class GameAssetManager;
 class EngineConfigInfo;

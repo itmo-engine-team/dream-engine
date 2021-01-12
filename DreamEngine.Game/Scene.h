@@ -3,6 +3,7 @@
 #include <vector>
 #include "SceneRoom.h"
 
+class ActorAssetInfo;
 class SceneAssetInfo;
 class SceneActorInfo;
 
@@ -20,7 +21,11 @@ public:
     //SceneRoom* GetCurrentRoom() const;
     //std::vector<SceneRoom*> GetRoomList() const;
 
-    SceneActorInfo* CreateActor();
+    SceneActorInfo* CreateNewActorInfo();
+    void CreateActorOnScene(SceneActorInfo* actorInfo);
+    void DeleteActorFromScene(SceneActorInfo* actorInfo);
+    Actor* CreateActorFromAsset(ActorAssetInfo* actorAssetInfo);
+
     const std::vector<Actor*>& GetActors() const;
 
 protected:

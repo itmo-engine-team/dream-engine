@@ -86,7 +86,7 @@ void EditorWindowGameViewport::renderSceneHierarchy()
     ImGui::SameLine();
     if (ImGui::Button("Add Actor"))
     {
-        updateCurrentActor(currentScene->CreateActor());
+        updateCurrentActor(currentScene->CreateNewActorInfo());
     }
 
     ImGui::Separator();
@@ -122,7 +122,8 @@ void EditorWindowGameViewport::renderActorInspector()
     }
     if (paramDrawerAsset->Draw())
     {
-        // TODO: Recreate asset
+        currentScene->DeleteActorFromScene(currentSceneActor);
+        currentScene->CreateActorOnScene(currentSceneActor);
     }
 
     ImGui::End();

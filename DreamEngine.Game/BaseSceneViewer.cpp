@@ -12,6 +12,9 @@
 #include "DeltaTimeHandler.h"
 #include "Transform.h"
 #include "GameAssetManager.h"
+#include "ActorFactory.h"
+#include "ActorAssetInfo.h"
+#include "ActorComponentFactory.h"
 
 BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo,
                                  InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)

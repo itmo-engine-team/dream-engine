@@ -42,14 +42,24 @@ void EditorWindowGameViewport::renderGameViewport()
         return;
     }
 
-    if (ImGui::Button("Play")) 
-    { 
-        // TODO: Play game 
+    if (game->GetActorContext()->IsGameMode())
+    {
+        if (ImGui::Button("Stop"))
+        {
+            game->StopGame();
+        }
+    }
+    else
+    {
+        if (ImGui::Button("Play"))
+        {
+            currentSceneActor = nullptr;
+            game->StartGame();
+        }
     }
 
     viewport->UpdateSize();
-    ImGui::Image(editor->GetContext()->GetGame()->GetSceneRenderer()->GetSceneResourceView(),
-        viewport->GetSize());
+    ImGui::Image(game->GetSceneRenderer()->GetSceneResourceView(), viewport->GetSize());
 
     ImGui::End();
 }
@@ -57,7 +67,7 @@ void EditorWindowGameViewport::renderGameViewport()
 void EditorWindowGameViewport::renderSceneHierarchy()
 {
     // Don't show additional windows if no scene is selected currently
-    if (game->GetCurrentScene() == nullptr) return;
+    if (game->GetActorContext()->IsGameMode() || game->GetCurrentScene() == nullptr) return;
 
     if (currentScene != game->GetCurrentScene())
     {
@@ -109,7 +119,7 @@ void EditorWindowGameViewport::renderRoomInspector()
 void EditorWindowGameViewport::renderActorInspector()
 {
     // Show only if actor is selected
-    if (currentSceneActor == nullptr) return;
+    if (game->GetActorContext()->IsGameMode() || currentSceneActor == nullptr) return;
 
     ImGui::Begin("Actor Inspector");
 

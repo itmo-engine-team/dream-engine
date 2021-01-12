@@ -26,8 +26,6 @@ public:
     void DeleteActorFromScene(SceneActorInfo* actorInfo);
     Actor* CreateActorFromAsset(ActorAssetInfo* actorAssetInfo);
 
-    const std::vector<Actor*>& GetActors() const;
-
 protected:
 
     ActorContext* context;
@@ -35,8 +33,6 @@ protected:
 
     //SceneRoom* currentRoom;
     std::vector<SceneRoom*> rooms;
-
-    std::vector<Actor*> actors;
 
 };
 

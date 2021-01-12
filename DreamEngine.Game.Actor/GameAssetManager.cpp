@@ -17,6 +17,12 @@ GameAssetManager::~GameAssetManager()
 
 void GameAssetManager::Clear()
 {
+    for (auto actor : actors)
+    {
+        delete actor;
+    }
+    actors.clear();
+
     for (auto iter : models)
     {
         delete iter.second;
@@ -35,7 +41,20 @@ void GameAssetManager::AddActor(Actor* actor)
     actors.push_back(actor);
 }
 
-std::vector<Actor*> GameAssetManager::GetActors() const
+void GameAssetManager::DeleteActor(Actor* actor)
+{
+    for (auto actorIter = actors.begin(); actorIter < actors.end(); ++actorIter)
+    {
+        if (*actorIter == actor)
+        {
+            delete* actorIter;
+            actors.erase(actorIter);
+            return;
+        }
+    }
+}
+
+const std::vector<Actor*>& GameAssetManager::GetActors() const
 {
     return actors;
 }

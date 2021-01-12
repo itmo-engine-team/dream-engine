@@ -25,11 +25,14 @@ public:
     void LoadScene(SceneAssetInfo* sceneInfo);
     Scene* GetCurrentScene() const;
 
+    void StartGame();
+    void StopGame();
+
 protected:
 
-    GameAssetManager* gameAssetManager;
-
     Scene* currentScene = nullptr;
+    SceneAssetInfo* currentSceneInfo = nullptr;
 
     A_NavMesh* navMesh;
+
 };

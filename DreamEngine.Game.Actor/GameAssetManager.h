@@ -18,7 +18,8 @@ public:
 
     // GameObjects
     void AddActor(Actor* actor);
-    std::vector<Actor*> GetActors() const;
+    void DeleteActor(Actor* actor);
+    const std::vector<Actor*>& GetActors() const;
 
     ModelData* GetOrCreateModelData(unsigned int id);
     Texture* GetOrCreateTexture(unsigned int id);

@@ -7,6 +7,7 @@
 #include "ParamAsset.h"
 #include "ActorAssetInfo.h"
 #include "ActorComponentFactory.h"
+#include "GameAssetManager.h"
 
 Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo)
     : context(context), sceneInfo(sceneInfo)
@@ -29,11 +30,6 @@ Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo)
 
 Scene::~Scene()
 {
-    for (Actor* actor : actors)
-    {
-        delete actor;
-    }
-
     /*for (SceneRoom* room : rooms)
     {
         delete room;
@@ -69,7 +65,7 @@ SceneAssetInfo* Scene::GetSceneAssetInfo() const
 SceneActorInfo* Scene::CreateNewActorInfo()
 {
     SceneActorInfo* actorInfo = new SceneActorInfo();
-    actorInfo->SetName("Actor " + std::to_string(actors.size()));
+    actorInfo->SetName("Actor " + std::to_string(context->GetGameAssetManager()->GetActors().size()));
     sceneInfo->AddActorInfo(actorInfo);
     
     return actorInfo;
@@ -86,22 +82,14 @@ void Scene::CreateActorOnScene(SceneActorInfo* actorInfo)
 
     auto actor = CreateActorFromAsset(actorAsset);
     actor->UpdateTransform(actorInfo->GetParamTransform()->Get());
-    actors.push_back(actor);
+    context->GetGameAssetManager()->AddActor(actor);
     actorInfo->SetActor(actor);
 }
 
 void Scene::DeleteActorFromScene(SceneActorInfo* actorInfo)
 {
-    for (auto actorIter = actors.begin(); actorIter < actors.end(); ++actorIter)
-    {
-        if (*actorIter == actorInfo->GetActor())
-        {
-            actorInfo->SetActor(nullptr);
-            delete* actorIter;
-            actors.erase(actorIter);
-            return;
-        }
-    }
+    context->GetGameAssetManager()->DeleteActor(actorInfo->GetActor());
+    actorInfo->SetActor(nullptr);
 }
 
 Actor* Scene::CreateActorFromAsset(ActorAssetInfo* actorAssetInfo)
@@ -131,9 +119,4 @@ Actor* Scene::CreateActorFromAsset(ActorAssetInfo* actorAssetInfo)
     }
 
     return actor;
-}
-
-const std::vector<Actor*>& Scene::GetActors() const
-{
-    return actors;
 }

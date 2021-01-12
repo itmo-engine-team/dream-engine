@@ -6,7 +6,7 @@ EditorParamDrawerString::EditorParamDrawerString(int index, const std::string& n
     : EditorParamDrawer<ParamString>(index, name, baseParam)
 {
     inputField = param->Get();
-    inputField.resize(6);
+    inputField.resize(15);
     inputFieldLabel = "##" + std::to_string(index);
     resetButtonLabel = "X##" + std::to_string(index);
 }
@@ -19,7 +19,7 @@ bool EditorParamDrawerString::Draw()
     ImGui::Text(name.c_str());
     ImGui::SameLine();
     ImGui::InputText(inputFieldLabel.c_str(),
-        inputField.data(), 6, ImGuiInputTextFlags_CharsHexadecimal);
+        inputField.data(), 15, ImGuiInputTextFlags_CharsNoBlank);
     if (ImGui::IsItemDeactivatedAfterEdit())
     {
         param->Set(inputField.c_str());
@@ -31,7 +31,7 @@ bool EditorParamDrawerString::Draw()
     {
         param->SetDef();
         inputField = param->Get();
-        inputField.resize(6);
+        inputField.resize(15);
 
         isChanged = true;
     }

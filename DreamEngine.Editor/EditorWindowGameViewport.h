@@ -2,6 +2,8 @@
 
 #include "EditorWindow.h"
 #include "EditorViewport.h"
+#include "EditorParamDrawerTransform.h"
+#include "EditorParamDrawerAsset.h"
 
 class SceneActorInfo;
 class Game;
@@ -29,13 +31,18 @@ private:
 
     EditorViewport* viewport = new EditorViewport();
 
+    EditorParamDrawerTransform* paramDrawerTransform = nullptr;
+    EditorParamDrawerAsset* paramDrawerAsset = nullptr;
+
     void renderGameViewport();
     void renderSceneHierarchy();
     void renderRoomInspector();
     void renderActorInspector();
 
+    void updateCurrentActor(SceneActorInfo* actorInfo);
+
     void drawSceneHierarchy();
-    void drawSceneHierarchyRoom(SceneRoom* room);
+    /*void drawSceneHierarchyRoom(SceneRoom* room);*/
     void drawSceneHierarchyActor(SceneActorInfo* actorInfo);
     void drawRoomContextMenu(SceneRoom* room);
     void drawActorContextMenu(SceneActorInfo* actorInfo);

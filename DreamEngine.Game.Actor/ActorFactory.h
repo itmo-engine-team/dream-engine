@@ -8,9 +8,9 @@ class ActorFactory
 
 public:
 
-    static Actor* Create(ActorContext* context, ActorType type, TransformInfo* transformInfo)
+    static Actor* Create(ActorContext* context, ActorType type)
     {
-        return creators[type]->Create(context, transformInfo);
+        return creators[type]->Create(context);
     }
 
 protected:

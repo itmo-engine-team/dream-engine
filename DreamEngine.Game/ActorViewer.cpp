@@ -21,7 +21,7 @@ bool ActorViewer::LoadActor(ActorAssetInfo* actorAssetInfo)
     }
 
     this->actorAssetInfo = actorAssetInfo;
-    actor = ActorFactory::Create(actorContext, actorAssetInfo->GetActorType(), new TransformInfo());
+    actor = ActorFactory::Create(actorContext, actorAssetInfo->GetActorType());
 
     LoadSceneComponents();
     LoadFixedComponents();

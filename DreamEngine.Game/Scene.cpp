@@ -4,6 +4,8 @@
 #include "SceneRoomInfo.h"
 #include "ActorContext.h"
 #include "ActorFactory.h"
+#include "ParamAsset.h"
+#include "ActorAssetInfo.h"
 
 Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo) : context(context), sceneInfo(sceneInfo)
 {
@@ -12,7 +14,19 @@ Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo) : context(context
 
     for (SceneActorInfo* const actorInfo : sceneInfo->GetActorInfoList())
     {
-        actors.push_back(ActorFactory::Create(context, actorInfo->GetType(), actorInfo->GetTransformInfo()));
+        if (actorInfo->GetParamAsset()->IsDefault()) return;
+
+        auto actorAsset = dynamic_cast<ActorAssetInfo*>(context->GetAssetManager()->GetAssetByType(
+            AssetType::Actor, actorInfo->GetParamAsset()->Get()));
+
+        if (actorAsset == nullptr) return;
+
+
+        auto actor = ActorFactory::Create(context, actorAsset->GetActorType());
+        actor->UpdateTransform(actorInfo->GetParamTransform()->Get());
+        actorInfo->SetActor(actor);
+        actors.push_back(actor);
+
     }
 
    /* for (SceneRoomInfo* roomInfo : sceneInfo->GetRoomInfoList())
@@ -57,19 +71,18 @@ SceneAssetInfo* Scene::GetSceneAssetInfo() const
 //    return currentRoom;
 //}
 
-std::vector<SceneRoom*> Scene::GetRoomList() const
+/*std::vector<SceneRoom*> Scene::GetRoomList() const
 {
     return rooms;
-}
+}*/
 
-void Scene::CreateActor()
+SceneActorInfo* Scene::CreateActor()
 {
-    SceneActorInfo* actorInfo = new SceneActorInfo(ActorType::Actor);
+    SceneActorInfo* actorInfo = new SceneActorInfo();
     actorInfo->SetName("Actor " + std::to_string(actors.size()));
     sceneInfo->AddActorInfo(actorInfo);
-
-    Actor* actor = ActorFactory::Create(context, actorInfo->GetType(), actorInfo->GetTransformInfo());
-    actors.push_back(actor);
+    
+    return actorInfo;
 }
 
 const std::vector<Actor*>& Scene::GetActors() const

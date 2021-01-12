@@ -4,6 +4,7 @@
 #include "SceneRoom.h"
 
 class SceneAssetInfo;
+class SceneActorInfo;
 
 class Scene
 {
@@ -17,9 +18,9 @@ public:
     
     //SceneRoom* CreateNewRoom();
     //SceneRoom* GetCurrentRoom() const;
-    std::vector<SceneRoom*> GetRoomList() const;
+    //std::vector<SceneRoom*> GetRoomList() const;
 
-    void CreateActor();
+    SceneActorInfo* CreateActor();
     const std::vector<Actor*>& GetActors() const;
 
 protected:

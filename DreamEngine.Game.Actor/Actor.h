@@ -102,6 +102,6 @@ public:
 
     virtual ~ActorCreator() = default;
 
-    virtual Actor* Create(ActorContext* context, TransformInfo* transformInfo);
+    virtual Actor* Create(ActorContext* context);
 
 };

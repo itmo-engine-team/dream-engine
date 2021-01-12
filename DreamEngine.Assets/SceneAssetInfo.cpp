@@ -34,7 +34,7 @@ void SceneAssetInfo::AddActorInfo(SceneActorInfo* actorInfo)
 
 Json SceneAssetInfo::toJson()
 {
-    Json json = Serializable::toJson();
+    Json json = AssetInfo::toJson();
 
     json["name"] = name;
 
@@ -50,6 +50,8 @@ Json SceneAssetInfo::toJson()
 
 void SceneAssetInfo::fromJson(Json json)
 {
+    AssetInfo::fromJson(json);
+
     initVariable(json, "name", &name);
 
     Json jsonActorArray = json["actors"];

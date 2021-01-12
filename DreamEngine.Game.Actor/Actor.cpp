@@ -180,7 +180,7 @@ void Actor::onParamUpdate(std::string name, BaseParam* param)
     }
 }
 
-Actor* ActorCreator::Create(ActorContext* context, TransformInfo* transformInfo)
+Actor* ActorCreator::Create(ActorContext* context)
 {
     return new Actor(context);
 }

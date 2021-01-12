@@ -186,13 +186,16 @@ void EditorWindowActorViewer::renderSceneComponentInspector()
     ImGui::PushItemWidth(100);
     componentName = selectedSceneComponent->GetName();
     componentName.resize(24);
-    ImGui::InputText("Component name", componentName.data(), 24);
+
+    ImGui::Text("Component name: ");
+    ImGui::InputText("##0", componentName.data(), 24);
     if (ImGui::IsItemDeactivatedAfterEdit())
         selectedSceneComponent->SetName(componentName.c_str());
+    
+    ImGui::PopItemWidth();
 
     renderComponentParams(selectedSceneComponent);
 
-    ImGui::PopItemWidth();
     ImGui::End();
 }
 

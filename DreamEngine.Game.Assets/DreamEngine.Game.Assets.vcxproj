@@ -154,6 +154,7 @@
     <ClCompile Include="ParamInt.cpp" />
     <ClCompile Include="ParamString.cpp" />
     <ClCompile Include="ParamTransform.cpp" />
+    <ClCompile Include="ParamVector3.cpp" />
     <ClCompile Include="SceneActorInfo.cpp" />
     <ClCompile Include="SceneRoomInfo.cpp" />
     <ClCompile Include="TransformInfo.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="ParamString.h" />
     <ClInclude Include="ParamTransform.h" />
     <ClInclude Include="ParamType.h" />
+    <ClInclude Include="ParamVector3.h" />
     <ClInclude Include="SceneActorInfo.h" />
     <ClInclude Include="SceneRoomInfo.h" />
     <ClInclude Include="TransformInfo.h" />

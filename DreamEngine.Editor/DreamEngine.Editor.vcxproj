@@ -28,6 +28,7 @@
     <ClInclude Include="EditorParamDrawerInt.h" />
     <ClInclude Include="EditorParamDrawerString.h" />
     <ClInclude Include="EditorParamDrawerTransform.h" />
+    <ClInclude Include="EditorParamDrawerVector3.h" />
     <ClInclude Include="EditorParamViewer.h" />
     <ClInclude Include="EditorPopupModal.h" />
     <ClInclude Include="EditorPopupModalDeleteAsset.h" />
@@ -61,6 +62,7 @@
     <ClCompile Include="EditorParamDrawerInt.cpp" />
     <ClCompile Include="EditorParamDrawerString.cpp" />
     <ClCompile Include="EditorParamDrawerTransform.cpp" />
+    <ClCompile Include="EditorParamDrawerVector3.cpp" />
     <ClCompile Include="EditorParamViewer.cpp" />
     <ClCompile Include="EditorPopupModal.cpp" />
     <ClCompile Include="EditorPopupModalDeleteAsset.cpp" />

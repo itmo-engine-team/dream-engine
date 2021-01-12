@@ -7,6 +7,8 @@
 #include "MapUtils.h"
 #include "ParamFloat.h"
 #include "ParamString.h"
+#include "ParamBool.h"
+#include "ParamVector3.h"
 
 BaseParam* ParamCreator::CreateFromJson(Json json)
 {
@@ -30,6 +32,12 @@ BaseParam* ParamCreator::CreateFromJson(Json json)
             break;
         case ParamType::Transform:
             param = new ParamTransform();
+            break;
+        case ParamType::Bool:
+            param = new ParamBool();
+            break;
+        case ParamType::Vector3:
+            param = new ParamVector3();
             break;
     }
 

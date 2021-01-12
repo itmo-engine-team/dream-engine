@@ -7,6 +7,7 @@
 #include "EditorParamDrawerString.h"
 #include "EditorParamDrawerAsset.h"
 #include "EditorParamDrawerTransform.h"
+#include "EditorParamDrawerVector3.h"
 #include "ParamExtender.h"
 
 EditorParamViewer::EditorParamViewer(Editor* editor, ParamExtender* paramExtender, int index)
@@ -58,6 +59,8 @@ EditorParamDrawerBase* EditorParamViewer::createParamDrawer(int index,
             return new EditorParamDrawerString(index, name, baseParam);
         case ParamType::Bool:
             return new EditorParamDrawerBool(index, name, baseParam);
+        case ParamType::Vector3:
+            return new EditorParamDrawerVector3(index, name, baseParam);
         default:
             break;
     }

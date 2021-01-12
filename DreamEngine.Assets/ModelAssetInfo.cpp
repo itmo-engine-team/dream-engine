@@ -7,7 +7,7 @@ ModelAssetInfo::ModelAssetInfo() : AssetInfo(AssetType::Model)
 
 ModelAssetInfo::ModelAssetInfo(ModelAssetInfo& assetInfo) : AssetInfo(assetInfo)
 {
-
+    modelPath = assetInfo.modelPath;
 }
 
 void ModelAssetInfo::SetModelPath(std::string& path)

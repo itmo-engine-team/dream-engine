@@ -5,22 +5,17 @@
 ActorComponentSceneInfo::ActorComponentSceneInfo(ACS_Type type)
     : ActorComponentInfo(), type(type)
 {
-    transformInfo = new TransformInfo();
 }
 
-ActorComponentSceneInfo::~ActorComponentSceneInfo()
+ActorComponentSceneInfo::ActorComponentSceneInfo(ActorComponentSceneInfo& componentInfo)
+    : ActorComponentInfo(componentInfo)
 {
-    delete transformInfo;
+    type = componentInfo.type;
 }
 
 ACS_Type ActorComponentSceneInfo::GetType() const
 {
     return type;
-}
-
-TransformInfo* ActorComponentSceneInfo::GetTransformInfo() const
-{
-    return transformInfo;
 }
 
 Json ActorComponentSceneInfo::toJson()

@@ -11,6 +11,7 @@ class ActorComponentInfo : public Serializable
 public:
 
     ActorComponentInfo() = default;
+    ActorComponentInfo(ActorComponentInfo& componentInfo);
     virtual ~ActorComponentInfo() = 0;
 
     const std::string& GetName() const;

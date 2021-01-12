@@ -1,5 +1,11 @@
 #include "ActorComponentInfo.h"
 
+ActorComponentInfo::ActorComponentInfo(ActorComponentInfo& componentInfo)
+{
+    name = componentInfo.name;
+    paramExtender->CopyParams(componentInfo.paramExtender->GetParamMap());
+}
+
 ActorComponentInfo::~ActorComponentInfo()
 {
 

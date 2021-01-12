@@ -8,7 +8,17 @@ ActorAssetInfo::ActorAssetInfo() : AssetInfo(AssetType::Actor)
 
 ActorAssetInfo::ActorAssetInfo(ActorAssetInfo& assetInfo) : AssetInfo(assetInfo)
 {
+    actorType = assetInfo.actorType;
 
+    for (auto sceneComponent : assetInfo.sceneComponents)
+    {
+        sceneComponents.push_back(new ActorComponentSceneInfo(*sceneComponent));
+    }
+
+    for (auto fixedComponent : assetInfo.fixedComponents)
+    {
+        fixedComponents.push_back(new ActorComponentFixedInfo(*fixedComponent));
+    }
 }
 
 ActorAssetInfo::~ActorAssetInfo()

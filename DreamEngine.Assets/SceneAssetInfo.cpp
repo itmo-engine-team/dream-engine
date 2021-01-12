@@ -9,7 +9,7 @@ SceneAssetInfo::SceneAssetInfo() : AssetInfo(AssetType::Scene)
 
 SceneAssetInfo::SceneAssetInfo(SceneAssetInfo& assetInfo) : AssetInfo(assetInfo)
 {
-
+    actorInfoList = assetInfo.actorInfoList;
 }
 
 //const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
@@ -36,8 +36,6 @@ Json SceneAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();
 
-    json["name"] = name;
-
     Json jsonActorArray = Json::array();
     for (auto actorInfo : actorInfoList)
     {
@@ -51,8 +49,6 @@ Json SceneAssetInfo::toJson()
 void SceneAssetInfo::fromJson(Json json)
 {
     AssetInfo::fromJson(json);
-
-    initVariable(json, "name", &name);
 
     Json jsonActorArray = json["actors"];
     for (auto jsonActorInfo : jsonActorArray)

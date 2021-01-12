@@ -39,6 +39,8 @@ private:
     std::string selectableActorType;
     int currentType;
 
+    std::string componentName;
+
     void renderViewer();
     void renderInspector();
     void renderActorTypeSelectable();

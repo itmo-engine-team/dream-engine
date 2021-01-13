@@ -31,6 +31,8 @@ void GameAssetManager::GameOver()
 
 void GameAssetManager::Clear()
 {
+    isGameOver = false;
+
     for (auto actor : actors)
     {
         delete actor;
@@ -55,6 +57,11 @@ void GameAssetManager::AddActor(Actor* actor)
 {
     actors.push_back(actor);
     RegisterActorCollisions(actor);
+}
+
+void GameAssetManager::RequestToDeleteActor(Actor* actor)
+{
+    actorsToDelete.push_back(actor);
 }
 
 void GameAssetManager::DeleteActor(Actor* actor)
@@ -88,6 +95,11 @@ void GameAssetManager::DeleteActor(Actor* actor)
 const std::vector<Actor*>& GameAssetManager::GetActors() const
 {
     return actors;
+}
+
+const std::vector<Actor*>& GameAssetManager::GetActorsToDelete() const
+{
+    return actorsToDelete;
 }
 
 const std::vector<ACS_Collision*>& GameAssetManager::GetCollisions() const

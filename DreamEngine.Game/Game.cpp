@@ -74,6 +74,11 @@ void Game::Update(const float engineDeltaTime)
         {
             actor->Update();
         }
+
+        for (Actor* actor : gameAssetManager->GetActorsToDelete())
+        {
+            gameAssetManager->DeleteActor(actor);
+        }
     }
 }
 

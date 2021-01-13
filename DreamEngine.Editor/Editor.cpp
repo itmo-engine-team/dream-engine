@@ -12,6 +12,7 @@
 #include "EditorWindowGameViewport.h"
 #include "MapUtils.h"
 #include "EngineConfigInfo.h"
+#include "Game.h"
 
 Editor::Editor(EditorContext* context) : context(context)
 {
@@ -54,6 +55,8 @@ void Editor::Update()
 
 void Editor::Render()
 {
+    if (!context->GetGame()->IsGameOver())
+        startImGuiFrame();
     renderWindows();
     finishImGuiFrame();
 }

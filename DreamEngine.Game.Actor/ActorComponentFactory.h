@@ -11,6 +11,9 @@
 #include "ACF_PlayerMovement.h"
 #include "ACS_StaticModel.h"
 #include "ACS_Collision.h"
+#include "ACF_DestroyTargetOnCollision.h"
+#include "ACF_GameOverOnTargetCollision.h"
+#include "ACF_CollectScoreOnCollision.h"
 
 class ActorComponentFactory
 {
@@ -40,6 +43,9 @@ protected:
         { ACF_Type::TargetTag , new ACF_Creator_TargetTag() },
         { ACF_Type::Movement , new ACF_Creator_Movement() },
         { ACF_Type::PlayerMovement , new ACF_Creator_PlayerMovement() },
+        { ACF_Type::GameOverOnTargetCollision, new ACF_Creator_GameOverOnTargetCollision() },
+        { ACF_Type::DestroyTargetOnCollision, new ACF_Creator_DestroyTargetOnCollision() },
+        { ACF_Type::CollectScoreOnCollision, new ACF_Creator_CollectScoreOnCollision() },
     };
     
 };

@@ -162,6 +162,18 @@
     <ClInclude Include="ACF_TargetTag.h">
       <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
+    <ClInclude Include="ACF_GameOverOnTargetCollision.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_DestroyTargetOnCollision.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_OnTargetCollision.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_CollectScoreOnCollision.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -258,6 +270,18 @@
       <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
     <ClCompile Include="ACF_TargetTag.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_DestroyTargetOnCollision.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_GameOverOnTargetCollision.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_OnTargetCollision.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_CollectScoreOnCollision.cpp">
       <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
   </ItemGroup>

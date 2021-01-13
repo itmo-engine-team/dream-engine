@@ -269,6 +269,8 @@ NavMeshPolygon* NavMesh::FindPolygon(Vector3 location)
 
 void NavMesh::DebugPath(std::vector<NavMeshPolygon*> path)
 {
+    if (!isDebug) return;
+
     for (NavMeshPolygon* polygon : path)
     {
         meshData->GetVertices().at(polygon->FirstVertexIndex).Color = PATH_COLOR;
@@ -276,6 +278,16 @@ void NavMesh::DebugPath(std::vector<NavMeshPolygon*> path)
         meshData->GetVertices().at(polygon->FirstVertexIndex + 2).Color = PATH_COLOR;
         meshData->GetVertices().at(polygon->FirstVertexIndex + 3).Color = PATH_COLOR;
     }
+}
+
+bool NavMesh::IsDebug()
+{
+    return isDebug;
+}
+
+void NavMesh::SetIsDebug(bool isDebug)
+{
+    this->isDebug = isDebug;
 }
 
 NavMeshPolygon* NavMesh::FindFreeClosestPolygon(Vector3 targetLocation, void* ownerActor, Vector3 ownerWorldPosition, bool canMoveByDiagonal)

@@ -83,6 +83,12 @@ void Scene::CreateActorOnScene(SceneActorInfo* actorInfo)
     actorInfo->SetActor(actor);
 }
 
+void Scene::DeleteActorInfo(SceneActorInfo* actorInfo)
+{
+    DeleteActorFromScene(actorInfo);
+    sceneInfo->DeleteActorInfo(actorInfo);
+}
+
 void Scene::DeleteActorFromScene(SceneActorInfo* actorInfo)
 {
     context->GetGameAssetManager()->DeleteActor(actorInfo->GetActor());

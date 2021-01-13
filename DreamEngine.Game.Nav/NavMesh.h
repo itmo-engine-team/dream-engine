@@ -56,6 +56,8 @@ public:
     NavMeshPolygon* FindFreeClosestPolygon(Vector3 targetLocation, void* ownerActor, Vector3 ownerWorldPosition, bool canMoveByDiagonal);
 
     void DebugPath(std::vector<NavMeshPolygon*> path);
+    bool IsDebug();
+    void SetIsDebug(bool isDebug);
 
 protected:
 
@@ -67,6 +69,8 @@ protected:
     ModelData* modelData;
     std::vector<DWORD> indices;
     std::vector<DWORD> gridIndices;
+
+    bool isDebug = false;
 
     std::vector<std::vector<NavMeshPolygon*>> navMeshGrid;
 

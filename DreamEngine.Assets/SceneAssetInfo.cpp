@@ -39,6 +39,19 @@ void SceneAssetInfo::AddActorInfo(SceneActorInfo* actorInfo)
     actorInfoList.push_back(actorInfo);
 }
 
+void SceneAssetInfo::DeleteActorInfo(SceneActorInfo* actorInfo)
+{
+    for (auto iter = actorInfoList.begin(); iter < actorInfoList.end(); ++iter)
+    {
+        if (*iter == actorInfo)
+        {
+            actorInfoList.erase(iter);
+            delete actorInfo;
+            return;
+        }
+    }
+}
+
 Json SceneAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();

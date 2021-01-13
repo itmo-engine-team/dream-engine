@@ -25,6 +25,7 @@ enum class ACF_Type
     DestroyTargetOnCollision,
     CollectScoreOnCollision,
     Projectile,
+    ActorSpawner,
 
     UNKNOWN
 };
@@ -40,4 +41,5 @@ const std::map<ACF_Type, std::string> MAP_ACF_TYPE_TO_STRING = {
     { ACF_Type::DestroyTargetOnCollision, "Destroy Target On Collision" },
     { ACF_Type::CollectScoreOnCollision, "Collect Score On Collision" },
     { ACF_Type::Projectile, "Projectile" },
+    { ACF_Type::ActorSpawner, "ActorSpawner" },
 };

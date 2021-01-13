@@ -1,5 +1,6 @@
 #include "GameAssetManager.h"
 
+#include "ActorAssetInfo.h"
 #include "ModelAssetInfo.h"
 #include "TextureAssetInfo.h"
 #include "ACF_Tag.h"
@@ -7,6 +8,8 @@
 #include "ParamBool.h"
 #include "MeshRenderer.h"
 #include "ParamVector3.h"
+#include "ActorFactory.h"
+#include "ActorComponentFactory.h"
 
 GameAssetManager::GameAssetManager(AssetManager* assetManager, Graphics* graphics)
     : assetManager(assetManager), graphics(graphics)
@@ -59,6 +62,40 @@ void GameAssetManager::Clear()
     textures.clear();
 }
 
+void GameAssetManager::CreateActorByAsset(ActorContext* context, unsigned int id, Vector3 position)
+{
+    auto actorAsset = dynamic_cast<ActorAssetInfo*>(assetManager->GetAssetByType(AssetType::Actor, id));
+
+    if (actorAsset == nullptr) return;
+
+    auto actor = ActorFactory::Create(context, actorAsset->GetActorType());
+
+    for (auto sceneComponentInfo : actorAsset->GetSceneComponents())
+    {
+        auto sceneComponent = ActorComponentFactory::CreateSceneComponent(actor, sceneComponentInfo);
+        actor->AddSceneComponent(sceneComponent);
+
+        for (auto iter : sceneComponentInfo->GetParamExtender()->GetParamMap())
+        {
+            sceneComponent->UpdateParam(iter.first, iter.second);
+        }
+    }
+
+    for (auto fixedComponentInfo : actorAsset->GetFixedComponents())
+    {
+        auto fixedComponent = ActorComponentFactory::CreateFixedComponent(actor, fixedComponentInfo);
+        actor->AddFixedComponent(fixedComponent);
+
+        for (auto iter : fixedComponentInfo->GetParamExtender()->GetParamMap())
+        {
+            fixedComponent->UpdateParam(iter.first, iter.second);
+        }
+    }
+
+    actor->GetTransform()->SetWorldPosition(position);
+    actorsToAdd.push_back(actor);
+}
+
 void GameAssetManager::AddActor(Actor* actor)
 {
     actors.push_back(actor);
@@ -98,6 +135,15 @@ void GameAssetManager::DeleteActor(Actor* actor)
     }
 }
 
+void GameAssetManager::HandleNewActors()
+{
+    for (Actor* actor : actorsToAdd)
+    {
+        AddActor(actor);
+    }
+    actorsToAdd.clear();
+}
+
 const std::vector<Actor*>& GameAssetManager::GetActors() const
 {
     return actors;
@@ -106,6 +152,11 @@ const std::vector<Actor*>& GameAssetManager::GetActors() const
 const std::vector<Actor*>& GameAssetManager::GetActorsToDelete() const
 {
     return actorsToDelete;
+}
+
+const std::vector<Actor*>& GameAssetManager::GetActorsToAdd() const
+{
+    return actorsToAdd;
 }
 
 const std::vector<ACS_Collision*>& GameAssetManager::GetCollisions() const

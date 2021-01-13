@@ -9,5 +9,5 @@ ACF_GameOverOnTargetCollision::ACF_GameOverOnTargetCollision(Actor* actor)
 
 void ACF_GameOverOnTargetCollision::onTargetCollision(Actor* targetActor)
 {
-    actor->GetContext()->GetGameAssetManager()->GameOver();
+    actor->GetContext()->GetGameAssetManager()->GameOver(false);
 }

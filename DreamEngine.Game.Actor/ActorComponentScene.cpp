@@ -24,11 +24,15 @@ Transform* ActorComponentScene::GetTransform() const
 
 void ActorComponentScene::Draw()
 {
+    if (!IsActive()) return;
+
     onDraw();
 }
 
 void ActorComponentScene::DrawShadowMap()
 {
+    if (!IsActive()) return;
+
     onDrawShadowMap();
 }
 

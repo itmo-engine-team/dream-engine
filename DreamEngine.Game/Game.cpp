@@ -61,7 +61,7 @@ void Game::Update(const float engineDeltaTime)
     // Check game over
     if (isGameOver) return;
 
-    if (!isGameOver || gameAssetManager->IsGameOver())
+    if (!isGameOver && gameAssetManager->IsGameOver())
     {
         isGameOver = true;
         deltaTimeHandler->SetMultiplier(0);

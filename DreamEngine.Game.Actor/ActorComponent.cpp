@@ -23,14 +23,16 @@ Actor* ActorComponent::GetActor() const
 
 void ActorComponent::Init()
 {
+    if (!IsActive()) return;
+
     onInit();
-    // Trigger event AfterInit
 }
 
 void ActorComponent::Update()
 {
+    if (!IsActive()) return;
+
     onUpdate();
-    // Trigger event AfterUpdate
 }
 
 void ActorComponent::onInit()

@@ -31,6 +31,8 @@ void Actor::Init()
 
 void Actor::Update()
 {
+    if (!IsActive()) return;
+
     onUpdate();
 
     // Update components
@@ -42,6 +44,8 @@ void Actor::Update()
 
 void Actor::Draw()
 {
+    if (!IsActive()) return;
+
     // Draw components
     for (auto component : sceneComponents)
     {
@@ -51,6 +55,8 @@ void Actor::Draw()
 
 void Actor::DrawShadowMap()
 {
+    if (!IsActive()) return;
+
     // Draw shadow map for components
     for (auto component : sceneComponents)
     {

@@ -11,7 +11,7 @@ BTGMoveTo::BTGMoveTo(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behavior
         movementComponent = behaviorTree->GetActor()->FindComponent<ACF_Movement>();
 
     targetLocation = behaviorTree->GetActor()->GetTransform()->GetWorldPosition();
-    targetActor = behaviorTree->GetActor()->FindComponent<ACF_TargetTag>()->GetTargetActor();
+    targetTagComponent = behaviorTree->GetActor()->FindComponent<ACF_TargetTag>();
 }
 
 bool BTGMoveTo::Run()
@@ -22,8 +22,8 @@ bool BTGMoveTo::Run()
     if (movementComponent == nullptr)
         return false;
  
-    if (targetActor != nullptr)
-        return movementComponent->MoveTo(targetActor->GetTransform()->GetWorldPosition());
+    if (targetTagComponent->GetTargetActor() != nullptr)
+        return movementComponent->MoveTo(targetTagComponent->GetTargetActor()->GetTransform()->GetWorldPosition());
 
     return movementComponent->MoveTo(targetLocation);
 }

@@ -11,6 +11,11 @@ public:
     EditorParamDrawerVector3(int index, const std::string& name, BaseParam* baseParam);
     bool Draw() override;
 
+    int GetRequiredIndexCount() override
+    {
+        return 3;
+    }
+
 private:
 
     const int BUFFER_SIZE = 6;

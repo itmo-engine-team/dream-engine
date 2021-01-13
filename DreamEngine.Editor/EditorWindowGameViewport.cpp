@@ -295,7 +295,7 @@ void EditorWindowGameViewport::drawActorContextMenu(SceneActorInfo* actorInfo)
 
         if (ImGui::Selectable("Delete"))
         {
-            // TODO: add DeleteActor
+            currentScene->DeleteActorInfo(currentSceneActor);
 
             if (currentSceneActor == actorInfo)
             {

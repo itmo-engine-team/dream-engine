@@ -24,6 +24,7 @@ public:
 
     SceneActorInfo* CreateNewActorInfo();
     void CreateActorOnScene(SceneActorInfo* actorInfo);
+    void DeleteActorInfo(SceneActorInfo* actorInfo);
     void DeleteActorFromScene(SceneActorInfo* actorInfo);
     Actor* CreateActorFromAsset(ActorAssetInfo* actorAssetInfo);
 

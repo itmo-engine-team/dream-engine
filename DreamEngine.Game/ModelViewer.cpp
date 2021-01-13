@@ -6,9 +6,6 @@
 #include "Transform.h"
 #include "GameAssetManager.h"
 #include "ModelAssetInfo.h"
-#include "ParamBool.h"
-#include "ParamVector3.h"
-#include "MeshRenderer.h"
 
 ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo,
                          InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
@@ -28,17 +25,8 @@ bool ModelViewer::LoadModel(ModelAssetInfo* modelAssetInfo, TextureAssetInfo* pr
         currentPreviewTexture = nullptr;
     }
 
-    delete currentModel;
-    if (modelAssetInfo->GetUseDefaultBoxParam()->Get())
-    {
-        auto boxColor = modelAssetInfo->GetDefaultBoxColorParam()->Get();
-        currentModel = graphics->GetMeshRenderer()->CreateBoxModel(
-            { boxColor.x, boxColor.y, boxColor.z, 1.0f }, { 1.0f, 1.0f, 1.0f });
-    }
-    else
-    {
-        currentModel = new ModelData(graphics->GetMeshRenderer(), modelAssetInfo->GetModelPath());
-    }
+    gameAssetManager->Clear();
+    currentModel = gameAssetManager->GetOrCreateModelData(modelAssetInfo->GetId());
     staticModelComponent->LoadModelData(currentModel);
     staticModelComponent->LoadTexture(currentPreviewTexture);
     staticModelComponent->UpdateTransform(new TransformInfo(Vector3::UnitY * -1 * currentModel->GetLowestVertexY()));

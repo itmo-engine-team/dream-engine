@@ -10,6 +10,11 @@ EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo*
 {
     if (modelAssetInfo == nullptr)
         SetOpened(false);
+    
+    paramBool = modelAssetInfo->GetUseDefaultBoxParam();
+    paramVector3 = modelAssetInfo->GetDefaultBoxVector3Param();
+    paramDrawerBool = new EditorParamDrawerBool(0, "Draw standart cube: ", paramBool);  
+    paramDrawVector3 = new EditorParamDrawerVector3(1, "Cube position:", paramVector3);
 }
 
 void EditorWindowModelViewer::Init()
@@ -82,15 +87,23 @@ void EditorWindowModelViewer::renderModelInspector()
 
     ImGui::Separator();
 
-    ImGui::Text("Model:");
-    ImGui::InputText("Path", modelPath.data(), 256);
-
-    ImGui::Text("Preview Texture: ");
-    ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
-    ImGui::SameLine();
-    if (ImGui::Button("Choose"))
+    paramDrawerBool->Draw();
+    if (!paramBool->Get())
     {
-        assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Texture);
+        ImGui::Text("Model:");
+        ImGui::InputText("Path", modelPath.data(), 256);
+
+        ImGui::Text("Preview Texture: ");
+        ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
+        ImGui::SameLine();
+        if (ImGui::Button("Choose"))
+        {
+            assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Texture);
+        }
+    }
+    else
+    {
+        paramDrawVector3->Draw();
     }
 
     ImGui::End();

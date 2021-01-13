@@ -35,8 +35,9 @@ public:
 
     Actor* FindActorByTag(std::string tag);
 
-    bool IsAnyIntersectionWithLocation(Vector3 targetLocation, Actor* initiator);
-    bool IsAnyIntersectionWithCollision(Vector3 targetLocation, Vector2 targetCollisionSize, Actor* initiator);
+    bool IsAnyIntersectionWithLocation(Vector3 targetLocation, Actor* initiator, bool ignoreTrigger);
+    bool IsAnyIntersectionWithCollision(Vector3 targetLocation, 
+        Vector2 targetCollisionSize, Actor* initiator, bool ignoreTrigger);
 
 protected:
 

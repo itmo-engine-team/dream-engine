@@ -133,7 +133,7 @@ void ACS_Collision::onParamUpdate(std::string name, BaseParam* param)
 void ACS_Collision::createDebugMeshObject()
 {
     debugModelData = actor->GetContext()->GetGraphics()->GetMeshRenderer()->
-        CreateBoxModel({ 1, 0, 0, 1 }, sizeParam->Get());
+        CreateBoxModel({ 0.5, 0, 0, 1 }, sizeParam->Get());
     const auto debugMeshData = debugModelData->GetMeshDataList()[0];
     debugMeshObject = new MeshObject(actor->GetContext()->GetGraphics(), 
         debugMeshData, nullptr);

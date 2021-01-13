@@ -74,7 +74,7 @@ void ACF_PlayerMovement::onUpdate()
         directionXZ.Normalize();
         Vector3 newLocationXZ = worldPosition + directionXZ * speed;
         if (!actor->GetContext()->GetGameAssetManager()->
-            IsAnyIntersectionWithCollision(newLocationXZ, collisionComponent->GetWorldSize(), actor))
+            IsAnyIntersectionWithCollision(newLocationXZ, collisionComponent->GetWorldSize(), actor, true))
         {
             actor->GetTransform()->AddWorldPosition(directionXZ * speed);
             return;
@@ -85,7 +85,7 @@ void ACF_PlayerMovement::onUpdate()
     {
         Vector3 newLocationX = worldPosition + directionX * speed;
         if (!actor->GetContext()->GetGameAssetManager()->
-            IsAnyIntersectionWithCollision(newLocationX, collisionComponent->GetWorldSize(), actor))
+            IsAnyIntersectionWithCollision(newLocationX, collisionComponent->GetWorldSize(), actor, true))
         {
             actor->GetTransform()->AddWorldPosition(directionX * speed);
             return;
@@ -96,7 +96,7 @@ void ACF_PlayerMovement::onUpdate()
     {
         Vector3 newLocationZ = worldPosition + directionZ * speed;
         if (!actor->GetContext()->GetGameAssetManager()->
-            IsAnyIntersectionWithCollision(newLocationZ, collisionComponent->GetWorldSize(), actor))
+            IsAnyIntersectionWithCollision(newLocationZ, collisionComponent->GetWorldSize(), actor, true))
         {
             actor->GetTransform()->AddWorldPosition(directionZ * speed);
             return;

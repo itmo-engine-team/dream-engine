@@ -108,6 +108,9 @@ void Game::RenderShadowMap()
 
 void Game::LoadScene(SceneAssetInfo* sceneInfo)
 {
+    isGameOver = false;
+    deltaTimeHandler->SetMultiplier(1);
+
     if (currentScene != nullptr)
     {
         delete currentScene;

@@ -15,7 +15,7 @@ bool EditorParamDrawerString::Draw()
 {
     bool isChanged = false;
 
-    ImGui::PushItemWidth(50);
+    ImGui::PushItemWidth(180);
     ImGui::Text(name.c_str());
     ImGui::SameLine();
     ImGui::InputText(inputFieldLabel.c_str(),

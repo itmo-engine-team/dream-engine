@@ -184,7 +184,7 @@ void EditorWindowActorViewer::renderComponentInspector()
 
     ImGui::Begin("Component Info");
     
-    ImGui::PushItemWidth(100);
+    ImGui::PushItemWidth(180);
 
     ImGui::Text("Component name: ");
     ImGui::InputText("##0", componentName.data(), 24);

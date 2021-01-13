@@ -254,5 +254,6 @@ bool EditorParamDrawerTransform::DrawScale()
     }
 
     ImGui::PopItemWidth();
+    ImGui::Separator();
     return isChanged;
 }

@@ -123,12 +123,13 @@ void EditorWindowGameViewport::renderActorInspector()
 
     ImGui::Begin("Actor Inspector");
 
-    ImGui::PushItemWidth(100);
+    ImGui::PushItemWidth(180);
 
     ImGui::Text("Actor name: ");
     ImGui::InputText("##0", sceneActorName.data(), 24);
     if (ImGui::IsItemDeactivatedAfterEdit())
         currentSceneActor->SetName(sceneActorName.c_str());
+    ImGui::Separator();
     ImGui::PopItemWidth();
 
     if (paramDrawerTransform->Draw())

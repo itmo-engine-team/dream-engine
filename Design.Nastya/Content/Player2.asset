@@ -12,6 +12,25 @@
             "type": "PlayerMovement"
         },
         {
+            "name": "GameOver On Target Collision_1",
+            "params": {
+                "Ignore trigger": {
+                    "type": "Bool",
+                    "value": true
+                },
+                "Target Tag": {
+                    "type": "String",
+                    "value": ""
+                }
+            },
+            "type": "GameOver On Target Collision"
+        },
+        {
+            "name": "Collect Score On Collision_2",
+            "params": null,
+            "type": "Collect Score On Collision"
+        },
+        {
             "name": "Tag_3",
             "params": {
                 "Tag": {
@@ -20,20 +39,10 @@
                 }
             },
             "type": "Tag"
-        },
-        {
-            "name": "Tag_gameover",
-            "params": {
-                "Tag": {
-                    "type": "String",
-                    "value": "go1"
-                }
-            },
-            "type": "Tag"
         }
     ],
-    "id": 2,
-    "name": "Player",
+    "id": 11,
+    "name": "Player2",
     "sceneComponents": [
         {
             "name": "Static Model_0",

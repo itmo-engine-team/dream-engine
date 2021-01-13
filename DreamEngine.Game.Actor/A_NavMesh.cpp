@@ -8,7 +8,7 @@
 
 A_NavMesh::A_NavMesh(ActorContext* context) : Actor(context)
 {
-    navMesh = new NavMesh({ 0, 0.11f, 0 }, { 6, 1, 6 }, 0.5f);
+    navMesh = new NavMesh({ 0, 0.11f, 0 }, { 10, 1, 10 }, 0.5f);
     this->context->SetNavMesh(navMesh);
 
     staticModelComponent = new ACS_StaticModel(this, navMesh->GetModelData());

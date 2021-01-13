@@ -2,38 +2,18 @@
     "actorType": "Actor",
     "fixedComponents": [
         {
-            "name": "PlayerMovement_0",
+            "name": "Destroy Target On Collision_0",
             "params": {
-                "Move by diagonal": {
-                    "type": "Bool",
-                    "value": true
-                }
-            },
-            "type": "PlayerMovement"
-        },
-        {
-            "name": "Tag_3",
-            "params": {
-                "Tag": {
+                "Target Tag": {
                     "type": "String",
-                    "value": "tag"
+                    "value": "ai1"
                 }
             },
-            "type": "Tag"
-        },
-        {
-            "name": "Tag_gameover",
-            "params": {
-                "Tag": {
-                    "type": "String",
-                    "value": "go1"
-                }
-            },
-            "type": "Tag"
+            "type": "Destroy Target On Collision"
         }
     ],
-    "id": 2,
-    "name": "Player",
+    "id": 12,
+    "name": "Trap",
     "sceneComponents": [
         {
             "name": "Static Model_0",
@@ -41,7 +21,7 @@
                 "Model Asset": {
                     "assetType": "Model",
                     "type": "Asset",
-                    "value": 5
+                    "value": 13
                 },
                 "Transform": {
                     "type": "Transform",
@@ -57,9 +37,9 @@
                             0.0
                         ],
                         "scale": [
-                            0.5,
-                            0.5,
-                            0.5
+                            1.0,
+                            0.05000000074505806,
+                            1.0
                         ]
                     }
                 }
@@ -73,6 +53,10 @@
                     "type": "Bool",
                     "value": true
                 },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": true
+                },
                 "Transform": {
                     "type": "Transform",
                     "value": {
@@ -87,9 +71,9 @@
                             0.0
                         ],
                         "scale": [
-                            0.5,
-                            0.5,
-                            0.5
+                            1.0,
+                            0.20000000298023224,
+                            1.0
                         ]
                     }
                 }

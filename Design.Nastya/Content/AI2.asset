@@ -23,7 +23,7 @@
             "type": "Movement"
         },
         {
-            "name": "Target Tag",
+            "name": "Target Tag_2",
             "params": {
                 "Target Tag": {
                     "type": "String",
@@ -31,30 +31,10 @@
                 }
             },
             "type": "Target Tag"
-        },
-        {
-            "name": "GameOver On Target Collision_4",
-            "params": {
-                "Target Tag": {
-                    "type": "String",
-                    "value": "go1"
-                }
-            },
-            "type": "GameOver On Target Collision"
-        },
-        {
-            "name": "Tag",
-            "params": {
-                "Tag": {
-                    "type": "String",
-                    "value": "ai1"
-                }
-            },
-            "type": "Tag"
         }
     ],
-    "id": 4,
-    "name": "AI",
+    "id": 10,
+    "name": "AI2",
     "sceneComponents": [
         {
             "name": "Static Model_0",

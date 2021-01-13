@@ -60,34 +60,6 @@
             "asset": {
                 "assetType": "Actor",
                 "type": "Asset",
-                "value": 3
-            },
-            "name": "PlaerUebok",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        -2.0,
-                        0.0,
-                        2.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
                 "value": 5
             },
             "name": "FoodUebok",
@@ -95,37 +67,9 @@
                 "type": "Transform",
                 "value": {
                     "pos": [
-                        0.0,
-                        0.0,
-                        -3.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 0
-            },
-            "name": "EnemyUebok",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
                         1.5,
                         0.0,
-                        1.5
+                        -3.0
                     ],
                     "rot": [
                         0.0,
@@ -190,6 +134,1434 @@
                     ],
                     "scale": [
                         24.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall1",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        6.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall2",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall4",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall5",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall6",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall7",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        -9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall8",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        6.0,
+                        0.0,
+                        -9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall9",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        -9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall10",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        -9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall11",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        -9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall12",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        -9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall13",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        -9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall14",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall15",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        6.0,
+                        0.0,
+                        6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall16",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall17",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall18",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall19",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall20",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall21",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall22",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        6.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall23",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall24",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall25",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall26",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall27",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall28",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall29",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        6.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall30",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall31",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall32",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall33",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall34",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall35",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        -6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall36",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        6.0,
+                        0.0,
+                        -6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall37",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        -6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall38",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        -6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall39",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        -6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall40",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        -6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall41",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        -6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall42",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall43",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        6.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall44",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall45",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall46",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall47",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Wall48",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 10
+            },
+            "name": "Enemy1",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        10.5,
+                        0.0,
+                        10.5
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 10
+            },
+            "name": "Enemy2",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -10.5,
+                        0.0,
+                        -10.5
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 3
+            },
+            "name": "Player",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
                         1.0,
                         1.0
                     ]

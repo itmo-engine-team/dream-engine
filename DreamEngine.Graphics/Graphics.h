@@ -96,7 +96,7 @@ private:
     MeshRenderer* meshRenderer;
 
     bool hasLight = true;
-    bool hasShadow = true;
+    bool hasShadow = false;
 
     bool initDirectX();
     void initShaders();

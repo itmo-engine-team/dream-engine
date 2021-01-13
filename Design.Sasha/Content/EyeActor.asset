@@ -17,7 +17,7 @@
             "params": {
                 "Actor Speed": {
                     "type": "Float",
-                    "value": 2.799999952316284
+                    "value": 2.0
                 }
             },
             "type": "Movement"

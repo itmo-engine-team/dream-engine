@@ -175,7 +175,10 @@
       <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
     <ClInclude Include="ACF_Projectile.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_GameOverOnCollectAllTarget.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -288,7 +291,10 @@
       <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
     <ClCompile Include="ACF_Projectile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_GameOverOnCollectAllTarget.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

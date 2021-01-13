@@ -22,6 +22,7 @@ private:
 
     void onInit() override;
     void onUpdate() override;
-
+   
+    bool keyIsReleased = true;
 };
 

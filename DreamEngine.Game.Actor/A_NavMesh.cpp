@@ -27,6 +27,19 @@ void A_NavMesh::onInit()
 
 void A_NavMesh::onUpdate()
 {
+    if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_P))
+    {
+        if (keyIsReleased)
+        {
+            navMesh->SetIsDebug(!navMesh->IsDebug());
+            keyIsReleased = false;
+        }
+    }
+    else
+    {
+        keyIsReleased = true;
+    }
+
     navMesh->ResetPolygons();
 
     for (auto collision : context->GetGameAssetManager()->GetCollisions())

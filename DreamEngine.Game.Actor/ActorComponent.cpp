@@ -6,6 +6,21 @@ ActorComponent::ActorComponent(Actor* actor)
 
 }
 
+bool ActorComponent::IsActive() const
+{
+    return isActive && actor->IsActive();
+}
+
+void ActorComponent::SetActive(bool isActive)
+{
+    this->isActive = isActive;
+}
+
+Actor* ActorComponent::GetActor() const
+{
+    return actor;
+}
+
 void ActorComponent::Init()
 {
     onInit();

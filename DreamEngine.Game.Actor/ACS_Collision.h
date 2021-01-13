@@ -3,6 +3,7 @@
 #include "ActorComponentScene.h"
 #include "Transform.h"
 
+class ParamVector3;
 class ParamFloat;
 class ParamBool;
 class MeshObject;
@@ -13,22 +14,22 @@ class ACS_Collision : public ActorComponentScene
 
 public:
 
-    ACS_Collision(Actor* actor, Vector2 size = Vector2 { 1.0f, 1.0f });
+    ACS_Collision(Actor* actor);
     ~ACS_Collision() override;
+
+    bool IsTrigger() const;
 
     Vector2 GetWorldSize() const;
     Vector2 GetSize();
-    void SetSize(Vector2 newSize);
 
     bool IsPointIntersects(Vector3 targetLocation);
     bool IsCollisionIntersects(Vector3 targetLocation, Vector2 targetCollisionSize);
 
 protected:
 
-    ParamFloat* sizeParamX;
-    ParamFloat* sizeParamY;
+    ParamVector3* sizeParam;
+    ParamBool* isTriggerParam;
     ParamBool* drawCollisionParam;
-    Vector2 size;
     MeshObject* debugMeshObject = nullptr;
     ModelData* debugModelData = nullptr;
 

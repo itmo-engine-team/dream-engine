@@ -9,7 +9,6 @@ public:
 
     ParamBool(bool def = false);
     ParamBool(ParamBool& param);
-    ParamBool(Json json);
 
     BaseParam* Copy() override;
 

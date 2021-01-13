@@ -63,6 +63,11 @@ bool Actor::IsActive() const
     return isActive;
 }
 
+void Actor::SetActive(bool isActive)
+{
+    this->isActive = isActive;
+}
+
 SceneActorInfo* Actor::GetActorInfo() const
 {
     return actorInfo;

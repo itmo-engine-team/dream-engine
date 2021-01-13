@@ -6,6 +6,8 @@
 #include "Texture.h"
 #include "ModelData.h"
 
+class ACS_Collision;
+
 class GameAssetManager
 {
 
@@ -20,6 +22,10 @@ public:
     void AddActor(Actor* actor);
     void DeleteActor(Actor* actor);
     const std::vector<Actor*>& GetActors() const;
+
+    const std::vector<ACS_Collision*>& GetCollisions() const;
+    void RegisterCollisions();
+    void RegisterActorCollisions(Actor* actor);
 
     ModelData* GetOrCreateModelData(unsigned int id);
     Texture* GetOrCreateTexture(unsigned int id);
@@ -36,6 +42,7 @@ protected:
 
     // Game objects
     std::vector<Actor*> actors;
+    std::vector<ACS_Collision*> collisions;
 
     // Graphics objects
     std::map<unsigned int, Texture*> textures;

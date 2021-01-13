@@ -15,7 +15,7 @@ ACF_TargetTag::ACF_TargetTag(Actor* actor) : ActorComponentFixed(actor)
 
 void ACF_TargetTag::findTargetActor()
 {
-    targetActor =  actor->GetContext()->GetGameAssetManager()->FindActorByTag(targetTag->Get());
+    targetActor = actor->GetContext()->GetGameAssetManager()->FindActorByTag(targetTag->Get());
 }
 
 Actor* ACF_TargetTag::GetTargetActor()

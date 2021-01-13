@@ -1,0 +1,35 @@
+{
+    "BT": {
+        "lastId": 8,
+        "rootNode": {
+            "children": [
+                [
+                    8,
+                    {
+                        "id": 6,
+                        "logicType": "MoveTo",
+                        "name": "",
+                        "parentAttributeId": 7,
+                        "position": [
+                            345.0,
+                            163.0
+                        ],
+                        "type": "Logic"
+                    }
+                ]
+            ],
+            "childrenAttributeId": 1,
+            "id": 0,
+            "name": "",
+            "position": [
+                170.0,
+                152.0
+            ],
+            "type": "Root"
+        },
+        "unparentedNodes": []
+    },
+    "id": 7,
+    "name": "BT_AI",
+    "type": "Behavior Tree"
+}

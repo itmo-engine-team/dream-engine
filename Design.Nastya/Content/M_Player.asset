@@ -1,0 +1,18 @@
+{
+    "defaultBoxColor": {
+        "type": "Vector3",
+        "value": [
+            0.0,
+            1.0,
+            0.5
+        ]
+    },
+    "id": 5,
+    "modelPath": "Content/M_Player",
+    "name": "M_Player",
+    "type": "Model",
+    "useDefaultBox": {
+        "type": "Bool",
+        "value": true
+    }
+}

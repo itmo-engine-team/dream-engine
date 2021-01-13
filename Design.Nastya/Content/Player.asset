@@ -1,0 +1,61 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "PlayerMovement_0",
+            "params": {
+                "Move by diagonal": {
+                    "type": "Bool",
+                    "value": true
+                }
+            },
+            "type": "PlayerMovement"
+        },
+        {
+            "name": "GameOver On Target Collision_1",
+            "params": null,
+            "type": "GameOver On Target Collision"
+        },
+        {
+            "name": "Collect Score On Collision_2",
+            "params": null,
+            "type": "Collect Score On Collision"
+        },
+        {
+            "name": "Tag_3",
+            "params": {
+                "Tag": {
+                    "type": "String",
+                    "value": "tag"
+                }
+            },
+            "type": "Tag"
+        }
+    ],
+    "id": 2,
+    "name": "Player",
+    "sceneComponents": [
+        {
+            "name": "Static Model_0",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 5
+                }
+            },
+            "type": "Static Model"
+        },
+        {
+            "name": "Collision_1",
+            "params": {
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": true
+                }
+            },
+            "type": "Collision"
+        }
+    ],
+    "type": "Actor"
+}

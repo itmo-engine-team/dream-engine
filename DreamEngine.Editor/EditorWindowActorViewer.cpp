@@ -138,6 +138,21 @@ void EditorWindowActorViewer::renderComponents()
                 delete paramViewer;
                 paramViewer = new EditorParamViewer(editor, selectedComponent->GetParamExtender(), 1);
             }
+
+            if (ImGui::BeginPopupContextItem())
+            {
+                if (ImGui::Selectable("Delete"))
+                {
+                    if (selectedComponent == component)
+                    {
+                        selectedComponent = nullptr;
+                    }
+
+                    actorAssetInfo->RemoveComponent(component);
+                }
+
+                ImGui::EndPopup();
+            }
         }
     }
 
@@ -159,6 +174,21 @@ void EditorWindowActorViewer::renderComponents()
 
                 delete paramViewer;
                 paramViewer = new EditorParamViewer(editor, selectedComponent->GetParamExtender(), 1);
+            }
+
+            if (ImGui::BeginPopupContextItem())
+            {
+                if (ImGui::Selectable("Delete"))
+                {
+                    if (selectedComponent == component)
+                    {
+                        selectedComponent = nullptr;
+                    }
+
+                    actorAssetInfo->RemoveComponent(component);
+                }
+
+                ImGui::EndPopup();
             }
         }
     }

@@ -44,6 +44,30 @@ void ActorAssetInfo::SetActorType(ActorType type)
     actorType = type;
 }
 
+void ActorAssetInfo::RemoveComponent(ActorComponentSceneInfo* component)
+{
+    auto iter = std::find(sceneComponents.begin(),
+        sceneComponents.end(), component);
+
+    if (iter != sceneComponents.end())
+    {
+        sceneComponents.erase(iter);
+        delete component;
+    }
+}
+
+void ActorAssetInfo::RemoveComponent(ActorComponentFixedInfo* component)
+{
+    auto iter = std::find(fixedComponents.begin(),
+        fixedComponents.end(), component);
+
+    if (iter != fixedComponents.end())
+    {
+        fixedComponents.erase(iter);
+        delete component;
+    }
+}
+
 ActorComponentSceneInfo* ActorAssetInfo::AddSceneComponent(ACS_Type type, const std::string& name)
 {
     auto sceneComponent = new ActorComponentSceneInfo(type);

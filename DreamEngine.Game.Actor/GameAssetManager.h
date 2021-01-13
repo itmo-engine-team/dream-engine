@@ -16,6 +16,9 @@ public:
     GameAssetManager(AssetManager* assetManager, Graphics* graphics);
     ~GameAssetManager();
 
+    bool IsGameOver() const;
+    void GameOver();
+
     void Clear();
 
     // GameObjects
@@ -36,6 +39,8 @@ public:
     bool IsAnyIntersectionWithCollision(Vector3 targetLocation, Vector2 targetCollisionSize, Actor* initiator);
 
 protected:
+
+    bool isGameOver = false;
 
     AssetManager* assetManager;
     Graphics* graphics;

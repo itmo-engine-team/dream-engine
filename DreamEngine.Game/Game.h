@@ -15,6 +15,7 @@ public:
     Game(EngineConfigInfo* engineConfigInfo,
         InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager);
 
+    bool IsGameOver() const;
     GameAssetManager* GetGameAssetManager() const;
 
     void Init() override;
@@ -29,6 +30,8 @@ public:
     void StopGame();
 
 protected:
+
+    bool isGameOver = false;
 
     Scene* currentScene = nullptr;
     SceneAssetInfo* currentSceneInfo = nullptr;

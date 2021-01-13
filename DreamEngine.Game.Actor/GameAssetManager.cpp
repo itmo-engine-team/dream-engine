@@ -19,6 +19,16 @@ GameAssetManager::~GameAssetManager()
     Clear();
 }
 
+bool GameAssetManager::IsGameOver() const
+{
+    return isGameOver;
+}
+
+void GameAssetManager::GameOver()
+{
+    isGameOver = true;
+}
+
 void GameAssetManager::Clear()
 {
     for (auto actor : actors)

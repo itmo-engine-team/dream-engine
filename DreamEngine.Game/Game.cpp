@@ -7,11 +7,17 @@
 #include "EngineConfigInfo.h"
 #include "SceneAssetInfo.h"
 #include "ErrorLogger.h"
+#include "DeltaTimeHandler.h"
 
 Game::Game(EngineConfigInfo* engineConfigInfo,
            InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
     : BaseSceneViewer(engineConfigInfo, inputSystem, graphics, assetManager)
 {
+}
+
+bool Game::IsGameOver() const
+{
+    return isGameOver;
 }
 
 GameAssetManager* Game::GetGameAssetManager() const
@@ -49,8 +55,19 @@ void Game::Update(const float engineDeltaTime)
 
     navMesh->Update();
 
+    // Check game mode
     if (!actorContext->IsGameMode()) return;
-    
+
+    // Check game over
+    if (isGameOver) return;
+
+    if (!isGameOver || gameAssetManager->IsGameOver())
+    {
+        isGameOver = true;
+        deltaTimeHandler->SetMultiplier(0);
+    }
+
+    // Update game objects on scene
     if (currentScene != nullptr)
     {
         for (Actor* actor : gameAssetManager->GetActors())

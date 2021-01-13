@@ -4,51 +4,32 @@
 #include "Texture.h"
 #include "TextureAssetInfo.h"
 #include "Transform.h"
+#include "GameAssetManager.h"
+#include "ModelAssetInfo.h"
 
-ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
-    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics)
+ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo,
+                         InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
+    : BaseSceneViewer(engineConfigInfo, inputSystem, graphics, assetManager)
 {
 
 }
 
-bool ModelViewer::LoadModel(const std::string& modelPath, TextureAssetInfo* previewTextureInfo)
+bool ModelViewer::LoadModel(ModelAssetInfo* modelAssetInfo, TextureAssetInfo* previewTextureInfo)
 {
-    if (currentModel != nullptr)
-    {
-        auto component = modelActor->FindComponent<ACS_StaticModel>();
-        if (component == nullptr)
-        {
-            ErrorLogger::Log(Error,
-                "ModelViewer - Model was loaded, but there is no component on it");
-            return false;
-        }
-
-        modelActor->RemoveComponent(component);
-
-        delete currentModel;
-        currentModel = nullptr;
-
-        if (currentPreviewTexture != nullptr)
-        {
-            delete currentPreviewTexture;
-            currentPreviewTexture = nullptr;
-        }
-    }
-
     if (previewTextureInfo != nullptr)
     {
-        auto texturePath = std::wstring(previewTextureInfo->GetTexturePath().begin(),
-            previewTextureInfo->GetTexturePath().end());
-        currentPreviewTexture = new Texture(graphics, texturePath.c_str());
+        currentPreviewTexture = gameAssetManager->GetOrCreateTexture(previewTextureInfo->GetId());
     }
     else
     {
         currentPreviewTexture = nullptr;
     }
 
-    currentModel = new ModelData(graphics->GetMeshRenderer(), modelPath, currentPreviewTexture);
-    modelActor->AddSceneComponent(new ACS_StaticModel(actorContext, modelActor,
-            new Transform(Vector3::UnitY * -1 * currentModel->GetLowestVertexY()), currentModel));
+    gameAssetManager->Clear();
+    currentModel = gameAssetManager->GetOrCreateModelData(modelAssetInfo->GetId());
+    staticModelComponent->LoadModelData(currentModel);
+    staticModelComponent->LoadTexture(currentPreviewTexture);
+    staticModelComponent->UpdateTransform(new TransformInfo(Vector3::UnitY * -1 * currentModel->GetLowestVertexY()));
 
     return currentModel->IsValid();
 }
@@ -57,7 +38,10 @@ void ModelViewer::Init()
 {
     BaseSceneViewer::Init();
 
-    modelActor = new Actor(actorContext, new Transform());
+    modelActor = new Actor(actorContext);
+    staticModelComponent = new ACS_StaticModel(modelActor);
+    modelActor->AddSceneComponent(staticModelComponent);
+    
     baseSceneActors.push_back(modelActor);
 }
 

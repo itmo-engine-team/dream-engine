@@ -2,6 +2,9 @@
 
 #include "AssetInfo.h"
 
+class ParamBool;
+class ParamVector3;
+
 class ModelAssetInfo : public AssetInfo
 {
 
@@ -13,6 +16,9 @@ public:
     void SetModelPath(std::string& path);
     const std::string& GetModelPath();
 
+    ParamBool* GetUseDefaultBoxParam();
+    ParamVector3* GetDefaultBoxColorParam();
+
 protected:
 
     Json toJson() override;
@@ -20,6 +26,8 @@ protected:
 
 private:
 
+    ParamBool* useDefaultBoxParam;
+    ParamVector3* defaultBoxColorParam;
     std::string modelPath;
 
 };

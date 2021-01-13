@@ -3,6 +3,8 @@
 #include "AssetInfo.h"
 
 class SceneRoomInfo;
+class SceneActorInfo;
+class ParamTransform;
 
 class SceneAssetInfo : public AssetInfo
 {
@@ -12,9 +14,14 @@ public:
     SceneAssetInfo();
     SceneAssetInfo(SceneAssetInfo& assetInfo);
 
-    const std::vector<SceneRoomInfo*>& GetRoomInfoList() const;
+   /* const std::vector<SceneRoomInfo*>& GetRoomInfoList() const;
 
-    void AddRoomInfo(SceneRoomInfo* roomInfo);
+    void AddRoomInfo(SceneRoomInfo* roomInfo);*/
+
+    ParamTransform* GetCameraTransformParam() const;
+
+    const std::vector<SceneActorInfo*>& GetActorInfoList() const;
+    void AddActorInfo(SceneActorInfo* actorInfo);
 
 protected:
 
@@ -23,7 +30,10 @@ protected:
 
 private:
 
-    std::vector<SceneRoomInfo*> roomInfoList;
+    ParamTransform* cameraTransformParam;
+
+    //std::vector<SceneRoomInfo*> roomInfoList;
+    std::vector<SceneActorInfo*> actorInfoList;
 
 };
 

@@ -11,7 +11,7 @@ SceneRoom::SceneRoom(ActorContext* context, SceneRoomInfo* roomInfo) : context(c
 
     for (SceneActorInfo* const actorInfo : roomInfo->GetActorInfoList())
     {
-        actors.push_back(ActorFactory::Create(context, actorInfo->GetType(), actorInfo->GetTransformInfo()));
+        //actors.push_back(ActorFactory::Create(context, actorInfo->GetType(), actorInfo->GetTransformInfo()));
     }
 }
 
@@ -34,8 +34,8 @@ void SceneRoom::CreateActor()
     actorInfo->SetName("Actor " + std::to_string(actors.size()));
     roomInfo->AddActorInfo(actorInfo);
 
-    Actor* actor = ActorFactory::Create(context, actorInfo->GetType(), actorInfo->GetTransformInfo());
-    actors.push_back(actor);
+    //Actor* actor = ActorFactory::Create(context, actorInfo->GetType(), actorInfo->GetTransformInfo());
+    //actors.push_back(actor);
 }
 
 const std::vector<Actor*>& SceneRoom::GetActors() const

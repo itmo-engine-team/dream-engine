@@ -17,6 +17,16 @@ DeltaTimeHandler* ActorContext::GetDeltaTimeHandler() const
     return deltaTimeHandler;
 }
 
+AssetManager* ActorContext::GetAssetManager() const
+{
+    return assetManager;
+}
+
+GameAssetManager* ActorContext::GetGameAssetManager() const
+{
+    return gameAssetManager;
+}
+
 ACS_Light* ActorContext::GetLight() const
 {
     return light;
@@ -45,4 +55,14 @@ NavMesh* ActorContext::GetNavMesh() const
 void ActorContext::SetNavMesh(NavMesh* newNavMesh)
 {
     navMesh = newNavMesh;
+}
+
+bool ActorContext::IsGameMode() const
+{
+    return isGameMode;
+}
+
+void ActorContext::SetGameMode(bool isGameMode)
+{
+    this->isGameMode = isGameMode;
 }

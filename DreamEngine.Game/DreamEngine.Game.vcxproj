@@ -118,6 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Game.Actor;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Assets;$(SolutionDir)DreamEngine.Game.Nav;$(SolutionDir)DreamEngine.Game.Common;$(SolutionDir)DreamEngine.Game.Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,7 +144,6 @@
   <ItemGroup>
     <ClCompile Include="ActorViewer.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameAssetManager.cpp" />
     <ClCompile Include="BaseSceneViewer.cpp" />
     <ClCompile Include="ModelViewer.cpp" />
     <ClCompile Include="SceneRoom.cpp" />
@@ -152,7 +152,6 @@
   <ItemGroup>
     <ClInclude Include="ActorViewer.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameAssetManager.h" />
     <ClInclude Include="BaseSceneViewer.h" />
     <ClInclude Include="ModelViewer.h" />
     <ClInclude Include="SceneRoom.h" />

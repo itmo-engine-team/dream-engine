@@ -3,12 +3,16 @@
 #include "ACS_Light.h"
 #include "NavMesh.h"
 #include "ACS_StaticModel.h"
-#include "Transform.h"
+#include "GameAssetManager.h"
+#include "ACS_Collision.h"
 
-A_NavMesh::A_NavMesh(ActorContext* context, Transform* transform) : Actor(context, transform)
+A_NavMesh::A_NavMesh(ActorContext* context) : Actor(context)
 {
-    navMesh = new NavMesh(transform->GetWorldPosition(), { 6, 1, 6 }, 0.5f);
+    navMesh = new NavMesh({ 0, 0.11f, 0 }, { 6, 1, 6 }, 0.5f);
     this->context->SetNavMesh(navMesh);
+
+    staticModelComponent = new ACS_StaticModel(this, navMesh->GetModelData());
+    AddSceneComponent(staticModelComponent);
 }
 
 NavMesh* A_NavMesh::GetNavMesh() const
@@ -16,12 +20,20 @@ NavMesh* A_NavMesh::GetNavMesh() const
     return navMesh;
 }
 
+void A_NavMesh::onInit()
+{
+
+}
+
 void A_NavMesh::onUpdate()
 {
-    ACS_StaticModel* staticModelComponent = FindComponent<ACS_StaticModel>();
-    if (staticModelComponent != nullptr)
-        RemoveComponent(staticModelComponent);
+    navMesh->ResetPolygons();
 
-    AddSceneComponent(new ACS_StaticModel(context, this,
-        new Transform(Vector3::Zero), navMesh->GetModelData()));
+    for (auto collision : context->GetGameAssetManager()->GetCollisions())
+    {
+        navMesh->UpdatePolygons(collision->GetActor(),
+            collision->GetTransform()->GetWorldPosition(), collision->GetWorldSize());
+    }
+
+    staticModelComponent->LoadModelData(navMesh->GetModelData());
 }

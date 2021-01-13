@@ -5,6 +5,8 @@
 #include "Serializable.h"
 
 class Actor;
+class ParamAsset;
+class ParamTransform;
 
 class SceneActorInfo : Serializable
 {
@@ -13,15 +15,14 @@ public:
 
     SceneActorInfo(ActorType type = ActorType::Actor);
 
+    Actor* GetActor() const;
     void SetActor(Actor* actor);
-
-    ActorType GetType() const;
-    void SetType(ActorType type);
 
     const std::string& GetName() const;
     void SetName(const std::string& name);
 
-    TransformInfo* GetTransformInfo() const;
+    ParamTransform* GetParamTransform() const;
+    ParamAsset* GetParamAsset() const;
 
 protected:
 
@@ -35,10 +36,9 @@ private:
 
     Actor* actor;
 
-    ActorType type;
     std::string name;
-
-    TransformInfo* transformInfo;
+    ParamAsset* paramAsset;
+    ParamTransform* paramTransform;
 
 };
 

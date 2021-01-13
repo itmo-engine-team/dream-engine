@@ -1,8 +1,8 @@
 #include "A_Light.h"
 
-A_Light::A_Light(ActorContext* context, Transform* transform) : Actor(context, transform)
+A_Light::A_Light(ActorContext* context) : Actor(context)
 {
-    lightComponent = new ACS_Light(context, this);
+    lightComponent = new ACS_Light(this);
     AddSceneComponent(lightComponent);
 }
 

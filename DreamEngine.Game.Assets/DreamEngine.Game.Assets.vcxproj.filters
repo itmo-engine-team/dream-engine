@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Param">
       <UniqueIdentifier>{260827b3-83bc-4fe9-a8f8-b69972d9c2d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Param\Inherited">
+      <UniqueIdentifier>{208cdbcb-0745-4108-956f-b7d74ae81c37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Param\Inherited">
+      <UniqueIdentifier>{4231ac89-3944-4542-9d90-ed1ecdde6681}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TransformInfo.cpp">
@@ -58,7 +64,28 @@
       <Filter>Source Files\Param</Filter>
     </ClCompile>
     <ClCompile Include="ParamInt.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamTransform.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamAsset.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamCreator.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamFloat.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamString.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamBool.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
+    </ClCompile>
+    <ClCompile Include="ParamVector3.cpp">
+      <Filter>Source Files\Param\Inherited</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,8 +119,35 @@
     <ClInclude Include="Param.h">
       <Filter>Header Files\Param</Filter>
     </ClInclude>
+    <ClInclude Include="ParamType.h">
+      <Filter>Header Files\Param</Filter>
+    </ClInclude>
     <ClInclude Include="ParamInt.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamTransform.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamAsset.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetType.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamCreator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamFloat.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamString.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamBool.h">
+      <Filter>Header Files\Param\Inherited</Filter>
+    </ClInclude>
+    <ClInclude Include="ParamVector3.h">
+      <Filter>Header Files\Param\Inherited</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

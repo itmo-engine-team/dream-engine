@@ -92,6 +92,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)ImGui.Sources;$(SolutionDir)DreamEngine.Game;$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Graphics;$(SolutionDir)DreamEngine.Common;$(SolutionDir)DreamEngine.Assets.Serializable;$(SolutionDir)DreamEngine.Game.Assets;$(SolutionDir)DreamEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

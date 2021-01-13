@@ -1,21 +1,38 @@
 #include "ActorComponent.h"
 
-ActorComponent::ActorComponent(ActorContext* context, Actor* actor)
-    : context(context), actor(actor)
+ActorComponent::ActorComponent(Actor* actor)
+    : actor(actor)
 {
 
+}
+
+bool ActorComponent::IsActive() const
+{
+    return isActive && actor->IsActive();
+}
+
+void ActorComponent::SetActive(bool isActive)
+{
+    this->isActive = isActive;
+}
+
+Actor* ActorComponent::GetActor() const
+{
+    return actor;
 }
 
 void ActorComponent::Init()
 {
+    if (!IsActive()) return;
+
     onInit();
-    // Trigger event AfterInit
 }
 
 void ActorComponent::Update()
 {
+    if (!IsActive()) return;
+
     onUpdate();
-    // Trigger event AfterUpdate
 }
 
 void ActorComponent::onInit()

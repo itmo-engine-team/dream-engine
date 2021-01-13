@@ -11,12 +11,18 @@
 #include "LightBuffer.h"
 #include "DeltaTimeHandler.h"
 #include "Transform.h"
+#include "GameAssetManager.h"
+#include "ActorFactory.h"
+#include "ActorAssetInfo.h"
+#include "ActorComponentFactory.h"
 
-BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics)
-    : engineConfigInfo(engineConfigInfo), inputSystem(inputSystem), graphics(graphics)
+BaseSceneViewer::BaseSceneViewer(EngineConfigInfo* engineConfigInfo,
+                                 InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
+    : engineConfigInfo(engineConfigInfo),
+      inputSystem(inputSystem), graphics(graphics), assetManager(assetManager)
 {
     deltaTimeHandler = new DeltaTimeHandler();
-
+    gameAssetManager = new GameAssetManager(assetManager, graphics);
     sceneRenderer = new SceneRenderer(graphics);
 }
 
@@ -57,7 +63,7 @@ ACS_Light* BaseSceneViewer::GetLight() const
 
 void BaseSceneViewer::Init()
 {
-    actorContext = new ActorContext(graphics, inputSystem, deltaTimeHandler);
+    actorContext = new ActorContext(graphics, inputSystem, deltaTimeHandler, assetManager, gameAssetManager);
 
     createBaseSceneActors();
 
@@ -145,18 +151,20 @@ void BaseSceneViewer::RenderPipeline()
 
 void BaseSceneViewer::createBaseSceneActors()
 {
-    lightActor = new A_Light(actorContext, new Transform({ -10, 10, -10 }));
+    lightActor = new A_Light(actorContext);
+    lightActor->UpdateTransform(new TransformInfo({ -10, 10, -10 }));
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitX, 0.65f);
     lightActor->GetTransform()->AddWorldRotation(Vector3::UnitY, 0.75f);
     baseSceneActors.push_back(lightActor);
     actorContext->SetLight(lightActor->GetLightComponent());
 
-    spectatorActor = new A_Spectator(actorContext, new Transform({ 0, 1, -6 }));
+    spectatorActor = new A_Spectator(actorContext);
+    spectatorActor->UpdateTransform(new TransformInfo({ 0, 1, -6 }));
     baseSceneActors.push_back(spectatorActor);
     actorContext->SetCamera(spectatorActor->GetCameraComponent());
 
     planeModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 3, 0.1, 3 });
-    planeActor = new Actor(actorContext, new Transform({ 0, 0, 0 }));
-    planeActor->AddSceneComponent(new ACS_StaticModel(actorContext, planeActor, new Transform({ 0, 0, 0 }), planeModel));
+    planeActor = new Actor(actorContext);
+    planeActor->AddSceneComponent(new ACS_StaticModel(planeActor, planeModel));
     baseSceneActors.push_back(planeActor);
 }

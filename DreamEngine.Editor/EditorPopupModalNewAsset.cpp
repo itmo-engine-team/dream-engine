@@ -16,13 +16,14 @@ AssetType EditorPopupModalNewAsset::GetAssetType()
 EditorPopupModalNewAsset::EditorPopupModalNewAsset(FolderNode* parentFolderNode)
     : EditorPopupModalFolderBase("New Asset", parentFolderNode)
 {
-    sizeStr = AssetInfoFactory::MAP_ASSET_TYPE_TO_STRING.size();
+    sizeStr = MAP_ASSET_TYPE_TO_STRING.size();
     tempStrMass = new std::string[sizeStr];
     int i = 0;
 
-    for (auto iterator = AssetInfoFactory::MAP_ASSET_TYPE_TO_STRING.begin(); iterator != AssetInfoFactory::MAP_ASSET_TYPE_TO_STRING.end(); ++iterator, i++)
+    for (auto iterator = MAP_ASSET_TYPE_TO_STRING.begin();
+        iterator != MAP_ASSET_TYPE_TO_STRING.end(); ++iterator, i++)
     {
-        tempStrMass[i] = AssetInfoFactory::GetAssetTypeStringName(iterator->first);
+        tempStrMass[i] = iterator->second;
     }
 
     selectedAssetType = AssetInfoFactory::GetAssetTypeByString(tempStrMass[0]);

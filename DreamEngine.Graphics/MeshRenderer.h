@@ -16,10 +16,11 @@ public:
 
     static ModelData* CreateBoxModel(Vector4 color, Vector3 boxSize);
     static ModelData* CreateSquareModel(Vector3 quardSize);
+    static MeshData* CreateLineBoxMesh(Vector4 color, Vector3 boxSize);
 
 protected:
 
     void processNode(ModelData* modelData, aiNode* node, const aiScene* scene);
-    static MeshData* processMesh(aiMesh* mesh, const aiScene* scene, Texture* texture);
+    static MeshData* processMesh(aiMesh* mesh, const aiScene* scene);
 
 };

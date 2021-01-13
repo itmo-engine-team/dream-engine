@@ -1,27 +1,30 @@
 #pragma once
 
-class BTGameNodeRoot;
-class BTGameNodeComposite;
+class BehaviorTreeGame;
+class BTGameNodeWithChild;
 
 class BTGameNode
 {
 
 public:
 
-    BTGameNode() = default;
-    BTGameNode(BTGameNodeRoot* parentNode);
-    BTGameNode(BTGameNodeComposite* parentNode);
+    BTGameNode() = delete;
     
     virtual ~BTGameNode() = default;
 
     virtual bool Run() = 0;
 
-    void SetParent(BTGameNode* parentNode);
+    void SetParent(BTGameNodeWithChild* parentNode);
 
-    BTGameNode* GetParent() const;
+    BTGameNodeWithChild* GetParent() const;
+    BehaviorTreeGame* GetBehaviorTree() const;
 
 protected:
 
-    BTGameNode* parent;
+    BTGameNode(BehaviorTreeGame* behaviorTree);
+    BTGameNode(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
+
+    BTGameNodeWithChild* parent;
+    BehaviorTreeGame* behaviorTree;
 };
 

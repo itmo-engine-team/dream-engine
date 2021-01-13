@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Actor\Component\Scene">
       <UniqueIdentifier>{49e3b15c-3ac7-4515-8156-b03dee8368f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\BehaviorTree\Logic">
+      <UniqueIdentifier>{6237c6d2-7366-4016-b970-c9be47f064c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BehaviorTree\Logic">
+      <UniqueIdentifier>{cc273297-e682-4d1e-8cff-3db8cadcfec9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BehaviorTreeGame.h">
@@ -123,6 +129,39 @@
     <ClInclude Include="ActorComponentScene.h">
       <Filter>Header Files\Actor\Component</Filter>
     </ClInclude>
+    <ClInclude Include="BTGMoveTo.h">
+      <Filter>Header Files\BehaviorTree\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNodeWithChild.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGameNodeFactory.h">
+      <Filter>Header Files\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="GameAssetManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_PlayerMovement.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_TargetReference.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGTargetNear.h">
+      <Filter>Header Files\BehaviorTree\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGReturnFalse.h">
+      <Filter>Header Files\BehaviorTree\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="BTGReturnTrue.h">
+      <Filter>Header Files\BehaviorTree\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_Tag.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_TargetTag.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehaviorTreeGame.cpp">
@@ -190,6 +229,36 @@
     </ClCompile>
     <ClCompile Include="ACS_StaticModel.cpp">
       <Filter>Source Files\Actor\Component\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGMoveTo.cpp">
+      <Filter>Source Files\BehaviorTree\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGameNodeFactory.cpp">
+      <Filter>Source Files\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="GameAssetManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_PlayerMovement.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_TargetReference.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGTargetNear.cpp">
+      <Filter>Source Files\BehaviorTree\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGReturnFalse.cpp">
+      <Filter>Source Files\BehaviorTree\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="BTGReturnTrue.cpp">
+      <Filter>Source Files\BehaviorTree\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_Tag.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_TargetTag.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

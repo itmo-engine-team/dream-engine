@@ -53,6 +53,7 @@ public:
     void UpdatePolygons(void* actor, Vector3 worldPosition, Vector2 collisionSize);
     void ResetPolygons();
     NavMeshPolygon* FindPolygon(Vector3 location);
+    NavMeshPolygon* FindFreeClosestPolygon(Vector3 targetLocation, void* ownerActor, Vector3 ownerWorldPosition, bool canMoveByDiagonal);
 
     void DebugPath(std::vector<NavMeshPolygon*> path);
 
@@ -62,12 +63,14 @@ protected:
     Vector3 position;
     float polygonSize;
     MeshData* meshData;
+    MeshData* gridMeshData;
     ModelData* modelData;
     std::vector<DWORD> indices;
+    std::vector<DWORD> gridIndices;
 
     std::vector<std::vector<NavMeshPolygon*>> navMeshGrid;
 
     void initNavMeshGrid();
-    std::vector<Vertex> initVertex(NavMeshPolygon& polygon);
+    std::vector<Vertex> initVertex(NavMeshPolygon& polygon, Vector4 color);
     bool checkPolygonCollision(Vector3 collisionPosition, Vector2 collisionSize, NavMeshPolygon* polygon);
 };

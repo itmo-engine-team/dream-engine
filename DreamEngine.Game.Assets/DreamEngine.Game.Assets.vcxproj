@@ -118,6 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)DreamEngine.Logger;$(SolutionDir)DreamEngine.Utils;$(SolutionDir)DreamEngine.Assets.Serializable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,9 +145,16 @@
     <ClCompile Include="ActorComponentFixedInfo.cpp" />
     <ClCompile Include="ActorComponentInfo.cpp" />
     <ClCompile Include="ActorComponentSceneInfo.cpp" />
+    <ClCompile Include="ParamAsset.cpp" />
+    <ClCompile Include="ParamBool.cpp" />
+    <ClCompile Include="ParamCreator.cpp" />
     <ClCompile Include="ParamExtender.cpp" />
     <ClCompile Include="Param.cpp" />
+    <ClCompile Include="ParamFloat.cpp" />
     <ClCompile Include="ParamInt.cpp" />
+    <ClCompile Include="ParamString.cpp" />
+    <ClCompile Include="ParamTransform.cpp" />
+    <ClCompile Include="ParamVector3.cpp" />
     <ClCompile Include="SceneActorInfo.cpp" />
     <ClCompile Include="SceneRoomInfo.cpp" />
     <ClCompile Include="TransformInfo.cpp" />
@@ -157,9 +165,18 @@
     <ClInclude Include="ActorComponentSceneInfo.h" />
     <ClInclude Include="ActorComponentType.h" />
     <ClInclude Include="ActorType.h" />
+    <ClInclude Include="AssetType.h" />
+    <ClInclude Include="ParamAsset.h" />
+    <ClInclude Include="ParamBool.h" />
+    <ClInclude Include="ParamCreator.h" />
     <ClInclude Include="ParamExtender.h" />
     <ClInclude Include="Param.h" />
+    <ClInclude Include="ParamFloat.h" />
     <ClInclude Include="ParamInt.h" />
+    <ClInclude Include="ParamString.h" />
+    <ClInclude Include="ParamTransform.h" />
+    <ClInclude Include="ParamType.h" />
+    <ClInclude Include="ParamVector3.h" />
     <ClInclude Include="SceneActorInfo.h" />
     <ClInclude Include="SceneRoomInfo.h" />
     <ClInclude Include="TransformInfo.h" />

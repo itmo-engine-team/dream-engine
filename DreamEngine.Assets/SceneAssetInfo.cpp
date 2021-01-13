@@ -1,40 +1,56 @@
 #include "SceneAssetInfo.h"
 
-#include "SceneRoomInfo.h"
+#include "SceneActorInfo.h"
+#include "ParamTransform.h"
 
 SceneAssetInfo::SceneAssetInfo() : AssetInfo(AssetType::Scene)
 {
-
+    cameraTransformParam = new ParamTransform({ Vector3 {0, 1, -6 } });
 }
 
 SceneAssetInfo::SceneAssetInfo(SceneAssetInfo& assetInfo) : AssetInfo(assetInfo)
 {
-
+    cameraTransformParam = dynamic_cast<ParamTransform*>(assetInfo.cameraTransformParam->Copy());
+    actorInfoList = assetInfo.actorInfoList;
 }
 
-const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
+ParamTransform* SceneAssetInfo::GetCameraTransformParam() const
 {
-    return roomInfoList;
+    return cameraTransformParam;
 }
 
-void SceneAssetInfo::AddRoomInfo(SceneRoomInfo* roomInfo)
+//const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
+//{
+//    return roomInfoList;
+//}
+//
+//void SceneAssetInfo::AddRoomInfo(SceneRoomInfo* roomInfo)
+//{
+//    roomInfoList.push_back(roomInfo);
+//}
+
+const std::vector<SceneActorInfo*>& SceneAssetInfo::GetActorInfoList() const
 {
-    roomInfoList.push_back(roomInfo);
+    return actorInfoList;
+}
+
+void SceneAssetInfo::AddActorInfo(SceneActorInfo* actorInfo)
+{
+    actorInfoList.push_back(actorInfo);
 }
 
 Json SceneAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();
-    Json jsonInfo = {};
 
-    Json jsonRoomArray = Json::array();
-    for (auto roomInfo : roomInfoList)
+    json["cameraTransform"] = cameraTransformParam->toJson();
+
+    Json jsonActorArray = Json::array();
+    for (auto actorInfo : actorInfoList)
     {
-        jsonRoomArray.push_back(roomInfo->toJson());
+        jsonActorArray.push_back(actorInfo->toJson());
     }
-
-    jsonInfo["rooms"] = jsonRoomArray;
-    json["info"] = jsonInfo;
+    json["actors"] = jsonActorArray;
 
     return json;
 }
@@ -43,12 +59,47 @@ void SceneAssetInfo::fromJson(Json json)
 {
     AssetInfo::fromJson(json);
 
-    Json jsonInfo = json["info"];
-    Json jsonRoomArray = jsonInfo["rooms"];
-    for (auto jsonRoomInfo : jsonRoomArray)
+    if (json.contains("cameraTransform"))
     {
-        auto roomInfo = new SceneRoomInfo();
-        roomInfo->fromJson(jsonRoomInfo);
-        roomInfoList.push_back(roomInfo);
+        cameraTransformParam->fromJson(json["cameraTransform"]);
+    }
+
+    Json jsonActorArray = json["actors"];
+    for (auto jsonActorInfo : jsonActorArray)
+    {
+        auto actorInfo = new SceneActorInfo();
+        actorInfo->fromJson(jsonActorInfo);
+        actorInfoList.push_back(actorInfo);
     }
 }
+
+//Json SceneAssetInfo::toJson()
+//{
+//    Json json = AssetInfo::toJson();
+//    Json jsonInfo = {};
+//
+//    Json jsonRoomArray = Json::array();
+//    for (auto roomInfo : roomInfoList)
+//    {
+//        jsonRoomArray.push_back(roomInfo->toJson());
+//    }
+//
+//    jsonInfo["rooms"] = jsonRoomArray;
+//    json["info"] = jsonInfo;
+//
+//    return json;
+//}
+//
+//void SceneAssetInfo::fromJson(Json json)
+//{
+//    AssetInfo::fromJson(json);
+//
+//    Json jsonInfo = json["info"];
+//    Json jsonRoomArray = jsonInfo["rooms"];
+//    for (auto jsonRoomInfo : jsonRoomArray)
+//    {
+//        auto roomInfo = new SceneRoomInfo();
+//        roomInfo->fromJson(jsonRoomInfo);
+//        roomInfoList.push_back(roomInfo);
+//    }
+//}

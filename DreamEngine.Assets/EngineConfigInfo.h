@@ -7,11 +7,12 @@ class EngineConfigInfo : public Serializable
 
 public:
 
-    inline static const std::string ENGINE_VERSION = "1.1";
+    inline static const std::string ENGINE_VERSION = "2.0";
 
     Json toJson() override;
     void fromJson(Json json) override;
-    bool IsGameMode();
+    bool IsGameMode() const;
+    unsigned int GetStartSceneId() const;
 
     int GetScreenWidth() const;
     int GetScreenHeight() const;
@@ -19,6 +20,7 @@ public:
 private:
 
     bool isGameMode = false;
+    unsigned int startSceneId = 0;
 
     int screenWidth = 1600;
     int screenHeight = 900;

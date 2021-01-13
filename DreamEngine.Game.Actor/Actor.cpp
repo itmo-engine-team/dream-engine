@@ -7,12 +7,15 @@
 #include "DeltaTimeHandler.h"
 #include "Transform.h"
 
+#include "ParamTransform.h"
+
 using namespace DirectX::SimpleMath;
 
-Actor::Actor(ActorContext* context, Transform* transform)
-    : GameObject(), context(context), transform(transform)
+Actor::Actor(ActorContext* context) : GameObject(), context(context)
 {
-
+    transform = new Transform();
+    transformParam = new ParamTransform();
+    AddParam("Transform", transformParam);
 }
 
 void Actor::Init()
@@ -28,6 +31,8 @@ void Actor::Init()
 
 void Actor::Update()
 {
+    if (!IsActive()) return;
+
     onUpdate();
 
     // Update components
@@ -39,6 +44,8 @@ void Actor::Update()
 
 void Actor::Draw()
 {
+    if (!IsActive()) return;
+
     // Draw components
     for (auto component : sceneComponents)
     {
@@ -48,6 +55,8 @@ void Actor::Draw()
 
 void Actor::DrawShadowMap()
 {
+    if (!IsActive()) return;
+
     // Draw shadow map for components
     for (auto component : sceneComponents)
     {
@@ -58,6 +67,11 @@ void Actor::DrawShadowMap()
 bool Actor::IsActive() const
 {
     return isActive;
+}
+
+void Actor::SetActive(bool isActive)
+{
+    this->isActive = isActive;
 }
 
 SceneActorInfo* Actor::GetActorInfo() const
@@ -152,12 +166,32 @@ bool Actor::RemoveComponent(ActorComponent* component)
     return false;
 }
 
+void Actor::UpdateTransform(TransformInfo* transformInfo)
+{
+    transform->SetLocalTransform(transformInfo->GetPosition(),
+        transformInfo->GetRotation(), transformInfo->GetScale());
+}
+
+void Actor::UpdateTransform(const TransformInfo& transformInfo)
+{
+    transform->SetLocalTransform(transformInfo.GetPosition(),
+        transformInfo.GetRotation(), transformInfo.GetScale());
+}
+
 void Actor::onUpdate()
 {
 
 }
 
-Actor* ActorCreator::Create(ActorContext* context, TransformInfo* transformInfo)
+void Actor::onParamUpdate(std::string name, BaseParam* param)
 {
-    return new Actor(context, new Transform(transformInfo->GetPosition()));
+    if (param == transformParam)
+    {
+        UpdateTransform(transformParam->Get());
+    }
+}
+
+Actor* ActorCreator::Create(ActorContext* context)
+{
+    return new Actor(context);
 }

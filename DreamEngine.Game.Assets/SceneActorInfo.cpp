@@ -1,26 +1,24 @@
 #include "SceneActorInfo.h"
 #include "MapUtils.h"
 #include "ErrorLogger.h"
+#include "ParamTransform.h"
+#include "ParamAsset.h"
+#include "AssetType.h"
 
 SceneActorInfo::SceneActorInfo(ActorType type)
-    : type(type), transformInfo(new TransformInfo())
 {
-    
+    paramTransform = new ParamTransform();
+    paramAsset = new ParamAsset(AssetType::Actor);
+}
+
+Actor* SceneActorInfo::GetActor() const
+{
+    return actor;
 }
 
 void SceneActorInfo::SetActor(Actor* actor)
 {
     this->actor = actor;
-}
-
-ActorType SceneActorInfo::GetType() const
-{
-    return type;
-}
-
-void SceneActorInfo::SetType(ActorType type)
-{
-    this->type = type;
 }
 
 const std::string& SceneActorInfo::GetName() const
@@ -33,32 +31,33 @@ void SceneActorInfo::SetName(const std::string& name)
     this->name = name;
 }
 
-TransformInfo* SceneActorInfo::GetTransformInfo() const
+ParamTransform* SceneActorInfo::GetParamTransform() const
 {
-    return transformInfo;
+    return paramTransform;
+}
+
+ParamAsset* SceneActorInfo::GetParamAsset() const
+{
+    return paramAsset;
 }
 
 Json SceneActorInfo::toJson()
 {
     Json json = Serializable::toJson();
 
-    json["type"] = MapUtils::TryGetByKey<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, type, "Unknown");
     json["name"] = name;
-    json["transform"] = transformInfo->toJson();
+    json["transform"] = paramTransform->toJson();
+    json["asset"] = paramAsset->toJson();
 
     return json;
 }
 
 void SceneActorInfo::fromJson(Json json)
 {
-    std::string stringType;
-    initVariable(json, "type", &stringType);
-    type = MapUtils::TryGetByValue<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, stringType, ActorType::Unknown);
-    if (type == ActorType::Unknown)
-        ErrorLogger::Log(Error, "SceneActorInfo has invalid type: " + stringType + "/n" + json.dump());
-
     initVariable(json, "name", &name);
 
-    transformInfo->fromJson(json["transform"]);
+    paramTransform->fromJson(json["transform"]);
+    paramAsset->fromJson(json["asset"]);
+    
 }
 

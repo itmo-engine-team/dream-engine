@@ -5,15 +5,19 @@
 
 using namespace DirectX::SimpleMath;
 
-class TransformInfo : Serializable
+struct TransformInfo : Serializable
 {
-
-public:
 
     TransformInfo(Vector3 pos = Vector3::Zero);
 
     Vector3 GetPosition() const;
     void SetPosition(Vector3 pos);
+
+    Vector3 GetRotation() const;
+    void SetRotation(Vector3 rotation);
+
+    Vector3 GetScale() const;
+    void SetScale(Vector3 scale);
 
     Json toJson() override;
     void fromJson(Json json) override;
@@ -21,6 +25,8 @@ public:
 private:
 
     Vector3 position;
+    Vector3 rotation;
+    Vector3 scale;
 
 };
 

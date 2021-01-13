@@ -4,6 +4,8 @@
 #include "EditorPopupModalAssetChooser.h"
 #include "EditorViewport.h"
 #include "TextureAssetInfo.h"
+#include "EditorParamDrawerBool.h"
+#include "EditorParamDrawerVector3.h"
 
 class ModelAssetInfo;
 
@@ -30,6 +32,11 @@ private:
     TextureAssetInfo* previewTextureAsset = nullptr;
 
     EditorPopupModalAssetChooser* assetChooser = nullptr;
+
+    ParamBool* paramBool = nullptr;
+    ParamVector3* paramVector3 = nullptr;
+    EditorParamDrawerBool* paramDrawerBool = nullptr;
+    EditorParamDrawerVector3* paramDrawVector3 = nullptr;
 
     void renderModelViewer();
     void renderModelInspector();

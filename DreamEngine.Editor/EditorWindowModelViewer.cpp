@@ -10,6 +10,11 @@ EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo*
 {
     if (modelAssetInfo == nullptr)
         SetOpened(false);
+    
+    paramBool = modelAssetInfo->GetUseDefaultBoxParam();
+    paramVector3 = modelAssetInfo->GetDefaultBoxColorParam();
+    paramDrawerBool = new EditorParamDrawerBool(0, "Draw standard box: ", paramBool);  
+    paramDrawVector3 = new EditorParamDrawerVector3(1, "Box Color:", paramVector3);
 }
 
 void EditorWindowModelViewer::Init()
@@ -82,15 +87,23 @@ void EditorWindowModelViewer::renderModelInspector()
 
     ImGui::Separator();
 
-    ImGui::Text("Model:");
-    ImGui::InputText("Path", modelPath.data(), 256);
-
-    ImGui::Text("Preview Texture: ");
-    ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
-    ImGui::SameLine();
-    if (ImGui::Button("Choose"))
+    paramDrawerBool->Draw();
+    if (!paramBool->Get())
     {
-        assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Texture);
+        ImGui::Text("Model:");
+        ImGui::InputText("Path", modelPath.data(), 256);
+
+        ImGui::Text("Preview Texture: ");
+        ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
+        ImGui::SameLine();
+        if (ImGui::Button("Choose"))
+        {
+            assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Texture);
+        }
+    }
+    else
+    {
+        paramDrawVector3->Draw();
     }
 
     ImGui::End();

@@ -137,7 +137,7 @@ void Engine::render()
 {
     game->RenderPipeline();
 
-    if (!game->IsGameOver())
+    if (game->IsGameOver())
     {
         ImGui_ImplDX11_NewFrame();
         ImGui_ImplWin32_NewFrame();

@@ -34,10 +34,15 @@ public:
     Texture* GetOrCreateTexture(unsigned int id);
 
     Actor* FindActorByTag(std::string tag);
+    std::vector<Actor*> FindAllActorsByTag(std::string tag);
 
     bool IsAnyIntersectionWithLocation(Vector3 targetLocation, Actor* initiator, bool ignoreTrigger);
     bool IsAnyIntersectionWithCollision(Vector3 targetLocation, 
         Vector2 targetCollisionSize, Actor* initiator, bool ignoreTrigger);
+    bool CheckActorsCollision(Actor* initiator, Actor* target, bool ignoreTrigger);
+
+    int GetScore();
+    void AddScore(int deltaScore);
 
 protected:
 
@@ -53,6 +58,8 @@ protected:
     // Graphics objects
     std::map<unsigned int, Texture*> textures;
     std::map<unsigned int, ModelData*> models;
+
+    int score = 0;
 
 };
 

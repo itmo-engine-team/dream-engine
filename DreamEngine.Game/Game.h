@@ -12,8 +12,10 @@ class Game : public BaseSceneViewer
 
 public:
 
-    Game(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
+    Game(EngineConfigInfo* engineConfigInfo,
+        InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager);
 
+    bool IsGameOver() const;
     GameAssetManager* GetGameAssetManager() const;
 
     void Init() override;
@@ -24,11 +26,16 @@ public:
     void LoadScene(SceneAssetInfo* sceneInfo);
     Scene* GetCurrentScene() const;
 
+    void StartGame();
+    void StopGame();
+
 protected:
 
-    GameAssetManager* gameAssetManager;
+    bool isGameOver = false;
 
     Scene* currentScene = nullptr;
+    SceneAssetInfo* currentSceneInfo = nullptr;
 
     A_NavMesh* navMesh;
+
 };

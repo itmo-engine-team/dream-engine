@@ -11,9 +11,12 @@
 #include "ModelDataBuffer.h"
 #include "Texture.h"
 
-MeshObject::MeshObject(Graphics* graphics, MeshData* meshData)
-    : graphics(graphics), meshData(meshData)
+MeshObject::MeshObject(Graphics* graphics, MeshData* meshData, Texture* texture)
+    : graphics(graphics), meshData(meshData), texture(texture)
 {
+    topologyType = meshData->IsTriangleTopology() ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+                                                  : D3D11_PRIMITIVE_TOPOLOGY_LINELIST;
+
     HRESULT hr;
 
     // Create Vertex Buffer
@@ -118,11 +121,11 @@ void MeshObject::Render(const ConstantBuffer constantBufferData,
         &offset
     );
     graphics->GetContext()->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0u);
-    graphics->GetContext()->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    graphics->GetContext()->IASetPrimitiveTopology(topologyType);
 
     graphics->GetModelShader()->SetShader();
-    if (meshData->GetTexture() != nullptr)
-        meshData->GetTexture()->SetTexture();
+    if (texture != nullptr && texture->IsValid())
+        texture->SetTexture();
 
     graphics->GetContext()->UpdateSubresource(constantBuffer, 0, NULL, &constantBufferData, 0, 0);
     graphics->GetContext()->VSSetConstantBuffers(0u, 1u, &constantBuffer);
@@ -136,7 +139,7 @@ void MeshObject::Render(const ConstantBuffer constantBufferData,
     // Update Constant Buffer
     const ModelDataBuffer modelDataBufferData =
     {
-        meshData->GetTexture() != nullptr ? 1.0f : -1.0f,
+        texture != nullptr && texture->IsValid() ? 1.0f : -1.0f,
         graphics->HasLight() ? 1.0f : -1.0f,
         graphics->HasShadow() ? 1.0f : -1.0f,
     };
@@ -164,4 +167,9 @@ bool MeshObject::RenderShadowMap(const ConstantBuffer constantBufferData)
     graphics->GetContext()->DrawIndexed(meshData->GetIndicesCount(), 0, 0);
 
     return true;
+}
+
+void MeshObject::SetTexture(Texture* texture)
+{
+    this->texture = texture;
 }

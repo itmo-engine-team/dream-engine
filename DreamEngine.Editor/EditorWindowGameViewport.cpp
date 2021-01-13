@@ -2,7 +2,6 @@
 
 #include "imgui.h"
 #include "Editor.h"
-#include "Graphics.h"
 #include "Game.h"
 #include "Scene.h"
 #include "SceneActorInfo.h"
@@ -10,6 +9,7 @@
 #include "SceneAssetInfo.h"
 
 #include "AssetManager.h"
+#include "Actor.h"
 
 EditorWindowGameViewport::EditorWindowGameViewport(Editor* editor)
     : EditorWindow("Game Viewport", editor)
@@ -19,7 +19,7 @@ EditorWindowGameViewport::EditorWindowGameViewport(Editor* editor)
 
 void EditorWindowGameViewport::Update()
 {
-
+    
 }
 
 void EditorWindowGameViewport::Render()
@@ -42,14 +42,24 @@ void EditorWindowGameViewport::renderGameViewport()
         return;
     }
 
-    if (ImGui::Button("Play")) 
-    { 
-        // TODO: Play game 
+    if (game->GetActorContext()->IsGameMode())
+    {
+        if (ImGui::Button("Stop"))
+        {
+            game->StopGame();
+        }
+    }
+    else
+    {
+        if (ImGui::Button("Play"))
+        {
+            currentSceneActor = nullptr;
+            game->StartGame();
+        }
     }
 
     viewport->UpdateSize();
-    ImGui::Image(editor->GetContext()->GetGame()->GetSceneRenderer()->GetSceneResourceView(),
-        viewport->GetSize());
+    ImGui::Image(game->GetSceneRenderer()->GetSceneResourceView(), viewport->GetSize());
 
     ImGui::End();
 }
@@ -57,32 +67,44 @@ void EditorWindowGameViewport::renderGameViewport()
 void EditorWindowGameViewport::renderSceneHierarchy()
 {
     // Don't show additional windows if no scene is selected currently
-    if (game->GetCurrentScene() == nullptr) return;
+    if (game->GetActorContext()->IsGameMode() || game->GetCurrentScene() == nullptr) return;
 
-    if (currentScene != game->GetCurrentScene())
-    {
-        currentScene = game->GetCurrentScene();
-        currentSceneRoom = nullptr;
-        currentSceneActor = nullptr;
-    }
+    updateScene();
 
     ImGui::Begin("Scene Hierarchy");
 
+    ImGui::Text(currentScene->GetSceneAssetInfo()->GetName().c_str());
+
+    ImGui::SameLine();
     if (ImGui::Button("Save"))
     {
         auto sceneAssetNode = currentScene->GetSceneAssetInfo()->GetAssetNode();
         editor->GetContext()->GetAssetManager()->SaveAsset(sceneAssetNode);
     }
 
-    ImGui::SameLine();
+    /* ImGui::SameLine();
     if (ImGui::Button("Add Room"))
     {
         currentSceneRoom = currentScene->CreateNewRoom();
+    }*/
+
+    ImGui::SameLine();
+    if (ImGui::Button("Add Actor"))
+    {
+        updateCurrentActor(currentScene->CreateNewActorInfo());
     }
 
     ImGui::Separator();
 
     drawSceneHierarchy();
+
+    ImGui::Separator();
+
+    ImGui::Text("Camera Transform");
+    if (paramDrawerCameraTransform->Draw())
+    {
+        currentScene->UpdateCameraTransform();
+    }
 
     ImGui::End();
 }
@@ -100,21 +122,87 @@ void EditorWindowGameViewport::renderRoomInspector()
 void EditorWindowGameViewport::renderActorInspector()
 {
     // Show only if actor is selected
-    if (currentSceneActor == nullptr) return;
+    if (game->GetActorContext()->IsGameMode() || currentSceneActor == nullptr) return;
 
     ImGui::Begin("Actor Inspector");
+
+    ImGui::PushItemWidth(180);
+
+    ImGui::Text("Actor name: ");
+    ImGui::InputText("##0", sceneActorName.data(), 24);
+    if (ImGui::IsItemDeactivatedAfterEdit())
+        currentSceneActor->SetName(sceneActorName.c_str());
+    ImGui::Separator();
+    ImGui::PopItemWidth();
+
+    if (paramDrawerActorTransform->Draw())
+    {
+        if (currentSceneActor->GetActor() != nullptr)
+        {
+            currentSceneActor->GetActor()->UpdateTransform(currentSceneActor->GetParamTransform()->Get());
+        }
+    }
+    if (paramDrawerActorAsset->Draw())
+    {
+        currentScene->DeleteActorFromScene(currentSceneActor);
+        currentScene->CreateActorOnScene(currentSceneActor);
+    }
 
     ImGui::End();
 }
 
-void EditorWindowGameViewport::drawSceneHierarchy()
+void EditorWindowGameViewport::updateScene()
 {
-    for (SceneRoom* room : currentScene->GetRoomList())
+    if (currentScene != game->GetCurrentScene())
     {
-        drawSceneHierarchyRoom(room);
+        currentScene = game->GetCurrentScene();
+        updateCurrentActor(nullptr);
+        delete paramDrawerCameraTransform;
+        paramDrawerCameraTransform = nullptr;
+
+        if (currentScene == nullptr) return;
+
+        paramDrawerCameraTransform = new EditorParamDrawerTransform(
+            0, "Camera Transform", currentScene->GetSceneAssetInfo()->GetCameraTransformParam());
     }
 }
 
+void EditorWindowGameViewport::updateCurrentActor(SceneActorInfo* actorInfo)
+{
+    currentSceneActor = actorInfo;
+
+    delete paramDrawerActorTransform;
+    paramDrawerActorTransform = nullptr;
+    delete paramDrawerActorAsset;
+    paramDrawerActorAsset = nullptr;
+
+    if (currentSceneActor == nullptr)
+        return;
+
+    sceneActorName = currentSceneActor->GetName();
+    sceneActorName.resize(24);
+
+    paramDrawerActorTransform = new EditorParamDrawerTransform(1, "Transform",
+        currentSceneActor->GetParamTransform());
+
+    paramDrawerActorAsset = new EditorParamDrawerAsset(editor, paramDrawerActorTransform->GetRequiredIndexCount()+1,
+        "Actor Asset", currentSceneActor->GetParamAsset());
+}
+
+void EditorWindowGameViewport::drawSceneHierarchy()
+{
+    /*for (SceneRoom* room : currentScene->GetActors())
+    {
+        drawSceneHierarchyRoom(room);
+    }*/
+
+    for (auto actorInfo : currentScene->GetSceneAssetInfo()->GetActorInfoList())
+    {
+        drawSceneHierarchyActor(actorInfo);
+    }
+}
+
+/*
 void EditorWindowGameViewport::drawSceneHierarchyRoom(SceneRoom* room)
 {
     bool treeExpanded = false;
@@ -155,6 +243,7 @@ void EditorWindowGameViewport::drawSceneHierarchyRoom(SceneRoom* room)
         drawRoomContextMenu(room);
     }
 }
+*/
 
 void EditorWindowGameViewport::drawSceneHierarchyActor(SceneActorInfo* actorInfo)
 {
@@ -169,7 +258,7 @@ void EditorWindowGameViewport::drawSceneHierarchyActor(SceneActorInfo* actorInfo
 
     if (ImGui::IsItemClicked())
     {
-        currentSceneActor = actorInfo;
+        updateCurrentActor(actorInfo);
     }
 
     drawActorContextMenu(actorInfo);
@@ -179,11 +268,6 @@ void EditorWindowGameViewport::drawRoomContextMenu(SceneRoom* room)
 {
     if (ImGui::BeginPopupContextItem())
     {
-        /*
-        if (ImGui::Selectable("Add prefab"))
-        {
-            // TODO: add AddPrefab
-        }*/
 
         if (ImGui::Selectable("Add Actor"))
         {
@@ -208,19 +292,15 @@ void EditorWindowGameViewport::drawActorContextMenu(SceneActorInfo* actorInfo)
 {
     if (ImGui::BeginPopupContextItem())
     {
-        if (ImGui::Selectable("Save"))
-        {
-            // TODO: add SaveActor
-        }
 
         if (ImGui::Selectable("Delete"))
         {
             // TODO: add DeleteActor
-        }
 
-        if (ImGui::Selectable("Rename"))
-        {
-            // TODO: add RenameActor
+            if (currentSceneActor == actorInfo)
+            {
+                currentSceneActor = nullptr;
+            }
         }
 
         ImGui::EndPopup();

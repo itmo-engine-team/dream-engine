@@ -18,13 +18,14 @@ class PathFinding
 
 public:
 
-    std::vector<NavMeshPolygon*> FindPath(void* actor, NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal);
+    std::vector<NavMeshPolygon*> FindPath(void* actor, NavMesh* navMesh, Vector3 locationStartPolygon, NavMeshPolygon* targetPolygon, bool canMoveByDiagonal);
 
 private:
 
-    float euclidean(Vector3 start, Vector3 end);
     std::vector<NavMeshPolygon*> retracePath(PolygonCost* startPolygon, PolygonCost* targetPolygon);
     PolygonCost* findPolygonInArray(std::vector <PolygonCost*> polygonCost, NavMeshPolygon* polygon);
+
+    float euclidian(Vector3 start, Vector3 end);
 
 };
 

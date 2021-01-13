@@ -5,15 +5,21 @@
 enum class ACF_Type;
 enum class ACS_Type;
 class ActorAssetInfo;
+class ActorComponentSceneInfo;
+class ActorComponentFixedInfo;
 
 class ActorViewer : public BaseSceneViewer
 {
 
 public:
 
-    ActorViewer(EngineConfigInfo* engineConfigInfo, InputSystem* inputSystem, Graphics* graphics);
+    ActorViewer(EngineConfigInfo* engineConfigInfo,
+        InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager);
 
     bool LoadActor(ActorAssetInfo* actorAssetInfo);
+    void LoadSceneComponents();
+    void LoadFixedComponents();
+
     bool AddSceneComponent(ACS_Type type, const std::string& name);
     bool AddFixedComponent(ACF_Type type, const std::string& name);
 

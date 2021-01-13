@@ -9,7 +9,7 @@ class ActorComponentFixedInfo : public ActorComponentInfo
 public:
 
     ActorComponentFixedInfo(ACF_Type type = ACF_Type::UNKNOWN);
-    ~ActorComponentFixedInfo() override;
+    ActorComponentFixedInfo(ActorComponentFixedInfo& componentInfo);
 
     ACF_Type GetType() const;
 

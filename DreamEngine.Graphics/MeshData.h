@@ -10,25 +10,24 @@ class MeshData
 {
 public:
 
-    MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, Texture* texture = nullptr);
+    MeshData(std::vector<Vertex> vertices, std::vector<DWORD> indices, bool isTriangleTopology = true);
 
+    bool IsTriangleTopology() const;
+    void SetTriangleTopology(bool isTriangleTopology);
     std::vector<Vertex>& GetVertices();
     const std::vector<DWORD>& GetIndices() const;
     UINT GetIndicesCount() const;
-
-    Texture* GetTexture() const;
 
     float GetLowestVertexY() const;
 
 protected:
 
+    bool isTriangleTopology;
     std::vector<Vertex> vertices;
     std::vector<DWORD> indices;
     UINT indicesCount;
 
     float lowestVertexY = 1000;
-
-    Texture* texture;
 
 };
 

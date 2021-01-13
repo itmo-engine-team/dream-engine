@@ -14,20 +14,24 @@ class MeshObject
 {
 public:
 
-    MeshObject(Graphics* graphics, MeshData* meshData);
+    MeshObject(Graphics* graphics, MeshData* meshData, Texture* texture);
     ~MeshObject();
 
     void Render(ConstantBuffer constantBufferData,
         LightBuffer lightBufferData, CameraBuffer cameraBufferData);
     bool RenderShadowMap(ConstantBuffer constantBufferData);
 
+    void SetTexture(Texture* texture);
+
 protected:
 
     Graphics* graphics;
     MeshData* meshData;
+    Texture* texture;
 
     ID3D11Buffer* indexBuffer;
     ID3D11Buffer* vertexBuffer;
+    D3D11_PRIMITIVE_TOPOLOGY topologyType;
 
     ID3D11Buffer* constantBuffer;
     ID3D11Buffer* lightBuffer;

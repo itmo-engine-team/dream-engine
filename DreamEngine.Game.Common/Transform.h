@@ -22,9 +22,12 @@ public:
     void AddChild(Transform* child);
     void RemoveChild(Transform* childToRemove);
 
+    void SetLocalTransform(Vector3 pos, Vector3 rotation, Vector3 scale);
     void SetLocalPosition(Vector3 pos);
     void AddLocalPosition(Vector3 pos);
+    void SetLocalRotation(Vector3 rotation);
     void AddLocalRotation(Vector3 axis, float angle);
+    void SetLocalScale(Vector3 scale);
 
     // Relates on parent
     Vector3 GetRelativePosition() const;
@@ -36,6 +39,7 @@ public:
     void SetWorldPosition(Vector3 pos);
     void AddWorldPosition(Vector3 pos);
     void AddWorldRotation(Vector3 axis, float angle);
+    Vector3 GetWorldScale() const;
 
     Matrix GetWorldMatrix() const;
 

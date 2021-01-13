@@ -1,12 +1,12 @@
 #include "PathFinding.h"
 
-std::vector<NavMeshPolygon*> PathFinding::FindPath(void* actor, NavMesh* navMesh, Vector3 locationStartPolygon, Vector3 locationTargetPolygon, bool canMoveByDiagonal)
+std::vector<NavMeshPolygon*> PathFinding::FindPath(void* actor, NavMesh* navMesh, Vector3 locationStartPolygon, NavMeshPolygon* targetPolygon, bool canMoveByDiagonal)
 {
     std::vector <PolygonCost*> openPolygonsCost;
     std::vector <PolygonCost*> closedPolygonsCost;
 
     PolygonCost* startPolygonCost = new PolygonCost { navMesh->FindPolygon(locationStartPolygon) };
-    PolygonCost* targetPolygonCost = new PolygonCost { navMesh->FindPolygon(locationTargetPolygon) };
+    PolygonCost* targetPolygonCost = new PolygonCost { targetPolygon };
 
     openPolygonsCost.push_back(startPolygonCost);
 
@@ -35,7 +35,7 @@ std::vector<NavMeshPolygon*> PathFinding::FindPath(void* actor, NavMesh* navMesh
             if (!neighbour->IsFreeForActor(actor) || neighbourCost != nullptr)
                 continue;
           
-            float newCostToNeighbour = currentPolygonCost->GCost + euclidean(currentPolygonCost->OwnerPolygon->Center, neighbour->Center);
+            float newCostToNeighbour = currentPolygonCost->GCost + euclidian(currentPolygonCost->OwnerPolygon->Center, neighbour->Center);
             neighbourCost = findPolygonInArray(openPolygonsCost, neighbour);
             if (neighbourCost == nullptr)
                 neighbourCost = new PolygonCost{ neighbour };
@@ -43,7 +43,7 @@ std::vector<NavMeshPolygon*> PathFinding::FindPath(void* actor, NavMesh* navMesh
             if (newCostToNeighbour < neighbourCost->GCost || neighbourCost->GCost < 0)
             {
                 neighbourCost->GCost = newCostToNeighbour;
-                neighbourCost->HCost = euclidean(neighbour->Center, targetPolygonCost->OwnerPolygon->Center);
+                neighbourCost->HCost = euclidian(neighbour->Center, targetPolygonCost->OwnerPolygon->Center);
                 neighbourCost->ParentPolygonCost = currentPolygonCost;
                 if (std::find(openPolygonsCost.begin(), openPolygonsCost.end(), neighbourCost) == openPolygonsCost.end())
                     openPolygonsCost.push_back(neighbourCost);
@@ -51,12 +51,6 @@ std::vector<NavMeshPolygon*> PathFinding::FindPath(void* actor, NavMesh* navMesh
         }
     }
     return {};
-}
-
-float PathFinding::euclidean(Vector3 start, Vector3 end)
-{
-    Vector3 delta = end - start;
-    return sqrt(pow(delta.x, 2) + pow(delta.z, 2));
 }
 
 std::vector<NavMeshPolygon*> PathFinding::retracePath(PolygonCost* startPolygon, PolygonCost* targetPolygon)
@@ -82,4 +76,10 @@ PolygonCost* PathFinding::findPolygonInArray(std::vector<PolygonCost*> polygonCo
             return i;
     }
     return nullptr;
+}
+
+float PathFinding::euclidian(Vector3 start, Vector3 end)
+{
+    Vector3 delta = end - start;
+    return sqrt(pow(delta.x, 2) + pow(delta.y, 2));
 }

@@ -8,7 +8,7 @@ class A_Spectator : public Actor
 
 public:
 
-    A_Spectator(ActorContext* context, Transform* transform);
+    A_Spectator(ActorContext* context);
 
     ACS_Camera* GetCameraComponent() const;
 

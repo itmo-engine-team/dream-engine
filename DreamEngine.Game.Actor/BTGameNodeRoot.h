@@ -1,31 +1,30 @@
 #pragma once
 
-#include "BTGameNode.h"
+#include "BTGameNodeWithChild.h"
 
-class BehaviorTreeGame;
-
-class BTGameNodeRoot : public BTGameNode
+class BTGameNodeRoot : public BTGameNodeWithChild
 {
-
-protected:
-
-    friend class BehaviorTreeGame;
-    BTGameNodeRoot();
 
 public:
 
-    void SetChild(BTGameNode* childNode);
+    BTGameNodeRoot() = delete;
+
+    void AddChildNode(BTGameNode* childNode) override;
     BTGameNode* GetChild();
 
     void RemoveChild();
 
     bool Run() override;
 
+protected:
+
+    friend class BehaviorTreeGame;
+    BTGameNodeRoot(BehaviorTreeGame* behaviorTree);
+
 private:
 
     using BTGameNode::SetParent;
 
     BTGameNode* child;
-
 };
 

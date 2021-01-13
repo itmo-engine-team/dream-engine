@@ -1,4 +1,5 @@
 #include "ActorAssetInfo.h"
+#include "MapUtils.h"
 
 ActorAssetInfo::ActorAssetInfo() : AssetInfo(AssetType::Actor)
 {
@@ -7,7 +8,17 @@ ActorAssetInfo::ActorAssetInfo() : AssetInfo(AssetType::Actor)
 
 ActorAssetInfo::ActorAssetInfo(ActorAssetInfo& assetInfo) : AssetInfo(assetInfo)
 {
+    actorType = assetInfo.actorType;
 
+    for (auto sceneComponent : assetInfo.sceneComponents)
+    {
+        sceneComponents.push_back(new ActorComponentSceneInfo(*sceneComponent));
+    }
+
+    for (auto fixedComponent : assetInfo.fixedComponents)
+    {
+        fixedComponents.push_back(new ActorComponentFixedInfo(*fixedComponent));
+    }
 }
 
 ActorAssetInfo::~ActorAssetInfo()
@@ -65,10 +76,47 @@ Json ActorAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();
 
+    json["actorType"] = MapUtils::TryGetByKey<ActorType, std::string>(MAP_ACTOR_TYPE_TO_STRING, actorType, "UNKNOWN");
+
+    Json sceneComponentsJson = Json::array();
+    for (auto component : sceneComponents)
+    {
+        sceneComponentsJson.push_back(component->toJson());
+    }
+    json["sceneComponents"] = sceneComponentsJson;
+
+    Json fixedComponentsJson = Json::array();
+    for (auto component : fixedComponents)
+    {
+        fixedComponentsJson.push_back(component->toJson());
+    }
+    json["fixedComponents"] = fixedComponentsJson;
+
     return json;
 }
 
 void ActorAssetInfo::fromJson(Json json)
 {
     AssetInfo::fromJson(json);
+
+    std::string stringActorType;
+    initVariable(json, "actorType", &stringActorType);
+    actorType = MapUtils::TryGetByValue<ActorType, std::string>(
+        MAP_ACTOR_TYPE_TO_STRING, stringActorType, ActorType::Actor);
+
+    Json sceneComponentsJson = json["sceneComponents"];
+    for (auto componentJson : sceneComponentsJson)
+    {
+        ActorComponentSceneInfo* sceneComponent = new ActorComponentSceneInfo();
+        sceneComponent->fromJson(componentJson);
+        sceneComponents.push_back(sceneComponent);
+    }
+
+    Json fixedComponentsJson = json["fixedComponents"];
+    for (auto componentJson : fixedComponentsJson)
+    {
+        ActorComponentFixedInfo* fixedComponent = new ActorComponentFixedInfo();
+        fixedComponent->fromJson(componentJson);
+        fixedComponents.push_back(fixedComponent);
+    }
 }

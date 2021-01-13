@@ -8,8 +8,7 @@ class BTGameNodeSelector : public BTGameNodeComposite
 public:
 
     BTGameNodeSelector() = delete;
-    BTGameNodeSelector(BTGameNodeComposite* parentNode);
-    BTGameNodeSelector(BTGameNodeRoot* parentNode);
+    BTGameNodeSelector(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree);
 
     bool Run() override;
 

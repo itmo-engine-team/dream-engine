@@ -8,9 +8,10 @@ ActorComponentFixedInfo::ActorComponentFixedInfo(ACF_Type type)
 
 }
 
-ActorComponentFixedInfo::~ActorComponentFixedInfo()
+ActorComponentFixedInfo::ActorComponentFixedInfo(ActorComponentFixedInfo& componentInfo)
+    : ActorComponentInfo(componentInfo)
 {
-    
+    type = componentInfo.type;
 }
 
 ACF_Type ActorComponentFixedInfo::GetType() const

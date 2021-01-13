@@ -6,17 +6,20 @@
 
 #include "SceneActorInfo.h"
 #include "ActorContext.h"
+#include "ParamExtender.h"
+#include "TransformInfo.h"
+#include "ParamTransform.h"
 
 class Transform;
 class ActorComponent;
 class ActorComponentScene;
 class ActorComponentFixed;
 
-class Actor : public GameObject
+class Actor : public GameObject, ParamExtender
 {
 public:
 
-    Actor(ActorContext* context, Transform* transform);
+    Actor(ActorContext* context);
 
     void Init() override;
     void Update();
@@ -24,6 +27,7 @@ public:
     void DrawShadowMap();
 
     bool IsActive() const;
+    void SetActive(bool isActive);
 
     SceneActorInfo* GetActorInfo() const;
     ActorContext* GetContext() const;
@@ -67,6 +71,9 @@ public:
 
     bool RemoveComponent(ActorComponent* component);
 
+    void UpdateTransform(TransformInfo* transformInfo);
+    void UpdateTransform(const TransformInfo& transformInfo);
+
 protected:
 
     SceneActorInfo* actorInfo;
@@ -75,6 +82,7 @@ protected:
 
     ActorContext* context;
     Transform* transform;
+    ParamTransform* transformParam;
 
     std::vector<ActorComponent*> components;
     std::vector<ActorComponentScene*> sceneComponents;
@@ -85,6 +93,7 @@ protected:
     
     virtual void onUpdate();
 
+    void onParamUpdate(std::string name, BaseParam* param) override;
 };
 
 class ActorCreator
@@ -94,6 +103,6 @@ public:
 
     virtual ~ActorCreator() = default;
 
-    virtual Actor* Create(ActorContext* context, TransformInfo* transformInfo);
+    virtual Actor* Create(ActorContext* context);
 
 };

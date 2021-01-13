@@ -6,6 +6,7 @@
 #include "AssetService.h"
 #include "ErrorLogger.h"
 #include "AssetInfoFactory.h"
+#include "MapUtils.h"
 
 AssetManager::AssetManager()
 {
@@ -13,6 +14,11 @@ AssetManager::AssetManager()
         contentAssetTree = AssetService::CreateDebugAssetTree();
     else
         contentAssetTree = AssetService::FindAssetTree("Content");
+
+    for (auto typeMapIter : MAP_ASSET_TYPE_TO_STRING)
+    {
+        assetMap[typeMapIter.first] = std::map<unsigned, AssetInfo*>();
+    }
 
     initAssetTree(contentAssetTree);
 }
@@ -58,6 +64,7 @@ AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const st
     if (isDebugTree)
     {
         contentAssetTree->RenameAssetNode(assetNode, newName);
+        assetNode->GetAssetInfo()->SetName(newName);
         return { true, assetNode };
     }
 
@@ -66,7 +73,8 @@ AssetModificationResult AssetManager::RenameAsset(AssetNode* assetNode, const st
         return result;
 
     contentAssetTree->RenameAssetNode(assetNode, newName);
-    return { true, assetNode };
+    assetNode->GetAssetInfo()->SetName(newName);
+    return SaveAsset(assetNode);
 }
 
 AssetModificationResult AssetManager::DuplicateAsset(AssetNode* assetNode, const std::string& newName)
@@ -197,6 +205,11 @@ AssetTree* AssetManager::GetContentAssetTree() const
 const std::map<unsigned, AssetInfo*>& AssetManager::GetAssetMapByType(AssetType type) const
 {
     return assetMap.find(type)->second;
+}
+
+AssetInfo* AssetManager::GetAssetByType(AssetType type, unsigned id) const
+{
+    return MapUtils::TryGetByKey<unsigned, AssetInfo*>(GetAssetMapByType(type), id, nullptr);
 }
 
 void AssetManager::initAssetTree(AssetTree* assetTree)

@@ -57,6 +57,7 @@ private:
     void setCurrentParentNode(FolderNode* currentParentNode);
 
     Texture* getAssetIconByNodeType(AssetNode* assetNode) const;
+    void openDynamicWindowForAsset(EditorWindow* dynamicWindow);
 
     void drawFolderContextMenu(FolderNode* selectedFolderNode);
     void drawAssetContextMenu(AssetNode* selectedAssetNode);

@@ -93,6 +93,13 @@ void Transform::RemoveChild(Transform* childToRemove)
     removeChildWithRecursive(childToRemove, true);
 }
 
+void Transform::SetLocalTransform(Vector3 pos, Vector3 rotation, Vector3 scale)
+{
+    relativeMatrix = relativeMatrix = Matrix::CreateScale(scale)
+        * Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z)
+        * Matrix::CreateTranslation(pos);
+}
+
 void Transform::removeChildWithRecursive(Transform* childToRemove, const bool recursiveClearing)
 {
     if (childToRemove == nullptr)
@@ -139,6 +146,17 @@ void Transform::AddLocalPosition(const Vector3 pos)
     relativeMatrix = Matrix::CreateTranslation(pos) * relativeMatrix;
 }
 
+void Transform::SetLocalRotation(Vector3 rotation)
+{
+    Vector3 prevTranslation;
+    Quaternion prevRotation;
+    Vector3 prevScale;
+    relativeMatrix.Decompose(prevScale, prevRotation, prevTranslation);
+    
+    Matrix newRotation = Matrix::CreateFromYawPitchRoll(rotation.y, rotation.x, rotation.z);
+    relativeMatrix = Matrix::CreateScale(prevScale) * newRotation * Matrix::CreateTranslation(prevTranslation);
+}
+
 void Transform::SetRelativePosition(Vector3 pos)
 {
     relativeMatrix *= Matrix::CreateTranslation(relativeMatrix.Translation()).Invert();
@@ -182,6 +200,17 @@ void Transform::AddLocalRotation(const Vector3 axis, const float angle)
     relativeMatrix = Matrix::CreateFromAxisAngle(axis, angle) * relativeMatrix;
 }
 
+void Transform::SetLocalScale(Vector3 scale)
+{
+    Vector3 prevTranslation;
+    Quaternion prevRotation;
+    Vector3 prevScale;
+    relativeMatrix.Decompose(prevScale, prevRotation, prevTranslation);
+
+    Matrix newScale = Matrix::CreateScale(scale.x, scale.y, scale.z);
+    relativeMatrix = newScale * Matrix::CreateFromQuaternion(prevRotation) * Matrix::CreateTranslation(prevTranslation);
+}
+
 void Transform::AddRelativeRotation(Vector3 axis, float angle)
 {
     relativeMatrix *= Matrix::CreateFromAxisAngle(axis, angle);
@@ -197,6 +226,16 @@ void Transform::AddWorldRotation(const Vector3 axis, const float angle)
     {
         relativeMatrix *= parent->GetWorldMatrix().Invert();
     }
+}
+
+Vector3 Transform::GetWorldScale() const
+{
+    Vector3 translation;
+    Quaternion rotation;
+    Vector3 scale;
+    GetWorldMatrix().Decompose(scale, rotation, translation);
+
+    return scale;
 }
 
 Matrix Transform::GetWorldMatrix() const

@@ -29,6 +29,8 @@ Editor::Editor(EditorContext* context) : context(context)
        { AssetType::Scene, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/sceneIcon.png").c_str()) },
        { AssetType::Model, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/modelIcon.png").c_str()) },
        { AssetType::Texture, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/textureIcon.png").c_str()) },
+       { AssetType::BT, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/btIcon.png").c_str()) },
+       { AssetType::BP, new Texture(context->GetGraphics(), GetPathFromEditor(L"Icons/blueprintIcon.png").c_str()) },
     };
 }
 
@@ -52,7 +54,6 @@ void Editor::Update()
 
 void Editor::Render()
 {
-    startImGuiFrame();
     renderWindows();
     finishImGuiFrame();
 }

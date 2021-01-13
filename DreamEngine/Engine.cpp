@@ -13,6 +13,10 @@
 #include "ActorViewer.h"
 #include <iostream>
 
+#include "imgui.h"
+#include <imgui_impl_dx11.h>
+#include <imgui_impl_win32.h>
+
 Engine* Engine::INSTANCE = nullptr;
 
 Engine::Engine()
@@ -33,10 +37,10 @@ Engine::Engine()
     graphics = new Graphics(window);
 
     assetManager = new AssetManager();
-    game = new Game(engineConfigInfo, inputSystem, graphics);
+    game = new Game(engineConfigInfo, inputSystem, graphics, assetManager);
 
-    modelViewer = new ModelViewer(engineConfigInfo, inputSystem, graphics);
-    actorViewer = new ActorViewer(engineConfigInfo, inputSystem, graphics);
+    modelViewer = new ModelViewer(engineConfigInfo, inputSystem, graphics, assetManager);
+    actorViewer = new ActorViewer(engineConfigInfo, inputSystem, graphics, assetManager);
     editor = new Editor(
         new EditorContext(graphics, assetManager, game, modelViewer, actorViewer));
 
@@ -132,6 +136,32 @@ void Engine::update()
 void Engine::render()
 {
     game->RenderPipeline();
+
+    if (!game->IsGameOver())
+    {
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
+
+        ImGui::Begin("GameOver");
+        ImGui::Text("Game Over");
+        ImGui::End();
+
+        if (engineConfigInfo->IsGameMode())
+        {
+            ImGui::Render();
+
+            // render draw data
+            ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+            ImGuiIO& io = ImGui::GetIO();
+            if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+            {
+                ImGui::UpdatePlatformWindows();
+                ImGui::RenderPlatformWindowsDefault();
+            }
+        }
+    }
 
     if (!isGameMode)
     {

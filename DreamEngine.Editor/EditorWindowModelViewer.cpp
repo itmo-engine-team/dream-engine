@@ -10,6 +10,11 @@ EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo*
 {
     if (modelAssetInfo == nullptr)
         SetOpened(false);
+    
+    paramBool = modelAssetInfo->GetUseDefaultBoxParam();
+    paramVector3 = modelAssetInfo->GetDefaultBoxColorParam();
+    paramDrawerBool = new EditorParamDrawerBool(0, "Draw standard box: ", paramBool);  
+    paramDrawVector3 = new EditorParamDrawerVector3(1, "Box Color:", paramVector3);
 }
 
 void EditorWindowModelViewer::Init()
@@ -82,8 +87,16 @@ void EditorWindowModelViewer::renderModelInspector()
 
     ImGui::Separator();
 
-    ImGui::Text("Model:");
-    ImGui::InputText("Path", modelPath.data(), 256);
+    paramDrawerBool->Draw();
+    if (!paramBool->Get())
+    {
+        ImGui::Text("Model:");
+        ImGui::InputText("Path", modelPath.data(), 256);
+    }
+    else
+    {
+        paramDrawVector3->Draw();
+    }
 
     ImGui::Text("Preview Texture: ");
     ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
@@ -103,7 +116,10 @@ void EditorWindowModelViewer::drawAssetChooser()
 
     if (assetChooser->GetResult())
     {
-        previewTextureAsset = dynamic_cast<TextureAssetInfo*>(assetChooser->GetChosenAsset());
+        if (assetChooser->GetChosenAsset() == nullptr)
+            previewTextureAsset = nullptr;
+        else 
+            previewTextureAsset = dynamic_cast<TextureAssetInfo*>(assetChooser->GetChosenAsset());
         reimportModelAsset();
 
         delete assetChooser;
@@ -124,6 +140,8 @@ void EditorWindowModelViewer::saveModelAsset()
 void EditorWindowModelViewer::reimportModelAsset()
 {
     std::string stringModelPath = modelPath.c_str();
+    modelAssetInfo->SetModelPath(stringModelPath);
+
     isModelValid = editor->GetContext()->GetModelViewer()->
-        LoadModel(stringModelPath, previewTextureAsset);
+        LoadModel(modelAssetInfo, previewTextureAsset);
 }

@@ -26,8 +26,6 @@ EditorWindowAssetBrowser::EditorWindowAssetBrowser(Editor* editor)
     iconFile = new Texture(graphics, editor->GetPathFromEditor(L"Icons/file.png").c_str());
     iconFilter = new Texture(graphics, editor->GetPathFromEditor(L"Icons/filter.png").c_str());
     iconAsset = new Texture(graphics, editor->GetPathFromEditor(L"Icons/asset.png").c_str());
-    iconBP = new Texture(graphics, editor->GetPathFromEditor(L"Icons/blueprintIcon.png").c_str());
-    iconBT = new Texture(graphics, editor->GetPathFromEditor(L"Icons/btIcon.png").c_str());
 }
 
 void EditorWindowAssetBrowser::Update()
@@ -75,6 +73,14 @@ Texture* EditorWindowAssetBrowser::getAssetIconByNodeType(AssetNode* assetNode) 
     return editor->GetIconByAssetType(assetNode->GetAssetInfo()->GetAssetType());
 }
 
+void EditorWindowAssetBrowser::openDynamicWindowForAsset(EditorWindow* dynamicWindow)
+{
+    const bool isCreated = editor->AddDynamicWindow(dynamicWindow);
+
+    if (!isCreated)
+        errorPopupModal = new EditorPopupModalError("Window for this asset type is already opened. Please close the previous one.");
+}
+
 void EditorWindowAssetBrowser::drawFolderContextMenu(FolderNode* selectedFolderNode)
 {
     if (ImGui::BeginPopupContextItem())
@@ -94,7 +100,7 @@ void EditorWindowAssetBrowser::drawFolderContextMenu(FolderNode* selectedFolderN
             deleteFolderPopupModal = new EditorPopupModalDeleteFolder(selectedFolderNode);
         }
 
-        if (ImGui::Selectable("Move")) {}
+        //if (ImGui::Selectable("Move")) {}
 
         if (ImGui::Selectable("Rename")) 
         {
@@ -112,34 +118,27 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
         currentAssetNode = selectedAssetNode;
         if (ImGui::Selectable("Open"))
         {
-            bool isCreated = true;
             switch (currentAssetNode->GetAssetInfo()->GetAssetType())
             {
                 case AssetType::Actor:
-                    isCreated = editor->AddDynamicWindow(new EditorWindowActorViewer(editor,
+                    openDynamicWindowForAsset(new EditorWindowActorViewer(editor,
                         dynamic_cast<ActorAssetInfo*>(currentAssetNode->GetAssetInfo())));
-
-                    if (!isCreated)
-                        errorPopupModal = new EditorPopupModalError("Window for this asset type is already opened. Please close the previous one.");
                     break;
                 case AssetType::Scene:
                     editor->GetContext()->GetGame()->LoadScene(
                         dynamic_cast<SceneAssetInfo*>(currentAssetNode->GetAssetInfo()));
                     break;
                 case AssetType::Model:
-                    isCreated = editor->AddDynamicWindow(new EditorWindowModelViewer(editor,
+                    openDynamicWindowForAsset(new EditorWindowModelViewer(editor,
                         dynamic_cast<ModelAssetInfo*>(currentAssetNode->GetAssetInfo())));
-
-                    if (!isCreated)
-                        errorPopupModal = new EditorPopupModalError("Window for this asset type is already opened. Please close the previous one.");
                     break;
                 case AssetType::Texture:
-                    isCreated = editor->AddDynamicWindow(new EditorWindowTextureViewer(editor,
+                    openDynamicWindowForAsset(new EditorWindowTextureViewer(editor,
                         dynamic_cast<TextureAssetInfo*>(currentAssetNode->GetAssetInfo())));
-
-                    if (!isCreated)
-                        errorPopupModal = new EditorPopupModalError("Window for this asset type is already opened. Please close the previous one.");
                     break;
+                case AssetType::BT:
+                    openDynamicWindowForAsset(new EditorWindowBehaviorTreeViewport(editor,
+                        dynamic_cast<BTAssetInfo*>(currentAssetNode->GetAssetInfo())));
                 default:
                     break;
             }
@@ -150,7 +149,7 @@ void EditorWindowAssetBrowser::drawAssetContextMenu(AssetNode* selectedAssetNode
             deleteAssetPopupModal = new EditorPopupModalDeleteAsset(selectedAssetNode);
         }
 
-        if (ImGui::Selectable("Move")) {}
+        //if (ImGui::Selectable("Move")) {}
         if (ImGui::Selectable("Duplicate")) 
         {
             duplicateAssetPopupModal = new EditorPopupModalDuplicateAsset(selectedAssetNode);

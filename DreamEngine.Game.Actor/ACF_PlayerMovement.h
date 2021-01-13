@@ -3,6 +3,7 @@
 #include "ActorComponentFixed.h"
 
 class ParamFloat;
+class ParamBool;
 class ACS_Collision;
 
 class ACF_PlayerMovement : public ActorComponentFixed
@@ -18,6 +19,7 @@ protected:
 
     InputSystem* inputSystem;
     ParamFloat* speedParam;
+    ParamBool* canMoveByDiagonalParam;
     ACS_Collision* collisionComponent;
 
     void onInit() override;

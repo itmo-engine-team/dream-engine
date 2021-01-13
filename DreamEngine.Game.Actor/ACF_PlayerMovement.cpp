@@ -5,13 +5,16 @@
 #include "ParamFloat.h"
 #include "GameAssetManager.h"
 #include "ACS_Collision.h"
+#include "ParamBool.h"
 
 ACF_PlayerMovement::ACF_PlayerMovement(Actor* actor) : ActorComponentFixed(actor)
 {
     inputSystem = actor->GetContext()->GetInputSystem();
 
     speedParam = new ParamFloat(1);
+    canMoveByDiagonalParam = new ParamBool();
     AddParam("Player Speed", speedParam);
+    AddParam("Move by diagonal", canMoveByDiagonalParam);
 }
 
 float ACF_PlayerMovement::GetSpeed()
@@ -58,12 +61,14 @@ void ACF_PlayerMovement::onUpdate()
         directionX = -Vector3::UnitX;
     }
 
+    // Check if there is no input to handle
     if (!isInputX && !isInputZ) return;
 
     float speed = actor->GetContext()->GetDeltaTimeHandler()->GetDeltaTime() * speedParam->Get();
     Vector3 worldPosition = actor->GetTransform()->GetWorldPosition();
 
-    if (isInputX && isInputZ)
+    // Check move by diagonal
+    if (canMoveByDiagonalParam->Get() && isInputX && isInputZ)
     {
         Vector3 directionXZ = directionX + directionZ;
         directionXZ.Normalize();

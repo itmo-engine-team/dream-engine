@@ -97,9 +97,6 @@ void EditorWindowGameViewport::renderSceneHierarchy()
     if (ImGui::Button("Add Actor"))
     {
         updateCurrentActor(currentScene->CreateNewActorInfo());
-
-        sceneActorName = currentSceneActor->GetName();
-        sceneActorName.resize(24);
     }
 
     ImGui::Separator();
@@ -160,6 +157,9 @@ void EditorWindowGameViewport::updateCurrentActor(SceneActorInfo* actorInfo)
 
     if (currentSceneActor == nullptr)
         return;
+
+    sceneActorName = currentSceneActor->GetName();
+    sceneActorName.resize(24);
 
     paramDrawerTransform = new EditorParamDrawerTransform(1, "Transform",
         currentSceneActor->GetParamTransform());
@@ -238,9 +238,6 @@ void EditorWindowGameViewport::drawSceneHierarchyActor(SceneActorInfo* actorInfo
     if (ImGui::IsItemClicked())
     {
         updateCurrentActor(actorInfo);
-
-        sceneActorName = currentSceneActor->GetName();
-        sceneActorName.resize(24);
     }
 
     drawActorContextMenu(actorInfo);

@@ -15,6 +15,8 @@
 #include "ACF_GameOverOnTargetCollision.h"
 #include "ACF_CollectScoreOnCollision.h"
 #include "ACF_Projectile.h"
+#include "ACF_GameOverOnCollectAllTarget.h"
+#include "ACF_ActorSpawner.h"
 
 class ActorComponentFactory
 {
@@ -45,9 +47,11 @@ protected:
         { ACF_Type::Movement , new ACF_Creator_Movement() },
         { ACF_Type::PlayerMovement , new ACF_Creator_PlayerMovement() },
         { ACF_Type::GameOverOnTargetCollision, new ACF_Creator_GameOverOnTargetCollision() },
+        { ACF_Type::GameOverOnCollectAllTarget, new ACF_Creator_GameOverOnCollectAllTarget() },
         { ACF_Type::DestroyTargetOnCollision, new ACF_Creator_DestroyTargetOnCollision() },
         { ACF_Type::CollectScoreOnCollision, new ACF_Creator_CollectScoreOnCollision() },
         { ACF_Type::Projectile, new ACF_Creator_Projectile() },
+        { ACF_Type::ActorSpawner, new ACF_Creator_ActorSpawner() },
     };
     
 };

@@ -21,9 +21,11 @@ enum class ACF_Type
     Movement,
     PlayerMovement,
     GameOverOnTargetCollision,
+    GameOverOnCollectAllTarget,
     DestroyTargetOnCollision,
     CollectScoreOnCollision,
     Projectile,
+    ActorSpawner,
 
     UNKNOWN
 };
@@ -35,7 +37,9 @@ const std::map<ACF_Type, std::string> MAP_ACF_TYPE_TO_STRING = {
     { ACF_Type::Movement, "Movement" },
     { ACF_Type::PlayerMovement, "PlayerMovement" },
     { ACF_Type::GameOverOnTargetCollision, "GameOver On Target Collision" },
+    { ACF_Type::GameOverOnCollectAllTarget, "GameOver On Collect All Target" },
     { ACF_Type::DestroyTargetOnCollision, "Destroy Target On Collision" },
     { ACF_Type::CollectScoreOnCollision, "Collect Score On Collision" },
     { ACF_Type::Projectile, "Projectile" },
+    { ACF_Type::ActorSpawner, "ActorSpawner" },
 };

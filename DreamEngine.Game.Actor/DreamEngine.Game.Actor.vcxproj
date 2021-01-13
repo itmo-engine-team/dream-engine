@@ -143,9 +143,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ACF_ActorSpawner.h" />
     <ClInclude Include="ACF_AI.h" />
     <ClInclude Include="ACF_CollectScoreOnCollision.h" />
     <ClInclude Include="ACF_DestroyTargetOnCollision.h" />
+    <ClInclude Include="ACF_GameOverOnCollectAllTarget.h" />
     <ClInclude Include="ACF_GameOverOnTargetCollision.h" />
     <ClInclude Include="ACF_OnTargetCollision.h" />
     <ClInclude Include="ACF_PlayerMovement.h" />
@@ -185,9 +187,11 @@
     <ClInclude Include="GameObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ACF_ActorSpawner.cpp" />
     <ClCompile Include="ACF_AI.cpp" />
     <ClCompile Include="ACF_CollectScoreOnCollision.cpp" />
     <ClCompile Include="ACF_DestroyTargetOnCollision.cpp" />
+    <ClCompile Include="ACF_GameOverOnCollectAllTarget.cpp" />
     <ClCompile Include="ACF_GameOverOnTargetCollision.cpp" />
     <ClCompile Include="ACF_OnTargetCollision.cpp" />
     <ClCompile Include="ACF_PlayerMovement.cpp" />

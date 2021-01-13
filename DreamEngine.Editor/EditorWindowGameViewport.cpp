@@ -129,6 +129,7 @@ void EditorWindowGameViewport::renderActorInspector()
     ImGui::InputText("##0", sceneActorName.data(), 24);
     if (ImGui::IsItemDeactivatedAfterEdit())
         currentSceneActor->SetName(sceneActorName.c_str());
+    ImGui::PopItemWidth();
 
     if (paramDrawerTransform->Draw())
     {

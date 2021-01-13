@@ -17,6 +17,8 @@ public:
     ActorType GetActorType() const;
     void SetActorType(ActorType type);
 
+    void RemoveComponent(ActorComponentSceneInfo* component);
+    void RemoveComponent(ActorComponentFixedInfo* component);
     ActorComponentSceneInfo* AddSceneComponent(ACS_Type type, const std::string& name);
     ActorComponentFixedInfo* AddFixedComponent(ACF_Type type, const std::string& name);
 

@@ -62,14 +62,322 @@
                 "type": "Asset",
                 "value": 5
             },
-            "name": "FoodUebok",
+            "name": "Food1",
             "transform": {
                 "type": "Transform",
                 "value": {
                     "pos": [
-                        1.5,
+                        3.0,
                         0.0,
                         -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food2",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food3",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food4",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -3.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food5",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food6",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        -6.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food7",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        6.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food8",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food9",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food10",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        9.0,
+                        0.0,
+                        -9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food11",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        9.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "Food12",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -9.0,
+                        0.0,
+                        -9.0
                     ],
                     "rot": [
                         0.0,
@@ -174,34 +482,6 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Wall1",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        6.0,
-                        0.0,
-                        0.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
             "name": "Wall2",
             "transform": {
                 "type": "Transform",
@@ -258,34 +538,6 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Wall5",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        -6.0,
-                        0.0,
-                        0.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
             "name": "Wall6",
             "transform": {
                 "type": "Transform",
@@ -294,34 +546,6 @@
                         -9.0,
                         0.0,
                         0.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
-            "name": "Wall7",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        9.0,
-                        0.0,
-                        -9.0
                     ],
                     "rot": [
                         0.0,
@@ -482,34 +706,6 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Wall13",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        -9.0,
-                        0.0,
-                        -9.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
             "name": "Wall14",
             "transform": {
                 "type": "Transform",
@@ -572,34 +768,6 @@
                 "value": {
                     "pos": [
                         3.0,
-                        0.0,
-                        6.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
-            "name": "Wall17",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        0.0,
                         0.0,
                         6.0
                     ],
@@ -762,68 +930,12 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Wall23",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        3.0,
-                        0.0,
-                        3.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
             "name": "Wall24",
             "transform": {
                 "type": "Transform",
                 "value": {
                     "pos": [
                         0.0,
-                        0.0,
-                        3.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
-            "name": "Wall25",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        -3.0,
                         0.0,
                         3.0
                     ],
@@ -958,68 +1070,12 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Wall30",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        3.0,
-                        0.0,
-                        -3.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
             "name": "Wall31",
             "transform": {
                 "type": "Transform",
                 "value": {
                     "pos": [
                         0.0,
-                        0.0,
-                        -3.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
-            "name": "Wall32",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        -3.0,
                         0.0,
                         -3.0
                     ],
@@ -1182,34 +1238,6 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Wall38",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        0.0,
-                        0.0,
-                        -6.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
             "name": "Wall39",
             "transform": {
                 "type": "Transform",
@@ -1274,34 +1302,6 @@
                         -9.0,
                         0.0,
                         -6.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
-            "name": "Wall42",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        9.0,
-                        0.0,
-                        9.0
                     ],
                     "rot": [
                         0.0,
@@ -1440,34 +1440,6 @@
                 "value": {
                     "pos": [
                         -6.0,
-                        0.0,
-                        9.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 7
-            },
-            "name": "Wall48",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        -9.0,
                         0.0,
                         9.0
                     ],

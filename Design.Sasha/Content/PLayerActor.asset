@@ -6,7 +6,7 @@
             "params": {
                 "Player Speed": {
                     "type": "Float",
-                    "value": 3.0
+                    "value": 4.0
                 }
             },
             "type": "PlayerMovement"

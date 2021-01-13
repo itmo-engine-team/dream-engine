@@ -1,0 +1,111 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "AI_0",
+            "params": {
+                "BT Asset": {
+                    "assetType": "Behavior Tree",
+                    "type": "Asset",
+                    "value": 8
+                }
+            },
+            "type": "AI"
+        },
+        {
+            "name": "Movement_1",
+            "params": {
+                "Actor Speed": {
+                    "type": "Float",
+                    "value": 1.0
+                }
+            },
+            "type": "Movement"
+        },
+        {
+            "name": "Target Tag_2",
+            "params": {
+                "Field of view": {
+                    "type": "Float",
+                    "value": 100.0
+                },
+                "Target Tag": {
+                    "type": "String",
+                    "value": "Player"
+                }
+            },
+            "type": "Target Tag"
+        }
+    ],
+    "id": 7,
+    "name": "wolf",
+    "sceneComponents": [
+        {
+            "name": "Collision_0",
+            "params": {
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": true
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.5,
+                            0.800000011920929,
+                            1.5
+                        ]
+                    }
+                }
+            },
+            "type": "Collision"
+        },
+        {
+            "name": "Static Model_1",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 5
+                },
+                "Texture Asset": {
+                    "assetType": "Texture",
+                    "type": "Asset",
+                    "value": 6
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            4.0,
+                            4.0,
+                            4.0
+                        ]
+                    }
+                }
+            },
+            "type": "Static Model"
+        }
+    ],
+    "type": "Actor"
+}

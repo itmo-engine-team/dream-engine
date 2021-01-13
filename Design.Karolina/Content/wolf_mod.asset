@@ -1,0 +1,18 @@
+{
+    "defaultBoxColor": {
+        "type": "Vector3",
+        "value": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "id": 5,
+    "modelPath": "Content/Wolf.obj",
+    "name": "wolf_mod",
+    "type": "Model",
+    "useDefaultBox": {
+        "type": "Bool",
+        "value": false
+    }
+}

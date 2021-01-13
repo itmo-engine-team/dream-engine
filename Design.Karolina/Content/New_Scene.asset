@@ -1,0 +1,83 @@
+{
+    "actors": [
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 3
+            },
+            "name": "Actor 0",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -2.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        3.140000104904175,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Actor 1",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        2.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        }
+    ],
+    "cameraTransform": {
+        "type": "Transform",
+        "value": {
+            "pos": [
+                0.0,
+                1.0,
+                -6.0
+            ],
+            "rot": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    },
+    "id": 1,
+    "name": "New_Scene",
+    "type": "Scene"
+}

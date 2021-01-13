@@ -1,0 +1,18 @@
+{
+    "defaultBoxColor": {
+        "type": "Vector3",
+        "value": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "id": 2,
+    "modelPath": "Content/cat.obj",
+    "name": "skull",
+    "type": "Model",
+    "useDefaultBox": {
+        "type": "Bool",
+        "value": false
+    }
+}

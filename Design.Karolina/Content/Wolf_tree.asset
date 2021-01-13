@@ -1,0 +1,35 @@
+{
+    "BT": {
+        "lastId": 7,
+        "rootNode": {
+            "children": [
+                [
+                    7,
+                    {
+                        "id": 5,
+                        "logicType": "MoveTo",
+                        "name": "",
+                        "parentAttributeId": 6,
+                        "position": [
+                            218.0,
+                            41.0
+                        ],
+                        "type": "Logic"
+                    }
+                ]
+            ],
+            "childrenAttributeId": 1,
+            "id": 0,
+            "name": "",
+            "position": [
+                45.0,
+                39.0
+            ],
+            "type": "Root"
+        },
+        "unparentedNodes": []
+    },
+    "id": 8,
+    "name": "Wolf_tree",
+    "type": "Behavior Tree"
+}

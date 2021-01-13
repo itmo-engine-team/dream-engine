@@ -23,6 +23,7 @@ enum class ACF_Type
     GameOverOnTargetCollision,
     DestroyTargetOnCollision,
     CollectScoreOnCollision,
+    Projectile,
 
     UNKNOWN
 };
@@ -36,4 +37,5 @@ const std::map<ACF_Type, std::string> MAP_ACF_TYPE_TO_STRING = {
     { ACF_Type::GameOverOnTargetCollision, "GameOver On Target Collision" },
     { ACF_Type::DestroyTargetOnCollision, "Destroy Target On Collision" },
     { ACF_Type::CollectScoreOnCollision, "Collect Score On Collision" },
+    { ACF_Type::Projectile, "Projectile" },
 };

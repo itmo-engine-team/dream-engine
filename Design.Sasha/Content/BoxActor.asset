@@ -12,6 +12,11 @@
                     "type": "Asset",
                     "value": 6
                 },
+                "Texture Asset": {
+                    "assetType": "Texture",
+                    "type": "Asset",
+                    "value": 12
+                },
                 "Transform": {
                     "type": "Transform",
                     "value": {
@@ -56,9 +61,9 @@
                             0.0
                         ],
                         "scale": [
-                            0.5,
-                            0.5,
-                            0.5
+                            0.550000011920929,
+                            0.550000011920929,
+                            0.550000011920929
                         ]
                     }
                 }

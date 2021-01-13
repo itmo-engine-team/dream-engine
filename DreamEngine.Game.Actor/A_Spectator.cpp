@@ -30,19 +30,19 @@ void A_Spectator::onUpdate()
     // Movement
     if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_W))
     {
-        Translate({ 0.0f, 0.0f, context->GetDeltaTimeHandler()->GetDeltaTime() });
+        Translate({ 0.0f, 0.0f, context->GetDeltaTimeHandler()->GetDeltaTime()*3 });
     }
     if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_A))
     {
-        Translate({ context->GetDeltaTimeHandler()->GetDeltaTime(), 0.0f, 0.0f });
+        Translate({ context->GetDeltaTimeHandler()->GetDeltaTime()*3, 0.0f, 0.0f });
     }
     if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_S))
     {
-        Translate({ 0.0f, 0.0f, -context->GetDeltaTimeHandler()->GetDeltaTime() });
+        Translate({ 0.0f, 0.0f, -context->GetDeltaTimeHandler()->GetDeltaTime()*3 });
     }
     if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_D))
     {
-        Translate({ -context->GetDeltaTimeHandler()->GetDeltaTime(), 0.0f, 0.0f });
+        Translate({ -context->GetDeltaTimeHandler()->GetDeltaTime()*3, 0.0f, 0.0f });
     }
     if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_Q))
     {

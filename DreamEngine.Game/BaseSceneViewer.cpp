@@ -163,7 +163,7 @@ void BaseSceneViewer::createBaseSceneActors()
     baseSceneActors.push_back(spectatorActor);
     actorContext->SetCamera(spectatorActor->GetCameraComponent());
 
-    planeModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 3, 0.1, 3 });
+    planeModel = MeshRenderer::CreateBoxModel({ 1, 1, 1, 1 }, { 12, 0.1, 12 });
     planeActor = new Actor(actorContext);
     planeActor->AddSceneComponent(new ACS_StaticModel(planeActor, planeModel));
     baseSceneActors.push_back(planeActor);

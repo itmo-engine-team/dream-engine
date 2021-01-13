@@ -6,12 +6,12 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Actor 0",
+            "name": "Paywall1",
             "transform": {
                 "type": "Transform",
                 "value": {
                     "pos": [
-                        30.0,
+                        12.0,
                         0.0,
                         0.0
                     ],
@@ -23,7 +23,7 @@
                     "scale": [
                         1.0,
                         1.0,
-                        1.0
+                        24.0
                     ]
                 }
             }
@@ -34,12 +34,12 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Actor 1",
+            "name": "Paywall2",
             "transform": {
                 "type": "Transform",
                 "value": {
                     "pos": [
-                        -30.0,
+                        -12.0,
                         0.0,
                         0.0
                     ],
@@ -51,7 +51,7 @@
                     "scale": [
                         1.0,
                         1.0,
-                        1.0
+                        24.0
                     ]
                 }
             }
@@ -116,7 +116,7 @@
             "asset": {
                 "assetType": "Actor",
                 "type": "Asset",
-                "value": 10
+                "value": 0
             },
             "name": "EnemyUebok",
             "transform": {
@@ -139,19 +139,75 @@
                     ]
                 }
             }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Paywall3",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        12.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        24.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 7
+            },
+            "name": "Paywall4",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        -12.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        24.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
         }
     ],
     "cameraTransform": {
         "type": "Transform",
         "value": {
             "pos": [
-                -10.0,
-                17.0,
-                -2.25
+                -2.0,
+                40.0,
+                -30.0
             ],
             "rot": [
                 1.0,
-                -5.0,
+                -6.199999809265137,
                 0.0
             ],
             "scale": [

@@ -168,6 +168,7 @@ Actor* GameAssetManager::FindActorByTag(std::string tag)
 
         if (tag == tagComponent->GetTag()) return actor;
     }
+    return nullptr;
 }
 
 std::vector<Actor*> GameAssetManager::FindAllActorsByTag(std::string tag)

@@ -37,7 +37,7 @@
             "params": {
                 "Target Tag": {
                     "type": "String",
-                    "value": "go1"
+                    "value": "tag"
                 }
             },
             "type": "GameOver On Target Collision"

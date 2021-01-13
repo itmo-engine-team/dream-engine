@@ -111,6 +111,62 @@
                     ]
                 }
             }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 4
+            },
+            "name": "AI2",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -1.0,
+                        0.0,
+                        4.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        0.30000001192092896,
+                        0.30000001192092896,
+                        0.30000001192092896
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 4
+            },
+            "name": "AI3",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        2.0,
+                        0.0,
+                        2.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        0.4000000059604645,
+                        0.4000000059604645,
+                        0.4000000059604645
+                    ]
+                }
+            }
         }
     ],
     "cameraTransform": {

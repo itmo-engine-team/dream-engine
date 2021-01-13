@@ -26,7 +26,8 @@ public:
 
     Actor* FindActorByTag(std::string tag);
 
-    bool CheckCollisionsHit(Vector3 targetLocation, Actor* initiator);
+    bool IsAnyIntersectionWithLocation(Vector3 targetLocation, Actor* initiator);
+    bool IsAnyIntersectionWithCollision(Vector3 targetLocation, Vector2 targetCollisionSize, Actor* initiator);
 
 protected:
 

@@ -107,7 +107,7 @@ Actor* GameAssetManager::FindActorByTag(std::string tag)
     }
 }
 
-bool GameAssetManager::CheckCollisionsHit(Vector3 targetLocation, Actor* initiator)
+bool GameAssetManager::IsAnyIntersectionWithLocation(Vector3 targetLocation, Actor* initiator)
 {
     for (Actor* actor : actors)
     {
@@ -116,7 +116,22 @@ bool GameAssetManager::CheckCollisionsHit(Vector3 targetLocation, Actor* initiat
         ACS_Collision* collision = actor->FindComponent<ACS_Collision>();
         if (collision == nullptr) continue;
 
-        if (collision->CheckCollisionHit(targetLocation)) return true;
+        if (collision->IsPointIntersects(targetLocation)) return true;
+    }
+    return false;
+}
+
+bool GameAssetManager::IsAnyIntersectionWithCollision(Vector3 targetLocation, Vector2 targetCollisionSize,
+    Actor* initiator)
+{
+    for (Actor* actor : actors)
+    {
+        if (actor == initiator) continue;
+
+        ACS_Collision* collision = actor->FindComponent<ACS_Collision>();
+        if (collision == nullptr) continue;
+
+        if (collision->IsCollisionIntersects(targetLocation, targetCollisionSize)) return true;
     }
     return false;
 }

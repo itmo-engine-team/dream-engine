@@ -16,10 +16,12 @@ public:
     ACS_Collision(Actor* actor, Vector2 size = Vector2 { 1.0f, 1.0f });
     ~ACS_Collision() override;
 
+    Vector2 GetWorldSize() const;
     Vector2 GetSize();
     void SetSize(Vector2 newSize);
 
-    bool CheckCollisionHit(Vector3 targetLocation);
+    bool IsPointIntersects(Vector3 targetLocation);
+    bool IsCollisionIntersects(Vector3 targetLocation, Vector2 targetCollisionSize);
 
 protected:
 

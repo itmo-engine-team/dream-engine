@@ -27,6 +27,12 @@ ACS_Collision::~ACS_Collision()
     delete debugModelData;
 }
 
+Vector2 ACS_Collision::GetWorldSize() const
+{
+    Vector3 worldScale = transform->GetWorldScale();
+    return { size.x * worldScale.x, size.y * worldScale.z };
+}
+
 Vector2 ACS_Collision::GetSize()
 {
     return size;
@@ -37,16 +43,38 @@ void ACS_Collision::SetSize(Vector2 newSize)
     size = newSize;
 }
 
-bool ACS_Collision::CheckCollisionHit(Vector3 targetLocation)
+bool ACS_Collision::IsPointIntersects(Vector3 targetLocation)
 {
-   
-    float leftCollisionEdge = transform->GetWorldPosition().x - size.x;
-    float rightCollisionEdge = transform->GetWorldPosition().x + size.x;
-    float topCollisionEdge = transform->GetWorldPosition().z + size.y;
-    float downCollisionEdge = transform->GetWorldPosition().z - size.y;
+    Vector2 worldSize = GetWorldSize();
+    float leftCollisionEdge = transform->GetWorldPosition().x - worldSize.x;
+    float rightCollisionEdge = transform->GetWorldPosition().x + worldSize.x;
+    float topCollisionEdge = transform->GetWorldPosition().z + worldSize.y;
+    float downCollisionEdge = transform->GetWorldPosition().z - worldSize.y;
 
     if (max(leftCollisionEdge, targetLocation.x) <= min(rightCollisionEdge, targetLocation.x) &&
         max(downCollisionEdge, targetLocation.z) <= min(topCollisionEdge, targetLocation.z))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool ACS_Collision::IsCollisionIntersects(Vector3 targetLocation, Vector2 targetCollisionSize)
+{
+    Vector2 worldSize = GetWorldSize();
+    float leftCollisionEdge = transform->GetWorldPosition().x - worldSize.x;
+    float rightCollisionEdge = transform->GetWorldPosition().x + worldSize.x;
+    float topCollisionEdge = transform->GetWorldPosition().z + worldSize.y;
+    float downCollisionEdge = transform->GetWorldPosition().z - worldSize.y;
+
+    float targetLeftCollisionEdge = targetLocation.x - targetCollisionSize.x;
+    float targetRightCollisionEdge = targetLocation.x + targetCollisionSize.x;
+    float targetTopCollisionEdge = targetLocation.z + targetCollisionSize.y;
+    float targetDownCollisionEdge = targetLocation.z - targetCollisionSize.y;
+
+    if (max(leftCollisionEdge, targetLeftCollisionEdge) <= min(rightCollisionEdge, targetRightCollisionEdge) &&
+        max(downCollisionEdge, targetDownCollisionEdge) <= min(topCollisionEdge, targetTopCollisionEdge))
     {
         return true;
     }

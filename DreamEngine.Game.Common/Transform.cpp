@@ -228,6 +228,16 @@ void Transform::AddWorldRotation(const Vector3 axis, const float angle)
     }
 }
 
+Vector3 Transform::GetWorldScale() const
+{
+    Vector3 translation;
+    Quaternion rotation;
+    Vector3 scale;
+    GetWorldMatrix().Decompose(scale, rotation, translation);
+
+    return scale;
+}
+
 Matrix Transform::GetWorldMatrix() const
 {
     auto result = relativeMatrix;

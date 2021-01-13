@@ -79,6 +79,8 @@ void Game::Update(const float engineDeltaTime)
         {
             gameAssetManager->DeleteActor(actor);
         }
+
+        gameAssetManager->HandleNewActors();
     }
 }
 

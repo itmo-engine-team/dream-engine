@@ -7,6 +7,8 @@
 #include "ACF_AI.h"
 #include "ACF_Tag.h"
 #include "ACF_TargetTag.h"
+#include "ACF_Movement.h"
+#include "ACF_PlayerMovement.h"
 #include "ACS_StaticModel.h"
 #include "ACS_Collision.h"
 
@@ -36,6 +38,8 @@ protected:
         { ACF_Type::AI , new ACF_Creator_AI() },
         { ACF_Type::Tag , new ACF_Creator_Tag() },
         { ACF_Type::TargetTag , new ACF_Creator_TargetTag() },
+        { ACF_Type::Movement , new ACF_Creator_Movement() },
+        { ACF_Type::PlayerMovement , new ACF_Creator_PlayerMovement() },
     };
     
 };

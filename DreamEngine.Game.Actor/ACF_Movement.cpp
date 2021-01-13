@@ -2,10 +2,14 @@
 #include "SimpleMath.h"
 #include "DeltaTimeHandler.h"
 #include "Transform.h"
+#include "ParamFloat.h"
 
 ACF_Movement::ACF_Movement(Actor* actor) : ActorComponentFixed(actor)
 {
     pathFindingInst = new PathFinding();
+
+    actorSpeed = new ParamFloat();
+    AddParam("Actor Speed", actorSpeed);
 }
 
 bool ACF_Movement::MoveTo(Vector3 targetLocation)
@@ -26,12 +30,7 @@ bool ACF_Movement::MoveTo(Vector3 targetLocation)
 
 float ACF_Movement::GetSpeed()
 {
-    return actorSpeed;
-}
-
-void ACF_Movement::SetSpeed(float newSpeed)
-{
-    actorSpeed = newSpeed;
+    return actorSpeed->Get();
 }
 
 bool ACF_Movement::GetCanMoveByDiagonal()
@@ -60,7 +59,7 @@ bool ACF_Movement::pathIsValid()
 void ACF_Movement::changeLocation()
 {
     Vector3 toTarget = path.at(0)->Center - actor->GetTransform()->GetWorldPosition();
-    if (toTarget.Length() < actorSpeed * actor->GetContext()->GetDeltaTimeHandler()->GetDeltaTime())
+    if (toTarget.Length() < actorSpeed->Get() * actor->GetContext()->GetDeltaTimeHandler()->GetDeltaTime())
     {
         actor->GetTransform()->SetWorldPosition(path.at(0)->Center);
         path.erase(path.begin());
@@ -69,6 +68,6 @@ void ACF_Movement::changeLocation()
     else
     {
         toTarget.Normalize();
-        actor->GetTransform()->AddWorldPosition(toTarget * actorSpeed * actor->GetContext()->GetDeltaTimeHandler()->GetDeltaTime());
+        actor->GetTransform()->AddWorldPosition(toTarget * actorSpeed->Get() * actor->GetContext()->GetDeltaTimeHandler()->GetDeltaTime());
     }
 }

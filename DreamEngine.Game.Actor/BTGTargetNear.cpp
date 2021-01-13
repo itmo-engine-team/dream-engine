@@ -6,7 +6,13 @@
 
 BTGTargetNear::BTGTargetNear(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
 {
-    targetActor = behaviorTree->GetActor()->FindComponent<ACF_TargetTag>()->GetTargetActor();
+    ACF_TargetTag* targetTagAC = behaviorTree->GetActor()->FindComponent<ACF_TargetTag>();
+
+    if (targetTagAC != nullptr)
+    {
+        targetActor = targetTagAC->GetTargetActor();
+        fieldOfView = targetTagAC->GetFieldOfView();
+    }
 }
 
 bool BTGTargetNear::Run()

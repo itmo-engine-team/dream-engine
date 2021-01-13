@@ -4,6 +4,8 @@
 
 #include "PathFinding.h"
 
+class ParamFloat;
+
 class ACF_Movement : public ActorComponentFixed
 {
 
@@ -15,7 +17,7 @@ public:
     bool MoveTo(Vector3 targetLocation);
 
     float GetSpeed();
-    void SetSpeed(float newSpeed);
+
     bool GetCanMoveByDiagonal();
     void SetCanMoveByDiagonal(bool canMoveByDiagonal);
 
@@ -23,7 +25,7 @@ private:
 
     PathFinding* pathFindingInst;
     std::vector<NavMeshPolygon*> path;
-    float actorSpeed = 1;
+    ParamFloat* actorSpeed;
     bool moveByDiagonal = false;
     int polygonCount = 0;
 
@@ -31,3 +33,14 @@ private:
     void changeLocation();
 };
 
+class ACF_Creator_Movement : public ACF_Creator
+{
+
+public:
+
+    ActorComponentFixed* Create(Actor* actor, ActorComponentFixedInfo* actorInfo) override
+    {
+        return new ACF_Movement(actor);
+    }
+
+};

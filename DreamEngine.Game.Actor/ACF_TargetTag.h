@@ -3,6 +3,7 @@
 #include "ActorComponentFixed.h"
 
 class ParamString;
+class ParamFloat;
 
 class ACF_TargetTag : public ActorComponentFixed
 {
@@ -13,6 +14,7 @@ public:
     ACF_TargetTag(Actor* actor);
 
     Actor* GetTargetActor();
+    float GetFieldOfView();
 
 protected:
 
@@ -23,6 +25,7 @@ private:
 
     ParamString* targetTag;
     Actor* targetActor;
+    ParamFloat* fieldOfView;
 };
 
 class ACF_Creator_TargetTag : public ACF_Creator

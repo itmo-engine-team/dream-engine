@@ -1,0 +1,90 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "Tag_0",
+            "params": {
+                "Tag": {
+                    "type": "String",
+                    "value": "Food"
+                }
+            },
+            "type": "Tag"
+        }
+    ],
+    "id": 5,
+    "name": "FoodActor",
+    "sceneComponents": [
+        {
+            "name": "Static Model_0",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 6
+                },
+                "Texture Asset": {
+                    "assetType": "Texture",
+                    "type": "Asset",
+                    "value": 13
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.20000000298023224,
+                            0.20000000298023224,
+                            0.20000000298023224
+                        ]
+                    }
+                }
+            },
+            "type": "Static Model"
+        },
+        {
+            "name": "Collision_1",
+            "params": {
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": true
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            0.800000011920929,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.30000001192092896,
+                            0.30000001192092896,
+                            0.30000001192092896
+                        ]
+                    }
+                }
+            },
+            "type": "Collision"
+        }
+    ],
+    "type": "Actor"
+}

@@ -1,0 +1,152 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "PlayerMovement_0",
+            "params": {
+                "Player Speed": {
+                    "type": "Float",
+                    "value": 1.0
+                }
+            },
+            "type": "PlayerMovement"
+        },
+        {
+            "name": "Collect Score On Collision_1",
+            "params": {
+                "Score On Collect": {
+                    "type": "Int",
+                    "value": 100
+                },
+                "Target Tag": {
+                    "type": "String",
+                    "value": "Food"
+                }
+            },
+            "type": "Collect Score On Collision"
+        },
+        {
+            "name": "Tag_2",
+            "params": {
+                "Tag": {
+                    "type": "String",
+                    "value": "player"
+                }
+            },
+            "type": "Tag"
+        }
+    ],
+    "id": 3,
+    "name": "PLayerActor",
+    "sceneComponents": [
+        {
+            "name": "BooModel",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 1
+                },
+                "Texture Asset": {
+                    "assetType": "Texture",
+                    "type": "Asset",
+                    "value": 12
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.20000000298023224,
+                            0.20000000298023224,
+                            0.20000000298023224
+                        ]
+                    }
+                }
+            },
+            "type": "Static Model"
+        },
+        {
+            "name": "MovementUebokCollision",
+            "params": {
+                "Collision Size": {
+                    "type": "Vector3",
+                    "value": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.699999988079071,
+                            0.699999988079071,
+                            0.699999988079071
+                        ]
+                    }
+                }
+            },
+            "type": "Collision"
+        },
+        {
+            "name": "TriggerUebokCollision",
+            "params": {
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": true
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.75,
+                            0.75,
+                            0.75
+                        ]
+                    }
+                }
+            },
+            "type": "Collision"
+        }
+    ],
+    "type": "Actor"
+}

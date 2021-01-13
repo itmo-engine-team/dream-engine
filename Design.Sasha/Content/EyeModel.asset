@@ -1,0 +1,18 @@
+{
+    "defaultBoxColor": {
+        "type": "Vector3",
+        "value": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "id": 8,
+    "modelPath": "Content/eyeball-mod.obj",
+    "name": "EyeModel",
+    "type": "Model",
+    "useDefaultBox": {
+        "type": "Bool",
+        "value": false
+    }
+}

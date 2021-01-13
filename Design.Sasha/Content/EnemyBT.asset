@@ -1,0 +1,35 @@
+{
+    "BT": {
+        "lastId": 10,
+        "rootNode": {
+            "children": [
+                [
+                    8,
+                    {
+                        "id": 6,
+                        "logicType": "MoveTo",
+                        "name": "",
+                        "parentAttributeId": 7,
+                        "position": [
+                            108.0,
+                            0.0
+                        ],
+                        "type": "Logic"
+                    }
+                ]
+            ],
+            "childrenAttributeId": 1,
+            "id": 0,
+            "name": "",
+            "position": [
+                0.0,
+                0.0
+            ],
+            "type": "Root"
+        },
+        "unparentedNodes": []
+    },
+    "id": 11,
+    "name": "EnemyBT",
+    "type": "Behavior Tree"
+}

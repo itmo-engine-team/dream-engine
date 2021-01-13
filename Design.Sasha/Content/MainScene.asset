@@ -39,6 +39,90 @@
                 "type": "Transform",
                 "value": {
                     "pos": [
+                        -3.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 3
+            },
+            "name": "PlaerUebok",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -2.0,
+                        0.0,
+                        2.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 5
+            },
+            "name": "FoodUebok",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 10
+            },
+            "name": "EnemyUebok",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
                         0.0,
                         0.0,
                         0.0
@@ -61,13 +145,13 @@
         "type": "Transform",
         "value": {
             "pos": [
-                0.0,
-                1.0,
-                -6.0
+                -10.0,
+                17.0,
+                -1.25
             ],
             "rot": [
-                0.0,
-                0.0,
+                45.0,
+                -30.0,
                 0.0
             ],
             "scale": [

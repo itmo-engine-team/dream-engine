@@ -34,6 +34,8 @@ private:
     EditorParamDrawerTransform* paramDrawerTransform = nullptr;
     EditorParamDrawerAsset* paramDrawerAsset = nullptr;
 
+    std::string sceneActorName;
+
     void renderGameViewport();
     void renderSceneHierarchy();
     void renderRoomInspector();

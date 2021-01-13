@@ -123,6 +123,14 @@ void EditorWindowGameViewport::renderActorInspector()
 
     ImGui::Begin("Actor Inspector");
 
+    ImGui::PushItemWidth(100);
+
+    ImGui::Text("Actor name: ");
+    ImGui::InputText("##0", sceneActorName.data(), 24);
+    if (ImGui::IsItemDeactivatedAfterEdit())
+        currentSceneActor->SetName(sceneActorName.c_str());
+    ImGui::PopItemWidth();
+
     if (paramDrawerTransform->Draw())
     {
         if (currentSceneActor->GetActor() != nullptr)
@@ -151,10 +159,13 @@ void EditorWindowGameViewport::updateCurrentActor(SceneActorInfo* actorInfo)
     if (currentSceneActor == nullptr)
         return;
 
-    paramDrawerTransform = new EditorParamDrawerTransform(0, "Transform",
+    sceneActorName = currentSceneActor->GetName();
+    sceneActorName.resize(24);
+
+    paramDrawerTransform = new EditorParamDrawerTransform(1, "Transform",
         currentSceneActor->GetParamTransform());
 
-    paramDrawerAsset = new EditorParamDrawerAsset(editor, paramDrawerTransform->GetRequiredIndexCount(),
+    paramDrawerAsset = new EditorParamDrawerAsset(editor, paramDrawerTransform->GetRequiredIndexCount()+1,
         "Actor Asset", currentSceneActor->GetParamAsset());
 }
 

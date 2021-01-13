@@ -110,11 +110,12 @@ void Game::LoadScene(SceneAssetInfo* sceneInfo)
     if (currentScene != nullptr)
     {
         delete currentScene;
+        currentScene = nullptr;
         gameAssetManager->Clear();
     }
 
     currentSceneInfo = sceneInfo;
-    currentScene = new Scene(GetActorContext(), sceneInfo);
+    currentScene = new Scene(this, GetActorContext(), sceneInfo);
 }
 
 Scene* Game::GetCurrentScene() const
@@ -125,6 +126,7 @@ Scene* Game::GetCurrentScene() const
 void Game::StartGame()
 {
     actorContext->SetGameMode(true);
+    currentScene->UpdateCameraTransform();
 
     for (auto actor : gameAssetManager->GetActors())
     {

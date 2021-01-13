@@ -4,6 +4,7 @@
 
 class SceneRoomInfo;
 class SceneActorInfo;
+class ParamTransform;
 
 class SceneAssetInfo : public AssetInfo
 {
@@ -17,6 +18,8 @@ public:
 
     void AddRoomInfo(SceneRoomInfo* roomInfo);*/
 
+    ParamTransform* GetCameraTransformParam() const;
+
     const std::vector<SceneActorInfo*>& GetActorInfoList() const;
     void AddActorInfo(SceneActorInfo* actorInfo);
 
@@ -26,6 +29,8 @@ protected:
     void fromJson(Json json) override;
 
 private:
+
+    ParamTransform* cameraTransformParam;
 
     //std::vector<SceneRoomInfo*> roomInfoList;
     std::vector<SceneActorInfo*> actorInfoList;

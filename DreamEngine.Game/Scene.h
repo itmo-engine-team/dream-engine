@@ -3,6 +3,7 @@
 #include <vector>
 #include "SceneRoom.h"
 
+class Game;
 class ActorAssetInfo;
 class SceneAssetInfo;
 class SceneActorInfo;
@@ -12,7 +13,7 @@ class Scene
 
 public:
 
-    Scene(ActorContext* context, SceneAssetInfo* sceneInfo);
+    Scene(Game* game, ActorContext* context, SceneAssetInfo* sceneInfo);
     ~Scene();
 
     SceneAssetInfo* GetSceneAssetInfo() const;
@@ -26,8 +27,11 @@ public:
     void DeleteActorFromScene(SceneActorInfo* actorInfo);
     Actor* CreateActorFromAsset(ActorAssetInfo* actorAssetInfo);
 
+    void UpdateCameraTransform();
+
 protected:
 
+    Game* game;
     ActorContext* context;
     SceneAssetInfo* sceneInfo;
 

@@ -1,15 +1,22 @@
 #include "SceneAssetInfo.h"
 
 #include "SceneActorInfo.h"
+#include "ParamTransform.h"
 
 SceneAssetInfo::SceneAssetInfo() : AssetInfo(AssetType::Scene)
 {
-
+    cameraTransformParam = new ParamTransform({ Vector3 {0, 1, -6 } });
 }
 
 SceneAssetInfo::SceneAssetInfo(SceneAssetInfo& assetInfo) : AssetInfo(assetInfo)
 {
+    cameraTransformParam = dynamic_cast<ParamTransform*>(assetInfo.cameraTransformParam->Copy());
     actorInfoList = assetInfo.actorInfoList;
+}
+
+ParamTransform* SceneAssetInfo::GetCameraTransformParam() const
+{
+    return cameraTransformParam;
 }
 
 //const std::vector<SceneRoomInfo*>& SceneAssetInfo::GetRoomInfoList() const
@@ -36,6 +43,8 @@ Json SceneAssetInfo::toJson()
 {
     Json json = AssetInfo::toJson();
 
+    json["cameraTransform"] = cameraTransformParam->toJson();
+
     Json jsonActorArray = Json::array();
     for (auto actorInfo : actorInfoList)
     {
@@ -49,6 +58,11 @@ Json SceneAssetInfo::toJson()
 void SceneAssetInfo::fromJson(Json json)
 {
     AssetInfo::fromJson(json);
+
+    if (json.contains("cameraTransform"))
+    {
+        cameraTransformParam->fromJson(json["cameraTransform"]);
+    }
 
     Json jsonActorArray = json["actors"];
     for (auto jsonActorInfo : jsonActorArray)

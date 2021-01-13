@@ -19,7 +19,7 @@ EditorWindowGameViewport::EditorWindowGameViewport(Editor* editor)
 
 void EditorWindowGameViewport::Update()
 {
-
+    
 }
 
 void EditorWindowGameViewport::Render()
@@ -69,12 +69,7 @@ void EditorWindowGameViewport::renderSceneHierarchy()
     // Don't show additional windows if no scene is selected currently
     if (game->GetActorContext()->IsGameMode() || game->GetCurrentScene() == nullptr) return;
 
-    if (currentScene != game->GetCurrentScene())
-    {
-        currentScene = game->GetCurrentScene();
-        //currentSceneRoom = nullptr;
-        currentSceneActor = nullptr;
-    }
+    updateScene();
 
     ImGui::Begin("Scene Hierarchy");
 
@@ -102,6 +97,14 @@ void EditorWindowGameViewport::renderSceneHierarchy()
     ImGui::Separator();
 
     drawSceneHierarchy();
+
+    ImGui::Separator();
+
+    ImGui::Text("Camera Transform");
+    if (paramDrawerCameraTransform->Draw())
+    {
+        currentScene->UpdateCameraTransform();
+    }
 
     ImGui::End();
 }
@@ -132,14 +135,14 @@ void EditorWindowGameViewport::renderActorInspector()
     ImGui::Separator();
     ImGui::PopItemWidth();
 
-    if (paramDrawerTransform->Draw())
+    if (paramDrawerActorTransform->Draw())
     {
         if (currentSceneActor->GetActor() != nullptr)
         {
             currentSceneActor->GetActor()->UpdateTransform(currentSceneActor->GetParamTransform()->Get());
         }
     }
-    if (paramDrawerAsset->Draw())
+    if (paramDrawerActorAsset->Draw())
     {
         currentScene->DeleteActorFromScene(currentSceneActor);
         currentScene->CreateActorOnScene(currentSceneActor);
@@ -148,14 +151,30 @@ void EditorWindowGameViewport::renderActorInspector()
     ImGui::End();
 }
 
+void EditorWindowGameViewport::updateScene()
+{
+    if (currentScene != game->GetCurrentScene())
+    {
+        currentScene = game->GetCurrentScene();
+        updateCurrentActor(nullptr);
+        delete paramDrawerCameraTransform;
+        paramDrawerCameraTransform = nullptr;
+
+        if (currentScene == nullptr) return;
+
+        paramDrawerCameraTransform = new EditorParamDrawerTransform(
+            0, "Camera Transform", currentScene->GetSceneAssetInfo()->GetCameraTransformParam());
+    }
+}
+
 void EditorWindowGameViewport::updateCurrentActor(SceneActorInfo* actorInfo)
 {
     currentSceneActor = actorInfo;
 
-    delete paramDrawerTransform;
-    paramDrawerTransform = nullptr;
-    delete paramDrawerAsset;
-    paramDrawerAsset = nullptr;
+    delete paramDrawerActorTransform;
+    paramDrawerActorTransform = nullptr;
+    delete paramDrawerActorAsset;
+    paramDrawerActorAsset = nullptr;
 
     if (currentSceneActor == nullptr)
         return;
@@ -163,10 +182,10 @@ void EditorWindowGameViewport::updateCurrentActor(SceneActorInfo* actorInfo)
     sceneActorName = currentSceneActor->GetName();
     sceneActorName.resize(24);
 
-    paramDrawerTransform = new EditorParamDrawerTransform(1, "Transform",
+    paramDrawerActorTransform = new EditorParamDrawerTransform(1, "Transform",
         currentSceneActor->GetParamTransform());
 
-    paramDrawerAsset = new EditorParamDrawerAsset(editor, paramDrawerTransform->GetRequiredIndexCount()+1,
+    paramDrawerActorAsset = new EditorParamDrawerAsset(editor, paramDrawerActorTransform->GetRequiredIndexCount()+1,
         "Actor Asset", currentSceneActor->GetParamAsset());
 }
 

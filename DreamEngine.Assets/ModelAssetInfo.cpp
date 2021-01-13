@@ -11,8 +11,8 @@ ModelAssetInfo::ModelAssetInfo() : AssetInfo(AssetType::Model)
 
 ModelAssetInfo::ModelAssetInfo(ModelAssetInfo& assetInfo) : AssetInfo(assetInfo)
 {
-    useDefaultBoxParam->Update(assetInfo.useDefaultBoxParam);
-    defaultBoxColorParam->Update(assetInfo.defaultBoxColorParam);
+    useDefaultBoxParam = dynamic_cast<ParamBool*>(assetInfo.useDefaultBoxParam->Copy());
+    defaultBoxColorParam = dynamic_cast<ParamVector3*>(assetInfo.defaultBoxColorParam->Copy());
     modelPath = assetInfo.modelPath;
 }
 

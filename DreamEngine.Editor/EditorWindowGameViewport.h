@@ -21,7 +21,6 @@ public:
     void Update() override;
     void Render() override;
 
-
 private:
 
     Game* game;
@@ -31,8 +30,9 @@ private:
 
     EditorViewport* viewport = new EditorViewport();
 
-    EditorParamDrawerTransform* paramDrawerTransform = nullptr;
-    EditorParamDrawerAsset* paramDrawerAsset = nullptr;
+    EditorParamDrawerTransform* paramDrawerCameraTransform = nullptr;
+    EditorParamDrawerTransform* paramDrawerActorTransform = nullptr;
+    EditorParamDrawerAsset* paramDrawerActorAsset = nullptr;
 
     std::string sceneActorName;
 
@@ -41,6 +41,7 @@ private:
     void renderRoomInspector();
     void renderActorInspector();
 
+    void updateScene();
     void updateCurrentActor(SceneActorInfo* actorInfo);
 
     void drawSceneHierarchy();

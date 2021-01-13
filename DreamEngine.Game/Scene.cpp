@@ -8,9 +8,11 @@
 #include "ActorAssetInfo.h"
 #include "ActorComponentFactory.h"
 #include "GameAssetManager.h"
+#include "Game.h"
+#include "ACS_Camera.h"
 
-Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo)
-    : context(context), sceneInfo(sceneInfo)
+Scene::Scene(Game* game, ActorContext* context, SceneAssetInfo* sceneInfo)
+    : game(game), context(context), sceneInfo(sceneInfo)
 {
     // Check if scene room is new
     if (sceneInfo == nullptr) return;
@@ -20,12 +22,7 @@ Scene::Scene(ActorContext* context, SceneAssetInfo* sceneInfo)
         CreateActorOnScene(actorInfo);
     }
 
-   /* for (SceneRoomInfo* roomInfo : sceneInfo->GetRoomInfoList())
-    {
-        rooms.push_back(new SceneRoom(context, roomInfo));
-    }
-
-    currentRoom = rooms.empty() ? nullptr : rooms[0];*/
+    UpdateCameraTransform();
 }
 
 Scene::~Scene()
@@ -119,4 +116,9 @@ Actor* Scene::CreateActorFromAsset(ActorAssetInfo* actorAssetInfo)
     }
 
     return actor;
+}
+
+void Scene::UpdateCameraTransform()
+{
+    game->GetCamera()->GetActor()->UpdateTransform(sceneInfo->GetCameraTransformParam()->Get());
 }

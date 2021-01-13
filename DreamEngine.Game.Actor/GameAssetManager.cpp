@@ -4,6 +4,9 @@
 #include "TextureAssetInfo.h"
 #include "ACF_Tag.h"
 #include "ACS_Collision.h"
+#include "ParamBool.h"
+#include "MeshRenderer.h"
+#include "ParamVector3.h"
 
 GameAssetManager::GameAssetManager(AssetManager* assetManager, Graphics* graphics)
     : assetManager(assetManager), graphics(graphics)
@@ -108,7 +111,18 @@ ModelData* GameAssetManager::GetOrCreateModelData(unsigned int id)
         auto modelAssetInfo = dynamic_cast<ModelAssetInfo*>(
             assetManager->GetAssetByType(AssetType::Model, id));
 
-        auto modelData = new ModelData(graphics->GetMeshRenderer(), modelAssetInfo->GetModelPath());
+        ModelData* modelData = nullptr;
+        if (modelAssetInfo->GetUseDefaultBoxParam()->Get())
+        {
+            auto boxColor = modelAssetInfo->GetDefaultBoxColorParam()->Get();
+            modelData = graphics->GetMeshRenderer()->CreateBoxModel(
+                { boxColor.x, boxColor.y, boxColor.z, 1.0f }, { 1.0f, 1.0f, 1.0f });
+        }
+        else
+        {
+            modelData = new ModelData(graphics->GetMeshRenderer(), modelAssetInfo->GetModelPath());
+        }
+
         models[id] = modelData;
         return modelData;
     }

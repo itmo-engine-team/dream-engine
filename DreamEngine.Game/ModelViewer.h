@@ -14,7 +14,7 @@ public:
     ModelViewer(EngineConfigInfo* engineConfigInfo,
         InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager);
 
-    bool LoadModel(const std::string& modelPath, TextureAssetInfo* previewTextureInfo);
+    bool LoadModel(ModelAssetInfo* modelAssetInfo, TextureAssetInfo* previewTextureInfo);
 
     void Init() override;
     void Render() override;

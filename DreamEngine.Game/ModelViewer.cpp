@@ -5,6 +5,7 @@
 #include "TextureAssetInfo.h"
 #include "Transform.h"
 #include "GameAssetManager.h"
+#include "ModelAssetInfo.h"
 
 ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo,
                          InputSystem* inputSystem, Graphics* graphics, AssetManager* assetManager)
@@ -13,7 +14,7 @@ ModelViewer::ModelViewer(EngineConfigInfo* engineConfigInfo,
 
 }
 
-bool ModelViewer::LoadModel(const std::string& modelPath, TextureAssetInfo* previewTextureInfo)
+bool ModelViewer::LoadModel(ModelAssetInfo* modelAssetInfo, TextureAssetInfo* previewTextureInfo)
 {
     if (previewTextureInfo != nullptr)
     {
@@ -24,7 +25,7 @@ bool ModelViewer::LoadModel(const std::string& modelPath, TextureAssetInfo* prev
         currentPreviewTexture = nullptr;
     }
 
-    currentModel = new ModelData(graphics->GetMeshRenderer(), modelPath);
+    currentModel = gameAssetManager->GetOrCreateModelData(modelAssetInfo->GetId());
     staticModelComponent->LoadModelData(currentModel);
     staticModelComponent->LoadTexture(currentPreviewTexture);
     staticModelComponent->UpdateTransform(new TransformInfo(Vector3::UnitY * -1 * currentModel->GetLowestVertexY()));

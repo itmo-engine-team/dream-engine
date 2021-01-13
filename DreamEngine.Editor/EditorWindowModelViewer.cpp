@@ -92,18 +92,18 @@ void EditorWindowModelViewer::renderModelInspector()
     {
         ImGui::Text("Model:");
         ImGui::InputText("Path", modelPath.data(), 256);
-
-        ImGui::Text("Preview Texture: ");
-        ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
-        ImGui::SameLine();
-        if (ImGui::Button("Choose"))
-        {
-            assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Texture);
-        }
     }
     else
     {
         paramDrawVector3->Draw();
+    }
+
+    ImGui::Text("Preview Texture: ");
+    ImGui::Text(previewTextureAsset != nullptr ? previewTextureAsset->GetName().c_str() : "Green Color");
+    ImGui::SameLine();
+    if (ImGui::Button("Choose"))
+    {
+        assetChooser = new EditorPopupModalAssetChooser(editor, AssetType::Texture);
     }
 
     ImGui::End();
@@ -140,6 +140,8 @@ void EditorWindowModelViewer::saveModelAsset()
 void EditorWindowModelViewer::reimportModelAsset()
 {
     std::string stringModelPath = modelPath.c_str();
+    modelAssetInfo->SetModelPath(stringModelPath);
+
     isModelValid = editor->GetContext()->GetModelViewer()->
-        LoadModel(stringModelPath, previewTextureAsset);
+        LoadModel(modelAssetInfo, previewTextureAsset);
 }

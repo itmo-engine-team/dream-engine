@@ -26,6 +26,8 @@ public:
 
     Actor* FindActorByTag(std::string tag);
 
+    bool CheckCollisionsHit(Vector3 targetLocation, Actor* initiator);
+
 protected:
 
     AssetManager* assetManager;

@@ -19,6 +19,8 @@ public:
     Vector2 GetSize();
     void SetSize(Vector2 newSize);
 
+    bool CheckCollisionHit(Vector3 targetLocation);
+
 protected:
 
     ParamFloat* sizeParamX;

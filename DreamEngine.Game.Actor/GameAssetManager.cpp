@@ -3,6 +3,7 @@
 #include "ModelAssetInfo.h"
 #include "TextureAssetInfo.h"
 #include "ACF_Tag.h"
+#include "ACS_Collision.h"
 
 GameAssetManager::GameAssetManager(AssetManager* assetManager, Graphics* graphics)
     : assetManager(assetManager), graphics(graphics)
@@ -104,4 +105,18 @@ Actor* GameAssetManager::FindActorByTag(std::string tag)
 
         if (tag == tagComponent->GetTag()) return actor;
     }
+}
+
+bool GameAssetManager::CheckCollisionsHit(Vector3 targetLocation, Actor* initiator)
+{
+    for (Actor* actor : actors)
+    {
+        if (actor == initiator) continue;
+
+        ACS_Collision* collision = actor->FindComponent<ACS_Collision>();
+        if (collision == nullptr) continue;
+
+        if (collision->CheckCollisionHit(targetLocation)) return true;
+    }
+    return false;
 }

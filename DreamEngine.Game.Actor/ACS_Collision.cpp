@@ -37,6 +37,23 @@ void ACS_Collision::SetSize(Vector2 newSize)
     size = newSize;
 }
 
+bool ACS_Collision::CheckCollisionHit(Vector3 targetLocation)
+{
+   
+    float leftCollisionEdge = transform->GetWorldPosition().x - size.x;
+    float rightCollisionEdge = transform->GetWorldPosition().x + size.x;
+    float topCollisionEdge = transform->GetWorldPosition().z + size.y;
+    float downCollisionEdge = transform->GetWorldPosition().z - size.y;
+
+    if (max(leftCollisionEdge, targetLocation.x) <= min(rightCollisionEdge, targetLocation.x) &&
+        max(downCollisionEdge, targetLocation.z) <= min(topCollisionEdge, targetLocation.z))
+    {
+        return true;
+    }
+
+    return false;
+}
+
 void ACS_Collision::onDraw()
 {
     if (!drawCollisionParam->Get()) return;

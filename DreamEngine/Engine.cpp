@@ -143,8 +143,8 @@ void Engine::render()
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::Begin("GameOver");
-        ImGui::Text("Game Over");
+        ImGui::Begin("Mario");
+        ImGui::Text("Your chicken in another castle!");
         ImGui::End();
 
         if (engineConfigInfo->IsGameMode())

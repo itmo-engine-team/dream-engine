@@ -5,6 +5,7 @@
 
 class Actor;
 class ACF_Movement;
+class ACF_TargetTag;
 
 using namespace DirectX::SimpleMath;
 
@@ -24,7 +25,7 @@ public:
 private:
 
     Vector3 targetLocation = {0, 0, 0};
-    Actor* targetActor = nullptr;
+    ACF_TargetTag* targetTagComponent = nullptr;
     ACF_Movement* movementComponent;
 };
 

@@ -24,9 +24,15 @@ bool GameAssetManager::IsGameOver() const
     return isGameOver;
 }
 
-void GameAssetManager::GameOver()
+bool GameAssetManager::IsWin() const
+{
+    return isWin;
+}
+
+void GameAssetManager::GameOver(bool isWin)
 {
     isGameOver = true;
+    this->isWin = isWin;
 }
 
 void GameAssetManager::Clear()

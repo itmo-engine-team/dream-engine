@@ -17,7 +17,8 @@ public:
     ~GameAssetManager();
 
     bool IsGameOver() const;
-    void GameOver();
+    bool IsWin() const;
+    void GameOver(bool isWin);
 
     void Clear();
 
@@ -49,6 +50,7 @@ public:
 protected:
 
     bool isGameOver = false;
+    bool isWin;
 
     AssetManager* assetManager;
     Graphics* graphics;

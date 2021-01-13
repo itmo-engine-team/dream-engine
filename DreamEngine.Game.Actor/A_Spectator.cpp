@@ -17,11 +17,12 @@ ACS_Camera* A_Spectator::GetCameraComponent() const
 void A_Spectator::onUpdate()
 {
     // Activates only with right button
-    if (!context->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return;
-
-    // Rotation
+    if (!context->GetInputSystem()->IsKeyPressed(KeyboardInput::Alt)) return;
+    
     while (const auto delta = context->GetInputSystem()->ReadRawDelta())
     {
+        if (!context->GetInputSystem()->IsMouseButtonPressed(MouseInput::Right)) return;
+
         Rotate(static_cast<float>(delta->x) * -context->GetDeltaTimeHandler()->GetDeltaTime(),
             static_cast<float>(delta->y) * context->GetDeltaTimeHandler()->GetDeltaTime());
     }
@@ -42,6 +43,14 @@ void A_Spectator::onUpdate()
     if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_D))
     {
         Translate({ -context->GetDeltaTimeHandler()->GetDeltaTime(), 0.0f, 0.0f });
+    }
+    if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_Q))
+    {
+        Translate({ 0.0f, context->GetDeltaTimeHandler()->GetDeltaTime(), 0.0f });
+    }
+    if (context->GetInputSystem()->IsKeyPressed(KeyboardInput::Key_E))
+    {
+        Translate({ 0.0f, -context->GetDeltaTimeHandler()->GetDeltaTime(), 0.0f });
     }
 }
 

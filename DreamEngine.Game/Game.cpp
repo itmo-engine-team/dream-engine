@@ -74,6 +74,11 @@ void Game::Update(const float engineDeltaTime)
         {
             actor->Update();
         }
+
+        for (Actor* actor : gameAssetManager->GetActorsToDelete())
+        {
+            gameAssetManager->DeleteActor(actor);
+        }
     }
 }
 
@@ -81,7 +86,8 @@ void Game::Render()
 {
     BaseSceneViewer::Render();
 
-    navMesh->Draw();
+    if (navMesh->GetNavMesh()->IsDebug())
+        navMesh->Draw();
 
     if (currentScene != nullptr /*&& currentScene->GetCurrentRoom() != nullptr*/)
     {
@@ -107,6 +113,9 @@ void Game::RenderShadowMap()
 
 void Game::LoadScene(SceneAssetInfo* sceneInfo)
 {
+    isGameOver = false;
+    deltaTimeHandler->SetMultiplier(1);
+
     if (currentScene != nullptr)
     {
         delete currentScene;

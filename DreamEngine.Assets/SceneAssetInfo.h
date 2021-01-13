@@ -22,6 +22,7 @@ public:
 
     const std::vector<SceneActorInfo*>& GetActorInfoList() const;
     void AddActorInfo(SceneActorInfo* actorInfo);
+    void DeleteActorInfo(SceneActorInfo* actorInfo);
 
 protected:
 

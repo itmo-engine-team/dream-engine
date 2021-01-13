@@ -44,7 +44,7 @@ void A_NavMesh::onUpdate()
 
     for (auto collision : context->GetGameAssetManager()->GetCollisions())
     {
-        if (collision->IsTrigger() || collision->IsActive()) return;
+        if (collision->IsTrigger() || !collision->IsActive()) return;
 
         navMesh->UpdatePolygons(collision->GetActor(),
             collision->GetTransform()->GetWorldPosition(), collision->GetWorldSize());

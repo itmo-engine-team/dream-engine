@@ -6,7 +6,7 @@
                 "type": "Asset",
                 "value": 3
             },
-            "name": "Actor 0",
+            "name": "Player",
             "transform": {
                 "type": "Transform",
                 "value": {
@@ -34,7 +34,7 @@
                 "type": "Asset",
                 "value": 7
             },
-            "name": "Actor 1",
+            "name": "Wolf",
             "transform": {
                 "type": "Transform",
                 "value": {
@@ -55,6 +55,62 @@
                     ]
                 }
             }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 10
+            },
+            "name": "Trap_1",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -6.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 12
+            },
+            "name": "Wall_1",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        0.20000000298023224,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
         }
     ],
     "cameraTransform": {
@@ -62,11 +118,11 @@
         "value": {
             "pos": [
                 0.0,
-                1.0,
-                -6.0
+                30.0,
+                -40.0
             ],
             "rot": [
-                0.0,
+                0.699999988079071,
                 0.0,
                 0.0
             ],

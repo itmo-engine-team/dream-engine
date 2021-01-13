@@ -1,0 +1,18 @@
+{
+    "defaultBoxColor": {
+        "type": "Vector3",
+        "value": [
+            0.5,
+            0.25,
+            1.0
+        ]
+    },
+    "id": 11,
+    "modelPath": "Content/Wall",
+    "name": "Wall",
+    "type": "Model",
+    "useDefaultBox": {
+        "type": "Bool",
+        "value": true
+    }
+}

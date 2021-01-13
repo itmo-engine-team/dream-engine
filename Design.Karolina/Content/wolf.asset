@@ -35,6 +35,16 @@
                 }
             },
             "type": "Target Tag"
+        },
+        {
+            "name": "GameOver On Target Collision_3",
+            "params": {
+                "Target Tag": {
+                    "type": "String",
+                    "value": "Player"
+                }
+            },
+            "type": "GameOver On Target Collision"
         }
     ],
     "id": 7,
@@ -46,6 +56,10 @@
                 "Draw Collision": {
                     "type": "Bool",
                     "value": true
+                },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": false
                 },
                 "Transform": {
                     "type": "Transform",

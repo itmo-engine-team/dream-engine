@@ -1,0 +1,30 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [],
+    "id": 12,
+    "name": "wall_act",
+    "sceneComponents": [
+        {
+            "name": "Collision_0",
+            "params": {
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": false
+                }
+            },
+            "type": "Collision"
+        },
+        {
+            "name": "Static Model_1",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 11
+                }
+            },
+            "type": "Static Model"
+        }
+    ],
+    "type": "Actor"
+}

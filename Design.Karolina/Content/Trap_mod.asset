@@ -1,0 +1,18 @@
+{
+    "defaultBoxColor": {
+        "type": "Vector3",
+        "value": [
+            1.0,
+            0.0,
+            0.0
+        ]
+    },
+    "id": 9,
+    "modelPath": "Content/Trap_mod",
+    "name": "Trap_mod",
+    "type": "Model",
+    "useDefaultBox": {
+        "type": "Bool",
+        "value": true
+    }
+}

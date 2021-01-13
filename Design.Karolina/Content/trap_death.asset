@@ -1,0 +1,55 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "GameOver On Target Collision_0",
+            "params": {
+                "Target Tag": {
+                    "type": "String",
+                    "value": "Player"
+                }
+            },
+            "type": "GameOver On Target Collision"
+        },
+        {
+            "name": "Target Tag_1",
+            "params": {
+                "Target Tag": {
+                    "type": "String",
+                    "value": "Player"
+                }
+            },
+            "type": "Target Tag"
+        }
+    ],
+    "id": 10,
+    "name": "trap_death",
+    "sceneComponents": [
+        {
+            "name": "Collision_0",
+            "params": {
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": true
+                },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": true
+                }
+            },
+            "type": "Collision"
+        },
+        {
+            "name": "Static Model_1",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 9
+                }
+            },
+            "type": "Static Model"
+        }
+    ],
+    "type": "Actor"
+}

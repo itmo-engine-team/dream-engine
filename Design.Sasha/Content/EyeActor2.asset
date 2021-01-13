@@ -17,7 +17,7 @@
             "params": {
                 "Actor Speed": {
                     "type": "Float",
-                    "value": 2.0
+                    "value": 2.4000000953674316
                 }
             },
             "type": "Movement"
@@ -51,8 +51,8 @@
             "type": "Target Tag"
         }
     ],
-    "id": 10,
-    "name": "EyeActor",
+    "id": 2,
+    "name": "EyeActor2",
     "sceneComponents": [
         {
             "name": "Static Model_0",

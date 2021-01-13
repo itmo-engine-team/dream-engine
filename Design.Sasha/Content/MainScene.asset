@@ -1488,7 +1488,7 @@
             "asset": {
                 "assetType": "Actor",
                 "type": "Asset",
-                "value": 10
+                "value": 2
             },
             "name": "Enemy2",
             "transform": {

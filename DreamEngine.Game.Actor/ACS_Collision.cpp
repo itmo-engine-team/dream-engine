@@ -8,33 +8,84 @@
 #include "ACS_Camera.h"
 #include "ACS_Light.h"
 #include "ParamBool.h"
+#include "ParamVector3.h"
 
-ACS_Collision::ACS_Collision(Actor* actor, Vector2 size) : ActorComponentScene(actor), size(size)
+ACS_Collision::ACS_Collision(Actor* actor) : ActorComponentScene(actor)
 {
+    isTriggerParam = new ParamBool(false);
     drawCollisionParam = new ParamBool(false);
-    sizeParamX = new ParamFloat(1.0f);
-    sizeParamY = new ParamFloat(1.0f);
+    sizeParam = new ParamVector3({1.0f, 1.0f, 1.0f});
+
+    AddParam("Is Trigger", isTriggerParam);
     AddParam("Draw Collision", drawCollisionParam);
-    AddParam("Size X", sizeParamX);
-    AddParam("Size Y", sizeParamY);
+    AddParam("Collision Size", sizeParam);
 
     createDebugMeshObject();
 }
 
 ACS_Collision::~ACS_Collision()
 {
+    delete isTriggerParam;
+    delete drawCollisionParam;
+    delete sizeParam;
+
     delete debugMeshObject;
     delete debugModelData;
 }
 
-Vector2 ACS_Collision::GetSize()
+bool ACS_Collision::IsTrigger() const
 {
-    return size;
+    return isTriggerParam->Get();
 }
 
-void ACS_Collision::SetSize(Vector2 newSize)
+Vector2 ACS_Collision::GetWorldSize() const
 {
-    size = newSize;
+    Vector3 worldScale = transform->GetWorldScale();
+    return { sizeParam->Get().x * worldScale.x, sizeParam->Get().z * worldScale.z };
+}
+
+Vector2 ACS_Collision::GetSize()
+{
+    return { sizeParam->Get().x, sizeParam->Get().z };
+}
+
+bool ACS_Collision::IsPointIntersects(Vector3 targetLocation)
+{
+    Vector2 worldSize = GetWorldSize();
+    float leftCollisionEdge = transform->GetWorldPosition().x - worldSize.x;
+    float rightCollisionEdge = transform->GetWorldPosition().x + worldSize.x;
+    float topCollisionEdge = transform->GetWorldPosition().z + worldSize.y;
+    float downCollisionEdge = transform->GetWorldPosition().z - worldSize.y;
+
+    if (max(leftCollisionEdge, targetLocation.x) <= min(rightCollisionEdge, targetLocation.x) &&
+        max(downCollisionEdge, targetLocation.z) <= min(topCollisionEdge, targetLocation.z))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool ACS_Collision::IsCollisionIntersects(Vector3 targetLocation, Vector2 targetCollisionSize)
+{
+    Vector2 worldSize = GetWorldSize();
+    float leftCollisionEdge = transform->GetWorldPosition().x - worldSize.x;
+    float rightCollisionEdge = transform->GetWorldPosition().x + worldSize.x;
+    float topCollisionEdge = transform->GetWorldPosition().z + worldSize.y;
+    float downCollisionEdge = transform->GetWorldPosition().z - worldSize.y;
+
+    float targetLeftCollisionEdge = targetLocation.x - targetCollisionSize.x;
+    float targetRightCollisionEdge = targetLocation.x + targetCollisionSize.x;
+    float targetTopCollisionEdge = targetLocation.z + targetCollisionSize.y;
+    float targetDownCollisionEdge = targetLocation.z - targetCollisionSize.y;
+
+    if (max(leftCollisionEdge, targetLeftCollisionEdge) <= min(rightCollisionEdge, targetRightCollisionEdge) &&
+        max(downCollisionEdge, targetDownCollisionEdge) <= min(topCollisionEdge, targetTopCollisionEdge))
+    {
+        return true;
+    }
+
+    return false;
 }
 
 void ACS_Collision::onDraw()
@@ -71,9 +122,8 @@ void ACS_Collision::onParamUpdate(std::string name, BaseParam* param)
 {
     ActorComponentScene::onParamUpdate(name, param);
 
-    if (param == sizeParamX || param == sizeParamY)
+    if (param == sizeParam)
     {
-        size = Vector2 { sizeParamX->Get(), sizeParamY->Get() };
         delete debugMeshObject;
         delete debugModelData;
         createDebugMeshObject();
@@ -83,7 +133,7 @@ void ACS_Collision::onParamUpdate(std::string name, BaseParam* param)
 void ACS_Collision::createDebugMeshObject()
 {
     debugModelData = actor->GetContext()->GetGraphics()->GetMeshRenderer()->
-        CreateBoxModel({ 1, 0, 0, 1 }, { size.x, 0.5f, size.y });
+        CreateBoxModel({ 1, 0, 0, 1 }, sizeParam->Get());
     const auto debugMeshData = debugModelData->GetMeshDataList()[0];
     debugMeshObject = new MeshObject(actor->GetContext()->GetGraphics(), 
         debugMeshData, nullptr);

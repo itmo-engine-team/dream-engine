@@ -20,6 +20,7 @@ private:
     NavMesh* navMesh;
     ACS_StaticModel* staticModelComponent;
 
+    void onInit() override;
     void onUpdate() override;
 
 };

@@ -3,7 +3,8 @@
 #include "ACS_Light.h"
 #include "NavMesh.h"
 #include "ACS_StaticModel.h"
-#include "Transform.h"
+#include "GameAssetManager.h"
+#include "ACS_Collision.h"
 
 A_NavMesh::A_NavMesh(ActorContext* context) : Actor(context)
 {
@@ -19,7 +20,20 @@ NavMesh* A_NavMesh::GetNavMesh() const
     return navMesh;
 }
 
+void A_NavMesh::onInit()
+{
+
+}
+
 void A_NavMesh::onUpdate()
 {
+    navMesh->ResetPolygons();
+
+    for (auto collision : context->GetGameAssetManager()->GetCollisions())
+    {
+        navMesh->UpdatePolygons(collision->GetActor(),
+            collision->GetTransform()->GetWorldPosition(), collision->GetWorldSize());
+    }
+
     staticModelComponent->LoadModelData(navMesh->GetModelData());
 }

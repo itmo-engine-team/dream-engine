@@ -3,6 +3,7 @@
 #include "ModelAssetInfo.h"
 #include "TextureAssetInfo.h"
 #include "ACF_Tag.h"
+#include "ACS_Collision.h"
 
 GameAssetManager::GameAssetManager(AssetManager* assetManager, Graphics* graphics)
     : assetManager(assetManager), graphics(graphics)
@@ -22,6 +23,7 @@ void GameAssetManager::Clear()
         delete actor;
     }
     actors.clear();
+    collisions.clear();
 
     for (auto iter : models)
     {
@@ -39,6 +41,7 @@ void GameAssetManager::Clear()
 void GameAssetManager::AddActor(Actor* actor)
 {
     actors.push_back(actor);
+    RegisterActorCollisions(actor);
 }
 
 void GameAssetManager::DeleteActor(Actor* actor)
@@ -47,6 +50,21 @@ void GameAssetManager::DeleteActor(Actor* actor)
     {
         if (*actorIter == actor)
         {
+            // Remove actor collisions
+            auto actorCollisions = actor->FindComponents<ACS_Collision>();
+            for (auto collision : actorCollisions)
+            {
+                for (auto collisionIter = collisions.begin();
+                    collisionIter < collisions.end(); ++collisionIter)
+                {
+                    if (*collisionIter == collision)
+                    {
+                        collisions.erase(collisionIter);
+                        break;
+                    }
+                }
+            }
+
             delete* actorIter;
             actors.erase(actorIter);
             return;
@@ -57,6 +75,28 @@ void GameAssetManager::DeleteActor(Actor* actor)
 const std::vector<Actor*>& GameAssetManager::GetActors() const
 {
     return actors;
+}
+
+const std::vector<ACS_Collision*>& GameAssetManager::GetCollisions() const
+{
+    return collisions;
+}
+
+void GameAssetManager::RegisterCollisions()
+{
+    for (auto actor : actors)
+    {
+        RegisterActorCollisions(actor);
+    }
+}
+
+void GameAssetManager::RegisterActorCollisions(Actor* actor)
+{
+    auto actorCollisions = actor->FindComponents<ACS_Collision>();
+    for (auto collision : actorCollisions)
+    {
+        collisions.push_back(collision);
+    }
 }
 
 ModelData* GameAssetManager::GetOrCreateModelData(unsigned int id)
@@ -104,4 +144,28 @@ Actor* GameAssetManager::FindActorByTag(std::string tag)
 
         if (tag == tagComponent->GetTag()) return actor;
     }
+}
+
+bool GameAssetManager::IsAnyIntersectionWithLocation(Vector3 targetLocation, Actor* initiator)
+{
+    for (auto collision : collisions)
+    {
+        if (collision->GetActor() == initiator 
+                || collision->IsTrigger() || !collision->IsActive()) continue;
+
+        if (collision->IsPointIntersects(targetLocation)) return true;
+    }
+    return false;
+}
+
+bool GameAssetManager::IsAnyIntersectionWithCollision(Vector3 targetLocation, Vector2 targetCollisionSize,
+    Actor* initiator)
+{
+    for(auto collision : collisions)
+    {
+        if (collision->GetActor() == initiator) continue;
+
+        if (collision->IsCollisionIntersects(targetLocation, targetCollisionSize)) return true;
+    }
+    return false;
 }

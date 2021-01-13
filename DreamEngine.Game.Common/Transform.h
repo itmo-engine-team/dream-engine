@@ -39,6 +39,7 @@ public:
     void SetWorldPosition(Vector3 pos);
     void AddWorldPosition(Vector3 pos);
     void AddWorldRotation(Vector3 axis, float angle);
+    Vector3 GetWorldScale() const;
 
     Matrix GetWorldMatrix() const;
 

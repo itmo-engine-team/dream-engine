@@ -27,6 +27,7 @@ public:
     void DrawShadowMap();
 
     bool IsActive() const;
+    void SetActive(bool isActive);
 
     SceneActorInfo* GetActorInfo() const;
     ActorContext* GetContext() const;

@@ -12,9 +12,9 @@ EditorWindowModelViewer::EditorWindowModelViewer(Editor* editor, ModelAssetInfo*
         SetOpened(false);
     
     paramBool = modelAssetInfo->GetUseDefaultBoxParam();
-    paramVector3 = modelAssetInfo->GetDefaultBoxVector3Param();
-    paramDrawerBool = new EditorParamDrawerBool(0, "Draw standart cube: ", paramBool);  
-    paramDrawVector3 = new EditorParamDrawerVector3(1, "Cube position:", paramVector3);
+    paramVector3 = modelAssetInfo->GetDefaultBoxColorParam();
+    paramDrawerBool = new EditorParamDrawerBool(0, "Draw standard box: ", paramBool);  
+    paramDrawVector3 = new EditorParamDrawerVector3(1, "Box Color:", paramVector3);
 }
 
 void EditorWindowModelViewer::Init()

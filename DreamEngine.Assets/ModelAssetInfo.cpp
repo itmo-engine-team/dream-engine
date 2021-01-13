@@ -6,13 +6,13 @@
 ModelAssetInfo::ModelAssetInfo() : AssetInfo(AssetType::Model)
 {
     useDefaultBoxParam = new ParamBool();
-    defautlBoxVector3Param = new ParamVector3();
+    defaultBoxColorParam = new ParamVector3();
 }
 
 ModelAssetInfo::ModelAssetInfo(ModelAssetInfo& assetInfo) : AssetInfo(assetInfo)
 {
     useDefaultBoxParam->Update(assetInfo.useDefaultBoxParam);
-    defautlBoxVector3Param->Update(assetInfo.defautlBoxVector3Param);
+    defaultBoxColorParam->Update(assetInfo.defaultBoxColorParam);
     modelPath = assetInfo.modelPath;
 }
 
@@ -31,9 +31,9 @@ ParamBool* ModelAssetInfo::GetUseDefaultBoxParam()
     return useDefaultBoxParam;
 }
 
-ParamVector3* ModelAssetInfo::GetDefaultBoxVector3Param()
+ParamVector3* ModelAssetInfo::GetDefaultBoxColorParam()
 {
-    return defautlBoxVector3Param;
+    return defaultBoxColorParam;
 }
 
 Json ModelAssetInfo::toJson()
@@ -41,7 +41,7 @@ Json ModelAssetInfo::toJson()
     Json json = AssetInfo::toJson();
 
     json["useDefaultBox"] = useDefaultBoxParam->toJson();
-    json["defautlBoxVector3"] = defautlBoxVector3Param->toJson();
+    json["defaultBoxColor"] = defaultBoxColorParam->toJson();
     json["modelPath"] = modelPath;
 
     return json;
@@ -56,9 +56,9 @@ void ModelAssetInfo::fromJson(Json json)
         useDefaultBoxParam->fromJson(json["useDefaultBox"]);
     }
 
-    if (json.contains("defautlBoxVector3"))
+    if (json.contains("defaultBoxColor"))
     {
-        defautlBoxVector3Param->fromJson(json["defautlBoxVector3"]);
+        defaultBoxColorParam->fromJson(json["defaultBoxColor"]);
     }
 
     initVariable(json, "modelPath", &modelPath);

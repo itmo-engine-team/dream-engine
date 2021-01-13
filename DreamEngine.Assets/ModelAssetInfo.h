@@ -17,7 +17,7 @@ public:
     const std::string& GetModelPath();
 
     ParamBool* GetUseDefaultBoxParam();
-    ParamVector3* GetDefaultBoxVector3Param();
+    ParamVector3* GetDefaultBoxColorParam();
 
 protected:
 
@@ -27,7 +27,7 @@ protected:
 private:
 
     ParamBool* useDefaultBoxParam;
-    ParamVector3* defautlBoxVector3Param;
+    ParamVector3* defaultBoxColorParam;
     std::string modelPath;
 
 };

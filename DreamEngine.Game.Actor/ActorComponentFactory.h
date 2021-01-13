@@ -14,6 +14,7 @@
 #include "ACF_DestroyTargetOnCollision.h"
 #include "ACF_GameOverOnTargetCollision.h"
 #include "ACF_CollectScoreOnCollision.h"
+#include "ACF_Projectile.h"
 
 class ActorComponentFactory
 {
@@ -46,6 +47,7 @@ protected:
         { ACF_Type::GameOverOnTargetCollision, new ACF_Creator_GameOverOnTargetCollision() },
         { ACF_Type::DestroyTargetOnCollision, new ACF_Creator_DestroyTargetOnCollision() },
         { ACF_Type::CollectScoreOnCollision, new ACF_Creator_CollectScoreOnCollision() },
+        { ACF_Type::Projectile, new ACF_Creator_Projectile() },
     };
     
 };

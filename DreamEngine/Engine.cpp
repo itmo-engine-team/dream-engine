@@ -13,6 +13,10 @@
 #include "ActorViewer.h"
 #include <iostream>
 
+#include "imgui.h"
+#include <imgui_impl_dx11.h>
+#include <imgui_impl_win32.h>
+
 Engine* Engine::INSTANCE = nullptr;
 
 Engine::Engine()
@@ -132,6 +136,32 @@ void Engine::update()
 void Engine::render()
 {
     game->RenderPipeline();
+
+    if (!game->IsGameOver())
+    {
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
+
+        ImGui::Begin("GameOver");
+        ImGui::Text("Game Over");
+        ImGui::End();
+
+        if (engineConfigInfo->IsGameMode())
+        {
+            ImGui::Render();
+
+            // render draw data
+            ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+            ImGuiIO& io = ImGui::GetIO();
+            if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+            {
+                ImGui::UpdatePlatformWindows();
+                ImGui::RenderPlatformWindowsDefault();
+            }
+        }
+    }
 
     if (!isGameMode)
     {

@@ -54,7 +54,6 @@ void Editor::Update()
 
 void Editor::Render()
 {
-    startImGuiFrame();
     renderWindows();
     finishImGuiFrame();
 }

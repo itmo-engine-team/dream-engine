@@ -28,6 +28,16 @@
                 }
             },
             "type": "Tag"
+        },
+        {
+            "name": "DestroyByTime_2",
+            "params": {
+                "Time to Destroy": {
+                    "type": "Float",
+                    "value": 4.0
+                }
+            },
+            "type": "DestroyByTime"
         }
     ],
     "id": 8,

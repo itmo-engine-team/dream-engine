@@ -15,7 +15,7 @@
                 },
                 "Time to Spawn": {
                     "type": "Float",
-                    "value": 1.0
+                    "value": 0.5
                 },
                 "Time to Start": {
                     "type": "Float",

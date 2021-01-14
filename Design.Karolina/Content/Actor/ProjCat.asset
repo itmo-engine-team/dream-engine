@@ -28,6 +28,16 @@
                 }
             },
             "type": "Projectile"
+        },
+        {
+            "name": "DestroyByTime_2",
+            "params": {
+                "Time to Destroy": {
+                    "type": "Float",
+                    "value": 4.0
+                }
+            },
+            "type": "DestroyByTime"
         }
     ],
     "id": 2,
@@ -70,9 +80,9 @@
                 "Collision Size": {
                     "type": "Vector3",
                     "value": [
-                        0.5,
+                        0.20000000298023224,
                         1.0,
-                        0.5
+                        0.20000000298023224
                     ]
                 },
                 "Draw Collision": {

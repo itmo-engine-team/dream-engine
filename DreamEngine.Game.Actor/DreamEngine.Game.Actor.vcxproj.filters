@@ -312,7 +312,7 @@
       <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
     <ClCompile Include="ACF_DestroyByTime.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -195,35 +195,7 @@
                     ]
                 }
             }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
-                "value": 15
-            },
-            "name": "Wall",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        0.0,
-                        0.0,
-                        -7.0
-                    ],
-                    "rot": [
-                        0.0,
-                        4.699999809265137,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        }
+        }  
     ],
     "cameraTransform": {
         "type": "Transform",

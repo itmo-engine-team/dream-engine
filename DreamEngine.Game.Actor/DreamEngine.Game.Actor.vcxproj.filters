@@ -181,7 +181,7 @@
       <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
     <ClInclude Include="ACF_ActorSpawner.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -300,7 +300,7 @@
       <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
     <ClCompile Include="ACF_ActorSpawner.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

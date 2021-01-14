@@ -2,16 +2,6 @@
     "actorType": "Actor",
     "fixedComponents": [
         {
-            "name": "Destroy Target On Collision_0",
-            "params": {
-                "Target Tag": {
-                    "type": "String",
-                    "value": "ai1"
-                }
-            },
-            "type": "Destroy Target On Collision"
-        },
-        {
             "name": "Tag",
             "params": {
                 "Tag": {
@@ -44,6 +34,16 @@
                 }
             },
             "type": "Collect Score On Collision"
+        },
+        {
+            "name": "Destroy Both On Collision_3",
+            "params": {
+                "Target Tag": {
+                    "type": "String",
+                    "value": "ai1"
+                }
+            },
+            "type": "Destroy Both On Collision"
         }
     ],
     "id": 12,

@@ -184,6 +184,9 @@
       <Filter>Header Files\Actor\Component\Fixed</Filter>
     </ClInclude>
     <ClInclude Include="ACF_DestroyBothOnCollision.h">
+      <Filter>Header Files\Actor\Component\Fixed</Filter>
+    </ClInclude>
+    <ClInclude Include="ACF_DestroyByTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -306,6 +309,9 @@
       <Filter>Source Files\Actor\Component\Fixed</Filter>
     </ClCompile>
     <ClCompile Include="ACF_DestroyBothOnCollision.cpp">
+      <Filter>Source Files\Actor\Component\Fixed</Filter>
+    </ClCompile>
+    <ClCompile Include="ACF_DestroyByTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

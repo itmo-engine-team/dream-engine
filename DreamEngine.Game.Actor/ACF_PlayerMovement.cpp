@@ -42,13 +42,13 @@ void ACF_PlayerMovement::onUpdate()
     {
         isInputZ = true;
         directionZ = Vector3::UnitZ;
-        actor->GetTransform()->SetLocalRotation({ 0, -1.57f, 0 });
+        actor->GetTransform()->SetLocalRotation({ 0, 3.14f, 0 });
     }
     else if (inputSystem->IsKeyPressed(KeyboardInput::Key_S))
     {
         isInputZ = true;
         directionZ = -Vector3::UnitZ;
-        actor->GetTransform()->SetLocalRotation({ 0, 1.57f, 0 });
+        actor->GetTransform()->SetLocalRotation({ 0, 0, 0 });
     }
 
     // Check X movement with A or D keys
@@ -56,13 +56,13 @@ void ACF_PlayerMovement::onUpdate()
     {
         isInputX = true;
         directionX = Vector3::UnitX;
-        actor->GetTransform()->SetLocalRotation({ 0, 0, 0 });
+        actor->GetTransform()->SetLocalRotation({ 0, -1.57f, 0 });
     }
     if (inputSystem->IsKeyPressed(KeyboardInput::Key_D))
     {
         isInputX = true;
         directionX = -Vector3::UnitX;
-        actor->GetTransform()->SetLocalRotation({ 0, 3.14f, 0 });
+        actor->GetTransform()->SetLocalRotation({ 0, 1.57f, 0 });
     }
 
     // Check if there is no input to handle

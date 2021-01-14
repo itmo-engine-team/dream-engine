@@ -11,5 +11,5 @@ void ACF_DestroyBothOnCollision::onTargetCollision(Actor* targetActor)
 {
     ACF_DestroyTargetOnCollision::onTargetCollision(targetActor);
 
-    actor->GetContext()->GetGameAssetManager()->DeleteActor(actor);
+    actor->GetContext()->GetGameAssetManager()->RequestToDeleteActor(actor);
 }

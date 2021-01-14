@@ -17,6 +17,7 @@
 #include "ACF_Projectile.h"
 #include "ACF_GameOverOnCollectAllTarget.h"
 #include "ACF_ActorSpawner.h"
+#include "ACF_DestroyBothOnCollision.h"
 
 class ActorComponentFactory
 {
@@ -49,6 +50,7 @@ protected:
         { ACF_Type::GameOverOnTargetCollision, new ACF_Creator_GameOverOnTargetCollision() },
         { ACF_Type::GameOverOnCollectAllTarget, new ACF_Creator_GameOverOnCollectAllTarget() },
         { ACF_Type::DestroyTargetOnCollision, new ACF_Creator_DestroyTargetOnCollision() },
+        { ACF_Type::DestroyBothOnCollision, new ACF_Creator_DestroyBothOnCollision() },
         { ACF_Type::CollectScoreOnCollision, new ACF_Creator_CollectScoreOnCollision() },
         { ACF_Type::Projectile, new ACF_Creator_Projectile() },
         { ACF_Type::ActorSpawner, new ACF_Creator_ActorSpawner() },

@@ -1,0 +1,6 @@
+{
+    "id": 5,
+    "name": "T_Cat",
+    "texturePath": "Content/Textures/cat.jpg",
+    "type": "Texture"
+}

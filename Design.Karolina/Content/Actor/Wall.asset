@@ -1,0 +1,111 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "Destroy Target On Collision_0",
+            "params": {
+                "Ignore trigger": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Target Tag": {
+                    "type": "String",
+                    "value": "fish"
+                }
+            },
+            "type": "Destroy Target On Collision"
+        },
+        {
+            "name": "Destroy Target On Collision_1",
+            "params": {
+                "Ignore trigger": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Target Tag": {
+                    "type": "String",
+                    "value": "box"
+                }
+            },
+            "type": "Destroy Target On Collision"
+        }
+    ],
+    "id": 15,
+    "name": "Wall",
+    "sceneComponents": [
+        {
+            "name": "Static Model_0",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 16
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            1.5,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.20000000298023224,
+                            2.0,
+                            3.0
+                        ]
+                    }
+                }
+            },
+            "type": "Static Model"
+        },
+        {
+            "name": "Collision_1",
+            "params": {
+                "Collision Size": {
+                    "type": "Vector3",
+                    "value": [
+                        0.30000001192092896,
+                        2.0999999046325684,
+                        3.0
+                    ]
+                },
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": true
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            1.5,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    }
+                }
+            },
+            "type": "Collision"
+        }
+    ],
+    "type": "Actor"
+}

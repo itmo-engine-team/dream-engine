@@ -1,0 +1,18 @@
+{
+    "defaultBoxColor": {
+        "type": "Vector3",
+        "value": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    "id": 1,
+    "modelPath": "Content/Meshes/cat.obj",
+    "name": "M_Cat",
+    "type": "Model",
+    "useDefaultBox": {
+        "type": "Bool",
+        "value": false
+    }
+}

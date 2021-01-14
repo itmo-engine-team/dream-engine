@@ -1,0 +1,116 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "Projectile_1",
+            "params": {
+                "Direction": {
+                    "type": "Vector3",
+                    "value": [
+                        0.0,
+                        0.0,
+                        -1.0
+                    ]
+                },
+                "Speed": {
+                    "type": "Float",
+                    "value": 3.0
+                }
+            },
+            "type": "Projectile"
+        },
+        {
+            "name": "Tag_1",
+            "params": {
+                "Tag": {
+                    "type": "String",
+                    "value": "box"
+                }
+            },
+            "type": "Tag"
+        }
+    ],
+    "id": 8,
+    "name": "A_Box",
+    "sceneComponents": [
+        {
+            "name": "Static Model_0",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 6
+                },
+                "Texture Asset": {
+                    "assetType": "Texture",
+                    "type": "Asset",
+                    "value": 7
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            0.10000000149011612,
+                            0.0
+                        ],
+                        "rot": [
+                            1.5,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.004999999888241291,
+                            0.004999999888241291,
+                            0.004999999888241291
+                        ]
+                    }
+                }
+            },
+            "type": "Static Model"
+        },
+        {
+            "name": "Collision_1",
+            "params": {
+                "Collision Size": {
+                    "type": "Vector3",
+                    "value": [
+                        0.30000001192092896,
+                        0.5,
+                        0.30000001192092896
+                    ]
+                },
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": true
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    }
+                }
+            },
+            "type": "Collision"
+        }
+    ],
+    "type": "Actor"
+}

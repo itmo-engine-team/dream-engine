@@ -1,0 +1,64 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "ActorSpawner_0",
+            "params": {
+                "Random Distribution": {
+                    "type": "Float",
+                    "value": 3.0
+                },
+                "Spawn Actor": {
+                    "assetType": "Actor",
+                    "type": "Asset",
+                    "value": 8
+                },
+                "Time to Spawn": {
+                    "type": "Float",
+                    "value": 2.0
+                },
+                "Time to Start": {
+                    "type": "Float",
+                    "value": 3.0
+                }
+            },
+            "type": "ActorSpawner"
+        }
+    ],
+    "id": 10,
+    "name": "SpawnBox",
+    "sceneComponents": [
+        {
+            "name": "Static Model_0",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 1
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            0.10000000149011612,
+                            0.0
+                        ],
+                        "rot": [
+                            1.5,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.10000000149011612,
+                            0.10000000149011612,
+                            0.10000000149011612
+                        ]
+                    }
+                }
+            },
+            "type": "Static Model"
+        }
+    ],
+    "type": "Actor"
+}

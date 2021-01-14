@@ -1,0 +1,251 @@
+{
+    "actors": [
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 3
+            },
+            "name": "Cat",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.10000000149011612,
+                        -3.0
+                    ],
+                    "rot": [
+                        0.6000000238418579,
+                        3.0999999046325684,
+                        0.0
+                    ],
+                    "scale": [
+                        0.4000000059604645,
+                        0.4000000059604645,
+                        0.4000000059604645
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 9
+            },
+            "name": "Spawner",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 10
+            },
+            "name": "SPBox",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 11
+            },
+            "name": "SPCat2",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        2.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 12
+            },
+            "name": "SPCat3",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -2.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 13
+            },
+            "name": "SPBox1",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        2.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 14
+            },
+            "name": "SPBox2",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -2.0,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 15
+            },
+            "name": "Wall",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.0,
+                        0.0,
+                        -7.0
+                    ],
+                    "rot": [
+                        0.0,
+                        4.699999809265137,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
+        }
+    ],
+    "cameraTransform": {
+        "type": "Transform",
+        "value": {
+            "pos": [
+                0.0,
+                1.0,
+                -6.0
+            ],
+            "rot": [
+                0.15000000596046448,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    },
+    "id": 4,
+    "name": "S1",
+    "type": "Scene"
+}

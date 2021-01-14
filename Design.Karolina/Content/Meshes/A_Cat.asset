@@ -1,0 +1,146 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "PlayerMovement_0",
+            "params": {
+                "Player Speed": {
+                    "type": "Float",
+                    "value": 2.0
+                }
+            },
+            "type": "PlayerMovement"
+        },
+        {
+            "name": "Movement_2",
+            "params": {
+                "Actor Speed": {
+                    "type": "Float",
+                    "value": 1.2000000476837158
+                }
+            },
+            "type": "Movement"
+        },
+        {
+            "name": "Destroy Target On Collision_3",
+            "params": {
+                "Target Tag": {
+                    "type": "String",
+                    "value": "fish"
+                }
+            },
+            "type": "Destroy Target On Collision"
+        },
+        {
+            "name": "Collect Score On Collision_3",
+            "params": {
+                "Ignore trigger": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Score On Collect": {
+                    "type": "Int",
+                    "value": 1
+                },
+                "Target Tag": {
+                    "type": "String",
+                    "value": "fish"
+                }
+            },
+            "type": "Collect Score On Collision"
+        },
+        {
+            "name": "GameOver On Target Collision_4",
+            "params": {
+                "Target Tag": {
+                    "type": "String",
+                    "value": "box"
+                }
+            },
+            "type": "GameOver On Target Collision"
+        }
+    ],
+    "id": 3,
+    "name": "A_Cat",
+    "sceneComponents": [
+        {
+            "name": "Static Model_0",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 1
+                },
+                "Texture Asset": {
+                    "assetType": "Texture",
+                    "type": "Asset",
+                    "value": 5
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "rot": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            0.10000000149011612,
+                            0.10000000149011612,
+                            0.10000000149011612
+                        ]
+                    }
+                }
+            },
+            "type": "Static Model"
+        },
+        {
+            "name": "Collision_1",
+            "params": {
+                "Collision Size": {
+                    "type": "Vector3",
+                    "value": [
+                        0.5,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Transform": {
+                    "type": "Transform",
+                    "value": {
+                        "pos": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "rot": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    }
+                }
+            },
+            "type": "Collision"
+        }
+    ],
+    "type": "Actor"
+}

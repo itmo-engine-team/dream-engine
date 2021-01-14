@@ -59,6 +59,10 @@
         {
             "name": "Destroy Target On Collision_5",
             "params": {
+                "Ignore trigger": {
+                    "type": "Bool",
+                    "value": false
+                },
                 "Target Tag": {
                     "type": "String",
                     "value": "trap1"

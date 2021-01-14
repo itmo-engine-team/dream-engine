@@ -7,6 +7,10 @@
                 "Move by diagonal": {
                     "type": "Bool",
                     "value": true
+                },
+                "Player Speed": {
+                    "type": "Float",
+                    "value": 2.0
                 }
             },
             "type": "PlayerMovement"
@@ -87,9 +91,9 @@
                             0.0
                         ],
                         "scale": [
-                            0.5,
-                            0.5,
-                            0.5
+                            0.4000000059604645,
+                            0.4000000059604645,
+                            0.4000000059604645
                         ]
                     }
                 }

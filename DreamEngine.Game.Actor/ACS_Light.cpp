@@ -4,7 +4,7 @@
 ACS_Light::ACS_Light(Actor* actor, Vector3 direction)
     : ActorComponentScene(actor), direction(direction)
 {
-    projectionMatrix = Matrix::CreateOrthographic(10, 10, 0.1f, 100);
+    projectionMatrix = Matrix::CreateOrthographic(100, 100, 0.1f, 100);
 }
 
 Matrix ACS_Light::GetViewMatrix() const

@@ -20,6 +20,30 @@
                 }
             },
             "type": "Tag"
+        },
+        {
+            "name": "GameOver On Collect All Target_2",
+            "params": {
+                "Target Tag": {
+                    "type": "String",
+                    "value": "Exit"
+                }
+            },
+            "type": "GameOver On Collect All Target"
+        },
+        {
+            "name": "Collect Score On Collision_3",
+            "params": {
+                "Score On Collect": {
+                    "type": "Int",
+                    "value": 1
+                },
+                "Target Tag": {
+                    "type": "String",
+                    "value": "Exit"
+                }
+            },
+            "type": "Collect Score On Collision"
         }
     ],
     "id": 3,
@@ -30,7 +54,7 @@
             "params": {
                 "Draw Collision": {
                     "type": "Bool",
-                    "value": true
+                    "value": false
                 },
                 "Transform": {
                     "type": "Transform",
@@ -48,7 +72,7 @@
                         "scale": [
                             0.5,
                             0.5,
-                            1.0
+                            0.75
                         ]
                     }
                 }

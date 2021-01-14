@@ -1,0 +1,45 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "Tag_0",
+            "params": {
+                "Tag": {
+                    "type": "String",
+                    "value": "Exit"
+                }
+            },
+            "type": "Tag"
+        }
+    ],
+    "id": 15,
+    "name": "Exit",
+    "sceneComponents": [
+        {
+            "name": "Collision_0",
+            "params": {
+                "Draw Collision": {
+                    "type": "Bool",
+                    "value": false
+                },
+                "Is Trigger": {
+                    "type": "Bool",
+                    "value": true
+                }
+            },
+            "type": "Collision"
+        },
+        {
+            "name": "Static Model_1",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 9
+                }
+            },
+            "type": "Static Model"
+        }
+    ],
+    "type": "Actor"
+}

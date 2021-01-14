@@ -55,7 +55,7 @@
             "params": {
                 "Draw Collision": {
                     "type": "Bool",
-                    "value": true
+                    "value": false
                 },
                 "Is Trigger": {
                     "type": "Bool",

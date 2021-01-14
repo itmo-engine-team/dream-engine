@@ -60,34 +60,6 @@
             "asset": {
                 "assetType": "Actor",
                 "type": "Asset",
-                "value": 10
-            },
-            "name": "Trap_Exit",
-            "transform": {
-                "type": "Transform",
-                "value": {
-                    "pos": [
-                        -16.0,
-                        0.0,
-                        -16.0
-                    ],
-                    "rot": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                }
-            }
-        },
-        {
-            "asset": {
-                "assetType": "Actor",
-                "type": "Asset",
                 "value": 12
             },
             "name": "Wall_1",
@@ -1116,6 +1088,34 @@
                         1.0,
                         1.0,
                         1.0
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 15
+            },
+            "name": "Exit",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        -16.0,
+                        0.0,
+                        -16.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        2.0,
+                        1.0,
+                        2.0
                     ]
                 }
             }

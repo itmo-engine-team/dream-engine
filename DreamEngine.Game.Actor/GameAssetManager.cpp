@@ -1,5 +1,6 @@
 #include "GameAssetManager.h"
 
+#include "ActorAssetInfo.h"
 #include "ModelAssetInfo.h"
 #include "TextureAssetInfo.h"
 #include "ACF_Tag.h"
@@ -7,6 +8,8 @@
 #include "ParamBool.h"
 #include "MeshRenderer.h"
 #include "ParamVector3.h"
+#include "ActorFactory.h"
+#include "ActorComponentFactory.h"
 
 GameAssetManager::GameAssetManager(AssetManager* assetManager, Graphics* graphics)
     : assetManager(assetManager), graphics(graphics)
@@ -38,6 +41,19 @@ void GameAssetManager::GameOver(bool isWin)
 void GameAssetManager::Clear()
 {
     isGameOver = false;
+    score = 0;
+
+    for (auto actor : actorsToAdd)
+    {
+        delete actor;
+    }
+    actorsToAdd.clear();
+
+    for (auto actor : actorsToDelete)
+    {
+        delete actor;
+    }
+    actorsToDelete.clear();
 
     for (auto actor : actors)
     {
@@ -59,6 +75,40 @@ void GameAssetManager::Clear()
     textures.clear();
 }
 
+void GameAssetManager::CreateActorByAsset(ActorContext* context, unsigned int id, Vector3 position)
+{
+    auto actorAsset = dynamic_cast<ActorAssetInfo*>(assetManager->GetAssetByType(AssetType::Actor, id));
+
+    if (actorAsset == nullptr) return;
+
+    auto actor = ActorFactory::Create(context, actorAsset->GetActorType());
+
+    for (auto sceneComponentInfo : actorAsset->GetSceneComponents())
+    {
+        auto sceneComponent = ActorComponentFactory::CreateSceneComponent(actor, sceneComponentInfo);
+        actor->AddSceneComponent(sceneComponent);
+
+        for (auto iter : sceneComponentInfo->GetParamExtender()->GetParamMap())
+        {
+            sceneComponent->UpdateParam(iter.first, iter.second);
+        }
+    }
+
+    for (auto fixedComponentInfo : actorAsset->GetFixedComponents())
+    {
+        auto fixedComponent = ActorComponentFactory::CreateFixedComponent(actor, fixedComponentInfo);
+        actor->AddFixedComponent(fixedComponent);
+
+        for (auto iter : fixedComponentInfo->GetParamExtender()->GetParamMap())
+        {
+            fixedComponent->UpdateParam(iter.first, iter.second);
+        }
+    }
+
+    actor->GetTransform()->SetWorldPosition(position);
+    actorsToAdd.push_back(actor);
+}
+
 void GameAssetManager::AddActor(Actor* actor)
 {
     actors.push_back(actor);
@@ -72,9 +122,9 @@ void GameAssetManager::RequestToDeleteActor(Actor* actor)
 
 void GameAssetManager::DeleteActor(Actor* actor)
 {
-    for (auto actorIter = actors.begin(); actorIter < actors.end(); ++actorIter)
+    for (auto actorIter : actors)
     {
-        if (*actorIter == actor)
+        if (actorIter == actor)
         {
             // Remove actor collisions
             auto actorCollisions = actor->FindComponents<ACS_Collision>();
@@ -91,11 +141,23 @@ void GameAssetManager::DeleteActor(Actor* actor)
                 }
             }
 
-            delete* actorIter;
-            actors.erase(actorIter);
+            auto i = std::find(actors.begin(), actors.end(), actorIter);
+            actors.erase(i);
+            i = std::find(actorsToDelete.begin(), actorsToDelete.end(), actorIter);
+            actorsToDelete.erase(i);
+            delete actor;
             return;
         }
     }
+}
+
+void GameAssetManager::HandleNewActors()
+{
+    for (Actor* actor : actorsToAdd)
+    {
+        AddActor(actor);
+    }
+    actorsToAdd.clear();
 }
 
 const std::vector<Actor*>& GameAssetManager::GetActors() const
@@ -106,6 +168,11 @@ const std::vector<Actor*>& GameAssetManager::GetActors() const
 const std::vector<Actor*>& GameAssetManager::GetActorsToDelete() const
 {
     return actorsToDelete;
+}
+
+const std::vector<Actor*>& GameAssetManager::GetActorsToAdd() const
+{
+    return actorsToAdd;
 }
 
 const std::vector<ACS_Collision*>& GameAssetManager::GetCollisions() const

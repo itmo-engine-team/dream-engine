@@ -3,6 +3,7 @@
 #include "BTGameNodeLogic.h"
 
 class Actor;
+class ACF_TargetTag;
 
 class BTGTargetNear : public BTGameNodeLogic
 {
@@ -16,8 +17,7 @@ public:
 
 private:
 
-    Actor* targetActor = nullptr;
-    float fieldOfView = 2.5f;
+    ACF_TargetTag* targetTagAC;
 
     bool checkTargetNear();
 };

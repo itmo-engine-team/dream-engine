@@ -1,0 +1,44 @@
+{
+    "actorType": "Actor",
+    "fixedComponents": [
+        {
+            "name": "Projectile_0",
+            "params": {
+                "Direction": {
+                    "type": "Vector3",
+                    "value": [
+                        1.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "Speed": {
+                    "type": "Float",
+                    "value": 3.0
+                }
+            },
+            "type": "Projectile"
+        }
+    ],
+    "id": 14,
+    "name": "Proj",
+    "sceneComponents": [
+        {
+            "name": "Collision_0",
+            "params": null,
+            "type": "Collision"
+        },
+        {
+            "name": "Static Model_1",
+            "params": {
+                "Model Asset": {
+                    "assetType": "Model",
+                    "type": "Asset",
+                    "value": 11
+                }
+            },
+            "type": "Static Model"
+        }
+    ],
+    "type": "Actor"
+}

@@ -1,0 +1,26 @@
+{
+    "actors": [],
+    "cameraTransform": {
+        "type": "Transform",
+        "value": {
+            "pos": [
+                0.0,
+                1.0,
+                -6.0
+            ],
+            "rot": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        }
+    },
+    "id": 13,
+    "name": "Scene_2",
+    "type": "Scene"
+}

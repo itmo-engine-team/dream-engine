@@ -7,7 +7,7 @@ class EngineConfigInfo : public Serializable
 
 public:
 
-    inline static const std::string ENGINE_VERSION = "2.8";
+    inline static const std::string ENGINE_VERSION = "2.9";
 
     Json toJson() override;
     void fromJson(Json json) override;

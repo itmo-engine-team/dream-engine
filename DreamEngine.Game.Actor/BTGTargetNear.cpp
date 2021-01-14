@@ -6,13 +6,7 @@
 
 BTGTargetNear::BTGTargetNear(BTGameNodeWithChild* parentNode, BehaviorTreeGame* behaviorTree) : BTGameNodeLogic(parentNode, behaviorTree)
 {
-    ACF_TargetTag* targetTagAC = behaviorTree->GetActor()->FindComponent<ACF_TargetTag>();
-
-    if (targetTagAC != nullptr)
-    {
-        targetActor = targetTagAC->GetTargetActor();
-        fieldOfView = targetTagAC->GetFieldOfView();
-    }
+    targetTagAC = behaviorTree->GetActor()->FindComponent<ACF_TargetTag>();
 }
 
 bool BTGTargetNear::Run()
@@ -25,9 +19,11 @@ bool BTGTargetNear::Run()
 
 bool BTGTargetNear::checkTargetNear()
 {
-    float distance = Vector3::Distance(targetActor->GetTransform()->GetWorldPosition(), behaviorTree->GetActor()->GetTransform()->GetWorldPosition());
+    float distance = Vector3::Distance(
+        targetTagAC->GetTargetActor()->GetTransform()->GetWorldPosition(),
+        behaviorTree->GetActor()->GetTransform()->GetWorldPosition());
 
-    if (distance <= fieldOfView)
+    if (distance <= targetTagAC->GetFieldOfView())
         return true;
 
     return false;

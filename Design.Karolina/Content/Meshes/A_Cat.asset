@@ -6,20 +6,10 @@
             "params": {
                 "Player Speed": {
                     "type": "Float",
-                    "value": 2.0
+                    "value": 1.7000000476837158
                 }
             },
             "type": "PlayerMovement"
-        },
-        {
-            "name": "Movement_2",
-            "params": {
-                "Actor Speed": {
-                    "type": "Float",
-                    "value": 1.2000000476837158
-                }
-            },
-            "type": "Movement"
         },
         {
             "name": "Destroy Target On Collision_3",

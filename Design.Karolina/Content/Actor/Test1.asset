@@ -6,7 +6,7 @@
             "params": {
                 "Random Distribution": {
                     "type": "Float",
-                    "value": 5.0
+                    "value": 0.5
                 },
                 "Spawn Actor": {
                     "assetType": "Actor",
@@ -15,7 +15,7 @@
                 },
                 "Time to Spawn": {
                     "type": "Float",
-                    "value": 1.5
+                    "value": 0.5
                 },
                 "Time to Start": {
                     "type": "Float",

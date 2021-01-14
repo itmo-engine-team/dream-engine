@@ -34,7 +34,7 @@ void ACF_ActorSpawner::onUpdate()
         std::mt19937 rng(dev());
         std::uniform_int_distribution<std::mt19937::result_type> dist10(1, 10);
 
-        float random = dist10(rng) / 10 * randomDistribution->Get();
+        float random = dist10(rng) / 10.0f * randomDistribution->Get();
 
         currentTimeToSpawn = timeToSpawn->Get() + random;
         return;

@@ -16,6 +16,12 @@
     <Filter Include="Header Files\InputSystem">
       <UniqueIdentifier>{5e19651b-aea8-4921-bf0c-37bace1d003a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Memory">
+      <UniqueIdentifier>{8edc2daa-0121-430e-acf1-75ccb7337e49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Memory">
+      <UniqueIdentifier>{67328489-0dbf-4f6a-863b-e5fc29fa4b1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -42,6 +48,15 @@
     <ClInclude Include="InputSystemUtils.h">
       <Filter>Header Files\InputSystem</Filter>
     </ClInclude>
+    <ClInclude Include="FreeList.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryAllocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CoalesceAlocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DreamEngine.Common.cpp">
@@ -58,6 +73,15 @@
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CoalesceAllocator.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryAllocator.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="FreeList.cpp">
+      <Filter>Source Files\Memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

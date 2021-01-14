@@ -7,9 +7,11 @@
     <ClCompile Include="AssetTest.cpp" />
     <ClCompile Include="BehaviorTreeTest.cpp" />
     <ClCompile Include="NavGridTest.cpp" />
+    <ClCompile Include="MemoryTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="MemoryTest.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

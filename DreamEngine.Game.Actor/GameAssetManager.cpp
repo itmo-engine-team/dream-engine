@@ -41,6 +41,19 @@ void GameAssetManager::GameOver(bool isWin)
 void GameAssetManager::Clear()
 {
     isGameOver = false;
+    score = 0;
+
+    for (auto actor : actorsToAdd)
+    {
+        delete actor;
+    }
+    actorsToAdd.clear();
+
+    for (auto actor : actorsToDelete)
+    {
+        delete actor;
+    }
+    actorsToDelete.clear();
 
     for (auto actor : actors)
     {
@@ -109,9 +122,9 @@ void GameAssetManager::RequestToDeleteActor(Actor* actor)
 
 void GameAssetManager::DeleteActor(Actor* actor)
 {
-    for (auto actorIter = actors.begin(); actorIter < actors.end(); ++actorIter)
+    for (auto actorIter : actors)
     {
-        if (*actorIter == actor)
+        if (actorIter == actor)
         {
             // Remove actor collisions
             auto actorCollisions = actor->FindComponents<ACS_Collision>();
@@ -128,8 +141,11 @@ void GameAssetManager::DeleteActor(Actor* actor)
                 }
             }
 
-            delete* actorIter;
-            actors.erase(actorIter);
+            auto i = std::find(actors.begin(), actors.end(), actorIter);
+            actors.erase(i);
+            i = std::find(actorsToDelete.begin(), actorsToDelete.end(), actorIter);
+            actorsToDelete.erase(i);
+            delete actor;
             return;
         }
     }

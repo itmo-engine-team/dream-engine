@@ -18,6 +18,7 @@
 #include "ACF_GameOverOnCollectAllTarget.h"
 #include "ACF_ActorSpawner.h"
 #include "ACF_DestroyBothOnCollision.h"
+#include "ACF_DestroyByTime.h"
 
 class ActorComponentFactory
 {
@@ -54,6 +55,7 @@ protected:
         { ACF_Type::CollectScoreOnCollision, new ACF_Creator_CollectScoreOnCollision() },
         { ACF_Type::Projectile, new ACF_Creator_Projectile() },
         { ACF_Type::ActorSpawner, new ACF_Creator_ActorSpawner() },
+        { ACF_Type::DestroyByTime, new ACF_Creator_DestroyByTime() },
     };
     
 };

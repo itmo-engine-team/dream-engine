@@ -16,6 +16,8 @@
 #include "imgui.h"
 #include <imgui_impl_dx11.h>
 #include <imgui_impl_win32.h>
+#include "../DreamEngine.Game.Actor/GameAssetManager.h"
+#include "Scene.h"
 
 Engine* Engine::INSTANCE = nullptr;
 
@@ -145,6 +147,10 @@ void Engine::render()
 
         ImGui::Begin("GameOver");
         ImGui::Text("Game Over");
+        ImGui::Text(game->GetGameAssetManager()->IsWin() ? "You Win" : "You Lose");
+        std::string score = "Score: " + std::to_string(game->GetGameAssetManager()->GetScore());
+        ImGui::Text(score.c_str());
+
         ImGui::End();
 
         if (engineConfigInfo->IsGameMode())

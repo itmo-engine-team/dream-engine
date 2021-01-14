@@ -223,6 +223,62 @@
                     ]
                 }
             }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 12
+            },
+            "name": "Trap2",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        0.5,
+                        0.0,
+                        3.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        0.6000000238418579
+                    ]
+                }
+            }
+        },
+        {
+            "asset": {
+                "assetType": "Actor",
+                "type": "Asset",
+                "value": 12
+            },
+            "name": "Trap3",
+            "transform": {
+                "type": "Transform",
+                "value": {
+                    "pos": [
+                        3.0,
+                        0.0,
+                        -4.0
+                    ],
+                    "rot": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        0.6000000238418579,
+                        1.0,
+                        1.0
+                    ]
+                }
+            }
         }
     ],
     "cameraTransform": {

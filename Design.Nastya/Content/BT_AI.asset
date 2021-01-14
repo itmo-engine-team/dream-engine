@@ -1,20 +1,51 @@
 {
     "BT": {
-        "lastId": 8,
+        "lastId": 16,
         "rootNode": {
             "children": [
                 [
-                    8,
+                    12,
                     {
-                        "id": 6,
-                        "logicType": "MoveTo",
-                        "name": "",
-                        "parentAttributeId": 7,
-                        "position": [
-                            345.0,
-                            163.0
+                        "children": [
+                            [
+                                16,
+                                {
+                                    "id": 14,
+                                    "logicType": "TargetNear",
+                                    "name": "",
+                                    "parentAttributeId": 15,
+                                    "position": [
+                                        430.0,
+                                        54.0
+                                    ],
+                                    "type": "Logic"
+                                }
+                            ],
+                            [
+                                13,
+                                {
+                                    "id": 6,
+                                    "logicType": "MoveTo",
+                                    "name": "",
+                                    "parentAttributeId": 7,
+                                    "position": [
+                                        433.0,
+                                        150.0
+                                    ],
+                                    "type": "Logic"
+                                }
+                            ]
                         ],
-                        "type": "Logic"
+                        "childrenAttributeId": 11,
+                        "compositeType": "Sequencer",
+                        "id": 9,
+                        "name": "",
+                        "parentAttributeId": 10,
+                        "position": [
+                            287.0,
+                            151.0
+                        ],
+                        "type": "Composite"
                     }
                 ]
             ],

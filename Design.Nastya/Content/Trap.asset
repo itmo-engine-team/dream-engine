@@ -30,6 +30,20 @@
                 }
             },
             "type": "GameOver On Target Collision"
+        },
+        {
+            "name": "Collect Score On Collision_3",
+            "params": {
+                "Score On Collect": {
+                    "type": "Int",
+                    "value": 10
+                },
+                "Target Tag": {
+                    "type": "String",
+                    "value": "ai1"
+                }
+            },
+            "type": "Collect Score On Collision"
         }
     ],
     "id": 12,
@@ -91,9 +105,9 @@
                             0.0
                         ],
                         "scale": [
-                            0.44999998807907104,
+                            0.3499999940395355,
                             0.20000000298023224,
-                            0.44999998807907104
+                            0.3499999940395355
                         ]
                     }
                 }

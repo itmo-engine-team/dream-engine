@@ -147,7 +147,7 @@ void Engine::render()
 
         ImGui::Begin("GameOver");
         ImGui::Text("Game Over");
-        ImGui::Text(game->GetGameAssetManager()->IsWin() ? "You Win" : "You Lose");
+        ImGui::Text(game->GetGameAssetManager()->IsWin() ? "You Won!" : "You lost");
         std::string score = "Score: " + std::to_string(game->GetGameAssetManager()->GetScore());
         ImGui::Text(score.c_str());
 

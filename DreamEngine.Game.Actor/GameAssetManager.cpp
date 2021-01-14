@@ -43,16 +43,7 @@ void GameAssetManager::Clear()
     isGameOver = false;
     score = 0;
 
-    for (auto actor : actorsToAdd)
-    {
-        delete actor;
-    }
     actorsToAdd.clear();
-
-    for (auto actor : actorsToDelete)
-    {
-        delete actor;
-    }
     actorsToDelete.clear();
 
     for (auto actor : actors)
@@ -156,6 +147,7 @@ void GameAssetManager::HandleNewActors()
     for (Actor* actor : actorsToAdd)
     {
         AddActor(actor);
+        actor->Init();
     }
     actorsToAdd.clear();
 }
